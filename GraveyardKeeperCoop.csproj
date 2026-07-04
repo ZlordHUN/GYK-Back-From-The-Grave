@@ -1,0 +1,167 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>net46</TargetFramework>
+    <AssemblyName>GraveyardKeeperCoop</AssemblyName>
+    <RootNamespace>GraveyardKeeperCoop</RootNamespace>
+    <ModGuid>com.zlord.graveyardkeeper.coop</ModGuid>
+    <ModName>GYK Back From The Grave</ModName>
+    <ModVersion>1.0.0</ModVersion>
+    <ModReleaseStage>Beta</ModReleaseStage>
+    <ModDisplayVersion>$(ModVersion) $(ModReleaseStage)</ModDisplayVersion>
+    <ModAuthor>Your Name</ModAuthor>
+    <ModDescription>A cooperative multiplayer mod for Graveyard Keeper, enabling players to work together in managing their graveyard and resources.</ModDescription>
+    <Version>$(ModVersion)</Version>
+    <InformationalVersion>$(ModDisplayVersion)</InformationalVersion>
+    <Product>$(ModName)</Product>
+    <Description>$(ModDescription)</Description>
+    <GeneratedMetadataDir>$(BaseIntermediateOutputPath)Generated/</GeneratedMetadataDir>
+    <GeneratedPluginInfoPath>$(GeneratedMetadataDir)PluginInfo.g.cs</GeneratedPluginInfoPath>
+    <GeneratedModInfoPath>$(GeneratedMetadataDir)modinfo.txt</GeneratedModInfoPath>
+    <LangVersion>latest</LangVersion>
+    <!-- Avoid scanning the large asset extraction tree during every build. -->
+    <EnableDefaultItems>false</EnableDefaultItems>
+  </PropertyGroup>
+
+  <!-- Windows-specific game path -->
+  <PropertyGroup Condition="'$(OS)' == 'Windows_NT'">
+    <GamePath>C:\Program Files (x86)\Steam\steamapps\common\Graveyard Keeper</GamePath>
+    <BepInExPath>$(GamePath)\BepInEx</BepInExPath>
+  </PropertyGroup>
+
+  <!-- Linux-specific game path (supports multiple Steam installations) -->
+  <PropertyGroup Condition="'$(OS)' != 'Windows_NT'">
+    <!-- Priority 1: Environment variable (for custom paths) -->
+    <GamePath Condition="'$(GRAVEYARD_KEEPER_PATH)' != ''">$(GRAVEYARD_KEEPER_PATH)</GamePath>
+    
+    <!-- Priority 2: Debian Steam (.steam/debian-installation) -->
+    <GamePath Condition="'$(GRAVEYARD_KEEPER_PATH)' == '' AND Exists('$(HOME)/.steam/debian-installation/steamapps/common/Graveyard Keeper')">$(HOME)/.steam/debian-installation/steamapps/common/Graveyard Keeper</GamePath>
+    
+    <!-- Priority 3: Native Steam (.steam/steam) -->
+    <GamePath Condition="'$(GRAVEYARD_KEEPER_PATH)' == '' AND !Exists('$(HOME)/.steam/debian-installation/steamapps/common/Graveyard Keeper') AND Exists('$(HOME)/.steam/steam/steamapps/common/Graveyard Keeper')">$(HOME)/.steam/steam/steamapps/common/Graveyard Keeper</GamePath>
+    
+    <!-- Priority 4: Flatpak Steam (fallback) -->
+    <GamePath Condition="'$(GRAVEYARD_KEEPER_PATH)' == '' AND !Exists('$(HOME)/.steam/debian-installation/steamapps/common/Graveyard Keeper') AND !Exists('$(HOME)/.steam/steam/steamapps/common/Graveyard Keeper')">$(HOME)/.var/app/com.valvesoftware.Steam/.local/share/Steam/steamapps/common/Graveyard Keeper</GamePath>
+    
+    <BepInExPath>$(GamePath)/BepInEx</BepInExPath>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Include="src/**/*.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <!-- Reference BepInEx DLLs directly from game installation -->
+    <Reference Include="BepInEx">
+      <HintPath>$(BepInExPath)/core/BepInEx.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="0Harmony">
+      <HintPath>$(BepInExPath)/core/0Harmony.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    
+    <!-- Reference Unity assemblies from game -->
+    <Reference Include="UnityEngine">
+      <HintPath>$(GamePath)/Graveyard Keeper_Data/Managed/UnityEngine.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="UnityEngine.CoreModule">
+      <HintPath>$(GamePath)/Graveyard Keeper_Data/Managed/UnityEngine.CoreModule.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="UnityEngine.JSONSerializeModule">
+      <HintPath>$(GamePath)/Graveyard Keeper_Data/Managed/UnityEngine.JSONSerializeModule.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="UnityEngine.UNETModule">
+      <HintPath>$(GamePath)/Graveyard Keeper_Data/Managed/UnityEngine.UNETModule.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="com.unity.multiplayer-hlapi.Runtime">
+      <HintPath>$(GamePath)/Graveyard Keeper_Data/Managed/com.unity.multiplayer-hlapi.Runtime.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="UnityEngine.UI">
+      <HintPath>$(GamePath)/Graveyard Keeper_Data/Managed/UnityEngine.UI.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="UnityEngine.UIModule">
+      <HintPath>$(GamePath)/Graveyard Keeper_Data/Managed/UnityEngine.UIModule.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="UnityEngine.TextRenderingModule">
+      <HintPath>$(GamePath)/Graveyard Keeper_Data/Managed/UnityEngine.TextRenderingModule.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="UnityEngine.IMGUIModule">
+      <HintPath>$(GamePath)/Graveyard Keeper_Data/Managed/UnityEngine.IMGUIModule.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="UnityEngine.ImageConversionModule">
+      <HintPath>$(GamePath)/Graveyard Keeper_Data/Managed/UnityEngine.ImageConversionModule.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="UnityEngine.PhysicsModule">
+      <HintPath>$(GamePath)/Graveyard Keeper_Data/Managed/UnityEngine.PhysicsModule.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="UnityEngine.Physics2DModule">
+      <HintPath>$(GamePath)/Graveyard Keeper_Data/Managed/UnityEngine.Physics2DModule.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="UnityEngine.AnimationModule">
+      <HintPath>$(GamePath)/Graveyard Keeper_Data/Managed/UnityEngine.AnimationModule.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="UnityEngine.InputLegacyModule">
+      <HintPath>$(GamePath)/Graveyard Keeper_Data/Managed/UnityEngine.InputLegacyModule.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    
+    <!-- Reference game assemblies -->
+    <Reference Include="Assembly-CSharp">
+      <HintPath>$(GamePath)/Graveyard Keeper_Data/Managed/Assembly-CSharp.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Assembly-CSharp-firstpass">
+      <HintPath>$(GamePath)/Graveyard Keeper_Data/Managed/Assembly-CSharp-firstpass.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+  </ItemGroup>
+
+  <ItemGroup Condition="'$(TargetFramework.TrimEnd(`0123456789`))' == 'net'">
+    <PackageReference Include="Microsoft.NETFramework.ReferenceAssemblies" Version="1.0.2" PrivateAssets="all" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="Assets/back_from_the_grave_caption.png" LogicalName="GraveyardKeeperCoop.Assets.back_from_the_grave_caption.png" />
+  </ItemGroup>
+
+  <Target Name="GeneratePluginMetadata" BeforeTargets="CoreCompile">
+    <MakeDir Directories="$(GeneratedMetadataDir)" />
+    <ItemGroup>
+      <PluginInfoLines Include="// &lt;auto-generated /&gt;" />
+      <PluginInfoLines Include="namespace GraveyardKeeperCoop" />
+      <PluginInfoLines Include="{" />
+      <PluginInfoLines Include="    public static class PluginInfo" />
+      <PluginInfoLines Include="    {" />
+      <PluginInfoLines Include="        public const string PLUGIN_GUID = &quot;$(ModGuid)&quot;%3B" />
+      <PluginInfoLines Include="        public const string PLUGIN_NAME = &quot;$(ModName)&quot;%3B" />
+      <PluginInfoLines Include="        public const string PLUGIN_VERSION = &quot;$(ModVersion)&quot;%3B" />
+      <PluginInfoLines Include="        public const string PLUGIN_DISPLAY_VERSION = &quot;$(ModDisplayVersion)&quot;%3B" />
+      <PluginInfoLines Include="        public const string PLUGIN_DISPLAY_NAME = PLUGIN_NAME + &quot; &quot; + PLUGIN_DISPLAY_VERSION%3B" />
+      <PluginInfoLines Include="    }" />
+      <PluginInfoLines Include="}" />
+      <ModInfoLines Include="name: $(ModName)" />
+      <ModInfoLines Include="version: $(ModDisplayVersion)" />
+      <ModInfoLines Include="author: $(ModAuthor)" />
+      <ModInfoLines Include="description: $(ModDescription)" />
+    </ItemGroup>
+    <WriteLinesToFile File="$(GeneratedPluginInfoPath)" Lines="@(PluginInfoLines)" Overwrite="true" />
+    <WriteLinesToFile File="$(GeneratedModInfoPath)" Lines="@(ModInfoLines)" Overwrite="true" />
+    <ItemGroup>
+      <Compile Include="$(GeneratedPluginInfoPath)" />
+    </ItemGroup>
+  </Target>
+
+</Project>

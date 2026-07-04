@@ -1,0 +1,36 @@
+# IDE and editor files
+.vs/
+.vscode/
+.idea/
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+*.userprefs
+*.swp
+*~
+
+# Build and NuGet intermediates
+obj/
+packages/
+artifacts/
+*.nupkg
+project.lock.json
+project.fragment.lock.json
+
+# Keep only the installable DLL under bin/
+bin/*
+!bin/Debug/
+bin/Debug/*
+!bin/Debug/net46/
+bin/Debug/net46/*
+!bin/Debug/net46/GraveyardKeeperCoop.dll
+
+# Generated releases and logs
+releases/
+logs/
+*.log
+
+# OS files
+.DS_Store
+Thumbs.db
