@@ -189,6 +189,10 @@ See [Documentation/ARCHITECTURE.md](Documentation/ARCHITECTURE.md) for the runti
 
 - Please open an issue on Github, provide a description of the bug and attach any relevant logs or screenshots/recordings.
 
+### Contributions
+
+- Are more than welcome, please help. AI coding? Honestly whatever, as long as you point out that AI was used so your PR can be reviewed thoroughly.
+
 ## License
 
 This project is available under the [MIT License](LICENSE).
