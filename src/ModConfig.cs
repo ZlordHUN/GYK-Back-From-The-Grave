@@ -25,6 +25,7 @@ namespace GraveyardKeeperCoop
         public static ConfigEntry<bool> EnableJoinerProfilePersistence;
         public static ConfigEntry<bool> EnableNetworkDebugOverlay;
         public static ConfigEntry<bool> EnableSaveDiagnostics;
+        public static ConfigEntry<float> ReliableChannelChaosDropRate;
         public static ConfigEntry<bool> EnableLocalMotionSmoothing;
         public static ConfigEntry<bool> OverrideFramePacing;
         public static ConfigEntry<int> TargetFrameRate;
@@ -223,6 +224,17 @@ namespace GraveyardKeeperCoop
                 "EnableSaveDiagnostics",
                 false,
                 "Enable verbose save/load diagnostic logging. This is intended for debugging only and is off by default.");
+
+            ReliableChannelChaosDropRate = config.Bind("Debug",
+                "ReliableChannelChaosDropRate",
+                0f,
+                "TESTING ONLY: fraction (0.0-1.0) of outgoing reliable-channel datagrams to drop, " +
+                "simulating a lossy connection. The channel must keep every sync working (just slower) " +
+                "at any setting. Leave at 0 for normal play.");
+            float ClampDropRate(float v) => v < 0f ? 0f : (v > 1f ? 1f : v);
+            Network.ReliableTransport.ChaosDropRate = ClampDropRate(ReliableChannelChaosDropRate.Value);
+            ReliableChannelChaosDropRate.SettingChanged += (s, e) =>
+                Network.ReliableTransport.ChaosDropRate = ClampDropRate(ReliableChannelChaosDropRate.Value);
 
             EnableLocalMotionSmoothing = config.Bind("Performance",
                 "EnableLocalMotionSmoothing",

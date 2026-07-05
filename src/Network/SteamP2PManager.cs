@@ -43,6 +43,17 @@ namespace GraveyardKeeperCoop.Network
         // Steam callbacks
         private Callback<P2PSessionRequest_t> p2pSessionRequestCallback;
 
+        /// <summary>
+        /// Application-level reliability layer over unreliable datagrams (see ReliableTransport.cs).
+        /// Carries all reliable channel-0 traffic for peers that advertise support; peers on older
+        /// mod versions keep the native Steam reliable path unchanged.
+        /// </summary>
+        public ReliableTransport Reliable { get; private set; }
+
+        // Last time any P2P packet arrived from each peer. Feeds the degraded-link detector: a peer
+        // that is alive on the raw lane but silent on the reliable lane is stuck, not gone.
+        private readonly Dictionary<ulong, float> lastPacketAtFrom = new Dictionary<ulong, float>();
+
         // Events for game state
         public event Action<CSteamID, string> OnGameStartReceived;
         public event Action<CSteamID> OnClientGameLoaded;
@@ -200,6 +211,7 @@ namespace GraveyardKeeperCoop.Network
             }
 
             p2pSessionRequestCallback = Callback<P2PSessionRequest_t>.Create(OnP2PSessionRequest);
+            Reliable = new ReliableTransport(this);
             CoopMod.Logger.LogInfo("[P2P] ✓ SteamP2PManager initialized with binary protocol");
         }
 
@@ -212,6 +224,7 @@ namespace GraveyardKeeperCoop.Network
                 return;
 
             DrainReliableQueue();
+            Reliable?.Tick();
             UpdatePacketStatsWindow();
 
             uint msgSize;
@@ -225,6 +238,7 @@ namespace GraveyardKeeperCoop.Network
                 if (SteamNetworking.ReadP2PPacket(data, msgSize, out bytesRead, out senderID, 0))
                 {
                     RecordPacketReceived((int)bytesRead);
+                    lastPacketAtFrom[senderID.m_SteamID] = Time.time;
                     HandleIncomingPacket(senderID, data, (int)bytesRead);
                 }
                 else
@@ -245,6 +259,16 @@ namespace GraveyardKeeperCoop.Network
         {
             if (!SteamManager.Initialized) return false;
             if (recipientID == CSteamID.Nil || data == null || data.Length == 0) return false;
+
+            // Ride the application-level reliable channel when the peer supports it (game traffic is
+            // channel 0 only; the lobby-phase side channels keep native reliable). Oversized unreliable
+            // messages go the same way - fragmentation is native to the channel, no warning needed.
+            if (channel == 0 && Reliable != null &&
+                (IsReliableSend(sendType) || (IsUnreliableSend(sendType) && data.Length > MaxUnreliablePacketBytes)) &&
+                Reliable.PeerSupportsChannel(recipientID))
+            {
+                return Reliable.Send(recipientID, data);
+            }
 
             if (IsUnreliableSend(sendType) && data.Length > MaxUnreliablePacketBytes)
             {
@@ -516,6 +540,38 @@ namespace GraveyardKeeperCoop.Network
             return SendBinary(recipientID, data, sendType, channel);
         }
 
+        /// <summary>
+        /// Send one raw unreliable datagram, bypassing the reliable channel and the rate limiter.
+        /// Used by ReliableTransport for its wire frames and resync control messages.
+        /// </summary>
+        internal bool SendRawDatagram(CSteamID recipientID, byte[] data)
+        {
+            return SendBinaryImmediate(recipientID, data, EP2PSend.k_EP2PSendUnreliable, 0);
+        }
+
+        /// <summary>
+        /// Dispatch a message the reliable channel reassembled, exactly as if it had arrived as its
+        /// own packet. Safe from recursion: inner messages are app messages (Op or legacy string)
+        /// and can never start with the reserved 0xFE/0xFF frame tags.
+        /// </summary>
+        internal void DispatchReassembledMessage(CSteamID senderID, byte[] message)
+        {
+            HandleIncomingPacket(senderID, message, message.Length);
+        }
+
+        /// <summary>Last Time.time any P2P packet arrived from this peer (0 = never).</summary>
+        internal float GetLastPacketTimeFrom(CSteamID peer)
+        {
+            return lastPacketAtFrom.TryGetValue(peer.m_SteamID, out float t) ? t : 0f;
+        }
+
+        /// <summary>Called by the lobby manager when a member leaves: tear down their reliable channel.</summary>
+        public void OnPeerLeftLobby(CSteamID peer)
+        {
+            Reliable?.RemovePeer(peer);
+            lastPacketAtFrom.Remove(peer.m_SteamID);
+        }
+
         #endregion
 
         #region Message Handling
@@ -526,6 +582,11 @@ namespace GraveyardKeeperCoop.Network
         private void HandleIncomingPacket(CSteamID senderID, byte[] data, int length)
         {
             if (length < 1) return;
+
+            // Reliable-channel frames (0xFE/0xFF) are transport plumbing, not app messages: hand them
+            // to the layer, which delivers reassembled messages back through DispatchReassembledMessage.
+            if (Reliable != null && Reliable.HandleRawIncoming(senderID, data, length))
+                return;
 
             // Check if this is a binary protocol message
             if (BinaryProtocolExtensions.IsBinaryMessage(data, length))
@@ -549,6 +610,19 @@ namespace GraveyardKeeperCoop.Network
 
             switch (reader.Op)
             {
+                case Op.Heartbeat:
+                    // Reliable-lane keepalive: the delivery itself is the signal (it feeds the
+                    // degraded-link detector inside ReliableTransport); nothing to do here.
+                    break;
+
+                case Op.ResyncRequest:
+                    Reliable?.OnResyncRequest(senderID, reader.ReadByte());
+                    break;
+
+                case Op.ResyncConfirm:
+                    Reliable?.OnResyncConfirm(senderID, reader.ReadByte());
+                    break;
+
                 case Op.Ping:
                     HandlePing(senderID, ref reader);
                     break;
