@@ -36,6 +36,14 @@ namespace GraveyardKeeperCoop.Network
         private const float RESEND_AFTER = 0.30f; // retransmit an unacked fragment after this many seconds
         private const float ACK_COALESCE = 0.03f; // batch the cumulative ack instead of one per fragment
         private const int MAX_REORDER = 8192;     // safety cap on the out-of-order buffer
+        private const int SEND_WINDOW = 96;       // max fragments in flight (~106KB). A multi-MB payload
+                                                  // (save transfer) burst-sent all at once overflows Steam's
+                                                  // per-connection send buffer: SendP2PPacket starts returning
+                                                  // false for EVERYTHING including other systems' packets and
+                                                  // our own ACKs never come back - the detector then reads the
+                                                  // self-inflicted silence as a dead link and a resync wipes
+                                                  // the payload. Fragments beyond the window wait in sendQueue
+                                                  // and follow as ACKs free slots.
 
         public readonly CSteamID Peer;
 
@@ -45,9 +53,10 @@ namespace GraveyardKeeperCoop.Network
         public Action<byte[]> OnDeliver;
 
         // Send side: our outgoing reliable stream
-        private sealed class Pending { public byte[] Wire; public float FirstSent; public float LastSent; public int Tries; }
+        private sealed class Pending { public uint Seq; public byte[] Wire; public float FirstSent; public float LastSent; public int Tries; }
         private uint sendSeq;
         private readonly SortedDictionary<uint, Pending> unacked = new SortedDictionary<uint, Pending>();
+        private readonly Queue<Pending> sendQueue = new Queue<Pending>(); // built but not yet on the wire
 
         // Outbound-death signals (read by the transport's degraded-link detector). A side whose outbound
         // died still receives the peer just fine, so inbound silence never fires HERE - only the OTHER
@@ -79,7 +88,7 @@ namespace GraveyardKeeperCoop.Network
         public void Reset(byte newEpoch)
         {
             sendSeq = 0; recvNext = 0;
-            unacked.Clear(); reorder.Clear(); assembly.Clear();
+            unacked.Clear(); sendQueue.Clear(); reorder.Clear(); assembly.Clear();
             ackDue = false; ackTimer = 0f;
             ready = true;
             epoch = newEpoch;
@@ -95,7 +104,7 @@ namespace GraveyardKeeperCoop.Network
         public void PrepareResync(byte pendingEpoch)
         {
             sendSeq = 0; recvNext = 0;
-            unacked.Clear(); reorder.Clear(); assembly.Clear();
+            unacked.Clear(); sendQueue.Clear(); reorder.Clear(); assembly.Clear();
             ackDue = false; ackTimer = 0f;
             ready = false;
             epoch = pendingEpoch;
@@ -124,7 +133,6 @@ namespace GraveyardKeeperCoop.Network
                 return;
             }
 
-            float now = Time.time;
             int off = 0;
             do
             {
@@ -137,10 +145,23 @@ namespace GraveyardKeeperCoop.Network
                 BitConverter.GetBytes(seq).CopyTo(wire, 2);
                 wire[6] = (byte)(more ? 1 : 0);
                 Buffer.BlockCopy(payload, off, wire, 7, chunk);
-                unacked[seq] = new Pending { Wire = wire, FirstSent = now, LastSent = now, Tries = 1 };
-                WireSend(wire);
+                sendQueue.Enqueue(new Pending { Seq = seq, Wire = wire });
                 off += chunk;
             } while (off < payload.Length);
+            PumpSendQueue(Time.time);
+        }
+
+        // Move queued fragments onto the wire while the in-flight window has room. Queued wires
+        // always carry the current epoch: Reset/PrepareResync clear the queue along with unacked.
+        private void PumpSendQueue(float now)
+        {
+            while (sendQueue.Count > 0 && unacked.Count < SEND_WINDOW)
+            {
+                var p = sendQueue.Dequeue();
+                p.FirstSent = now; p.LastSent = now; p.Tries = 1;
+                unacked[p.Seq] = p;
+                WireSend(p.Wire);
+            }
         }
 
         /// <summary>A 0xFE/0xFF datagram arrived. Delivers reassembled messages via OnDeliver, acks via RawSend.</summary>
@@ -157,6 +178,7 @@ namespace GraveyardKeeperCoop.Network
                 var done = new List<uint>();
                 foreach (var kv in unacked) { if (kv.Key <= ackThrough) done.Add(kv.Key); else break; }
                 for (int i = 0; i < done.Count; i++) unacked.Remove(done[i]);
+                if (done.Count > 0) PumpSendQueue(Time.time); // freed window slots - let queued fragments follow
                 return;
             }
 
@@ -209,6 +231,7 @@ namespace GraveyardKeeperCoop.Network
         public void Tick(float dt)
         {
             float now = Time.time;
+            PumpSendQueue(now); // covers the Resume() case: queue drained even with no fresh ACK or Send
             float oldestUnacked = 0f; // unacked is sorted by seq -> the first entry is the oldest fragment
             foreach (var kv in unacked)
             {

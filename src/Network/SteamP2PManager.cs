@@ -212,6 +212,7 @@ namespace GraveyardKeeperCoop.Network
 
             p2pSessionRequestCallback = Callback<P2PSessionRequest_t>.Create(OnP2PSessionRequest);
             Reliable = new ReliableTransport(this);
+            Reliable.OnChannelResynced += Multiplayer.SaveTransferManager.OnReliableChannelResynced;
             CoopMod.Logger.LogInfo("[P2P] ✓ SteamP2PManager initialized with binary protocol");
         }
 
