@@ -318,6 +318,18 @@ namespace GraveyardKeeperCoop.Network
             var state = GetOrCreateState(peer);
             if (state.CapabilityConfirmed) return true;
 
+            // An already-open channel is proof of capability by itself: inbound channels are only
+            // created for incoming 0xFE/0xFF frames, and only a channel-speaking build emits those.
+            // This closes the join race where the peer's first frames (e.g. the save list request)
+            // arrive before their lobby member data has propagated through the Steam backend -
+            // without this, the host's reply and the save transfer fall back to native reliable.
+            if (state.Channel != null)
+            {
+                state.CapabilityConfirmed = true;
+                CoopMod.Logger.LogInfo($"[RNET] {SteamFriends.GetFriendPersonaName(peer)} supports the reliable channel (confirmed by incoming channel traffic)");
+                return true;
+            }
+
             var lobbyID = SteamLobbyManager.Instance?.CurrentLobbyID ?? CSteamID.Nil;
             if (lobbyID == CSteamID.Nil) return false;
 
