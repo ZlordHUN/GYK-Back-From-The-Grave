@@ -480,6 +480,11 @@ namespace GraveyardKeeperCoop.Network
             currentLobbyID = new CSteamID(callback.m_ulSteamIDLobby);
             isInLobby = true;
 
+            // Drop any reliable-channel state left over from a previous session (stray retransmits
+            // arriving after LeaveLobby's Clear() can re-create a channel): every peer in this lobby
+            // must start from a fresh channel or its first frames would hit stale sequence state.
+            SteamP2PManager.Instance?.Reliable?.Clear();
+
             // Advertise the application-level reliable transport (see ReliableTransport.cs) so other
             // members route their reliable traffic through it; members without this key (older mod
             // versions) are served over native Steam reliable as before.

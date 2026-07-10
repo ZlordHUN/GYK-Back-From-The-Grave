@@ -429,10 +429,35 @@ namespace GraveyardKeeperCoop.Network
             byte tag = data[0];
             if (tag != 0xFE && tag != 0xFF) return false;
 
+            // Frames can trail in after a session ends: the peer's channel keeps retransmitting
+            // until it notices the lobby is gone, and an unguarded frame would re-create a ghost
+            // channel here (capability confirmed, fresh sequence state) that survives Clear() and
+            // pollutes the next session. Only current lobby members may open a channel - and the
+            // gate keys on having an open channel, not a peer entry, because our own outbound path
+            // can leave a channel-less entry behind after Clear(). Consuming the frame is safe for
+            // a legitimate joiner too, because channel frames are retransmitted until acked.
+            bool hasChannel = peers.TryGetValue(sender.m_SteamID, out var existing) && existing.Channel != null;
+            if (!hasChannel && !IsLobbyMember(sender))
+                return true;
+
             var state = GetOrCreateState(sender);
             state.CapabilityConfirmed = true;
             GetOrCreateChannel(sender).HandleIncoming(data, length);
             return true;
+        }
+
+        private static bool IsLobbyMember(CSteamID peer)
+        {
+            var lobbyID = SteamLobbyManager.Instance?.CurrentLobbyID ?? CSteamID.Nil;
+            if (lobbyID == CSteamID.Nil) return false;
+
+            int memberCount = SteamMatchmaking.GetNumLobbyMembers(lobbyID);
+            for (int i = 0; i < memberCount; i++)
+            {
+                if (SteamMatchmaking.GetLobbyMemberByIndex(lobbyID, i) == peer)
+                    return true;
+            }
+            return false;
         }
 
         #endregion
