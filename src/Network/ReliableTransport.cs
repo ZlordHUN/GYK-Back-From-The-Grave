@@ -62,6 +62,7 @@ namespace GraveyardKeeperCoop.Network
         // died still receives the peer just fine, so inbound silence never fires HERE - only the OTHER
         // machine would notice. These two signals catch the local half of the breakage.
         private float notReadyDropSince; // first Send() swallowed by !ready (0 = none)
+        private float lastOutboundProgressAt; // last time the peer's cumulative ack advanced our window
         public bool OutboundLooksDead { get; private set; }
         public string OutboundDeathReason { get; private set; }
 
@@ -93,6 +94,7 @@ namespace GraveyardKeeperCoop.Network
             ready = true;
             epoch = newEpoch;
             notReadyDropSince = 0f; OutboundLooksDead = false; OutboundDeathReason = null;
+            lastOutboundProgressAt = Time.time;
         }
 
         /// <summary>
@@ -119,6 +121,7 @@ namespace GraveyardKeeperCoop.Network
         {
             ready = true;
             notReadyDropSince = 0f; OutboundLooksDead = false; OutboundDeathReason = null;
+            lastOutboundProgressAt = Time.time;
         }
 
         /// <summary>Queue a logical message: fragment it, store each fragment for retransmit, fire all now.</summary>
@@ -155,6 +158,9 @@ namespace GraveyardKeeperCoop.Network
         // always carry the current epoch: Reset/PrepareResync clear the queue along with unacked.
         private void PumpSendQueue(float now)
         {
+            // An idle->busy transition re-anchors the progress clock: a stale timestamp from the
+            // last burst must not count against the fresh one.
+            if (unacked.Count == 0 && sendQueue.Count > 0) lastOutboundProgressAt = now;
             while (sendQueue.Count > 0 && unacked.Count < SEND_WINDOW)
             {
                 var p = sendQueue.Dequeue();
@@ -178,7 +184,11 @@ namespace GraveyardKeeperCoop.Network
                 var done = new List<uint>();
                 foreach (var kv in unacked) { if (kv.Key <= ackThrough) done.Add(kv.Key); else break; }
                 for (int i = 0; i < done.Count; i++) unacked.Remove(done[i]);
-                if (done.Count > 0) PumpSendQueue(Time.time); // freed window slots - let queued fragments follow
+                if (done.Count > 0)
+                {
+                    lastOutboundProgressAt = Time.time;
+                    PumpSendQueue(Time.time); // freed window slots - let queued fragments follow
+                }
                 return;
             }
 
@@ -232,11 +242,9 @@ namespace GraveyardKeeperCoop.Network
         {
             float now = Time.time;
             PumpSendQueue(now); // covers the Resume() case: queue drained even with no fresh ACK or Send
-            float oldestUnacked = 0f; // unacked is sorted by seq -> the first entry is the oldest fragment
             foreach (var kv in unacked)
             {
                 var p = kv.Value;
-                if (oldestUnacked == 0f) oldestUnacked = now - p.FirstSent;
                 if (now - p.LastSent >= RESEND_AFTER)
                 {
                     WireSend(p.Wire);
@@ -246,12 +254,18 @@ namespace GraveyardKeeperCoop.Network
             }
 
             // Outbound health for the degraded-link detector: dead if sends have been swallowed for a
-            // while (resync never completed) or the oldest fragment went unacked through ~40 retransmits.
+            // while (resync never completed) or the peer's cumulative ack has not advanced our window
+            // for a long stretch. The yardstick must be ACK PROGRESS, not the age of the oldest
+            // fragment: during a windowed bulk transfer (save = ~2700 fragments through a 96 window)
+            // a fragment legitimately waits many seconds behind the queue on a slow-but-alive link,
+            // and reading that age as death produced resync -> transfer restart -> repeat, an
+            // infinite join loop under packet loss.
+            float ackStall = unacked.Count > 0 ? now - lastOutboundProgressAt : 0f;
             if (notReadyDropSince != 0f && now - notReadyDropSince > 12f)
             { OutboundLooksDead = true; OutboundDeathReason = "sends blocked - resync never completed"; }
-            else if (oldestUnacked > 12f)
-            { OutboundLooksDead = true; OutboundDeathReason = $"no ACKs for {oldestUnacked:F0}s"; }
-            else if (OutboundLooksDead && notReadyDropSince == 0f && oldestUnacked < 2f)
+            else if (ackStall > 12f)
+            { OutboundLooksDead = true; OutboundDeathReason = $"no ACK progress for {ackStall:F0}s"; }
+            else if (OutboundLooksDead && notReadyDropSince == 0f && ackStall < 2f)
             { OutboundLooksDead = false; OutboundDeathReason = null; } // acks resumed - recovered
 
             if (ackDue && recvNext > 0) // recvNext==0 -> nothing delivered yet, an ack would be meaningless
