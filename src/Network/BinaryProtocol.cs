@@ -107,6 +107,14 @@ namespace GraveyardKeeperCoop.Network
         // Lobby control (102-109)
         LobbyKick = 102,          // Host asks a client to leave the lobby/session
         WorkIndicatorSync = 103,  // Remote player-owned HP/crafting progress indicator
+
+        // Reliable transport control (104-106) - see ReliableTransport.cs
+        Heartbeat = 104,          // Reliable-lane keepalive; feeds the degraded-link detector
+        ResyncRequest = 105,      // [epoch] initiator asks the peer to realign streams (raw unreliable)
+        ResyncConfirm = 106,      // [epoch] peer confirms the realignment (raw unreliable)
+
+        // NOTE: 0xFE and 0xFF are permanently reserved as reliable-channel frame tags
+        // (ReliableTransport.cs) and must never be used as Op values.
     }
 
     public sealed class CutsceneCameraState

@@ -229,6 +229,7 @@ namespace GraveyardKeeperCoop.Network
             SteamMatchmaking.LeaveLobby(currentLobbyID);
             SteamJoinFlow.ClearPresence();
             LanDiscoveryService.Instance.StopAdvertising();
+            SteamP2PManager.Instance.Reliable?.Clear();
 
             currentLobbyID = CSteamID.Nil;
             isInLobby = false;
@@ -479,6 +480,16 @@ namespace GraveyardKeeperCoop.Network
             currentLobbyID = new CSteamID(callback.m_ulSteamIDLobby);
             isInLobby = true;
 
+            // Drop any reliable-channel state left over from a previous session (stray retransmits
+            // arriving after LeaveLobby's Clear() can re-create a channel): every peer in this lobby
+            // must start from a fresh channel or its first frames would hit stale sequence state.
+            SteamP2PManager.Instance?.Reliable?.Clear();
+
+            // Advertise the application-level reliable transport (see ReliableTransport.cs) so other
+            // members route their reliable traffic through it; members without this key (older mod
+            // versions) are served over native Steam reliable as before.
+            SteamMatchmaking.SetLobbyMemberData(currentLobbyID, ReliableTransport.CapabilityKey, ReliableTransport.CapabilityValue);
+
             // Check if we're the host
             CSteamID owner = GetLobbyOwner();
             CSteamID localPlayer = SteamUser.GetSteamID();
@@ -686,6 +697,9 @@ namespace GraveyardKeeperCoop.Network
             {
                 CoopMod.Logger.LogInfo($"[LOBBY] {userName} left the lobby!");
                 
+                // Tear down the leaver's reliable channel; if they rejoin, a fresh one starts at seq 0.
+                SteamP2PManager.Instance.OnPeerLeftLobby(userChanged);
+
                 // Check if the person who left was the original host
                 // We compare against originalHostID (stored when we joined) because
                 // GetLobbyOwner may return a new owner after transfer or Nil if lobby closed

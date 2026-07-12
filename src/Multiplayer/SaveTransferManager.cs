@@ -842,6 +842,21 @@ namespace GraveyardKeeperCoop.Multiplayer
         }
         
         /// <summary>
+        /// Client: a reliable-channel resync flushes both stream queues, so any in-flight save
+        /// chunks are gone for good - the host won't resend them on its own. Re-request the whole
+        /// save: the fresh info message resets the receive state and the transfer restarts from
+        /// chunk 0. Without this the client waits forever on a transfer nobody is sending.
+        /// </summary>
+        public static void OnReliableChannelResynced(CSteamID peer)
+        {
+            if (pendingSenderHost == CSteamID.Nil || peer != pendingSenderHost) return;
+            bool complete = expectedChunks > 0 && receivedChunks >= expectedChunks;
+            if (complete) return;
+            CoopMod.Logger.LogWarning($"[SaveTransfer] Channel resync interrupted the save transfer ({receivedChunks}/{expectedChunks} chunks) - re-requesting from the host");
+            SendSaveRequest(pendingSenderHost, retry: true);
+        }
+
+        /// <summary>
         /// Reset transfer state
         /// </summary>
         public static void Reset()

@@ -28,6 +28,8 @@ namespace GraveyardKeeperCoop
             Logger = base.Logger;
             
             Logger.LogInfo($"Plugin {PluginInfo.PLUGIN_GUID} is loaded!");
+            // Build stamp: the first thing to check in any log, so a stale DLL never eats a test.
+            Logger.LogInfo($"Build: {System.IO.File.GetLastWriteTime(System.Reflection.Assembly.GetExecutingAssembly().Location):yyyy-MM-dd HH:mm:ss}");
             Logger.LogInfo("Graveyard Keeper already has UNET networking infrastructure!");
             
             // Initialize config
