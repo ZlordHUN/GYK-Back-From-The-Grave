@@ -576,9 +576,15 @@ namespace GraveyardKeeperCoop.Multiplayer
         /// </summary>
         public void NotifyReadyForIntro(Action introCallback)
         {
-            // Mark that we're now in the intro phase (for dialogue sync AND position sync)
-            isInIntroPhase = true;
-            CoopMod.Logger.LogInfo("[GameLoadSync] NotifyReadyForIntro: IsInIntroPhase set to TRUE");
+            // Enter the intro phase (dialogue sync + intro-follow positioning) only when the
+            // new-game intro cutscene is actually going to play. The game calls ShowIntro on
+            // EVERY world load, but marks the real intro with Intro.need_show_first_intro
+            // (OnNewGame sets it, OnLoadSlot clears it; vanilla ShowIntro no-ops without it).
+            // Entering the phase on an existing-save load left it stuck forever: no cutscene
+            // means no control disabled->enabled transition to end it, and without a position
+            // sidecar the intro-follow kept both players glued together for the whole session.
+            isInIntroPhase = Intro.need_show_first_intro;
+            CoopMod.Logger.LogInfo($"[GameLoadSync] NotifyReadyForIntro: IsInIntroPhase set to {isInIntroPhase} (need_show_first_intro={Intro.need_show_first_intro})");
             
             if (!isWaitingForSync)
             {
