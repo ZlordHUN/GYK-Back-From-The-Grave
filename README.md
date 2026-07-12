@@ -188,6 +188,7 @@ See [Documentation/ARCHITECTURE.md](Documentation/ARCHITECTURE.md) for the runti
 ### Reporting bugs
 
 - Please open an issue on Github, provide a description of the bug and attach any relevant logs or screenshots/recordings.
+- The relevant logs can be accessed by opening the game's installation directory, navigating to the Bepinex folder and retrieving the LogOutput file.
 
 ### Contributions
 
