@@ -188,6 +188,12 @@ See [Documentation/ARCHITECTURE.md](Documentation/ARCHITECTURE.md) for the runti
 ### Reporting bugs
 
 - Please open an issue on Github, provide a description of the bug and attach any relevant logs or screenshots/recordings.
+- The relevant logs can be accessed by opening the game's installation directory, navigating to the Bepinex folder and retrieving the LogOutput file.
+- Please note, each time you boot up the game the log file will be overwritten so you need to copy the file immediately after the issue occured and the game has been closed.
+
+### Contributions
+
+- Are more than welcome, please help. AI coding? Honestly whatever, as long as you point out that AI was used so your PR can be reviewed thoroughly.
 
 ## License
 
