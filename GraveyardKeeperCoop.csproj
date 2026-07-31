@@ -5,7 +5,7 @@
     <RootNamespace>GraveyardKeeperCoop</RootNamespace>
     <ModGuid>com.zlord.graveyardkeeper.coop</ModGuid>
     <ModName>GYK Back From The Grave</ModName>
-    <ModVersion>1.0.0</ModVersion>
+    <ModVersion>1.1.0</ModVersion>
     <ModReleaseStage>Beta</ModReleaseStage>
     <ModDisplayVersion>$(ModVersion) $(ModReleaseStage)</ModDisplayVersion>
     <ModAuthor>Your Name</ModAuthor>
@@ -135,6 +135,7 @@
 
   <ItemGroup>
     <EmbeddedResource Include="Assets/back_from_the_grave_caption.png" LogicalName="GraveyardKeeperCoop.Assets.back_from_the_grave_caption.png" />
+    <EmbeddedResource Include="Assets/Avatar Frame.png" LogicalName="GraveyardKeeperCoop.Assets.avatar_frame.png" />
   </ItemGroup>
 
   <Target Name="GeneratePluginMetadata" BeforeTargets="CoreCompile">

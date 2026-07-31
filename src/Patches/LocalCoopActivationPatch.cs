@@ -14,6 +14,14 @@ namespace GraveyardKeeperCoop.Patches
     public class LocalCoopActivationPatch
     {
         private static bool hasActivated = false;
+        private static bool isWaitingForHotReloadSpawn;
+        private static PlayerComponent playerBeforeHotReload;
+
+        /// <summary>
+        /// True while an in-game save replacement is downloading/loading and the old
+        /// local player must not be used to reactivate online co-op.
+        /// </summary>
+        public static bool IsWaitingForHotReloadSpawn => isWaitingForHotReloadSpawn;
 
         /// <summary>
         /// After PlayerComponent.SpawnPlayer is called, activate appropriate co-op mode
@@ -30,6 +38,21 @@ namespace GraveyardKeeperCoop.Patches
             {
                 CoopMod.Logger.LogInfo("[CoopActivation] Non-local player spawned, ignoring");
                 return;
+            }
+
+            if (isWaitingForHotReloadSpawn)
+            {
+                if (object.ReferenceEquals(__result, playerBeforeHotReload))
+                {
+                    CoopMod.Logger.LogWarning(
+                        "[CoopActivation] Ignoring local spawn from the pre-reload player");
+                    return;
+                }
+
+                isWaitingForHotReloadSpawn = false;
+                playerBeforeHotReload = null;
+                CoopMod.Logger.LogInfo(
+                    "[CoopActivation] Fresh post-reload local player spawned; reactivation unblocked");
             }
 
             // Only activate once per game session
@@ -125,6 +148,8 @@ namespace GraveyardKeeperCoop.Patches
         public static void MainMenuOpen_Postfix()
         {
             hasActivated = false;
+            isWaitingForHotReloadSpawn = false;
+            playerBeforeHotReload = null;
             CoopMod.Logger.LogInfo("[CoopActivation] Reset activation flag (returned to main menu)");
             
             // Also reset GameLoadSync
@@ -135,14 +160,20 @@ namespace GraveyardKeeperCoop.Patches
         }
 
         /// <summary>
-        /// Allow other systems (e.g. host hot-reload flow) to reset the activation flag
-        /// so that <see cref="ActivateCoopOnSpawn_Postfix"/> runs again when the player
-        /// respawns after an in-game save load.
+        /// Begin an in-game save replacement. The old world remains alive while a client
+        /// downloads the host save, so clearing only <see cref="hasActivated"/> would let
+        /// OnlineCoopManager's frame update immediately reactivate against the old player.
+        /// Keep auto-activation blocked until SpawnPlayer reports a different local player.
         /// </summary>
-        public static void ResetActivation()
+        public static void BeginHotReload()
         {
+            playerBeforeHotReload = MainGame.me?.player != null
+                ? MainGame.me.player.GetComponent<PlayerComponent>()
+                : null;
+            isWaitingForHotReloadSpawn = true;
             hasActivated = false;
-            CoopMod.Logger.LogInfo("[CoopActivation] Activation flag reset (external request)");
+            CoopMod.Logger.LogInfo(
+                $"[CoopActivation] Hot-reload gate armed (old player captured={playerBeforeHotReload != null})");
         }
     }
 }

@@ -232,7 +232,7 @@ namespace GraveyardKeeperCoop.Multiplayer
 
         private void Update()
         {
-            var __sw = System.Diagnostics.Stopwatch.StartNew();
+            long __profStart = GraveyardKeeperCoop.Utils.FrameProfiler.BeginSection();
             try
             {
                 if (!IsSyncEnabled) return;
@@ -248,7 +248,7 @@ namespace GraveyardKeeperCoop.Multiplayer
             }
             finally
             {
-                GraveyardKeeperCoop.Utils.FrameProfiler.Record("Periodic.Update", __sw.ElapsedTicks);
+                GraveyardKeeperCoop.Utils.FrameProfiler.EndSection("Periodic.Update", __profStart);
             }
         }
 

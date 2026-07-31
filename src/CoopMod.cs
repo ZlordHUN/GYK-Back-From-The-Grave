@@ -28,6 +28,7 @@ namespace GraveyardKeeperCoop
             Logger = base.Logger;
             
             Logger.LogInfo($"Plugin {PluginInfo.PLUGIN_GUID} is loaded!");
+            Logger.LogInfo($"Build: {System.IO.File.GetLastWriteTime(System.Reflection.Assembly.GetExecutingAssembly().Location):yyyy-MM-dd HH:mm:ss}");
             Logger.LogInfo("Graveyard Keeper already has UNET networking infrastructure!");
             
             // Initialize config
@@ -164,10 +165,14 @@ namespace GraveyardKeeperCoop
             CreatePersistentComponent<Multiplayer.LiveWGOTransformSync>("LiveWGOTransformSync");
             CreatePersistentComponent<Multiplayer.HostAuthorityInteractionSync>("HostAuthorityInteractionSync");
             CreatePersistentComponent<Multiplayer.JoinerProfileManager>("JoinerProfileManager");
+            CreatePersistentComponent<Multiplayer.PlayerTradeManager>("PlayerTradeManager");
             CreatePersistentComponent<UI.NetworkDebugOverlay>("NetworkDebugOverlay");
             CreatePersistentComponent<UI.PingIndicator>("PingIndicator");
-            CreatePersistentComponent<Utils.FrameProfilerStart>("FrameProfilerStart");
-            CreatePersistentComponent<Utils.FrameProfilerEnd>("FrameProfilerEnd");
+            if (Utils.FrameProfiler.Enabled)
+            {
+                CreatePersistentComponent<Utils.FrameProfilerStart>("FrameProfilerStart");
+                CreatePersistentComponent<Utils.FrameProfilerEnd>("FrameProfilerEnd");
+            }
             
             // Initialize Steam Rich Presence join flow
             Network.SteamJoinFlow.Init();
@@ -222,7 +227,7 @@ namespace GraveyardKeeperCoop
                 }
                 return;
             }
-            
+
             // Directly request lobby info from host and join
             // No need to open menu or show invitation - just connect!
             Network.SteamP2PManager.Instance?.RequestLobbyFromHost(hostId);
@@ -230,9 +235,9 @@ namespace GraveyardKeeperCoop
 
         private void Update()
         {
-            var __profSw = System.Diagnostics.Stopwatch.StartNew();
+            long __profStart = Utils.FrameProfiler.BeginSection();
             try { UpdateInternal(); }
-            finally { GraveyardKeeperCoop.Utils.FrameProfiler.Record("CoopMod.Update", __profSw.ElapsedTicks); }
+            finally { Utils.FrameProfiler.EndSection("CoopMod.Update", __profStart); }
         }
 
         private void UpdateInternal()
@@ -243,6 +248,8 @@ namespace GraveyardKeeperCoop
             {
                 SteamP2PManager.Instance.Update();
             }
+
+            Network.SteamLobbyManager.Instance.Update();
 
             // Process incoming chat sync messages
             Multiplayer.LobbyChatSync.ProcessIncomingMessages();

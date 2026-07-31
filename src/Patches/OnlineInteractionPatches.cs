@@ -1,7 +1,9 @@
 using HarmonyLib;
 using System.Collections.Generic;
+using Steamworks;
 using UnityEngine;
 using GraveyardKeeperCoop.Network;
+using GraveyardKeeperCoop.Multiplayer;
 
 namespace GraveyardKeeperCoop.Patches
 {
@@ -14,8 +16,13 @@ namespace GraveyardKeeperCoop.Patches
     public static class OnlineInteractionPatches
     {
         private static readonly System.Reflection.FieldInfo CollisionsField = AccessTools.Field(typeof(InteractionComponent), "_collisions");
+        private static readonly System.Reflection.FieldInfo NearestHasInteractionField = AccessTools.Field(typeof(InteractionComponent), "_nearest_has_interaction");
         private static readonly System.Reflection.MethodInfo FindCurrentInteractionNearestMethod = AccessTools.Method(typeof(InteractionComponent), "FindCurrentInteractionNearest");
         private static readonly HashSet<string> SuppressedTeleportQuestKeysLogged = new HashSet<string>();
+        private const string FirstMorgueExitQuest =
+            "go_to_graveyard_and_talk_with_skull";
+        private const string FirstMorgueExitTeleportTag = "tp_mortuary_a";
+        private static float partyMorgueExitCheckUntil;
 
         [HarmonyPatch(typeof(InteractionComponent), "UpdateComponent")]
         [HarmonyPrefix]
@@ -26,6 +33,44 @@ namespace GraveyardKeeperCoop.Patches
 
             ClearRemoteInteractionState(__instance);
             return false;
+        }
+
+        [HarmonyPatch(typeof(InteractionComponent), "UpdateComponent")]
+        [HarmonyPostfix]
+        public static void UpdateComponent_Postfix(InteractionComponent __instance)
+        {
+            if (IsRemoteOnlinePlayer(__instance) ||
+                __instance?.wgo != MainGame.me?.player)
+            {
+                return;
+            }
+
+            OnlineCoopManager onlineCoop = OnlineCoopManager.Instance;
+            PlayerTradeManager trade = PlayerTradeManager.Instance;
+            if (onlineCoop == null || !onlineCoop.IsOnlineCoopEnabled || trade == null)
+                return;
+
+            // Player avatars are not part of vanilla's interaction collision list.
+            // Resolve them after every local interaction update, including the
+            // vanilla early-return path when that collision list is empty.
+            WorldGameObject ordinaryTarget = __instance.nearest;
+            if (trade.TrySelectInteractionTarget(
+                    __instance,
+                    out WorldGameObject tradeTarget,
+                    out CSteamID tradeTargetSteamId) &&
+                IsCloserToLocalPlayer(__instance.wgo, tradeTarget, ordinaryTarget))
+            {
+                if (ordinaryTarget != null && ordinaryTarget != tradeTarget)
+                    ordinaryTarget.UnprepareForInteraction();
+
+                __instance.nearest = tradeTarget;
+                NearestHasInteractionField?.SetValue(__instance, true);
+                __instance.components.character.wgo_hilighted_for_work = null;
+                trade.ShowInteractionPrompt(tradeTarget, tradeTargetSteamId);
+                return;
+            }
+
+            trade.ClearInteractionPrompt();
         }
 
         /// <summary>
@@ -50,9 +95,12 @@ namespace GraveyardKeeperCoop.Patches
 
             if (FindCurrentInteractionNearestMethod == null || CollisionsField == null)
                 return true;
-            
-            // Find the nearest interactable object
-            WorldGameObject nearestWGO = (WorldGameObject)FindCurrentInteractionNearestMethod.Invoke(__instance, null);
+
+            // Find the ordinary interaction target first. A nearby player only
+            // wins when closer, so standing beside a friend does not make a
+            // chest, door, or NPC impossible to use.
+            WorldGameObject nearestWGO =
+                (WorldGameObject)FindCurrentInteractionNearestMethod.Invoke(__instance, null);
 
             // If nothing changed, skip further processing
             if (nearestWGO == __instance.nearest)
@@ -116,6 +164,33 @@ namespace GraveyardKeeperCoop.Patches
             
             return false; // Skip original method, we've handled it
         }
+
+        /// <summary>
+        /// A remote avatar is not a vanilla interactable, and pickup handling runs
+        /// before InteractionComponent.Interact. Consume the bound interaction key
+        /// here when the current deterministic proximity target is another player.
+        /// This also covers controller A through the game's GameKey binding.
+        /// </summary>
+        [HarmonyPatch(typeof(BaseCharacterComponent), "ProcessInteraction")]
+        [HarmonyPrefix]
+        [HarmonyPriority(Priority.First)]
+        public static bool ProcessInteraction_Prefix(
+            BaseCharacterComponent __instance,
+            ref bool __result)
+        {
+            if (__instance?.wgo != MainGame.me?.player ||
+                !LazyInput.GetKeyDown(GameKey.Interaction))
+            {
+                return true;
+            }
+
+            InteractionComponent interaction = __instance.wgo.components?.interaction;
+            if (PlayerTradeManager.Instance?.TryHandleInteraction(interaction) != true)
+                return true;
+
+            __result = true;
+            return false;
+        }
         
         /// <summary>
         /// Prevent remote player's InteractionComponent from running Interact at all.
@@ -126,6 +201,12 @@ namespace GraveyardKeeperCoop.Patches
         [HarmonyPriority(Priority.High)] // Run before other patches
         public static bool Interact_Prefix(InteractionComponent __instance, ref bool __result)
         {
+            if (PlayerTradeManager.Instance?.TryHandleInteraction(__instance) == true)
+            {
+                __result = true;
+                return false;
+            }
+
             if (IsRemoteOnlinePlayer(__instance))
             {
                 __result = false;
@@ -169,6 +250,15 @@ namespace GraveyardKeeperCoop.Patches
             if (!interaction_start || !IsOnlineLocalPlayer(other_obj) || !IsInsideTeleport(__instance))
                 return;
 
+            if (IsFirstMorgueExit(__instance))
+            {
+                // The Teleport FlowScript evaluates Flow_GetOverhead synchronously
+                // after Interact. Limit party-aware overhead redirection to this
+                // one gate so other body and inventory checks remain player-local.
+                partyMorgueExitCheckUntil =
+                    Time.realtimeSinceStartup + 1f;
+            }
+
             float lockTp = other_obj.data.GetParam("lock_tp", 0f);
             if (lockTp <= 0.5f)
                 return;
@@ -176,6 +266,54 @@ namespace GraveyardKeeperCoop.Patches
             other_obj.data.SetParam("lock_tp", 0f);
             other_obj.data.SetParam("lock_tp_param", 0f);
             CoopMod.Logger.LogInfo($"[OnlineInteraction] Cleared stale teleport lock before using '{__instance.custom_tag}'");
+        }
+
+        /// <summary>
+        /// The first morgue exit uses Flow_GetOverhead, which always asks the local
+        /// player for a carried body. In shared progression, another player may have
+        /// already carried that body outside. During this specific exit evaluation,
+        /// let the flow observe the party's body without copying or transferring it.
+        /// </summary>
+        [HarmonyPatch(typeof(BaseCharacterComponent), "GetOverheadItem")]
+        [HarmonyPostfix]
+        [HarmonyPriority(Priority.Last)]
+        public static void GetOverheadItem_Postfix(
+            BaseCharacterComponent __instance,
+            ref Item __result)
+        {
+            if (__result != null ||
+                Time.realtimeSinceStartup > partyMorgueExitCheckUntil ||
+                __instance == null ||
+                __instance != MainGame.me?.player_char)
+            {
+                return;
+            }
+
+            var onlineCoop = OnlineCoopManager.Instance;
+            if (onlineCoop == null || !onlineCoop.IsOnlineCoopEnabled)
+                return;
+
+            if (TryGetRemoteCarriedBody(onlineCoop, out Item remoteBody))
+            {
+                __result = remoteBody;
+                CoopMod.Logger.LogInfo(
+                    "[OnlineInteraction] First morgue exit accepted the body carried by another player");
+                return;
+            }
+
+            QuestSystem quests = MainGame.me?.save?.quests;
+            if (quests == null ||
+                (!quests.IsQuestCurrent(FirstMorgueExitQuest) &&
+                 !quests.IsQuestSucced(FirstMorgueExitQuest)))
+            {
+                return;
+            }
+
+            // This item is only a read-only Flow_GetOverhead result. It is never
+            // placed in the local inventory or assigned as the local overhead item.
+            __result = new Item("body", 1);
+            CoopMod.Logger.LogInfo(
+                "[OnlineInteraction] First morgue exit accepted shared quest proof that the corpse already left");
         }
 
         private static bool IsRemoteOnlinePlayer(InteractionComponent interaction)
@@ -190,6 +328,24 @@ namespace GraveyardKeeperCoop.Patches
 
             WorldGameObject localPlayer = MainGame.me?.player;
             return localPlayer != null && interaction.wgo != localPlayer;
+        }
+
+        private static bool IsCloserToLocalPlayer(
+            WorldGameObject local,
+            WorldGameObject tradeTarget,
+            WorldGameObject ordinaryTarget)
+        {
+            if (local == null || tradeTarget == null)
+                return false;
+            if (ordinaryTarget == null || ordinaryTarget == tradeTarget)
+                return true;
+
+            Vector3 localPosition = local.transform.position;
+            Vector3 tradeDelta = tradeTarget.transform.position - localPosition;
+            Vector3 ordinaryDelta = ordinaryTarget.transform.position - localPosition;
+            float tradeDistance = tradeDelta.x * tradeDelta.x + tradeDelta.y * tradeDelta.y;
+            float ordinaryDistance = ordinaryDelta.x * ordinaryDelta.x + ordinaryDelta.y * ordinaryDelta.y;
+            return tradeDistance < ordinaryDistance;
         }
 
         private static bool ShouldSuppressOnlineTeleportInteractionQuest(string key)
@@ -216,6 +372,56 @@ namespace GraveyardKeeperCoop.Patches
         {
             return wgo != null
                 && string.Equals(wgo.obj_id, "teleport_inside", System.StringComparison.Ordinal);
+        }
+
+        private static bool IsFirstMorgueExit(WorldGameObject wgo)
+        {
+            return IsInsideTeleport(wgo) &&
+                   !string.IsNullOrEmpty(wgo.custom_tag) &&
+                   wgo.custom_tag.StartsWith(
+                       FirstMorgueExitTeleportTag,
+                       System.StringComparison.Ordinal);
+        }
+
+        private static bool TryGetRemoteCarriedBody(
+            OnlineCoopManager onlineCoop,
+            out Item body)
+        {
+            body = null;
+            List<KeyValuePair<Steamworks.CSteamID, PlayerComponent>> remotes =
+                onlineCoop.GetRemotePlayersSnapshot();
+            for (int i = 0; i < remotes.Count; i++)
+            {
+                Item overhead = remotes[i].Value
+                    ?.wgo?.components?.character?.GetOverheadItem();
+                if (!IsBody(overhead))
+                    continue;
+
+                body = overhead;
+                return true;
+            }
+
+            return false;
+        }
+
+        private static bool IsBody(Item item)
+        {
+            if (item == null)
+                return false;
+
+            try
+            {
+                return string.Equals(
+                           item.id,
+                           "body",
+                           System.StringComparison.Ordinal) ||
+                       item.definition?.type ==
+                           ItemDefinition.ItemType.Body;
+            }
+            catch
+            {
+                return false;
+            }
         }
 
         private static void ClearRemoteInteractionState(InteractionComponent interaction)
@@ -251,6 +457,93 @@ namespace GraveyardKeeperCoop.Patches
             {
                 CoopMod.Logger.LogWarning($"[OnlineInteraction] Failed to clear remote interaction state: {ex.Message}");
             }
+        }
+    }
+
+    /// <summary>
+    /// Keeps vanilla's single-character SleepGUI presentation, but makes its time
+    /// acceleration and wake-up lifecycle party-coordinated in online sessions.
+    /// </summary>
+    [HarmonyPatch]
+    public static class OnlineSleepSyncPatches
+    {
+        private static bool manualWakeRequested;
+        private static bool suppressSleepRecovery;
+
+        [HarmonyPatch(typeof(SleepGUI), nameof(SleepGUI.Open))]
+        [HarmonyPrefix]
+        public static void SleepOpen_Prefix(
+            ref GJCommons.VoidDelegate on_appeared)
+        {
+            GJCommons.VoidDelegate original = on_appeared;
+            on_appeared = delegate
+            {
+                GameTimeSync.Instance?.NotifyLocalSleepStarted();
+                original.TryInvoke();
+            };
+        }
+
+        [HarmonyPatch(typeof(SleepGUI), nameof(SleepGUI.Update))]
+        [HarmonyPrefix]
+        public static void SleepUpdate_Prefix()
+        {
+            GameTimeSync sync = GameTimeSync.Instance;
+            suppressSleepRecovery = sync?.IsLocalSleepWaitingForParty == true;
+
+            if (sync?.IsLocalSleeping == true &&
+                LazyInput.GetKeyDown(GameKey.Interaction))
+            {
+                manualWakeRequested = true;
+            }
+        }
+
+        [HarmonyPatch(typeof(SleepGUI), nameof(SleepGUI.Update))]
+        [HarmonyPostfix]
+        public static void SleepUpdate_Postfix()
+        {
+            suppressSleepRecovery = false;
+        }
+
+        [HarmonyPatch(typeof(SleepGUI), nameof(SleepGUI.Update))]
+        [HarmonyFinalizer]
+        public static System.Exception SleepUpdate_Finalizer(System.Exception __exception)
+        {
+            suppressSleepRecovery = false;
+            return __exception;
+        }
+
+        [HarmonyPatch(typeof(WorldGameObject), nameof(WorldGameObject.energy), MethodType.Setter)]
+        [HarmonyPrefix]
+        public static bool PlayerEnergySet_Prefix(WorldGameObject __instance, float value)
+        {
+            WorldGameObject localPlayer = MainGame.me?.player;
+            return !suppressSleepRecovery || __instance != localPlayer || value <= __instance.energy;
+        }
+
+        [HarmonyPatch(typeof(WorldGameObject), nameof(WorldGameObject.hp), MethodType.Setter)]
+        [HarmonyPrefix]
+        public static bool PlayerHpSet_Prefix(WorldGameObject __instance, float value)
+        {
+            WorldGameObject localPlayer = MainGame.me?.player;
+            return !suppressSleepRecovery || __instance != localPlayer || value <= __instance.hp;
+        }
+
+        [HarmonyPatch(typeof(SleepGUI), "OnPressedBack")]
+        [HarmonyPrefix]
+        public static void SleepBack_Prefix()
+        {
+            if (GameTimeSync.Instance?.IsLocalSleeping == true)
+                manualWakeRequested = true;
+        }
+
+        [HarmonyPatch(typeof(SleepGUI), "WakeUp")]
+        [HarmonyPrefix]
+        public static bool SleepWakeUp_Prefix()
+        {
+            GameTimeSync sync = GameTimeSync.Instance;
+            bool manualWake = manualWakeRequested;
+            manualWakeRequested = false;
+            return sync == null || sync.HandleLocalWakeAttempt(manualWake);
         }
     }
 }

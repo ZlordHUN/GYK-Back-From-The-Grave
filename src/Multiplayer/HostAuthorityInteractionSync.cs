@@ -20,6 +20,12 @@ namespace GraveyardKeeperCoop.Multiplayer
         private const float SendIntervalSeconds = 0.08f;
 
         public static bool IsApplying { get; private set; }
+        /// <summary>
+        /// True only while the host applies a remote player's zero-HP world mutation.
+        /// Player-bound presentation scripts spawned by that mutation must stay on
+        /// the triggering peer.
+        /// </summary>
+        public static bool IsApplyingZeroHpMutation { get; private set; }
 
         private readonly Dictionary<long, float> lastSendAt = new Dictionary<long, float>();
         private readonly Dictionary<long, float> pendingDeltaByUid = new Dictionary<long, float>();
@@ -70,6 +76,7 @@ namespace GraveyardKeeperCoop.Multiplayer
         protected override void OnSyncDisabled()
         {
             IsApplying = false;
+            IsApplyingZeroHpMutation = false;
             ResetSessionState();
         }
 
@@ -193,6 +200,7 @@ namespace GraveyardKeeperCoop.Multiplayer
             }
 
             IsApplying = true;
+            IsApplyingZeroHpMutation = true;
             try
             {
                 wgo.DoZeroHPActivity();
@@ -203,6 +211,7 @@ namespace GraveyardKeeperCoop.Multiplayer
             }
             finally
             {
+                IsApplyingZeroHpMutation = false;
                 IsApplying = false;
             }
         }

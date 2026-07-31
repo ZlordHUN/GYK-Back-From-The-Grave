@@ -345,7 +345,22 @@ namespace GraveyardKeeperCoop.Multiplayer
             if (separator <= 0 || separator >= payload.Length - 1)
                 return;
 
-            bool revealTech = payload.Substring(0, separator) == "1";
+            string presentationFlags = payload.Substring(0, separator);
+            if (presentationFlags.Length < 1 ||
+                presentationFlags.Length > 2 ||
+                (presentationFlags[0] != '0' &&
+                 presentationFlags[0] != '1') ||
+                (presentationFlags.Length > 1 &&
+                 presentationFlags[1] != '0' &&
+                 presentationFlags[1] != '1'))
+            {
+                return;
+            }
+
+            bool revealTech = presentationFlags[0] == '1';
+            bool showTechTreeAfter =
+                presentationFlags.Length > 1 &&
+                presentationFlags[1] == '1';
             string techId;
             try
             {
@@ -404,7 +419,7 @@ namespace GraveyardKeeperCoop.Multiplayer
                     null,
                     true,
                     false,
-                    false,
+                    showTechTreeAfter,
                     true);
             }
             finally
@@ -414,7 +429,8 @@ namespace GraveyardKeeperCoop.Multiplayer
             remoteTechPresentationActive = sharedTechPopupOpen;
 
             CoopMod.Logger.LogInfo(
-                $"{LogPrefix} Applied synchronized tech presentation: {techId}");
+                $"{LogPrefix} Applied synchronized tech presentation: {techId} " +
+                $"(show_tree_after={showTechTreeAfter})");
         }
 
         internal void BroadcastCraftUnlock(string craftId)
@@ -577,6 +593,7 @@ namespace GraveyardKeeperCoop.Multiplayer
             TechDefinition tech,
             bool forcedUnlock,
             bool revealTech,
+            bool showTechTreeAfter,
             bool pseudoTech)
         {
             if (!IsSyncEnabled || !IsOnline || !forcedUnlock)
@@ -605,10 +622,12 @@ namespace GraveyardKeeperCoop.Multiplayer
                 SteamP2PManager.Instance?.BroadcastTechSyncUnlock(
                     Encoding.UTF8.GetBytes(
                         TechPresentationPrefix +
-                        (revealTech ? "1|" : "0|") +
+                        (revealTech ? "1" : "0") +
+                        (showTechTreeAfter ? "1|" : "0|") +
                         encodedId));
                 CoopMod.Logger.LogInfo(
-                    $"{LogPrefix} Broadcast tech presentation: {sharedTechId}");
+                    $"{LogPrefix} Broadcast tech presentation: {sharedTechId} " +
+                    $"(show_tree_after={showTechTreeAfter})");
             }
         }
 

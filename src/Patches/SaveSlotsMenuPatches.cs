@@ -686,10 +686,7 @@ namespace GraveyardKeeperCoop.Patches
                 if (label.name.Contains("new game") || label.transform.parent.name.Contains("new game"))
                 {
                     // This is the main title label - show name + version centered
-                    string displayVersion = plugin.Metadata.GUID == PluginInfo.PLUGIN_GUID
-                        ? PluginInfo.PLUGIN_DISPLAY_VERSION
-                        : plugin.Metadata.Version.ToString();
-                    label.text = $"{plugin.Metadata.Name} v{displayVersion}";
+                    label.text = $"{plugin.Metadata.Name} v{plugin.Metadata.Version}";
                     label.color = Color.white;
                     CoopMod.Logger.LogInfo($"[SaveSlotsMenuPatch]   Set title label to: {label.text}");
                 }

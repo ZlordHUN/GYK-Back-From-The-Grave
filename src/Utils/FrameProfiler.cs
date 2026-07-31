@@ -11,8 +11,26 @@ namespace GraveyardKeeperCoop.Utils
         private static float _nextReport;
         private const float Interval = 5f;
 
+        public static bool Enabled => ModConfig.EnablePerformanceProfiling?.Value == true;
+
+        public static long BeginSection()
+        {
+            return Enabled ? Stopwatch.GetTimestamp() : 0L;
+        }
+
+        public static void EndSection(string section, long startedAt)
+        {
+            if (startedAt == 0L || !Enabled)
+                return;
+
+            Record(section, Stopwatch.GetTimestamp() - startedAt);
+        }
+
         public static void Record(string section, long elapsedTicks)
         {
+            if (!Enabled)
+                return;
+
             _sectionTicks.TryGetValue(section, out long acc);
             _sectionTicks[section] = acc + elapsedTicks;
             MaybeReport();
@@ -49,6 +67,9 @@ namespace GraveyardKeeperCoop.Utils
     {
         private void Update()
         {
+            if (!FrameProfiler.Enabled)
+                return;
+
             float now = Time.realtimeSinceStartup;
             ProfilerState.ManagedStart = now;
             if (ProfilerState.LastFrame > 0f)
@@ -83,6 +104,9 @@ namespace GraveyardKeeperCoop.Utils
     {
         private void LateUpdate()
         {
+            if (!FrameProfiler.Enabled)
+                return;
+
             ProfilerState.ManagedSum += Time.realtimeSinceStartup - ProfilerState.ManagedStart;
         }
     }

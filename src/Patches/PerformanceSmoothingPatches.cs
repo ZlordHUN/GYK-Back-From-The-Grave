@@ -54,7 +54,7 @@ namespace GraveyardKeeperCoop.Patches
             [HarmonyPrefix]
             public static void Prefix()
             {
-                __start = System.Diagnostics.Stopwatch.GetTimestamp();
+                __start = GraveyardKeeperCoop.Utils.FrameProfiler.BeginSection();
             }
 
             [HarmonyPostfix]
@@ -62,7 +62,7 @@ namespace GraveyardKeeperCoop.Patches
             {
                 if (__start != 0)
                 {
-                    GraveyardKeeperCoop.Utils.FrameProfiler.Record("MainGame.Update", System.Diagnostics.Stopwatch.GetTimestamp() - __start);
+                    GraveyardKeeperCoop.Utils.FrameProfiler.EndSection("MainGame.Update", __start);
                     __start = 0;
                 }
                 ApplyFramePacingOverride(forceLog: false);

@@ -12,7 +12,7 @@ namespace GraveyardKeeperCoop.UI
     /// <summary>
     /// In-game chat overlay that appears during multiplayer sessions.
     /// Provides a draggable chat window with message history and text input.
-    /// Press Enter to focus input, type message, Enter to send, Escape to cancel.
+    /// Press Enter or Y to focus input, type message, Enter to send, Escape to cancel.
     /// </summary>
     public class ChatOverlay : MonoBehaviour
     {
@@ -31,6 +31,10 @@ namespace GraveyardKeeperCoop.UI
         private int _lastScreenWidth;
         private int _lastScreenHeight;
         private int _lastSubmitFrame = -1;
+        private bool _inputSetupLogged;
+        private bool _inputWasAllowed;
+        private float _acceptInputAfterTime;
+        private bool _endingSession;
 
         // Chat history
         private readonly List<string> _history = new List<string>(256);
@@ -70,6 +74,8 @@ namespace GraveyardKeeperCoop.UI
         {
             if (_instance != null)
             {
+                if (_instance._endingSession)
+                    return null;
                 _instance.Show();
                 return _instance;
             }
@@ -81,9 +87,10 @@ namespace GraveyardKeeperCoop.UI
                 return null;
             }
 
+            // Awake attaches the overlay to the current game's UI root. It is deliberately
+            // scene-scoped so a rebuilt UI receives a freshly initialized overlay.
             var overlayObj = new GameObject("ChatOverlay");
             overlayObj.layer = LayerMask.NameToLayer("UI");
-            overlayObj.transform.SetParent(uiRoot.transform, false);
 
             _instance = overlayObj.AddComponent<ChatOverlay>();
             return _instance;
@@ -98,7 +105,6 @@ namespace GraveyardKeeperCoop.UI
             }
 
             _instance = this;
-            DontDestroyOnLoad(gameObject);
 
             // Seed the inactivity timer to "now" so we don't immediately fade on the first
             // frame just because _lastActivityTime defaults to 0 while Time.unscaledTime
@@ -119,28 +125,26 @@ namespace GraveyardKeeperCoop.UI
 
         private void BuildUI()
         {
-            // We have to wait until the HUD is not only present but ACTIVE in hierarchy,
-            // otherwise reparenting ourselves under it will deactivate us and the
-            // "FinishSetupNextFrame" coroutine (which creates our UIInput) can't start.
-            // That's exactly what used to leave `_input == null` and caused Enter to do nothing.
+            // The HUD supplies the game's font and depth baseline, but the overlay must not
+            // be parented to it. HUD.Hide disables the whole HUD GameObject during cutscenes
+            // and game windows, which would also stop this component from polling Enter.
             var hud = GUIElements.me?.hud;
-            if (hud != null && hud.gameObject.activeInHierarchy)
+            if (hud != null && MainGame.me?.ui_root != null)
             {
                 BuildUIInternal(hud.gameObject);
                 return;
             }
 
-            CoopMod.Logger.LogInfo("[ChatOverlay] HUD not ready/active yet, deferring UI build");
+            CoopMod.Logger.LogInfo("[ChatOverlay] HUD/UI root not ready yet, deferring UI build");
             StartCoroutine(BuildUIWhenReady());
         }
 
         private IEnumerator BuildUIWhenReady()
         {
-            // Wait for the HUD to exist AND be active in hierarchy.
-            while (GUIElements.me?.hud == null || !GUIElements.me.hud.gameObject.activeInHierarchy)
+            while (GUIElements.me?.hud == null || MainGame.me?.ui_root == null)
                 yield return null;
 
-            CoopMod.Logger.LogInfo("[ChatOverlay] HUD is active \u2014 building UI now");
+            CoopMod.Logger.LogInfo("[ChatOverlay] HUD/UI root available - building UI now");
             BuildUIInternal(GUIElements.me.hud.gameObject);
         }
 
@@ -154,11 +158,12 @@ namespace GraveyardKeeperCoop.UI
             int hudMaxDepth = FindMaxWidgetDepth(hudPanel);
             int baseDepth = hudMaxDepth + 10;
 
-            // Parent to HUD
+            // Parent to the UI root, not the HUD. The HUD is routinely deactivated,
+            // while the UI root remains active to receive keyboard input.
             _cachedHud = hudGO.GetComponent<HUD>();
             _lastScreenWidth = Screen.width;
             _lastScreenHeight = Screen.height;
-            transform.SetParent(hudGO.transform, false);
+            transform.SetParent(MainGame.me.ui_root.transform, false);
             transform.localScale = Vector3.one;
             SetLayerRecursively(transform, hudGO.layer);
 
@@ -256,6 +261,7 @@ namespace GraveyardKeeperCoop.UI
 
             NGUITools.SetActiveSelf(gameObject, true);
             NGUITools.SetActiveChildren(gameObject, true);
+            ApplyPresentationVisibility(!_faded);
 
             // Finish setup next frame
             StartCoroutine(FinishSetupNextFrame());
@@ -264,13 +270,20 @@ namespace GraveyardKeeperCoop.UI
         private IEnumerator FinishSetupNextFrame()
         {
             yield return null;
+            TryFinishInputSetup();
+        }
+
+        private bool TryFinishInputSetup()
+        {
+            if (_input != null)
+                return true;
+            if (_inputLabel == null || !gameObject.activeInHierarchy)
+                return false;
 
             // Enable keyboard input for NGUI
             EnableNguiKeyboard();
 
             // Wait for input label panel
-            if (_inputLabel.panel == null)
-                yield return null;
             if (_inputLabel.panel == null)
             {
                 _inputLabel.CreatePanel();
@@ -279,17 +292,25 @@ namespace GraveyardKeeperCoop.UI
 
             // Create UIInput
             var inputGO = _inputLabel.gameObject;
-            _input = inputGO.AddComponent<UIInput>();
+            _input = inputGO.GetComponent<UIInput>() ??
+                     inputGO.AddComponent<UIInput>();
             _input.label = _inputLabel;
             _input.value = "";
             _input.activeTextColor = Color.white;
-            _input.defaultText = "[ Press Enter to chat ]";
+            _input.defaultText = "[ Press Enter or Y to chat ]";
             _input.validation = UIInput.Validation.None;
             _input.onSubmit.Clear();
             _input.onSubmit.Add(new EventDelegate(OnSubmit));
             _input.onReturnKey = UIInput.OnReturnKey.Submit;
 
-            CoopMod.Logger.LogInfo("[ChatOverlay] Input setup complete");
+            if (!_inputSetupLogged)
+            {
+                _inputSetupLogged = true;
+                CoopMod.Logger.LogInfo(
+                    "[ChatOverlay] Input setup complete");
+            }
+
+            return true;
         }
 
         private void EnableNguiKeyboard()
@@ -308,7 +329,9 @@ namespace GraveyardKeeperCoop.UI
 
         private void Update()
         {
-            if (_input == null)
+            // Retry setup if the next-frame coroutine was interrupted by a scene
+            // transition. This component remains active independently of HUD.Hide().
+            if (_input == null && !TryFinishInputSetup())
                 return;
 
             if (Screen.width != _lastScreenWidth || Screen.height != _lastScreenHeight)
@@ -317,9 +340,59 @@ namespace GraveyardKeeperCoop.UI
                 RepositionToBottomLeft();
             }
 
-            bool enterDown  = Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.KeypadEnter);
+            bool enterDown = Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.KeypadEnter);
+            bool yDown = Input.GetKeyDown(KeyCode.Y);
+            bool openDown = enterDown || yDown;
             bool escapeDown = Input.GetKeyDown(KeyCode.Escape);
             bool currentlyFocused = _focused || _input.isSelected;
+            bool allGuisClosed = BaseGUI.all_guis_closed;
+
+            // Presentation has its own lifecycle. Input may be blocked by a
+            // cutscene or another GUI, but that must not pin stale chat on screen.
+            if (!_faded && !currentlyFocused &&
+                Time.unscaledTime - _lastActivityTime >= INACTIVITY_HIDE_SEC)
+            {
+                FadeOut();
+            }
+
+            bool gameplayInputAllowed = MainGame.me?.player_char != null &&
+                                        MainGame.me.player_char.control_enabled &&
+                                        DialogueSync.Instance?.IsInSyncedDialogue != true &&
+                                        allGuisClosed;
+            // Y is an unambiguous chat command, so allow it during dialogue and
+            // cinematics. Enter remains gated there because the game also uses it
+            // to advance speech. Once chat owns focus, keep accepting submit/cancel
+            // input even if the cutscene changes player-control state underneath it.
+            bool explicitChatInputAllowed = !LoadingGUI.is_shown &&
+                                            (yDown || currentlyFocused);
+            bool inputAllowed = gameplayInputAllowed || explicitChatInputAllowed;
+            if (!inputAllowed)
+            {
+                _inputWasAllowed = false;
+                if (openDown)
+                {
+                    CoopMod.Logger.LogInfo(
+                        $"[ChatOverlay] Open key blocked: " +
+                        $"control={MainGame.me?.player_char?.control_enabled}, " +
+                        $"dialogue={DialogueSync.Instance?.IsInSyncedDialogue == true}, " +
+                        $"allGuisClosed={BaseGUI.all_guis_closed}");
+                }
+                return;
+            }
+
+            if (!_inputWasAllowed)
+            {
+                // Do not reuse the Return press that may have just closed a dialogue
+                // or game window. Y is an explicit chat-only command and must not be
+                // swallowed by this debounce; neither transition should auto-reveal chat.
+                _inputWasAllowed = true;
+                _acceptInputAfterTime = Time.unscaledTime + 0.15f;
+                if (!yDown)
+                    return;
+            }
+
+            if (Time.unscaledTime < _acceptInputAfterTime && !yDown)
+                return;
 
             if (enterDown && currentlyFocused)
             {
@@ -327,11 +400,12 @@ namespace GraveyardKeeperCoop.UI
                 return;
             }
 
-            // Enter — open/focus the chat when we're not already typing.
+            // Enter or Y - open/focus the chat when we're not already typing.
+            // Once focused, Y remains ordinary text and Enter submits.
             // Works whether the overlay is faded or fully visible.
-            if (enterDown && !currentlyFocused)
+            if (openDown && !currentlyFocused)
             {
-                CoopMod.Logger.LogInfo($"[ChatOverlay] Enter pressed — revealing + focusing input (faded={_faded})");
+                CoopMod.Logger.LogInfo($"[ChatOverlay] Open key pressed - revealing + focusing input (faded={_faded})");
                 if (_faded) Reveal();
                 _focused = true;
                 try
@@ -390,12 +464,6 @@ namespace GraveyardKeeperCoop.UI
                 _lastActivityTime = Time.unscaledTime;
             }
 
-            // Inactivity timeout → fade out
-            if (!_faded && !currentlyFocused && _panel != null &&
-                Time.unscaledTime - _lastActivityTime >= INACTIVITY_HIDE_SEC)
-            {
-                FadeOut();
-            }
         }
 
         /// <summary>
@@ -411,17 +479,26 @@ namespace GraveyardKeeperCoop.UI
 
         private void FadeOut()
         {
-            if (_panel == null) return;
             _faded = true;
-            _panel.alpha = 0f;
+            ApplyPresentationVisibility(false);
         }
 
         private void Reveal()
         {
-            if (_panel == null) return;
             _faded = false;
-            _panel.alpha = 1f;
+            ApplyPresentationVisibility(true);
             _lastActivityTime = Time.unscaledTime;
+        }
+
+        private void ApplyPresentationVisibility(bool visible)
+        {
+            if (_panel != null)
+                _panel.alpha = visible ? 1f : 0f;
+
+            // Keep this component active for hotkey polling, but remove every
+            // rendered/clickable child while chat is dormant. This also avoids
+            // nested NGUI panels remaining visible when their parent alpha changes.
+            NGUITools.SetActiveChildren(gameObject, visible);
         }
 
         private void OnSubmit()
@@ -491,7 +568,10 @@ namespace GraveyardKeeperCoop.UI
         /// <summary>
         /// Receive a chat message from another player
         /// </summary>
-        public void ReceiveMessage(string senderName, string text)
+        public void ReceiveMessage(
+            string senderName,
+            string text,
+            Steamworks.CSteamID senderID = default)
         {
             AddLine(FormatMessage(senderName, text, false));
 
@@ -499,7 +579,7 @@ namespace GraveyardKeeperCoop.UI
             if (AreChatBubblesEnabled())
             {
                 float duration = ModConfig.ChatBubbleDuration?.Value ?? 5f;
-                ChatBubbleManager.ShowRemoteMessage(text, duration);
+                ChatBubbleManager.ShowRemoteMessage(senderID, text, duration);
             }
         }
 
@@ -558,6 +638,8 @@ namespace GraveyardKeeperCoop.UI
 
         public void Show()
         {
+            if (_endingSession)
+                return;
             gameObject.SetActive(true);
             Reveal();
         }
@@ -569,6 +651,41 @@ namespace GraveyardKeeperCoop.UI
                 _input.isSelected = false;
             _focused = false;
             FadeOut();
+        }
+
+        /// <summary>
+        /// Permanently close this session-scoped overlay. Hide() deliberately
+        /// keeps Update alive for the chat hotkey; that behavior is wrong after
+        /// a disconnect because menu/lobby messages can reveal the old overlay.
+        /// </summary>
+        public void EndSession()
+        {
+            if (_endingSession)
+                return;
+
+            _endingSession = true;
+            if (_input != null)
+            {
+                _input.value = string.Empty;
+                _input.isSelected = false;
+                if (UICamera.selectedObject == _input.gameObject)
+                    UICamera.selectedObject = null;
+            }
+            _focused = false;
+            _history.Clear();
+            if (_logLabel != null)
+            {
+                _logLabel.text = string.Empty;
+                _logLabel.MarkAsChanged();
+            }
+
+            ApplyPresentationVisibility(false);
+            gameObject.SetActive(false);
+            if (_instance == this)
+                _instance = null;
+            Destroy(gameObject);
+            CoopMod.Logger.LogInfo(
+                "[ChatOverlay] Closed and cleared for session end");
         }
 
         public void Toggle()

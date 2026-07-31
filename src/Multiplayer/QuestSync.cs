@@ -5,6 +5,7 @@ using System.Text;
 using Steamworks;
 using UnityEngine;
 using GraveyardKeeperCoop.Network;
+using GraveyardKeeperCoop.Patches;
 
 namespace GraveyardKeeperCoop.Multiplayer
 {
@@ -17,7 +18,9 @@ namespace GraveyardKeeperCoop.Multiplayer
         private const int MaxTasksPerNpc = 128;
         private const int MaxQuests = 256;
         private const int MaxStringsPerList = 4096;
-        private const string GerryDigQuestId = "dig_graved_skull";
+        private const string GerryNpcId = "crafting_skull_3";
+        private const string GerryBeerTaskId = "skull_beer";
+        private const float GerryIntroductionRelationship = 10f;
 
         internal const byte SubFullSync = 0;
         internal const byte SubTaskState = 1;
@@ -32,6 +35,8 @@ namespace GraveyardKeeperCoop.Multiplayer
         protected override void OnPeriodicSyncEnabled()
         {
             QuestSideEffectSync.ResetSession();
+            QuestSideEffectSync.ReconcileSucceededQuestParameters();
+            ReconcileCurrentTaskRelationshipMilestones();
         }
 
         protected override void OnSyncDisabled()
@@ -61,6 +66,53 @@ namespace GraveyardKeeperCoop.Multiplayer
 
         protected override bool ShouldSend() =>
             MainGame.me != null && MainGame.game_started && MainGame.me.save != null;
+
+        internal static void ApplyTaskRelationshipMilestone(
+            string npcId,
+            string taskId,
+            KnownNPC.TaskState.State state)
+        {
+            var coop = OnlineCoopManager.Instance;
+            if (coop == null || !coop.IsOnlineCoopEnabled ||
+                state != KnownNPC.TaskState.State.Visible ||
+                !string.Equals(npcId, GerryNpcId, StringComparison.Ordinal) ||
+                !string.Equals(taskId, GerryBeerTaskId, StringComparison.Ordinal))
+            {
+                return;
+            }
+
+            WorldGameObject player = MainGame.me?.player;
+            if (player?.data == null)
+                return;
+
+            string relationshipKey = "_rel_" + GerryNpcId;
+            float current = player.data.GetParam(relationshipKey, 0f);
+            if (current >= GerryIntroductionRelationship)
+                return;
+
+            player.SetParam(relationshipKey, GerryIntroductionRelationship);
+            CoopMod.Logger.LogInfo(
+                $"[QuestSync] Applied Gerry introduction relationship milestone: " +
+                $"{current:F0} -> {GerryIntroductionRelationship:F0}");
+        }
+
+        private static void ReconcileCurrentTaskRelationshipMilestones()
+        {
+            KnownNPC gerry = MainGame.me?.save?.known_npcs?.GetNPC(GerryNpcId);
+            if (gerry == null)
+                return;
+
+            KnownNPC.TaskState.State taskState =
+                gerry.GetQuestState(GerryBeerTaskId);
+            if (taskState == KnownNPC.TaskState.State.Visible ||
+                taskState == KnownNPC.TaskState.State.Complete)
+            {
+                ApplyTaskRelationshipMilestone(
+                    GerryNpcId,
+                    GerryBeerTaskId,
+                    KnownNPC.TaskState.State.Visible);
+            }
+        }
 
 
         internal void SendTaskStateEvent(string npcId, string taskId, int state)
@@ -127,7 +179,6 @@ namespace GraveyardKeeperCoop.Multiplayer
             if (!IsSyncEnabled) return;
             if (!IsOnline) return;
             if (IsApplyingRemoteChange) return;
-            if (IsTransientDigQuest(questId)) return;
 
             using (var stream = new MemoryStream(128))
             using (var bw = new BinaryWriter(stream, Encoding.UTF8))
@@ -147,7 +198,9 @@ namespace GraveyardKeeperCoop.Multiplayer
             if (!IsSyncEnabled) return;
             if (!IsOnline) return;
             if (IsApplyingRemoteChange) return;
-            if (IsTransientDigQuest(questId)) return;
+
+            if (succeeded)
+                QuestSideEffectSync.ApplySucceededQuestParameterRepair(questId);
 
             using (var stream = new MemoryStream(128))
             using (var bw = new BinaryWriter(stream, Encoding.UTF8))
@@ -260,8 +313,7 @@ namespace GraveyardKeeperCoop.Multiplayer
                  i++)
             {
                 var qs = currentQuests[i];
-                if (qs?.definition == null ||
-                    IsTransientDigQuest(qs.definition.id))
+                if (qs?.definition == null)
                 {
                     continue;
                 }
@@ -340,6 +392,7 @@ namespace GraveyardKeeperCoop.Multiplayer
                     : new HashSet<string>();
 
                 ApplyNpcList(reader, save);
+                ReconcileCurrentTaskRelationshipMilestones();
                 ApplyQuestStateList(reader, save);
                 ApplyStringList(reader, ref save.quests, "_succed_quests");
                 if (save.quests != null)
@@ -349,6 +402,7 @@ namespace GraveyardKeeperCoop.Multiplayer
 
                 ApplyEchoSuppress();
                 ForceNextSend = true;
+                RefreshQuestPresentation();
 
                 CoopMod.Logger.LogInfo($"{LogPrefix} Applied full quest/NPC knowledge snapshot");
             }
@@ -395,9 +449,6 @@ namespace GraveyardKeeperCoop.Multiplayer
                 string questId = reader.ReadString();
                 byte stateByte = reader.ReadByte();
                 long startTime = reader.ReadInt64();
-                if (IsTransientDigQuest(questId))
-                    continue;
-
                 QuestDefinition questDef = null;
                 if (questDefs != null)
                 {
@@ -471,8 +522,29 @@ namespace GraveyardKeeperCoop.Multiplayer
             {
                 ApplyRemote(() =>
                 {
-                    var npc = MainGame.me.save.known_npcs.GetOrCreateNPC(npcId);
+                    GameSave save = MainGame.me.save;
+                    var npc = save.known_npcs.GetOrCreateNPC(npcId);
+                    ApplyTaskRelationshipMilestone(npcId, taskId, state);
+                    if (npc.GetQuestState(taskId) == state)
+                        return;
+
+                    // Commit immediately so shared progression never depends on a
+                    // flying UI animation reaching its destination. Then run the
+                    // vanilla presentation path: it opens the temporary NPC panel,
+                    // animates the task marker and displays the relation progress
+                    // that the initiating player sees. ApplyRemote keeps the
+                    // GameSave.SetTaskState Harmony prefix from echoing this event.
                     npc.SetQuestState(taskId, state);
+                    try
+                    {
+                        save.SetTaskState(npcId, taskId, state, null);
+                    }
+                    catch (Exception ex)
+                    {
+                        CoopMod.Logger.LogWarning(
+                            $"{LogPrefix} Applied TaskState but could not show " +
+                            $"its vanilla presentation: {ex.Message}");
+                    }
                 });
                 CoopMod.Logger.LogInfo($"{LogPrefix} Applied TaskState: npc={npcId}, task={taskId}, state={state}");
             }
@@ -507,8 +579,8 @@ namespace GraveyardKeeperCoop.Multiplayer
             if (!CheckSequence(reader, senderID)) return;
 
             string questId = reader.ReadString();
-            if (IsTransientDigQuest(questId)) return;
-
+            CutsceneSyncPatches.MarkRemoteFirstBurialCutsceneHandoff(
+                questId);
             var questDef = GameBalance.me?.GetDataOrNull<QuestDefinition>(questId);
             if (questDef != null && MainGame.me?.save?.quests != null)
             {
@@ -552,7 +624,8 @@ namespace GraveyardKeeperCoop.Multiplayer
 
             // QuestSystem.StartQuest also calls StartStartingScripts. The initiating
             // peer owns that live cutscene, so synchronize only durable quest state
-            // and the triggers needed for either peer to complete it later.
+            // and the triggers needed for either peer to complete it later. The
+            // active QuestState also drives QuestListGUI's golden objective arrow.
             questDef.InitQuestEndTriggers();
             List<string> executedQuests = GetExecutedQuests(quests);
             if (!executedQuests.Contains(questDef.id))
@@ -567,11 +640,15 @@ namespace GraveyardKeeperCoop.Multiplayer
 
             string questId = reader.ReadString();
             bool succeeded = reader.ReadBoolean();
-            if (IsTransientDigQuest(questId)) return;
-
             if (MainGame.me?.save?.quests != null)
             {
                 QuestSystem quests = MainGame.me.save.quests;
+                if (succeeded)
+                {
+                    ApplyRemote(() =>
+                        QuestSideEffectSync.ApplySucceededQuestParameterRepair(questId));
+                }
+
                 if ((succeeded && quests.IsQuestSucced(questId)) ||
                     (!succeeded && quests.IsQuestFaild(questId)))
                 {
@@ -624,12 +701,10 @@ namespace GraveyardKeeperCoop.Multiplayer
             GUIElements.me?.quest_list?.Redraw();
         }
 
-        private static bool IsTransientDigQuest(string questId)
+        private static void RefreshQuestPresentation()
         {
-            return string.Equals(
-                questId,
-                GerryDigQuestId,
-                StringComparison.Ordinal);
+            GUIElements.me?.quest_list?.Redraw();
+            GUIElements.me?.relation?.npc_tasks?.Redraw();
         }
     }
 }

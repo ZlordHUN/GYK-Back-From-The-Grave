@@ -15,6 +15,8 @@ namespace GraveyardKeeperCoop.Network
         public const string LobbyStatusInLobby = "In Lobby";
         public const string LobbyStatusInGame = "In Game";
         public const string LobbyDataDLC = "dlc";
+        public const string LobbyDataModVersion = "mod_version";
+        private const float MemberVersionValidationTimeout = 3f;
 
         private static SteamLobbyManager _instance;
         public static SteamLobbyManager Instance
@@ -36,12 +38,18 @@ namespace GraveyardKeeperCoop.Network
         private bool isHost = false;
         private CSteamID originalHostID = CSteamID.Nil; // Store the original host when joining
         private ModConfig.SessionVisibility currentSessionVisibility = ModConfig.SessionVisibility.Friends;
+        private CSteamID reliableTransportLobbyID = CSteamID.Nil;
+        private readonly Dictionary<ulong, float> pendingMemberVersionChecks =
+            new Dictionary<ulong, float>();
+        private readonly HashSet<ulong> validatedMemberVersions =
+            new HashSet<ulong>();
 
         // Steam callbacks
         private Callback<LobbyCreated_t> lobbyCreatedCallback;
         private Callback<LobbyEnter_t> lobbyEnterCallback;
         private Callback<GameLobbyJoinRequested_t> joinRequestCallback;
         private Callback<LobbyChatUpdate_t> lobbyChatUpdateCallback;
+        private Callback<LobbyDataUpdate_t> lobbyDataUpdateCallback;
 
         // Lobby search
         private CallResult<LobbyMatchList_t> lobbySearchCallResult;
@@ -95,6 +103,7 @@ namespace GraveyardKeeperCoop.Network
             lobbyEnterCallback = Callback<LobbyEnter_t>.Create(OnLobbyEnter);
             joinRequestCallback = Callback<GameLobbyJoinRequested_t>.Create(OnJoinRequest);
             lobbyChatUpdateCallback = Callback<LobbyChatUpdate_t>.Create(OnLobbyChatUpdate);
+            lobbyDataUpdateCallback = Callback<LobbyDataUpdate_t>.Create(OnLobbyDataUpdate);
 
             CoopMod.Logger.LogInfo("[LOBBY] ✓ SteamLobbyManager initialized - callbacks registered");
             CoopMod.Logger.LogInfo($"[LOBBY] Local Steam ID: {SteamUser.GetSteamID()}");
@@ -104,8 +113,8 @@ namespace GraveyardKeeperCoop.Network
         /// <summary>
         /// Create a new Steam lobby
         /// </summary>
-        /// <param name="maxMembers">Maximum number of players (default 2)</param>
-        public void CreateLobby(int maxMembers = 2)
+        /// <param name="maxMembers">Maximum number of players (2-4)</param>
+        public void CreateLobby(int maxMembers = 4)
         {
             currentSessionVisibility = ModConfig.HostedSessionVisibility?.Value ?? ModConfig.SessionVisibility.Friends;
             CreateLobby(maxMembers, ToSteamLobbyType(currentSessionVisibility));
@@ -115,6 +124,7 @@ namespace GraveyardKeeperCoop.Network
         /// <param name="lobbyType">Lobby visibility type</param>
         public void CreateLobby(int maxMembers, ELobbyType lobbyType)
         {
+            maxMembers = Mathf.Clamp(maxMembers, 2, 4);
             CoopMod.Logger.LogInfo("[LOBBY] ========== CreateLobby() CALLED ==========");
             CoopMod.Logger.LogInfo($"[LOBBY] SteamManager.Initialized = {SteamManager.Initialized}");
             CoopMod.Logger.LogInfo($"[LOBBY] isInLobby = {isInLobby}");
@@ -156,8 +166,12 @@ namespace GraveyardKeeperCoop.Network
                 case ModConfig.SessionVisibility.Private:
                     return ELobbyType.k_ELobbyTypePrivate;
                 case ModConfig.SessionVisibility.Friends:
+                    // Steam excludes k_ELobbyTypeFriendsOnly from RequestLobbyList.
+                    // Use a searchable backend lobby and enforce the Friends policy
+                    // through lobby metadata, browser filtering, and host admission.
+                    return ELobbyType.k_ELobbyTypePublic;
                 default:
-                    return ELobbyType.k_ELobbyTypeFriendsOnly;
+                    return ELobbyType.k_ELobbyTypePublic;
             }
         }
 
@@ -198,12 +212,26 @@ namespace GraveyardKeeperCoop.Network
             // Best-effort preflight for lobby-browser/LAN entries where Steam has
             // already cached lobby metadata. Invite/rich-presence joins may not have
             // data yet, so OnLobbyEnter repeats this check authoritatively.
+            string knownHostVersion =
+                SteamMatchmaking.GetLobbyData(lobbyID, LobbyDataModVersion);
+            if (!string.IsNullOrEmpty(knownHostVersion) &&
+                !TryValidateHostModVersion(
+                    knownHostVersion,
+                    out string versionRejectMessage))
+            {
+                CoopMod.Logger.LogWarning(
+                    $"[LOBBY] Refusing to join lobby {lobbyID}: " +
+                    versionRejectMessage.Replace('\n', ' '));
+                RejectJoinAttempt(versionRejectMessage, leaveLobby: false);
+                return;
+            }
+
             string knownDLCRequirements = SteamMatchmaking.GetLobbyData(lobbyID, LobbyDataDLC);
             if (!string.IsNullOrEmpty(knownDLCRequirements) &&
                 !TryValidateDLCRequirements(knownDLCRequirements, out string dlcRejectMessage))
             {
                 CoopMod.Logger.LogWarning($"[LOBBY] Refusing to join lobby {lobbyID}: {dlcRejectMessage}");
-                RejectJoinForDLC(dlcRejectMessage, leaveLobby: false);
+                RejectJoinAttempt(dlcRejectMessage, leaveLobby: false);
                 return;
             }
 
@@ -226,16 +254,21 @@ namespace GraveyardKeeperCoop.Network
             }
 
             CoopMod.Logger.LogInfo($"Leaving Steam lobby {currentLobbyID}...");
+            SteamP2PManager.Instance.ClearLobbySession();
             SteamMatchmaking.LeaveLobby(currentLobbyID);
             SteamJoinFlow.ClearPresence();
             LanDiscoveryService.Instance.StopAdvertising();
+            ChatOverlay.Instance?.EndSession();
 
             currentLobbyID = CSteamID.Nil;
             isInLobby = false;
             isJoining = false;
             isHost = false;
             originalHostID = CSteamID.Nil;
+            reliableTransportLobbyID = CSteamID.Nil;
             currentSessionVisibility = ModConfig.SessionVisibility.Friends;
+            pendingMemberVersionChecks.Clear();
+            validatedMemberVersions.Clear();
         }
 
         /// <summary>
@@ -388,6 +421,32 @@ namespace GraveyardKeeperCoop.Network
             return false;
         }
 
+        public static bool TryValidateHostModVersion(
+            string hostVersion,
+            out string rejectionMessage)
+        {
+            string localVersion = PluginInfo.PLUGIN_VERSION ?? string.Empty;
+            string normalizedHostVersion = (hostVersion ?? string.Empty).Trim();
+            if (!string.IsNullOrEmpty(normalizedHostVersion) &&
+                string.Equals(
+                    normalizedHostVersion,
+                    localVersion,
+                    StringComparison.Ordinal))
+            {
+                rejectionMessage = string.Empty;
+                return true;
+            }
+
+            string displayedHostVersion = string.IsNullOrEmpty(normalizedHostVersion)
+                ? "unavailable (outdated mod)"
+                : normalizedHostVersion;
+            rejectionMessage =
+                "Cannot join: mod version mismatch.\n" +
+                $"Your version: {localVersion}\n" +
+                $"Host version: {displayedHostVersion}";
+            return false;
+        }
+
         private static void ShowUserDialog(string message)
         {
             if (GUIElements.me != null && GUIElements.me.dialog != null)
@@ -400,7 +459,7 @@ namespace GraveyardKeeperCoop.Network
             }
         }
 
-        private void RejectJoinForDLC(string message, bool leaveLobby)
+        private void RejectJoinAttempt(string message, bool leaveLobby)
         {
             isJoining = false;
 
@@ -418,7 +477,79 @@ namespace GraveyardKeeperCoop.Network
             ShowUserDialog(message);
         }
 
+        private static bool IsImmediateSteamFriend(CSteamID steamID)
+        {
+            if (!SteamManager.Initialized || steamID == CSteamID.Nil)
+                return false;
+
+            int friendCount = SteamFriends.GetFriendCount(
+                EFriendFlags.k_EFriendFlagImmediate);
+            for (int i = 0; i < friendCount; i++)
+            {
+                if (SteamFriends.GetFriendByIndex(
+                        i,
+                        EFriendFlags.k_EFriendFlagImmediate) == steamID)
+                {
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
         // ===== Steam Callback Handlers =====
+
+        private void InitializeReliableTransport(CSteamID lobbyID)
+        {
+            if (lobbyID == CSteamID.Nil)
+                return;
+
+            SteamP2PManager p2p = SteamP2PManager.Instance;
+            if (p2p?.Reliable == null)
+                return;
+
+            if (reliableTransportLobbyID != lobbyID)
+            {
+                p2p.BeginLobbySession(lobbyID);
+                reliableTransportLobbyID = lobbyID;
+            }
+
+            // Publish the session nonce before capability so peers never observe v2 support
+            // without the nonce required to authenticate its handshake.
+            SteamMatchmaking.SetLobbyMemberData(
+                lobbyID,
+                LobbyDataModVersion,
+                PluginInfo.PLUGIN_VERSION ?? string.Empty);
+            SteamMatchmaking.SetLobbyMemberData(
+                lobbyID,
+                ReliableTransport.LegacyCapabilityKey,
+                string.Empty);
+            SteamMatchmaking.SetLobbyMemberData(
+                lobbyID,
+                ReliableTransport.NonceKey,
+                p2p.Reliable.LocalNonceValue);
+            SteamMatchmaking.SetLobbyMemberData(
+                lobbyID,
+                ReliableTransport.CapabilityKey,
+                ReliableTransport.CapabilityValue);
+            SteamMatchmaking.SetLobbyMemberData(
+                lobbyID,
+                Multiplayer.SpawnSync.BuildingPreviewCapabilityKey,
+                Multiplayer.SpawnSync.BuildingPreviewCapabilityValue);
+            SteamMatchmaking.SetLobbyMemberData(
+                lobbyID,
+                Multiplayer.InventorySync.PersonalUseCapabilityKey,
+                Multiplayer.InventorySync.PersonalUseCapabilityValue);
+
+            CSteamID localID = SteamUser.GetSteamID();
+            int memberCount = SteamMatchmaking.GetNumLobbyMembers(lobbyID);
+            for (int i = 0; i < memberCount; i++)
+            {
+                CSteamID memberID = SteamMatchmaking.GetLobbyMemberByIndex(lobbyID, i);
+                if (memberID != localID)
+                    p2p.OnPeerEnteredLobby(memberID);
+            }
+        }
 
         private void OnLobbyCreated(LobbyCreated_t callback)
         {
@@ -436,23 +567,28 @@ namespace GraveyardKeeperCoop.Network
             currentLobbyID = new CSteamID(callback.m_ulSteamIDLobby);
             isInLobby = true;
             isHost = true;
+            pendingMemberVersionChecks.Clear();
+            validatedMemberVersions.Clear();
+
+            InitializeReliableTransport(currentLobbyID);
 
             CoopMod.Logger.LogInfo($"[LOBBY] ✓ Successfully created lobby: {currentLobbyID}");
             CoopMod.Logger.LogInfo("[LOBBY] You are the HOST!");
             CoopMod.Logger.LogInfo($"[LOBBY] isInLobby = {isInLobby}, isHost = {isHost}");
 
-            // Set Rich Presence so allowed players can "Join Game" via Steam overlay.
-            SteamJoinFlow.SetHosting(SteamUser.GetSteamID(), AllowsRichPresenceJoin);
-
             // Set some default lobby data
             SetLobbyData("game", "Graveyard Keeper");
             SetLobbyData("mod", PluginInfo.PLUGIN_DISPLAY_NAME);
+            SetLobbyData(LobbyDataModVersion, PluginInfo.PLUGIN_VERSION);
             SetLobbyData("host_name", SteamFriends.GetPersonaName());
             SetLobbyData("max_players", ModConfig.MaxPlayers.Value.ToString());
             SetLobbyData("visibility", currentSessionVisibility.ToString());
             SetLobbyData("status", LobbyStatusInLobby);
             SetLobbyData(LobbyDataDLC, ModConfig.GetDLCRequirementsString());
             RefreshLanAdvertisement();
+
+            // Publish joinable presence only after compatibility metadata exists.
+            SteamJoinFlow.SetHosting(SteamUser.GetSteamID(), AllowsRichPresenceJoin);
 
             // Notify via chat
             PostChatMessage("[System] Steam lobby created successfully! You can now invite friends.");
@@ -484,6 +620,52 @@ namespace GraveyardKeeperCoop.Network
             CSteamID localPlayer = SteamUser.GetSteamID();
             isHost = (owner == localPlayer);
             originalHostID = owner; // Store for later host-left detection
+            pendingMemberVersionChecks.Clear();
+            validatedMemberVersions.Clear();
+
+            string declaredVisibility = GetLobbyData("visibility");
+            if (!isHost &&
+                string.Equals(
+                    declaredVisibility,
+                    ModConfig.SessionVisibility.Friends.ToString(),
+                    StringComparison.OrdinalIgnoreCase) &&
+                !IsImmediateSteamFriend(owner))
+            {
+                const string rejection =
+                    "Cannot join: this lobby is restricted to the host's Steam friends.";
+                CoopMod.Logger.LogWarning(
+                    $"[LOBBY] Rejecting Friends lobby {currentLobbyID}: " +
+                    $"owner {owner} is not an immediate Steam friend");
+                RejectJoinAttempt(rejection, leaveLobby: true);
+                return;
+            }
+
+            if (!isHost)
+            {
+                string hostVersion = GetLobbyData(LobbyDataModVersion);
+                if (!TryValidateHostModVersion(
+                        hostVersion,
+                        out string versionRejectMessage))
+                {
+                    CoopMod.Logger.LogWarning(
+                        $"[LOBBY] Mod version check failed for lobby " +
+                        $"{currentLobbyID}: " +
+                        versionRejectMessage.Replace('\n', ' '));
+                    RejectJoinAttempt(versionRejectMessage, leaveLobby: true);
+                    return;
+                }
+
+            }
+
+            InitializeReliableTransport(currentLobbyID);
+
+            if (!isHost)
+            {
+                // Confirm the exact version over Steam P2P before any subscriber
+                // can send save-list, save-transfer, or gameplay traffic. The
+                // host also checks member data as a fallback if this packet is lost.
+                SteamP2PManager.Instance.SendVersionHello(owner);
+            }
 
             int memberCount = GetLobbyMemberCount();
             
@@ -515,7 +697,7 @@ namespace GraveyardKeeperCoop.Network
                 if (!TryValidateDLCRequirements(hostDLC, out string dlcRejectMessage))
                 {
                     CoopMod.Logger.LogWarning($"[LOBBY] DLC compatibility check failed: {dlcRejectMessage}");
-                    RejectJoinForDLC(dlcRejectMessage, leaveLobby: true);
+                    RejectJoinAttempt(dlcRejectMessage, leaveLobby: true);
                     return;
                 }
 
@@ -656,35 +838,46 @@ namespace GraveyardKeeperCoop.Network
             // Handle different state changes
             if ((stateChange & EChatMemberStateChange.k_EChatMemberStateChangeEntered) != 0)
             {
-                CoopMod.Logger.LogInfo($"[LOBBY] {userName} joined the lobby!");
-                
-                // Update the LobbyGUI if open
-                CoopMod.Logger.LogInfo($"[LOBBY] LobbyGUI.Instance: {(LobbyGUI.Instance != null ? "exists" : "null")}");
-                if (LobbyGUI.Instance != null)
+                if (isHost &&
+                    userChanged != SteamUser.GetSteamID() &&
+                    currentSessionVisibility == ModConfig.SessionVisibility.Friends &&
+                    !IsImmediateSteamFriend(userChanged))
                 {
-                    CoopMod.Logger.LogInfo($"[LOBBY] LobbyGUI.is_shown: {LobbyGUI.Instance.is_shown}");
-                    CoopMod.Logger.LogInfo($"[LOBBY] LobbyGUI.gameObject.activeSelf: {LobbyGUI.Instance.gameObject.activeSelf}");
-                }
-                
-                if (LobbyGUI.Instance != null && LobbyGUI.Instance.gameObject.activeSelf)
-                {
-                    CoopMod.Logger.LogInfo($"[LOBBY] Adding player avatar for {userName}...");
-                    LobbyGUI.Instance.AddPlayerWithSteamID(userName, userChanged);
+                    const string rejection =
+                        "This lobby is restricted to the host's Steam friends.";
+                    CoopMod.Logger.LogWarning(
+                        $"[LOBBY] Rejecting non-friend {userName} ({userChanged}) " +
+                        "from Friends session");
+                    bool sent = SteamP2PManager.Instance.SendLobbyKick(
+                        userChanged,
+                        rejection);
+                    CoopMod.Logger.LogInfo(
+                        $"[LOBBY] Friends-only rejection sent to {userChanged}: {sent}");
+                    PostChatMessage(
+                        $"[System] Rejected {userName}: Friends-only session.");
+                    return;
                 }
 
-                if (isHost)
+                if (isHost && userChanged != SteamUser.GetSteamID())
                 {
-                    RefreshLanAdvertisement();
+                    ValidateOrQueueLobbyMember(userChanged, userName);
+                    return;
                 }
-                
-                PostChatMessage($"[System] {userName} joined the lobby!");
+
+                AdmitLobbyMember(userChanged, userName);
             }
             else if ((stateChange & EChatMemberStateChange.k_EChatMemberStateChangeLeft) != 0 ||
                      (stateChange & EChatMemberStateChange.k_EChatMemberStateChangeDisconnected) != 0 ||
                      (stateChange & EChatMemberStateChange.k_EChatMemberStateChangeKicked) != 0 ||
                      (stateChange & EChatMemberStateChange.k_EChatMemberStateChangeBanned) != 0)
             {
+                pendingMemberVersionChecks.Remove(userChanged.m_SteamID);
+                validatedMemberVersions.Remove(userChanged.m_SteamID);
                 CoopMod.Logger.LogInfo($"[LOBBY] {userName} left the lobby!");
+                SteamP2PManager.Instance.OnPeerLeftLobby(userChanged);
+                OnlineCoopManager.Instance?.HandlePeerLeftLobby(userChanged, userName);
+                GraveyardKeeperCoop.Multiplayer.GameTimeSync.Instance
+                    ?.NotifySleepPeerLeft(userChanged);
                 
                 // Check if the person who left was the original host
                 // We compare against originalHostID (stored when we joined) because
@@ -733,6 +926,188 @@ namespace GraveyardKeeperCoop.Network
                     RefreshLanAdvertisement();
                 }
             }
+        }
+
+        private void OnLobbyDataUpdate(LobbyDataUpdate_t callback)
+        {
+            if (callback.m_ulSteamIDLobby != currentLobbyID.m_SteamID)
+                return;
+
+            CSteamID member = new CSteamID(callback.m_ulSteamIDMember);
+            if (!pendingMemberVersionChecks.ContainsKey(member.m_SteamID))
+                return;
+
+            string memberName = SteamFriends.GetFriendPersonaName(member);
+            ValidateOrQueueLobbyMember(member, memberName, preserveDeadline: true);
+        }
+
+        public void Update()
+        {
+            if (!isHost || !isInLobby || pendingMemberVersionChecks.Count == 0)
+                return;
+
+            float now = Time.realtimeSinceStartup;
+            var members = new List<ulong>(pendingMemberVersionChecks.Keys);
+            for (int i = 0; i < members.Count; i++)
+            {
+                ulong memberValue = members[i];
+                if (!pendingMemberVersionChecks.TryGetValue(
+                        memberValue,
+                        out float deadline))
+                {
+                    continue;
+                }
+
+                CSteamID member = new CSteamID(memberValue);
+                string memberName = SteamFriends.GetFriendPersonaName(member);
+                string memberVersion = SteamMatchmaking.GetLobbyMemberData(
+                    currentLobbyID,
+                    member,
+                    LobbyDataModVersion);
+                if (!string.IsNullOrEmpty(memberVersion))
+                {
+                    CompleteLobbyMemberVersionValidation(
+                        member,
+                        memberName,
+                        memberVersion);
+                }
+                else if (now >= deadline)
+                {
+                    RejectLobbyMemberVersion(member, memberName, string.Empty);
+                }
+            }
+        }
+
+        private void ValidateOrQueueLobbyMember(
+            CSteamID member,
+            string memberName,
+            bool preserveDeadline = false)
+        {
+            string memberVersion = SteamMatchmaking.GetLobbyMemberData(
+                currentLobbyID,
+                member,
+                LobbyDataModVersion);
+            if (!string.IsNullOrEmpty(memberVersion))
+            {
+                CompleteLobbyMemberVersionValidation(
+                    member,
+                    memberName,
+                    memberVersion);
+                return;
+            }
+
+            if (!preserveDeadline ||
+                !pendingMemberVersionChecks.ContainsKey(member.m_SteamID))
+            {
+                pendingMemberVersionChecks[member.m_SteamID] =
+                    Time.realtimeSinceStartup + MemberVersionValidationTimeout;
+            }
+            CoopMod.Logger.LogInfo(
+                $"[LOBBY] Waiting for mod version from {memberName} ({member})");
+        }
+
+        private void CompleteLobbyMemberVersionValidation(
+            CSteamID member,
+            string memberName,
+            string memberVersion)
+        {
+            pendingMemberVersionChecks.Remove(member.m_SteamID);
+            if (validatedMemberVersions.Contains(member.m_SteamID))
+                return;
+
+            string localVersion = PluginInfo.PLUGIN_VERSION ?? string.Empty;
+            if (!string.Equals(
+                    (memberVersion ?? string.Empty).Trim(),
+                    localVersion,
+                    StringComparison.Ordinal))
+            {
+                RejectLobbyMemberVersion(member, memberName, memberVersion);
+                return;
+            }
+
+            validatedMemberVersions.Add(member.m_SteamID);
+            CoopMod.Logger.LogInfo(
+                $"[LOBBY] Accepted {memberName} ({member}) with mod version " +
+                memberVersion);
+            AdmitLobbyMember(member, memberName);
+        }
+
+        internal void HandleVersionHello(CSteamID member, string memberVersion)
+        {
+            if (!isHost || !isInLobby || member == CSteamID.Nil)
+                return;
+
+            CompleteLobbyMemberVersionValidation(
+                member,
+                SteamFriends.GetFriendPersonaName(member),
+                memberVersion);
+        }
+
+        private void RejectLobbyMemberVersion(
+            CSteamID member,
+            string memberName,
+            string memberVersion)
+        {
+            pendingMemberVersionChecks.Remove(member.m_SteamID);
+            string localVersion = PluginInfo.PLUGIN_VERSION ?? string.Empty;
+            string displayedMemberVersion = string.IsNullOrEmpty(memberVersion)
+                ? "unavailable (outdated mod)"
+                : memberVersion.Trim();
+            string rejection =
+                "Cannot join: mod version mismatch.\n" +
+                $"Host version: {localVersion}\n" +
+                $"Your version: {displayedMemberVersion}";
+            bool sent = SteamP2PManager.Instance?.SendLobbyKick(
+                member,
+                rejection) == true;
+            CoopMod.Logger.LogWarning(
+                $"[LOBBY] Rejected {memberName} ({member}) with mod version " +
+                $"'{displayedMemberVersion}'; kick_sent={sent}");
+            PostChatMessage(
+                $"[System] Rejected {memberName}: mod version mismatch.");
+        }
+
+        private void AdmitLobbyMember(CSteamID member, string memberName)
+        {
+            CoopMod.Logger.LogInfo($"[LOBBY] {memberName} joined the lobby!");
+            SteamP2PManager.Instance.OnPeerEnteredLobby(member);
+            OnlineCoopManager.Instance?.HandlePeerEnteredLobby(member);
+
+            CoopMod.Logger.LogInfo(
+                $"[LOBBY] LobbyGUI.Instance: " +
+                $"{(LobbyGUI.Instance != null ? "exists" : "null")}");
+            if (LobbyGUI.Instance != null)
+            {
+                CoopMod.Logger.LogInfo(
+                    $"[LOBBY] LobbyGUI.is_shown: {LobbyGUI.Instance.is_shown}");
+                CoopMod.Logger.LogInfo(
+                    $"[LOBBY] LobbyGUI.gameObject.activeSelf: " +
+                    $"{LobbyGUI.Instance.gameObject.activeSelf}");
+            }
+
+            if (LobbyGUI.Instance != null &&
+                LobbyGUI.Instance.gameObject.activeSelf)
+            {
+                CoopMod.Logger.LogInfo(
+                    $"[LOBBY] Adding player avatar for {memberName}...");
+                LobbyGUI.Instance.AddPlayerWithSteamID(memberName, member);
+            }
+
+            if (isHost)
+                RefreshLanAdvertisement();
+
+            PostChatMessage($"[System] {memberName} joined the lobby!");
+        }
+
+        internal bool IsPeerVersionValidated(CSteamID peer)
+        {
+            if (peer == CSteamID.Nil || peer == SteamUser.GetSteamID())
+                return false;
+
+            if (!isHost)
+                return true;
+
+            return validatedMemberVersions.Contains(peer.m_SteamID);
         }
 
         /// <summary>
@@ -878,7 +1253,9 @@ namespace GraveyardKeeperCoop.Network
 
                 // Read lobby metadata
                 string hostName = SteamMatchmaking.GetLobbyData(lobbyID, "host_name");
-                string modVersion = SteamMatchmaking.GetLobbyData(lobbyID, "mod");
+                string modVersion = SteamMatchmaking.GetLobbyData(
+                    lobbyID,
+                    LobbyDataModVersion);
                 string status = SteamMatchmaking.GetLobbyData(lobbyID, "status");
                 string visibility = SteamMatchmaking.GetLobbyData(lobbyID, "visibility");
                 string dlcRequirements = SteamMatchmaking.GetLobbyData(lobbyID, LobbyDataDLC);
@@ -1013,7 +1390,7 @@ namespace GraveyardKeeperCoop.Network
                 MaxPlayers = maxPlayers,
                 Status = status,
                 Visibility = currentSessionVisibility.ToString(),
-                ModVersion = PluginInfo.PLUGIN_DISPLAY_VERSION,
+                ModVersion = PluginInfo.PLUGIN_VERSION,
                 DLCRequirements = ModConfig.GetDLCRequirementsString()
             });
             LanDiscoveryService.Instance.StartAdvertising();

@@ -134,13 +134,23 @@ namespace GraveyardKeeperCoop.Multiplayer
                     return;
                 }
 
-                foreach (var wgo in worldObjects)
+                WorldGameObject target = null;
+                for (int i = 0; i < worldObjects.Count; i++)
                 {
+                    WorldGameObject wgo = worldObjects[i];
                     if (wgo != null && wgo.unique_id == uniqueId)
                     {
-                        CoopMod.Logger.LogDebug($"{LogPrefix} Destroying WGO locally: {wgo.obj_id} (uid: {uniqueId})");
-                        wgo.DestroyMe();
+                        target = wgo;
+                        break;
                     }
+                }
+
+                // DestroyMe unregisters the WGO and mutates WGORegistry's cached
+                // snapshot. Resolve first and destroy after enumeration has ended.
+                if (target != null)
+                {
+                    CoopMod.Logger.LogDebug($"{LogPrefix} Destroying WGO locally: {target.obj_id} (uid: {uniqueId})");
+                    target.DestroyMe();
                 }
             }
             catch (Exception ex)

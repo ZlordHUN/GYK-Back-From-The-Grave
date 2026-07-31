@@ -174,6 +174,8 @@ namespace GraveyardKeeperCoop.Multiplayer
         {
             if (wgo == null || wgo.gameObject == null)
                 return false;
+            if (wgo.GetComponent<RemoteBuildingPreviewMarker>() != null)
+                return false;
 
             Scene scene = wgo.gameObject.scene;
             return scene.IsValid() && !string.IsNullOrEmpty(scene.name);

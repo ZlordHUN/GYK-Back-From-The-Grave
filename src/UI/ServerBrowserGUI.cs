@@ -437,6 +437,7 @@ namespace GraveyardKeeperCoop.UI
             public bool IsOffline { get; set; }
             public BrowserTab SourceTab { get; set; }
             public string DLCRequirements { get; set; }
+            public string ModVersion { get; set; }
 
             public string PlayersString => IsOffline || MaxPlayers <= 0 ? "-/-" : $"{CurrentPlayers}/{MaxPlayers}";
         }
@@ -1142,6 +1143,9 @@ namespace GraveyardKeeperCoop.UI
                 string connectToken = SteamFriends.GetFriendRichPresence(friendID, "connect");
                 string status = SteamFriends.GetFriendRichPresence(friendID, "status");
                 string dlcRequirements = SteamFriends.GetFriendRichPresence(friendID, SteamLobbyManager.LobbyDataDLC);
+                string modVersion = SteamFriends.GetFriendRichPresence(
+                    friendID,
+                    SteamLobbyManager.LobbyDataModVersion);
                 bool isRunningGame = SteamLobbyManager.IsRunningGameStatus(status);
 
                 if (!string.IsNullOrEmpty(connectToken))
@@ -1154,13 +1158,14 @@ namespace GraveyardKeeperCoop.UI
                         ServerName = $"{friendName}'s Game",
                         ConnectToken = connectToken,
                         CurrentPlayers = 1,
-                        MaxPlayers = 2,
+                        MaxPlayers = 4,
                         Ping = -1,
                         Status = GetServerStatusText(status, isRunningGame),
                         IsFavorite = IsFavoriteServer(friendID, friendID.m_SteamID.ToString()),
                         IsRunningGame = isRunningGame,
                         SourceTab = BrowserTab.Friends,
-                        DLCRequirements = dlcRequirements ?? ""
+                        DLCRequirements = dlcRequirements ?? "",
+                        ModVersion = modVersion ?? ""
                     });
                 }
             }
@@ -1285,7 +1290,8 @@ namespace GraveyardKeeperCoop.UI
                     IsFavorite = IsFavoriteServer(lanServer.HostSteamID, lanServer.LobbyID.ToString()),
                     IsRunningGame = isRunningGame,
                     SourceTab = BrowserTab.LAN,
-                    DLCRequirements = lanServer.DLCRequirements ?? ""
+                    DLCRequirements = lanServer.DLCRequirements ?? "",
+                    ModVersion = lanServer.ModVersion ?? ""
                 });
             }
 
@@ -1548,7 +1554,10 @@ namespace GraveyardKeeperCoop.UI
                         SourceTab = BrowserTab.Favorites,
                         DLCRequirements = !string.IsNullOrEmpty(liveLobby.DLCRequirements)
                             ? liveLobby.DLCRequirements
-                            : richPresenceEntryForLive?.DLCRequirements ?? ""
+                            : richPresenceEntryForLive?.DLCRequirements ?? "",
+                        ModVersion = !string.IsNullOrEmpty(liveLobby.ModVersion)
+                            ? liveLobby.ModVersion
+                            : richPresenceEntryForLive?.ModVersion ?? ""
                     });
 
                     if (!favoriteServerNames.ContainsKey(key) || favoriteServerNames[key] != serverName)
@@ -1635,6 +1644,9 @@ namespace GraveyardKeeperCoop.UI
 
             string status = SteamFriends.GetFriendRichPresence(hostID, "status");
             string dlcRequirements = SteamFriends.GetFriendRichPresence(hostID, SteamLobbyManager.LobbyDataDLC);
+            string modVersion = SteamFriends.GetFriendRichPresence(
+                hostID,
+                SteamLobbyManager.LobbyDataModVersion);
             bool isRunningGame = SteamLobbyManager.IsRunningGameStatus(status);
             string hostName = SteamFriends.GetFriendPersonaName(hostID);
             if (string.IsNullOrEmpty(hostName))
@@ -1647,14 +1659,15 @@ namespace GraveyardKeeperCoop.UI
                 ServerName = $"{hostName}'s Game{serverNameSuffix}",
                 ConnectToken = connectToken,
                 CurrentPlayers = 1,
-                MaxPlayers = 2,
+                MaxPlayers = 4,
                 Ping = -1,
                 Status = GetServerStatusText(status, isRunningGame),
                 IsFavorite = IsFavoriteServer(hostID, hostID.m_SteamID.ToString()),
                 IsRunningGame = isRunningGame,
                 IsOffline = false,
                 SourceTab = sourceTab,
-                DLCRequirements = dlcRequirements ?? ""
+                DLCRequirements = dlcRequirements ?? "",
+                ModVersion = modVersion ?? ""
             };
             return true;
         }
@@ -2118,6 +2131,7 @@ namespace GraveyardKeeperCoop.UI
                             entry.DLCRequirements = !string.IsNullOrEmpty(lobby.DLCRequirements)
                                 ? lobby.DLCRequirements
                                 : entry.DLCRequirements ?? "";
+                            entry.ModVersion = lobby.ModVersion ?? "";
                             break;
                         }
                     }
@@ -2139,7 +2153,8 @@ namespace GraveyardKeeperCoop.UI
                         IsFavorite = IsFavoriteServer(lobby.HostSteamID, lobby.LobbyID.ToString()),
                         IsRunningGame = isRunningGame,
                         SourceTab = BrowserTab.Friends,
-                        DLCRequirements = lobby.DLCRequirements ?? ""
+                        DLCRequirements = lobby.DLCRequirements ?? "",
+                        ModVersion = lobby.ModVersion ?? ""
                     });
                 }
             }
@@ -2190,7 +2205,8 @@ namespace GraveyardKeeperCoop.UI
                     IsFavorite = IsFavoriteServer(lobby.HostSteamID, lobby.LobbyID.ToString()),
                     IsRunningGame = isRunningGame,
                     SourceTab = BrowserTab.Internet,
-                    DLCRequirements = lobby.DLCRequirements ?? ""
+                    DLCRequirements = lobby.DLCRequirements ?? "",
+                    ModVersion = lobby.ModVersion ?? ""
                 });
             }
 
@@ -2685,6 +2701,29 @@ namespace GraveyardKeeperCoop.UI
             CoopMod.Logger.LogInfo($"[ServerBrowser] ConnectToken: '{server.ConnectToken}'");
             CoopMod.Logger.LogInfo($"[ServerBrowser] SourceTab: {server.SourceTab}");
             CoopMod.Logger.LogInfo($"[ServerBrowser] DLCRequirements: '{server.DLCRequirements}'");
+            CoopMod.Logger.LogInfo($"[ServerBrowser] ModVersion: '{server.ModVersion}'");
+
+            if (!SteamLobbyManager.TryValidateHostModVersion(
+                    server.ModVersion,
+                    out string versionRejectMessage))
+            {
+                CoopMod.Logger.LogWarning(
+                    $"[ServerBrowser] Join blocked by mod version: " +
+                    versionRejectMessage.Replace('\n', ' '));
+                isJoinInProgress = false;
+                var dialog = GUIElements.me?.dialog;
+                if (dialog != null)
+                {
+                    dialog.OpenOK(versionRejectMessage);
+                }
+                else if (noServersLabel != null)
+                {
+                    noServersLabel.text = versionRejectMessage;
+                    noServersLabel.color = DIM_TEXT_COLOR;
+                    noServersLabel.gameObject.SetActive(true);
+                }
+                return;
+            }
 
             if (!SteamLobbyManager.TryValidateDLCRequirements(server.DLCRequirements, out string dlcRejectMessage))
             {

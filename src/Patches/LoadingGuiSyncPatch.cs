@@ -22,6 +22,15 @@ namespace GraveyardKeeperCoop.Patches
                                         && GameLoadSync.Instance.IsWaitingForSync
                                         && !GameLoadSync.AllowLoadingHide;
 
+        [HarmonyPatch("Show")]
+        [HarmonyPrefix]
+        public static bool Show_Prefix(
+            GJCommons.VoidDelegate on_anim_played)
+        {
+            return GameLoadSync.Instance
+                       ?.TryReuseTransferLoadingScreen(on_anim_played) != true;
+        }
+
         [HarmonyPatch("Hide")]
         [HarmonyPrefix]
         public static bool Hide_Prefix(ref GJCommons.VoidDelegate on_anim_played)

@@ -30,16 +30,22 @@ namespace GraveyardKeeperCoop.Multiplayer
 
         private readonly Dictionary<uint, string> lastSpriteSnapshot = new Dictionary<uint, string>();
         private readonly Dictionary<uint, string> lastTransformSnapshot = new Dictionary<uint, string>();
+        private readonly List<string> capturedDeltas = new List<string>();
+        private sealed class RemoteVisualState
+        {
+            public Transform Root;
+            public Transform CharacterTransform;
+            public VisualSyncHelpers.VisualHierarchyMap Map;
+        }
+        private readonly Dictionary<ulong, RemoteVisualState> remoteStates =
+            new Dictionary<ulong, RemoteVisualState>();
         private Dictionary<string, Sprite> spriteLibrary;
 
         private float nextSendAt;
         private float nextFullResendAt;
         private Transform localRoot;
-        private Transform remoteRoot;
         private Transform localCharacterTransform;
-        private Transform remoteCharacterTransform;
         private VisualSyncHelpers.VisualHierarchyMap localMap;
-        private VisualSyncHelpers.VisualHierarchyMap remoteMap;
         private float lastCharacterScaleX = 1f;
         private int spriteLibrarySize;
 
@@ -84,9 +90,9 @@ namespace GraveyardKeeperCoop.Multiplayer
 
         private void Update()
         {
-            var __profSw = System.Diagnostics.Stopwatch.StartNew();
+            long __profStart = GraveyardKeeperCoop.Utils.FrameProfiler.BeginSection();
             try { UpdateInternal(); }
-            finally { GraveyardKeeperCoop.Utils.FrameProfiler.Record("PVS.Update", __profSw.ElapsedTicks); }
+            finally { GraveyardKeeperCoop.Utils.FrameProfiler.EndSection("PVS.Update", __profStart); }
         }
 
         private void UpdateInternal()
@@ -126,7 +132,11 @@ namespace GraveyardKeeperCoop.Multiplayer
 
         private List<string> CaptureDeltas(bool fullSend)
         {
-            var entries = new List<string>(localMap.SpriteCount + localMap.TransformCount);
+            capturedDeltas.Clear();
+            int requiredCapacity = localMap.SpriteCount + localMap.TransformCount;
+            if (capturedDeltas.Capacity < requiredCapacity)
+                capturedDeltas.Capacity = requiredCapacity;
+            List<string> entries = capturedDeltas;
 
             foreach (var pair in localMap.Sprites)
             {
@@ -174,13 +184,15 @@ namespace GraveyardKeeperCoop.Multiplayer
         {
             if (!IsSyncEnabled || payload == null || payload.Length == 0 || payload.Length > MaxPayloadBytes) return;
             if (!IsOnline) return;
-            if (!EnsureRemoteMap()) return;
+            OnlineCoopManager.Instance?.HandlePeerEnteredLobby(senderID);
+            if (!EnsureRemoteMap(senderID, out RemoteVisualState state)) return;
 
             try
             {
                 if (!DeserializePayload(payload, out float characterScaleX, out var entries)) return;
-                ApplyCharacterScale(characterScaleX);
-                ApplyDeltas(entries);
+                ApplyCharacterScale(state, characterScaleX);
+                ApplyDeltas(state, entries);
+                OnlineCoopManager.Instance?.ReconcileRemoteActionVisual(senderID);
             }
             catch (Exception ex)
             {
@@ -210,32 +222,57 @@ namespace GraveyardKeeperCoop.Multiplayer
             return true;
         }
 
-        private bool EnsureRemoteMap()
+        private bool EnsureRemoteMap(
+            CSteamID senderID,
+            out RemoteVisualState state)
         {
-            Transform currentRoot = OnlineCoopManager.Instance?.RemotePlayerComponent?.transform;
-            if (currentRoot == null) return false;
+            state = null;
+            if (senderID == CSteamID.Nil)
+                return false;
 
-            if (remoteRoot != currentRoot || remoteMap == null)
+            Transform currentRoot = OnlineCoopManager.Instance
+                ?.GetRemotePlayerComponent(senderID)
+                ?.transform;
+            if (currentRoot == null)
+                return false;
+
+            if (!remoteStates.TryGetValue(senderID.m_SteamID, out state) ||
+                state == null || state.Root != currentRoot || state.Map == null)
             {
-                remoteRoot = currentRoot;
-                remoteMap = VisualSyncHelpers.VisualHierarchyMap.From(remoteRoot, includeTransforms: true);
-                remoteCharacterTransform = VisualSyncHelpers.FindChildByName(remoteRoot, "character");
-                CoopMod.Logger.LogInfo($"{LogPrefix} Remote hierarchy indexed: sprites={remoteMap.SpriteCount}, transforms={remoteMap.TransformCount}");
+                state = new RemoteVisualState
+                {
+                    Root = currentRoot,
+                    Map = VisualSyncHelpers.VisualHierarchyMap.From(
+                        currentRoot,
+                        includeTransforms: true),
+                    CharacterTransform = VisualSyncHelpers.FindChildByName(
+                        currentRoot,
+                        "character")
+                };
+                remoteStates[senderID.m_SteamID] = state;
+                CoopMod.Logger.LogInfo(
+                    $"{LogPrefix} Remote hierarchy indexed for " +
+                    $"{senderID.m_SteamID}: sprites={state.Map.SpriteCount}, " +
+                    $"transforms={state.Map.TransformCount}");
             }
 
             return true;
         }
 
-        private void ApplyDeltas(List<string> entries)
+        private void ApplyDeltas(
+            RemoteVisualState state,
+            List<string> entries)
         {
-            var __profSw = System.Diagnostics.Stopwatch.StartNew();
-            try { ApplyDeltasInternal(entries); }
-            finally { GraveyardKeeperCoop.Utils.FrameProfiler.Record("PVS.Apply", __profSw.ElapsedTicks); }
+            long __profStart = GraveyardKeeperCoop.Utils.FrameProfiler.BeginSection();
+            try { ApplyDeltasInternal(state, entries); }
+            finally { GraveyardKeeperCoop.Utils.FrameProfiler.EndSection("PVS.Apply", __profStart); }
         }
 
-        private void ApplyDeltasInternal(List<string> entries)
+        private void ApplyDeltasInternal(
+            RemoteVisualState state,
+            List<string> entries)
         {
-            if (entries == null || entries.Count == 0 || remoteMap == null) return;
+            if (entries == null || entries.Count == 0 || state?.Map == null) return;
 
             Dictionary<string, Sprite> sprites = GetSpriteLibrary();
             for (int i = 0; i < entries.Count; i++)
@@ -244,19 +281,23 @@ namespace GraveyardKeeperCoop.Multiplayer
                 if (string.IsNullOrEmpty(entry)) continue;
 
                 if (entry.StartsWith("T:", StringComparison.Ordinal))
-                    ApplyTransformDelta(entry);
+                    ApplyTransformDelta(state, entry);
                 else
-                    VisualSyncHelpers.TryApplySpriteDelta(remoteMap, entry, sprites);
+                    VisualSyncHelpers.TryApplySpriteDelta(state.Map, entry, sprites);
             }
         }
 
-        private void ApplyTransformDelta(string entry)
+        private static void ApplyTransformDelta(
+            RemoteVisualState state,
+            string entry)
         {
             string[] parts = entry.Split(':');
             if (parts.Length != 6) return;
 
             if (!uint.TryParse(parts[1], NumberStyles.HexNumber, CultureInfo.InvariantCulture, out uint hash)) return;
-            if (!remoteMap.TryGetTransform(hash, out var transform) || transform == null) return;
+            if (state?.Map == null ||
+                !state.Map.TryGetTransform(hash, out var transform) ||
+                transform == null) return;
 
             if (TryParseVector3(parts[2], out var localPosition)) transform.localPosition = localPosition;
             if (TryParseQuaternion(parts[3], out var localRotation)) transform.localRotation = localRotation;
@@ -269,12 +310,14 @@ namespace GraveyardKeeperCoop.Multiplayer
             }
         }
 
-        private void ApplyCharacterScale(float scaleX)
+        private static void ApplyCharacterScale(
+            RemoteVisualState state,
+            float scaleX)
         {
-            if (remoteCharacterTransform == null) return;
-            Vector3 scale = remoteCharacterTransform.localScale;
+            if (state?.CharacterTransform == null) return;
+            Vector3 scale = state.CharacterTransform.localScale;
             scale.x = scaleX;
-            remoteCharacterTransform.localScale = scale;
+            state.CharacterTransform.localScale = scale;
         }
 
         private Dictionary<string, Sprite> GetSpriteLibrary()
@@ -290,13 +333,12 @@ namespace GraveyardKeeperCoop.Multiplayer
         private void ResetMaps()
         {
             localRoot = null;
-            remoteRoot = null;
             localCharacterTransform = null;
-            remoteCharacterTransform = null;
             localMap = null;
-            remoteMap = null;
+            remoteStates.Clear();
             lastSpriteSnapshot.Clear();
             lastTransformSnapshot.Clear();
+            capturedDeltas.Clear();
             lastCharacterScaleX = 1f;
         }
 

@@ -20,6 +20,10 @@ namespace GraveyardKeeperCoop.Multiplayer
         private const string MSG_SAVE_DATA_CHUNK = "SAVE_DATA";
         private const string MSG_SAVE_COMPLETE = "SAVE_COMPLETE";
         private const string MSG_SAVE_COOP_POSITIONS = "SAVE_COOP_POSITIONS";
+        // Host -> client: stable identity for the save revision that follows.
+        // filename_no_extension is [NonSerialized] in SaveSlotData, so it cannot
+        // travel inside the vanilla .info JSON.
+        private const string MSG_SAVE_IDENTITY = "SAVE_IDENTITY";
         private const string MSG_REQUEST_SAVE = "REQUEST_SAVE";
         // Client -> host: REQUEST_SAVE_HASHED|<cached hash>
         // If the host's current save matches the cached hash, the host responds
@@ -36,6 +40,9 @@ namespace GraveyardKeeperCoop.Multiplayer
         
         // Track transfer progress
         private static string pendingSaveFilename;
+        private static string pendingHostSlotFilename;
+        private static int pendingWorldSeed = -1;
+        private static string pendingLoadSaveHash;
         private static byte[] receivedSaveData;
         private static int expectedChunks;
         private static int receivedChunks;
@@ -46,6 +53,9 @@ namespace GraveyardKeeperCoop.Multiplayer
         private static CSteamID pendingRequestHost = CSteamID.Nil;
         private static float nextSaveRequestRetryAt;
         private static int saveRequestRetryCount;
+        private static bool transferCompletionReceived;
+        private static CSteamID lastInvalidatedPeer = CSteamID.Nil;
+        private static float lastInvalidationRestartAt;
 
         // Client-side: Steam ID of the host we're currently receiving from
         // (used to persist the hash cache once the transfer completes).
@@ -53,6 +63,11 @@ namespace GraveyardKeeperCoop.Multiplayer
         
         // Host: Save slot to send to clients (set before game starts loading)
         private static SaveSlotData hostSaveSlotToSend;
+        private static bool hostSavePreparationInFlight;
+        private static string hostSavePreparationSlot = string.Empty;
+        private static int hostSavePreparationGeneration;
+        private static readonly List<Action<SaveSlotData>> hostSavePreparationWaiters =
+            new List<Action<SaveSlotData>>();
         
         // Events
         public static event Action<float> OnTransferProgress;
@@ -99,9 +114,15 @@ namespace GraveyardKeeperCoop.Multiplayer
                 // Read files
                 string infoJson = File.ReadAllText(infoPath);
                 byte[] saveData = File.ReadAllBytes(dataPath);
+                int worldSeed = ResolveHostWorldSeed(slot, saveData);
                 
                 CoopMod.Logger.LogInfo($"[SaveTransfer] Sending save to client. Info: {infoJson.Length} bytes, Data: {saveData.Length} bytes");
                 
+                SendSaveIdentityToClient(
+                    clientID,
+                    slot.filename_no_extension,
+                    worldSeed);
+
                 // Send info file first
                 string infoMessage = $"{MSG_SAVE_INFO}|{infoJson}";
                 Network.SteamP2PManager.Instance?.SendP2PMessage(clientID, infoMessage);
@@ -164,6 +185,52 @@ namespace GraveyardKeeperCoop.Multiplayer
                 CoopMod.Logger.LogWarning($"[SaveTransfer] Failed to send multiplayer position sidecar: {ex.Message}");
             }
         }
+
+        private static void SendSaveIdentityToClient(
+            CSteamID clientID,
+            string hostSlotFilename,
+            int worldSeed)
+        {
+            string normalizedSlot = (hostSlotFilename ?? string.Empty).Trim();
+            if (clientID == CSteamID.Nil || string.IsNullOrEmpty(normalizedSlot) ||
+                normalizedSlot.Length > 256 || worldSeed < 0)
+            {
+                CoopMod.Logger.LogWarning(
+                    $"[SaveTransfer] Could not send stable save identity " +
+                    $"(slot='{normalizedSlot}', world={worldSeed})");
+                return;
+            }
+
+            string encodedSlot = Convert.ToBase64String(
+                Encoding.UTF8.GetBytes(normalizedSlot));
+            Network.SteamP2PManager.Instance?.SendP2PMessage(
+                clientID,
+                $"{MSG_SAVE_IDENTITY}|{encodedSlot}|{worldSeed}");
+            CoopMod.Logger.LogInfo(
+                $"[SaveTransfer] Sent stable save identity: " +
+                $"host_slot='{normalizedSlot}', world={worldSeed}");
+        }
+
+        private static int ResolveHostWorldSeed(
+            SaveSlotData slot,
+            byte[] saveData = null)
+        {
+            SaveSlotData activeSlot = MainGame.me?.save_slot;
+            GameSave activeSave = MainGame.me?.save;
+            if (slot != null && activeSlot != null && activeSave != null &&
+                string.Equals(
+                    slot.filename_no_extension,
+                    activeSlot.filename_no_extension,
+                    StringComparison.Ordinal))
+            {
+                return activeSave.dungeon_seed;
+            }
+
+            return saveData != null && saveData.Length > 0
+                ? SaveHashCache.ComputeWorldSeed(saveData)
+                : SaveHashCache.ComputeSlotWorldSeed(
+                    slot?.filename_no_extension);
+        }
         
         /// <summary>
         /// Client: Request save data from host.
@@ -174,6 +241,13 @@ namespace GraveyardKeeperCoop.Multiplayer
         public static void RequestSaveFromHost(CSteamID hostID)
         {
             pendingSenderHost = hostID;
+            pendingSaveFilename = null;
+            pendingHostSlotFilename = null;
+            pendingWorldSeed = -1;
+            pendingLoadSaveHash = null;
+            transferCompletionReceived = false;
+            lastInvalidatedPeer = CSteamID.Nil;
+            lastInvalidationRestartAt = 0f;
             pendingCoopPositionsReceived = false;
             pendingCoopPositionsJson = null;
             lastTransferProgress = 0f;
@@ -225,6 +299,13 @@ namespace GraveyardKeeperCoop.Multiplayer
                 ClearPendingSaveRequest();
         }
 
+        private static void MarkTransferComplete()
+        {
+            transferCompletionReceived = true;
+            pendingSenderHost = CSteamID.Nil;
+            ClearPendingSaveRequest();
+        }
+
         private static void SendSaveRequest(CSteamID hostID, bool retry)
         {
             var cached = SaveHashCache.Get(hostID.m_SteamID);
@@ -260,6 +341,11 @@ namespace GraveyardKeeperCoop.Multiplayer
             {
                 MarkHostSaveResponse(senderID);
                 HandleSaveCached(senderID, message);
+            }
+            else if (message.StartsWith(MSG_SAVE_IDENTITY))
+            {
+                MarkHostSaveResponse(senderID);
+                HandleSaveIdentity(senderID, message);
             }
             else if (message.StartsWith(MSG_SAVE_COOP_POSITIONS))
             {
@@ -325,7 +411,9 @@ namespace GraveyardKeeperCoop.Multiplayer
                 int totalChunks = reader.ReadInt32();
                 
                 pendingSlotData = SaveSlotData.FromJSON(infoJson);
-                pendingSaveFilename = "coop_" + DateTime.Now.ToString("yyyyMMdd_HHmmss");
+                if (string.IsNullOrEmpty(pendingHostSlotFilename))
+                    pendingHostSlotFilename = pendingSlotData.filename_no_extension;
+                pendingSaveFilename = ResolvePendingLocalSlotFilename();
                 pendingSlotData.filename_no_extension = pendingSaveFilename;
                 
                 receivedSaveData = new byte[totalBytes];
@@ -334,6 +422,7 @@ namespace GraveyardKeeperCoop.Multiplayer
                 pendingCoopPositionsReceived = false;
                 pendingCoopPositionsJson = null;
                 lastTransferProgress = 0f;
+                transferCompletionReceived = false;
                 
                 CoopMod.Logger.LogInfo($"[SaveTransfer] Binary transfer started: {totalBytes} bytes in {totalChunks} chunks");
             }
@@ -384,15 +473,19 @@ namespace GraveyardKeeperCoop.Multiplayer
                 byte[] finalData = new byte[totalBytes];
                 Array.Copy(receivedSaveData, finalData, totalBytes);
                 
-                WriteSaveToDisk(pendingSlotData, finalData);
+                if (!WriteSaveToDisk(pendingSlotData, finalData))
+                    return;
 
                 try
                 {
                     if (pendingSenderHost != CSteamID.Nil && pendingSlotData != null)
                     {
                         string hash = SaveHashCache.ComputeHash(finalData);
+                        pendingLoadSaveHash = hash;
                         SaveHashCache.Put(
                             pendingSenderHost.m_SteamID,
+                            pendingHostSlotFilename,
+                            pendingWorldSeed,
                             pendingSlotData.filename_no_extension,
                             hash,
                             pendingSlotData.real_time);
@@ -403,6 +496,7 @@ namespace GraveyardKeeperCoop.Multiplayer
                     CoopMod.Logger.LogWarning($"[SaveTransfer] Could not update hash cache (binary): {cacheEx.Message}");
                 }
 
+                MarkTransferComplete();
                 OnSaveReceived?.Invoke(pendingSlotData);
             }
             catch (Exception ex)
@@ -422,6 +516,7 @@ namespace GraveyardKeeperCoop.Multiplayer
                    message.StartsWith(MSG_SAVE_DATA_CHUNK) ||
                    message.StartsWith(MSG_SAVE_COMPLETE) ||
                    message.StartsWith(MSG_SAVE_COOP_POSITIONS) ||
+                   message.StartsWith(MSG_SAVE_IDENTITY) ||
                    message.StartsWith(MSG_SAVE_CACHED);
         }
         
@@ -434,6 +529,7 @@ namespace GraveyardKeeperCoop.Multiplayer
             
             if (slotToSend != null)
             {
+                GameLoadSync.Instance?.NotifyHostSaveTransferStarted();
                 PrepareHostSlotForTransfer(slotToSend, (readySlot) => SendSaveToClient(clientID, readySlot));
             }
             else
@@ -464,6 +560,8 @@ namespace GraveyardKeeperCoop.Multiplayer
                 return;
             }
 
+            GameLoadSync.Instance?.NotifyHostSaveTransferStarted();
+
             PrepareHostSlotForTransfer(slotToSend, (readySlot) =>
             {
                 string hostHash = SaveHashCache.ComputeSlotHash(readySlot.filename_no_extension);
@@ -475,6 +573,10 @@ namespace GraveyardKeeperCoop.Multiplayer
                         string infoPath = PlatformSpecific.GetSaveFolder() + readySlot.filename_no_extension + ".info";
                         string infoJson = File.Exists(infoPath) ? File.ReadAllText(infoPath) : readySlot.ToJSON();
                         string response = $"{MSG_SAVE_CACHED}|{infoJson}";
+                        SendSaveIdentityToClient(
+                            clientID,
+                            readySlot.filename_no_extension,
+                            ResolveHostWorldSeed(readySlot));
                         CoopMod.Logger.LogInfo(
                             $"[SaveTransfer] Client's cached hash matches host save - sending SAVE_CACHED (skip transfer, hash={hostHash.Substring(0, Math.Min(12, hostHash.Length))}...)");
                         SendCoopPositionsToClient(clientID, readySlot);
@@ -509,6 +611,7 @@ namespace GraveyardKeeperCoop.Multiplayer
                 return;
             }
 
+            int preparationGeneration = -1;
             try
             {
                 bool isActiveRunningSave = MainGame.game_started &&
@@ -523,28 +626,127 @@ namespace GraveyardKeeperCoop.Multiplayer
                     return;
                 }
 
+                if (hostSavePreparationInFlight &&
+                    string.Equals(
+                        hostSavePreparationSlot,
+                        slot.filename_no_extension,
+                        StringComparison.Ordinal))
+                {
+                    if (onReady != null)
+                        hostSavePreparationWaiters.Add(onReady);
+                    CoopMod.Logger.LogInfo(
+                        $"[SaveTransfer] Coalesced save request while preparing " +
+                        $"'{slot.filename_no_extension}' " +
+                        $"(waiting clients={hostSavePreparationWaiters.Count})");
+                    return;
+                }
+
+                if (hostSavePreparationInFlight)
+                {
+                    CoopMod.Logger.LogWarning(
+                        $"[SaveTransfer] Cannot prepare '{slot.filename_no_extension}' " +
+                        $"while '{hostSavePreparationSlot}' is still in flight");
+                    return;
+                }
+
+                hostSavePreparationInFlight = true;
+                hostSavePreparationSlot = slot.filename_no_extension ?? string.Empty;
+                preparationGeneration = ++hostSavePreparationGeneration;
+                hostSavePreparationWaiters.Clear();
+                if (onReady != null)
+                    hostSavePreparationWaiters.Add(onReady);
+
                 CoopMod.Logger.LogInfo($"[SaveTransfer] Saving current host game before transfer: {slot.filename_no_extension}");
                 MainGame.me.save.PrepareForSave();
                 CoopMod.Logger.LogInfo($"[SaveTransfer] Prepared active host save before transfer. Local player position: {MainGame.me.save.player_position}");
                 PlatformSpecific.SaveGame(slot, MainGame.me.save, (savedSlot) =>
                 {
+                    if (preparationGeneration != hostSavePreparationGeneration)
+                    {
+                        CoopMod.Logger.LogInfo(
+                            "[SaveTransfer] Ignoring stale host-save callback from a previous session");
+                        return;
+                    }
+
                     if (savedSlot == null)
                     {
+                        CompleteHostSavePreparation(null);
                         CoopMod.Logger.LogError("[SaveTransfer] Failed to save current host game before transfer");
                         OnTransferError?.Invoke("Host failed to save current game before transfer");
                         return;
                     }
 
-                    hostSaveSlotToSend = savedSlot;
-                    MultiplayerSavePositions.CaptureCurrentSession(savedSlot);
-                    onReady?.Invoke(savedSlot);
+                    // Vanilla invokes this callback even after a caught disk exception.
+                    // The SaveGameDataToSlot postfix verifies the final .dat and releases
+                    // the waiting transfers through NotifyHostSaveWriteCompleted.
                 });
             }
             catch (Exception ex)
             {
+                if (preparationGeneration < 0 ||
+                    preparationGeneration == hostSavePreparationGeneration)
+                {
+                    CompleteHostSavePreparation(null);
+                }
                 CoopMod.Logger.LogError($"[SaveTransfer] Error preparing host save for transfer: {ex.Message}");
                 OnTransferError?.Invoke("Host failed to prepare save transfer");
             }
+        }
+
+        private static void CompleteHostSavePreparation(SaveSlotData savedSlot)
+        {
+            Action<SaveSlotData>[] waiters = hostSavePreparationWaiters.ToArray();
+            hostSavePreparationWaiters.Clear();
+            hostSavePreparationInFlight = false;
+            hostSavePreparationSlot = string.Empty;
+
+            if (savedSlot == null)
+                return;
+
+            for (int i = 0; i < waiters.Length; i++)
+            {
+                try
+                {
+                    waiters[i]?.Invoke(savedSlot);
+                }
+                catch (Exception ex)
+                {
+                    CoopMod.Logger.LogError(
+                        $"[SaveTransfer] Failed to serve a waiting client: {ex.Message}");
+                }
+            }
+        }
+
+        /// <summary>
+        /// Called by the save writer postfix after it verifies whether the final host
+        /// .dat was actually replaced. A verified profile commit is queued before this
+        /// releases save-transfer waiters, preserving transaction order on the wire.
+        /// </summary>
+        internal static void NotifyHostSaveWriteCompleted(
+            SaveSlotData savedSlot,
+            bool succeeded)
+        {
+            if (!hostSavePreparationInFlight || savedSlot == null ||
+                !string.Equals(
+                    hostSavePreparationSlot,
+                    savedSlot.filename_no_extension,
+                    StringComparison.Ordinal))
+            {
+                return;
+            }
+
+            if (!succeeded)
+            {
+                CompleteHostSavePreparation(null);
+                CoopMod.Logger.LogError(
+                    "[SaveTransfer] Verified host save write failed before transfer");
+                OnTransferError?.Invoke("Host failed to save current game before transfer");
+                return;
+            }
+
+            hostSaveSlotToSend = savedSlot;
+            MultiplayerSavePositions.CaptureCurrentSession(savedSlot);
+            CompleteHostSavePreparation(savedSlot);
         }
 
         /// <summary>
@@ -556,7 +758,7 @@ namespace GraveyardKeeperCoop.Multiplayer
         {
             try
             {
-                var cached = SaveHashCache.Get(senderID.m_SteamID);
+                var cached = GetPendingCacheEntry(senderID);
                 if (cached == null || !File.Exists(PlatformSpecific.GetSaveFolder() + cached.slotFilename + ".dat"))
                 {
                     CoopMod.Logger.LogWarning("[SaveTransfer] Host said SAVE_CACHED but local cache entry is missing - requesting full transfer");
@@ -567,12 +769,15 @@ namespace GraveyardKeeperCoop.Multiplayer
 
                 // Parse optional info JSON (for updated real_time / metadata)
                 SaveSlotData slotData = null;
+                string hostSlotFilename = pendingHostSlotFilename ?? string.Empty;
                 int sep = message.IndexOf('|');
                 if (sep >= 0 && sep < message.Length - 1)
                 {
                     try
                     {
                         slotData = SaveSlotData.FromJSON(message.Substring(sep + 1));
+                        if (string.IsNullOrEmpty(hostSlotFilename))
+                            hostSlotFilename = slotData.filename_no_extension;
                         // Persist freshened info so the slot list stays in sync
                         try
                         {
@@ -611,6 +816,11 @@ namespace GraveyardKeeperCoop.Multiplayer
                 CoopMod.Logger.LogInfo($"[SaveTransfer] Using cached save slot '{cached.slotFilename}' (skipped download)");
                 ApplyPendingCoopPositionsToSlot(cached.slotFilename);
                 pendingSlotData = slotData;
+                pendingHostSlotFilename = string.IsNullOrEmpty(hostSlotFilename)
+                    ? cached.slotFilename
+                    : hostSlotFilename;
+                pendingLoadSaveHash = cached.hash;
+                MarkTransferComplete();
                 OnSaveReceived?.Invoke(slotData);
             }
             catch (Exception ex)
@@ -618,6 +828,79 @@ namespace GraveyardKeeperCoop.Multiplayer
                 CoopMod.Logger.LogError($"[SaveTransfer] Error handling SAVE_CACHED: {ex.Message}");
                 OnTransferError?.Invoke("Failed to reuse cached save");
             }
+        }
+
+        private static void HandleSaveIdentity(
+            CSteamID senderID,
+            string message)
+        {
+            if (senderID == CSteamID.Nil ||
+                (pendingSenderHost != CSteamID.Nil &&
+                 senderID != pendingSenderHost))
+            {
+                CoopMod.Logger.LogWarning(
+                    $"[SaveTransfer] Ignored save identity from unexpected peer {senderID}");
+                return;
+            }
+
+            try
+            {
+                string[] parts = message.Split('|');
+                if (parts.Length != 3 ||
+                    !int.TryParse(parts[2], out int worldSeed) ||
+                    worldSeed < 0)
+                {
+                    throw new FormatException("invalid identity fields");
+                }
+
+                string hostSlotFilename = Encoding.UTF8.GetString(
+                    Convert.FromBase64String(parts[1])).Trim();
+                if (string.IsNullOrEmpty(hostSlotFilename) ||
+                    hostSlotFilename.Length > 256 ||
+                    hostSlotFilename.IndexOfAny(
+                        new[] { '\t', '\r', '\n' }) >= 0)
+                {
+                    throw new FormatException("invalid host slot");
+                }
+
+                pendingHostSlotFilename = hostSlotFilename;
+                pendingWorldSeed = worldSeed;
+                SaveHashCache.Entry cached = SaveHashCache.Get(
+                    senderID.m_SteamID,
+                    hostSlotFilename,
+                    worldSeed);
+                pendingSaveFilename = cached?.slotFilename;
+
+                CoopMod.Logger.LogInfo(
+                    $"[SaveTransfer] Received stable save identity: " +
+                    $"host_slot='{hostSlotFilename}', world={worldSeed}, " +
+                    $"local_slot='{pendingSaveFilename ?? "new"}'");
+            }
+            catch (Exception ex)
+            {
+                pendingHostSlotFilename = null;
+                pendingWorldSeed = -1;
+                pendingSaveFilename = null;
+                CoopMod.Logger.LogWarning(
+                    $"[SaveTransfer] Rejected malformed save identity: {ex.Message}");
+            }
+        }
+
+        private static SaveHashCache.Entry GetPendingCacheEntry(CSteamID host)
+        {
+            if (host != CSteamID.Nil &&
+                !string.IsNullOrEmpty(pendingHostSlotFilename) &&
+                pendingWorldSeed >= 0)
+            {
+                return SaveHashCache.Get(
+                    host.m_SteamID,
+                    pendingHostSlotFilename,
+                    pendingWorldSeed);
+            }
+
+            return host != CSteamID.Nil
+                ? SaveHashCache.Get(host.m_SteamID)
+                : null;
         }
 
         private static void HandleSaveCoopPositions(string message)
@@ -671,6 +954,42 @@ namespace GraveyardKeeperCoop.Multiplayer
                 pendingCoopPositionsJson = null;
             }
         }
+
+        private static string ResolvePendingLocalSlotFilename()
+        {
+            if (!string.IsNullOrEmpty(pendingSaveFilename))
+                return pendingSaveFilename;
+
+            // Reuse is safe only after a current host explicitly identified the
+            // campaign. An older host sends no marker; selecting its most-recent
+            // host-only cache could overwrite a different world.
+            if (pendingSenderHost != CSteamID.Nil &&
+                !string.IsNullOrEmpty(pendingHostSlotFilename) &&
+                pendingWorldSeed >= 0)
+            {
+                SaveHashCache.Entry cached = SaveHashCache.Get(
+                    pendingSenderHost.m_SteamID,
+                    pendingHostSlotFilename,
+                    pendingWorldSeed);
+                if (cached != null &&
+                    !string.IsNullOrEmpty(cached.slotFilename))
+                {
+                    return cached.slotFilename;
+                }
+            }
+
+            string saveFolder = PlatformSpecific.GetSaveFolder();
+            string baseName = "coop_" + DateTime.Now.ToString("yyyyMMdd_HHmmss");
+            string candidate = baseName;
+            int suffix = 2;
+            while (File.Exists(saveFolder + candidate + ".dat") ||
+                   File.Exists(saveFolder + candidate + ".info"))
+            {
+                candidate = baseName + "_" + suffix.ToString();
+                suffix++;
+            }
+            return candidate;
+        }
         
         private static void HandleSaveInfo(string message)
         {
@@ -679,9 +998,11 @@ namespace GraveyardKeeperCoop.Multiplayer
                 // Parse: SAVE_INFO|{json}
                 string json = message.Substring(MSG_SAVE_INFO.Length + 1);
                 pendingSlotData = SaveSlotData.FromJSON(json);
+                if (string.IsNullOrEmpty(pendingHostSlotFilename))
+                    pendingHostSlotFilename = pendingSlotData.filename_no_extension;
                 
-                // Generate a unique filename for the co-op save
-                pendingSaveFilename = "coop_" + DateTime.Now.ToString("yyyyMMdd_HHmmss");
+                // Reuse the local mirror when this exact host campaign was seen before.
+                pendingSaveFilename = ResolvePendingLocalSlotFilename();
                 pendingSlotData.filename_no_extension = pendingSaveFilename;
                 
                 // Reset transfer state
@@ -689,6 +1010,7 @@ namespace GraveyardKeeperCoop.Multiplayer
                 receivedChunks = 0;
                 expectedChunks = 0;
                 lastTransferProgress = 0f;
+                transferCompletionReceived = false;
                 
                 CoopMod.Logger.LogInfo($"[SaveTransfer] Received save info: {pendingSlotData.real_time}");
             }
@@ -761,7 +1083,8 @@ namespace GraveyardKeeperCoop.Multiplayer
                 Array.Copy(receivedSaveData, finalData, totalBytes);
                 
                 // Write files to disk
-                WriteSaveToDisk(pendingSlotData, finalData);
+                if (!WriteSaveToDisk(pendingSlotData, finalData))
+                    return;
 
                 // Persist hash so next session can skip the re-download
                 try
@@ -769,8 +1092,11 @@ namespace GraveyardKeeperCoop.Multiplayer
                     if (pendingSenderHost != CSteamID.Nil && pendingSlotData != null)
                     {
                         string hash = SaveHashCache.ComputeHash(finalData);
+                        pendingLoadSaveHash = hash;
                         SaveHashCache.Put(
                             pendingSenderHost.m_SteamID,
+                            pendingHostSlotFilename,
+                            pendingWorldSeed,
                             pendingSlotData.filename_no_extension,
                             hash,
                             pendingSlotData.real_time);
@@ -780,6 +1106,8 @@ namespace GraveyardKeeperCoop.Multiplayer
                 {
                     CoopMod.Logger.LogWarning($"[SaveTransfer] Could not update hash cache: {cacheEx.Message}");
                 }
+
+                MarkTransferComplete();
 
                 // Notify listeners
                 OnSaveReceived?.Invoke(pendingSlotData);
@@ -791,7 +1119,7 @@ namespace GraveyardKeeperCoop.Multiplayer
             }
         }
         
-        private static void WriteSaveToDisk(SaveSlotData slotData, byte[] saveData)
+        private static bool WriteSaveToDisk(SaveSlotData slotData, byte[] saveData)
         {
             try
             {
@@ -808,11 +1136,13 @@ namespace GraveyardKeeperCoop.Multiplayer
                 ApplyPendingCoopPositionsToSlot(slotData.filename_no_extension);
                 
                 CoopMod.Logger.LogInfo($"[SaveTransfer] Save written to disk: {slotData.filename_no_extension}");
+                return true;
             }
             catch (Exception ex)
             {
                 CoopMod.Logger.LogError($"[SaveTransfer] Error writing save to disk: {ex.Message}");
                 OnTransferError?.Invoke("Failed to write save file");
+                return false;
             }
         }
         
@@ -828,17 +1158,90 @@ namespace GraveyardKeeperCoop.Multiplayer
             }
             
             CoopMod.Logger.LogInfo($"[SaveTransfer] Loading received save: {slotData.filename_no_extension}");
+
+            string saveHash = pendingLoadSaveHash;
+            if (string.IsNullOrEmpty(saveHash))
+                saveHash = SaveHashCache.ComputeSlotHash(slotData.filename_no_extension);
             
             // Use the game's normal load flow
             if (GUIElements.me?.saves != null)
             {
+                // Select the saved personal profile matching this exact host slot and
+                // .dat revision. Unsaved live changes are intentionally not captured.
+                JoinerProfileManager.Instance?.OnHostSaveLoadStartedAsJoiner(
+                    pendingHostSlotFilename,
+                    saveHash);
+                GameLoadSync.Instance?.PrepareForReceivedSaveLoad();
                 GUIElements.me.saves.OnSelectSlotPressed(slotData);
-                JoinerProfileManager.Instance?.OnHostSaveLoadStartedAsJoiner();
             }
             else
             {
                 CoopMod.Logger.LogError("[SaveTransfer] SaveSlotsMenuGUI not available!");
             }
+        }
+
+        /// <summary>
+        /// Compatibility hook for a transport that has explicitly abandoned accepted reliable
+        /// messages while realigning its channel. RNET v2 retains its window and therefore does
+        /// not call this during ordinary degradation/recovery. A future transport that discards
+        /// delivery state must invoke this once for the affected peer.
+        /// </summary>
+        public static void OnReliableChannelResynced(CSteamID peer)
+        {
+            if (peer == CSteamID.Nil || pendingSenderHost == CSteamID.Nil ||
+                peer != pendingSenderHost || transferCompletionReceived)
+            {
+                return;
+            }
+
+            float now = Time.realtimeSinceStartup;
+            if (lastInvalidatedPeer == peer && now - lastInvalidationRestartAt < 1f)
+                return;
+
+            lastInvalidatedPeer = peer;
+            lastInvalidationRestartAt = now;
+
+            CoopMod.Logger.LogWarning(
+                $"[SaveTransfer] Reliable delivery state was abandoned during transfer " +
+                $"({receivedChunks}/{expectedChunks} chunks) - restarting from the host");
+
+            pendingSaveFilename = null;
+            pendingHostSlotFilename = null;
+            pendingWorldSeed = -1;
+            pendingLoadSaveHash = null;
+            receivedSaveData = null;
+            expectedChunks = 0;
+            receivedChunks = 0;
+            pendingSlotData = null;
+            pendingCoopPositionsReceived = false;
+            pendingCoopPositionsJson = null;
+            lastTransferProgress = 0f;
+            OnTransferProgress?.Invoke(0f);
+
+            // A direct one-off send, as used by the public v1 implementation, leaves the
+            // retry state disarmed after the first host response. Rearm it before sending.
+            TrackPendingSaveRequest(peer);
+            SendSaveRequest(peer, retry: true);
+        }
+
+        /// <summary>
+        /// Abort client receive state when the host is no longer available. Unlike a transport
+        /// delivery invalidation, a departed peer cannot service an immediate restart request.
+        /// </summary>
+        public static void OnPeerUnavailable(CSteamID peer, string reason)
+        {
+            if (peer == CSteamID.Nil || transferCompletionReceived ||
+                (peer != pendingSenderHost && peer != pendingRequestHost))
+            {
+                return;
+            }
+
+            string error = string.IsNullOrEmpty(reason)
+                ? "The host became unavailable during save transfer"
+                : reason;
+            CoopMod.Logger.LogWarning($"[SaveTransfer] {error}");
+            Reset();
+            OnTransferError?.Invoke(error);
         }
         
         /// <summary>
@@ -847,11 +1250,22 @@ namespace GraveyardKeeperCoop.Multiplayer
         public static void Reset()
         {
             pendingSaveFilename = null;
+            pendingHostSlotFilename = null;
+            pendingWorldSeed = -1;
+            pendingLoadSaveHash = null;
             receivedSaveData = null;
             expectedChunks = 0;
             receivedChunks = 0;
             pendingSlotData = null;
             pendingSenderHost = CSteamID.Nil;
+            hostSaveSlotToSend = null;
+            hostSavePreparationGeneration++;
+            hostSavePreparationInFlight = false;
+            hostSavePreparationSlot = string.Empty;
+            hostSavePreparationWaiters.Clear();
+            transferCompletionReceived = false;
+            lastInvalidatedPeer = CSteamID.Nil;
+            lastInvalidationRestartAt = 0f;
             pendingCoopPositionsReceived = false;
             pendingCoopPositionsJson = null;
             lastTransferProgress = 0f;

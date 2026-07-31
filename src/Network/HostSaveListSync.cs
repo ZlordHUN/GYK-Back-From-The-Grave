@@ -134,8 +134,7 @@ namespace GraveyardKeeperCoop.Network
         }
 
         /// <summary>
-        /// Re-send the host's current save list to every connected client after a local
-        /// slot is added or deleted.
+        /// Re-send the host's current co-op save list after a local slot changes.
         /// </summary>
         public static void HostBroadcastCurrentList()
         {
@@ -153,9 +152,7 @@ namespace GraveyardKeeperCoop.Network
                 {
                     CSteamID memberID = SteamMatchmaking.GetLobbyMemberByIndex(lobbyID, i);
                     if (memberID != CSteamID.Nil && memberID != localID)
-                    {
                         SteamP2PManager.Instance.SendHostSaveList(memberID, entries, currentSelected);
-                    }
                 }
             });
         }
@@ -176,6 +173,7 @@ namespace GraveyardKeeperCoop.Network
                         foreach (var s in slots)
                         {
                             if (s == null) continue;
+                            if (!Patches.MainMenuPatches.IsMultiplayerSave(s)) continue;
                             // Skip empty slots (match SaveSelectorPanel behavior)
                             if (s.game_time <= 0.01f) continue;
                             entries.Add(new HostSaveEntryWire

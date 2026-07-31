@@ -1,5 +1,7 @@
 using System.Collections;
 using UnityEngine;
+using Steamworks;
+using System.Collections.Generic;
 
 namespace GraveyardKeeperCoop.UI
 {
@@ -242,6 +244,8 @@ namespace GraveyardKeeperCoop.UI
         private const long NO_SPEECH_BUBBLE_ID = long.MinValue;
         private static long _localSpeechBubbleId = NO_SPEECH_BUBBLE_ID;
         private static long _remoteSpeechBubbleId = NO_SPEECH_BUBBLE_ID;
+        private static readonly Dictionary<ulong, long> _remoteSpeechBubbleIds =
+            new Dictionary<ulong, long>();
         public static bool IsShowingChatBubble => _isShowingChatBubble;
         
         /// <summary>
@@ -260,10 +264,26 @@ namespace GraveyardKeeperCoop.UI
         /// </summary>
         public static void ShowRemoteMessage(string message, float duration = 5f)
         {
-            var remoteWGO = Network.OnlineCoopManager.Instance?.GetRemotePlayer();
+            ShowRemoteMessage(
+                Network.OnlineCoopManager.Instance?.RemotePlayerSteamID ??
+                CSteamID.Nil,
+                message,
+                duration);
+        }
+
+        public static void ShowRemoteMessage(
+            CSteamID senderID,
+            string message,
+            float duration = 5f)
+        {
+            var remoteWGO = senderID != CSteamID.Nil
+                ? Network.OnlineCoopManager.Instance?.GetRemotePlayer(senderID)
+                : Network.OnlineCoopManager.Instance?.GetRemotePlayer();
             if (ShowGameSpeechBubble(remoteWGO, message, "remote", out long speakerId))
             {
                 _remoteSpeechBubbleId = speakerId;
+                if (senderID != CSteamID.Nil)
+                    _remoteSpeechBubbleIds[senderID.m_SteamID] = speakerId;
             }
         }
 
@@ -384,6 +404,10 @@ namespace GraveyardKeeperCoop.UI
                 HideGameSpeechBubble(_remoteSpeechBubbleId);
                 _remoteSpeechBubbleId = NO_SPEECH_BUBBLE_ID;
             }
+
+            foreach (long speakerId in _remoteSpeechBubbleIds.Values)
+                HideGameSpeechBubble(speakerId);
+            _remoteSpeechBubbleIds.Clear();
 
             if (_localPlayerBubble != null)
             {

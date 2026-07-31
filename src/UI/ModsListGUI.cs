@@ -202,10 +202,7 @@ namespace GraveyardKeeperCoop.UI
             if (font != null)
                 label.bitmapFont = font;
             
-            string displayVersion = plugin.Metadata.GUID == PluginInfo.PLUGIN_GUID
-                ? PluginInfo.PLUGIN_DISPLAY_VERSION
-                : plugin.Metadata.Version.ToString();
-            label.text = $"{plugin.Metadata.Name} v{displayVersion}";
+            label.text = $"{plugin.Metadata.Name} v{plugin.Metadata.Version}";
             label.fontSize = 24;
             label.color = Color.white;
             label.alignment = NGUIText.Alignment.Left;

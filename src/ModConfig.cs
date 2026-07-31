@@ -1,4 +1,5 @@
 using BepInEx.Configuration;
+using System;
 
 namespace GraveyardKeeperCoop
 {
@@ -25,6 +26,8 @@ namespace GraveyardKeeperCoop
         public static ConfigEntry<bool> EnableJoinerProfilePersistence;
         public static ConfigEntry<bool> EnableNetworkDebugOverlay;
         public static ConfigEntry<bool> EnableSaveDiagnostics;
+        public static ConfigEntry<bool> EnablePerformanceProfiling;
+        public static ConfigEntry<float> ReliableChannelChaosDropRate;
         public static ConfigEntry<bool> EnableLocalMotionSmoothing;
         public static ConfigEntry<bool> OverrideFramePacing;
         public static ConfigEntry<int> TargetFrameRate;
@@ -156,8 +159,9 @@ namespace GraveyardKeeperCoop
 
             MaxPlayers = config.Bind("Network",
                 "MaxPlayers",
-                2,
-                "Maximum number of players (2-4 recommended)");
+                4,
+                "Maximum lobby size (2-4). Three and four player gameplay is experimental.");
+            MaxPlayers.Value = Math.Max(2, Math.Min(4, MaxPlayers.Value));
 
             HostedSessionVisibility = config.Bind("Network",
                 "HostedSessionVisibility",
@@ -212,7 +216,7 @@ namespace GraveyardKeeperCoop
             EnableJoinerProfilePersistence = config.Bind("Network",
                 "EnableJoinerProfilePersistence",
                 true,
-                "Preserve a joiner's personal player state after loading the host's save and refresh it during client sessions.");
+                "Preserve a joiner's personal inventory and loadout after loading the host's save. Shared campaign progression remains host-authoritative.");
 
             EnableNetworkDebugOverlay = config.Bind("Debug",
                 "EnableNetworkDebugOverlay",
@@ -223,6 +227,21 @@ namespace GraveyardKeeperCoop
                 "EnableSaveDiagnostics",
                 false,
                 "Enable verbose save/load diagnostic logging. This is intended for debugging only and is off by default.");
+
+            EnablePerformanceProfiling = config.Bind("Debug",
+                "EnablePerformanceProfiling",
+                true,
+                "Enable five-second internal frame and subsystem timing reports. Disable after diagnostic testing for normal play.");
+
+            ReliableChannelChaosDropRate = config.Bind("Debug",
+                "ReliableChannelChaosDropRate",
+                0f,
+                "TESTING ONLY: fraction (0.0-0.95) of outgoing RNET datagrams to drop. " +
+                "Higher values make delivery progressively slower. Leave at 0 for normal play.");
+            float ClampDropRate(float value) => value < 0f ? 0f : (value > 0.95f ? 0.95f : value);
+            Network.ReliableTransport.ChaosDropRate = ClampDropRate(ReliableChannelChaosDropRate.Value);
+            ReliableChannelChaosDropRate.SettingChanged += (sender, args) =>
+                Network.ReliableTransport.ChaosDropRate = ClampDropRate(ReliableChannelChaosDropRate.Value);
 
             EnableLocalMotionSmoothing = config.Bind("Performance",
                 "EnableLocalMotionSmoothing",

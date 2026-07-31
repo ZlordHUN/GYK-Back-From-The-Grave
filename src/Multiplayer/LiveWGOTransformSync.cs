@@ -41,6 +41,9 @@ namespace GraveyardKeeperCoop.Multiplayer
         private readonly Dictionary<long, Vector3> lastBroadcastPositions = new Dictionary<long, Vector3>();
         private readonly Dictionary<long, Vector3> targetPositions = new Dictionary<long, Vector3>();
         private readonly Dictionary<long, float> localAuthorityUntil = new Dictionary<long, float>();
+        private readonly List<long> staleTargetIds = new List<long>();
+        private readonly List<KeyValuePair<long, Vector3>> movedObjects =
+            new List<KeyValuePair<long, Vector3>>(MaxSendPerTick);
 
         private List<WorldGameObject> cacheBuildSource;
         private float broadcastTimer;
@@ -78,6 +81,14 @@ namespace GraveyardKeeperCoop.Multiplayer
         {
             if (wgo == null || IsHost || wgo.unique_id == 0L)
                 return;
+
+            if (IsNpc(wgo))
+            {
+                targetPositions.Remove(wgo.unique_id);
+                localAuthorityUntil.Remove(wgo.unique_id);
+                lastBroadcastPositions.Remove(wgo.unique_id);
+                return;
+            }
 
             targetPositions[wgo.unique_id] = position;
             localAuthorityUntil.Remove(wgo.unique_id);
@@ -140,14 +151,16 @@ namespace GraveyardKeeperCoop.Multiplayer
             lastBroadcastPositions.Clear();
             targetPositions.Clear();
             localAuthorityUntil.Clear();
+            staleTargetIds.Clear();
+            movedObjects.Clear();
             ResetDiagnostics();
         }
 
         private void Update()
         {
-            var __profSw = System.Diagnostics.Stopwatch.StartNew();
+            long __profStart = GraveyardKeeperCoop.Utils.FrameProfiler.BeginSection();
             try { UpdateInternal(); }
-            finally { GraveyardKeeperCoop.Utils.FrameProfiler.Record("LWGO.Update", __profSw.ElapsedTicks); }
+            finally { GraveyardKeeperCoop.Utils.FrameProfiler.EndSection("LWGO.Update", __profStart); }
         }
 
         private void UpdateInternal()
@@ -183,16 +196,16 @@ namespace GraveyardKeeperCoop.Multiplayer
 
         private void LateUpdate()
         {
-            var __profSw = System.Diagnostics.Stopwatch.StartNew();
+            long __profStart = GraveyardKeeperCoop.Utils.FrameProfiler.BeginSection();
             try { LateUpdateInternal(); }
-            finally { GraveyardKeeperCoop.Utils.FrameProfiler.Record("LWGO.LateUpdate", __profSw.ElapsedTicks); }
+            finally { GraveyardKeeperCoop.Utils.FrameProfiler.EndSection("LWGO.LateUpdate", __profStart); }
         }
 
         private void LateUpdateInternal()
         {
             if (!runtimeEnabled || !IsSyncEnabled || !IsSessionActive() || targetPositions.Count == 0) return;
 
-            var stale = new List<long>();
+            staleTargetIds.Clear();
             float snapSqr = SnapDistance * SnapDistance;
             float lerp = Mathf.Clamp01(Time.deltaTime * CorrectionLerpSpeed);
 
@@ -209,8 +222,16 @@ namespace GraveyardKeeperCoop.Multiplayer
                 WorldGameObject wgo = ResolveByUniqueId(uniqueId);
                 if (wgo == null)
                 {
-                    stale.Add(uniqueId);
+                    staleTargetIds.Add(uniqueId);
                     diagStaleTargets++;
+                    continue;
+                }
+
+                if (!ShouldSync(wgo))
+                {
+                    staleTargetIds.Add(uniqueId);
+                    lastBroadcastPositions.Remove(uniqueId);
+                    localAuthorityUntil.Remove(uniqueId);
                     continue;
                 }
 
@@ -227,8 +248,8 @@ namespace GraveyardKeeperCoop.Multiplayer
                 diagAppliedItems++;
             }
 
-            for (int i = 0; i < stale.Count; i++)
-                targetPositions.Remove(stale[i]);
+            for (int i = 0; i < staleTargetIds.Count; i++)
+                targetPositions.Remove(staleTargetIds[i]);
         }
 
         private void BroadcastMovedObjects()
@@ -241,7 +262,7 @@ namespace GraveyardKeeperCoop.Multiplayer
 
             if (cache.Count == 0) return;
 
-            var moved = new List<KeyValuePair<long, Vector3>>(MaxSendPerTick);
+            movedObjects.Clear();
             float movedSqr = MovedDistance * MovedDistance;
             int cacheCount = cache.Count;
             if (broadcastScanIndex < 0 || broadcastScanIndex >= cacheCount)
@@ -250,7 +271,7 @@ namespace GraveyardKeeperCoop.Multiplayer
             int scanned = 0;
             while (scanned < cacheCount &&
                    scanned < BroadcastScanPerTick &&
-                   moved.Count < MaxSendPerTick)
+                   movedObjects.Count < MaxSendPerTick)
             {
                 int index = (broadcastScanIndex + scanned) % cacheCount;
                 scanned++;
@@ -275,14 +296,14 @@ namespace GraveyardKeeperCoop.Multiplayer
                 lastBroadcastPositions[item.UniqueId] = pos;
                 localAuthorityUntil[item.UniqueId] = Time.realtimeSinceStartup + LocalAuthoritySeconds;
                 targetPositions.Remove(item.UniqueId);
-                moved.Add(new KeyValuePair<long, Vector3>(item.UniqueId, pos));
+                movedObjects.Add(new KeyValuePair<long, Vector3>(item.UniqueId, pos));
             }
 
             broadcastScanIndex = cacheCount > 0 ? (broadcastScanIndex + scanned) % cacheCount : 0;
 
-            if (moved.Count == 0) return;
+            if (movedObjects.Count == 0) return;
 
-            byte[] payload = SerializePayload(++NextSequence, moved);
+            byte[] payload = SerializePayload(++NextSequence, movedObjects);
             if (payload.Length > MaxPayloadBytes)
             {
                 CoopMod.Logger.LogWarning($"{LogPrefix} Payload too large ({payload.Length}); skipping");
@@ -291,7 +312,7 @@ namespace GraveyardKeeperCoop.Multiplayer
 
             SteamP2PManager.Instance?.BroadcastWGOTransformSync(payload);
             diagSentBatches++;
-            diagSentItems += moved.Count;
+            diagSentItems += movedObjects.Count;
         }
 
         private void OnTransformSyncReceived(CSteamID senderID, byte[] payload)
@@ -405,7 +426,9 @@ namespace GraveyardKeeperCoop.Multiplayer
 
         private static bool ShouldSync(WorldGameObject wgo)
         {
-            if (wgo == null || wgo.is_player) return false;
+            if (wgo == null || wgo.is_player || IsNpc(wgo)) return false;
+            if (wgo.GetComponent<FloatingWorldGameObject>() != null) return false;
+            if (wgo.GetComponent<RemoteBuildingPreviewMarker>() != null) return false;
 
             Scene scene = wgo.gameObject.scene;
             if (!scene.IsValid() || string.IsNullOrEmpty(scene.name)) return false;
@@ -414,6 +437,15 @@ namespace GraveyardKeeperCoop.Multiplayer
 
             return wgo.GetComponent<Rigidbody2D>() != null ||
                    wgo.GetComponentInChildren<Rigidbody2D>(true) != null;
+        }
+
+        private static bool IsNpc(WorldGameObject wgo)
+        {
+            if (wgo?.obj_def == null)
+                return false;
+
+            try { return wgo.obj_def.IsNPC(); }
+            catch { return false; }
         }
 
         private static WorldGameObject ResolveByUniqueId(long uniqueId)

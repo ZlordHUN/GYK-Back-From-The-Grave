@@ -843,6 +843,9 @@ namespace GraveyardKeeperCoop.Patches
             CoopMod.Logger.LogInfo("=================================");
             try
             {
+                if (!MainGame.game_started)
+                    ChatOverlay.Instance?.EndSession();
+
                 // If button exists, make sure the text is still "MULTIPLAYER"
                 if (multiplayerButton != null)
                 {

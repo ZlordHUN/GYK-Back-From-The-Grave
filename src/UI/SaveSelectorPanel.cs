@@ -23,6 +23,7 @@ namespace GraveyardKeeperCoop.UI
         private SaveSlotData selectedSlot;
         private bool hasSelection;
         private bool deleteInProgress;
+        private bool deleteConfirmationOpen;
         private bool readOnlyMirrorMode; // true = show host's saves (client view)
         private bool subscribedToHostSaveListUpdates;
         
@@ -386,8 +387,8 @@ namespace GraveyardKeeperCoop.UI
             slots.RemoveAll(s => !GraveyardKeeperCoop.Patches.MainMenuPatches.IsMultiplayerSave(s));
             CoopMod.Logger.LogInfo($"Loaded {slots.Count} coop save slots for multiplayer lobby (filtered)");
 
-            // ReadSaveSlots returns new SaveSlotData instances. Preserve an existing selection
-            // by filename so refreshing after deleting a different slot keeps its highlight.
+            // ReadSaveSlots returns fresh objects. Preserve selection by filename when a
+            // different slot was deleted and the list is rebuilt.
             if (hasSelection && selectedSlot != null)
             {
                 string selectedFilename = selectedSlot.filename_no_extension;
@@ -397,11 +398,8 @@ namespace GraveyardKeeperCoop.UI
                         slot.filename_no_extension,
                         selectedFilename,
                         System.StringComparison.Ordinal));
-
                 if (selectedSlot == null)
-                {
                     hasSelection = false;
-                }
             }
             
             if (slotsContainer == null || slotTemplate == null)
@@ -479,29 +477,25 @@ namespace GraveyardKeeperCoop.UI
                 // NOW destroy it so it doesn't handle clicks
                 Object.Destroy(saveSlotGUI);
                 
-                // Hosts can delete existing multiplayer saves from the slot's upper-right X.
-                // New Game has no backing files, so it never gets a delete action.
+                // Host slots keep a replacement delete action. New Game and mirrored
+                // client slots never expose deletion.
                 if (deleteButtonObject != null)
                 {
-                    deleteButtonObject.SetActive(slotData != null);
-                    if (slotData != null)
-                    {
+                    deleteButtonObject.SetActive(slotData != null && !readOnlyMirrorMode);
+                    if (slotData != null && !readOnlyMirrorMode)
                         ConfigureDeleteButton(deleteButtonObject, slotData);
-                    }
                 }
                 
-                // Disable default slot buttons while preserving the host delete button.
+                // Disable default slot buttons while preserving the rebound delete button.
                 var uiButtons = slotObj.GetComponentsInChildren<UIButton>(true);
                 foreach (var btn in uiButtons)
                 {
-                    if (deleteButtonObject != null &&
-                        slotData != null &&
+                    if (deleteButtonObject != null && slotData != null && !readOnlyMirrorMode &&
                         (btn.gameObject == deleteButtonObject ||
                          btn.transform.IsChildOf(deleteButtonObject.transform)))
                     {
                         continue;
                     }
-
                     Object.Destroy(btn);
                 }
                 
@@ -513,15 +507,12 @@ namespace GraveyardKeeperCoop.UI
                 // Fallback: manually update labels
                 UpdateSlotLabels(slotObj, slotData);
 
-                var deleteButton = FindDeleteButton(slotObj);
-                if (deleteButton != null)
+                deleteButtonObject = FindDeleteButton(slotObj);
+                if (deleteButtonObject != null)
                 {
-                    deleteButton.SetActive(slotData != null);
-                    if (slotData != null)
-                    {
-                        deleteButtonObject = deleteButton;
+                    deleteButtonObject.SetActive(slotData != null && !readOnlyMirrorMode);
+                    if (slotData != null && !readOnlyMirrorMode)
                         ConfigureDeleteButton(deleteButtonObject, slotData);
-                    }
                 }
             }
             
@@ -682,56 +673,82 @@ namespace GraveyardKeeperCoop.UI
             if (deleteButton == null || slotData == null)
                 return;
 
-            // Remove the prefab's callback to SaveSlotGUI.OnDeletePressed. That component is
-            // intentionally removed because lobby slots use their own select/delete behavior.
+            // Remove callbacks targeting the SaveSlotGUI component that this panel replaces.
+            var eventTargets = new HashSet<GameObject> { deleteButton };
             foreach (var button in deleteButton.GetComponentsInChildren<UIButton>(true))
             {
                 button.onClick.Clear();
                 button.isEnabled = true;
+                eventTargets.Add(button.gameObject);
             }
-
             foreach (var trigger in deleteButton.GetComponentsInChildren<UIEventTrigger>(true))
             {
                 trigger.onClick.Clear();
+                eventTargets.Add(trigger.gameObject);
             }
-
+            foreach (var collider in deleteButton.GetComponentsInChildren<BoxCollider>(true))
+                eventTargets.Add(collider.gameObject);
+            foreach (var collider in deleteButton.GetComponentsInChildren<BoxCollider2D>(true))
+                eventTargets.Add(collider.gameObject);
             foreach (var message in deleteButton.GetComponentsInChildren<UIButtonMessage>(true))
-            {
                 Object.Destroy(message);
-            }
-
             foreach (var forwarder in deleteButton.GetComponentsInChildren<UIForwardEvents>(true))
-            {
                 forwarder.onClick = false;
-            }
 
-            UIEventListener listener = UIEventListener.Get(deleteButton);
-            listener.onClick = go => RequestDeleteSlot(slotData);
+            foreach (GameObject eventTarget in eventTargets)
+            {
+                UIEventListener listener = UIEventListener.Get(eventTarget);
+                listener.onClick = go => RequestDeleteSlot(slotData);
+            }
         }
 
         private void RequestDeleteSlot(SaveSlotData slotData)
         {
-            if (readOnlyMirrorMode || slotData == null || deleteInProgress)
+            if (readOnlyMirrorMode || slotData == null || deleteInProgress || deleteConfirmationOpen)
                 return;
+            if (!GraveyardKeeperCoop.Patches.MainMenuPatches.IsMultiplayerSave(slotData))
+            {
+                CoopMod.Logger.LogWarning("[SaveSelectorPanel] Refused deletion of a non-co-op save");
+                return;
+            }
 
             var dialog = GUIElements.me?.dialog;
             if (dialog == null)
             {
-                DeleteSlot(slotData);
+                CoopMod.Logger.LogError("[SaveSelectorPanel] Cannot confirm save deletion because the dialog UI is unavailable");
                 return;
             }
 
-            dialog.OpenYesNo(
-                GJL.L("delete_slot"),
-                new GJCommons.VoidDelegate(() => DeleteSlot(slotData)),
-                null,
-                null);
+            deleteConfirmationOpen = true;
+            GJCommons.VoidDelegate clearConfirmation = () => deleteConfirmationOpen = false;
+            try
+            {
+                dialog.OpenYesNo(
+                    GJL.L("delete_slot"),
+                    new GJCommons.VoidDelegate(() =>
+                    {
+                        deleteConfirmationOpen = false;
+                        DeleteSlot(slotData);
+                    }),
+                    clearConfirmation,
+                    clearConfirmation);
+            }
+            catch (System.Exception ex)
+            {
+                deleteConfirmationOpen = false;
+                CoopMod.Logger.LogError($"[SaveSelectorPanel] Failed to open delete confirmation: {ex}");
+            }
         }
 
         private void DeleteSlot(SaveSlotData slotData)
         {
             if (readOnlyMirrorMode || slotData == null || deleteInProgress)
                 return;
+            if (!GraveyardKeeperCoop.Patches.MainMenuPatches.IsMultiplayerSave(slotData))
+            {
+                CoopMod.Logger.LogWarning("[SaveSelectorPanel] Save no longer qualifies as co-op; deletion cancelled");
+                return;
+            }
 
             deleteInProgress = true;
             string filename = slotData.filename_no_extension ?? string.Empty;
@@ -745,18 +762,13 @@ namespace GraveyardKeeperCoop.UI
                         GraveyardKeeperCoop.Multiplayer.MultiplayerSavePositions.DeleteSidecar(filename);
 
                         bool deletedSelectedSlot =
-                            hasSelection &&
-                            selectedSlot != null &&
+                            hasSelection && selectedSlot != null &&
                             string.Equals(
                                 selectedSlot.filename_no_extension,
                                 filename,
                                 System.StringComparison.Ordinal);
-
                         if (deletedSelectedSlot)
-                        {
-                            // Match the native menu's first-slot focus after deletion.
                             OnSlotClicked(null);
-                        }
 
                         CoopMod.Logger.LogInfo($"[SaveSelectorPanel] Deleted multiplayer save '{filename}'");
                         LoadSaveSlots();
@@ -915,7 +927,7 @@ namespace GraveyardKeeperCoop.UI
         private SaveSlotData slotData;
         private System.Action onClicked;
         private UIWidget backgroundWidget;
-        private UIWidget deleteWidget;
+        private UIWidget[] deleteWidgets;
         private Camera uiCamera;
         
         public SaveSlotData SlotData => slotData;
@@ -927,9 +939,9 @@ namespace GraveyardKeeperCoop.UI
             
             // Find background widget for bounds detection
             backgroundWidget = GetComponentInChildren<UIWidget>();
-            deleteWidget = deleteButton != null
-                ? deleteButton.GetComponent<UIWidget>() ?? deleteButton.GetComponentInChildren<UIWidget>(true)
-                : null;
+            deleteWidgets = deleteButton != null
+                ? deleteButton.GetComponentsInChildren<UIWidget>(true)
+                : new UIWidget[0];
             
             // Find UI camera
             uiCamera = NGUITools.FindCameraForLayer(gameObject.layer);
@@ -944,13 +956,13 @@ namespace GraveyardKeeperCoop.UI
             {
                 Vector3 mousePos = Input.mousePosition;
 
-                // The delete X owns its click and must not also select the underlying slot.
-                if (deleteWidget != null && IsWithinWidget(deleteWidget, mousePos))
+                // The delete X owns its click and must not also select the slot below it.
+                for (int i = 0; i < deleteWidgets.Length; i++)
                 {
-                    return;
+                    if (deleteWidgets[i] != null && IsWithinWidget(deleteWidgets[i], mousePos))
+                        return;
                 }
                 
-                // Get widget bounds in screen space
                 if (IsWithinWidget(backgroundWidget, mousePos))
                 {
                     CoopMod.Logger.LogInfo($"SaveSlot clicked: {(slotData != null ? slotData.real_time : "New Game")}");

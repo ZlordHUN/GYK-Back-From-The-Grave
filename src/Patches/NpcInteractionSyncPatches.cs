@@ -19,33 +19,60 @@ namespace GraveyardKeeperCoop.Patches
     ///
     /// Solution: Intercept <see cref="WorldGameObject.Interact"/> on NPCs and broadcast
     /// enough identity info (custom_tag + obj_id + position) for the other peer to
-    /// resolve its copy. Story-critical donkey interactions are host-authoritative:
-    /// clients request the interaction, the host runs the one canonical FlowScript,
-    /// and clients observe it through dialogue/visual sync.
+    /// resolve its copy. The host validates story-critical donkey interactions, then
+    /// the requesting client runs the player-bound FlowScript and temporarily becomes
+    /// the visual source for the donkey. Other players observe it through dialogue and
+    /// visual sync without running a second copy against the wrong player context.
     /// </summary>
     [HarmonyPatch]
     public static class NpcInteractionSyncPatches
     {
         /// <summary>Guard against re-broadcasting an interaction we just received.</summary>
         private static bool isProcessingRemote = false;
-        private static bool isHeadlessDonkeyFlowActive = false;
-        private static bool isRemoteRequestedDonkeyFlowActive = false;
-        private static bool remoteDonkeySpeedStored = false;
-        private static float remoteDonkeyOriginalSpeed;
-        private static float headlessDonkeyFlowStartedAt;
-        private static Vector3 headlessDonkeyOriginWorldPos;
-        private static string headlessDonkeyOriginZoneId = "";
-        private static bool headlessDonkeyHasScope;
-        private const float HeadlessDonkeyFlowTimeout = 45f;
+        private static bool isLocalNpcInteractionActive;
+        private static float localNpcInteractionStartedAt;
+        private static string localNpcInteractionTag = "";
+        private static string localNpcInteractionObjId = "";
+        private static CSteamID observedNpcInteractionSender = CSteamID.Nil;
+        private static float observedNpcInteractionStartedAt;
+        private static string observedNpcInteractionTag = "";
+        private static string observedNpcInteractionObjId = "";
+        private static bool observedNpcInteractionParticipating;
+        private static bool observedNpcInteractionMirrorsLocalExecution;
         private const float NpcInteractionActivationDistance = 350f;
         private const float PendingNpcInteractionTimeout = 20f;
         private const float DeferredFastForwardStepTimeout = 2f;
         private const float DeferredFastForwardStepDelay = 0.08f;
         private const float ClientDonkeyRequestTimeout = 8f;
+        private const float NpcAnimationWindowTimeout = 120f;
+        private const float CompletionSettleSeconds = 0.35f;
+        private const float CompletionMaxWaitSeconds = 20f;
+        private const string FirstDonkeyQuestId = "go_to_talk_with_donkey_first_time";
+        private const string FirstDonkeyIntroEvent = "intro";
+        private const string MetDonkeyPlayerParam = "met_donkey";
+        private const string FirstCemeteryQuestId =
+            "go_to_graveyard_and_talk_with_skull";
+        private const string CemeteryGerryObjId = "talking_skull";
+        private const string CemeteryTutorialEvent = "tutor_cemetery";
+        private const string CemeteryWaitParam = "skull_wait_in_cemetery";
+        private const string FirstBurialWaitParam = "waiting_for_first_bureal";
+        private const string BishopObjId = "npc_bishop";
+        private const string BishopIntroEvent = "intro";
+        private const string MetBishopPlayerParam = "met_bishop";
+        private const string ChurchLevelPlayerParam = "church_level";
+        private const string GraveToolsPlayerParam =
+            "take_tools_from_grave_chest";
+        private const string GraveToolsQuestId =
+            "take_tools_from_grave_chest";
 
         private static PendingRemoteNpcInteraction pendingRemoteNpcInteraction;
         private static bool clientDonkeyRequestPending;
         private static float clientDonkeyRequestSentAt;
+        private static string pendingLocalCompletionTag = "";
+        private static string pendingLocalCompletionObjId = "";
+        private static float pendingLocalCompletionAt;
+        private static float localCompletionRequestedAt;
+        private static float localCompletionSettledAt;
 
         private sealed class PendingRemoteNpcInteraction
         {
@@ -59,6 +86,7 @@ namespace GraveyardKeeperCoop.Patches
             public bool HasScope;
             public byte Facing;
             public float ReceivedAt;
+            public bool ObserveLiveDialogue;
             public readonly List<DeferredDialogueOp> BufferedDialogueOps = new List<DeferredDialogueOp>();
         }
 
@@ -67,11 +95,28 @@ namespace GraveyardKeeperCoop.Patches
         {
             clientDonkeyRequestPending = false;
             clientDonkeyRequestSentAt = 0f;
+            isLocalNpcInteractionActive = false;
+            localNpcInteractionStartedAt = 0f;
+            localNpcInteractionTag = "";
+            localNpcInteractionObjId = "";
+            observedNpcInteractionSender = CSteamID.Nil;
+            observedNpcInteractionStartedAt = 0f;
+            observedNpcInteractionTag = "";
+            observedNpcInteractionObjId = "";
+            observedNpcInteractionParticipating = false;
+            observedNpcInteractionMirrorsLocalExecution = false;
+            pendingLocalCompletionTag = "";
+            pendingLocalCompletionObjId = "";
+            pendingLocalCompletionAt = 0f;
+            localCompletionRequestedAt = 0f;
+            localCompletionSettledAt = 0f;
             var p2p = SteamP2PManager.Instance;
             if (p2p != null)
             {
                 p2p.OnNpcInteractionReceived -= OnRemoteNpcInteraction;
                 p2p.OnNpcInteractionReceived += OnRemoteNpcInteraction;
+                p2p.OnNpcInteractionCompleteReceived -= OnRemoteNpcInteractionComplete;
+                p2p.OnNpcInteractionCompleteReceived += OnRemoteNpcInteractionComplete;
             }
             CoopMod.Logger.LogInfo("[NpcInteractionSync] Enabled");
         }
@@ -83,13 +128,27 @@ namespace GraveyardKeeperCoop.Patches
             if (p2p != null)
             {
                 p2p.OnNpcInteractionReceived -= OnRemoteNpcInteraction;
+                p2p.OnNpcInteractionCompleteReceived -= OnRemoteNpcInteractionComplete;
             }
-            EndHeadlessDonkeyFlow();
             isProcessingRemote = false;
-            isRemoteRequestedDonkeyFlowActive = false;
             pendingRemoteNpcInteraction = null;
             clientDonkeyRequestPending = false;
             clientDonkeyRequestSentAt = 0f;
+            isLocalNpcInteractionActive = false;
+            localNpcInteractionStartedAt = 0f;
+            localNpcInteractionTag = "";
+            localNpcInteractionObjId = "";
+            observedNpcInteractionSender = CSteamID.Nil;
+            observedNpcInteractionStartedAt = 0f;
+            observedNpcInteractionTag = "";
+            observedNpcInteractionObjId = "";
+            observedNpcInteractionParticipating = false;
+            observedNpcInteractionMirrorsLocalExecution = false;
+            pendingLocalCompletionTag = "";
+            pendingLocalCompletionObjId = "";
+            pendingLocalCompletionAt = 0f;
+            localCompletionRequestedAt = 0f;
+            localCompletionSettledAt = 0f;
             CoopMod.Logger.LogInfo("[NpcInteractionSync] Disabled");
         }
 
@@ -130,7 +189,15 @@ namespace GraveyardKeeperCoop.Patches
                 if (isDonkey)
                 {
                     DonkeyCartCorpseVisualGuard.Ensure(__instance);
+                    EnsureFirstDonkeyIntroEvent(__instance, "local interaction");
                 }
+
+                EnsureFirstCemeteryTutorialEvent(
+                    __instance,
+                    "local interaction");
+                EnsureFirstBishopIntroEvent(
+                    __instance,
+                    "local interaction");
 
                 if (isDonkey && !onlineCoop.IsHost)
                 {
@@ -144,14 +211,27 @@ namespace GraveyardKeeperCoop.Patches
 
                     clientDonkeyRequestPending = true;
                     clientDonkeyRequestSentAt = now;
-                    CoopMod.Logger.LogInfo("[NpcInteractionSync] Client requested host-authoritative donkey interaction");
-                    SteamP2PManager.Instance?.SendNpcInteraction(tag, objId, pos, zoneId);
-                    SendCutsceneWalkToLocalPlayer();
+                    CoopMod.Logger.LogInfo("[NpcInteractionSync] Client requested host approval for donkey interaction");
+                    SteamP2PManager.Instance?.SendNpcInteractionToHost(
+                        tag,
+                        objId,
+                        pos,
+                        zoneId);
                     return false;
                 }
 
                 CoopMod.Logger.LogInfo($"[NpcInteractionSync] Local interact with NPC tag='{tag}', obj_id='{objId}' — broadcasting");
                 SteamP2PManager.Instance?.SendNpcInteraction(tag, objId, pos, zoneId);
+
+                localCompletionRequestedAt = 0f;
+                localCompletionSettledAt = 0f;
+                NpcVisualSync.Instance?.BeginLocalCutsceneActorSession(
+                    __instance,
+                    $"NPC interaction {objId}");
+                isLocalNpcInteractionActive = true;
+                localNpcInteractionStartedAt = Time.realtimeSinceStartup;
+                localNpcInteractionTag = tag;
+                localNpcInteractionObjId = objId;
 
                 if (isDonkey)
                 {
@@ -172,7 +252,14 @@ namespace GraveyardKeeperCoop.Patches
         /// local WGO and replay Interact() on it with our remote-player proxy as the
         /// instigator.
         /// </summary>
-        private static void OnRemoteNpcInteraction(CSteamID senderID, string tag, string objId, Vector3 expectedPos, string originZoneId, bool hasScope)
+        private static void OnRemoteNpcInteraction(
+            CSteamID senderID,
+            string tag,
+            string objId,
+            Vector3 expectedPos,
+            string originZoneId,
+            bool hasScope,
+            CSteamID interactionOwner)
         {
             try
             {
@@ -184,52 +271,103 @@ namespace GraveyardKeeperCoop.Patches
 
                 if (isDonkey && onlineCoop.IsHost)
                 {
-                    if (isRemoteRequestedDonkeyFlowActive)
+                    if (observedNpcInteractionSender != CSteamID.Nil ||
+                        HasLocalNpcVisualAuthority())
                     {
-                        CoopMod.Logger.LogInfo("[NpcInteractionSync] Ignoring duplicate request while host-authoritative donkey flow is active");
+                        string requestKind =
+                            observedNpcInteractionSender == senderID
+                                ? "duplicate"
+                                : "concurrent";
+                        CoopMod.Logger.LogInfo(
+                            $"[NpcInteractionSync] Ignoring {requestKind} donkey request while another player-owned flow is active");
                         return;
                     }
 
-                    isRemoteRequestedDonkeyFlowActive = true;
-                    bool hostInScope = ShouldActivatePendingNpcInteraction(
-                        expectedPos,
-                        originZoneId,
-                        hasScope,
-                        out string hostScopeReason);
-                    if (!hostInScope)
+                    WorldGameObject donkey = ResolveNpc(tag, objId, expectedPos);
+                    if (donkey == null)
                     {
-                        BeginHeadlessDonkeyFlow(
+                        CoopMod.Logger.LogWarning("[NpcInteractionSync] Host rejected client donkey request because the donkey could not be resolved");
+                        return;
+                    }
+
+                    DonkeyCartCorpseVisualGuard.Ensure(donkey);
+                    SteamP2PManager.Instance?.SendNpcInteraction(
+                        donkey.custom_tag ?? tag ?? "",
+                        donkey.obj_id ?? objId ?? "",
+                        donkey.transform.position,
+                        originZoneId ?? "",
+                        senderID);
+                    BeginObservedNpcAnimationWindow(senderID, tag, objId);
+
+                    if (!ShouldActivatePendingNpcInteraction(
                             expectedPos,
                             originZoneId,
                             hasScope,
-                            hostScopeReason);
-                    }
-
-                    if (!ExecuteHostAuthoritativeDonkeyInteraction(tag, objId, expectedPos, originZoneId))
+                            out string hostDeferReason))
                     {
-                        EndHeadlessDonkeyFlow();
-                        CompleteRemoteRequestedDonkeyFlow("host interaction failed");
+                        pendingRemoteNpcInteraction = new PendingRemoteNpcInteraction
+                        {
+                            SenderID = senderID,
+                            Tag = tag ?? "",
+                            ObjId = objId ?? "",
+                            NpcWorldPos = expectedPos,
+                            JoinWorldPos = Vector3.zero,
+                            HasJoinWorldPos = false,
+                            OriginZoneId = originZoneId ?? "",
+                            HasScope = hasScope,
+                            Facing = 0,
+                            ReceivedAt = Time.realtimeSinceStartup,
+                            ObserveLiveDialogue = true
+                        };
+                        CoopMod.Logger.LogInfo(
+                            $"[NpcInteractionSync] Host approved client-owned donkey flow outside local scope; observing while free ({hostDeferReason})");
                         return;
                     }
 
-                    // Donkey.Interact runs the canonical FlowScript and applies
-                    // its own cinematic lock when the host is actually nearby.
-                    // An out-of-scope host runs that same flow headlessly.
+                    if (ReplayRemoteNpcInteraction(
+                            senderID,
+                            tag,
+                            objId,
+                            expectedPos,
+                            true))
+                    {
+                        CutsceneSyncPatches.LockLocalPlayerForCutscene();
+                        observedNpcInteractionParticipating = true;
+                        observedNpcInteractionMirrorsLocalExecution = true;
+                    }
+                    else
+                    {
+                        CoopMod.Logger.LogWarning(
+                            "[NpcInteractionSync] Host could not replay the " +
+                            "approved donkey interaction; remaining a live observer");
+                    }
                     return;
                 }
 
-                if (isDonkey)
+                if (isDonkey &&
+                    clientDonkeyRequestPending &&
+                    senderID ==
+                        (SteamLobbyManager.Instance?.GetLobbyOwner() ??
+                         CSteamID.Nil) &&
+                    interactionOwner == SteamUser.GetSteamID())
                 {
                     clientDonkeyRequestPending = false;
                     clientDonkeyRequestSentAt = 0f;
                     CoopMod.Logger.LogInfo("[NpcInteractionSync] Host accepted donkey interaction request");
+                    StartAcceptedClientDonkeyInteraction(tag, objId, expectedPos);
+                    return;
                 }
+
+                BeginObservedNpcAnimationWindow(
+                    interactionOwner,
+                    tag,
+                    objId);
 
                 if (!ShouldActivatePendingNpcInteraction(expectedPos, originZoneId, hasScope, out string deferReason))
                 {
                     pendingRemoteNpcInteraction = new PendingRemoteNpcInteraction
                     {
-                        SenderID = senderID,
+                        SenderID = interactionOwner,
                         Tag = tag ?? "",
                         ObjId = objId ?? "",
                         NpcWorldPos = expectedPos,
@@ -238,7 +376,8 @@ namespace GraveyardKeeperCoop.Patches
                         OriginZoneId = originZoneId ?? "",
                         HasScope = hasScope,
                         Facing = 0,
-                        ReceivedAt = Time.realtimeSinceStartup
+                        ReceivedAt = Time.realtimeSinceStartup,
+                        ObserveLiveDialogue = true
                     };
 
                     string senderName = SteamFriends.GetFriendPersonaName(senderID);
@@ -246,19 +385,236 @@ namespace GraveyardKeeperCoop.Patches
                     return;
                 }
 
-                if (!ReplayRemoteNpcInteraction(senderID, tag, objId, expectedPos, isDonkey))
+                if (!ReplayRemoteNpcInteraction(
+                        interactionOwner,
+                        tag,
+                        objId,
+                        expectedPos,
+                        isDonkey))
                 {
+                    observedNpcInteractionSender = CSteamID.Nil;
+                    observedNpcInteractionStartedAt = 0f;
+                    observedNpcInteractionTag = "";
+                    observedNpcInteractionObjId = "";
+                    observedNpcInteractionParticipating = false;
+                    observedNpcInteractionMirrorsLocalExecution = false;
                     return;
                 }
 
-                // Lock the local player into the cutscene (control disabled + letterbox),
-                // same as FlowScript cutscenes. Unlocked when the host's dialogue ends.
-                Patches.CutsceneSyncPatches.LockLocalPlayerForCutscene();
+                // The actual letterbox transition is detected and promoted by
+                // CutsceneSyncPatches. Start as ordinary observed dialogue here;
+                // cinematic interactions will upgrade generically when their
+                // FlowScript shows the bars.
+                Patches.CutsceneSyncPatches.LockLocalPlayerForObservedDialogue();
+                observedNpcInteractionParticipating = true;
+                observedNpcInteractionMirrorsLocalExecution = true;
             }
             catch (System.Exception ex)
             {
                 CoopMod.Logger.LogError($"[NpcInteractionSync] Error handling remote NPC interaction: {ex}");
             }
+        }
+
+        private static bool StartAcceptedClientDonkeyInteraction(
+            string tag,
+            string objId,
+            Vector3 expectedPos)
+        {
+            WorldGameObject donkey = ResolveNpc(tag, objId, expectedPos);
+            WorldGameObject localPlayer = MainGame.me?.player;
+            if (donkey == null || localPlayer == null)
+            {
+                CoopMod.Logger.LogWarning(
+                    "[NpcInteractionSync] Cannot start approved donkey interaction on client - donkey/player unavailable");
+                return false;
+            }
+
+            DonkeyCartCorpseVisualGuard.Ensure(donkey);
+            EnsureFirstDonkeyIntroEvent(donkey, "host-approved client interaction");
+            localCompletionRequestedAt = 0f;
+            localCompletionSettledAt = 0f;
+            NpcVisualSync.Instance?.BeginLocalCutsceneActorSession(
+                donkey,
+                "host-approved donkey interaction");
+            isLocalNpcInteractionActive = true;
+            localNpcInteractionStartedAt = Time.realtimeSinceStartup;
+            localNpcInteractionTag = tag ?? "";
+            localNpcInteractionObjId = objId ?? "";
+
+            try
+            {
+                isProcessingRemote = true;
+                CoopMod.Logger.LogInfo(
+                    "[NpcInteractionSync] Client starting host-approved donkey FlowScript with the requesting player context");
+                DialogueSync.Instance?.NotifyDialogueStart(
+                    string.IsNullOrEmpty(objId) ? "donkey" : objId);
+                SendCutsceneWalkToLocalPlayer();
+                donkey.Interact(localPlayer, true);
+                return true;
+            }
+            catch (System.Exception ex)
+            {
+                isLocalNpcInteractionActive = false;
+                localNpcInteractionStartedAt = 0f;
+                localNpcInteractionTag = "";
+                localNpcInteractionObjId = "";
+                CoopMod.Logger.LogError(
+                    $"[NpcInteractionSync] Approved client donkey interaction failed: {ex}");
+                return false;
+            }
+            finally
+            {
+                isProcessingRemote = false;
+            }
+        }
+
+        /// <summary>
+        /// Repair saves produced before remote Gerry finalization replayed Donkey's
+        /// on_came_to_cemetery event. Those saves have the first-Donkey quest but no queued
+        /// intro interaction, so vanilla falls through to the later oil/leave menu.
+        /// </summary>
+        private static void EnsureFirstDonkeyIntroEvent(
+            WorldGameObject donkey,
+            string source)
+        {
+            var save = MainGame.me?.save;
+            var player = MainGame.me?.player;
+            if (donkey == null || save?.quests == null || player == null ||
+                !save.quests.IsQuestCurrent(FirstDonkeyQuestId) ||
+                player.GetParam(MetDonkeyPlayerParam, 0f) >= 1f)
+            {
+                return;
+            }
+
+            if (donkey.custom_interaction_events == null)
+            {
+                donkey.custom_interaction_events = new List<string>();
+            }
+
+            int introIndex = donkey.custom_interaction_events.IndexOf(
+                FirstDonkeyIntroEvent);
+            if (introIndex == 0)
+            {
+                return;
+            }
+
+            string previousEvents = donkey.custom_interaction_events.Count == 0
+                ? "none"
+                : string.Join(",", donkey.custom_interaction_events.ToArray());
+            if (introIndex > 0)
+            {
+                donkey.custom_interaction_events.RemoveAt(introIndex);
+            }
+            donkey.custom_interaction_events.Insert(0, FirstDonkeyIntroEvent);
+
+            CoopMod.Logger.LogWarning(
+                $"[NpcInteractionSync] Restored missing first-Donkey intro event " +
+                $"({source}; previous events={previousEvents})");
+        }
+
+        /// <summary>
+        /// Repair saves where a client-owned autopsy flow placed cemetery Gerry but
+        /// the one-shot interaction event was not retained by the host save. The
+        /// active quest and its vanilla player flags make this recovery unambiguous.
+        /// </summary>
+        private static void EnsureFirstCemeteryTutorialEvent(
+            WorldGameObject npc,
+            string source)
+        {
+            QuestSystem quests = MainGame.me?.save?.quests;
+            WorldGameObject player = MainGame.me?.player;
+            if (npc == null || player == null || quests == null ||
+                !string.Equals(
+                    npc.obj_id,
+                    CemeteryGerryObjId,
+                    System.StringComparison.Ordinal) ||
+                !quests.IsQuestCurrent(FirstCemeteryQuestId) ||
+                player.GetParam(CemeteryWaitParam, 0f) < 1f ||
+                player.GetParam(FirstBurialWaitParam, 0f) >= 1f)
+            {
+                return;
+            }
+
+            if (npc.custom_interaction_events == null)
+                npc.custom_interaction_events = new List<string>();
+
+            int eventIndex = npc.custom_interaction_events.IndexOf(
+                CemeteryTutorialEvent);
+            if (eventIndex == 0)
+                return;
+
+            string previousEvents = npc.custom_interaction_events.Count == 0
+                ? "none"
+                : string.Join(",", npc.custom_interaction_events.ToArray());
+            if (eventIndex > 0)
+                npc.custom_interaction_events.RemoveAt(eventIndex);
+            npc.custom_interaction_events.Insert(0, CemeteryTutorialEvent);
+            npc.RedrawBubble(null);
+
+            SpawnSync.Instance?.NotifyInteractionEventsChanged(npc);
+            CoopMod.Logger.LogWarning(
+                $"[NpcInteractionSync] Restored missing cemetery tutorial event " +
+                $"({source}; previous events={previousEvents})");
+        }
+
+        /// <summary>
+        /// Bishop's arrival normally queues the one-shot "intro" interaction from
+        /// on_came_to_finish. A client-owned arrival can lose that transient queue
+        /// while the Bishop still reaches the graveyard, causing the first talk to
+        /// fall through to the ordinary answer menu. The intro writes met/church
+        /// markers and starts the grave-tools quest. Its dialogue flag is later
+        /// cleared when the trunk opens, so either an active or succeeded quest
+        /// also proves that the cinematic conversation already ran.
+        /// </summary>
+        private static void EnsureFirstBishopIntroEvent(
+            WorldGameObject npc,
+            string source)
+        {
+            WorldGameObject player = MainGame.me?.player;
+            if (npc == null || player == null ||
+                !string.Equals(
+                    npc.obj_id,
+                    BishopObjId,
+                    System.StringComparison.Ordinal))
+            {
+                return;
+            }
+
+            QuestSystem quests = MainGame.me?.save?.quests;
+            bool graveToolsStepReached =
+                player.GetParam(GraveToolsPlayerParam, 0f) >= 1f ||
+                quests?.IsQuestCurrent(GraveToolsQuestId) == true ||
+                quests?.IsQuestSucced(GraveToolsQuestId) == true;
+            bool introComplete =
+                player.GetParam(MetBishopPlayerParam, 0f) >= 1f &&
+                player.GetParam(ChurchLevelPlayerParam, 0f) >= 1f &&
+                graveToolsStepReached;
+            if (introComplete)
+                return;
+
+            if (npc.custom_interaction_events == null)
+                npc.custom_interaction_events = new List<string>();
+
+            int introIndex = npc.custom_interaction_events.IndexOf(
+                BishopIntroEvent);
+            if (introIndex == 0)
+                return;
+
+            string previousEvents = npc.custom_interaction_events.Count == 0
+                ? "none"
+                : string.Join(",", npc.custom_interaction_events.ToArray());
+            if (introIndex > 0)
+                npc.custom_interaction_events.RemoveAt(introIndex);
+            npc.custom_interaction_events.Insert(0, BishopIntroEvent);
+            npc.RedrawBubble(null);
+
+            SpawnSync.Instance?.NotifyInteractionEventsChanged(npc);
+            CoopMod.Logger.LogWarning(
+                $"[NpcInteractionSync] Restored missing first-Bishop intro event " +
+                $"({source}; previous events={previousEvents}, " +
+                $"met={player.GetParam(MetBishopPlayerParam, 0f):F0}, " +
+                $"church={player.GetParam(ChurchLevelPlayerParam, 0f):F0}, " +
+                $"tools={player.GetParam(GraveToolsPlayerParam, 0f):F0})");
         }
 
         private static bool ReplayRemoteNpcInteraction(CSteamID senderID, string tag, string objId, Vector3 expectedPos, bool isDonkey)
@@ -281,7 +637,8 @@ namespace GraveyardKeeperCoop.Patches
                     DonkeyCartCorpseVisualGuard.Ensure(npc);
                 }
 
-                WorldGameObject remotePlayerWgo = onlineCoop.GetRemotePlayer();
+                WorldGameObject remotePlayerWgo =
+                    onlineCoop.GetRemotePlayer(senderID);
                 if (remotePlayerWgo == null)
                 {
                     CoopMod.Logger.LogWarning("[NpcInteractionSync] Remote player WGO is null — cannot replay interaction");
@@ -298,48 +655,6 @@ namespace GraveyardKeeperCoop.Patches
             }
 
             return replayStarted;
-        }
-
-        private static bool ExecuteHostAuthoritativeDonkeyInteraction(
-            string tag,
-            string objId,
-            Vector3 expectedPos,
-            string originZoneId)
-        {
-            WorldGameObject donkey = ResolveNpc(tag, objId, expectedPos);
-            WorldGameObject localPlayer = MainGame.me?.player;
-            if (donkey == null || localPlayer == null)
-            {
-                CoopMod.Logger.LogWarning("[NpcInteractionSync] Cannot execute client donkey request on host — donkey/player unavailable");
-                return false;
-            }
-
-            DonkeyCartCorpseVisualGuard.Ensure(donkey);
-
-            // Acknowledge before running Interact because FireEvent can synchronously
-            // start dialogue and send its first packet.
-            SteamP2PManager.Instance?.SendNpcInteraction(
-                donkey.custom_tag ?? tag ?? "",
-                donkey.obj_id ?? objId ?? "",
-                donkey.transform.position,
-                originZoneId ?? "");
-
-            try
-            {
-                isProcessingRemote = true;
-                CoopMod.Logger.LogInfo("[NpcInteractionSync] Host executing canonical donkey interaction requested by client");
-                donkey.Interact(localPlayer, true);
-                return true;
-            }
-            catch (System.Exception ex)
-            {
-                CoopMod.Logger.LogError($"[NpcInteractionSync] Host donkey interaction failed: {ex}");
-                return false;
-            }
-            finally
-            {
-                isProcessingRemote = false;
-            }
         }
 
         public static bool TryDeferCutsceneWalk(CSteamID senderID, Vector3 joinWorldPos, byte facing)
@@ -366,6 +681,11 @@ namespace GraveyardKeeperCoop.Patches
                 return false;
             }
 
+            if (pending.ObserveLiveDialogue)
+            {
+                return false;
+            }
+
             pending.BufferedDialogueOps.Add(new DeferredDialogueOp { Type = DeferredDialogueOpType.Advance });
             CoopMod.Logger.LogInfo($"[NpcInteractionSync] Buffered dialogue advance for deferred NPC interaction '{GetPendingNpcLabel(pending)}' (ops={pending.BufferedDialogueOps.Count})");
             return true;
@@ -375,6 +695,11 @@ namespace GraveyardKeeperCoop.Patches
         {
             var pending = pendingRemoteNpcInteraction;
             if (pending == null || pending.SenderID != senderID)
+            {
+                return false;
+            }
+
+            if (pending.ObserveLiveDialogue)
             {
                 return false;
             }
@@ -409,13 +734,220 @@ namespace GraveyardKeeperCoop.Patches
             return pendingRemoteNpcInteraction != null;
         }
 
+        internal static bool ShouldSuppressPendingDialogueStart(
+            WorldGameObject target)
+        {
+            return clientDonkeyRequestPending &&
+                   target != null &&
+                   IsDonkeyIdentity(target.custom_tag, target.obj_id);
+        }
+
+        private static void BeginObservedNpcAnimationWindow(
+            CSteamID senderID,
+            string tag,
+            string objId)
+        {
+            observedNpcInteractionSender = senderID;
+            observedNpcInteractionStartedAt = Time.realtimeSinceStartup;
+            observedNpcInteractionTag = tag ?? "";
+            observedNpcInteractionObjId = objId ?? "";
+            observedNpcInteractionParticipating = false;
+            observedNpcInteractionMirrorsLocalExecution = false;
+        }
+
+        internal static void NotifyObservedNpcInteractionEnded(CSteamID senderID)
+        {
+            if (observedNpcInteractionSender == CSteamID.Nil ||
+                observedNpcInteractionSender != senderID)
+            {
+                return;
+            }
+
+            // Interaction FlowScripts can continue moving actors after their final
+            // dialogue bubble. A machine that replayed the interaction keeps its
+            // smooth local simulation; an observer that never replayed it continues
+            // accepting the initiator's puppet stream until completion.
+        }
+
+        internal static void NotifyLocalNpcInteractionDialogueEnded()
+        {
+            if (!isLocalNpcInteractionActive ||
+                MainGame.me?.player_char?.control_enabled != true)
+            {
+                return;
+            }
+
+            RequestLocalInteractionCompletion(
+                "dialogue ended with player control already enabled");
+        }
+
+        private static void OnRemoteNpcInteractionComplete(
+            CSteamID senderID,
+            string tag,
+            string objId)
+        {
+            if (observedNpcInteractionSender == CSteamID.Nil ||
+                observedNpcInteractionSender != senderID)
+            {
+                return;
+            }
+            if (!IsNpcIdentityMatch(
+                    tag,
+                    objId,
+                    observedNpcInteractionTag,
+                    observedNpcInteractionObjId))
+            {
+                return;
+            }
+
+            bool wasParticipating = observedNpcInteractionParticipating;
+            observedNpcInteractionSender = CSteamID.Nil;
+            observedNpcInteractionStartedAt = 0f;
+            observedNpcInteractionTag = "";
+            observedNpcInteractionObjId = "";
+            observedNpcInteractionParticipating = false;
+            observedNpcInteractionMirrorsLocalExecution = false;
+
+            if (pendingRemoteNpcInteraction != null &&
+                pendingRemoteNpcInteraction.SenderID == senderID &&
+                IsNpcIdentityMatch(
+                    tag,
+                    objId,
+                    pendingRemoteNpcInteraction.Tag,
+                    pendingRemoteNpcInteraction.ObjId))
+            {
+                pendingRemoteNpcInteraction = null;
+            }
+
+            // NPC interactions and live FlowScripts have independent lifetimes. The
+            // donkey interaction can finish after its initiator has already started
+            // the morgue flow; releasing its presentation lock here would tear down
+            // the newer flow's letterbox, HUD state, and follow target.
+            bool liveCutsceneStillOwnsPresentation =
+                CutsceneSyncPatches.ShouldKeepLocalPlayerLocked(senderID);
+            if (!liveCutsceneStillOwnsPresentation)
+            {
+                OnlineCoopManager.Instance?.EndObservedCutsceneFollow(
+                    "remote NPC interaction completed");
+                if (wasParticipating)
+                {
+                    CutsceneSyncPatches.UnlockLocalPlayerAfterCutscene();
+                }
+            }
+            else
+            {
+                CoopMod.Logger.LogInfo(
+                    "[NpcInteractionSync] NPC interaction completed while a live " +
+                    "remote FlowScript still owns presentation; preserving cutscene lock and follow");
+            }
+            CoopMod.Logger.LogInfo(
+                $"[NpcInteractionSync] Remote NPC interaction " +
+                $"'{objId}' completed; returned NPC visual authority");
+        }
+
+        internal static bool IsNpcNetworkPuppetWindowActive()
+        {
+            if (observedNpcInteractionSender == CSteamID.Nil ||
+                observedNpcInteractionMirrorsLocalExecution)
+                return false;
+
+            if (Time.realtimeSinceStartup - observedNpcInteractionStartedAt <=
+                NpcAnimationWindowTimeout)
+            {
+                return true;
+            }
+
+            CoopMod.Logger.LogWarning(
+                "[NpcInteractionSync] Observed NPC animation window timed out");
+            observedNpcInteractionSender = CSteamID.Nil;
+            observedNpcInteractionStartedAt = 0f;
+            observedNpcInteractionTag = "";
+            observedNpcInteractionObjId = "";
+            observedNpcInteractionParticipating = false;
+            observedNpcInteractionMirrorsLocalExecution = false;
+            return false;
+        }
+
+        internal static bool HasRemoteNpcVisualAuthority()
+        {
+            return observedNpcInteractionSender != CSteamID.Nil &&
+                   IsNpcNetworkPuppetWindowActive();
+        }
+
+        internal static bool IsRemoteNpcVisualAuthority(CSteamID senderID)
+        {
+            return HasRemoteNpcVisualAuthority() &&
+                   observedNpcInteractionSender == senderID;
+        }
+
+        internal static bool HasLocalNpcVisualAuthority()
+        {
+            return isLocalNpcInteractionActive;
+        }
+
+        internal static bool IsLocalCutsceneNpcActor(WorldGameObject wgo)
+        {
+            return HasLocalNpcVisualAuthority() &&
+                   wgo != null &&
+                   IsNpcIdentityMatch(
+                       wgo,
+                       localNpcInteractionTag,
+                       localNpcInteractionObjId);
+        }
+
+        internal static bool TryGetLocalDonkeyVisualActor(
+            out WorldGameObject donkey)
+        {
+            donkey = null;
+            if (!HasLocalNpcVisualAuthority() ||
+                !IsDonkeyIdentity(
+                    localNpcInteractionTag,
+                    localNpcInteractionObjId))
+            {
+                return false;
+            }
+
+            donkey = ResolveNpc(
+                localNpcInteractionTag,
+                localNpcInteractionObjId,
+                Vector3.zero);
+            return DonkeyCartCorpseVisualGuard.IsDonkey(donkey);
+        }
+
+        internal static bool HasActiveMirroredLocalInteraction()
+        {
+            return observedNpcInteractionSender != CSteamID.Nil &&
+                   observedNpcInteractionMirrorsLocalExecution;
+        }
+
+        internal static bool IsAuthoritativeNpcAnimationWindowActive()
+        {
+            if (!isLocalNpcInteractionActive)
+                return false;
+
+            if (Time.realtimeSinceStartup - localNpcInteractionStartedAt <=
+                NpcAnimationWindowTimeout)
+            {
+                return true;
+            }
+
+            isLocalNpcInteractionActive = false;
+            localNpcInteractionStartedAt = 0f;
+            localNpcInteractionTag = "";
+            localNpcInteractionObjId = "";
+            return false;
+        }
+
         internal static bool ShouldBlockLocalDialogueInput()
         {
-            // A client-requested donkey interaction is executed canonically on the
-            // host. When that host is out of scope, the canonical FlowScript still
-            // creates local bubbles even though the host is only an observer.
-            return pendingRemoteNpcInteraction != null ||
-                   (isRemoteRequestedDonkeyFlowActive && isHeadlessDonkeyFlowActive);
+            return pendingRemoteNpcInteraction != null;
+        }
+
+        internal static bool IsRemoteNpcInteractionDeferred(
+            CSteamID senderID)
+        {
+            return pendingRemoteNpcInteraction != null &&
+                   pendingRemoteNpcInteraction.SenderID == senderID;
         }
 
         /// <summary>
@@ -470,6 +1002,54 @@ namespace GraveyardKeeperCoop.Patches
             return null;
         }
 
+        private static bool IsNpcIdentityMatch(
+            WorldGameObject wgo,
+            string tag,
+            string objId)
+        {
+            if (wgo == null)
+                return false;
+
+            if (!string.IsNullOrEmpty(tag) &&
+                string.Equals(
+                    wgo.custom_tag,
+                    tag,
+                    System.StringComparison.OrdinalIgnoreCase))
+            {
+                return true;
+            }
+
+            return !string.IsNullOrEmpty(objId) &&
+                   string.Equals(
+                       wgo.obj_id,
+                       objId,
+                       System.StringComparison.OrdinalIgnoreCase);
+        }
+
+        private static bool IsNpcIdentityMatch(
+            string firstTag,
+            string firstObjId,
+            string secondTag,
+            string secondObjId)
+        {
+            if (!string.IsNullOrEmpty(firstTag) &&
+                !string.IsNullOrEmpty(secondTag) &&
+                string.Equals(
+                    firstTag,
+                    secondTag,
+                    System.StringComparison.OrdinalIgnoreCase))
+            {
+                return true;
+            }
+
+            return !string.IsNullOrEmpty(firstObjId) &&
+                   !string.IsNullOrEmpty(secondObjId) &&
+                   string.Equals(
+                       firstObjId,
+                       secondObjId,
+                       System.StringComparison.OrdinalIgnoreCase);
+        }
+
         private static bool IsDonkeyIdentity(string tag, string objId)
         {
             return string.Equals(tag, "donkey", System.StringComparison.OrdinalIgnoreCase) ||
@@ -491,6 +1071,8 @@ namespace GraveyardKeeperCoop.Patches
                     $"[NpcInteractionSync] Deferred NPC interaction " +
                     $"'{GetPendingNpcLabel(pending)}' expired after {age:F1}s without local participation");
                 pendingRemoteNpcInteraction = null;
+                DialogueSync.Instance?.ClearPendingRemoteOptions(
+                    pending.SenderID);
                 return;
             }
 
@@ -515,20 +1097,23 @@ namespace GraveyardKeeperCoop.Patches
             string label = GetPendingNpcLabel(pending);
             CoopMod.Logger.LogInfo($"[NpcInteractionSync] Activating deferred NPC interaction '{label}' ({activationReason}), bufferedOps={bufferedOps.Count}");
 
-            bool isDonkey = IsDonkeyIdentity(pending.Tag, pending.ObjId);
-            if (!ReplayRemoteNpcInteraction(pending.SenderID, pending.Tag, pending.ObjId, pending.NpcWorldPos, isDonkey))
-            {
-                return;
-            }
+            BeginObservedNpcAnimationWindow(
+                pending.SenderID,
+                pending.Tag,
+                pending.ObjId);
 
             CutsceneSyncPatches.LockLocalPlayerForCutscene();
+            observedNpcInteractionParticipating = true;
+            observedNpcInteractionMirrorsLocalExecution = false;
+            DialogueSync.Instance?.ShowPendingRemoteDialogueOptions(
+                pending.SenderID);
             if (pending.HasJoinWorldPos)
             {
                 OnlineCoopManager.Instance?.StartDeferredCutsceneWalk(pending.SenderID, pending.JoinWorldPos, pending.Facing);
             }
 
-            // Buffered dialogue ops are not fast-forwarded — since the interaction
-            // isn't replayed, there's no local dialogue UI to advance. The dialogue
+            // Buffered dialogue ops are not fast-forwarded: this is a live join, not
+            // a second FlowScript execution, so there is no local dialogue UI. Dialogue
             // was already synced live via DialogueSync (speech bubbles).
         }
 
@@ -669,224 +1254,124 @@ namespace GraveyardKeeperCoop.Patches
             }
         }
 
-        private static void BeginHeadlessDonkeyFlow(
-            Vector3 originWorldPos,
-            string originZoneId,
-            bool hasScope,
-            string scopeReason)
-        {
-            isHeadlessDonkeyFlowActive = true;
-            headlessDonkeyFlowStartedAt = Time.realtimeSinceStartup;
-            headlessDonkeyOriginWorldPos = originWorldPos;
-            headlessDonkeyOriginZoneId = originZoneId ?? "";
-            headlessDonkeyHasScope = hasScope;
-            StoreRemoteDonkeyOriginalSpeed();
-            CoopMod.Logger.LogInfo(
-                $"[NpcInteractionSync] Host running remote-requested donkey flow without local cinematic ({scopeReason})");
-        }
-
-        private static void EndHeadlessDonkeyFlow()
-        {
-            if (!isHeadlessDonkeyFlowActive)
-            {
-                return;
-            }
-
-            RestoreRemoteDonkeyOriginalSpeed();
-            isHeadlessDonkeyFlowActive = false;
-            headlessDonkeyFlowStartedAt = 0f;
-            headlessDonkeyOriginWorldPos = Vector3.zero;
-            headlessDonkeyOriginZoneId = "";
-            headlessDonkeyHasScope = false;
-            CoopMod.Logger.LogInfo("[NpcInteractionSync] Headless donkey flow finished");
-        }
-
-        private static bool IsHeadlessDonkeyFlowActive()
-        {
-            if (!isHeadlessDonkeyFlowActive)
-            {
-                return false;
-            }
-
-            if (Time.realtimeSinceStartup - headlessDonkeyFlowStartedAt > HeadlessDonkeyFlowTimeout)
-            {
-                CoopMod.Logger.LogWarning("[NpcInteractionSync] Headless donkey flow timed out - clearing suppression");
-                EndHeadlessDonkeyFlow();
-                CompleteRemoteRequestedDonkeyFlow("headless flow timed out");
-                return false;
-            }
-
-            return true;
-        }
-
         public static void TickRemoteDonkeyStateSync()
         {
-            if (IsHeadlessDonkeyFlowActive() &&
-                ShouldActivatePendingNpcInteraction(
-                    headlessDonkeyOriginWorldPos,
-                    headlessDonkeyOriginZoneId,
-                    headlessDonkeyHasScope,
-                    out string joinReason))
+            if (clientDonkeyRequestPending &&
+                Time.realtimeSinceStartup - clientDonkeyRequestSentAt >=
+                ClientDonkeyRequestTimeout)
             {
-                EndHeadlessDonkeyFlow();
-                var onlineCoop = OnlineCoopManager.Instance;
-                WorldGameObject remotePlayer = onlineCoop?.GetRemotePlayer();
-                CSteamID senderID =
-                    onlineCoop?.RemotePlayerSteamID ?? CSteamID.Nil;
-                byte facing = 0;
-                try
-                {
-                    var remoteCharacter =
-                        remotePlayer?.components?.character;
-                    if (remoteCharacter != null)
-                    {
-                        facing = (byte)remoteCharacter.anim_direction;
-                    }
-                }
-                catch { }
-
-                CutsceneSyncPatches.LockLocalPlayerForCutscene();
-                if (remotePlayer != null && senderID != CSteamID.Nil)
-                {
-                    onlineCoop.BeginObservedCutsceneFollow(senderID);
-                    onlineCoop.StartLiveCutsceneJoinWalk(
-                        senderID,
-                        remotePlayer.transform.position,
-                        facing);
-                }
-                CoopMod.Logger.LogInfo(
-                    $"[NpcInteractionSync] Host joined and started walking to " +
-                    $"the active donkey cutscene ({joinReason})");
+                clientDonkeyRequestPending = false;
+                clientDonkeyRequestSentAt = 0f;
+                CoopMod.Logger.LogWarning(
+                    "[NpcInteractionSync] Donkey interaction approval timed out; local interaction may be retried");
             }
+
+            TickPendingLocalInteractionCompletion();
+
+            if (pendingLocalCompletionAt > 0f &&
+                Time.realtimeSinceStartup >= pendingLocalCompletionAt)
+            {
+                string tag = pendingLocalCompletionTag;
+                string objId = pendingLocalCompletionObjId;
+                pendingLocalCompletionTag = "";
+                pendingLocalCompletionObjId = "";
+                pendingLocalCompletionAt = 0f;
+                SteamP2PManager.Instance?.SendNpcInteractionComplete(
+                    tag,
+                    objId);
+            }
+
             TickPendingRemoteNpcInteraction();
         }
 
         public static bool ShouldBypassCutsceneWalkScopeCheck()
         {
-            // A remote-requested donkey flow may run headlessly on an out-of-range
-            // host. Its later walk packet must still obey normal participation scope.
             return false;
         }
 
-        private static void StoreRemoteDonkeyOriginalSpeed()
+        private static void RequestLocalInteractionCompletion(
+            string reason)
         {
-            var localPlayer = MainGame.me?.player;
-            if (localPlayer?.data == null)
-            {
-                remoteDonkeySpeedStored = false;
+            if (!isLocalNpcInteractionActive ||
+                localCompletionRequestedAt > 0f)
                 return;
-            }
 
-            float currentSpeed = localPlayer.data.GetParam("speed", LazyConsts.PLAYER_SPEED);
-            remoteDonkeyOriginalSpeed = Mathf.Max(currentSpeed, LazyConsts.PLAYER_SPEED);
-            remoteDonkeySpeedStored = true;
-            CoopMod.Logger.LogInfo($"[NpcInteractionSync] Stored local speed before remote donkey sync: {remoteDonkeyOriginalSpeed}");
+            localCompletionRequestedAt = Time.realtimeSinceStartup;
+            localCompletionSettledAt = 0f;
+            CoopMod.Logger.LogInfo(
+                $"[NpcInteractionSync] NPC interaction " +
+                $"'{localNpcInteractionObjId}' requested completion ({reason}); " +
+                "waiting for enrolled actors to settle");
         }
 
-        private static void RestoreRemoteDonkeyOriginalSpeed()
+        private static void TickPendingLocalInteractionCompletion()
         {
-            var localPlayer = MainGame.me?.player;
-            if (remoteDonkeySpeedStored && localPlayer?.data != null)
-            {
-                localPlayer.data.SetParam("speed", remoteDonkeyOriginalSpeed);
-                CoopMod.Logger.LogInfo($"[NpcInteractionSync] Restored local speed after remote donkey sync: {remoteDonkeyOriginalSpeed}");
-            }
-
-            remoteDonkeySpeedStored = false;
-        }
-
-        private static void CompleteRemoteRequestedDonkeyFlow(string reason)
-        {
-            if (!isRemoteRequestedDonkeyFlowActive)
+            if (!isLocalNpcInteractionActive ||
+                localCompletionRequestedAt <= 0f)
             {
                 return;
             }
 
-            isRemoteRequestedDonkeyFlowActive = false;
-            OnlineCoopManager.Instance?.EndObservedCutsceneFollow(
-                "host-authoritative donkey flow completed");
+            float now = Time.realtimeSinceStartup;
+            float waitingFor = now - localCompletionRequestedAt;
+            bool moving =
+                NpcVisualSync.Instance?.AreLocalCutsceneActorsMoving() == true;
 
-            // A client-requested donkey interaction is executed by the host, so the
-            // requesting client has no local FlowScript completion callback. DialogueEnd
-            // is the existing completion contract for observed NPC interactions and
-            // releases that client's cinematic lock.
-            var dialogueSync = DialogueSync.Instance;
-            if (dialogueSync != null)
+            if (waitingFor < CompletionSettleSeconds || moving)
             {
-                dialogueSync.NotifyAuthoritativeDialogueEnd();
+                localCompletionSettledAt = 0f;
+                if (waitingFor < CompletionMaxWaitSeconds)
+                    return;
             }
-            else
+            else if (localCompletionSettledAt <= 0f)
             {
-                SteamP2PManager.Instance?.SendDialogueEnd();
+                localCompletionSettledAt = now;
+                return;
             }
+            else if (now - localCompletionSettledAt <
+                     CompletionSettleSeconds)
+            {
+                return;
+            }
+
+            FinalizeLocalInteractionCompletion(
+                waitingFor >= CompletionMaxWaitSeconds
+                    ? "actor settle timeout"
+                    : "actors settled");
+        }
+
+        private static void FinalizeLocalInteractionCompletion(
+            string reason)
+        {
+            // NpcVisualSync needs one update to publish the epoch-closing final
+            // pose before observers discard this initiator as their visual source.
+            pendingLocalCompletionTag = localNpcInteractionTag;
+            pendingLocalCompletionObjId = localNpcInteractionObjId;
+            pendingLocalCompletionAt =
+                Time.realtimeSinceStartup + 0.20f;
 
             CoopMod.Logger.LogInfo(
-                $"[NpcInteractionSync] Host-authoritative donkey flow completed ({reason}); notified remote participant");
+                $"[NpcInteractionSync] NPC interaction " +
+                $"'{localNpcInteractionObjId}' ending ({reason}); " +
+                "final visual pose will precede completion");
+
+            isLocalNpcInteractionActive = false;
+            localNpcInteractionStartedAt = 0f;
+            localNpcInteractionTag = "";
+            localNpcInteractionObjId = "";
+            localCompletionRequestedAt = 0f;
+            localCompletionSettledAt = 0f;
         }
 
-        // A client may initiate the authoritative donkey flow while the host is
-        // elsewhere. The host still runs story/world mutations, but must not lose
-        // control or receive letterboxing for a cutscene it is not attending.
         [HarmonyPatch(typeof(GS), nameof(GS.SetPlayerEnable))]
         [HarmonyPrefix]
         [HarmonyPriority(Priority.High)]
         public static bool GS_SetPlayerEnable_Prefix(bool player_enabled, bool affect_cinematic)
         {
-            if (!affect_cinematic)
+            if (player_enabled)
             {
-                return true;
-            }
-
-            bool headlessFlowActive = IsHeadlessDonkeyFlowActive();
-            if (player_enabled && isRemoteRequestedDonkeyFlowActive)
-            {
-                if (headlessFlowActive)
-                {
-                    EndHeadlessDonkeyFlow();
-                }
-
-                CompleteRemoteRequestedDonkeyFlow("canonical flow restored player control");
-
-                // The out-of-scope host never received the matching disable call, so
-                // preserve the existing suppression of its unmatched cinematic enable.
-                return !headlessFlowActive;
-            }
-
-            if (headlessFlowActive)
-            {
-                if (!player_enabled)
-                {
-                    CoopMod.Logger.LogInfo("[NpcInteractionSync] Suppressed out-of-scope host donkey cinematic lock");
-                }
-                return false;
-            }
-
-            return true;
-        }
-
-        [HarmonyPatch(typeof(GS), nameof(GS.AffectCinematic))]
-        [HarmonyPrefix]
-        public static bool GS_AffectCinematic_Prefix(bool show)
-        {
-            if (IsHeadlessDonkeyFlowActive())
-            {
-                CoopMod.Logger.LogInfo(
-                    $"[NpcInteractionSync] Suppressed out-of-scope host donkey cinematic overlay show={show}");
-                return false;
-            }
-
-            return true;
-        }
-
-        [HarmonyPatch(typeof(CameraTools), nameof(CameraTools.TweenLetterbox))]
-        [HarmonyPrefix]
-        public static bool CameraTools_TweenLetterbox_Prefix(bool show)
-        {
-            if (IsHeadlessDonkeyFlowActive())
-            {
-                CoopMod.Logger.LogInfo(
-                    $"[NpcInteractionSync] Suppressed out-of-scope host donkey letterbox show={show}");
-                return false;
+                RequestLocalInteractionCompletion(
+                    "player control restored");
             }
 
             return true;

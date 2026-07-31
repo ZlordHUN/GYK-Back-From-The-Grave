@@ -20,7 +20,17 @@ namespace GraveyardKeeperCoop.Multiplayer
             {
                 "speed",
                 "lock_tp",
-                "lock_tp_param"
+                "lock_tp_param",
+                "money",
+                "hp",
+                "energy",
+                "tiredness",
+                "tired",
+                "r",
+                "g",
+                "b",
+                "v",
+                "gratitude_points"
             };
 
         private float nextForcedSendAllowedAt;
@@ -80,14 +90,20 @@ namespace GraveyardKeeperCoop.Multiplayer
         {
             var sb = new StringBuilder();
             var playerData = MainGame.me.player.data;
-            var gameRes = playerData.GetParams();
+            var gameRes = playerData.GetParams().Clone();
+            PersonalBuffState.SubtractContributions(
+                gameRes,
+                MainGame.me?.save?.buffs);
 
             var atoms = gameRes.ToAtomList(1f);
             var sharedAtoms = new List<GameResAtom>(atoms.Count);
             for (int i = 0; i < atoms.Count && sharedAtoms.Count < MaxParams; i++)
             {
-                if (!LocalOnlyParams.Contains(atoms[i].type ?? ""))
+                string type = atoms[i].type ?? string.Empty;
+                if (!LocalOnlyParams.Contains(type))
+                {
                     sharedAtoms.Add(atoms[i]);
+                }
             }
             int count = sharedAtoms.Count;
 
@@ -97,14 +113,18 @@ namespace GraveyardKeeperCoop.Multiplayer
                 bw.Write(PayloadVersion);
                 bw.Write(NextSequence++);
 
+                float sharedProgress = gameRes.Get("progress", playerData.progress);
+                float sharedDurability = gameRes.Get("durability", playerData.durability);
+                // Retain current HP in the v1 wire layout for mixed-build parsing.
+                // Updated receivers deliberately ignore it because health is personal.
                 bw.Write(playerData.hp);
-                sb.Append("hp:").Append(playerData.hp.ToString("F2")).Append(';');
-                bw.Write(playerData.progress);
-                sb.Append("prog:").Append(playerData.progress.ToString("F2")).Append(';');
+                bw.Write(sharedProgress);
+                sb.Append("prog:").Append(sharedProgress.ToString("F2")).Append(';');
+                // Retain this field in the v1 wire layout for mixed-build compatibility.
+                // Money is personal state and receivers deliberately do not apply it.
                 bw.Write(playerData.money);
-                sb.Append("money:").Append(playerData.money.ToString("F2")).Append(';');
-                bw.Write(playerData.durability);
-                sb.Append("dur:").Append(playerData.durability.ToString("F4")).Append(';');
+                bw.Write(sharedDurability);
+                sb.Append("dur:").Append(sharedDurability.ToString("F4")).Append(';');
 
                 bw.Write((ushort)count);
                 for (int i = 0; i < count; i++)
@@ -142,25 +162,76 @@ namespace GraveyardKeeperCoop.Multiplayer
             if (MainGame.me?.player?.data == null) return;
 
             var playerData = MainGame.me.player.data;
+            GameRes personalEffectContributions =
+                PersonalBuffState.CalculateContributions(
+                    MainGame.me?.save?.buffs);
 
-            playerData.hp = reader.ReadSingle();
-            playerData.progress = reader.ReadSingle();
-            playerData.money = reader.ReadSingle();
-            playerData.durability = reader.ReadSingle();
+            reader.ReadSingle(); // Legacy shared-HP field; health is per-player.
+            playerData.progress = reader.ReadSingle() +
+                                  personalEffectContributions.Get("progress", 0f);
+            reader.ReadSingle(); // Legacy shared-money field; money is per-player.
+            playerData.durability = reader.ReadSingle() +
+                                    personalEffectContributions.Get("durability", 0f);
 
             int count = reader.ReadUInt16();
+            int relationshipsAdvanced = 0;
             for (int i = 0; i < count; i++)
             {
                 string key = reader.ReadString();
                 float value = reader.ReadSingle();
                 if (LocalOnlyParams.Contains(key))
                     continue;
-                playerData.SetParam(key, value);
+
+                float effectiveValue = value +
+                    personalEffectContributions.Get(key, 0f);
+
+                if (IsSharedRelationshipParam(key))
+                {
+                    float current = playerData.GetParam(key, 0f);
+                    if (effectiveValue > current + 0.0001f)
+                    {
+                        playerData.SetParam(key, effectiveValue);
+                        relationshipsAdvanced++;
+                        CoopMod.Logger.LogInfo(
+                            $"{LogPrefix} Advanced shared relationship {key}: {current:F0} -> {effectiveValue:F0}");
+                    }
+                    continue;
+                }
+
+                playerData.SetParam(key, effectiveValue);
             }
+
+            if (relationshipsAdvanced > 0)
+                RefreshRelationshipUi();
 
             ApplyEchoSuppress();
 
             CoopMod.Logger.LogDebug($"{LogPrefix} Applied {count} player params + core fields");
+        }
+
+        private static bool IsSharedRelationshipParam(string key)
+        {
+            return !string.IsNullOrEmpty(key) &&
+                   key.StartsWith("_rel_", StringComparison.OrdinalIgnoreCase);
+        }
+
+        internal static void RefreshRelationshipUi()
+        {
+            try
+            {
+                RelationGUI relation = GUIElements.me?.relation;
+                if (relation != null && relation.gameObject.activeInHierarchy)
+                    relation.RedrawRelation();
+
+                RelationGUI additional = GUIElements.me?.relation_additional;
+                if (additional != null && additional.gameObject.activeInHierarchy)
+                    additional.RedrawRelation();
+            }
+            catch (Exception ex)
+            {
+                CoopMod.Logger.LogDebug(
+                    $"[PlayerParamSync] Relationship UI refresh skipped: {ex.Message}");
+            }
         }
     }
 }

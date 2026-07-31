@@ -29,6 +29,10 @@ namespace GraveyardKeeperCoop.Patches
         {
             var sync = GraveyardKeeperCoop.Multiplayer.QuestSync.Instance;
             if (sync == null) return;
+            GraveyardKeeperCoop.Multiplayer.QuestSync.ApplyTaskRelationshipMilestone(
+                npc_id,
+                task_id,
+                state);
             sync.SendTaskStateEvent(npc_id, task_id, (int)state);
             MarkDirty();
         }

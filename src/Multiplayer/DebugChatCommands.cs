@@ -16,6 +16,8 @@ namespace GraveyardKeeperCoop.Multiplayer
     {
         private const float ImmediateWeatherOffset = 0.001f;
         private const float LongWeatherDurationDays = 999f;
+        private const int MaxMoneyGrantBronze = 10000000;
+        private const int MaxCorpseSpawnCount = 20;
 
         public static bool TryExecute(string text, Action<string> respond)
         {
@@ -27,7 +29,8 @@ namespace GraveyardKeeperCoop.Multiplayer
                 return false;
 
             string command = NormalizeCommand(args[0]);
-            if (command != "time" && command != "weather" && command != "give" && command != "help")
+            if (command != "time" && command != "weather" && command != "give" &&
+                command != "spawn" && command != "help")
                 return false;
 
             // /help works anytime, no host/game check needed
@@ -58,8 +61,10 @@ namespace GraveyardKeeperCoop.Multiplayer
                     ExecuteTimeCommand(args, respond);
                 else if (command == "weather")
                     ExecuteWeatherCommand(args, respond);
-                else
+                else if (command == "give")
                     ExecuteGiveCommand(args, respond);
+                else
+                    ExecuteSpawnCommand(args, respond);
             }
             catch (Exception ex)
             {
@@ -91,7 +96,13 @@ namespace GraveyardKeeperCoop.Multiplayer
             {
                 respond("/give <item_id> [amount] — give item to yourself");
                 respond("/give <player> <item_id> [amount] — give item to player");
+                respond("/give money <bronze> — add to your personal balance");
                 respond("Examples: /give money 100, /give PlayerName diamond 5");
+            }
+            else if (subcommand == "spawn")
+            {
+                respond("/spawn corpse [amount] — spawn complete corpses near you");
+                respond($"Amount is limited to {MaxCorpseSpawnCount}.");
             }
             else
             {
@@ -99,6 +110,7 @@ namespace GraveyardKeeperCoop.Multiplayer
                 "/time — set or view time of day\n" +
                 "/weather — set weather, rain, fog, wind\n" +
                 "/give — give items to yourself or others\n" +
+                "/spawn — spawn world objects near you\n" +
                 "Use /help <command> for details. Cheats can be enabled in Multiplayer Settings.");
             }
         }
@@ -287,13 +299,21 @@ namespace GraveyardKeeperCoop.Multiplayer
                 respond($"Invalid amount: {args[amountIndex]}");
                 return;
             }
-            amount = Mathf.Max(1, Mathf.Min(amount, 999));
 
             if (targetPlayer == null)
             {
                 respond("No target player found.");
                 return;
             }
+
+            if (IsWord(itemId, "money"))
+            {
+                int bronze = Mathf.Clamp(amount, 1, MaxMoneyGrantBronze);
+                ExecuteGiveMoney(targetPlayer, bronze, respond);
+                return;
+            }
+
+            amount = Mathf.Max(1, Mathf.Min(amount, 999));
 
             // Create and add the item
             var item = new Item(itemId, amount);
@@ -316,6 +336,92 @@ namespace GraveyardKeeperCoop.Multiplayer
             }
         }
 
+        private static void ExecuteGiveMoney(
+            WorldGameObject targetPlayer,
+            int bronze,
+            Action<string> respond)
+        {
+            if (targetPlayer != MainGame.me?.player)
+            {
+                respond("Money is personal; that player must run /give money locally.");
+                return;
+            }
+
+            if (targetPlayer?.data == null)
+            {
+                respond("Money cannot be changed before the game world is ready.");
+                return;
+            }
+
+            float amount = bronze / 100f;
+            targetPlayer.data.money += amount;
+            DropCollectGUI.OnMoneyCollected(amount);
+
+            respond($"Added {FormatMoneyFromBronze(bronze)} to your balance. " +
+                    $"Balance: {Trading.FormatMoney(targetPlayer.data.money, true, true)}.");
+            CoopMod.Logger.LogInfo(
+                $"[DebugCommands] Added {bronze} bronze to local money; " +
+                $"balance={targetPlayer.data.money:F2}");
+        }
+
+        private static void ExecuteSpawnCommand(List<string> args, Action<string> respond)
+        {
+            if (args.Count < 2 || !IsWord(args[1], "corpse"))
+            {
+                respond("Usage: /spawn corpse [amount]");
+                return;
+            }
+
+            int amount = 1;
+            if (args.Count > 2 && !TryParseInt(args[2], out amount))
+            {
+                respond($"Invalid amount: {args[2]}");
+                return;
+            }
+
+            if (amount < 1 || amount > MaxCorpseSpawnCount)
+            {
+                respond($"Amount must be from 1 to {MaxCorpseSpawnCount}.");
+                return;
+            }
+
+            WorldGameObject player = MainGame.me?.player;
+            GameSave save = MainGame.me?.save;
+            if (player == null || save == null || MainGame.me.world_root == null)
+            {
+                respond("Corpses cannot be spawned before the game world is ready.");
+                return;
+            }
+
+            int spawned = 0;
+            for (int i = 0; i < amount; i++)
+            {
+                Item corpse = save.GenerateBody(1, 3);
+                if (corpse == null || corpse.definition == null)
+                    break;
+
+                player.DropItem(corpse, Direction.None);
+                spawned++;
+            }
+
+            if (spawned == 0)
+            {
+                respond("Failed to generate a corpse.");
+                return;
+            }
+
+            respond(spawned == 1
+                ? "Spawned 1 corpse."
+                : $"Spawned {spawned} corpses.");
+            CoopMod.Logger.LogInfo(
+                $"[DebugCommands] Spawned {spawned} complete corpse(s) near the local player");
+        }
+
+        private static string FormatMoneyFromBronze(int bronze)
+        {
+            return Trading.FormatMoney(bronze / 100f, true, true);
+        }
+
         private static WorldGameObject FindPlayerByName(string name)
         {
             if (string.IsNullOrEmpty(name)) return null;
@@ -334,19 +440,27 @@ namespace GraveyardKeeperCoop.Multiplayer
                 if (localTag == lower) return localPlayer;
             }
 
-            // Check remote player
-            var remotePlayer = OnlineCoopManager.Instance?.GetRemotePlayer();
-            if (remotePlayer != null)
+            OnlineCoopManager online = OnlineCoopManager.Instance;
+            List<KeyValuePair<CSteamID, PlayerComponent>> remotes =
+                online?.GetRemotePlayersSnapshot();
+            if (remotes != null)
             {
-                string remoteName = SteamFriends.GetFriendPersonaName(OnlineCoopManager.Instance.RemotePlayerSteamID)?.ToLowerInvariant();
-                if (remoteName == lower) return remotePlayer;
-            }
+                for (int i = 0; i < remotes.Count; i++)
+                {
+                    WorldGameObject remotePlayer = remotes[i].Value?.wgo;
+                    if (remotePlayer == null)
+                        continue;
 
-            // Check the remote player's WGO
-            if (remotePlayer != null)
-            {
-                string remoteTag = remotePlayer.obj_id?.ToLowerInvariant();
-                if (remoteTag == lower) return remotePlayer;
+                    string remoteName = SteamFriends
+                        .GetFriendPersonaName(remotes[i].Key)
+                        ?.ToLowerInvariant();
+                    if (remoteName == lower)
+                        return remotePlayer;
+
+                    string remoteTag = remotePlayer.obj_id?.ToLowerInvariant();
+                    if (remoteTag == lower)
+                        return remotePlayer;
+                }
             }
 
             return null;
@@ -802,11 +916,17 @@ namespace GraveyardKeeperCoop.Multiplayer
             string local = SteamHelper.GetLocalPlayerName();
             if (!string.IsNullOrEmpty(local)) names.Add(local);
 
-            var remoteId = OnlineCoopManager.Instance?.RemotePlayerSteamID;
-            if (remoteId != null && remoteId.Value != CSteamID.Nil)
+            List<KeyValuePair<CSteamID, PlayerComponent>> remotes =
+                OnlineCoopManager.Instance?.GetRemotePlayersSnapshot();
+            if (remotes != null)
             {
-                string remote = SteamFriends.GetFriendPersonaName(remoteId.Value);
-                if (!string.IsNullOrEmpty(remote)) names.Add(remote);
+                for (int i = 0; i < remotes.Count; i++)
+                {
+                    string remote =
+                        SteamFriends.GetFriendPersonaName(remotes[i].Key);
+                    if (!string.IsNullOrEmpty(remote) && !names.Contains(remote))
+                        names.Add(remote);
+                }
             }
 
             return names.ToArray();

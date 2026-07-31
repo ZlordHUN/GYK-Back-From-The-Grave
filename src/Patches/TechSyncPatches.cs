@@ -98,12 +98,14 @@ namespace GraveyardKeeperCoop.Patches
             TechDefinition tech,
             bool forced_unlock,
             bool reveal_tech,
+            bool show_tech_tree_after,
             bool pseudotech)
         {
             TechSync.Instance?.NotifyTechPopupOpened(
                 tech,
                 forced_unlock,
                 reveal_tech,
+                show_tech_tree_after,
                 pseudotech);
         }
 

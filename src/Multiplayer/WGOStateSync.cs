@@ -704,6 +704,12 @@ namespace GraveyardKeeperCoop.Multiplayer
             if (wgo.is_player || wgo.GetComponent<PlayerComponent>() != null)
                 return false;
 
+            // Build previews are registered as world objects before their final position is
+            // committed. SpawnSync sends the authoritative object from DoPlace instead.
+            if (wgo.GetComponent<FloatingWorldGameObject>() != null ||
+                wgo.GetComponent<RemoteBuildingPreviewMarker>() != null)
+                return false;
+
             if (wgo.obj_def != null && wgo.obj_def.IsNPC())
                 return false;
 
@@ -735,6 +741,7 @@ namespace GraveyardKeeperCoop.Multiplayer
                 if (created != null)
                 {
                     created.RestoreFromSerializedObject(serialized, true);
+                    RestoreChunkRegistration(created, false);
                 }
                 return;
             }
@@ -742,7 +749,74 @@ namespace GraveyardKeeperCoop.Multiplayer
             if (!ShouldSyncWgo(existing))
                 return;
 
+            // InventorySync is the sole authority for container contents. A
+            // full-world capture can take several frames, so restoring the
+            // inventory embedded in SerializableWGO here can replay an older
+            // autopsy-table state after a body has already been removed.
+            Item currentData = existing.data;
+            int inventorySize = currentData?.inventory_size ?? 0;
+            List<Item> inventory = currentData?.inventory;
+            List<Item> secondaryInventory = currentData?.secondary_inventory;
+            bool redrawPreservedInventory =
+                existing.is_autopsy_table ||
+                inventorySize > 0 ||
+                (inventory != null && inventory.Count > 0) ||
+                (secondaryInventory != null &&
+                 secondaryInventory.Count > 0);
+            bool wasActive = existing.gameObject.activeSelf;
+
             existing.RestoreFromSerializedObject(serialized, false);
+
+            if (currentData != null && existing.data != null)
+            {
+                existing.data.inventory_size = inventorySize;
+                existing.data.inventory = inventory ?? new List<Item>();
+                existing.data.secondary_inventory =
+                    secondaryInventory ?? new List<Item>();
+            }
+
+            if (redrawPreservedInventory)
+            {
+                try
+                {
+                    existing.Redraw(true);
+                    existing.GetComponentInChildren<SmartDrawer>(true)
+                        ?.Redraw(true);
+                }
+                catch (Exception ex)
+                {
+                    CoopMod.Logger.LogWarning(
+                        $"[WGOStateSync] Failed to redraw preserved inventory " +
+                        $"for '{existing.obj_id}': {ex.Message}");
+                }
+            }
+
+            RestoreChunkRegistration(existing, wasActive);
+        }
+
+        private static void RestoreChunkRegistration(
+            WorldGameObject wgo,
+            bool makeVisibleNow)
+        {
+            if (wgo == null)
+                return;
+
+            wgo.RefreshPositionCache();
+            ChunkedGameObject chunk =
+                wgo.GetComponentInChildren<ChunkedGameObject>(true);
+            if (chunk == null)
+                return;
+
+            chunk.destroyed = false;
+            chunk.pending_to_remove = false;
+            chunk.RecalculateChunk();
+            ChunkManager.OnAddNewObject(chunk);
+
+            if (makeVisibleNow)
+            {
+                chunk.obj_visible = true;
+                chunk.UpdateVisibility();
+            }
         }
 
         private static WorldGameObject ResolveWgo(WgoStateEntry entry)

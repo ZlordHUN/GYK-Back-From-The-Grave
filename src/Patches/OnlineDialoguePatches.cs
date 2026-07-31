@@ -3,6 +3,7 @@ using UnityEngine;
 using GraveyardKeeperCoop.Multiplayer;
 using GraveyardKeeperCoop.Network;
 using System.Collections.Generic;
+using System.Reflection;
 using Steamworks;
 
 namespace GraveyardKeeperCoop.Patches
@@ -26,6 +27,27 @@ namespace GraveyardKeeperCoop.Patches
         // outside DoAnimations and therefore cannot look like a local transition
         // to the prefix/postfix pair below.
         private static bool applyingRemoteDialogueChoice = false;
+        private static bool applyingRemoteAnswerPresentation;
+        private static MultiAnswerGUI remoteAnswerPresentation;
+        private static CSteamID remoteAnswerSender = CSteamID.Nil;
+        private static int remoteAnswerHoverIndex = -1;
+        private static int localAnswerHoverIndex = -1;
+        private static readonly FieldInfo CurrentAnswerGuiField =
+            AccessTools.Field(typeof(MultiAnswerGUI), "_current");
+        private static readonly FieldInfo AnswersField =
+            AccessTools.Field(typeof(MultiAnswerGUI), "_answers");
+        private static readonly FieldInfo AnswerIdField =
+            AccessTools.Field(typeof(MultiAnswerOptionGUI), "_answer_id");
+        private static readonly FieldInfo AnswerButtonField =
+            AccessTools.Field(typeof(MultiAnswerOptionGUI), "_button");
+        private static readonly FieldInfo AnswerWidgetField =
+            AccessTools.Field(typeof(MultiAnswerOptionGUI), "_widget");
+        private static readonly FieldInfo AnswerStartSizeField =
+            AccessTools.Field(typeof(MultiAnswerOptionGUI), "_start_size");
+        private static readonly FieldInfo AnswerFocusDeltaField =
+            AccessTools.Field(typeof(MultiAnswerOptionGUI), "_focus_delta_size");
+        private static readonly FieldInfo AnswerDefaultColorField =
+            AccessTools.Field(typeof(MultiAnswerOptionGUI), "_default_color");
 
         // Track which bubbles were NOT disappearing before DoAnimations ran.
         // If they become _disappearing=true AFTER DoAnimations, the local player dismissed them.
@@ -48,7 +70,10 @@ namespace GraveyardKeeperCoop.Patches
         [HarmonyPatch(typeof(InteractionComponent), "Interact")]
         [HarmonyPostfix]
         [HarmonyPriority(Priority.Low)]
-        public static void InteractionComponent_Interact_Postfix(InteractionComponent __instance, bool __result)
+        public static void InteractionComponent_Interact_Postfix(
+            InteractionComponent __instance,
+            bool __result,
+            WorldGameObject ____target_obj)
         {
             if (!__result)
                 return;
@@ -64,7 +89,24 @@ namespace GraveyardKeeperCoop.Patches
             if (dialogueSync == null)
                 return;
 
-            string npcId = __instance.wgo?.obj_id ?? "unknown";
+            // InteractionComponent also handles doors, teleports, containers, and
+            // work objects. Treating every successful interaction as dialogue leaves
+            // IsInSyncedDialogue stuck after non-dialogue scripts such as Teleport.
+            // Actual speech can still establish an implicit session on its first
+            // advance, so only NPC targets should eagerly open a dialogue session.
+            WorldGameObject target = ____target_obj ?? __instance.nearest;
+            if (target?.obj_def == null || !target.obj_def.IsNPC())
+                return;
+
+            // The client-side donkey Interact is suppressed until the host validates
+            // it. Do not announce a dialogue session for that suppressed attempt;
+            // NpcInteractionSync starts the session when approval arrives and the
+            // player-bound FlowScript actually begins.
+            if (NpcInteractionSyncPatches
+                .ShouldSuppressPendingDialogueStart(target))
+                return;
+
+            string npcId = target.obj_id ?? "unknown";
             CoopMod.Logger.LogInfo($"[OnlineDialogue] Local player interacted with {npcId}");
             dialogueSync.NotifyDialogueStart(npcId);
         }
@@ -221,28 +263,21 @@ namespace GraveyardKeeperCoop.Patches
             // If this choice is from local input (not remote), notify remote player
             if (!applyingRemoteDialogueChoice)
             {
-                var multiAnswer = GUIElements.me?.multi_answer;
+                var multiAnswer = GetCurrentMultiAnswer();
                 if (multiAnswer != null)
                 {
                     try
                     {
-                        // _answers is List<MultiAnswerOptionGUI> on MultiAnswerGUI
-                        var answersField = typeof(MultiAnswerGUI).GetField("_answers",
-                            System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance);
-
-                        if (answersField != null)
+                        if (AnswersField != null)
                         {
-                            var answers = answersField.GetValue(multiAnswer) as List<MultiAnswerOptionGUI>;
+                            var answers = AnswersField.GetValue(multiAnswer) as List<MultiAnswerOptionGUI>;
                             if (answers != null)
                             {
                                 for (int i = 0; i < answers.Count; i++)
                                 {
-                                    // _answer_id is the string ID on MultiAnswerOptionGUI
-                                    var answerIdField = typeof(MultiAnswerOptionGUI).GetField("_answer_id",
-                                        System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance);
-                                    if (answerIdField != null)
+                                    if (AnswerIdField != null)
                                     {
-                                        var optionId = answerIdField.GetValue(answers[i]) as string;
+                                        var optionId = AnswerIdField.GetValue(answers[i]) as string;
                                         if (optionId == answer)
                                         {
                                             CoopMod.Logger.LogInfo($"[OnlineDialogue] Local player chose option {i}: {answer}");
@@ -324,7 +359,7 @@ namespace GraveyardKeeperCoop.Patches
 
             WorldGameObject owner = dialogueSync.LocalPlayerLastAdvanced
                 ? MainGame.me?.player
-                : onlineCoop.GetRemotePlayer();
+                : onlineCoop.GetRemotePlayer(dialogueSync.LastDialogueAdvancer);
             if (owner?.bubble_pos_tf != null)
             {
                 speaker_id = owner.unique_id;
@@ -341,15 +376,23 @@ namespace GraveyardKeeperCoop.Patches
         [HarmonyPostfix]
         public static void SpeechBubbleGUI_ShowMessage_Postfix(long speaker_id)
         {
-            if (!DialogueSync.IsApplyingAmbientSpeech)
-                return;
-
+            SpeechBubbleGUI bubble = null;
             if (SpeechBubbleGUI.all != null &&
-                SpeechBubbleGUI.all.TryGetValue(speaker_id, out SpeechBubbleGUI bubble) &&
+                SpeechBubbleGUI.all.TryGetValue(speaker_id, out bubble) &&
                 bubble != null)
             {
-                remotelySynchronizedBubbles.Add(bubble.GetInstanceID());
+                if (DialogueSync.IsApplyingAmbientSpeech)
+                    remotelySynchronizedBubbles.Add(bubble.GetInstanceID());
+
+                DialogueSync.Instance?.NotifySpeechBubbleShown(bubble);
             }
+        }
+
+        [HarmonyPatch(typeof(SpeechBubbleGUI), nameof(SpeechBubbleGUI.DestroyBubble))]
+        [HarmonyPostfix]
+        public static void SpeechBubbleGUI_DestroyBubble_Postfix(SpeechBubbleGUI __instance)
+        {
+            DialogueSync.Instance?.NotifySpeechBubbleDestroyed(__instance);
         }
 
         /// <summary>
@@ -358,21 +401,41 @@ namespace GraveyardKeeperCoop.Patches
         [HarmonyPatch(typeof(MultiAnswerGUI), "ShowAnswers",
             new System.Type[] { typeof(List<AnswerVisualData>), typeof(Transform), typeof(MultiAnswerGUI.MultiAnswerResult), typeof(bool), typeof(GJCommons.VoidDelegate), typeof(WorldGameObject) })]
         [HarmonyPrefix]
-        public static void MultiAnswerGUI_ShowAnswers_Prefix(ref Transform link)
+        public static void MultiAnswerGUI_ShowAnswers_Prefix(
+            List<AnswerVisualData> answers,
+            ref Transform link,
+            bool show_to_left)
         {
             var onlineCoop = OnlineCoopManager.Instance;
             if (onlineCoop == null || !onlineCoop.IsOnlineCoopEnabled)
                 return;
 
-            var dialogueSync = DialogueSync.Instance;
-            if (dialogueSync == null ||
-                !dialogueSync.IsInSyncedDialogue ||
-                dialogueSync.LastDialogueAdvancer == CSteamID.Nil)
+            if (applyingRemoteAnswerPresentation)
                 return;
+
+            var dialogueSync = DialogueSync.Instance;
+            if (dialogueSync == null)
+                return;
+
+            localAnswerHoverIndex = -1;
+            if (NpcInteractionSyncPatches.HasLocalNpcVisualAuthority() ||
+                (dialogueSync.IsInSyncedDialogue &&
+                 dialogueSync.LocalPlayerLastAdvanced))
+            {
+                dialogueSync.NotifyDialogueOptions(
+                    answers,
+                    show_to_left);
+            }
+
+            if (!dialogueSync.IsInSyncedDialogue ||
+                dialogueSync.LastDialogueAdvancer == CSteamID.Nil)
+            {
+                return;
+            }
 
             WorldGameObject owner = dialogueSync.LocalPlayerLastAdvanced
                 ? MainGame.me?.player
-                : onlineCoop.GetRemotePlayer();
+                : onlineCoop.GetRemotePlayer(dialogueSync.LastDialogueAdvancer);
             if (owner?.bubble_pos_tf != null)
             {
                 link = owner.bubble_pos_tf;
@@ -380,6 +443,288 @@ namespace GraveyardKeeperCoop.Patches
                     dialogueSync.LocalPlayerLastAdvanced
                         ? "[OnlineDialogue] Routed multi-answer to local dialogue advancer"
                         : "[OnlineDialogue] Routed multi-answer to remote dialogue advancer");
+            }
+        }
+
+        internal static MultiAnswerGUI GetCurrentMultiAnswer()
+        {
+            return CurrentAnswerGuiField?.GetValue(null) as MultiAnswerGUI;
+        }
+
+        internal static bool IsRemoteAnswerPresentation(
+            MultiAnswerGUI gui)
+        {
+            return gui != null &&
+                   remoteAnswerPresentation != null &&
+                   gui == remoteAnswerPresentation;
+        }
+
+        public static void ShowRemoteAnswerPresentation(
+            CSteamID senderID,
+            List<AnswerVisualData> answers,
+            bool showToLeft)
+        {
+            if (senderID == CSteamID.Nil ||
+                answers == null ||
+                answers.Count == 0)
+            {
+                return;
+            }
+
+            MultiAnswerGUI current = GetCurrentMultiAnswer();
+            if (current != null &&
+                current.gameObject.activeInHierarchy &&
+                !IsRemoteAnswerPresentation(current))
+            {
+                CoopMod.Logger.LogWarning(
+                    "[OnlineDialogue] Kept the local answer menu and ignored a competing remote presentation");
+                return;
+            }
+
+            CloseAnyRemoteAnswerPresentation();
+
+            WorldGameObject remotePlayer =
+                OnlineCoopManager.Instance?.GetRemotePlayer(senderID);
+            if (remotePlayer?.bubble_pos_tf == null)
+            {
+                CoopMod.Logger.LogWarning(
+                    "[OnlineDialogue] Could not show remote answer menu because its player anchor is unavailable");
+                return;
+            }
+
+            applyingRemoteAnswerPresentation = true;
+            try
+            {
+                MultiAnswerGUI.ShowAnswers(
+                    answers,
+                    remotePlayer.bubble_pos_tf,
+                    chosen => { },
+                    showToLeft,
+                    null,
+                    remotePlayer);
+                remoteAnswerPresentation = GetCurrentMultiAnswer();
+                remoteAnswerSender = senderID;
+                remoteAnswerHoverIndex = -1;
+
+                if (remoteAnswerPresentation != null)
+                {
+                    CoopMod.Logger.LogInfo(
+                        $"[OnlineDialogue] Showing {answers.Count} read-only dialogue options from " +
+                        SteamFriends.GetFriendPersonaName(senderID));
+                }
+            }
+            catch (System.Exception ex)
+            {
+                CoopMod.Logger.LogWarning(
+                    "[OnlineDialogue] Failed to show remote answer menu: " +
+                    ex.Message);
+                CloseAnyRemoteAnswerPresentation();
+            }
+            finally
+            {
+                applyingRemoteAnswerPresentation = false;
+            }
+        }
+
+        public static void ApplyRemoteAnswerHover(
+            CSteamID senderID,
+            int choiceIndex)
+        {
+            if (remoteAnswerPresentation == null ||
+                remoteAnswerSender != senderID ||
+                AnswersField == null)
+            {
+                return;
+            }
+
+            var answers = AnswersField.GetValue(remoteAnswerPresentation)
+                as List<MultiAnswerOptionGUI>;
+            if (answers == null)
+                return;
+
+            int normalizedIndex =
+                choiceIndex >= 0 && choiceIndex < answers.Count
+                    ? choiceIndex
+                    : -1;
+            if (normalizedIndex == remoteAnswerHoverIndex)
+                return;
+
+            if (remoteAnswerHoverIndex >= 0 &&
+                remoteAnswerHoverIndex < answers.Count)
+            {
+                SetAnswerFocused(
+                    answers[remoteAnswerHoverIndex],
+                    false);
+            }
+
+            remoteAnswerHoverIndex = normalizedIndex;
+            if (remoteAnswerHoverIndex >= 0)
+                SetAnswerFocused(answers[remoteAnswerHoverIndex], true);
+        }
+
+        public static bool CloseRemoteAnswerPresentation(
+            CSteamID senderID,
+            int selectedIndex)
+        {
+            if (remoteAnswerPresentation == null ||
+                (senderID != CSteamID.Nil &&
+                 remoteAnswerSender != senderID))
+            {
+                return false;
+            }
+
+            if (selectedIndex >= 0)
+                ApplyRemoteAnswerHover(remoteAnswerSender, selectedIndex);
+
+            string senderName =
+                remoteAnswerSender == CSteamID.Nil
+                    ? "remote player"
+                    : SteamFriends.GetFriendPersonaName(remoteAnswerSender);
+            remoteAnswerPresentation = null;
+            remoteAnswerSender = CSteamID.Nil;
+            remoteAnswerHoverIndex = -1;
+            MultiAnswerGUI.HideAnyctive();
+            CoopMod.Logger.LogInfo(
+                $"[OnlineDialogue] Closed read-only dialogue options from {senderName}");
+            return true;
+        }
+
+        public static void CloseAnyRemoteAnswerPresentation()
+        {
+            CloseRemoteAnswerPresentation(CSteamID.Nil, -1);
+        }
+
+        [HarmonyPatch(typeof(MultiAnswerGUI), "Update")]
+        [HarmonyPrefix]
+        public static bool MultiAnswerGUI_Update_InputGuard(
+            MultiAnswerGUI __instance)
+        {
+            return !IsRemoteAnswerPresentation(__instance);
+        }
+
+        [HarmonyPatch(typeof(MultiAnswerOptionGUI), nameof(MultiAnswerOptionGUI.OnChosen))]
+        [HarmonyPrefix]
+        public static bool MultiAnswerOptionGUI_OnChosen_InputGuard(
+            MultiAnswerOptionGUI __instance)
+        {
+            if (!IsRemoteAnswerOption(__instance))
+                return true;
+
+            LazyInput.ClearAllKeysDown();
+            return false;
+        }
+
+        [HarmonyPatch(typeof(MultiAnswerOptionGUI), nameof(MultiAnswerOptionGUI.OnFocused))]
+        [HarmonyPrefix]
+        public static bool MultiAnswerOptionGUI_OnFocused_Prefix(
+            MultiAnswerOptionGUI __instance)
+        {
+            if (IsRemoteAnswerOption(__instance))
+                return false;
+
+            NotifyLocalAnswerHover(__instance, true);
+            return true;
+        }
+
+        [HarmonyPatch(typeof(MultiAnswerOptionGUI), nameof(MultiAnswerOptionGUI.OnUnfocused))]
+        [HarmonyPrefix]
+        public static bool MultiAnswerOptionGUI_OnUnfocused_Prefix(
+            MultiAnswerOptionGUI __instance)
+        {
+            if (IsRemoteAnswerOption(__instance))
+                return false;
+
+            NotifyLocalAnswerHover(__instance, false);
+            return true;
+        }
+
+        [HarmonyPatch(typeof(UIButtonColor), "OnHover")]
+        [HarmonyPrefix]
+        public static bool UIButton_OnHover_AnswerMirrorPrefix(
+            UIButtonColor __instance,
+            bool isOver)
+        {
+            MultiAnswerOptionGUI option =
+                __instance?.GetComponentInParent<MultiAnswerOptionGUI>();
+            if (option == null)
+                return true;
+            if (IsRemoteAnswerOption(option))
+                return false;
+
+            NotifyLocalAnswerHover(option, isOver);
+            return true;
+        }
+
+        private static bool IsRemoteAnswerOption(
+            MultiAnswerOptionGUI option)
+        {
+            return option != null &&
+                   remoteAnswerPresentation != null &&
+                   option.GetComponentInParent<MultiAnswerGUI>() ==
+                       remoteAnswerPresentation;
+        }
+
+        private static void NotifyLocalAnswerHover(
+            MultiAnswerOptionGUI option,
+            bool focused)
+        {
+            MultiAnswerGUI current = GetCurrentMultiAnswer();
+            if (current == null ||
+                IsRemoteAnswerPresentation(current) ||
+                AnswersField == null)
+            {
+                return;
+            }
+
+            var answers = AnswersField.GetValue(current)
+                as List<MultiAnswerOptionGUI>;
+            int index = answers?.IndexOf(option) ?? -1;
+            if (index < 0)
+                return;
+
+            int nextIndex = focused
+                ? index
+                : (localAnswerHoverIndex == index ? -1 : localAnswerHoverIndex);
+            if (nextIndex == localAnswerHoverIndex)
+                return;
+
+            localAnswerHoverIndex = nextIndex;
+            DialogueSync.Instance?.NotifyDialogueHover(nextIndex);
+        }
+
+        private static void SetAnswerFocused(
+            MultiAnswerOptionGUI option,
+            bool focused)
+        {
+            try
+            {
+                var button = AnswerButtonField?.GetValue(option) as UIButton;
+                var widget = AnswerWidgetField?.GetValue(option) as UIWidget;
+                if (button == null || widget == null)
+                    return;
+
+                int startSize =
+                    (int)(AnswerStartSizeField?.GetValue(option) ?? widget.width);
+                int focusDelta =
+                    (int)(AnswerFocusDeltaField?.GetValue(option) ?? 0);
+                Color defaultColor =
+                    (Color)(AnswerDefaultColorField?.GetValue(option) ??
+                            button.defaultColor);
+
+                button.defaultColor =
+                    focused ? button.hover : defaultColor;
+                widget.ChangeSize(
+                    focused ? startSize + focusDelta : startSize,
+                    widget.height,
+                    0.1f,
+                    null,
+                    0f);
+            }
+            catch (System.Exception ex)
+            {
+                CoopMod.Logger.LogWarning(
+                    "[OnlineDialogue] Failed to mirror answer highlight: " +
+                    ex.Message);
             }
         }
 

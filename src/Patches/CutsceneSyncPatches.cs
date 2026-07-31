@@ -14,16 +14,19 @@ namespace GraveyardKeeperCoop.Patches
     /// Problem: When one player's actions trigger a FlowScript (e.g., digging up Gerry's grave
     /// triggers his cutscene), only that player sees it. The remote player sees nothing.
     ///
-    /// Solution: Intercept GS.RunFlowScript and WorldGameObject.AttachFlowScript calls
-    /// that originate from craft completion or WGO zero-HP processing, and replay them
-    /// on the remote player's machine.
+    /// Solution: Intercept FlowScript creation plus events dispatched into already
+    /// running global/WGO graphs, then promote the pending source when vanilla
+    /// actually shows its cinematic letterbox. Craft completion and WGO zero-HP
+    /// scripts can still be announced immediately because those triggers are
+    /// authoritative. Nearby peers observe the initiator; only known global
+    /// cutscenes run a second local presentation.
     ///
     /// Context flags ensure we only sync FlowScripts triggered by:
     /// - CraftComponent.ProcessFinishedCraft → end_script (e.g., grave digging → Gerry)
     /// - WorldGameObject.DoZeroHPActivity → script_after_hp_0 (e.g., destroying an object)
     ///
-    /// FlowScripts from other sources (quest triggers, time events, scene init) are NOT synced
-    /// because both machines trigger those independently — syncing would cause double execution.
+    /// Story graphs are never replayed merely to reproduce presentation because doing
+    /// so would execute their quest, item, and world mutations twice.
     /// </summary>
     [HarmonyPatch]
     public static class CutsceneSyncPatches
@@ -47,8 +50,17 @@ namespace GraveyardKeeperCoop.Patches
         private const float CUTSCENE_ORIGIN_MATCH_TOLERANCE = 24f;
         private const float DEFERRED_FAST_FORWARD_STEP_TIMEOUT = 2f;
         private const float DEFERRED_FAST_FORWARD_STEP_DELAY = 0.08f;
-        private const float CINEMATIC_CANDIDATE_TTL = 2f;
+        // Most flow nodes execute synchronously. A modest attribution window covers
+        // short movement/fade preambles; an active dialogue keeps its own candidate
+        // alive because the player may leave a bubble open indefinitely.
+        private const float CINEMATIC_CANDIDATE_TTL = 15f;
+        private const float LOCAL_ACTOR_COMPLETION_SETTLE_SECONDS = 0.25f;
+        private const float LOCAL_ACTOR_COMPLETION_MAX_WAIT_SECONDS = 12f;
+        private const float FIRST_BURIAL_CUTSCENE_HANDOFF_SECONDS = 2f;
+        private const string RED_EYE_INTRO_SCRIPT = "red_eye_talk_1";
         private const string GERRY_DIG_UP_SCRIPT = "skull_spawn_after_dig";
+        private const string FIRST_BURIAL_FOLLOWUP_QUEST =
+            "ghost_come_after_1st_burial";
         private const string GERRY_WGO_ID = "talking_skull";
         private const string GERRY_NPC_ID = "crafting_skull_3";
         private const string GERRY_DIG_QUEST_ID = "dig_graved_skull";
@@ -57,6 +69,7 @@ namespace GraveyardKeeperCoop.Patches
         private const string DONKEY_WGO_ID = "donkey";
         private const string DONKEY_CUSTOM_TAG = "donkey";
         private const string DONKEY_CEMETERY_POINT_TAG = "donkey_cemetery_point";
+        private const string DONKEY_CEMETERY_ARRIVAL_EVENT = "on_came_to_cemetery";
         private const string DONKEY_FIRST_QUEST_ID = "go_to_talk_with_donkey_first_time";
         private const float GERRY_DIG_UP_PLAYER_WALK_SPEED = 1.4f;
         private const float GERRY_DIG_UP_CUTSCENE_SPEED_TIMEOUT = 90f;
@@ -64,6 +77,7 @@ namespace GraveyardKeeperCoop.Patches
 
         private static PendingRemoteCutscene pendingRemoteCutscene;
         private static RemoteCutsceneSession remoteCutsceneSession;
+        private static RemoteNpcVisualTail remoteNpcVisualTail;
         private static readonly List<CompletedDeferredCutscene> completedDeferredCutscenes = new List<CompletedDeferredCutscene>();
         private static readonly List<LocalSyncedCutscene> localSyncedCutscenes = new List<LocalSyncedCutscene>();
         private static readonly Queue<DeferredDialogueOp> deferredCatchUpDialogueOps = new Queue<DeferredDialogueOp>();
@@ -78,6 +92,17 @@ namespace GraveyardKeeperCoop.Patches
         private static bool isApplyingRemoteCamera;
         private static bool remoteCameraApplied;
         private static GameObject remoteCameraFallbackTarget;
+        private static float suppressDisabledInteractionUntil;
+        private static int cinematicPresentationCallDepth;
+
+        /// <summary>
+        /// True only while this machine is running another player's FlowScript for
+        /// presentation. Personal side effects from that mirror must not mutate the
+        /// observing player's character state.
+        /// </summary>
+        internal static bool IsApplyingRemotePresentation =>
+            isProcessingRemote ||
+            remoteCutsceneSession?.MirrorsLocalExecution == true;
 
         private sealed class PendingRemoteCutscene
         {
@@ -108,7 +133,15 @@ namespace GraveyardKeeperCoop.Patches
             public float StartedAt;
             public bool IsParticipating;
             public bool JoinWalkStarted;
+            public bool MirrorsLocalExecution;
+            public bool ScopeRejectionLogged;
             public CutsceneCameraState CameraState;
+        }
+
+        private sealed class RemoteNpcVisualTail
+        {
+            public CSteamID SenderID;
+            public float StartedAt;
         }
 
         private sealed class CompletedDeferredCutscene
@@ -127,12 +160,20 @@ namespace GraveyardKeeperCoop.Patches
             public string OriginZoneId;
             public float StartedAt;
             public bool CompletionSent;
+            public bool MirrorsRemoteExecution;
+            public bool SuppressCompletionBroadcast;
+            public float CompletionRequestedAt;
+            public float CompletionSettledAt;
+            public string CompletionReason;
+            public bool VisualTailActive;
         }
 
         private sealed class PotentialCinematic
         {
             public string ScriptName;
             public float StartedAt;
+            public WorldGameObject OriginActor;
+            public CutsceneCameraState PendingCameraState;
         }
 
         /// <summary>
@@ -168,9 +209,12 @@ namespace GraveyardKeeperCoop.Patches
             isProcessingRemote = false;
             pendingRemoteCutscene = null;
             remoteCutsceneSession = null;
+            remoteNpcVisualTail = null;
             completedDeferredCutscenes.Clear();
             localSyncedCutscenes.Clear();
             recentPotentialCinematic = null;
+            cinematicPresentationCallDepth = 0;
+            suppressDisabledInteractionUntil = 0f;
             OnlineCoopManager.Instance?.EndObservedCutsceneFollow("cutscene sync disabled");
             EndDeferredCutsceneCatchUp("sync disabled");
             EndGerryDigUpCutsceneIfActive("sync disabled");
@@ -220,10 +264,16 @@ namespace GraveyardKeeperCoop.Patches
         /// Broadcast a FlowScript trigger AND a walk-to-me request so the remote player visibly walks
         /// over to the local digger instead of being teleported / left out of frame.
         /// </summary>
-        private static LocalSyncedCutscene BroadcastSyncAndWalk(string scriptName)
+        private static LocalSyncedCutscene BroadcastSyncAndWalk(
+            string scriptName,
+            WorldGameObject seedActor = null)
         {
             var p2p = SteamP2PManager.Instance;
             if (p2p == null) return null;
+
+            NpcVisualSync.Instance?.BeginLocalCutsceneActorSession(
+                seedActor,
+                $"FlowScript {scriptName}");
 
             Vector3 cutscenePos = Vector3.zero;
             byte facing = 0;
@@ -291,6 +341,15 @@ namespace GraveyardKeeperCoop.Patches
             ref CustomFlowScript.OnFinishedDelegate on_finished,
             ref CustomFlowScript __result)
         {
+            if (HostAuthorityInteractionSync.IsApplyingZeroHpMutation)
+            {
+                __result = null;
+                CoopMod.Logger.LogInfo(
+                    $"[CutsceneSync] Suppressed host-side zero-HP presentation FlowScript \"{uscript_name}\"; " +
+                    "the triggering player owns its presentation");
+                return false;
+            }
+
             if (isProcessingRemote) return true;
 
             var onlineCoop = OnlineCoopManager.Instance;
@@ -320,14 +379,11 @@ namespace GraveyardKeeperCoop.Patches
                 // craft callback. Record the script now and promote it only if it
                 // actually disables the player with cinematic bars. This detects
                 // cutscenes generically without broadcasting every utility script.
-                recentPotentialCinematic = new PotentialCinematic
-                {
-                    ScriptName = uscript_name,
-                    StartedAt = Time.realtimeSinceStartup
-                };
+                RecordPotentialCinematic(uscript_name);
                 return true;
             }
 
+            recentPotentialCinematic = null;
             CoopMod.Logger.LogInfo($"[CutsceneSync] Local GS.RunFlowScript(\"{uscript_name}\") in sync context — broadcasting to remote");
             BeginGerryDigUpCutsceneIfNeeded(uscript_name, "local GS.RunFlowScript");
             var localCutscene = BroadcastSyncAndWalk(uscript_name);
@@ -342,40 +398,193 @@ namespace GraveyardKeeperCoop.Patches
         /// <summary>
         /// Intercept WGO-attached FlowScript execution.
         /// When AttachFlowScript is called inside a syncable context, broadcast the script name.
-        /// On the remote side, we run it as a global script (since the remote player's WGO
-        /// may not be in the same state). This works for cutscenes that don't reference the
-        /// parent WGO's state.
+        /// The triggering peer retains script ownership while nearby peers attach to the live
+        /// presentation and receive its synchronized dialogue and actor state.
         ///
         /// Skips SmartExpressions (names starting with ':') — those are not FlowScripts.
         /// </summary>
         [HarmonyPatch(typeof(WorldGameObject), nameof(WorldGameObject.AttachFlowScript))]
         [HarmonyPrefix]
         [HarmonyPriority(Priority.High)]
-        public static void AttachFlowScript_Prefix(string flowscript_name, ref CustomFlowScript.OnFinishedDelegate on_finished)
+        public static bool AttachFlowScript_Prefix(
+            WorldGameObject __instance,
+            string flowscript_name,
+            ref CustomFlowScript.OnFinishedDelegate on_finished,
+            ref CustomFlowScript __result)
         {
-            if (isProcessingRemote) return;
-            var onlineCoop = OnlineCoopManager.Instance;
-            if (onlineCoop == null || !onlineCoop.IsOnlineCoopEnabled) return;
+            if (HostAuthorityInteractionSync.IsApplyingZeroHpMutation)
+            {
+                __result = null;
+                CoopMod.Logger.LogInfo(
+                    $"[CutsceneSync] Suppressed host-side zero-HP presentation FlowScript \"{flowscript_name}\"; " +
+                    "the triggering player owns its presentation");
+                return false;
+            }
 
-            if (string.IsNullOrEmpty(flowscript_name)) return;
+            if (isProcessingRemote) return true;
+            var onlineCoop = OnlineCoopManager.Instance;
+            if (onlineCoop == null || !onlineCoop.IsOnlineCoopEnabled) return true;
+
+            if (string.IsNullOrEmpty(flowscript_name)) return true;
 
             // Skip SmartExpressions (not FlowScripts)
-            if (flowscript_name[0] == ':') return;
+            if (flowscript_name[0] == ':') return true;
 
             if (!isInSyncableContext)
             {
-                recentPotentialCinematic = new PotentialCinematic
-                {
-                    ScriptName = flowscript_name,
-                    StartedAt = Time.realtimeSinceStartup
-                };
+                RecordPotentialCinematic(flowscript_name, __instance);
+                return true;
+            }
+
+            recentPotentialCinematic = null;
+            CoopMod.Logger.LogInfo($"[CutsceneSync] Local WGO.AttachFlowScript(\"{flowscript_name}\") in sync context — broadcasting to remote");
+            BeginGerryDigUpCutsceneIfNeeded(flowscript_name, "local AttachFlowScript");
+            var localCutscene = BroadcastSyncAndWalk(
+                flowscript_name,
+                __instance);
+            WrapCutsceneFinishedCallback(localCutscene, ref on_finished);
+            return true;
+        }
+
+        #endregion
+
+        #region Existing FlowScript Event Intercepts
+
+        /// <summary>
+        /// WGO interaction events run on an already-attached FlowScript and therefore
+        /// never pass through RunFlowScript or AttachFlowScript. Record their owning
+        /// script and event so the actual letterbox transition can promote them.
+        /// </summary>
+        [HarmonyPatch(
+            typeof(WorldGameObject),
+            nameof(WorldGameObject.FireEvent),
+            new System.Type[] { typeof(string), typeof(float) })]
+        [HarmonyPrefix]
+        public static void WorldGameObjectFireEvent_Prefix(
+            WorldGameObject __instance,
+            string event_id)
+        {
+            RecordWgoEventPotential(__instance, event_id);
+        }
+
+        [HarmonyPatch(
+            typeof(WorldGameObject),
+            nameof(WorldGameObject.FireEvent),
+            new System.Type[]
+            {
+                typeof(string),
+                typeof(float),
+                typeof(string)
+            })]
+        [HarmonyPrefix]
+        public static void WorldGameObjectFireEventWithParam_Prefix(
+            WorldGameObject __instance,
+            string event_id)
+        {
+            RecordWgoEventPotential(__instance, event_id);
+        }
+
+        /// <summary>
+        /// Global scripts can stay alive and receive a later named event. That event
+        /// is the real cutscene entry point, not the earlier script creation.
+        /// </summary>
+        [HarmonyPatch(
+            typeof(CustomFlowScript),
+            nameof(CustomFlowScript.FireEvent),
+            new System.Type[] { typeof(string) })]
+        [HarmonyPrefix]
+        public static void CustomFlowScriptFireEvent_Prefix(
+            CustomFlowScript __instance,
+            string event_id)
+        {
+            RecordCustomFlowEventPotential(__instance, event_id);
+        }
+
+        [HarmonyPatch(
+            typeof(CustomFlowScript),
+            nameof(CustomFlowScript.FireEvent),
+            new System.Type[] { typeof(string), typeof(string) })]
+        [HarmonyPrefix]
+        public static void CustomFlowScriptFireEventWithParam_Prefix(
+            CustomFlowScript __instance,
+            string event_id)
+        {
+            RecordCustomFlowEventPotential(__instance, event_id);
+        }
+
+        [HarmonyPatch(
+            typeof(FlowScriptEngine),
+            nameof(FlowScriptEngine.SendEvent))]
+        [HarmonyPrefix]
+        public static void GlobalFlowEvent_Prefix(string event_name)
+        {
+            if (!string.IsNullOrEmpty(event_name))
+            {
+                RecordPotentialCinematic(
+                    $"global-event:{event_name}");
+            }
+        }
+
+        private static void RecordWgoEventPotential(
+            WorldGameObject wgo,
+            string eventId)
+        {
+            if (wgo == null || string.IsNullOrEmpty(eventId))
+                return;
+
+            string scriptName = wgo.obj_def?.attached_script;
+            if (string.IsNullOrEmpty(scriptName))
+                scriptName = wgo.obj_id;
+            if (string.IsNullOrEmpty(scriptName))
+                scriptName = wgo.custom_tag;
+            if (string.IsNullOrEmpty(scriptName))
+                return;
+
+            RecordPotentialCinematic(
+                $"{scriptName}:{eventId}",
+                wgo);
+        }
+
+        private static void RecordCustomFlowEventPotential(
+            CustomFlowScript flowScript,
+            string eventId)
+        {
+            if (flowScript == null ||
+                string.IsNullOrEmpty(flowScript.script_name) ||
+                string.IsNullOrEmpty(eventId))
+            {
                 return;
             }
 
-            CoopMod.Logger.LogInfo($"[CutsceneSync] Local WGO.AttachFlowScript(\"{flowscript_name}\") in sync context — broadcasting to remote");
-            BeginGerryDigUpCutsceneIfNeeded(flowscript_name, "local AttachFlowScript");
-            var localCutscene = BroadcastSyncAndWalk(flowscript_name);
-            WrapCutsceneFinishedCallback(localCutscene, ref on_finished);
+            WorldGameObject origin =
+                flowScript.GetComponentInParent<WorldGameObject>();
+            RecordPotentialCinematic(
+                $"{flowScript.script_name}:{eventId}",
+                origin);
+        }
+
+        private static void RecordPotentialCinematic(
+            string scriptName,
+            WorldGameObject originActor = null)
+        {
+            if (isProcessingRemote ||
+                HostAuthorityInteractionSync.IsApplyingZeroHpMutation ||
+                SyncBehaviour.GlobalRemoteApplyActive ||
+                string.IsNullOrEmpty(scriptName))
+            {
+                return;
+            }
+
+            var onlineCoop = OnlineCoopManager.Instance;
+            if (onlineCoop == null || !onlineCoop.IsOnlineCoopEnabled)
+                return;
+
+            recentPotentialCinematic = new PotentialCinematic
+            {
+                ScriptName = scriptName,
+                StartedAt = Time.realtimeSinceStartup,
+                OriginActor = originActor
+            };
         }
 
         #endregion
@@ -386,51 +595,183 @@ namespace GraveyardKeeperCoop.Patches
         // This observer runs after the game restores player control and before generic
         // local cinematic cleanup, so synced cutscenes are closed under the network owner.
         [HarmonyPatch(typeof(GS), nameof(GS.SetPlayerEnable))]
+        [HarmonyPrefix]
+        public static void SetPlayerEnable_Prefix()
+        {
+            cinematicPresentationCallDepth++;
+        }
+
+        [HarmonyPatch(typeof(GS), nameof(GS.SetPlayerEnable))]
         [HarmonyPostfix]
         [HarmonyPriority(Priority.Normal)]
         public static void SetPlayerEnable_Postfix(bool player_enabled, bool affect_cinematic)
         {
-            var onlineCoop = OnlineCoopManager.Instance;
-            if (onlineCoop == null || !onlineCoop.IsOnlineCoopEnabled) return;
+            if (cinematicPresentationCallDepth > 0)
+                cinematicPresentationCallDepth--;
 
-            if (!player_enabled)
-            {
-                PromotePotentialCinematicIfNeeded(affect_cinematic);
+            var onlineCoop = OnlineCoopManager.Instance;
+            if (onlineCoop == null || !onlineCoop.IsOnlineCoopEnabled ||
+                !player_enabled)
                 return;
-            }
 
             recentPotentialCinematic = null;
             CompleteLocalSyncedCutscenes("player control restored");
             EndGerryDigUpCutsceneIfActive("player control restored");
         }
 
-        private static void PromotePotentialCinematicIfNeeded(bool affectCinematic)
+        [HarmonyPatch(typeof(GS), nameof(GS.AffectCinematic))]
+        [HarmonyPrefix]
+        public static void AffectCinematic_Prefix()
         {
-            PotentialCinematic candidate = recentPotentialCinematic;
-            recentPotentialCinematic = null;
-            if (!affectCinematic ||
-                candidate == null ||
-                Time.realtimeSinceStartup - candidate.StartedAt > CINEMATIC_CANDIDATE_TTL ||
-                remoteCutsceneSession?.IsParticipating == true)
+            cinematicPresentationCallDepth++;
+        }
+
+        [HarmonyPatch(typeof(GS), nameof(GS.AffectCinematic))]
+        [HarmonyPostfix]
+        public static void AffectCinematic_Postfix(bool show)
+        {
+            if (cinematicPresentationCallDepth > 0)
+                cinematicPresentationCallDepth--;
+
+            var onlineCoop = OnlineCoopManager.Instance;
+            if (onlineCoop == null || !onlineCoop.IsOnlineCoopEnabled ||
+                show)
             {
                 return;
             }
 
+            recentPotentialCinematic = null;
+            CompleteLocalSyncedCutscenes("cinematic presentation restored");
+        }
+
+        /// <summary>
+        /// All vanilla letterbox paths converge here: SetPlayerEnable,
+        /// AffectCinematic, and the direct Camera Letterbox flow node.
+        /// </summary>
+        [HarmonyPatch(
+            typeof(CameraTools),
+            nameof(CameraTools.TweenLetterbox))]
+        [HarmonyPrefix]
+        public static void TweenLetterbox_Prefix(bool show)
+        {
+            if (show)
+                PromotePotentialCinematicIfNeeded();
+        }
+
+        [HarmonyPatch(
+            typeof(CameraTools),
+            nameof(CameraTools.TweenLetterbox))]
+        [HarmonyPostfix]
+        public static void TweenLetterbox_Postfix(bool show)
+        {
+            if (show || cinematicPresentationCallDepth > 0)
+                return;
+
+            var onlineCoop = OnlineCoopManager.Instance;
+            if (onlineCoop == null || !onlineCoop.IsOnlineCoopEnabled)
+                return;
+
+            recentPotentialCinematic = null;
+            CompleteLocalSyncedCutscenes("direct letterbox restored");
+        }
+
+        private static void PromotePotentialCinematicIfNeeded()
+        {
+            PotentialCinematic candidate = recentPotentialCinematic;
+            recentPotentialCinematic = null;
+            if (candidate == null ||
+                remoteCutsceneSession != null ||
+                NpcInteractionSyncPatches.HasRemoteNpcVisualAuthority())
+            {
+                return;
+            }
+
+            bool interactionStillActive =
+                NpcInteractionSyncPatches.HasLocalNpcVisualAuthority() ||
+                DialogueSync.Instance?.IsInSyncedDialogue == true;
+            if (!interactionStillActive &&
+                Time.realtimeSinceStartup - candidate.StartedAt >
+                    CINEMATIC_CANDIDATE_TTL)
+            {
+                return;
+            }
+
+            PruneLocalSyncedCutscenes();
             for (int i = 0; i < localSyncedCutscenes.Count; i++)
             {
-                if (!localSyncedCutscenes[i].CompletionSent &&
-                    string.Equals(
-                        localSyncedCutscenes[i].ScriptName,
-                        candidate.ScriptName,
-                        System.StringComparison.OrdinalIgnoreCase))
-                {
+                if (!localSyncedCutscenes[i].CompletionSent)
                     return;
-                }
             }
 
             CoopMod.Logger.LogInfo(
-                $"[CutsceneSync] FlowScript \"{candidate.ScriptName}\" entered cinematic mode — broadcasting generic live session");
-            BroadcastSyncAndWalk(candidate.ScriptName);
+                $"[CutsceneSync] Flow/event \"{candidate.ScriptName}\" entered cinematic mode — broadcasting generic live session");
+            // Player-bound cutscenes belong to the player who triggered them. Only
+            // reciprocal global mirrors (the Red Eye intro) need the deterministic
+            // lobby-host owner to prevent both peers claiming the first player line.
+            EnsureSharedCutsceneDialogueOwner(
+                RequiresLocalFlowScriptMirror(candidate.ScriptName)
+                    ? CSteamID.Nil
+                    : SteamUser.GetSteamID());
+            BroadcastSyncAndWalk(
+                candidate.ScriptName,
+                candidate.OriginActor);
+            if (candidate.PendingCameraState != null)
+            {
+                SteamP2PManager.Instance?.SendCutsceneCamera(
+                    candidate.PendingCameraState);
+            }
+        }
+
+        private static void EnsureSharedCutsceneDialogueOwner(
+            CSteamID preferredOwner = default(CSteamID))
+        {
+            CSteamID owner = preferredOwner;
+            if (owner == CSteamID.Nil)
+                owner = SteamLobbyManager.Instance?.GetLobbyOwner() ?? CSteamID.Nil;
+            if (owner == CSteamID.Nil)
+                owner = SteamUser.GetSteamID();
+
+            DialogueSync.Instance?.EnsureCutsceneDialogueOwner(owner);
+        }
+
+        internal static bool ShouldSuppressAmbientSpeechRelay()
+        {
+            // The new-game intro and reciprocal global cutscenes execute the same
+            // FlowScript locally on both machines. Relaying their WorldGameObject.Say
+            // calls creates a second bubble whose click advances the script twice.
+            return GameLoadSync.Instance?.IsInIntroPhase == true ||
+                   remoteCutsceneSession?.MirrorsLocalExecution == true ||
+                   HasActiveMirroredLocalCutscene();
+        }
+
+        internal static void MarkRemoteFirstBurialCutsceneHandoff(
+            string questId)
+        {
+            if (!string.Equals(
+                    questId,
+                    FIRST_BURIAL_FOLLOWUP_QUEST,
+                    System.StringComparison.OrdinalIgnoreCase))
+            {
+                return;
+            }
+
+            suppressDisabledInteractionUntil =
+                Time.realtimeSinceStartup +
+                FIRST_BURIAL_CUTSCENE_HANDOFF_SECONDS;
+        }
+
+        internal static bool ShouldSuppressTransientDisabledInteraction()
+        {
+            var onlineCoop = OnlineCoopManager.Instance;
+            if (onlineCoop == null || !onlineCoop.IsOnlineCoopEnabled)
+                return false;
+
+            PruneLocalSyncedCutscenes();
+            return Time.realtimeSinceStartup <=
+                       suppressDisabledInteractionUntil ||
+                   HasActiveLocalCutscenePresentation() ||
+                   remoteCutsceneSession != null ||
+                   pendingRemoteCutscene != null;
         }
 
         #endregion
@@ -591,7 +932,11 @@ namespace GraveyardKeeperCoop.Patches
         [HarmonyPrefix]
         public static void CameraFlyTo_Prefix(Transform target, float duration)
         {
-            if (!ShouldBroadcastLocalCameraCommand() || target == null)
+            if (target == null || isApplyingRemoteCamera)
+                return;
+
+            var onlineCoop = OnlineCoopManager.Instance;
+            if (onlineCoop == null || !onlineCoop.IsOnlineCoopEnabled)
                 return;
 
             WorldGameObject targetWgo =
@@ -609,7 +954,18 @@ namespace GraveyardKeeperCoop.Patches
                 TargetPosition = target.position,
                 Duration = duration
             };
-            SteamP2PManager.Instance?.SendCutsceneCamera(state);
+            if (ShouldBroadcastLocalCameraCommand())
+            {
+                SteamP2PManager.Instance?.SendCutsceneCamera(state);
+            }
+            else if (recentPotentialCinematic != null &&
+                     remoteCutsceneSession == null)
+            {
+                // zombie_in_mortuary is the one vanilla graph that moves the
+                // camera before enabling its letterbox. Retain that first target
+                // until the letterbox promotes the pending live session.
+                recentPotentialCinematic.PendingCameraState = state;
+            }
         }
 
         [HarmonyPatch(typeof(CameraTools), nameof(CameraTools.CameraFlyBack))]
@@ -617,7 +973,11 @@ namespace GraveyardKeeperCoop.Patches
         public static void CameraFlyBack_Prefix(float duration)
         {
             if (!ShouldBroadcastLocalCameraCommand())
+            {
+                if (recentPotentialCinematic != null)
+                    recentPotentialCinematic.PendingCameraState = null;
                 return;
+            }
 
             SteamP2PManager.Instance?.SendCutsceneCamera(
                 new CutsceneCameraState
@@ -640,7 +1000,7 @@ namespace GraveyardKeeperCoop.Patches
                 return false;
 
             PruneLocalSyncedCutscenes();
-            return localSyncedCutscenes.Count > 0;
+            return HasActiveLocalCutscenePresentation();
         }
 
         private static void OnCutsceneCameraReceived(
@@ -666,7 +1026,8 @@ namespace GraveyardKeeperCoop.Patches
             }
 
             session.CameraState = state;
-            if (session.IsParticipating)
+            if (session.IsParticipating &&
+                !session.MirrorsLocalExecution)
             {
                 ApplyRemoteCutsceneCamera(state);
             }
@@ -863,7 +1224,8 @@ namespace GraveyardKeeperCoop.Patches
 
             if (remoteCutsceneSession != null)
             {
-                if (remoteCutsceneSession.IsParticipating)
+                if (remoteCutsceneSession.IsParticipating &&
+                    !remoteCutsceneSession.MirrorsLocalExecution)
                 {
                     RestoreRemoteCutsceneCamera(
                         "remote cutscene session replaced");
@@ -873,6 +1235,8 @@ namespace GraveyardKeeperCoop.Patches
 
                 CoopMod.Logger.LogWarning($"[CutsceneSync] Replacing unfinished live FlowScript \"{remoteCutsceneSession.ScriptName}\" with \"{scriptName}\"");
             }
+
+            remoteNpcVisualTail = null;
 
             remoteCutsceneSession = new RemoteCutsceneSession
             {
@@ -905,6 +1269,23 @@ namespace GraveyardKeeperCoop.Patches
             catch (System.Exception ex)
             {
                 CoopMod.Logger.LogWarning($"[CutsceneSync] Failed to lock player for cutscene: {ex.Message}");
+            }
+        }
+
+        internal static void LockLocalPlayerForObservedDialogue()
+        {
+            try
+            {
+                var pc = MainGame.me?.player_char;
+                if (pc != null) pc.control_enabled = false;
+                GS.SetPlayerEnable(false, false);
+                CoopMod.Logger.LogInfo(
+                    "[CutsceneSync] Locked local player for observed dialogue (control disabled, no letterbox)");
+            }
+            catch (System.Exception ex)
+            {
+                CoopMod.Logger.LogWarning(
+                    $"[CutsceneSync] Failed to lock player for observed dialogue: {ex.Message}");
             }
         }
 
@@ -947,11 +1328,24 @@ namespace GraveyardKeeperCoop.Patches
                 return;
             }
 
-            if (session?.IsParticipating == true)
+            if (session?.IsParticipating == true &&
+                !session.MirrorsLocalExecution)
             {
                 RestoreRemoteCutsceneCamera("remote cutscene completed");
                 onlineCoop.EndObservedCutsceneFollow("remote cutscene completed");
                 UnlockLocalPlayerAfterCutscene();
+            }
+
+            if (session != null && !session.MirrorsLocalExecution)
+            {
+                // Presentation is over, but the authoritative actor may still be
+                // walking to an exit/despawn point. Keep accepting only its NPC
+                // visual epoch without treating the player as cutscene-bound.
+                remoteNpcVisualTail = new RemoteNpcVisualTail
+                {
+                    SenderID = senderID,
+                    StartedAt = Time.realtimeSinceStartup
+                };
             }
 
             if (IsGerryDigUpScript(scriptName))
@@ -973,15 +1367,17 @@ namespace GraveyardKeeperCoop.Patches
             {
                 remoteCutsceneSession = null;
             }
-            string participation = session?.IsParticipating == true
-                ? "detached local participant and restored control"
-                : "closed live session without local participation";
+            string participation = session?.MirrorsLocalExecution == true
+                ? "remote finished; mirrored local execution will consume queued dialogue advances"
+                : session?.IsParticipating == true
+                    ? "detached local participant and restored control"
+                    : "closed live session without local participation";
             CoopMod.Logger.LogInfo($"[CutsceneSync] Remote player completed FlowScript \"{scriptName}\" — {participation}");
         }
 
-        private static void RunRemoteFlowScript(string scriptName)
+        private static bool RunRemoteFlowScript(string scriptName)
         {
-            if (string.IsNullOrEmpty(scriptName)) return;
+            if (string.IsNullOrEmpty(scriptName)) return false;
 
             isProcessingRemote = true;
             try
@@ -991,16 +1387,17 @@ namespace GraveyardKeeperCoop.Patches
                 if (flowScript != null)
                 {
                     CoopMod.Logger.LogInfo($"[CutsceneSync] ✓ FlowScript \"{scriptName}\" started successfully");
+                    return true;
                 }
-                else
-                {
-                    EndGerryDigUpCutsceneIfActive("remote replay failed");
-                    CoopMod.Logger.LogWarning($"[CutsceneSync] FlowScript \"{scriptName}\" returned null (asset not found?)");
-                }
+
+                EndGerryDigUpCutsceneIfActive("remote replay failed");
+                CoopMod.Logger.LogWarning($"[CutsceneSync] FlowScript \"{scriptName}\" returned null (asset not found?)");
+                return false;
             }
             catch (System.Exception ex)
             {
                 CoopMod.Logger.LogError($"[CutsceneSync] Error running remote FlowScript \"{scriptName}\": {ex}");
+                return false;
             }
             finally
             {
@@ -1012,6 +1409,16 @@ namespace GraveyardKeeperCoop.Patches
         {
             PruneCompletedDeferredCutscenes();
             PruneLocalSyncedCutscenes();
+            TickPendingLocalSyncedCutsceneCompletions();
+
+            if (remoteNpcVisualTail != null &&
+                Time.realtimeSinceStartup - remoteNpcVisualTail.StartedAt >=
+                    LOCAL_ACTOR_COMPLETION_MAX_WAIT_SECONDS)
+            {
+                CoopMod.Logger.LogInfo(
+                    "[CutsceneSync] Remote NPC visual tail expired");
+                remoteNpcVisualTail = null;
+            }
 
             var session = remoteCutsceneSession;
             if (session == null)
@@ -1177,10 +1584,128 @@ namespace GraveyardKeeperCoop.Patches
                 return;
             }
 
+            bool actorStillMoving =
+                !localCutscene.MirrorsRemoteExecution &&
+                NpcVisualSync.Instance?.AreLocalCutsceneActorsMoving() == true;
+            if (actorStillMoving)
+            {
+                if (localCutscene.CompletionRequestedAt <= 0f)
+                {
+                    localCutscene.CompletionRequestedAt =
+                        Time.realtimeSinceStartup;
+                    localCutscene.CompletionReason = reason ?? "completion requested";
+                    localCutscene.CompletionSettledAt = 0f;
+                    localCutscene.VisualTailActive = true;
+                    CompleteLocalSyncedCutscenePresentation(
+                        localCutscene,
+                        localCutscene.CompletionReason);
+                    CoopMod.Logger.LogInfo(
+                        $"[CutsceneSync] FlowScript \"{localCutscene.ScriptName}\" " +
+                        "restored player control while an enrolled NPC is still moving; " +
+                        "presentation completed and the actor will continue in a visual-only tail");
+                }
+                return;
+            }
+
+            FinalizeLocalSyncedCutscene(localCutscene, reason);
+        }
+
+        private static void CompleteLocalSyncedCutscenePresentation(
+            LocalSyncedCutscene localCutscene,
+            string reason)
+        {
+            if (localCutscene == null || localCutscene.CompletionSent)
+                return;
+
             localCutscene.CompletionSent = true;
-            SteamP2PManager.Instance?.SendCutsceneComplete(localCutscene.ScriptName, localCutscene.OriginWorldPos, localCutscene.OriginZoneId);
+            if (!localCutscene.SuppressCompletionBroadcast)
+            {
+                SteamP2PManager.Instance?.SendCutsceneComplete(
+                    localCutscene.ScriptName,
+                    localCutscene.OriginWorldPos,
+                    localCutscene.OriginZoneId);
+            }
+            if (localCutscene.MirrorsRemoteExecution)
+                DialogueSync.Instance?.NotifyMirroredLocalCutsceneFinished();
+
+            string ownership = localCutscene.SuppressCompletionBroadcast
+                ? "mirrored remote"
+                : "local synced";
+            CoopMod.Logger.LogInfo(
+                $"[CutsceneSync] {ownership} FlowScript " +
+                $"\"{localCutscene.ScriptName}\" presentation completed ({reason})");
+        }
+
+        private static void TickPendingLocalSyncedCutsceneCompletions()
+        {
+            float now = Time.realtimeSinceStartup;
+            for (int i = localSyncedCutscenes.Count - 1; i >= 0; i--)
+            {
+                LocalSyncedCutscene local = localSyncedCutscenes[i];
+                if (!local.VisualTailActive ||
+                    local.CompletionRequestedAt <= 0f)
+                {
+                    continue;
+                }
+
+                float waitingFor = now - local.CompletionRequestedAt;
+                bool moving =
+                    NpcVisualSync.Instance?.AreLocalCutsceneActorsMoving() == true;
+                if (moving &&
+                    waitingFor < LOCAL_ACTOR_COMPLETION_MAX_WAIT_SECONDS)
+                {
+                    local.CompletionSettledAt = 0f;
+                    continue;
+                }
+
+                if (!moving &&
+                    waitingFor < LOCAL_ACTOR_COMPLETION_MAX_WAIT_SECONDS)
+                {
+                    if (local.CompletionSettledAt <= 0f)
+                    {
+                        local.CompletionSettledAt = now;
+                        continue;
+                    }
+                    if (now - local.CompletionSettledAt <
+                        LOCAL_ACTOR_COMPLETION_SETTLE_SECONDS)
+                    {
+                        continue;
+                    }
+                }
+
+                string completionReason =
+                    waitingFor >= LOCAL_ACTOR_COMPLETION_MAX_WAIT_SECONDS
+                        ? "actor settle timeout"
+                        : "enrolled actors settled";
+                local.VisualTailActive = false;
+                localSyncedCutscenes.Remove(local);
+                CoopMod.Logger.LogInfo(
+                    $"[CutsceneSync] FlowScript \"{local.ScriptName}\" " +
+                    $"NPC visual tail ended ({completionReason})");
+            }
+        }
+
+        private static void FinalizeLocalSyncedCutscene(
+            LocalSyncedCutscene localCutscene,
+            string reason)
+        {
+            if (localCutscene == null || localCutscene.CompletionSent)
+                return;
+
+            CompleteLocalSyncedCutscenePresentation(localCutscene, reason);
+            localCutscene.VisualTailActive = false;
             localSyncedCutscenes.Remove(localCutscene);
-            CoopMod.Logger.LogInfo($"[CutsceneSync] Local synced FlowScript \"{localCutscene.ScriptName}\" completed ({reason})");
+        }
+
+        private static bool HasActiveLocalCutscenePresentation()
+        {
+            for (int i = 0; i < localSyncedCutscenes.Count; i++)
+            {
+                if (!localSyncedCutscenes[i].CompletionSent)
+                    return true;
+            }
+
+            return false;
         }
 
         private static void MarkDeferredCutsceneCompleted(PendingRemoteCutscene pending, string reason)
@@ -1308,18 +1833,183 @@ namespace GraveyardKeeperCoop.Patches
             for (int i = localSyncedCutscenes.Count - 1; i >= 0; i--)
             {
                 var localCutscene = localSyncedCutscenes[i];
-                if (localCutscene.CompletionSent || now - localCutscene.StartedAt > LOCAL_SYNCED_CUTSCENE_TTL)
+                if ((localCutscene.CompletionSent &&
+                     !localCutscene.VisualTailActive) ||
+                    now - localCutscene.StartedAt >
+                        LOCAL_SYNCED_CUTSCENE_TTL)
                 {
                     localSyncedCutscenes.RemoveAt(i);
                 }
             }
         }
 
+        private static bool HasActiveLocalSyncedCutscene(
+            string scriptName)
+        {
+            if (string.IsNullOrEmpty(scriptName))
+                return false;
+
+            PruneLocalSyncedCutscenes();
+            for (int i = 0; i < localSyncedCutscenes.Count; i++)
+            {
+                LocalSyncedCutscene local = localSyncedCutscenes[i];
+                if (!local.CompletionSent &&
+                    string.Equals(
+                        local.ScriptName,
+                        scriptName,
+                        System.StringComparison.OrdinalIgnoreCase))
+                {
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
+        private static void MarkActiveLocalCutsceneMirrored(string scriptName)
+        {
+            for (int i = 0; i < localSyncedCutscenes.Count; i++)
+            {
+                LocalSyncedCutscene local = localSyncedCutscenes[i];
+                if (!local.CompletionSent &&
+                    string.Equals(
+                        local.ScriptName,
+                        scriptName,
+                        System.StringComparison.OrdinalIgnoreCase))
+                {
+                    local.MirrorsRemoteExecution = true;
+                    return;
+                }
+            }
+        }
+
+        internal static bool HasActiveMirroredLocalCutscene()
+        {
+            PruneLocalSyncedCutscenes();
+            for (int i = 0; i < localSyncedCutscenes.Count; i++)
+            {
+                LocalSyncedCutscene local = localSyncedCutscenes[i];
+                if (!local.CompletionSent && local.MirrorsRemoteExecution)
+                    return true;
+            }
+
+            return false;
+        }
+
+        internal static bool IsAuthoritativeNpcAnimationWindowActive()
+        {
+            PruneLocalSyncedCutscenes();
+            if (isGerryDigUpCutsceneActive)
+                return true;
+
+            for (int i = 0; i < localSyncedCutscenes.Count; i++)
+            {
+                if ((!localSyncedCutscenes[i].CompletionSent ||
+                     localSyncedCutscenes[i].VisualTailActive) &&
+                    !localSyncedCutscenes[i].MirrorsRemoteExecution)
+                    return true;
+            }
+
+            return false;
+        }
+
+        internal static bool IsNpcNetworkPuppetWindowActive()
+        {
+            RemoteCutsceneSession session = remoteCutsceneSession;
+            bool activeSession =
+                session != null &&
+                !session.MirrorsLocalExecution &&
+                Time.realtimeSinceStartup - session.StartedAt <=
+                    LOCAL_SYNCED_CUTSCENE_TTL;
+            return activeSession || IsRemoteNpcVisualTailActive();
+        }
+
+        internal static bool HasRemoteNpcVisualAuthority()
+        {
+            RemoteCutsceneSession session = remoteCutsceneSession;
+            bool activeSession =
+                session != null &&
+                !session.MirrorsLocalExecution &&
+                Time.realtimeSinceStartup - session.StartedAt <=
+                    LOCAL_SYNCED_CUTSCENE_TTL;
+            return activeSession || IsRemoteNpcVisualTailActive();
+        }
+
+        internal static bool IsRemoteNpcVisualAuthority(CSteamID senderID)
+        {
+            if (remoteCutsceneSession != null &&
+                !remoteCutsceneSession.MirrorsLocalExecution &&
+                Time.realtimeSinceStartup -
+                    remoteCutsceneSession.StartedAt <=
+                    LOCAL_SYNCED_CUTSCENE_TTL &&
+                remoteCutsceneSession.SenderID == senderID)
+            {
+                return true;
+            }
+
+            return IsRemoteNpcVisualTailActive() &&
+                   remoteNpcVisualTail.SenderID == senderID;
+        }
+
+        internal static bool HasLocalNpcVisualAuthority()
+        {
+            PruneLocalSyncedCutscenes();
+            if (isGerryDigUpCutsceneActive)
+                return true;
+
+            for (int i = 0; i < localSyncedCutscenes.Count; i++)
+            {
+                LocalSyncedCutscene local = localSyncedCutscenes[i];
+                if ((!local.CompletionSent || local.VisualTailActive) &&
+                    !local.MirrorsRemoteExecution)
+                {
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
+        private static bool IsRemoteNpcVisualTailActive()
+        {
+            return remoteNpcVisualTail != null &&
+                   Time.realtimeSinceStartup - remoteNpcVisualTail.StartedAt <
+                       LOCAL_ACTOR_COMPLETION_MAX_WAIT_SECONDS;
+        }
+
+        internal static void NotifyRemoteNpcVisualEpochEnded(
+            CSteamID senderID)
+        {
+            if (remoteNpcVisualTail == null ||
+                remoteNpcVisualTail.SenderID != senderID)
+            {
+                return;
+            }
+
+            remoteNpcVisualTail = null;
+            CoopMod.Logger.LogInfo(
+                "[CutsceneSync] Remote NPC visual tail completed");
+        }
+
+        internal static bool IsLocalCutsceneNpcActor(WorldGameObject wgo)
+        {
+            return isGerryDigUpCutsceneActive &&
+                   wgo != null &&
+                   (string.Equals(
+                        wgo.obj_id,
+                        GERRY_WGO_ID,
+                        System.StringComparison.OrdinalIgnoreCase) ||
+                    string.Equals(
+                        wgo.obj_id,
+                        DONKEY_WGO_ID,
+                        System.StringComparison.OrdinalIgnoreCase));
+        }
+
         private static bool TryJoinRemoteCutsceneSession(string reason, bool requireProximity)
         {
             var session = remoteCutsceneSession;
             var onlineCoop = OnlineCoopManager.Instance;
-            var remotePlayer = onlineCoop?.GetRemotePlayer();
+            var remotePlayer = onlineCoop?.GetRemotePlayer(session?.SenderID ?? CSteamID.Nil);
             if (session == null ||
                 session.IsParticipating ||
                 onlineCoop == null ||
@@ -1330,11 +2020,46 @@ namespace GraveyardKeeperCoop.Patches
                 return false;
             }
 
+            // Both peers can legitimately begin the same global cutscene before
+            // either trigger packet arrives (the new-game Red Eye sequence is
+            // one example). In that case the local FlowScript already owns
+            // movement, facing, camera, and player locking. Starting an observed
+            // join on top of it reapplies the trigger packet's pre-cutscene
+            // facing and can override later Flow_SetCharacterDirection nodes.
+            if (HasActiveLocalSyncedCutscene(session.ScriptName))
+            {
+                session.IsParticipating = true;
+                session.JoinWalkStarted = true;
+                session.MirrorsLocalExecution = true;
+                MarkActiveLocalCutsceneMirrored(session.ScriptName);
+                EnsureSharedCutsceneDialogueOwner();
+                CoopMod.Logger.LogInfo(
+                    $"[CutsceneSync] Coalesced reciprocal FlowScript " +
+                    $"\"{session.ScriptName}\" with the active local execution");
+                return true;
+            }
+
             Vector3 liveRemotePosition = remotePlayer.transform.position;
             if (requireProximity &&
                 !ShouldActivateScopedCutscene(liveRemotePosition, "", out string scopeReason))
             {
+                if (!session.ScopeRejectionLogged)
+                {
+                    session.ScopeRejectionLogged = true;
+                    CoopMod.Logger.LogInfo(
+                        $"[CutsceneSync] Did not attach the local avatar to remote FlowScript \"{session.ScriptName}\" " +
+                        $"({scopeReason}); remote presentation and shared progression remain active");
+                }
                 return false;
+            }
+
+            // Some shared global cutscenes start independently on every peer. Mirror
+            // only those known-global scripts while suppressing their completion echo.
+            // Player-bound interaction cutscenes must remain owned by the initiator.
+            if (RequiresLocalFlowScriptMirror(session.ScriptName) &&
+                TryStartMirroredRemoteFlowScript(session))
+            {
+                return true;
             }
 
             try
@@ -1361,10 +2086,55 @@ namespace GraveyardKeeperCoop.Patches
             return true;
         }
 
+        private static bool TryStartMirroredRemoteFlowScript(RemoteCutsceneSession session)
+        {
+            var localCutscene = new LocalSyncedCutscene
+            {
+                ScriptName = session.ScriptName,
+                OriginWorldPos = session.OriginWorldPos,
+                OriginZoneId = session.OriginZoneId ?? "",
+                StartedAt = Time.realtimeSinceStartup,
+                MirrorsRemoteExecution = true,
+                SuppressCompletionBroadcast = true
+            };
+
+            // Register ownership before GS.RunFlowScript: the script can disable or
+            // restore player control synchronously during startup.
+            localSyncedCutscenes.Add(localCutscene);
+            session.IsParticipating = true;
+            session.JoinWalkStarted = true;
+            session.MirrorsLocalExecution = true;
+            EnsureSharedCutsceneDialogueOwner();
+
+            if (RunRemoteFlowScript(session.ScriptName))
+            {
+                CoopMod.Logger.LogInfo(
+                    $"[CutsceneSync] Started required local mirror for remote " +
+                    $"FlowScript \"{session.ScriptName}\"");
+                return true;
+            }
+
+            localSyncedCutscenes.Remove(localCutscene);
+            session.IsParticipating = false;
+            session.JoinWalkStarted = false;
+            session.MirrorsLocalExecution = false;
+            CoopMod.Logger.LogWarning(
+                $"[CutsceneSync] Required local mirror for \"{session.ScriptName}\" failed; " +
+                "falling back to live observation");
+            return false;
+        }
+
+        private static bool RequiresLocalFlowScriptMirror(string scriptName)
+        {
+            return string.Equals(
+                scriptName,
+                RED_EYE_INTRO_SCRIPT,
+                System.StringComparison.OrdinalIgnoreCase);
+        }
+
         internal static bool ShouldKeepLocalPlayerLocked(CSteamID senderID)
         {
             return remoteCutsceneSession != null &&
-                   remoteCutsceneSession.SenderID == senderID &&
                    remoteCutsceneSession.IsParticipating;
         }
 
@@ -1869,6 +2639,15 @@ namespace GraveyardKeeperCoop.Patches
             {
                 donkey.OnCameToGDPoint(cemeteryPoint);
             }
+
+            // Vanilla skull_spawn_after_dig sends this FlowCanvas event immediately after
+            // spawning Donkey at the cemetery. OnCameToGDPoint only updates the GD-point
+            // metadata; it does not send the event. The event queues Donkey's one-time
+            // "intro" interaction, so omitting it made a remotely triggered Gerry cutscene
+            // leave Donkey with only his ordinary post-intro interaction menu.
+            donkey.FireEvent(DONKEY_CEMETERY_ARRIVAL_EVENT, 0f);
+            CoopMod.Logger.LogInfo(
+                $"[CutsceneSync] Fired Donkey cemetery arrival event for Gerry dig-up final state ({reason})");
         }
 
         private static void ApplyGerryDigUpDonkeyProgression(string reason)
@@ -1889,6 +2668,7 @@ namespace GraveyardKeeperCoop.Patches
             wgo.round_and_sort?.MarkPositionDirty();
             wgo.round_and_sort?.DoUpdateStuff(true);
             wgo.RecalculateZoneBelonging();
+            WGORegistry.Instance?.Register(wgo);
         }
 
         private static void SetPlayerParamIfLower(string paramName, float value)
