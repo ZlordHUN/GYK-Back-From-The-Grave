@@ -37,6 +37,19 @@ namespace GraveyardKeeperCoop.Utils
             {
                 ChatGUI.Instance.AddIncomingMessage("", message); // Empty name since message already formatted
             }
+
+            // Player chat already reaches ChatOverlay through LobbyChatSync so
+            // it can preserve sender identity and bubbles. System notifications
+            // have no separate route; surface those here so sleep/ready/session
+            // messages wake the dormant Minecraft-style overlay too.
+            const string systemPrefix = "[System]";
+            if (ChatOverlay.Instance != null &&
+                !string.IsNullOrEmpty(message) &&
+                message.StartsWith(systemPrefix))
+            {
+                ChatOverlay.Instance.AddSystemMessage(
+                    message.Substring(systemPrefix.Length).TrimStart());
+            }
         }
 
         /// <summary>
@@ -82,6 +95,8 @@ namespace GraveyardKeeperCoop.Utils
             allMessages.Clear();
             allMessages.AddRange(historyMessages);
             allMessages.AddRange(localMessages);
+            if (allMessages.Count > MAX_MESSAGES)
+                allMessages.RemoveRange(0, allMessages.Count - MAX_MESSAGES);
             
             CoopMod.Logger.LogInfo($"[ChatManager] Set history: {historyMessages.Count} history + {localMessages.Count} local = {allMessages.Count} total messages");
 

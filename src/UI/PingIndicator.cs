@@ -145,20 +145,27 @@ namespace GraveyardKeeperCoop.UI
             activePeers.Clear();
 
             CSteamID localId = SteamUser.GetSteamID();
-            var online = OnlineCoopManager.Instance;
-            if (online != null && online.IsOnlineCoopEnabled)
+            var lobby = SteamLobbyManager.Instance;
+            if (lobby != null && lobby.IsInLobby && lobby.CurrentLobbyID != CSteamID.Nil)
             {
-                AddPeer(online.RemotePlayerSteamID, localId);
+                int memberCount = SteamMatchmaking.GetNumLobbyMembers(lobby.CurrentLobbyID);
+                for (int i = 0; i < memberCount; i++)
+                {
+                    AddPeer(
+                        SteamMatchmaking.GetLobbyMemberByIndex(lobby.CurrentLobbyID, i),
+                        localId);
+                }
             }
             else
             {
-                var lobby = SteamLobbyManager.Instance;
-                if (lobby != null && lobby.IsInLobby && lobby.CurrentLobbyID != CSteamID.Nil)
+                var online = OnlineCoopManager.Instance;
+                if (online != null && online.IsOnlineCoopEnabled)
                 {
-                    int memberCount = SteamMatchmaking.GetNumLobbyMembers(lobby.CurrentLobbyID);
-                    for (int i = 0; i < memberCount; i++)
+                    List<KeyValuePair<CSteamID, PlayerComponent>> remotes =
+                        online.GetRemotePlayersSnapshot();
+                    for (int i = 0; i < remotes.Count; i++)
                     {
-                        AddPeer(SteamMatchmaking.GetLobbyMemberByIndex(lobby.CurrentLobbyID, i), localId);
+                        AddPeer(remotes[i].Key, localId);
                     }
                 }
             }

@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Reflection;
 using HarmonyLib;
 using UnityEngine;
 using GraveyardKeeperCoop.Multiplayer;
@@ -15,6 +16,20 @@ namespace GraveyardKeeperCoop.Patches
     [HarmonyPatch(typeof(MovementComponent), "OnPathFailed")]
     public static class MovementPathFailureDiagnostic
     {
+        private const float MaxCutsceneRecoveryDistance = 768f;
+        private static readonly FieldInfo MovementOnCompleteField =
+            AccessTools.Field(typeof(MovementComponent), "on_complete");
+        private static readonly MethodInfo ChangeMovementStateMethod =
+            AccessTools.Method(
+                typeof(MovementComponent),
+                "ChangeMovementState",
+                new[]
+                {
+                    typeof(MovementComponent.MovementState),
+                    typeof(bool),
+                    typeof(bool)
+                });
+
         [HarmonyPrefix]
         public static bool Prefix(MovementComponent __instance)
         {
@@ -58,10 +73,214 @@ namespace GraveyardKeeperCoop.Patches
                     CoopMod.Logger.LogWarning("[PathFail] Replaced stalled donkey cemetery exit with host-authoritative straight-line recovery");
                     return false;
                 }
+
+                bool isAuthoritativeCutsceneActor =
+                    !isDonkey &&
+                    onlineCoop != null &&
+                    onlineCoop.IsOnlineCoopEnabled &&
+                    (CutsceneSyncPatches.IsAuthoritativeNpcAnimationWindowActive() ||
+                     NpcInteractionSyncPatches.IsAuthoritativeNpcAnimationWindowActive()) &&
+                    NpcVisualSync.Instance
+                        ?.IsRegisteredLocalCutsceneActorForPathRecovery(wgo) == true &&
+                    dist <= MaxCutsceneRecoveryDistance &&
+                    MovementOnCompleteField?.GetValue(__instance) != null;
+                if (isAuthoritativeCutsceneActor &&
+                    TryBeginCutsceneRecovery(__instance, wgo, dest))
+                {
+                    CoopMod.Logger.LogWarning(
+                        $"[PathFail] Replaced stalled cutscene route for " +
+                        $"'{wgo.obj_id}' with bounded direct recovery to {dest}");
+                    return false;
+                }
             }
             catch { }
 
             return true;
+        }
+
+        private static bool TryBeginCutsceneRecovery(
+            MovementComponent movement,
+            WorldGameObject wgo,
+            Vector2 destination)
+        {
+            if (movement == null || wgo == null ||
+                ChangeMovementStateMethod == null)
+            {
+                return false;
+            }
+
+            CutsceneNpcPathRecovery existing =
+                wgo.GetComponent<CutsceneNpcPathRecovery>();
+            if (existing?.IsActive == true)
+                return true;
+
+            try
+            {
+                // Stop the failed A* writer without clearing the completion callback
+                // that advances Flow_GoTo's "Came to dest" output.
+                ChangeMovementStateMethod.Invoke(
+                    movement,
+                    new object[]
+                    {
+                        MovementComponent.MovementState.None,
+                        false,
+                        false
+                    });
+                movement.StopImmediate();
+
+                CutsceneNpcPathRecovery recovery =
+                    existing ??
+                    wgo.gameObject.AddComponent<CutsceneNpcPathRecovery>();
+                recovery.Initialize(movement, wgo, destination);
+                return recovery.IsActive;
+            }
+            catch (System.Exception ex)
+            {
+                CoopMod.Logger.LogWarning(
+                    $"[PathFail] Could not start cutscene route recovery for " +
+                    $"'{wgo.obj_id}': {ex.Message}");
+                return false;
+            }
+        }
+    }
+
+    /// <summary>
+    /// A short, already-visible cutscene route may fail after dynamic grave/build
+    /// navigation changes. Finish only that enrolled actor's remaining route and
+    /// invoke the original MovementComponent completion path so the Flow graph can
+    /// leave transient states such as bishop_on_way.
+    /// </summary>
+    internal sealed class CutsceneNpcPathRecovery : MonoBehaviour
+    {
+        private const float DefaultWalkSpeed = 1.2f * 96f;
+        private const float MaximumRecoverySeconds = 8f;
+        private static readonly MethodInfo MovementOnCompleteMethod =
+            AccessTools.Method(typeof(MovementComponent), "OnComplete");
+
+        private MovementComponent movement;
+        private WorldGameObject actor;
+        private Vector2 destination;
+        private float walkSpeed;
+        private float startedAt;
+
+        internal bool IsActive { get; private set; }
+
+        internal void Initialize(
+            MovementComponent targetMovement,
+            WorldGameObject targetActor,
+            Vector2 targetDestination)
+        {
+            movement = targetMovement;
+            actor = targetActor;
+            destination = targetDestination;
+            startedAt = Time.realtimeSinceStartup;
+            float configuredSpeed =
+                actor?.data?.GetParam("speed", 1.2f) ?? 1.2f;
+            walkSpeed = configuredSpeed > 0f
+                ? configuredSpeed * 96f
+                : DefaultWalkSpeed;
+            IsActive =
+                movement != null &&
+                actor != null &&
+                MovementOnCompleteMethod != null;
+        }
+
+        private void Update()
+        {
+            if (!IsActive || movement == null || actor == null)
+            {
+                Destroy(this);
+                return;
+            }
+
+            Network.OnlineCoopManager onlineCoop =
+                Network.OnlineCoopManager.Instance;
+            if (onlineCoop == null || !onlineCoop.IsOnlineCoopEnabled)
+            {
+                IsActive = false;
+                Destroy(this);
+                return;
+            }
+
+            Vector3 current = actor.transform.position;
+            Vector2 current2 = new Vector2(current.x, current.y);
+            Vector2 next = Vector2.MoveTowards(
+                current2,
+                destination,
+                walkSpeed * Time.deltaTime);
+            ApplyPosition(next, current.z);
+            ApplyWalkingPresentation(destination - next);
+
+            bool reached = (next - destination).sqrMagnitude < 1f;
+            bool timedOut =
+                Time.realtimeSinceStartup - startedAt >=
+                MaximumRecoverySeconds;
+            if (!reached && !timedOut)
+                return;
+
+            ApplyPosition(destination, current.z);
+            movement.StopImmediate();
+            BaseCharacterComponent character = actor.components?.character;
+            character?.SetAnimationState(
+                CharAnimState.Idle,
+                ItemDefinition.ItemType.None);
+
+            IsActive = false;
+            try
+            {
+                MovementOnCompleteMethod.Invoke(movement, null);
+                CoopMod.Logger.LogInfo(
+                    $"[CutscenePathRecovery] Completed scripted route for " +
+                    $"'{actor.obj_id}' at {destination}" +
+                    (timedOut ? " after the recovery timeout" : ""));
+            }
+            catch (System.Exception ex)
+            {
+                CoopMod.Logger.LogError(
+                    $"[CutscenePathRecovery] Failed to complete scripted route " +
+                    $"for '{actor.obj_id}': {ex.Message}");
+                movement.StopMovement();
+            }
+            Destroy(this);
+        }
+
+        private void ApplyPosition(Vector2 position, float z)
+        {
+            Vector3 worldPosition =
+                new Vector3(position.x, position.y, z);
+            actor.transform.position = worldPosition;
+            BaseCharacterComponent character = actor.components?.character;
+            if (character?.body != null)
+            {
+                character.body.position = position;
+                character.body.velocity = Vector2.zero;
+                character.body.angularVelocity = 0f;
+            }
+            actor.RefreshPositionCache();
+            actor.round_and_sort?.MarkPositionDirty();
+        }
+
+        private void ApplyWalkingPresentation(Vector2 remaining)
+        {
+            BaseCharacterComponent character = actor.components?.character;
+            if (character == null)
+                return;
+
+            if (remaining.sqrMagnitude > 0.01f)
+            {
+                Direction direction;
+                if (Mathf.Abs(remaining.x) >= Mathf.Abs(remaining.y))
+                    direction = remaining.x >= 0f ? Direction.Right : Direction.Left;
+                else
+                    direction = remaining.y >= 0f ? Direction.Up : Direction.Down;
+                character.LookAt(direction);
+            }
+            if (character.anim_state != CharAnimState.Walking)
+            {
+                character.SetAnimationState(
+                    CharAnimState.Walking,
+                    ItemDefinition.ItemType.None);
+            }
         }
     }
 
@@ -207,6 +426,29 @@ namespace GraveyardKeeperCoop.Patches
         private readonly List<SpriteRenderer> trackedCorpseRenderers =
             new List<SpriteRenderer>();
 
+        internal bool CorpseDetached => dropObserved;
+
+        internal static bool IsDonkey(WorldGameObject candidate)
+        {
+            return candidate != null &&
+                   (string.Equals(
+                        candidate.obj_id,
+                        "donkey",
+                        System.StringComparison.OrdinalIgnoreCase) ||
+                    string.Equals(
+                        candidate.custom_tag,
+                        "donkey",
+                        System.StringComparison.OrdinalIgnoreCase));
+        }
+
+        internal static bool IsCorpseDetached(WorldGameObject targetDonkey)
+        {
+            return targetDonkey != null &&
+                   targetDonkey
+                       .GetComponent<DonkeyCartCorpseVisualGuard>()
+                       ?.CorpseDetached == true;
+        }
+
         public static void Ensure(WorldGameObject targetDonkey)
         {
             if (targetDonkey == null)
@@ -219,8 +461,37 @@ namespace GraveyardKeeperCoop.Patches
             if (guard == null)
             {
                 guard = targetDonkey.gameObject.AddComponent<DonkeyCartCorpseVisualGuard>();
+                guard.Initialize(targetDonkey);
             }
-            guard.Initialize(targetDonkey);
+            else if (!guard.dropObserved)
+            {
+                guard.Initialize(targetDonkey);
+            }
+        }
+
+        internal static DonkeyCartCorpseVisualGuard MarkCorpseDropped(
+            WorldGameObject targetDonkey,
+            string source)
+        {
+            if (!IsDonkey(targetDonkey))
+                return null;
+
+            DonkeyCartCorpseVisualGuard guard =
+                targetDonkey.GetComponent<DonkeyCartCorpseVisualGuard>();
+            if (guard == null)
+            {
+                guard =
+                    targetDonkey.gameObject
+                        .AddComponent<DonkeyCartCorpseVisualGuard>();
+                guard.Initialize(targetDonkey);
+            }
+            else if (guard.donkey != targetDonkey)
+            {
+                guard.Initialize(targetDonkey);
+            }
+
+            guard.LatchCorpseDrop(source);
+            return guard;
         }
 
         private void Initialize(WorldGameObject targetDonkey)
@@ -237,21 +508,27 @@ namespace GraveyardKeeperCoop.Patches
 
         internal void EnforceAfterWgoVisualUpdate()
         {
+            EnforceCorpseDetachedVisual();
+        }
+
+        internal void EnforceCorpseDetachedVisual()
+        {
             if (!dropObserved || donkey == null)
                 return;
 
-            int reappliedHostRenderers =
-                NpcVisualSync.Instance?.ReapplyLatestHostVisual(donkey) ?? 0;
+            int reappliedNetworkRenderers =
+                NpcVisualSync.Instance
+                    ?.ReapplyLatestAuthoritativeVisual(donkey) ?? 0;
             int matchedObjects = HideCartCorpseVisuals(
                 donkey,
                 trackedCorpseRenderers);
-            if ((reappliedHostRenderers > 0 || matchedObjects > 0) &&
+            if ((reappliedNetworkRenderers > 0 || matchedObjects > 0) &&
                 !loggedPostSkinMatch)
             {
                 loggedPostSkinMatch = true;
                 CoopMod.Logger.LogInfo(
-                    $"[DonkeyCart] Reasserted corpse-free host cart visual " +
-                    $"after local skin update; host_renderers={reappliedHostRenderers}, " +
+                    $"[DonkeyCart] Reasserted corpse-free authoritative cart visual " +
+                    $"after local skin update; network_renderers={reappliedNetworkRenderers}, " +
                     $"fallback_matches={matchedObjects}");
             }
         }
@@ -278,17 +555,10 @@ namespace GraveyardKeeperCoop.Patches
                 donkey.transform.position.x > initialX + ExitMovementThreshold;
             if (!dropObserved && donkeyStartedExit)
             {
-                dropObserved = true;
-                dropObservedAt = now;
-                NpcVisualSync.Instance
-                    ?.BroadcastAuthoritativeStateNow(donkey);
-                TrackNearbyCartCorpseRenderers();
-                int matchedObjects = HideCartCorpseVisuals(
+                LatchCorpseDrop("departure movement fallback");
+                NpcVisualSync.Instance?.BroadcastAuthoritativeStateNow(
                     donkey,
-                    trackedCorpseRenderers);
-                CoopMod.Logger.LogInfo(
-                    $"[DonkeyCart] Latched dropped corpse visual for donkey departure; " +
-                    $"matched_objects={matchedObjects}, tracked_renderers={trackedCorpseRenderers.Count}");
+                    reliable: true);
             }
 
             if (dropObserved)
@@ -300,6 +570,24 @@ namespace GraveyardKeeperCoop.Patches
                 }
                 HideCartCorpseVisuals(donkey, trackedCorpseRenderers);
             }
+        }
+
+        private void LatchCorpseDrop(string source)
+        {
+            if (dropObserved || donkey == null)
+                return;
+
+            dropObserved = true;
+            dropObservedAt = Time.realtimeSinceStartup;
+            TrackCartCorpseRenderers();
+            TrackNearbyCartCorpseRenderers();
+            int matchedObjects = HideCartCorpseVisuals(
+                donkey,
+                trackedCorpseRenderers);
+            CoopMod.Logger.LogInfo(
+                $"[DonkeyCart] Latched dropped corpse visual ({source}); " +
+                $"matched_objects={matchedObjects}, " +
+                $"tracked_renderers={trackedCorpseRenderers.Count}");
         }
 
         private void TrackCartCorpseRenderers()
@@ -480,6 +768,72 @@ namespace GraveyardKeeperCoop.Patches
             }
 
             return false;
+        }
+    }
+
+    /// <summary>
+    /// Flow_DropBody ultimately calls WorldGameObject.DropItem. Latch the cart's
+    /// corpse-free state at that semantic transition instead of inferring it later
+    /// from donkey movement, then publish it immediately from the current visual
+    /// authority so out-of-scope observers cannot show a loaded-cart frame again.
+    /// </summary>
+    [HarmonyPatch(
+        typeof(WorldGameObject),
+        nameof(WorldGameObject.DropItem),
+        new[]
+        {
+            typeof(Item),
+            typeof(Direction),
+            typeof(Vector3),
+            typeof(float),
+            typeof(bool)
+        })]
+    internal static class DonkeyBodyDropVisualPatch
+    {
+        [HarmonyPrefix]
+        private static void Prefix(WorldGameObject __instance, Item item)
+        {
+            if (!IsBody(item))
+            {
+                return;
+            }
+
+            WorldGameObject donkey = __instance;
+            if (!DonkeyCartCorpseVisualGuard.IsDonkey(donkey) &&
+                !NpcInteractionSyncPatches.TryGetLocalDonkeyVisualActor(
+                    out donkey))
+            {
+                return;
+            }
+
+            bool wasDetached =
+                DonkeyCartCorpseVisualGuard.IsCorpseDetached(donkey);
+            DonkeyCartCorpseVisualGuard.MarkCorpseDropped(
+                donkey,
+                "body drop");
+            if (!wasDetached)
+            {
+                NpcVisualSync.Instance?.BroadcastAuthoritativeStateNow(
+                    donkey,
+                    reliable: true);
+            }
+        }
+
+        private static bool IsBody(Item item)
+        {
+            if (item == null)
+                return false;
+
+            try
+            {
+                return item.id == "body" ||
+                       item.definition?.type ==
+                           ItemDefinition.ItemType.Body;
+            }
+            catch
+            {
+                return false;
+            }
         }
     }
 

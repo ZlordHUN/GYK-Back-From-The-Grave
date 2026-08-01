@@ -49,7 +49,9 @@ namespace GraveyardKeeperCoop.UI
 
             GUILayout.Label($"Lobby: {(lobby?.IsInLobby == true ? lobby.CurrentLobbyID.m_SteamID.ToString() : "none")} host={lobby?.IsHost == true} members={GetMemberCount(lobby)}");
             GUILayout.Label($"Online: {online?.IsOnlineCoopEnabled == true} role={(online?.IsHost == true ? "host" : online?.IsOnlineCoopEnabled == true ? "client" : "none")}");
-            GUILayout.Label($"Remote: {(online?.RemotePlayerSteamID.m_SteamID ?? 0UL)}");
+            GUILayout.Label(
+                $"Remotes: {online?.RemotePlayerCount ?? 0} " +
+                $"primary={(online?.RemotePlayerSteamID.m_SteamID ?? 0UL)}");
 
             if (p2p != null)
             {

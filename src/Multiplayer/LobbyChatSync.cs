@@ -20,6 +20,11 @@ namespace GraveyardKeeperCoop.Multiplayer
         
         // Channel for chat messages (different from invite channel 0)
         public const int CHAT_CHANNEL = 1;
+
+        private const int MaxNativePacketsPerFrame = 32;
+        private const int MaxLobbyMessageBytes = 256 * 1024;
+        private const int MaxChatMessageCharacters = 2048;
+        private const int MaxHistoryMessages = 100;
         
         // Separator for multiple messages in history
         private const string MESSAGE_SEPARATOR = "|||";
@@ -69,11 +74,21 @@ namespace GraveyardKeeperCoop.Multiplayer
                 return;
             }
             
-            // Combine all messages with separator
-            string historyPayload = string.Join(MESSAGE_SEPARATOR, messages);
+            int start = Math.Max(0, messages.Count - MaxHistoryMessages);
+            var boundedMessages = new List<string>(Math.Min(messages.Count, MaxHistoryMessages));
+            for (int i = start; i < messages.Count; i++)
+            {
+                if (!string.IsNullOrEmpty(messages[i]) && messages[i].Length <= MaxChatMessageCharacters)
+                    boundedMessages.Add(messages[i]);
+            }
+            if (boundedMessages.Count == 0)
+                return;
+
+            // Combine only the bounded tail of history.
+            string historyPayload = string.Join(MESSAGE_SEPARATOR, boundedMessages);
             string fullMessage = MSG_CHAT_HISTORY_RESPONSE + historyPayload;
             
-            CoopMod.Logger.LogInfo($"[ChatSync] Sending {messages.Count} messages to client {clientID}");
+            CoopMod.Logger.LogInfo($"[ChatSync] Sending {boundedMessages.Count} messages to client {clientID}");
             SendChatP2PMessage(clientID, fullMessage);
         }
 
@@ -83,6 +98,9 @@ namespace GraveyardKeeperCoop.Multiplayer
         /// </summary>
         public static bool HandleChatMessage(CSteamID senderID, string message)
         {
+            if (string.IsNullOrEmpty(message))
+                return false;
+
             if (message == MSG_CHAT_HISTORY_REQUEST)
             {
                 CoopMod.Logger.LogInfo($"[ChatSync] Received chat history request from {senderID}");
@@ -97,6 +115,13 @@ namespace GraveyardKeeperCoop.Multiplayer
             
             if (message.StartsWith(MSG_CHAT_HISTORY_RESPONSE))
             {
+                var lobbyManager = SteamLobbyManager.Instance;
+                if (lobbyManager.IsHost || senderID != lobbyManager.GetLobbyOwner())
+                {
+                    CoopMod.Logger.LogWarning($"[ChatSync] Ignored chat history from non-host {senderID}");
+                    return true;
+                }
+
                 CoopMod.Logger.LogInfo("[ChatSync] Received chat history from host");
                 string payload = message.Substring(MSG_CHAT_HISTORY_RESPONSE.Length);
                 ProcessChatHistory(payload);
@@ -106,6 +131,11 @@ namespace GraveyardKeeperCoop.Multiplayer
             if (message.StartsWith(MSG_CHAT_MESSAGE))
             {
                 string chatContent = message.Substring(MSG_CHAT_MESSAGE.Length);
+                if (chatContent.Length > MaxChatMessageCharacters)
+                {
+                    CoopMod.Logger.LogWarning($"[ChatSync] Ignored oversized chat message from {senderID}");
+                    return true;
+                }
                 CoopMod.Logger.LogInfo($"[ChatSync] Received chat message: {chatContent}");
                 ChatManager.AddMessage(chatContent);
                 
@@ -119,7 +149,10 @@ namespace GraveyardKeeperCoop.Multiplayer
                     {
                         string senderName = chatContent.Substring(0, colonIndex).Trim();
                         string text = chatContent.Substring(colonIndex + 1).Trim();
-                        UI.ChatOverlay.Instance.ReceiveMessage(senderName, text);
+                        UI.ChatOverlay.Instance.ReceiveMessage(
+                            senderName,
+                            text,
+                            senderID);
                     }
                     else
                     {
@@ -144,11 +177,18 @@ namespace GraveyardKeeperCoop.Multiplayer
             }
             
             string[] messages = payload.Split(new[] { MESSAGE_SEPARATOR }, StringSplitOptions.RemoveEmptyEntries);
-            CoopMod.Logger.LogInfo($"[ChatSync] Processing {messages.Length} messages from history");
+            int start = Math.Max(0, messages.Length - MaxHistoryMessages);
+            var boundedHistory = new List<string>(Math.Min(messages.Length, MaxHistoryMessages));
+            for (int i = start; i < messages.Length; i++)
+            {
+                if (messages[i].Length <= MaxChatMessageCharacters)
+                    boundedHistory.Add(messages[i]);
+            }
+            CoopMod.Logger.LogInfo($"[ChatSync] Processing {boundedHistory.Count} bounded messages from history");
             
             // Replace ChatManager's messages with the history
             // This properly stores them and updates the UI
-            ChatManager.SetMessagesFromHistory(new System.Collections.Generic.List<string>(messages));
+            ChatManager.SetMessagesFromHistory(boundedHistory);
         }
 
         /// <summary>
@@ -191,15 +231,26 @@ namespace GraveyardKeeperCoop.Multiplayer
                 return false;
             }
             
+            if (message.StartsWith(MSG_CHAT_MESSAGE) &&
+                message.Length - MSG_CHAT_MESSAGE.Length > MaxChatMessageCharacters)
+            {
+                CoopMod.Logger.LogWarning("[ChatSync] Refusing oversized chat content");
+                return false;
+            }
+
             byte[] data = Encoding.UTF8.GetBytes(message);
-            
-            bool success = SteamNetworking.SendP2PPacket(
+            if (data.Length > MaxLobbyMessageBytes)
+            {
+                CoopMod.Logger.LogWarning(
+                    $"[ChatSync] Refusing oversized lobby message ({data.Length} bytes)");
+                return false;
+            }
+
+            bool success = SteamP2PManager.Instance.SendBinary(
                 recipientID,
                 data,
-                (uint)data.Length,
                 EP2PSend.k_EP2PSendReliable,
-                CHAT_CHANNEL
-            );
+                CHAT_CHANNEL);
             
             if (success)
             {
@@ -223,7 +274,9 @@ namespace GraveyardKeeperCoop.Multiplayer
                 return;
             
             uint msgSize;
-            while (SteamNetworking.IsP2PPacketAvailable(out msgSize, CHAT_CHANNEL))
+            int processed = 0;
+            while (processed < MaxNativePacketsPerFrame &&
+                   SteamNetworking.IsP2PPacketAvailable(out msgSize, CHAT_CHANNEL))
             {
                 byte[] data = new byte[msgSize];
                 CSteamID senderID;
@@ -231,16 +284,20 @@ namespace GraveyardKeeperCoop.Multiplayer
                 
                 if (SteamNetworking.ReadP2PPacket(data, msgSize, out bytesRead, out senderID, CHAT_CHANNEL))
                 {
-                    string message = Encoding.UTF8.GetString(data, 0, (int)bytesRead);
-                    string senderName = SteamFriends.GetFriendPersonaName(senderID);
-                    CoopMod.Logger.LogInfo($"[ChatSync] Received from {senderName}: {message}");
-                    
-                    // Try ready system first, then chat
-                    if (!LobbyReadySystem.HandleReadyMessage(senderID, message))
+                    if (bytesRead == 0 || bytesRead > MaxLobbyMessageBytes)
                     {
-                        HandleChatMessage(senderID, message);
+                        CoopMod.Logger.LogWarning(
+                            $"[ChatSync] Dropped invalid native lobby message ({bytesRead} bytes) from {senderID}");
+                    }
+                    else
+                    {
+                        SteamP2PManager.Instance.DispatchNativeLobbyLaneMessage(
+                            senderID,
+                            data,
+                            (int)bytesRead);
                     }
                 }
+                processed++;
             }
         }
     }

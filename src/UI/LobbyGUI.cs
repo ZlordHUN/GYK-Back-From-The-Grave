@@ -2245,6 +2245,8 @@ namespace GraveyardKeeperCoop.UI
                 {
                     CoopMod.Logger.LogInfo("[UI] Starting GameLoadSync for multiplayer");
                     Multiplayer.GameLoadSync.Instance?.StartWaitingForPlayers(totalCount);
+                    if (selectedSlot != null)
+                        Multiplayer.GameLoadSync.Instance?.NotifyHostSaveTransferStarted();
                 }
                 
                 // Broadcast game start to all clients before starting
@@ -2350,6 +2352,11 @@ namespace GraveyardKeeperCoop.UI
             // For existing saves, start sync tracking
             CoopMod.Logger.LogInfo("[UI] Starting GameLoadSync for client (existing save)");
             Multiplayer.GameLoadSync.Instance?.StartWaitingForPlayers(totalCount);
+
+            // Leave the lobby as soon as GAME_START arrives. Save transfer is the
+            // first phase of the loading screen, not a lobby-side prerequisite.
+            Hide(false);
+            Multiplayer.GameLoadSync.Instance?.BeginClientSaveTransferPresentation();
             
             // Show message to user
             ChatManager.AddMessage($"[System] Host is starting the game...");
@@ -2397,6 +2404,7 @@ namespace GraveyardKeeperCoop.UI
 
             ChatManager.AddMessage("[System] Joining running game...");
             ChatManager.AddMessage("[System] Requesting save data from host...");
+            Multiplayer.GameLoadSync.Instance?.BeginClientSaveTransferPresentation();
             Multiplayer.SaveTransferManager.RequestSaveFromHost(hostID);
         }
 
@@ -2424,6 +2432,8 @@ namespace GraveyardKeeperCoop.UI
         
         private void OnSaveTransferProgress(float progress)
         {
+            Multiplayer.GameLoadSync.Instance?.ReportClientSaveTransferProgress(progress);
+
             int percent = (int)(progress * 100);
             if (percent % 25 == 0) // Log every 25%
             {

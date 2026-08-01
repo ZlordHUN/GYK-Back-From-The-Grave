@@ -36,20 +36,17 @@ namespace GraveyardKeeperCoop.UI
         public void Initialize(string playerName)
         {
             _playerName = playerName;
-            
-            // Get cameras
-            _worldCamera = Camera.main;
-            
-            // Find NGUI camera
-            if (UICamera.list != null && UICamera.list.size > 0)
-            {
-                _uiCamera = UICamera.list[0].cachedCamera;
-            }
+
+            ResolveCameras();
             
             // Setup the label
             SetupLabel();
             
-            CoopMod.Logger.LogInfo($"[PlayerNameTag] Initialized for player: {playerName}");
+            CoopMod.Logger.LogInfo(
+                $"[PlayerNameTag] Initialized for player: {playerName}, " +
+                $"world_camera={(_worldCamera != null ? _worldCamera.name : "NULL")}, " +
+                $"ui_camera={(_uiCamera != null ? _uiCamera.name : "NULL")}, " +
+                $"font={(_label?.ambigiousFont != null ? _label.ambigiousFont.ToString() : "NULL")}");
         }
         
         private void SetupLabel()
@@ -62,20 +59,29 @@ namespace GraveyardKeeperCoop.UI
             }
             
             // Try to get font from game's GUI
-            UIFont font = null;
+            Object font = null;
+            int fontSize = 16;
             if (GUIElements.me?.hud != null)
             {
                 // Try to find a label in the HUD to get its font
-                var existingLabel = GUIElements.me.hud.GetComponentInChildren<UILabel>();
+                var existingLabel =
+                    GUIElements.me.hud.GetComponentInChildren<UILabel>(true);
                 if (existingLabel != null)
                 {
-                    font = existingLabel.bitmapFont;
+                    font = existingLabel.ambigiousFont;
+                    if (existingLabel.fontSize > 0)
+                        fontSize = existingLabel.fontSize;
                 }
             }
             
             // Configure label appearance
-            _label.bitmapFont = font;
-            _label.fontSize = 16;
+            if (font != null)
+                _label.ambigiousFont = font;
+            else
+                CoopMod.Logger.LogWarning(
+                    $"[PlayerNameTag] No HUD font found for {_playerName}");
+
+            _label.fontSize = Mathf.Clamp(fontSize, 14, 18);
             _label.alignment = NGUIText.Alignment.Center;
             _label.pivot = UIWidget.Pivot.Bottom;
             _label.effectStyle = UILabel.Effect.Outline;
@@ -83,9 +89,46 @@ namespace GraveyardKeeperCoop.UI
             _label.color = Color.white;
             _label.depth = 200; // High depth to render on top
             _label.text = _playerName;
+            _label.width = 240;
+            _label.height = 30;
+            _label.overflowMethod = UILabel.Overflow.ShrinkContent;
             
             // Make sure widget updates
             _label.MakePixelPerfect();
+            _label.CreatePanel();
+            _label.MarkAsChanged();
+        }
+
+        private bool ResolveCameras()
+        {
+            Camera gameWorldCamera = MainGame.me?.world_cam;
+            if (gameWorldCamera != null)
+                _worldCamera = gameWorldCamera;
+            else if (_worldCamera == null)
+                _worldCamera = Camera.main;
+
+            if (_uiCamera == null)
+            {
+                _uiCamera = NGUITools.FindCameraForLayer(gameObject.layer);
+                if (_uiCamera == null &&
+                    UICamera.list != null &&
+                    UICamera.list.size > 0)
+                {
+                    _uiCamera = UICamera.list[0].cachedCamera;
+                }
+            }
+
+            return _worldCamera != null && _uiCamera != null;
+        }
+
+        private void SetLabelVisible(bool visible)
+        {
+            if (_label != null && _label.enabled != visible)
+            {
+                _label.enabled = visible;
+                if (visible)
+                    _label.MarkAsChanged();
+            }
         }
         
         /// <summary>
@@ -113,24 +156,19 @@ namespace GraveyardKeeperCoop.UI
         
         private void LateUpdate()
         {
-            // Safety checks
-            if (Target == null || _uiCamera == null)
+            // Keep this GameObject active. Disabling it here prevents
+            // LateUpdate from ever running again when the camera/target
+            // becomes valid or the player comes back on screen.
+            if (Target == null || !ShouldRenderNameTag() || !ResolveCameras())
             {
-                if (gameObject.activeSelf)
-                {
-                    gameObject.SetActive(false);
-                }
+                SetLabelVisible(false);
                 return;
             }
             
-            // Get world camera (it can change)
-            var worldCam = _worldCamera ?? Camera.main;
+            var worldCam = _worldCamera;
             if (worldCam == null)
             {
-                if (gameObject.activeSelf)
-                {
-                    gameObject.SetActive(false);
-                }
+                SetLabelVisible(false);
                 return;
             }
             
@@ -143,10 +181,7 @@ namespace GraveyardKeeperCoop.UI
             // Hide if behind camera
             if (HideIfBehind && screenPos.z <= 0f)
             {
-                if (gameObject.activeSelf)
-                {
-                    gameObject.SetActive(false);
-                }
+                SetLabelVisible(false);
                 return;
             }
             
@@ -161,11 +196,18 @@ namespace GraveyardKeeperCoop.UI
             // Apply pixel offset (in local space)
             transform.localPosition += new Vector3(PixelOffset.x, PixelOffset.y, 0f);
             
-            // Show if hidden
-            if (!gameObject.activeSelf)
-            {
-                gameObject.SetActive(true);
-            }
+            SetLabelVisible(true);
+        }
+
+        private static bool ShouldRenderNameTag()
+        {
+            if (!MainGame.game_started)
+                return false;
+
+            // Name tags live on their own UI-root panel and do not need the HUD.
+            // Keep them visible during free-roam and cinematics, hiding them only
+            // while a full game window/menu is open.
+            return MainGame.me?.player_char != null && BaseGUI.all_guis_closed;
         }
         
         private void OnDestroy()

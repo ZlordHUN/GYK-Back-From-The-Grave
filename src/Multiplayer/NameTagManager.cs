@@ -8,6 +8,9 @@ namespace GraveyardKeeperCoop.Multiplayer
     /// </summary>
     public static class NameTagManager
     {
+        private const string NameTagRootName = "OnlinePlayerNameTags";
+        private static GameObject nameTagRoot;
+
         /// <summary>
         /// Create a name tag for a remote player
         /// </summary>
@@ -21,36 +24,81 @@ namespace GraveyardKeeperCoop.Multiplayer
                 CoopMod.Logger.LogWarning("[NameTagManager] Cannot create name tag - player object is null");
                 return null;
             }
-            
-            // Create a head anchor point on the player
-            var headAnchor = new GameObject("HeadAnchor");
-            headAnchor.transform.SetParent(playerObject.transform, false);
-            headAnchor.transform.localPosition = new Vector3(0f, 0.85f, 0f); // Above player's head
-            
+
             // Get the HUD to parent the name tag to
             if (GUIElements.me?.hud == null)
             {
                 CoopMod.Logger.LogWarning("[NameTagManager] Cannot create name tag - HUD not found");
                 return null;
             }
+
+            WorldGameObject playerWgo =
+                playerObject.GetComponent<WorldGameObject>();
+            Transform target = playerWgo?.bubble_pos_tf;
+            if (target == null)
+            {
+                // Fallback for player prefabs without a bubble anchor. Game
+                // world coordinates use roughly pixel-sized units.
+                var headAnchor = new GameObject("HeadAnchor");
+                headAnchor.transform.SetParent(playerObject.transform, false);
+                headAnchor.transform.localPosition =
+                    new Vector3(0f, 72f, 0f);
+                target = headAnchor.transform;
+            }
             
             var hudGO = GUIElements.me.hud.gameObject;
+            GameObject parent = GetOrCreateNameTagRoot(hudGO);
+            if (parent == null)
+            {
+                CoopMod.Logger.LogWarning(
+                    "[NameTagManager] Cannot create name tag - UI root not found");
+                return null;
+            }
             
-            // Create name tag as child of HUD
-            var nameTagObj = NGUITools.AddChild(hudGO);
+            // The game deactivates HUD during cinematics. Keep player identity
+            // labels on their own UIRoot panel so cutscenes do not hide them.
+            var nameTagObj = NGUITools.AddChild(parent);
             nameTagObj.name = $"NameTag_{playerName}";
             nameTagObj.layer = hudGO.layer;
             
             // Add and configure the name tag component
             var nameTag = nameTagObj.AddComponent<UI.PlayerNameTag>();
-            nameTag.Target = headAnchor.transform;
-            nameTag.WorldOffset = new Vector3(0f, 0.4f, 0f); // Additional offset from head anchor
+            nameTag.Target = target;
+            nameTag.WorldOffset = new Vector3(0f, 12f, 0f);
             nameTag.PixelOffset = new Vector2(0f, 0f);
             nameTag.Initialize(playerName);
             
             CoopMod.Logger.LogInfo($"[NameTagManager] Created name tag for: {playerName}");
             
             return nameTagObj;
+        }
+
+        private static GameObject GetOrCreateNameTagRoot(GameObject hudGO)
+        {
+            UIRoot uiRoot = MainGame.me?.ui_root ??
+                (hudGO != null ? hudGO.GetComponentInParent<UIRoot>() : null);
+            if (uiRoot == null)
+                return null;
+
+            if (nameTagRoot != null &&
+                nameTagRoot.transform.parent == uiRoot.transform)
+            {
+                if (!nameTagRoot.activeSelf)
+                    nameTagRoot.SetActive(true);
+                return nameTagRoot;
+            }
+
+            nameTagRoot = NGUITools.AddChild(uiRoot.gameObject);
+            nameTagRoot.name = NameTagRootName;
+            nameTagRoot.layer = hudGO != null
+                ? hudGO.layer
+                : LayerMask.NameToLayer("UI");
+
+            UIPanel panel = nameTagRoot.AddComponent<UIPanel>();
+            UIPanel hudPanel = hudGO?.GetComponent<UIPanel>() ??
+                hudGO?.GetComponentInParent<UIPanel>();
+            panel.depth = (hudPanel?.depth ?? 0) + 1;
+            return nameTagRoot;
         }
         
         /// <summary>

@@ -46,6 +46,8 @@ namespace GraveyardKeeperCoop.Network
         DialogueEnd = 32,
         DialogueChoice = 33,
         DialogueBubble = 34,
+        DialogueOptions = 35,    // Read-only mirror of the initiating player's visible answer list
+        DialogueHover = 36,      // Currently highlighted answer index (-1 = none)
 
         // Save Transfer (40-49)
         SaveRequest = 40,
@@ -76,8 +78,9 @@ namespace GraveyardKeeperCoop.Network
         // NPC interaction sync (75)
         NpcInteraction = 75,      // Replay an NPC interaction (dialogue, intro, etc.) on the remote machine
 
-        // Intro skip sync (77)
+        // Intro skip sync (77, 79)
         SkipIntro = 77,           // Tell remote player to skip the intro cutscene
+        IntroSkipState = 79,      // Host-arbitrated intro skip owner and hold progress
 
         // Player param sync (80)
         PlayerParamSync = 80,
@@ -104,17 +107,48 @@ namespace GraveyardKeeperCoop.Network
         InteractionZeroHp = 100,
         NpcVisualSync = 101,
 
-        // Lobby control (102-109)
+        // Lobby, reliable-transport, sleep, NPC-flow, and player trade control (102-109)
         LobbyKick = 102,          // Host asks a client to leave the lobby/session
         WorkIndicatorSync = 103,  // Remote player-owned HP/crafting progress indicator
+        Heartbeat = 104,          // RNET v2 keepalive, delivered inside the reliable channel
+        WorldEntryBarrier = 105,  // Prepare/ack/release barrier for synchronized world entry
+        JoinerProfileCommit = 106, // Host save slot + SHA-256 revision; commits joiner-owned inventory
+        NpcInteractionComplete = 107, // Temporary NPC visual authority returned after the player-bound flow ends
+        SleepSync = 108,          // Host-arbitrated sleep roster, quorum, and synchronized wake
+        PlayerTrade = 109,        // Host-coordinated invitations, escrow offers, readiness, and commit
 
-        // Reliable transport control (104-106) - see ReliableTransport.cs
-        Heartbeat = 104,          // Reliable-lane keepalive; feeds the degraded-link detector
-        ResyncRequest = 105,      // [epoch] initiator asks the peer to realign streams (raw unreliable)
-        ResyncConfirm = 106,      // [epoch] peer confirms the realignment (raw unreliable)
+        // 0xFE and 0xFF are permanently reserved for RNET v2 wire frames and must
+        // never be assigned as application Op values.
+    }
 
-        // NOTE: 0xFE and 0xFF are permanently reserved as reliable-channel frame tags
-        // (ReliableTransport.cs) and must never be used as Op values.
+    public enum WorldEntryBarrierPhase : byte
+    {
+        Prepare = 0,
+        Prepared = 1,
+        Release = 2
+    }
+
+    public enum IntroSkipPhase : byte
+    {
+        Request = 0,
+        Grant = 1,
+        Progress = 2,
+        Cancel = 3,
+        Release = 4
+    }
+
+    public enum TradePhase : byte
+    {
+        Request = 0,
+        Invite = 1,
+        Accept = 2,
+        Decline = 3,
+        Begin = 4,
+        Offer = 5,
+        Ready = 6,
+        Cancel = 7,
+        Commit = 8,
+        CommitAck = 9
     }
 
     public sealed class CutsceneCameraState

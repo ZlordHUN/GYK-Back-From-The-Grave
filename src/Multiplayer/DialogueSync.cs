@@ -35,6 +35,13 @@ namespace GraveyardKeeperCoop.Multiplayer
         public static bool IsApplyingAmbientSpeech { get; private set; }
 
         private readonly Dictionary<string, float> recentSpeech = new Dictionary<string, float>();
+        private readonly HashSet<int> remotelyAdvancedBubbles = new HashSet<int>();
+        private int pendingRemoteAdvances;
+        private bool remoteDialogueEndPending;
+        private CSteamID pendingRemoteOptionSender = CSteamID.Nil;
+        private List<AnswerVisualData> pendingRemoteOptions;
+        private bool pendingRemoteOptionsShowToLeft;
+        private int pendingRemoteHoverIndex = -1;
         private MethodInfo sayMethod;
         private Type bubbleTypeEnumType;
         private Type voiceIdEnumType;
@@ -73,13 +80,24 @@ namespace GraveyardKeeperCoop.Multiplayer
             if (!IsOnline) return false;
 
             var localPlayer = MainGame.me?.player;
-            var remotePlayer = OnlineCoopManager.Instance?.GetRemotePlayer();
-
-            if (localPlayer == null || remotePlayer == null)
+            OnlineCoopManager online = OnlineCoopManager.Instance;
+            if (localPlayer == null || online == null)
                 return false;
 
-            float distance = Vector3.Distance(localPlayer.transform.position, remotePlayer.transform.position);
-            return distance <= DIALOGUE_SYNC_DISTANCE;
+            List<KeyValuePair<CSteamID, PlayerComponent>> remotes =
+                online.GetRemotePlayersSnapshot();
+            for (int i = 0; i < remotes.Count; i++)
+            {
+                PlayerComponent remote = remotes[i].Value;
+                if (remote != null &&
+                    Vector3.Distance(
+                        localPlayer.transform.position,
+                        remote.transform.position) <= DIALOGUE_SYNC_DISTANCE)
+                {
+                    return true;
+                }
+            }
+            return false;
         }
 
         public void NotifyDialogueStart(string npcId)
@@ -116,6 +134,28 @@ namespace GraveyardKeeperCoop.Multiplayer
             BroadcastDialogueMessage(MSG_DIALOGUE_ADVANCE);
         }
 
+        /// <summary>
+        /// Give a cutscene that starts independently on both peers the same initial
+        /// dialogue owner. The first player to advance a bubble takes ownership from
+        /// here through the normal dialogue-advance messages.
+        /// </summary>
+        public void EnsureCutsceneDialogueOwner(CSteamID owner)
+        {
+            if (!IsOnline || owner == CSteamID.Nil)
+                return;
+            if (IsInSyncedDialogue && LastDialogueAdvancer != CSteamID.Nil)
+                return;
+
+            dialogueInitiator = owner;
+            LastDialogueAdvancer = owner;
+            LocalPlayerLastAdvanced = owner == SteamUser.GetSteamID();
+            IsInSyncedDialogue = true;
+            CoopMod.Logger.LogInfo(
+                $"{LogPrefix} Established shared cutscene dialogue owner: " +
+                $"{SteamFriends.GetFriendPersonaName(owner)} " +
+                $"(local={LocalPlayerLastAdvanced})");
+        }
+
         public void NotifyDialogueChoice(int choiceIndex, string choiceText)
         {
             if (!ShouldSyncDialogue()) return;
@@ -128,6 +168,43 @@ namespace GraveyardKeeperCoop.Multiplayer
 
             string message = $"{MSG_DIALOGUE_CHOICE}{choiceIndex}|{choiceText}";
             BroadcastDialogueMessage(message);
+        }
+
+        public void NotifyDialogueOptions(
+            List<AnswerVisualData> answers,
+            bool showToLeft)
+        {
+            if (!ShouldSyncDialogue() || answers == null)
+                return;
+
+            List<AnswerVisualData> visibleAnswers =
+                GetVisibleAnswers(answers);
+            if (visibleAnswers.Count == 0)
+                return;
+
+            CSteamID localID = SteamUser.GetSteamID();
+            EnsureDialogueSession(localID);
+            dialogueInitiator = localID;
+            LastDialogueAdvancer = localID;
+            LocalPlayerLastAdvanced = true;
+
+            SteamP2PManager.Instance?.SendDialogueOptions(
+                visibleAnswers,
+                showToLeft);
+            CoopMod.Logger.LogInfo(
+                $"{LogPrefix} Broadcast {visibleAnswers.Count} visible dialogue options");
+        }
+
+        public void NotifyDialogueHover(int choiceIndex)
+        {
+            if (!IsOnline ||
+                !IsInSyncedDialogue ||
+                LastDialogueAdvancer != SteamUser.GetSteamID())
+            {
+                return;
+            }
+
+            SteamP2PManager.Instance?.SendDialogueHover(choiceIndex);
         }
 
         public void NotifyDialogueEnd()
@@ -145,9 +222,14 @@ namespace GraveyardKeeperCoop.Multiplayer
         private void BroadcastDialogueEnd(string logMessage)
         {
             CoopMod.Logger.LogInfo($"{LogPrefix} {logMessage}");
+            Patches.NpcInteractionSyncPatches
+                .NotifyLocalNpcInteractionDialogueEnded();
 
             IsInSyncedDialogue = false;
             dialogueInitiator = CSteamID.Nil;
+            pendingRemoteAdvances = 0;
+            remotelyAdvancedBubbles.Clear();
+            remoteDialogueEndPending = false;
 
             BroadcastDialogueMessage(MSG_DIALOGUE_END);
         }
@@ -164,6 +246,7 @@ namespace GraveyardKeeperCoop.Multiplayer
         public void NotifyAmbientSpeechBubble(WorldGameObject speaker, string text, int bubbleType, bool sayAsPlayer)
         {
             if (IsApplyingAmbientSpeech || speaker == null || string.IsNullOrEmpty(text) || !IsOnline) return;
+            if (Patches.CutsceneSyncPatches.ShouldSuppressAmbientSpeechRelay()) return;
 
             bool isPlayerSpeech = sayAsPlayer || speaker.is_player;
 
@@ -233,6 +316,31 @@ namespace GraveyardKeeperCoop.Multiplayer
                     HandleRemoteDialogueChoice(senderID, choiceIndex, choiceText);
                     break;
 
+                case Network.Op.DialogueOptions:
+                    bool showToLeft = reader.ReadBool();
+                    int optionCount = reader.ReadByte();
+                    if (optionCount <= 0 || optionCount > 64)
+                    {
+                        CoopMod.Logger.LogWarning(
+                            $"{LogPrefix} Ignoring invalid remote dialogue option count {optionCount}");
+                        break;
+                    }
+
+                    var options = new List<AnswerVisualData>(optionCount);
+                    for (int i = 0; i < optionCount; i++)
+                        options.Add(ReadAnswerVisualData(ref reader, 0));
+                    HandleRemoteDialogueOptions(
+                        senderID,
+                        options,
+                        showToLeft);
+                    break;
+
+                case Network.Op.DialogueHover:
+                    HandleRemoteDialogueHover(
+                        senderID,
+                        reader.ReadInt32());
+                    break;
+
                 case Network.Op.DialogueEnd:
                     HandleRemoteDialogueEnd(senderID);
                     break;
@@ -271,7 +379,7 @@ namespace GraveyardKeeperCoop.Multiplayer
                 return;
             }
 
-            ApplyRemoteDialogueAdvanceNow();
+            QueueRemoteDialogueAdvance();
         }
 
         private void HandleRemoteDialogueChoice(CSteamID senderID, int choiceIndex, string choiceText)
@@ -282,6 +390,13 @@ namespace GraveyardKeeperCoop.Multiplayer
             EnsureDialogueSession(senderID);
             LastDialogueAdvancer = senderID;
             LocalPlayerLastAdvanced = false;
+            ClearPendingRemoteOptions(senderID);
+
+            if (Patches.OnlineDialoguePatches
+                .CloseRemoteAnswerPresentation(senderID, choiceIndex))
+            {
+                return;
+            }
 
             if (Patches.CutsceneSyncPatches.TryBufferRemoteDialogueChoice(senderID, choiceIndex, choiceText) ||
                 Patches.NpcInteractionSyncPatches.TryBufferRemoteDialogueChoice(senderID, choiceIndex, choiceText))
@@ -292,10 +407,105 @@ namespace GraveyardKeeperCoop.Multiplayer
             ApplyRemoteDialogueChoiceNow(choiceIndex);
         }
 
+        private void HandleRemoteDialogueOptions(
+            CSteamID senderID,
+            List<AnswerVisualData> options,
+            bool showToLeft)
+        {
+            EnsureDialogueSession(senderID);
+            dialogueInitiator = senderID;
+            LastDialogueAdvancer = senderID;
+            LocalPlayerLastAdvanced = false;
+
+            if (Patches.NpcInteractionSyncPatches
+                .IsRemoteNpcInteractionDeferred(senderID))
+            {
+                pendingRemoteOptionSender = senderID;
+                pendingRemoteOptions = options;
+                pendingRemoteOptionsShowToLeft = showToLeft;
+                pendingRemoteHoverIndex = -1;
+                CoopMod.Logger.LogInfo(
+                    $"{LogPrefix} Deferred remote answer presentation until the local player enters the interaction");
+                return;
+            }
+
+            Patches.OnlineDialoguePatches.ShowRemoteAnswerPresentation(
+                senderID,
+                options,
+                showToLeft);
+        }
+
+        internal bool ShowPendingRemoteDialogueOptions(
+            CSteamID senderID)
+        {
+            if (pendingRemoteOptions == null ||
+                pendingRemoteOptionSender != senderID)
+            {
+                return false;
+            }
+
+            List<AnswerVisualData> options = pendingRemoteOptions;
+            bool showToLeft = pendingRemoteOptionsShowToLeft;
+            int hoverIndex = pendingRemoteHoverIndex;
+            ClearPendingRemoteOptions(senderID);
+            Patches.OnlineDialoguePatches.ShowRemoteAnswerPresentation(
+                senderID,
+                options,
+                showToLeft);
+            Patches.OnlineDialoguePatches.ApplyRemoteAnswerHover(
+                senderID,
+                hoverIndex);
+            return true;
+        }
+
+        internal void ClearPendingRemoteOptions(CSteamID senderID)
+        {
+            if (pendingRemoteOptionSender != senderID &&
+                senderID != CSteamID.Nil)
+            {
+                return;
+            }
+
+            pendingRemoteOptionSender = CSteamID.Nil;
+            pendingRemoteOptions = null;
+            pendingRemoteOptionsShowToLeft = false;
+            pendingRemoteHoverIndex = -1;
+        }
+
+        private void HandleRemoteDialogueHover(
+            CSteamID senderID,
+            int choiceIndex)
+        {
+            if (pendingRemoteOptionSender == senderID &&
+                pendingRemoteOptions != null)
+            {
+                pendingRemoteHoverIndex = choiceIndex;
+                return;
+            }
+
+            Patches.OnlineDialoguePatches.ApplyRemoteAnswerHover(
+                senderID,
+                choiceIndex);
+        }
+
         private void HandleRemoteDialogueEnd(CSteamID senderID)
         {
             string senderName = SteamFriends.GetFriendPersonaName(senderID);
             CoopMod.Logger.LogInfo($"{LogPrefix} {senderName} ended dialogue");
+            ClearPendingRemoteOptions(senderID);
+            Patches.OnlineDialoguePatches
+                .CloseRemoteAnswerPresentation(senderID, -1);
+            Patches.NpcInteractionSyncPatches
+                .NotifyObservedNpcInteractionEnded(senderID);
+
+            if (Patches.CutsceneSyncPatches.HasActiveMirroredLocalCutscene())
+            {
+                remoteDialogueEndPending = true;
+                CoopMod.Logger.LogInfo(
+                    $"{LogPrefix} Deferring remote dialogue end until the " +
+                    "mirrored local FlowScript catches up");
+                return;
+            }
 
             IsInSyncedDialogue = false;
             dialogueInitiator = CSteamID.Nil;
@@ -330,7 +540,7 @@ namespace GraveyardKeeperCoop.Multiplayer
             string fingerprint = BuildSpeechFingerprint(speakerId, bubbleText);
             if (WasRecentlySeen(fingerprint)) return;
 
-            WorldGameObject speaker = ResolveSpeechSpeaker(uniqueId, objId, position, sayAsPlayer);
+            WorldGameObject speaker = ResolveSpeechSpeaker(senderID, uniqueId, objId, position, sayAsPlayer);
             if (speaker == null)
             {
                 CoopMod.Logger.LogWarning($"{LogPrefix} Could not resolve ambient speech speaker uid={uniqueId} obj='{objId}'");
@@ -372,11 +582,95 @@ namespace GraveyardKeeperCoop.Multiplayer
             }
         }
 
+        private void QueueRemoteDialogueAdvance()
+        {
+            pendingRemoteAdvances++;
+            CoopMod.Logger.LogInfo(
+                $"{LogPrefix} Queued remote dialogue advance " +
+                $"(pending={pendingRemoteAdvances})");
+            TryApplyPendingRemoteAdvance();
+        }
+
+        /// <summary>
+        /// Called after ShowMessage creates a fresh bubble. Remote input can arrive
+        /// while the previous bubble is disappearing and before this one exists; in
+        /// that gap it must remain queued rather than being discarded.
+        /// </summary>
+        public void NotifySpeechBubbleShown(SpeechBubbleGUI bubble)
+        {
+            if (bubble == null)
+                return;
+
+            remotelyAdvancedBubbles.Remove(bubble.GetInstanceID());
+            TryApplyPendingRemoteAdvance();
+        }
+
+        public void NotifySpeechBubbleDestroyed(SpeechBubbleGUI bubble)
+        {
+            if (bubble != null)
+                remotelyAdvancedBubbles.Remove(bubble.GetInstanceID());
+        }
+
+        public void NotifyMirroredLocalCutsceneFinished()
+        {
+            pendingRemoteAdvances = 0;
+            remotelyAdvancedBubbles.Clear();
+            bool deferredRemoteEnd = remoteDialogueEndPending;
+            remoteDialogueEndPending = false;
+            IsInSyncedDialogue = false;
+            dialogueInitiator = CSteamID.Nil;
+            LastDialogueAdvancer = CSteamID.Nil;
+            LocalPlayerLastAdvanced = false;
+            CoopMod.Logger.LogInfo(
+                deferredRemoteEnd
+                    ? $"{LogPrefix} Applied deferred remote dialogue end after the mirrored local FlowScript completed"
+                    : $"{LogPrefix} Closed mirrored cutscene dialogue session when the local FlowScript completed");
+        }
+
+        private bool TryApplyPendingRemoteAdvance()
+        {
+            if (pendingRemoteAdvances <= 0 || SpeechBubbleGUI.all == null)
+                return false;
+
+            foreach (var kvp in SpeechBubbleGUI.all)
+            {
+                SpeechBubbleGUI bubble = kvp.Value;
+                if (bubble == null || !bubble.gameObject.activeInHierarchy)
+                    continue;
+
+                int instanceId = bubble.GetInstanceID();
+                if (remotelyAdvancedBubbles.Contains(instanceId))
+                    continue;
+
+                try
+                {
+                    remotelyAdvancedBubbles.Add(instanceId);
+                    bubble.ForceHide(false);
+                    pendingRemoteAdvances--;
+                    CoopMod.Logger.LogInfo(
+                        $"{LogPrefix} Applied queued remote dialogue advance " +
+                        $"(pending={pendingRemoteAdvances})");
+                    return true;
+                }
+                catch (Exception ex)
+                {
+                    remotelyAdvancedBubbles.Remove(instanceId);
+                    CoopMod.Logger.LogWarning(
+                        $"{LogPrefix} Error applying queued dialogue advance: " +
+                        ex.Message);
+                    return false;
+                }
+            }
+
+            return false;
+        }
+
         public void ApplyRemoteDialogueChoiceNow(int choiceIndex)
         {
             try
             {
-                var multiAnswer = GUIElements.me?.multi_answer;
+                var multiAnswer =
+                    Patches.OnlineDialoguePatches.GetCurrentMultiAnswer();
                 if (multiAnswer != null && multiAnswer.gameObject.activeInHierarchy)
                 {
                     var answersField = typeof(MultiAnswerGUI).GetField("_answers",
@@ -414,11 +708,83 @@ namespace GraveyardKeeperCoop.Multiplayer
 
         public void ResetState()
         {
+            Patches.OnlineDialoguePatches
+                .CloseAnyRemoteAnswerPresentation();
             IsInSyncedDialogue = false;
             dialogueInitiator = CSteamID.Nil;
             LastDialogueAdvancer = CSteamID.Nil;
             LocalPlayerLastAdvanced = false;
+            pendingRemoteAdvances = 0;
+            remotelyAdvancedBubbles.Clear();
+            remoteDialogueEndPending = false;
+            ClearPendingRemoteOptions(CSteamID.Nil);
             CoopMod.Logger.LogInfo($"{LogPrefix} State reset");
+        }
+
+        private static List<AnswerVisualData> GetVisibleAnswers(
+            List<AnswerVisualData> answers)
+        {
+            var result = new List<AnswerVisualData>();
+            var save = MainGame.me?.save;
+
+            for (int i = 0; i < answers.Count && result.Count < 64; i++)
+            {
+                AnswerVisualData answer = answers[i];
+                if (answer == null || string.IsNullOrEmpty(answer.id))
+                    continue;
+
+                bool unlocked =
+                    answer.id[0] != '@' ||
+                    (save?.unlocked_phrases != null &&
+                     save.unlocked_phrases.Contains(answer.id));
+                bool blacklisted =
+                    save?.black_list_of_phrases != null &&
+                    save.black_list_of_phrases.Contains(answer.id);
+
+                if (unlocked && !blacklisted)
+                    result.Add(answer);
+            }
+
+            return result;
+        }
+
+        private static AnswerVisualData ReadAnswerVisualData(
+            ref MsgReader reader,
+            int depth)
+        {
+            if (depth > 1)
+                throw new InvalidOperationException(
+                    "Remote dialogue option nesting exceeds the supported depth");
+
+            bool multiple = reader.ReadBool() && depth == 0;
+            AnswerVisualData answer = multiple
+                ? (AnswerVisualData)new MultipleAnswerVisualData()
+                : new AnswerVisualData();
+
+            answer.id = reader.ReadString();
+            answer.icon_price = reader.ReadString();
+            answer.icon_lock = reader.ReadString();
+            answer.icon_reward = reader.ReadString();
+            answer.can_be_picked = reader.ReadBool();
+            answer.inside_price_is_red = reader.ReadBool();
+            answer.price_txt = reader.ReadString();
+            answer.icon_price_quality = reader.ReadString();
+            answer.icon_reward_quality = reader.ReadString();
+            answer.icon_lock_quality = reader.ReadString();
+            answer.n_price = reader.ReadInt32();
+            answer.n_reward = reader.ReadInt32();
+            answer.n_lock = reader.ReadInt32();
+
+            int childCount = reader.ReadByte();
+            if (childCount > 32)
+                throw new InvalidOperationException(
+                    $"Remote dialogue option has invalid child count {childCount}");
+
+            for (int i = 0; i < childCount; i++)
+                answer.answer_visual_datas.Add(
+                    ReadAnswerVisualData(ref reader, depth + 1));
+
+            return answer;
         }
 
         private void EnsureDialogueSession(CSteamID advancer)
@@ -434,18 +800,28 @@ namespace GraveyardKeeperCoop.Multiplayer
                 $"{LogPrefix} Established implicit synced dialogue session from dialogue advancement");
         }
 
-        private WorldGameObject ResolveSpeechSpeaker(long uniqueId, string objId, Vector3 position, bool sayAsPlayer)
+        private WorldGameObject ResolveSpeechSpeaker(CSteamID senderID, long uniqueId, string objId, Vector3 position, bool sayAsPlayer)
         {
-            if (uniqueId == 0L || sayAsPlayer)
+            bool isPlayerSpeech = uniqueId == 0L || sayAsPlayer;
+            if (isPlayerSpeech)
             {
-                WorldGameObject remotePlayer = OnlineCoopManager.Instance?.GetRemotePlayer();
+                WorldGameObject remotePlayer = OnlineCoopManager.Instance
+                    ?.GetRemotePlayer(senderID);
+                if (remotePlayer == null)
+                {
+                    remotePlayer = OnlineCoopManager.Instance
+                        ?.GetRemotePlayer(LastDialogueAdvancer);
+                }
                 if (remotePlayer != null) return remotePlayer;
             }
 
             WorldGameObject resolved = WGORegistry.Instance?.Resolve(uniqueId, objId, null, position, 160f);
             if (resolved != null) return resolved;
 
-            return MainGame.me?.player;
+            // Never put unresolved NPC dialogue over the local player's head. A
+            // newly spawned NPC may miss one bubble while its registry entry catches
+            // up, but assigning that line to a player changes the cutscene's roles.
+            return isPlayerSpeech ? MainGame.me?.player : null;
         }
 
         private void InvokeSay(WorldGameObject speaker, string text, int bubbleType, bool sayAsPlayer)

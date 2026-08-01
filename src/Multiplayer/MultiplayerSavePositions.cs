@@ -85,15 +85,37 @@ namespace GraveyardKeeperCoop.Multiplayer
                     CoopMod.Logger.LogWarning("[MultiplayerSavePositions] Could not capture local player position");
                 }
 
-                CSteamID remoteSteamId = GetRemoteSteamId();
-                if (remoteSteamId != CSteamID.Nil && TryGetRemotePlayerPosition(out Vector3 remotePosition))
+                OnlineCoopManager onlineCoop = OnlineCoopManager.Instance;
+                List<KeyValuePair<CSteamID, PlayerComponent>> remotePlayers =
+                    onlineCoop?.GetRemotePlayersSnapshot();
+                CSteamID lobbyOwner = SteamMatchmaking.GetLobbyOwner(lobby.CurrentLobbyID);
+                if (remotePlayers != null)
                 {
-                    AddCapturedEntry(capturedPlayers, capturedSteamIds, CreateEntry(remoteSteamId, !lobby.IsHost, remotePosition));
-                    CoopMod.Logger.LogInfo($"[MultiplayerSavePositions] Captured remote player {remoteSteamId.m_SteamID} at {remotePosition}");
+                    for (int i = 0; i < remotePlayers.Count; i++)
+                    {
+                        CSteamID remoteSteamId = remotePlayers[i].Key;
+                        if (onlineCoop.TryGetRemotePlayerSavePosition(
+                                remoteSteamId,
+                                out Vector3 remotePosition))
+                        {
+                            AddCapturedEntry(
+                                capturedPlayers,
+                                capturedSteamIds,
+                                CreateEntry(
+                                    remoteSteamId,
+                                    remoteSteamId == lobbyOwner,
+                                    remotePosition));
+                            CoopMod.Logger.LogInfo(
+                                $"[MultiplayerSavePositions] Captured remote player " +
+                                $"{remoteSteamId.m_SteamID} at {remotePosition}");
+                        }
+                    }
                 }
-                else
+
+                if (remotePlayers == null || remotePlayers.Count == 0)
                 {
-                    CoopMod.Logger.LogInfo("[MultiplayerSavePositions] No remote player position available to capture");
+                    CoopMod.Logger.LogInfo(
+                        "[MultiplayerSavePositions] No remote player positions available to capture");
                 }
 
                 PreservePreviousEntries(slotFilename, capturedPlayers, capturedSteamIds);
@@ -879,47 +901,6 @@ namespace GraveyardKeeperCoop.Multiplayer
             }
 
             return false;
-        }
-
-        private static bool TryGetRemotePlayerPosition(out Vector3 position)
-        {
-            position = Vector3.zero;
-
-            var onlineCoop = OnlineCoopManager.Instance;
-            if (onlineCoop == null)
-            {
-                return false;
-            }
-
-            return onlineCoop.TryGetRemotePlayerSavePosition(out position);
-        }
-
-        private static CSteamID GetRemoteSteamId()
-        {
-            var lobby = SteamLobbyManager.Instance;
-            if (lobby == null || !lobby.IsInLobby || lobby.CurrentLobbyID == CSteamID.Nil)
-            {
-                return CSteamID.Nil;
-            }
-
-            CSteamID localSteamId = SteamUser.GetSteamID();
-            if (!lobby.IsHost)
-            {
-                CSteamID owner = SteamMatchmaking.GetLobbyOwner(lobby.CurrentLobbyID);
-                return owner != localSteamId ? owner : CSteamID.Nil;
-            }
-
-            int memberCount = lobby.GetLobbyMemberCount();
-            for (int i = 0; i < memberCount; i++)
-            {
-                CSteamID member = SteamMatchmaking.GetLobbyMemberByIndex(lobby.CurrentLobbyID, i);
-                if (member != CSteamID.Nil && member != localSteamId)
-                {
-                    return member;
-                }
-            }
-
-            return CSteamID.Nil;
         }
 
         private static bool IsInMultiplayerLobby()

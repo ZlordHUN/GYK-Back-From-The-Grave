@@ -1,5 +1,6 @@
 using UnityEngine;
 using Steamworks;
+using System.Collections.Generic;
 using System.Reflection;
 using GraveyardKeeperCoop.UI;
 using GraveyardKeeperCoop.Multiplayer;
@@ -22,6 +23,37 @@ namespace GraveyardKeeperCoop.Network
         
         // The remote player (network-controlled Player 2)
         private PlayerComponent remotePlayer;
+
+        private sealed class SecondaryRemotePeer
+        {
+            public CSteamID SteamID;
+            public PlayerComponent Player;
+            public GhostDriver Ghost;
+            public GameObject NameTag;
+            public string DisplayName;
+            public Vector3 TargetPosition;
+            public Vector2 Velocity;
+            public Vector2 Direction = Vector2.down;
+            public Vector2 AppliedDirection = Vector2.down;
+            public CharAnimState Animation = CharAnimState.Idle;
+            public ItemDefinition.ItemType ItemType = ItemDefinition.ItemType.None;
+            public bool HasPosition;
+            public bool Moving;
+            public bool AppliedMoving;
+            public bool ToolAnimationActive;
+            public bool ActionExplicitlyStopped;
+            public float IdleTimer;
+        }
+
+        // Keep the original primary fields for legacy cutscene/dialogue paths,
+        // and store players three and four directly on this manager.
+        private readonly Dictionary<ulong, SecondaryRemotePeer> secondaryRemotePeers =
+            new Dictionary<ulong, SecondaryRemotePeer>();
+        private readonly List<ulong> staleSecondaryPeerIds = new List<ulong>();
+        private float nextSecondaryRosterRefreshAt;
+        private const float SecondaryRosterRefreshSeconds = 1f;
+        private const float SecondaryTeleportSnapDistance = 384f;
+        private const float SecondaryIdleDelaySeconds = 0.15f;
         
         // GhostDriver for smooth remote player interpolation
         private GhostDriver ghostDriver;
@@ -47,6 +79,49 @@ namespace GraveyardKeeperCoop.Network
             return remotePlayer?.wgo;
         }
 
+        public WorldGameObject GetRemotePlayer(CSteamID steamID)
+        {
+            return GetRemotePlayerComponent(steamID)?.wgo;
+        }
+
+        public PlayerComponent GetRemotePlayerComponent(CSteamID steamID)
+        {
+            if (steamID == CSteamID.Nil)
+                return null;
+            if (steamID == remotePlayerSteamID)
+                return remotePlayer;
+            return secondaryRemotePeers.TryGetValue(
+                steamID.m_SteamID,
+                out SecondaryRemotePeer peer)
+                ? peer.Player
+                : null;
+        }
+
+        public List<KeyValuePair<CSteamID, PlayerComponent>> GetRemotePlayersSnapshot()
+        {
+            var result = new List<KeyValuePair<CSteamID, PlayerComponent>>();
+            if (remotePlayerSteamID != CSteamID.Nil && remotePlayer != null)
+            {
+                result.Add(new KeyValuePair<CSteamID, PlayerComponent>(
+                    remotePlayerSteamID,
+                    remotePlayer));
+            }
+
+            foreach (SecondaryRemotePeer peer in secondaryRemotePeers.Values)
+            {
+                if (peer?.Player != null)
+                {
+                    result.Add(new KeyValuePair<CSteamID, PlayerComponent>(
+                        peer.SteamID,
+                        peer.Player));
+                }
+            }
+            return result;
+        }
+
+        public int RemotePlayerCount =>
+            (remotePlayer != null ? 1 : 0) + secondaryRemotePeers.Count;
+
         public CSteamID RemotePlayerSteamID => remotePlayerSteamID;
 
         public PlayerComponent LocalPlayerComponent => localPlayer;
@@ -55,7 +130,23 @@ namespace GraveyardKeeperCoop.Network
 
         public bool IsRemotePlayer(CSteamID steamID)
         {
-            return steamID != CSteamID.Nil && steamID == remotePlayerSteamID;
+            if (steamID == CSteamID.Nil || steamID == SteamUser.GetSteamID())
+                return false;
+            if (steamID == remotePlayerSteamID ||
+                secondaryRemotePeers.ContainsKey(steamID.m_SteamID))
+                return true;
+
+            var lobby = SteamLobbyManager.Instance;
+            if (lobby == null || !lobby.IsInLobby || lobby.CurrentLobbyID == CSteamID.Nil)
+                return false;
+
+            int memberCount = SteamMatchmaking.GetNumLobbyMembers(lobby.CurrentLobbyID);
+            for (int i = 0; i < memberCount; i++)
+            {
+                if (SteamMatchmaking.GetLobbyMemberByIndex(lobby.CurrentLobbyID, i) == steamID)
+                    return true;
+            }
+            return false;
         }
 
         public bool TryGetRemotePlayerSavePosition(out Vector3 position)
@@ -81,12 +172,33 @@ namespace GraveyardKeeperCoop.Network
             return true;
         }
 
+        public bool TryGetRemotePlayerSavePosition(
+            CSteamID steamID,
+            out Vector3 position)
+        {
+            if (steamID == remotePlayerSteamID)
+                return TryGetRemotePlayerSavePosition(out position);
+            if (TryGetSecondaryRemoteSavePosition(steamID, out position))
+            {
+                return true;
+            }
+
+            position = Vector3.zero;
+            return false;
+        }
+
         private Vector3 WorldToSavePosition(Vector3 worldPosition)
         {
             Transform saveParent = MainGame.me?.player?.transform?.parent ?? localPlayer?.transform?.parent;
             return saveParent != null
                 ? saveParent.InverseTransformPoint(worldPosition)
                 : worldPosition;
+        }
+
+        private static long BuildRemotePlayerUniqueId(CSteamID steamID)
+        {
+            long suffix = (long)(steamID.m_SteamID % 900000000UL);
+            return -1000000000L - suffix;
         }
         
         // Position sync settings (20Hz for smoother remote movement)
@@ -148,7 +260,6 @@ namespace GraveyardKeeperCoop.Network
             
             _instance = this;
             DontDestroyOnLoad(gameObject);
-            
             CoopMod.Logger.LogInfo("[OnlineCoopManager] Initialized");
         }
         
@@ -210,9 +321,11 @@ namespace GraveyardKeeperCoop.Network
             }
             else if (IsHost)
             {
-                // Host: just clean up the remote player, don't exit
+                // Host: remove only the failed peer; other clients remain in session.
                 CoopMod.Logger.LogInfo($"[OnlineCoopManager] Client {peer} disconnected, cleaning up...");
-                DisableOnlineCoop();
+                HandlePeerLeftLobby(
+                    peer,
+                    SteamFriends.GetFriendPersonaName(peer));
             }
         }
         
@@ -254,11 +367,48 @@ namespace GraveyardKeeperCoop.Network
 
         public void HandleRemotePlayerKicked(CSteamID targetID, string playerName)
         {
-            if (!IsHost || targetID == CSteamID.Nil || targetID != remotePlayerSteamID)
+            if (!IsHost || targetID == CSteamID.Nil || !IsRemotePlayer(targetID))
                 return;
 
             CoopMod.Logger.LogInfo($"[OnlineCoopManager] Cleaning up kicked remote player {playerName} ({targetID})");
-            DisableOnlineCoop();
+            HandlePeerLeftLobby(targetID, playerName);
+        }
+
+        public void HandlePeerEnteredLobby(CSteamID peer)
+        {
+            if (!IsOnlineCoopEnabled || peer == CSteamID.Nil ||
+                peer == SteamUser.GetSteamID())
+            {
+                return;
+            }
+
+            if (IsHost && remotePlayerSteamID == CSteamID.Nil)
+                SetPrimaryRemotePeer(peer);
+            else
+                EnsureSecondaryRemotePeer(peer);
+        }
+
+        public void HandlePeerLeftLobby(CSteamID peer, string playerName)
+        {
+            if (!IsOnlineCoopEnabled || peer == CSteamID.Nil)
+                return;
+
+            PlayerTradeManager.Instance?.NotifyPeerLeft(peer);
+
+            RemoveSecondaryRemotePeer(peer);
+            if (peer != remotePlayerSteamID)
+                return;
+
+            if (!IsHost)
+                return;
+
+            CoopMod.Logger.LogInfo(
+                $"[MultiPeer] Primary client {playerName} left; selecting a new legacy primary");
+            DestroyPrimaryRemoteAvatar(clearSteamID: true);
+
+            CSteamID replacement = FindFirstRemoteLobbyMember();
+            if (replacement != CSteamID.Nil)
+                SetPrimaryRemotePeer(replacement);
         }
         
         /// <summary>
@@ -271,6 +421,11 @@ namespace GraveyardKeeperCoop.Network
             var lobbyManager = SteamLobbyManager.Instance;
             if (lobbyManager == null || !lobbyManager.IsInLobby)
                 return false;
+
+            // A host may remain in an active lobby after the last client leaves.
+            // No legacy primary is expected until another client joins.
+            if (IsHost && remotePlayerSteamID == CSteamID.Nil)
+                return true;
             
             int memberCount = lobbyManager.GetLobbyMemberCount();
             if (memberCount <= 1)
@@ -354,6 +509,7 @@ namespace GraveyardKeeperCoop.Network
             
             SpawnRemotePlayer();
             IsOnlineCoopEnabled = true;
+            EnableSecondaryRemotePeers();
             
             // Enable time synchronization (host broadcasts time)
             GameTimeSync.Instance?.EnableSync();
@@ -467,6 +623,7 @@ namespace GraveyardKeeperCoop.Network
             
             SpawnRemotePlayer();
             IsOnlineCoopEnabled = true;
+            EnableSecondaryRemotePeers();
             
             // Enable time synchronization (client receives time)
             GameTimeSync.Instance?.EnableSync();
@@ -629,6 +786,13 @@ namespace GraveyardKeeperCoop.Network
 
             // Disable NPC interaction synchronization
             NpcInteractionSyncPatches.Disable();
+
+            // Cancel pending/active trades and return any locally escrowed items.
+            PlayerTradeManager.Instance?.Shutdown();
+
+            // Remove all non-primary experimental avatars before the shared
+            // cosmetics/session cleanup clears their registrations.
+            DisableSecondaryRemotePeers();
             
             // Unsubscribe walk-to handler and clear any in-flight walk
             if (SteamP2PManager.Instance != null)
@@ -641,53 +805,96 @@ namespace GraveyardKeeperCoop.Network
             
             // Disable cosmetics synchronization
             CosmeticsSync.Instance?.OnCoopEnded();
-            
-            // Hide chat overlay and cleanup chat bubbles
-            UI.ChatOverlay.Instance?.Hide();
+
+            // The overlay is session-scoped. Destroy it rather than merely
+            // fading it so menu/lobby messages cannot reveal stale in-game UI.
+            UI.ChatOverlay.Instance?.EndSession();
             sessionChatOverlayShown = false;
             nextSessionChatOverlayAttemptTime = 0f;
             UI.ChatBubbleManager.Cleanup();
-            
-            // Disable and clean up GhostDriver
-            if (ghostDriver != null)
-            {
-                ghostDriver.Disable();
-                ghostDriver = null;
-            }
-            
-            // Destroy name tag
-            if (remotePlayerNameTag != null)
-            {
-                NameTagManager.DestroyNameTag(remotePlayerNameTag);
-                remotePlayerNameTag = null;
-            }
-            
-            // Remove remote player from chat player list
-            if (!string.IsNullOrEmpty(remotePlayerDisplayName) && ChatGUI.Instance != null)
-            {
-                ChatGUI.Instance.RemoveRemotePlayer(remotePlayerDisplayName);
-            }
-            
-            // Remove remote player map indicator
-            if (remotePlayerSteamID != CSteamID.Nil)
-            {
-                Patches.MapGUIPatches.RemoveRemotePlayerIndicator(remotePlayerSteamID.m_SteamID.ToString());
-            }
-            
-            if (remotePlayer != null)
-            {
-                Destroy(remotePlayer.gameObject);
-                remotePlayer = null;
-            }
-            
+
+            DestroyPrimaryRemoteAvatar(clearSteamID: true);
+
             localPlayer = null;
             remotePlayerDisplayName = null;
             hasReceivedRemotePlayerPosition = false;
             remotePositionSeededFromSidecar = false;
             ResetPositionSyncState();
             IsOnlineCoopEnabled = false;
-            
+
             CoopMod.Logger.LogInfo("[OnlineCoopManager] Online co-op disabled");
+        }
+
+        private void DestroyPrimaryRemoteAvatar(bool clearSteamID)
+        {
+            if (ghostDriver != null)
+            {
+                ghostDriver.Disable();
+                ghostDriver = null;
+            }
+
+            CosmeticsSync.Instance?.RemoveRemotePlayerDriver(remotePlayerSteamID);
+            if (remotePlayerNameTag != null)
+            {
+                NameTagManager.DestroyNameTag(remotePlayerNameTag);
+                remotePlayerNameTag = null;
+            }
+
+            if (!string.IsNullOrEmpty(remotePlayerDisplayName))
+                ChatGUI.Instance?.RemoveRemotePlayer(remotePlayerDisplayName);
+            if (remotePlayerSteamID != CSteamID.Nil)
+            {
+                MapGUIPatches.RemoveRemotePlayerIndicator(
+                    remotePlayerSteamID.m_SteamID.ToString());
+            }
+
+            if (remotePlayer != null)
+            {
+                Destroy(remotePlayer.gameObject);
+                remotePlayer = null;
+            }
+
+            remotePlayerDisplayName = null;
+            hasReceivedRemotePlayerPosition = false;
+            remotePositionSeededFromSidecar = false;
+            if (clearSteamID)
+                remotePlayerSteamID = CSteamID.Nil;
+            ResetPositionSyncState();
+        }
+
+        private void SetPrimaryRemotePeer(CSteamID peer)
+        {
+            if (peer == CSteamID.Nil || peer == SteamUser.GetSteamID())
+                return;
+
+            RemoveSecondaryRemotePeer(peer);
+            remotePlayerSteamID = peer;
+            remotePlayerMissingFromLobby = false;
+            ResetPositionSyncState();
+            SpawnRemotePlayer();
+            CoopMod.Logger.LogInfo(
+                $"[MultiPeer] Legacy primary remote is now {peer.m_SteamID}");
+        }
+
+        private static CSteamID FindFirstRemoteLobbyMember()
+        {
+            SteamLobbyManager lobby = SteamLobbyManager.Instance;
+            if (lobby == null || !lobby.IsInLobby ||
+                lobby.CurrentLobbyID == CSteamID.Nil)
+            {
+                return CSteamID.Nil;
+            }
+
+            CSteamID local = SteamUser.GetSteamID();
+            int count = SteamMatchmaking.GetNumLobbyMembers(lobby.CurrentLobbyID);
+            for (int i = 0; i < count; i++)
+            {
+                CSteamID member =
+                    SteamMatchmaking.GetLobbyMemberByIndex(lobby.CurrentLobbyID, i);
+                if (member != CSteamID.Nil && member != local)
+                    return member;
+            }
+            return CSteamID.Nil;
         }
 
         /// <summary>
@@ -707,12 +914,14 @@ namespace GraveyardKeeperCoop.Network
         {
             CoopMod.Logger.LogInfo("[OnlineCoopManager] PrepareHotReload - tearing down coop state for in-game reload");
 
+            // Arm this before disabling the sync systems. On clients the old world
+            // remains playable while the replacement save downloads; without the gate,
+            // Update.CheckAutoEnable reuses that old player on the next frame and the
+            // client-side load protection then rejects the host-directed load.
+            Patches.LocalCoopActivationPatch.BeginHotReload();
+
             // Disable is a no-op if already disabled, but safe to call.
             DisableOnlineCoop();
-
-            // The "player already spawned this session" latch must be cleared so the
-            // spawn hook re-runs after the world is rebuilt.
-            Patches.LocalCoopActivationPatch.ResetActivation();
 
             // Clear any leftover sync state (we will re-arm it via StartWaitingForPlayers).
             if (Multiplayer.GameLoadSync.Instance != null)
@@ -755,6 +964,11 @@ namespace GraveyardKeeperCoop.Network
                 {
                     if (IsOnlineCoopEnabled && IsHost)
                     {
+                        if (remotePlayerSteamID == CSteamID.Nil)
+                            SetPrimaryRemotePeer(clientID);
+                        else
+                            EnsureSecondaryRemotePeer(clientID);
+
                         if (ModConfig.EnableLiveWGOStateSync?.Value == true)
                         {
                             WGOStateSync.Instance?.SendLocalSnapshot(force: true);
@@ -801,6 +1015,14 @@ namespace GraveyardKeeperCoop.Network
                 }
                 
                 CoopMod.Logger.LogInfo($"[OnlineCoopManager] Remote player spawned: {remotePlayer.gameObject.name}");
+
+                remotePlayer.gameObject.name =
+                    $"RemotePlayer_{remotePlayerSteamID.m_SteamID}";
+                if (remotePlayer.wgo != null)
+                {
+                    remotePlayer.wgo.unique_id =
+                        BuildRemotePlayerUniqueId(remotePlayerSteamID);
+                }
                 
                 // Disable local control - this player is network controlled
                 // NOTE: We intentionally do NOT set player_controlled_by_script = true
@@ -909,7 +1131,9 @@ namespace GraveyardKeeperCoop.Network
                 // Apply default P2 cosmetics until we receive actual cosmetics
                 cosmeticsDriver.SetCosmetics(PlayerCosmetics.Player2Default);
                 // Register with CosmeticsSync
-                CosmeticsSync.Instance?.SetRemotePlayerDriver(cosmeticsDriver);
+                CosmeticsSync.Instance?.SetRemotePlayerDriver(
+                    remotePlayerSteamID,
+                    cosmeticsDriver);
                 CoopMod.Logger.LogInfo("[OnlineCoopManager] PlayerCosmeticsDriver attached for remote player");
                 
                 // Create name tag for remote player
@@ -934,8 +1158,6 @@ namespace GraveyardKeeperCoop.Network
                 
                 // Notify cosmetics sync that coop has started
                 CosmeticsSync.Instance?.OnCoopStarted();
-                
-                EnsureSessionChatOverlayShown();
                 
                 CoopMod.Logger.LogInfo("[OnlineCoopManager] Remote player setup complete!");
             }
@@ -1323,9 +1545,11 @@ namespace GraveyardKeeperCoop.Network
         /// </summary>
         private void OnRemotePlayerPositionReceived(CSteamID senderID, Vector3 position, float timestamp)
         {
-            // Only accept position from our known remote player
             if (senderID != remotePlayerSteamID)
+            {
+                ApplySecondaryRemotePosition(senderID, position, timestamp);
                 return;
+            }
             
             // Check if we're in the intro phase or cutscene - if so, always accept position updates
             // During cutscenes, the game teleports the player and we need to track that
@@ -1411,16 +1635,19 @@ namespace GraveyardKeeperCoop.Network
         /// <summary>
         /// Called when we receive movement state update from the remote player
         /// </summary>
-        private void OnRemotePlayerStateReceived(CSteamID senderID, Vector2 direction, bool isMoving)
+        private void OnRemotePlayerStateReceived(
+            CSteamID senderID,
+            Vector2 direction,
+            bool isMoving,
+            Vector2 velocity)
         {
-            // Only accept from our known remote player
             if (senderID != remotePlayerSteamID)
-                return;
-            
-            if (SteamP2PManager.Instance != null)
             {
-                lastReceivedVelocity = SteamP2PManager.Instance.LastReceivedVelocity;
+                ApplySecondaryRemoteState(senderID, direction, isMoving, velocity);
+                return;
             }
+
+            lastReceivedVelocity = velocity;
 
             remoteDirection = direction.sqrMagnitude > 0.0001f ? direction : remoteDirection;
             remoteIsMoving = isMoving;
@@ -1431,10 +1658,12 @@ namespace GraveyardKeeperCoop.Network
                 remoteIdleTimer = 0f;
                 
                 // If remote player starts moving, they've stopped using tool
-                if (remoteAnimIsToolActive)
+                if (remoteAnimIsToolActive ||
+                    remoteAnimState == CharAnimState.Tool)
                 {
-                    remoteAnimIsToolActive = false;
-                    CoopMod.Logger.LogInfo("[OnlineCoopManager] Remote player started moving — clearing tool animation state");
+                    ClearRemoteWorkAnimation();
+                    CoopMod.Logger.LogInfo(
+                        "[OnlineCoopManager] Remote player started moving — cleared tool animation state");
                 }
             }
         }
@@ -1445,12 +1674,30 @@ namespace GraveyardKeeperCoop.Network
         /// </summary>
         private void OnRemotePlayerAnimationReceived(CSteamID senderID, int animState, int itemType)
         {
-            // Only accept from our known remote player
             if (senderID != remotePlayerSteamID)
+            {
+                ApplySecondaryRemoteAnimation(senderID, animState, itemType);
                 return;
+            }
             
-            remoteAnimState = (CharAnimState)animState;
-            remoteAnimItemType = (ItemDefinition.ItemType)itemType;
+            CharAnimState incomingState = (CharAnimState)animState;
+            ItemDefinition.ItemType incomingItemType =
+                (ItemDefinition.ItemType)itemType;
+            remoteActionExplicitlyStopped =
+                incomingState == CharAnimState.Idle ||
+                incomingState == CharAnimState.Walking;
+            BaseCharacterComponent character =
+                remotePlayer?.wgo?.components?.character;
+            if (incomingState == remoteAnimState &&
+                incomingItemType == remoteAnimItemType &&
+                character?.anim_state == incomingState &&
+                incomingState != CharAnimState.Idle)
+            {
+                return;
+            }
+
+            remoteAnimState = incomingState;
+            remoteAnimItemType = incomingItemType;
             
             // Track whether a tool animation is active (to prevent walk/idle from overriding it)
             bool isTool = remoteAnimState == CharAnimState.Tool;
@@ -1480,6 +1727,10 @@ namespace GraveyardKeeperCoop.Network
         private CharAnimState remoteAnimState = CharAnimState.Idle;
         private ItemDefinition.ItemType remoteAnimItemType = ItemDefinition.ItemType.None;
         private bool remoteAnimIsToolActive;
+        // Vanilla StopUsingTool clears ToolComponent but can leave anim_state at
+        // Tool. Do not let a slower parity/raw-visual packet resurrect that pose
+        // after the reliable animation/work-stop signal.
+        private bool remoteActionExplicitlyStopped;
         private string remoteRuntimeZoneId = string.Empty;
         private string remoteRuntimeSubZoneId = string.Empty;
         private bool remoteRuntimeIsInDungeon;
@@ -1534,24 +1785,170 @@ namespace GraveyardKeeperCoop.Network
 
         public void ClearRemoteWorkAnimation()
         {
-            if (!remoteAnimIsToolActive &&
-                remoteAnimState == CharAnimState.Idle)
+            ClearRemoteWorkAnimation(remotePlayerSteamID);
+        }
+
+        public void ClearRemoteWorkAnimation(CSteamID peer)
+        {
+            if (peer == CSteamID.Nil)
+                return;
+
+            if (peer != remotePlayerSteamID)
             {
+                if (!secondaryRemotePeers.TryGetValue(
+                        peer.m_SteamID,
+                        out SecondaryRemotePeer secondary))
+                {
+                    return;
+                }
+
+                secondary.Animation = CharAnimState.Idle;
+                secondary.ItemType = ItemDefinition.ItemType.None;
+                secondary.ToolAnimationActive = false;
+                secondary.ActionExplicitlyStopped = true;
+                ClearToolVisual(secondary.Player?.wgo?.components?.character);
                 return;
             }
 
             remoteAnimState = CharAnimState.Idle;
             remoteAnimItemType = ItemDefinition.ItemType.None;
             remoteAnimIsToolActive = false;
-            ApplyRemoteAnimationState();
+            remoteActionExplicitlyStopped = true;
+            ClearToolVisual(remotePlayer?.wgo?.components?.character);
             CoopMod.Logger.LogInfo(
                 "[OnlineCoopManager] Cleared remote work animation");
+        }
+
+        public void ReconcileRemoteActionVisual(CSteamID peer)
+        {
+            if (peer == remotePlayerSteamID)
+            {
+                if (remoteActionExplicitlyStopped)
+                    ClearStaleToolVisual(
+                        remotePlayer?.wgo?.components?.character,
+                        remoteIsMoving);
+                return;
+            }
+
+            if (secondaryRemotePeers.TryGetValue(
+                    peer.m_SteamID,
+                    out SecondaryRemotePeer secondary) &&
+                secondary.ActionExplicitlyStopped)
+            {
+                ClearStaleToolVisual(
+                    secondary.Player?.wgo?.components?.character,
+                    secondary.Moving);
+            }
+        }
+
+        private static void ClearToolVisual(BaseCharacterComponent character)
+        {
+            if (character == null)
+                return;
+
+            character.SetAnimationState(
+                CharAnimState.Idle,
+                ItemDefinition.ItemType.None);
+            character.SetToolGraphics(0);
+        }
+
+        private static void ClearStaleToolVisual(
+            BaseCharacterComponent character,
+            bool isMoving)
+        {
+            PlayerComponent player = character?.player;
+            bool toolVisible =
+                player?.spr_tool?.sprite != null ||
+                player?.spr_tool_2?.sprite != null;
+            if (character == null ||
+                (!toolVisible && character.anim_state != CharAnimState.Tool))
+            {
+                return;
+            }
+
+            if (character.anim_state == CharAnimState.Tool)
+            {
+                character.SetAnimationState(
+                    isMoving ? CharAnimState.Walking : CharAnimState.Idle,
+                    ItemDefinition.ItemType.None);
+            }
+            character.SetToolGraphics(0);
         }
 
         /// <summary>
         /// Apply the slower parity snapshot for action state that is not covered by
         /// position packets alone: tool/global animator state and carried overhead item.
         /// </summary>
+        public void ApplyRemoteParityAction(
+            CSteamID peer,
+            int animState,
+            int itemType,
+            int globalState,
+            Vector2 direction,
+            bool hasOverhead,
+            string overheadItemJson)
+        {
+            if (peer == remotePlayerSteamID)
+            {
+                ApplyRemoteParityAction(
+                    animState,
+                    itemType,
+                    globalState,
+                    direction,
+                    hasOverhead,
+                    overheadItemJson);
+                return;
+            }
+
+            BaseCharacterComponent character = GetRemotePlayer(peer)
+                ?.components?.character;
+            if (!IsOnlineCoopEnabled || character == null)
+                return;
+
+            try
+            {
+                if (direction.sqrMagnitude > 0.0001f)
+                {
+                    character.direction = direction;
+                    character.LookAt(direction);
+                }
+
+                CharAnimState state = (CharAnimState)animState;
+                ItemDefinition.ItemType type =
+                    (ItemDefinition.ItemType)itemType;
+                bool suppressStoppedTool =
+                    secondaryRemotePeers.TryGetValue(
+                        peer.m_SteamID,
+                        out SecondaryRemotePeer secondary) &&
+                    secondary.ActionExplicitlyStopped &&
+                    IsToolActionState(state, globalState);
+                if (!suppressStoppedTool &&
+                    state != CharAnimState.Idle &&
+                    state != CharAnimState.Walking)
+                {
+                    if (secondary != null)
+                        secondary.ActionExplicitlyStopped = false;
+                    character.SetAnimationState(state, type);
+                    int expectedGlobal = state == CharAnimState.Tool
+                        ? 100 + (int)type
+                        : (int)state;
+                    if (globalState != expectedGlobal)
+                        character.SetGlobalState(globalState);
+                }
+
+                ApplyRemoteOverheadItem(
+                    character,
+                    hasOverhead,
+                    overheadItemJson);
+            }
+            catch (System.Exception ex)
+            {
+                CoopMod.Logger.LogWarning(
+                    $"[MultiPeer] Failed to apply parity action for " +
+                    $"{peer.m_SteamID}: {ex.Message}");
+            }
+        }
+
         public void ApplyRemoteParityAction(int animState, int itemType, int globalState, Vector2 direction, bool hasOverhead, string overheadItemJson)
         {
             if (!IsOnlineCoopEnabled || remotePlayer?.wgo?.components?.character == null)
@@ -1569,8 +1966,30 @@ namespace GraveyardKeeperCoop.Network
                     lastAppliedRemoteDirection = direction;
                 }
 
-                remoteAnimState = (CharAnimState)animState;
+                CharAnimState previousState = remoteAnimState;
+                ItemDefinition.ItemType previousItemType = remoteAnimItemType;
+                CharAnimState incomingState = (CharAnimState)animState;
+                if (remoteActionExplicitlyStopped &&
+                    IsToolActionState(incomingState, globalState))
+                {
+                    ApplyRemoteOverheadItem(
+                        character,
+                        hasOverhead,
+                        overheadItemJson);
+                    ClearStaleToolVisual(character, remoteIsMoving);
+                    return;
+                }
+
+                if (incomingState != CharAnimState.Idle &&
+                    incomingState != CharAnimState.Walking)
+                {
+                    remoteActionExplicitlyStopped = false;
+                }
+                remoteAnimState = incomingState;
                 remoteAnimItemType = (ItemDefinition.ItemType)itemType;
+                bool actionChanged =
+                    previousState != remoteAnimState ||
+                    previousItemType != remoteAnimItemType;
                 remoteAnimIsToolActive = remoteAnimState != CharAnimState.Idle &&
                                          remoteAnimState != CharAnimState.Walking;
 
@@ -1583,7 +2002,8 @@ namespace GraveyardKeeperCoop.Network
                     remoteAnimIsToolActive = globalState != 0 && globalState != -1;
                 }
 
-                if (remoteAnimIsToolActive)
+                if (remoteAnimIsToolActive &&
+                    (actionChanged || character.anim_state != remoteAnimState))
                 {
                     ApplyRemoteAnimationState();
                 }
@@ -1697,6 +2117,22 @@ namespace GraveyardKeeperCoop.Network
         {
             if (tool == null)
                 return;
+
+            if (remoteActionExplicitlyStopped)
+            {
+                toolIsUsing = false;
+                toolPlayingAnimation = false;
+                toolDrivenByAnimEvent = false;
+                toolTargetStateChanged = false;
+                toolTriedToStop = false;
+                toolWasUsing = false;
+                toolActionDelay = 0;
+                toolActionElapsed = -1f;
+                toolCurrentType = (int)ItemDefinition.ItemType.None;
+                toolTargetUniqueId = -1L;
+                toolTargetObjId = string.Empty;
+                toolTargetCustomTag = string.Empty;
+            }
 
             WorldGameObject target = ResolveRuntimeTarget(toolTargetUniqueId, toolTargetCustomTag, toolTargetObjId, toolTargetPosition);
             SetRuntimeField(tool, GetRemoteToolTargetObjField(), target);
@@ -1901,14 +2337,14 @@ namespace GraveyardKeeperCoop.Network
         
         private void Update()
         {
-            var __profSw = System.Diagnostics.Stopwatch.StartNew();
+            long __profStart = GraveyardKeeperCoop.Utils.FrameProfiler.BeginSection();
             try
             {
                 UpdateInternal();
             }
             finally
             {
-                GraveyardKeeperCoop.Utils.FrameProfiler.Record("OCM.Update", __profSw.ElapsedTicks);
+                GraveyardKeeperCoop.Utils.FrameProfiler.EndSection("OCM.Update", __profStart);
             }
         }
 
@@ -1927,6 +2363,8 @@ namespace GraveyardKeeperCoop.Network
                 }
                 return;
             }
+
+            TickSecondaryRemotePeers();
             
             NpcInteractionSyncPatches.TickRemoteDonkeyStateSync();
             CutsceneSyncPatches.TickRemoteCutsceneSession();
@@ -1963,8 +2401,13 @@ namespace GraveyardKeeperCoop.Network
                         }
                         else
                         {
-                            CoopMod.Logger.LogInfo("[OnlineCoopManager] Client left lobby, cleaning up...");
-                            DisableOnlineCoop();
+                            CSteamID missingPeer = remotePlayerSteamID;
+                            CoopMod.Logger.LogInfo(
+                                "[OnlineCoopManager] Primary client left lobby; " +
+                                "cleaning up only that peer...");
+                            HandlePeerLeftLobby(
+                                missingPeer,
+                                SteamFriends.GetFriendPersonaName(missingPeer));
                         }
                         return;
                     }
@@ -2174,10 +2617,13 @@ namespace GraveyardKeeperCoop.Network
                 UpdateRemotePlayerAnimation();
                 
                 // Update remote player's map indicator position
+                Vector3 mapPosition = hasReceivedRemotePlayerPosition
+                    ? targetRemotePosition
+                    : remotePlayer.transform.position;
                 Patches.MapGUIPatches.UpdateRemotePlayerIndicator(
                     remotePlayerSteamID.m_SteamID.ToString(),
                     remotePlayerDisplayName ?? "Player 2",
-                    remotePlayer.transform.position,
+                    mapPosition,
                     new Color(0.3f, 0.5f, 1f, 1f) // Blue for remote player
                 );
             }
@@ -2185,10 +2631,7 @@ namespace GraveyardKeeperCoop.Network
 
         private void UpdateSessionChatOverlayLifecycle()
         {
-            if (LobbyGUI.IsMultiplayerSessionActive &&
-                MainGame.game_started &&
-                MainGame.me?.player != null &&
-                SteamLobbyManager.Instance?.IsInLobby == true)
+            if (CanShowSessionChatOverlay())
             {
                 EnsureSessionChatOverlayShown();
                 return;
@@ -2204,8 +2647,15 @@ namespace GraveyardKeeperCoop.Network
 
         private void EnsureSessionChatOverlayShown()
         {
-            if (sessionChatOverlayShown)
+            if (!CanShowSessionChatOverlay())
                 return;
+
+            // Some scene transitions rebuild the UI hierarchy. A stale lifecycle
+            // flag must not prevent recreation after Unity destroys the old overlay.
+            if (sessionChatOverlayShown && UI.ChatOverlay.Instance != null)
+                return;
+
+            sessionChatOverlayShown = false;
 
             if (Time.realtimeSinceStartup < nextSessionChatOverlayAttemptTime)
                 return;
@@ -2219,6 +2669,19 @@ namespace GraveyardKeeperCoop.Network
             overlay.Show();
             sessionChatOverlayShown = true;
             CoopMod.Logger.LogInfo("[OnlineCoopManager] Chat overlay shown for multiplayer session");
+        }
+
+        private static bool CanShowSessionChatOverlay()
+        {
+            // MainGame.game_started is restored early by some menu/load patches,
+            // before the native loading screen actually leaves. LoadingGUI is the
+            // authoritative presentation gate: creating the overlay while it is
+            // shown makes chat render on top of save transfer and scene loading.
+            return LobbyGUI.IsMultiplayerSessionActive &&
+                   MainGame.game_started &&
+                   MainGame.me?.player != null &&
+                   SteamLobbyManager.Instance?.IsInLobby == true &&
+                   !LoadingGUI.is_shown;
         }
 
         private Vector2 CalculateSentPositionVelocity(Vector3 currentPosition)
@@ -2257,6 +2720,7 @@ namespace GraveyardKeeperCoop.Network
             remoteAnimState = CharAnimState.Idle;
             remoteAnimItemType = ItemDefinition.ItemType.None;
             remoteAnimIsToolActive = false;
+            remoteActionExplicitlyStopped = false;
             lastAppliedRemoteIsMoving = false;
             lastAppliedRemoteDirection = Vector2.down;
             remoteIdleTimer = IDLE_DELAY;
@@ -2922,6 +3386,12 @@ namespace GraveyardKeeperCoop.Network
             
             if (!LobbyGUI.IsMultiplayerSessionActive)
                 return;
+
+            // A host-directed in-game reload deliberately keeps the lobby and manager
+            // alive while the old world is still present. Only the SpawnPlayer postfix
+            // may reopen this gate after the replacement world creates its local player.
+            if (Patches.LocalCoopActivationPatch.IsWaitingForHotReloadSpawn)
+                return;
             
             if (!MainGame.game_started || MainGame.me?.player == null)
                 return;
@@ -3110,7 +3580,8 @@ namespace GraveyardKeeperCoop.Network
 
         public void BeginObservedCutsceneFollow(CSteamID senderID)
         {
-            if (!IsOnlineCoopEnabled || senderID == CSteamID.Nil || senderID != remotePlayerSteamID)
+            if (!IsOnlineCoopEnabled || senderID == CSteamID.Nil ||
+                !IsRemotePlayer(senderID))
             {
                 return;
             }
@@ -3200,7 +3671,7 @@ namespace GraveyardKeeperCoop.Network
                 return;
             }
 
-            if (senderID != remotePlayerSteamID)
+            if (!IsRemotePlayer(senderID))
             {
                 CoopMod.Logger.LogInfo($"[CutsceneWalk] Ignoring CutsceneWalkTo from unknown sender {senderID}");
                 return;
@@ -3402,14 +3873,14 @@ namespace GraveyardKeeperCoop.Network
 
             observedFollowNextCheckTime = Time.time + OBSERVED_FOLLOW_CHECK_INTERVAL;
 
-            if (observedCutsceneFollowSenderID != remotePlayerSteamID)
+            if (!IsRemotePlayer(observedCutsceneFollowSenderID))
             {
                 EndObservedCutsceneFollow("remote player changed");
                 return;
             }
 
             var lp = MainGame.me?.player;
-            var remote = GetRemotePlayer();
+            var remote = GetRemotePlayer(observedCutsceneFollowSenderID);
             if (lp == null || remote == null)
             {
                 return;
@@ -3584,6 +4055,483 @@ namespace GraveyardKeeperCoop.Network
             {
                 CoopMod.Logger.LogWarning($"[CutsceneWalk] Failed to set facing: {ex.Message}");
             }
+        }
+
+        private void EnableSecondaryRemotePeers()
+        {
+            nextSecondaryRosterRefreshAt = 0f;
+            RefreshSecondaryRemoteRoster();
+            CoopMod.Logger.LogWarning(
+                "[MultiPeer] Experimental 3-4 player avatar support enabled");
+        }
+
+        private void DisableSecondaryRemotePeers()
+        {
+            staleSecondaryPeerIds.Clear();
+            foreach (SecondaryRemotePeer peer in secondaryRemotePeers.Values)
+                DestroySecondaryRemotePeer(peer);
+            secondaryRemotePeers.Clear();
+        }
+
+        private void TickSecondaryRemotePeers()
+        {
+            float now = Time.realtimeSinceStartup;
+            if (now >= nextSecondaryRosterRefreshAt)
+            {
+                nextSecondaryRosterRefreshAt = now + SecondaryRosterRefreshSeconds;
+                RefreshSecondaryRemoteRoster();
+            }
+
+            foreach (SecondaryRemotePeer peer in secondaryRemotePeers.Values)
+            {
+                UpdateSecondaryRemoteAnimation(peer);
+                UpdateSecondaryRemoteMapIndicator(peer);
+            }
+        }
+
+        private void RefreshSecondaryRemoteRoster()
+        {
+            SteamLobbyManager lobby = SteamLobbyManager.Instance;
+            if (!IsOnlineCoopEnabled || lobby == null || !lobby.IsInLobby ||
+                lobby.CurrentLobbyID == CSteamID.Nil)
+            {
+                return;
+            }
+
+            var present = new HashSet<ulong>();
+            CSteamID local = SteamUser.GetSteamID();
+            int count = SteamMatchmaking.GetNumLobbyMembers(lobby.CurrentLobbyID);
+            for (int i = 0; i < count; i++)
+            {
+                CSteamID member =
+                    SteamMatchmaking.GetLobbyMemberByIndex(lobby.CurrentLobbyID, i);
+                if (member == CSteamID.Nil || member == local ||
+                    member == remotePlayerSteamID)
+                {
+                    continue;
+                }
+
+                present.Add(member.m_SteamID);
+                EnsureSecondaryRemotePeer(member);
+            }
+
+            staleSecondaryPeerIds.Clear();
+            foreach (ulong steamID in secondaryRemotePeers.Keys)
+            {
+                if (!present.Contains(steamID))
+                    staleSecondaryPeerIds.Add(steamID);
+            }
+
+            for (int i = 0; i < staleSecondaryPeerIds.Count; i++)
+                RemoveSecondaryRemotePeer(new CSteamID(staleSecondaryPeerIds[i]));
+        }
+
+        private void EnsureSecondaryRemotePeer(CSteamID steamID)
+        {
+            if (!IsOnlineCoopEnabled || steamID == CSteamID.Nil ||
+                steamID == SteamUser.GetSteamID() || steamID == remotePlayerSteamID ||
+                secondaryRemotePeers.ContainsKey(steamID.m_SteamID) ||
+                !IsCurrentLobbyMember(steamID) || MainGame.me?.player == null)
+            {
+                return;
+            }
+
+            SecondaryRemotePeer peer = SpawnSecondaryRemotePeer(
+                steamID,
+                secondaryRemotePeers.Count + 2);
+            if (peer != null)
+                secondaryRemotePeers[steamID.m_SteamID] = peer;
+        }
+
+        private void RemoveSecondaryRemotePeer(CSteamID steamID)
+        {
+            if (steamID == CSteamID.Nil ||
+                !secondaryRemotePeers.TryGetValue(
+                    steamID.m_SteamID,
+                    out SecondaryRemotePeer peer))
+            {
+                return;
+            }
+
+            secondaryRemotePeers.Remove(steamID.m_SteamID);
+            DestroySecondaryRemotePeer(peer);
+        }
+
+        private SecondaryRemotePeer SpawnSecondaryRemotePeer(
+            CSteamID steamID,
+            int ordinal)
+        {
+            try
+            {
+                PlayerComponent player =
+                    PlayerComponent.SpawnPlayer(is_local_player: false, inventory: null);
+                if (player == null)
+                    return null;
+
+                player.gameObject.name = $"RemotePlayer_{steamID.m_SteamID}";
+                if (player.wgo != null)
+                {
+                    player.wgo.unique_id = BuildRemotePlayerUniqueId(steamID);
+                    player.wgo.data.SetParam("speed", LazyConsts.PLAYER_SPEED);
+                    player.wgo.data.SetInventorySize(20);
+                    if (MainGame.me?.player?.data != null)
+                    {
+                        player.wgo.data.hp = MainGame.me.player.data.hp;
+                        player.wgo.data.SetParam(
+                            "energy",
+                            MainGame.me.player.data.GetParam("energy", 100f));
+                        player.wgo.data.SetParam(
+                            "sanity",
+                            MainGame.me.player.data.GetParam("sanity", 100f));
+                    }
+                }
+
+                BaseCharacterComponent character = player.wgo?.components?.character;
+                if (character != null)
+                {
+                    character.can_be_locally_controlled = false;
+                    character.control_enabled = false;
+                }
+
+                Vector3 spawnPosition = MainGame.me.player.transform.position +
+                    new Vector3(FallbackRemoteSpawnOffset * ordinal, 0f, 0f);
+                bool fromSave = MultiplayerSavePositions.TryGetSavedPositionForSteam(
+                    steamID,
+                    out Vector3 savedPosition);
+                if (fromSave)
+                    player.transform.localPosition = savedPosition;
+                else
+                    player.transform.position = spawnPosition;
+
+                DisableRemoteSimulation(player);
+                CameraTools.RemoveFromCameraTargets(player.transform, 0f);
+
+                ChunkedGameObject chunked = player.GetComponent<ChunkedGameObject>();
+                if (chunked != null)
+                    chunked.always_active = true;
+
+                GhostDriver ghost = player.gameObject.AddComponent<GhostDriver>();
+                ghost.Enable();
+
+                var cosmeticsDriver =
+                    player.gameObject.AddComponent<PlayerCosmeticsDriver>();
+                cosmeticsDriver.Initialize();
+                cosmeticsDriver.SetCosmetics(
+                    PlayerCosmetics.FromSteamID(steamID.m_SteamID));
+                CosmeticsSync.Instance?.SetRemotePlayerDriver(steamID, cosmeticsDriver);
+                CosmeticsSync.Instance?.RequestCosmeticsFrom(steamID);
+
+                string name = NameTagManager.GetSteamDisplayName(steamID);
+                GameObject nameTag =
+                    NameTagManager.CreateNameTag(player.gameObject, name);
+                ChatGUI.Instance?.AddRemotePlayer(name, steamID);
+
+                var peer = new SecondaryRemotePeer
+                {
+                    SteamID = steamID,
+                    Player = player,
+                    Ghost = ghost,
+                    NameTag = nameTag,
+                    DisplayName = name,
+                    TargetPosition = player.transform.position,
+                    HasPosition = fromSave
+                };
+
+                CoopMod.Logger.LogInfo(
+                    $"[MultiPeer] Spawned remote avatar {name} " +
+                    $"({steamID.m_SteamID}); remote_count={secondaryRemotePeers.Count + 2}");
+                return peer;
+            }
+            catch (System.Exception ex)
+            {
+                CoopMod.Logger.LogError(
+                    $"[MultiPeer] Failed to spawn peer {steamID.m_SteamID}: {ex}");
+                return null;
+            }
+        }
+
+        private void DestroySecondaryRemotePeer(SecondaryRemotePeer peer)
+        {
+            if (peer == null)
+                return;
+
+            peer.Ghost?.Disable();
+            CosmeticsSync.Instance?.RemoveRemotePlayerDriver(peer.SteamID);
+            if (peer.NameTag != null)
+                NameTagManager.DestroyNameTag(peer.NameTag);
+            if (!string.IsNullOrEmpty(peer.DisplayName))
+                ChatGUI.Instance?.RemoveRemotePlayer(peer.DisplayName);
+            MapGUIPatches.RemoveRemotePlayerIndicator(
+                peer.SteamID.m_SteamID.ToString());
+            if (peer.Player != null)
+                Destroy(peer.Player.gameObject);
+
+            CoopMod.Logger.LogInfo(
+                $"[MultiPeer] Removed remote avatar {peer.SteamID.m_SteamID}");
+        }
+
+        private bool TryGetSecondaryRemoteSavePosition(
+            CSteamID steamID,
+            out Vector3 position)
+        {
+            position = Vector3.zero;
+            if (steamID == CSteamID.Nil ||
+                !secondaryRemotePeers.TryGetValue(
+                    steamID.m_SteamID,
+                    out SecondaryRemotePeer peer) ||
+                peer?.Player == null)
+            {
+                return false;
+            }
+
+            Vector3 world = peer.HasPosition
+                ? peer.TargetPosition
+                : peer.Player.transform.position;
+            position = WorldToSavePosition(world);
+            return true;
+        }
+
+        private void ApplySecondaryRemoteState(
+            CSteamID senderID,
+            Vector2 direction,
+            bool isMoving,
+            Vector2 velocity)
+        {
+            EnsureSecondaryRemotePeer(senderID);
+            if (!secondaryRemotePeers.TryGetValue(
+                    senderID.m_SteamID,
+                    out SecondaryRemotePeer peer))
+            {
+                return;
+            }
+
+            peer.Velocity = velocity;
+            if (direction.sqrMagnitude > 0.0001f)
+                peer.Direction = direction;
+            peer.Moving = isMoving;
+            if (isMoving)
+            {
+                peer.IdleTimer = 0f;
+                if (peer.ToolAnimationActive ||
+                    peer.Animation == CharAnimState.Tool)
+                {
+                    ClearRemoteWorkAnimation(senderID);
+                }
+            }
+        }
+
+        private void ApplySecondaryRemotePosition(
+            CSteamID senderID,
+            Vector3 position,
+            float timestamp)
+        {
+            EnsureSecondaryRemotePeer(senderID);
+            if (!secondaryRemotePeers.TryGetValue(
+                    senderID.m_SteamID,
+                    out SecondaryRemotePeer peer) ||
+                peer.Player == null)
+            {
+                return;
+            }
+
+            float distance = Vector3.Distance(
+                peer.Player.transform.position,
+                position);
+            peer.TargetPosition = position;
+            if (!peer.HasPosition || distance >= SecondaryTeleportSnapDistance)
+            {
+                peer.Player.transform.position = position;
+                if (peer.Player.wgo != null)
+                    peer.Player.wgo.transform.position = position;
+                peer.Ghost?.ForcePosition(position);
+                peer.HasPosition = true;
+
+                ChunkedGameObject chunked =
+                    peer.Player.GetComponent<ChunkedGameObject>();
+                chunked?.RecalculateChunk();
+                return;
+            }
+
+            peer.Ghost?.PushSnapshot(position, peer.Velocity, timestamp);
+        }
+
+        private void ApplySecondaryRemoteAnimation(
+            CSteamID senderID,
+            int animation,
+            int itemType)
+        {
+            EnsureSecondaryRemotePeer(senderID);
+            if (!secondaryRemotePeers.TryGetValue(
+                    senderID.m_SteamID,
+                    out SecondaryRemotePeer peer))
+            {
+                return;
+            }
+
+            CharAnimState incomingAnimation = (CharAnimState)animation;
+            ItemDefinition.ItemType incomingItemType =
+                (ItemDefinition.ItemType)itemType;
+            BaseCharacterComponent character =
+                peer.Player?.wgo?.components?.character;
+            if (peer.Animation == incomingAnimation &&
+                peer.ItemType == incomingItemType &&
+                character?.anim_state == incomingAnimation &&
+                incomingAnimation != CharAnimState.Idle)
+            {
+                return;
+            }
+
+            peer.Animation = incomingAnimation;
+            peer.ItemType = incomingItemType;
+            peer.ActionExplicitlyStopped =
+                peer.Animation == CharAnimState.Idle ||
+                peer.Animation == CharAnimState.Walking;
+            peer.ToolAnimationActive =
+                peer.Animation != CharAnimState.Idle &&
+                peer.Animation != CharAnimState.Walking;
+            ApplySecondaryAnimationState(peer);
+        }
+
+        private static bool IsToolActionState(
+            CharAnimState state,
+            int globalState)
+        {
+            return state == CharAnimState.Tool || globalState >= 100;
+        }
+
+        private static void ApplySecondaryAnimationState(SecondaryRemotePeer peer)
+        {
+            BaseCharacterComponent character = peer?.Player?.wgo?.components?.character;
+            if (character == null)
+                return;
+
+            character.SetAnimationState(peer.Animation, peer.ItemType);
+            if (peer.Animation == CharAnimState.Tool)
+                character.SetToolGraphics((int)peer.ItemType);
+            else if (peer.Animation == CharAnimState.Idle)
+                character.SetToolGraphics(0);
+        }
+
+        private static void UpdateSecondaryRemoteAnimation(SecondaryRemotePeer peer)
+        {
+            BaseCharacterComponent character = peer?.Player?.wgo?.components?.character;
+            if (character == null)
+                return;
+
+            if (Vector2.Distance(peer.Direction, peer.AppliedDirection) > 0.1f &&
+                peer.Direction.sqrMagnitude > 0.0001f)
+            {
+                character.direction = peer.Direction;
+                character.LookAt(peer.Direction);
+                peer.AppliedDirection = peer.Direction;
+            }
+
+            if (peer.ToolAnimationActive)
+                return;
+
+            bool shouldMove;
+            if (peer.Moving)
+            {
+                shouldMove = true;
+            }
+            else
+            {
+                peer.IdleTimer += Time.deltaTime;
+                shouldMove = peer.IdleTimer < SecondaryIdleDelaySeconds;
+            }
+
+            if (shouldMove && (!peer.AppliedMoving ||
+                               character.anim_state != CharAnimState.Walking))
+            {
+                character.OnStartWalking();
+                peer.AppliedMoving = true;
+            }
+            else if (!shouldMove && (peer.AppliedMoving ||
+                                     character.anim_state == CharAnimState.Walking))
+            {
+                character.OnStopped();
+                peer.AppliedMoving = false;
+            }
+        }
+
+        private static void UpdateSecondaryRemoteMapIndicator(
+            SecondaryRemotePeer peer)
+        {
+            if (peer?.Player == null)
+                return;
+
+            Color color = Color.HSVToRGB(
+                (peer.SteamID.m_SteamID % 997UL) / 997f,
+                0.65f,
+                1f);
+            MapGUIPatches.UpdateRemotePlayerIndicator(
+                peer.SteamID.m_SteamID.ToString(),
+                peer.DisplayName ?? "Player",
+                peer.HasPosition ? peer.TargetPosition : peer.Player.transform.position,
+                color);
+        }
+
+        private static void DisableRemoteSimulation(PlayerComponent player)
+        {
+            if (player == null)
+                return;
+
+            Rigidbody2D body = player.GetComponentInChildren<Rigidbody2D>(true);
+            if (body != null)
+            {
+                body.velocity = Vector2.zero;
+                body.angularVelocity = 0f;
+                body.simulated = false;
+            }
+
+            AILerp aiLerp = player.GetComponentInChildren<AILerp>(true);
+            if (aiLerp != null)
+            {
+                aiLerp.canMove = false;
+                aiLerp.enabled = false;
+            }
+
+            Seeker seeker = player.GetComponentInChildren<Seeker>(true);
+            if (seeker != null)
+                seeker.enabled = false;
+
+            AIPath aiPath = player.GetComponentInChildren<AIPath>(true);
+            if (aiPath != null)
+                aiPath.enabled = false;
+
+            ObjectDynamicShadow shadow =
+                player.GetComponentInChildren<ObjectDynamicShadow>(true);
+            if (shadow != null)
+                Destroy(shadow.gameObject);
+
+            ObjectDynamicShadowChild[] shadowChildren =
+                player.GetComponentsInChildren<ObjectDynamicShadowChild>(true);
+            for (int i = 0; i < shadowChildren.Length; i++)
+            {
+                if (shadowChildren[i] != null)
+                    Destroy(shadowChildren[i].gameObject);
+            }
+        }
+
+        private static bool IsCurrentLobbyMember(CSteamID steamID)
+        {
+            SteamLobbyManager lobby = SteamLobbyManager.Instance;
+            if (steamID == CSteamID.Nil || lobby == null || !lobby.IsInLobby ||
+                lobby.CurrentLobbyID == CSteamID.Nil)
+            {
+                return false;
+            }
+
+            int count = SteamMatchmaking.GetNumLobbyMembers(lobby.CurrentLobbyID);
+            for (int i = 0; i < count; i++)
+            {
+                if (SteamMatchmaking.GetLobbyMemberByIndex(lobby.CurrentLobbyID, i) ==
+                    steamID)
+                {
+                    return true;
+                }
+            }
+            return false;
         }
 
         private void TickStuckControlWatchdog()

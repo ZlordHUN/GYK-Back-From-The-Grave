@@ -1,7 +1,7 @@
 using HarmonyLib;
 using UnityEngine;
 using System.Collections.Generic;
-using System.Linq;
+using System.IO;
 using GraveyardKeeperCoop.Utils;
 
 namespace GraveyardKeeperCoop.Patches
@@ -13,12 +13,47 @@ namespace GraveyardKeeperCoop.Patches
     [HarmonyPatch(typeof(MapGUI))]
     public class MapGUIPatches
     {
+        private sealed class RemoteIndicatorState
+        {
+            public string PlayerName;
+            public Vector3 WorldPosition;
+            public Color Color;
+        }
+
+        private sealed class IndicatorVisualState
+        {
+            public UITexture AvatarWidget;
+            public ulong SteamId;
+            public Color AvatarTint;
+            public float NextAvatarAttemptAt;
+            public bool HasSteamAvatar;
+            public UIWidget[] Widgets;
+            public Vector3 LastMapPosition;
+            public bool HasMapPosition;
+        }
+
+        private const string AvatarFrameResourceName =
+            "GraveyardKeeperCoop.Assets.avatar_frame.png";
+        private const int AvatarWidgetSize = 26;
+        private const int FrameWidgetSize = 44;
+        private const int AvatarDepth = 100;
+        private const int FrameDepth = 101;
+        private const float AvatarRetrySeconds = 2f;
+
         private static Dictionary<string, GameObject> playerIndicators = new Dictionary<string, GameObject>();
+        private static readonly Dictionary<string, RemoteIndicatorState> remoteIndicatorStates =
+            new Dictionary<string, RemoteIndicatorState>();
+        private static readonly Dictionary<GameObject, IndicatorVisualState> indicatorVisualStates =
+            new Dictionary<GameObject, IndicatorVisualState>();
+        private static readonly Dictionary<ulong, Texture2D> circularAvatarTextures =
+            new Dictionary<ulong, Texture2D>();
         private static GameObject localPlayerIndicator;
         private static GameObject player2Indicator;
         private static Transform mapTransform;
         private static Transform mapContentsTransform;
         private static MapGUI cachedMapGUI;
+        private static Texture2D avatarFrameTexture;
+        private static Texture2D fallbackCircleTexture;
 
         /// <summary>
         /// Patch the MapGUI.Init method to set up our indicator system
@@ -66,7 +101,7 @@ namespace GraveyardKeeperCoop.Patches
                 }
                 
                 // Create or update local player indicator
-                UpdateLocalPlayerIndicator(__instance);
+                UpdateLocalPlayerIndicator(__instance, logDetails: true);
                 
                 // Create or update Player 2 indicator if local co-op is active
                 UpdatePlayer2Indicator(__instance);
@@ -99,6 +134,15 @@ namespace GraveyardKeeperCoop.Patches
                     if (player2Indicator != null)
                     {
                         UpdatePlayer2Indicator(__instance);
+                    }
+
+                    foreach (var pair in remoteIndicatorStates)
+                    {
+                        ApplyRemotePlayerIndicator(
+                            pair.Key,
+                            pair.Value.PlayerName,
+                            pair.Value.WorldPosition,
+                            pair.Value.Color);
                     }
                 }
             }
@@ -145,7 +189,7 @@ namespace GraveyardKeeperCoop.Patches
         /// <summary>
         /// Create or update the local player indicator
         /// </summary>
-        private static void UpdateLocalPlayerIndicator(MapGUI mapGUI)
+        private static void UpdateLocalPlayerIndicator(MapGUI mapGUI, bool logDetails = false)
         {
             if (MainGame.me == null || MainGame.me.player == null)
             {
@@ -210,7 +254,11 @@ namespace GraveyardKeeperCoop.Patches
                 mapContentsTransform = parentTransform;
                 
                 CoopMod.Logger.LogInfo($"Attaching indicator to: {parentTransform.name}");
-                localPlayerIndicator = CreatePlayerIndicator(mapGUI, parentTransform, "LocalPlayer", Color.green, Steamworks.CSteamID.Nil);
+                localPlayerIndicator = CreatePlayerIndicator(
+                    parentTransform,
+                    "LocalPlayer",
+                    Color.green,
+                    GraveyardKeeperCoopMod.Utils.SteamHelper.GetLocalSteamID());
                 
                 // If indicator creation failed, just return - nothing more we can do
                 if (localPlayerIndicator == null)
@@ -224,35 +272,35 @@ namespace GraveyardKeeperCoop.Patches
             Vector3 playerWorldPos = MainGame.me.player.transform.position;
             
             // Convert world position to map position using helper
-            Vector2 mapPos = MapCoordinateHelper.WorldToMap(playerWorldPos);
+            Vector2 mapPos = MapCoordinateHelper.PlayerWorldToMap(playerWorldPos);
             
-            CoopMod.Logger.LogInfo($"Player world pos: ({playerWorldPos.x:F1}, {playerWorldPos.y:F1}, {playerWorldPos.z:F1})");
-            CoopMod.Logger.LogInfo($"Converted to map pos: ({mapPos.x:F1}, {mapPos.y:F1})");
-            
-            // Check current zone for reference
-            WorldZone currentZone = MainGame.me.player.GetMyWorldZone();
-            if (currentZone != null)
+            if (logDetails)
             {
-                CoopMod.Logger.LogInfo($"Player is in zone: {currentZone.id}");
+                CoopMod.Logger.LogInfo($"Player world pos: ({playerWorldPos.x:F1}, {playerWorldPos.y:F1}, {playerWorldPos.z:F1})");
+                CoopMod.Logger.LogInfo($"Converted to map pos: ({mapPos.x:F1}, {mapPos.y:F1})");
                 
-                // Log the actual WorldZone center transform position
-                Vector3 zoneCenterWorld = currentZone.center_tf.position;
-                CoopMod.Logger.LogInfo($"Zone '{currentZone.id}' center in world: ({zoneCenterWorld.x:F1}, {zoneCenterWorld.y:F1}, {zoneCenterWorld.z:F1})");
-                
-                // Try to find this zone on the map to see its position
-                UIScrollView scrollView = mapGUI.GetComponentInChildren<UIScrollView>();
-                if (scrollView != null && scrollView.transform.childCount > 0)
+                // Check current zone for reference when the map opens.
+                WorldZone currentZone = MainGame.me.player.GetMyWorldZone();
+                if (currentZone != null)
                 {
-                    Transform contentsTransform = scrollView.transform.GetChild(0);
-                    Transform zoneTransform = contentsTransform.Find(currentZone.id);
-                    if (zoneTransform != null)
+                    CoopMod.Logger.LogInfo($"Player is in zone: {currentZone.id}");
+                    Vector3 zoneCenterWorld = currentZone.center_tf.position;
+                    CoopMod.Logger.LogInfo($"Zone '{currentZone.id}' center in world: ({zoneCenterWorld.x:F1}, {zoneCenterWorld.y:F1}, {zoneCenterWorld.z:F1})");
+
+                    UIScrollView scrollView = mapGUI.GetComponentInChildren<UIScrollView>();
+                    if (scrollView != null && scrollView.transform.childCount > 0)
                     {
-                        CoopMod.Logger.LogInfo($"Found zone '{currentZone.id}' on map at local position: {zoneTransform.localPosition}");
-                        CoopMod.Logger.LogInfo($"  Our calculated position would be offset by: ({mapPos.x - zoneTransform.localPosition.x:F1}, {mapPos.y - zoneTransform.localPosition.y:F1})");
-                    }
-                    else
-                    {
-                        CoopMod.Logger.LogInfo($"Zone '{currentZone.id}' not found on map (might not have a visible label)");
+                        Transform contentsTransform = scrollView.transform.GetChild(0);
+                        Transform zoneTransform = contentsTransform.Find(currentZone.id);
+                        if (zoneTransform != null)
+                        {
+                            CoopMod.Logger.LogInfo($"Found zone '{currentZone.id}' on map at local position: {zoneTransform.localPosition}");
+                            CoopMod.Logger.LogInfo($"  Our calculated position would be offset by: ({mapPos.x - zoneTransform.localPosition.x:F1}, {mapPos.y - zoneTransform.localPosition.y:F1})");
+                        }
+                        else
+                        {
+                            CoopMod.Logger.LogInfo($"Zone '{currentZone.id}' not found on map (might not have a visible label)");
+                        }
                     }
                 }
             }
@@ -260,13 +308,16 @@ namespace GraveyardKeeperCoop.Patches
             // Update indicator position with calculated coordinates
             localPlayerIndicator.transform.localPosition = new Vector3(mapPos.x, mapPos.y, 0f);
             
-            CoopMod.Logger.LogInfo($"Indicator positioned at: ({mapPos.x:F1}, {mapPos.y:F1})");
+            if (logDetails)
+                CoopMod.Logger.LogInfo($"Indicator positioned at: ({mapPos.x:F1}, {mapPos.y:F1})");
             
             // Ensure indicator is active
             if (!localPlayerIndicator.activeSelf)
             {
                 localPlayerIndicator.SetActive(true);
             }
+
+            RefreshIndicatorAvatar(localPlayerIndicator);
         }
 
         /// <summary>
@@ -312,7 +363,7 @@ namespace GraveyardKeeperCoop.Patches
             Vector3 p2WorldPos = manager.Player2.transform.position;
             
             // Convert world position to map position using helper
-            Vector2 mapPos = MapCoordinateHelper.WorldToMap(p2WorldPos);
+            Vector2 mapPos = MapCoordinateHelper.PlayerWorldToMap(p2WorldPos);
             
             // Update indicator position
             player2Indicator.transform.localPosition = new Vector3(mapPos.x, mapPos.y, 0f);
@@ -322,6 +373,7 @@ namespace GraveyardKeeperCoop.Patches
             {
                 player2Indicator.SetActive(true);
             }
+            RefreshIndicatorAvatar(player2Indicator);
         }
 
         /// <summary>
@@ -329,221 +381,303 @@ namespace GraveyardKeeperCoop.Patches
         /// </summary>
         private static GameObject CreateSimpleIndicatorForPlayer2(Transform parent, string playerName)
         {
-            CoopMod.Logger.LogInfo($"Creating Player 2 indicator");
-            
-            // Create a new GameObject
-            GameObject indicatorObj = new GameObject($"PlayerIndicator_{playerName}");
-            indicatorObj.transform.SetParent(parent, false);
-            indicatorObj.layer = parent.gameObject.layer;
-            
-            // Try to get P2's Steam avatar if available, otherwise use a different colored indicator
-            // For now, use a blue-colored indicator to distinguish from P1's green
-            Texture2D avatarTexture = null;
-            
-            // TODO: Get P2's Steam avatar when we have their Steam ID
-            // For local co-op, P2 might be the same Steam user or a guest
-            
-            if (avatarTexture != null)
+            Steamworks.CSteamID localSteamId =
+                GraveyardKeeperCoopMod.Utils.SteamHelper.GetLocalSteamID();
+            return CreateFramedIndicator(
+                parent,
+                playerName,
+                localSteamId,
+                new Color(0.3f, 0.5f, 1f, 1f),
+                new Color(0.65f, 0.8f, 1f, 1f),
+                0.9f,
+                1.12f);
+        }
+
+        /// <summary>
+        /// Create a player indicator using the supplied Steam profile picture.
+        /// A missing Steam ID retains the colored circular fallback.
+        /// </summary>
+        private static GameObject CreatePlayerIndicator(
+            Transform parent,
+            string playerName,
+            Color color,
+            Steamworks.CSteamID steamId)
+        {
+            return CreateFramedIndicator(
+                parent,
+                playerName,
+                steamId,
+                color,
+                Color.white,
+                1f,
+                1.08f);
+        }
+
+        private static GameObject CreateFramedIndicator(
+            Transform parent,
+            string playerName,
+            Steamworks.CSteamID steamId,
+            Color fallbackColor,
+            Color avatarTint,
+            float pulseDuration,
+            float pulseScale)
+        {
+            if (parent == null)
+                return null;
+
+            GameObject indicator = new GameObject($"PlayerIndicator_{playerName}");
+            indicator.transform.SetParent(parent, false);
+            indicator.layer = parent.gameObject.layer;
+
+            GameObject avatarObject = new GameObject("Avatar");
+            avatarObject.transform.SetParent(indicator.transform, false);
+            avatarObject.layer = indicator.layer;
+
+            UITexture avatarWidget = avatarObject.AddComponent<UITexture>();
+            avatarWidget.mainTexture = GetFallbackCircleTexture();
+            avatarWidget.width = AvatarWidgetSize;
+            avatarWidget.height = AvatarWidgetSize;
+            avatarWidget.depth = AvatarDepth;
+            avatarWidget.pivot = UIWidget.Pivot.Center;
+            avatarWidget.color = fallbackColor;
+            avatarWidget.shader = Shader.Find("Unlit/Transparent Colored");
+
+            Texture2D frameTexture = GetAvatarFrameTexture();
+            if (frameTexture != null)
             {
-                UITexture avatarDisplay = indicatorObj.AddComponent<UITexture>();
-                avatarDisplay.mainTexture = avatarTexture;
-                avatarDisplay.width = 32;
-                avatarDisplay.height = 32;
-                avatarDisplay.depth = 99; // Slightly below P1
-                avatarDisplay.shader = Shader.Find("Unlit/Transparent Colored");
+                GameObject frameObject = new GameObject("Frame");
+                frameObject.transform.SetParent(indicator.transform, false);
+                frameObject.layer = indicator.layer;
+
+                UITexture frameWidget = frameObject.AddComponent<UITexture>();
+                frameWidget.mainTexture = frameTexture;
+                frameWidget.width = FrameWidgetSize;
+                frameWidget.height = FrameWidgetSize;
+                frameWidget.depth = FrameDepth;
+                frameWidget.pivot = UIWidget.Pivot.Center;
+                frameWidget.shader = Shader.Find("Unlit/Transparent Colored");
             }
-            else
-            {
-                // Create a blue-tinted version using the same Steam avatar but with color tint
-                // Or just use a colored square
-                Texture2D p1Avatar = GraveyardKeeperCoopMod.Utils.SteamHelper.GetLocalPlayerAvatar();
-                
-                if (p1Avatar != null)
-                {
-                    UITexture avatarDisplay = indicatorObj.AddComponent<UITexture>();
-                    avatarDisplay.mainTexture = p1Avatar;
-                    avatarDisplay.width = 32;
-                    avatarDisplay.height = 32;
-                    avatarDisplay.depth = 99;
-                    avatarDisplay.color = new Color(0.5f, 0.7f, 1f, 1f); // Blue tint
-                    avatarDisplay.shader = Shader.Find("Unlit/Transparent Colored");
-                    
-                    CoopMod.Logger.LogInfo("Created P2 indicator with blue-tinted avatar");
-                }
-                else
-                {
-                    // Fallback to colored square
-                    UISprite sprite = indicatorObj.AddComponent<UISprite>();
-                    sprite.width = 24;
-                    sprite.height = 24;
-                    sprite.depth = 99;
-                    sprite.color = new Color(0.3f, 0.5f, 1f, 1f); // Blue color for P2
-                    sprite.type = UIBasicSprite.Type.Simple;
-                    
-                    CoopMod.Logger.LogInfo("Created P2 indicator with blue square fallback");
-                }
-            }
-            
-            // Add a pulsing effect (slightly different timing from P1)
-            TweenScale pulseEffect = indicatorObj.AddComponent<TweenScale>();
-            pulseEffect.from = new Vector3(1f, 1f, 1f);
-            pulseEffect.to = new Vector3(1.15f, 1.15f, 1f);
-            pulseEffect.duration = 0.9f; // Slightly different from P1
+
+            TweenScale pulseEffect = indicator.AddComponent<TweenScale>();
+            pulseEffect.from = Vector3.one;
+            pulseEffect.to = new Vector3(pulseScale, pulseScale, 1f);
+            pulseEffect.duration = pulseDuration;
             pulseEffect.style = UITweener.Style.PingPong;
             pulseEffect.enabled = true;
-            
-            CoopMod.Logger.LogInfo($"=== PLAYER 2 INDICATOR CREATED ===");
-            return indicatorObj;
+
+            indicatorVisualStates[indicator] = new IndicatorVisualState
+            {
+                AvatarWidget = avatarWidget,
+                SteamId = steamId.m_SteamID,
+                AvatarTint = avatarTint,
+                NextAvatarAttemptAt = 0f,
+                HasSteamAvatar = false,
+                Widgets = indicator.GetComponentsInChildren<UIWidget>(true)
+            };
+
+            RefreshIndicatorAvatar(indicator);
+            CoopMod.Logger.LogInfo(
+                $"Created framed map indicator for {playerName} (steamId={steamId.m_SteamID})");
+            return indicator;
         }
 
-        /// <summary>
-        /// Create a player indicator using Steam profile picture.
-        /// If <paramref name="steamId"/> is CSteamID.Nil the LOCAL player's avatar is used;
-        /// otherwise the avatar for that specific Steam user is fetched.
-        /// </summary>
-        private static GameObject CreatePlayerIndicator(MapGUI mapGUI, Transform parent, string playerName, Color color, Steamworks.CSteamID steamId)
+        private static void RefreshIndicatorAvatar(GameObject indicator)
         {
-            CoopMod.Logger.LogInfo($"Creating Steam avatar indicator for {playerName} (steamId={steamId.m_SteamID})");
-            
-            // Find an existing MapZoneGUI to use as a template - search from mapGUI root
-            MapZoneGUI templateZone = mapGUI.GetComponentInChildren<MapZoneGUI>(true);
-            
-            // Debug: List all MapZoneGUI components we can find
-            MapZoneGUI[] allZones = mapGUI.GetComponentsInChildren<MapZoneGUI>(true);
-            CoopMod.Logger.LogInfo($"Found {allZones.Length} MapZoneGUI components in MapGUI hierarchy");
-            foreach (var zone in allZones)
+            if (indicator == null ||
+                !indicatorVisualStates.TryGetValue(indicator, out IndicatorVisualState state) ||
+                state.HasSteamAvatar || state.SteamId == 0 || state.AvatarWidget == null ||
+                Time.unscaledTime < state.NextAvatarAttemptAt)
             {
-                CoopMod.Logger.LogInfo($"  MapZoneGUI: {zone.name}, active: {zone.gameObject.activeSelf}");
-            }
-            
-            if (templateZone == null)
-            {
-                // Fallback: Create a simple indicator without cloning
-                CoopMod.Logger.LogWarning("No MapZoneGUI template found - creating simple indicator");
-                return CreateSimpleIndicator(parent, playerName, color);
-            }
-            
-            CoopMod.Logger.LogInfo($"Found template zone: {templateZone.name}");
-            
-            // Clone the template zone GameObject
-            GameObject indicatorObj = UnityEngine.Object.Instantiate(templateZone.gameObject, parent);
-            indicatorObj.name = $"PlayerIndicator_{playerName}";
-            indicatorObj.SetActive(true);
-            
-            CoopMod.Logger.LogInfo($"=== CREATING STEAM AVATAR INDICATOR ===");
-            CoopMod.Logger.LogInfo($"  Cloned from: {templateZone.name}");
-            CoopMod.Logger.LogInfo($"  GameObject: {indicatorObj.name}");
-            CoopMod.Logger.LogInfo($"  Layer: {indicatorObj.layer}");
-            
-            // Remove the MapZoneGUI component since we don't need it
-            MapZoneGUI zoneComponent = indicatorObj.GetComponent<MapZoneGUI>();
-            if (zoneComponent != null)
-            {
-                UnityEngine.Object.Destroy(zoneComponent);
-            }
-            
-            // Find the label in the cloned object
-            UILabel existingLabel = indicatorObj.GetComponentInChildren<UILabel>();
-            if (existingLabel != null)
-            {
-                CoopMod.Logger.LogInfo($"  Found cloned label: {existingLabel.name}");
-                // Hide or repurpose the label
-                existingLabel.text = "";
-                existingLabel.enabled = false;
+                return;
             }
 
-            // Get Steam avatar texture using SteamHelper — remote players pass their own SteamID,
-            // local player passes Nil which falls back to the local avatar.
-            Texture2D avatarTexture = (steamId == Steamworks.CSteamID.Nil)
-                ? GraveyardKeeperCoopMod.Utils.SteamHelper.GetLocalPlayerAvatar()
-                : GraveyardKeeperCoopMod.Utils.SteamHelper.GetAvatarForSteamID(steamId);
-            
-            if (avatarTexture != null)
-            {
-                CoopMod.Logger.LogInfo($"  Got Steam avatar texture: {avatarTexture.width}x{avatarTexture.height}");
-                
-                // Create UITexture to display the avatar
-                UITexture avatarDisplay = indicatorObj.AddComponent<UITexture>();
-                avatarDisplay.mainTexture = avatarTexture;
-                avatarDisplay.width = 32;  // Small avatar size
-                avatarDisplay.height = 32;
-                avatarDisplay.depth = 20;
-                avatarDisplay.shader = Shader.Find("Unlit/Transparent Colored");
-                
-                CoopMod.Logger.LogInfo($"  UITexture configured: {avatarDisplay.width}x{avatarDisplay.height}, depth: {avatarDisplay.depth}");
-                CoopMod.Logger.LogInfo($"  Shader: {avatarDisplay.shader?.name ?? "null"}");
-                
-                // Add a pulsing effect
-                TweenScale pulseEffect = indicatorObj.AddComponent<TweenScale>();
-                pulseEffect.from = new Vector3(1f, 1f, 1f);
-                pulseEffect.to = new Vector3(1.1f, 1.1f, 1f);
-                pulseEffect.duration = 1f;
-                pulseEffect.style = UITweener.Style.PingPong;
-                pulseEffect.enabled = true;
-            }
-            else
-            {
-                CoopMod.Logger.LogWarning("  Could not get Steam avatar texture!");
-            }
-            
-            CoopMod.Logger.LogInfo($"=== INDICATOR CREATED ===");
-            
-            return indicatorObj;
+            state.NextAvatarAttemptAt = Time.unscaledTime + AvatarRetrySeconds;
+            Texture2D avatar = GetOrCreateCircularAvatar(state.SteamId);
+            if (avatar == null)
+                return;
+
+            state.AvatarWidget.mainTexture = avatar;
+            state.AvatarWidget.color = state.AvatarTint;
+            state.AvatarWidget.MarkAsChanged();
+            state.HasSteamAvatar = true;
         }
 
-        /// <summary>
-        /// Create a simple player indicator without cloning MapZoneGUI (fallback)
-        /// </summary>
-        private static GameObject CreateSimpleIndicator(Transform parent, string playerName, Color color)
+        private static Texture2D GetOrCreateCircularAvatar(ulong steamId)
         {
-            CoopMod.Logger.LogInfo($"Creating simple indicator for {playerName}");
-            
-            // Create a new GameObject
-            GameObject indicatorObj = new GameObject($"PlayerIndicator_{playerName}");
-            indicatorObj.transform.SetParent(parent, false);
-            indicatorObj.layer = parent.gameObject.layer;
-            
-            // Get Steam avatar texture
-            Texture2D avatarTexture = GraveyardKeeperCoopMod.Utils.SteamHelper.GetLocalPlayerAvatar();
-            
-            if (avatarTexture != null)
+            if (circularAvatarTextures.TryGetValue(steamId, out Texture2D cachedAvatar) &&
+                cachedAvatar != null)
             {
-                CoopMod.Logger.LogInfo($"  Got Steam avatar texture: {avatarTexture.width}x{avatarTexture.height}");
-                
-                // Create UITexture to display the avatar
-                UITexture avatarDisplay = indicatorObj.AddComponent<UITexture>();
-                avatarDisplay.mainTexture = avatarTexture;
-                avatarDisplay.width = 32;
-                avatarDisplay.height = 32;
-                avatarDisplay.depth = 100; // High depth to render on top
-                avatarDisplay.shader = Shader.Find("Unlit/Transparent Colored");
-                
-                CoopMod.Logger.LogInfo($"  UITexture configured: {avatarDisplay.width}x{avatarDisplay.height}, depth: {avatarDisplay.depth}");
-                
-                // Add a pulsing effect
-                TweenScale pulseEffect = indicatorObj.AddComponent<TweenScale>();
-                pulseEffect.from = new Vector3(1f, 1f, 1f);
-                pulseEffect.to = new Vector3(1.15f, 1.15f, 1f);
-                pulseEffect.duration = 0.8f;
-                pulseEffect.style = UITweener.Style.PingPong;
-                pulseEffect.enabled = true;
+                return cachedAvatar;
             }
-            else
+
+            Texture2D sourceAvatar = GraveyardKeeperCoopMod.Utils.SteamHelper.GetAvatarForSteamID(
+                new Steamworks.CSteamID(steamId));
+            if (sourceAvatar == null)
+                return null;
+
+            Texture2D circularAvatar = CreateCircularAvatar(sourceAvatar, steamId);
+            Object.Destroy(sourceAvatar);
+            if (circularAvatar != null)
+                circularAvatarTextures[steamId] = circularAvatar;
+            return circularAvatar;
+        }
+
+        private static Texture2D CreateCircularAvatar(Texture2D source, ulong steamId)
+        {
+            if (source == null || source.width <= 0 || source.height <= 0)
+                return null;
+
+            Color32[] pixels = source.GetPixels32();
+            float centerX = (source.width - 1) * 0.5f;
+            float centerY = (source.height - 1) * 0.5f;
+            float radius = Mathf.Min(source.width, source.height) * 0.49f;
+            float edgeFeather = Mathf.Max(1f, Mathf.Min(source.width, source.height) * 0.025f);
+
+            for (int y = 0; y < source.height; y++)
             {
-                CoopMod.Logger.LogWarning("  Could not get Steam avatar - creating colored square fallback");
-                
-                // Create a simple colored square as fallback
-                UISprite sprite = indicatorObj.AddComponent<UISprite>();
-                sprite.width = 24;
-                sprite.height = 24;
-                sprite.depth = 100;
-                sprite.color = color;
-                // Use a built-in atlas sprite if available
-                sprite.type = UIBasicSprite.Type.Simple;
+                for (int x = 0; x < source.width; x++)
+                {
+                    int index = y * source.width + x;
+                    float distance = Vector2.Distance(
+                        new Vector2(x, y),
+                        new Vector2(centerX, centerY));
+                    float circleAlpha = Mathf.Clamp01((radius - distance) / edgeFeather);
+                    Color32 pixel = pixels[index];
+                    pixel.a = (byte)(pixel.a * circleAlpha);
+                    pixels[index] = pixel;
+                }
             }
-            
-            CoopMod.Logger.LogInfo($"=== SIMPLE INDICATOR CREATED ===");
-            return indicatorObj;
+
+            Texture2D circular = new Texture2D(
+                source.width,
+                source.height,
+                TextureFormat.RGBA32,
+                false);
+            circular.name = $"MapAvatar_{steamId}";
+            circular.filterMode = FilterMode.Bilinear;
+            circular.wrapMode = TextureWrapMode.Clamp;
+            circular.SetPixels32(pixels);
+            circular.Apply(false, false);
+            return circular;
+        }
+
+        private static Texture2D GetFallbackCircleTexture()
+        {
+            if (fallbackCircleTexture != null)
+                return fallbackCircleTexture;
+
+            const int size = 32;
+            Color32[] pixels = new Color32[size * size];
+            float center = (size - 1) * 0.5f;
+            float radius = size * 0.47f;
+            for (int y = 0; y < size; y++)
+            {
+                for (int x = 0; x < size; x++)
+                {
+                    float distance = Vector2.Distance(
+                        new Vector2(x, y),
+                        new Vector2(center, center));
+                    byte alpha = (byte)(Mathf.Clamp01(radius - distance) * 255f);
+                    pixels[y * size + x] = new Color32(255, 255, 255, alpha);
+                }
+            }
+
+            fallbackCircleTexture = new Texture2D(size, size, TextureFormat.RGBA32, false);
+            fallbackCircleTexture.name = "MapAvatarFallbackCircle";
+            fallbackCircleTexture.filterMode = FilterMode.Bilinear;
+            fallbackCircleTexture.wrapMode = TextureWrapMode.Clamp;
+            fallbackCircleTexture.SetPixels32(pixels);
+            fallbackCircleTexture.Apply(false, false);
+            return fallbackCircleTexture;
+        }
+
+        private static Texture2D GetAvatarFrameTexture()
+        {
+            if (avatarFrameTexture != null)
+                return avatarFrameTexture;
+
+            try
+            {
+                using (Stream stream = typeof(MapGUIPatches).Assembly
+                    .GetManifestResourceStream(AvatarFrameResourceName))
+                {
+                    if (stream == null)
+                    {
+                        CoopMod.Logger.LogWarning(
+                            $"Map avatar frame resource not found: {AvatarFrameResourceName}");
+                        return null;
+                    }
+
+                    byte[] imageData = new byte[stream.Length];
+                    int offset = 0;
+                    while (offset < imageData.Length)
+                    {
+                        int read = stream.Read(imageData, offset, imageData.Length - offset);
+                        if (read <= 0)
+                            break;
+                        offset += read;
+                    }
+
+                    Texture2D texture = new Texture2D(2, 2, TextureFormat.RGBA32, false);
+                    if (!texture.LoadImage(imageData))
+                    {
+                        Object.Destroy(texture);
+                        CoopMod.Logger.LogWarning("Could not decode the embedded map avatar frame");
+                        return null;
+                    }
+
+                    RemoveBakedCheckerboard(texture);
+                    texture.name = "MapAvatarFrame";
+                    texture.filterMode = FilterMode.Bilinear;
+                    texture.wrapMode = TextureWrapMode.Clamp;
+                    avatarFrameTexture = texture;
+                    return avatarFrameTexture;
+                }
+            }
+            catch (System.Exception ex)
+            {
+                CoopMod.Logger.LogWarning($"Could not load map avatar frame: {ex.Message}");
+                return null;
+            }
+        }
+
+        private static void RemoveBakedCheckerboard(Texture2D texture)
+        {
+            Color32[] pixels = texture.GetPixels32();
+            bool hasTransparency = false;
+            for (int i = 0; i < pixels.Length; i++)
+            {
+                if (pixels[i].a < 250)
+                {
+                    hasTransparency = true;
+                    break;
+                }
+            }
+
+            if (hasTransparency)
+                return;
+
+            int removedPixels = 0;
+            for (int i = 0; i < pixels.Length; i++)
+            {
+                Color32 pixel = pixels[i];
+                byte min = pixel.r < pixel.g ? pixel.r : pixel.g;
+                if (pixel.b < min) min = pixel.b;
+                byte max = pixel.r > pixel.g ? pixel.r : pixel.g;
+                if (pixel.b > max) max = pixel.b;
+
+                if (min >= 210 && max - min <= 28)
+                {
+                    pixel.a = 0;
+                    pixels[i] = pixel;
+                    removedPixels++;
+                }
+            }
+
+            texture.SetPixels32(pixels);
+            texture.Apply(false, false);
+            CoopMod.Logger.LogInfo(
+                $"Removed baked checkerboard from map avatar frame ({removedPixels} pixels)");
         }
 
         /// <summary>
@@ -551,12 +685,32 @@ namespace GraveyardKeeperCoop.Patches
         /// </summary>
         public static void UpdateRemotePlayerIndicator(string playerId, string playerName, Vector3 worldPosition, Color indicatorColor)
         {
-            if (mapTransform == null || cachedMapGUI == null)
-            {
+            if (string.IsNullOrEmpty(playerId))
                 return;
+
+            if (!remoteIndicatorStates.TryGetValue(playerId, out RemoteIndicatorState state))
+            {
+                state = new RemoteIndicatorState();
+                remoteIndicatorStates[playerId] = state;
             }
 
-            if (!cachedMapGUI.gameObject.activeInHierarchy)
+            state.PlayerName = playerName;
+            state.WorldPosition = worldPosition;
+            state.Color = indicatorColor;
+
+            // MapGUI.Update owns rendering while the map is open. Keeping this
+            // method state-only prevents OnlineCoopManager and MapGUI from applying
+            // the same marker twice in one frame.
+        }
+
+        private static void ApplyRemotePlayerIndicator(
+            string playerId,
+            string playerName,
+            Vector3 worldPosition,
+            Color indicatorColor)
+        {
+            if (mapTransform == null || cachedMapGUI == null ||
+                !cachedMapGUI.gameObject.activeInHierarchy)
             {
                 return;
             }
@@ -588,7 +742,11 @@ namespace GraveyardKeeperCoop.Patches
                 {
                     remoteSteamId = new Steamworks.CSteamID(parsed);
                 }
-                playerIndicators[playerId] = CreatePlayerIndicator(cachedMapGUI, parent, playerName, indicatorColor, remoteSteamId);
+                playerIndicators[playerId] = CreatePlayerIndicator(
+                    parent,
+                    playerName,
+                    indicatorColor,
+                    remoteSteamId);
             }
 
             GameObject indicator = playerIndicators[playerId];
@@ -599,11 +757,35 @@ namespace GraveyardKeeperCoop.Patches
                 return;
             }
 
+            RefreshIndicatorAvatar(indicator);
+
             // Convert world position to map position using helper
-            Vector2 mapPos = MapCoordinateHelper.WorldToMap(worldPosition);
-            
-            // Update indicator position
-            indicator.transform.localPosition = new Vector3(mapPos.x, mapPos.y, -10);
+            Vector2 mapPos = MapCoordinateHelper.PlayerWorldToMap(worldPosition);
+            Vector3 nextMapPosition = new Vector3(mapPos.x, mapPos.y, -10);
+            if (!indicatorVisualStates.TryGetValue(indicator, out IndicatorVisualState visualState) ||
+                !visualState.HasMapPosition ||
+                visualState.LastMapPosition != nextMapPosition)
+            {
+                indicator.transform.localPosition = nextMapPosition;
+
+                // NGUI can retain previous geometry while the game is paused. Cache
+                // the child widgets at creation and dirty them only when the marker moves.
+                UIWidget[] widgets = visualState?.Widgets;
+                if (widgets != null)
+                {
+                    for (int i = 0; i < widgets.Length; i++)
+                    {
+                        if (widgets[i] != null)
+                            widgets[i].MarkAsChanged();
+                    }
+                }
+
+                if (visualState != null)
+                {
+                    visualState.LastMapPosition = nextMapPosition;
+                    visualState.HasMapPosition = true;
+                }
+            }
             
             // Keep the indicator enabled; its visibility follows the parent's activeSelf
             // (the scroll contents is active whenever the map is open).
@@ -618,11 +800,13 @@ namespace GraveyardKeeperCoop.Patches
         /// </summary>
         public static void RemoveRemotePlayerIndicator(string playerId)
         {
+            remoteIndicatorStates.Remove(playerId);
+
             if (playerIndicators.ContainsKey(playerId))
             {
                 if (playerIndicators[playerId] != null)
                 {
-                    Object.Destroy(playerIndicators[playerId]);
+                    DestroyIndicator(playerIndicators[playerId]);
                 }
                 playerIndicators.Remove(playerId);
                 
@@ -637,13 +821,13 @@ namespace GraveyardKeeperCoop.Patches
         {
             if (localPlayerIndicator != null)
             {
-                Object.Destroy(localPlayerIndicator);
+                DestroyIndicator(localPlayerIndicator);
                 localPlayerIndicator = null;
             }
 
             if (player2Indicator != null)
             {
-                Object.Destroy(player2Indicator);
+                DestroyIndicator(player2Indicator);
                 player2Indicator = null;
             }
 
@@ -651,10 +835,42 @@ namespace GraveyardKeeperCoop.Patches
             {
                 if (indicator != null)
                 {
-                    Object.Destroy(indicator);
+                    DestroyIndicator(indicator);
                 }
             }
             playerIndicators.Clear();
+            remoteIndicatorStates.Clear();
+            mapContentsTransform = null;
+
+            foreach (Texture2D avatarTexture in circularAvatarTextures.Values)
+            {
+                if (avatarTexture != null)
+                    Object.Destroy(avatarTexture);
+            }
+            circularAvatarTextures.Clear();
+
+            if (avatarFrameTexture != null)
+            {
+                Object.Destroy(avatarFrameTexture);
+                avatarFrameTexture = null;
+            }
+
+            if (fallbackCircleTexture != null)
+            {
+                Object.Destroy(fallbackCircleTexture);
+                fallbackCircleTexture = null;
+            }
+
+            indicatorVisualStates.Clear();
+        }
+
+        private static void DestroyIndicator(GameObject indicator)
+        {
+            if (indicator == null)
+                return;
+
+            indicatorVisualStates.Remove(indicator);
+            Object.Destroy(indicator);
         }
     }
 }

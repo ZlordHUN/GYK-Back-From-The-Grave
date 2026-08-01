@@ -221,11 +221,19 @@ namespace GraveyardKeeperCoop.Multiplayer
                 string payload = message.Substring(MSG_READY_STATE.Length);
                 string[] parts = payload.Split('|');
                 
-                if (parts.Length == 2)
+                if (parts.Length == 2 &&
+                    ulong.TryParse(parts[0], out ulong playerIDValue) &&
+                    (parts[1] == "0" || parts[1] == "1"))
                 {
-                    ulong playerIDValue = ulong.Parse(parts[0]);
+                    if (playerIDValue != senderID.m_SteamID)
+                    {
+                        CoopMod.Logger.LogWarning(
+                            $"[ReadySystem] Ignored spoofed ready state from {senderID} claiming player {playerIDValue}");
+                        return true;
+                    }
+
                     bool isReady = parts[1] == "1";
-                    CSteamID playerID = new CSteamID(playerIDValue);
+                    CSteamID playerID = senderID;
                     
                     playerReadyStates[playerID] = isReady;
                     CoopMod.Logger.LogInfo($"[ReadySystem] Player {playerID} ready state: {isReady}");
@@ -238,6 +246,10 @@ namespace GraveyardKeeperCoop.Multiplayer
                     {
                         CheckAllPlayersReady();
                     }
+                }
+                else
+                {
+                    CoopMod.Logger.LogWarning($"[ReadySystem] Ignored malformed ready state from {senderID}");
                 }
                 return true;
             }
@@ -256,14 +268,11 @@ namespace GraveyardKeeperCoop.Multiplayer
             }
             
             byte[] data = Encoding.UTF8.GetBytes(message);
-            
-            return SteamNetworking.SendP2PPacket(
+            return SteamP2PManager.Instance.SendBinary(
                 recipientID,
                 data,
-                (uint)data.Length,
                 EP2PSend.k_EP2PSendReliable,
-                READY_CHANNEL
-            );
+                READY_CHANNEL);
         }
     }
 }

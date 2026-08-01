@@ -21,6 +21,7 @@ namespace GraveyardKeeperCoop.Multiplayer
         private const float LoadingIndicatorIntervalSeconds = 0.35f;
         private const float LoadingStatusBelowBarOffset = 34f;
         private const float LoadingStatusFallbackYRatio = -0.24f;
+        private const float WorldEntryBarrierRetrySeconds = 0.5f;
 
         private static GameLoadSync _instance;
         public static GameLoadSync Instance => _instance;
@@ -34,7 +35,12 @@ namespace GraveyardKeeperCoop.Multiplayer
         private bool localPlayerReady;
         private bool introBlocked;
         private HashSet<CSteamID> readyPlayers = new HashSet<CSteamID>();
+        private readonly HashSet<CSteamID> preparedPlayers = new HashSet<CSteamID>();
         private int expectedPlayerCount;
+        private bool worldEntryPrepareSent;
+        private bool worldEntryPrepareReceived;
+        private bool worldEntryReleaseSent;
+        private float nextWorldEntryBarrierRetryAt;
 
         // Pending intro callback - stored when intro finishes but we're still waiting for sync
         private Action pendingIntroCallback;
@@ -64,6 +70,9 @@ namespace GraveyardKeeperCoop.Multiplayer
         private bool ownsLoadingBar;
         private float currentProgressBarValue = -1f;
         private float syncBarStartedAt = -1f;
+        private bool saveTransferPresentationActive;
+        private float saveTransferProgress;
+        private bool reuseTransferLoadingScreenForNextShow;
 
         // Expected duration of the sync phase, used for the ease-out curve
         // that animates the bar from 0.5 → 0.95. Picked generously so the bar
@@ -106,6 +115,8 @@ namespace GraveyardKeeperCoop.Multiplayer
             {
                 SteamP2PManager.Instance.OnPlayerReadyToPlay -= OnRemotePlayerReady;
                 SteamP2PManager.Instance.OnPlayerReadyToPlay += OnRemotePlayerReady;
+                SteamP2PManager.Instance.OnWorldEntryBarrier -= OnWorldEntryBarrier;
+                SteamP2PManager.Instance.OnWorldEntryBarrier += OnWorldEntryBarrier;
             }
         }
         
@@ -114,13 +125,16 @@ namespace GraveyardKeeperCoop.Multiplayer
             if (SteamP2PManager.Instance != null)
             {
                 SteamP2PManager.Instance.OnPlayerReadyToPlay -= OnRemotePlayerReady;
+                SteamP2PManager.Instance.OnWorldEntryBarrier -= OnWorldEntryBarrier;
             }
         }
 
         private void Update()
         {
-            if (!isWaitingForSync)
+            if (!isWaitingForSync && !saveTransferPresentationActive)
                 return;
+
+            TickWorldEntryBarrier();
 
             // Lazy (re)capture of the native loading bar's UILabel. The base
             // game constructs LoadingGUI lazily during its first Show() call,
@@ -162,6 +176,24 @@ namespace GraveyardKeeperCoop.Multiplayer
         /// </summary>
         private void UpdateProgressBar()
         {
+            if (saveTransferPresentationActive)
+            {
+                float transferTarget = Mathf.Clamp01(saveTransferProgress);
+                if (Mathf.Abs(currentProgressBarValue - transferTarget) < 0.001f)
+                    return;
+
+                currentProgressBarValue = transferTarget;
+                try
+                {
+                    LoadingGUI.SetProgressBar(transferTarget);
+                }
+                catch (System.Exception ex)
+                {
+                    CoopMod.Logger.LogWarning($"[GameLoadSync] Failed to set save-transfer progress: {ex.Message}");
+                }
+                return;
+            }
+
             if (!ownsLoadingBar || syncBarStartedAt < 0f)
                 return;
 
@@ -264,13 +296,21 @@ namespace GraveyardKeeperCoop.Multiplayer
             localPlayerReady = false;
             introBlocked = false;
             readyPlayers.Clear();
+            preparedPlayers.Clear();
             expectedPlayerCount = playerCount;
+            worldEntryPrepareSent = false;
+            worldEntryPrepareReceived = false;
+            worldEntryReleaseSent = false;
+            nextWorldEntryBarrierRetryAt = 0f;
             pendingIntroCallback = null;
             pendingHideCallbacks.Clear();
             AllowLoadingHide = false;
             ownsLoadingBar = false;
             currentProgressBarValue = -1f;
             syncBarStartedAt = -1f;
+            saveTransferPresentationActive = false;
+            saveTransferProgress = 0f;
+            reuseTransferLoadingScreenForNextShow = false;
 
             // Pause game time immediately
             PauseGameTime();
@@ -284,6 +324,116 @@ namespace GraveyardKeeperCoop.Multiplayer
             // text only when the native loading bar isn't visible).
             CreateSyncOverlay();
             UpdateStatusText("Loading world");
+        }
+
+        /// <summary>
+        /// Show the native loading presentation before the client has a local save to
+        /// deserialize. The transfer itself owns the progress bar until the completed
+        /// file is handed to SaveSlotsMenuGUI.
+        /// </summary>
+        public void BeginClientSaveTransferPresentation()
+        {
+            saveTransferPresentationActive = true;
+            saveTransferProgress = 0f;
+            currentProgressBarValue = -1f;
+            reuseTransferLoadingScreenForNextShow = false;
+
+            CreateSyncOverlay();
+
+            try
+            {
+                if (!LoadingGUI.is_shown)
+                    LoadingGUI.ShowWithProgressBar();
+                else
+                    LoadingGUI.ShowProgressBar();
+            }
+            catch (System.Exception ex)
+            {
+                CoopMod.Logger.LogWarning($"[GameLoadSync] Failed to show save-transfer loading screen: {ex.Message}");
+            }
+
+            CaptureNativeLoadingLabel();
+            UpdateOverlayBackground();
+            UpdateStatusText("Requesting save");
+            UpdateProgressBar();
+        }
+
+        public void ReportClientSaveTransferProgress(float progress)
+        {
+            if (!saveTransferPresentationActive ||
+                float.IsNaN(progress) || float.IsInfinity(progress))
+            {
+                return;
+            }
+
+            saveTransferProgress = Mathf.Clamp01(progress);
+            UpdateProgressBar();
+        }
+
+        /// <summary>
+        /// End the transfer-owned progress phase immediately before the normal save
+        /// loader calls LoadingGUI.Show. LoadingGuiSyncPatch consumes that one Show call
+        /// while keeping the current screen visible, then invokes its callback on the next
+        /// UI tick so the downloaded slot begins deserializing without a hide/reopen flash.
+        /// </summary>
+        public void PrepareForReceivedSaveLoad()
+        {
+            if (!saveTransferPresentationActive)
+                return;
+
+            saveTransferProgress = 1f;
+            UpdateProgressBar();
+            saveTransferPresentationActive = false;
+            ownsLoadingBar = false;
+            currentProgressBarValue = -1f;
+            syncBarStartedAt = -1f;
+            UpdateStatusText("Loading world");
+            reuseTransferLoadingScreenForNextShow = LoadingGUI.is_shown;
+        }
+
+        /// <summary>
+        /// Called from the LoadingGUI.Show prefix for the save loader's first Show after
+        /// transfer completion. Returning true means the current loading screen was reused
+        /// and the original Show must be skipped because LoadingGUI rejects duplicate Show
+        /// calls without invoking their callback.
+        /// </summary>
+        internal bool TryReuseTransferLoadingScreen(
+            GJCommons.VoidDelegate loadCallback)
+        {
+            if (!reuseTransferLoadingScreenForNextShow)
+                return false;
+
+            // This is a one-shot handoff. If the screen disappeared unexpectedly,
+            // let vanilla Show rebuild it instead of intercepting a later load.
+            if (!LoadingGUI.is_shown)
+            {
+                reuseTransferLoadingScreenForNextShow = false;
+                return false;
+            }
+
+            if (loadCallback == null)
+                return false;
+
+            reuseTransferLoadingScreenForNextShow = false;
+            try
+            {
+                GJTimer.AddTimer(0f, () => loadCallback());
+            }
+            catch (System.Exception ex)
+            {
+                CoopMod.Logger.LogWarning(
+                    $"[GameLoadSync] Failed to defer reused loading-screen callback: {ex.Message}");
+                loadCallback();
+            }
+            CoopMod.Logger.LogInfo(
+                "[GameLoadSync] Reusing save-transfer loading screen for native world load");
+            return true;
+        }
+
+        public void NotifyHostSaveTransferStarted()
+        {
+            if (isWaitingForSync)
+                UpdateStatusText("Sending save");
         }
         
         /// <summary>
@@ -348,10 +498,142 @@ namespace GraveyardKeeperCoop.Multiplayer
             
             if (readyCount >= expectedPlayerCount)
             {
-                CoopMod.Logger.LogInfo("[GameLoadSync] All players ready! Starting gameplay...");
-                
+                if (!IsLocalLobbyHost())
+                {
+                    UpdateStatusText("Preparing players");
+                    CoopMod.Logger.LogInfo(
+                        "[GameLoadSync] All players ready locally; waiting for host barrier preparation");
+                    return;
+                }
+
+                if (worldEntryPrepareSent)
+                    return;
+
+                worldEntryPrepareSent = true;
+                nextWorldEntryBarrierRetryAt = 0f;
+                CoopMod.Logger.LogInfo(
+                    "[GameLoadSync] Host observed all players ready; preparing the world-entry barrier");
+                SendWorldEntryPrepare();
+                TryReleaseWorldEntryBarrier();
+            }
+        }
+
+        private void OnWorldEntryBarrier(
+            CSteamID senderID,
+            WorldEntryBarrierPhase phase)
+        {
+            if (!isWaitingForSync)
+                return;
+
+            if (phase == WorldEntryBarrierPhase.Prepared)
+            {
+                if (!IsLocalLobbyHost() || !worldEntryPrepareSent ||
+                    !readyPlayers.Contains(senderID))
+                    return;
+
+                if (preparedPlayers.Add(senderID))
+                {
+                    CoopMod.Logger.LogInfo(
+                        $"[GameLoadSync] Player prepared for world entry: " +
+                        $"{SteamFriends.GetFriendPersonaName(senderID)} " +
+                        $"({preparedPlayers.Count + 1}/{expectedPlayerCount})");
+                }
+                TryReleaseWorldEntryBarrier();
+                return;
+            }
+
+            CSteamID lobbyID = SteamLobbyManager.Instance?.CurrentLobbyID ?? CSteamID.Nil;
+            CSteamID hostID = lobbyID != CSteamID.Nil
+                ? SteamMatchmaking.GetLobbyOwner(lobbyID)
+                : CSteamID.Nil;
+            if (hostID != CSteamID.Nil && senderID != hostID)
+            {
+                CoopMod.Logger.LogWarning(
+                    $"[GameLoadSync] Ignored world-entry release from non-host {senderID}");
+                return;
+            }
+
+            if (phase == WorldEntryBarrierPhase.Prepare)
+            {
+                if (!worldEntryPrepareReceived)
+                {
+                    worldEntryPrepareReceived = true;
+                    UpdateStatusText("Ready to enter world");
+                    CoopMod.Logger.LogInfo(
+                        "[GameLoadSync] Host requested world-entry preparation; acknowledging barrier");
+                }
+
+                SendWorldEntryPrepared();
+                return;
+            }
+
+            if (phase == WorldEntryBarrierPhase.Release)
+            {
+                CoopMod.Logger.LogInfo(
+                    $"[GameLoadSync] Host released the world-entry barrier ({GetReadyCount()}/{expectedPlayerCount} ready locally)");
                 AllPlayersReady();
             }
+        }
+
+        private void TickWorldEntryBarrier()
+        {
+            if (!isWaitingForSync || Time.realtimeSinceStartup < nextWorldEntryBarrierRetryAt)
+                return;
+
+            if (IsLocalLobbyHost() && worldEntryPrepareSent && !worldEntryReleaseSent)
+            {
+                SendWorldEntryPrepare();
+            }
+            else if (!IsLocalLobbyHost() && worldEntryPrepareReceived)
+            {
+                SendWorldEntryPrepared();
+            }
+        }
+
+        private void SendWorldEntryPrepare()
+        {
+            nextWorldEntryBarrierRetryAt =
+                Time.realtimeSinceStartup + WorldEntryBarrierRetrySeconds;
+            SteamP2PManager.Instance?.BroadcastWorldEntryBarrier(
+                WorldEntryBarrierPhase.Prepare);
+        }
+
+        private void SendWorldEntryPrepared()
+        {
+            nextWorldEntryBarrierRetryAt =
+                Time.realtimeSinceStartup + WorldEntryBarrierRetrySeconds;
+            SteamP2PManager.Instance?.SendWorldEntryPreparedToHost();
+        }
+
+        private void TryReleaseWorldEntryBarrier()
+        {
+            if (!IsLocalLobbyHost() || worldEntryReleaseSent ||
+                preparedPlayers.Count + 1 < expectedPlayerCount)
+            {
+                return;
+            }
+
+            worldEntryReleaseSent = true;
+            CoopMod.Logger.LogInfo(
+                "[GameLoadSync] Every player acknowledged the world-entry barrier; releasing gameplay");
+            SteamP2PManager.Instance?.BroadcastWorldEntryBarrier(
+                WorldEntryBarrierPhase.Release,
+                reliableFallback: true);
+            AllPlayersReady();
+        }
+
+        private static bool IsLocalLobbyHost()
+        {
+            OnlineCoopManager onlineCoop = OnlineCoopManager.Instance;
+            if (onlineCoop?.IsHost == true || SteamLobbyManager.Instance?.IsHost == true)
+                return true;
+
+            if (!SteamManager.Initialized)
+                return false;
+
+            CSteamID lobbyID = SteamLobbyManager.Instance?.CurrentLobbyID ?? CSteamID.Nil;
+            return lobbyID != CSteamID.Nil &&
+                   SteamMatchmaking.GetLobbyOwner(lobbyID) == SteamUser.GetSteamID();
         }
         
         /// <summary>
@@ -422,9 +704,10 @@ namespace GraveyardKeeperCoop.Multiplayer
                 return false;
             }
 
-            if (expectedPlayerCount > 1 && onlineCoop.RemotePlayerComponent == null)
+            int expectedRemotePlayers = Math.Max(0, expectedPlayerCount - 1);
+            if (onlineCoop.RemotePlayerCount < expectedRemotePlayers)
             {
-                waitingFor = "Spawning remote player";
+                waitingFor = $"Spawning remote players ({onlineCoop.RemotePlayerCount}/{expectedRemotePlayers})";
                 return false;
             }
 
@@ -971,6 +1254,11 @@ namespace GraveyardKeeperCoop.Multiplayer
             introBlocked = false;
             isInIntroPhase = false;
             readyPlayers.Clear();
+            preparedPlayers.Clear();
+            worldEntryPrepareSent = false;
+            worldEntryPrepareReceived = false;
+            worldEntryReleaseSent = false;
+            nextWorldEntryBarrierRetryAt = 0f;
             hasSyncedThisSession = false;
             postLoadWarmupInProgress = false;
             pendingIntroCallback = null;
@@ -978,6 +1266,9 @@ namespace GraveyardKeeperCoop.Multiplayer
             ownsLoadingBar = false;
             currentProgressBarValue = -1f;
             syncBarStartedAt = -1f;
+            saveTransferPresentationActive = false;
+            saveTransferProgress = 0f;
+            reuseTransferLoadingScreenForNextShow = false;
             pendingHideCallbacks.Clear();
             RestoreNativeLoadingLabel();
             HideSyncOverlay();

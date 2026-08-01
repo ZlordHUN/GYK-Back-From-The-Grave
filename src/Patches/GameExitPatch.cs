@@ -41,7 +41,7 @@ namespace GraveyardKeeperCoop.Patches
                     GraveyardKeeperCoop.UI.InGameChatOverlay.Instance.OnReturnToMenu();
                 }
 
-                GraveyardKeeperCoop.UI.ChatOverlay.Instance?.Hide();
+                GraveyardKeeperCoop.UI.ChatOverlay.Instance?.EndSession();
 
                 // CRITICAL: Always leave the Steam lobby directly here. Previously this
                 // was only invoked via InGameChatOverlay.OnReturnToMenu(), which silently
@@ -61,6 +61,9 @@ namespace GraveyardKeeperCoop.Patches
                 {
                     CoopMod.Logger.LogError($"[GameExit] Error leaving lobby on exit: {lobbyEx.Message}");
                 }
+
+                // Don't copy yet - just log that we're saving
+                // Logs will be copied when they press Exit from main menu
             }
             catch (Exception ex)
             {

@@ -637,7 +637,12 @@ namespace GraveyardKeeperCoop.UI
             maxPlayersSlider = CreateSettingItem(template, "Max Players", SettingType.Options);
             if (maxPlayersSlider != null)
             {
-                string[] playerOptions = new string[] { "2", "3", "4" };
+                string[] playerOptions = new string[]
+                {
+                    "2",
+                    "3 (Experimental)",
+                    "4 (Experimental)"
+                };
                 int currentIndex = ModConfig.MaxPlayers.Value - 2; // 2 players = index 0
                 if (currentIndex < 0) currentIndex = 0;
                 if (currentIndex > 2) currentIndex = 2;

@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Text;
 using Steamworks;
 using UnityEngine;
@@ -23,9 +24,15 @@ namespace GraveyardKeeperCoop.Network
         private const int MaxReliableSendsPerSecond = 30;
         private const int MaxQueuedReliablePackets = 4000;
         private const int MaxPacketsProcessedPerFrame = 64;
+        // A packet flood must not monopolize the Unity main thread. Reliable frames
+        // remain queued/retransmitted, while obsolete unreliable state can be superseded.
+        private const int MaxPacketProcessingMilliseconds = 4;
+        private const int MaxLobbyLaneMessageBytes = 256 * 1024;
+        private const float PreLobbyAdmissionSeconds = 120f;
         private const float ReliableQueueFullWarningIntervalSeconds = 1f;
         private const float SendFailureWarningIntervalSeconds = 2f;
         private const float OversizedUnreliableWarningIntervalSeconds = 2f;
+        private const float ReceiveTelemetryIntervalSeconds = 5f;
 
         private static SteamP2PManager _instance;
         public static SteamP2PManager Instance
@@ -43,25 +50,24 @@ namespace GraveyardKeeperCoop.Network
         // Steam callbacks
         private Callback<P2PSessionRequest_t> p2pSessionRequestCallback;
 
-        /// <summary>
-        /// Application-level reliability layer over unreliable datagrams (see ReliableTransport.cs).
-        /// Carries all reliable channel-0 traffic for peers that advertise support; peers on older
-        /// mod versions keep the native Steam reliable path unchanged.
-        /// </summary>
         public ReliableTransport Reliable { get; private set; }
 
-        // Last time any P2P packet arrived from each peer. Feeds the degraded-link detector: a peer
-        // that is alive on the raw lane but silent on the reliable lane is stuck, not gone.
-        private readonly Dictionary<ulong, float> lastPacketAtFrom = new Dictionary<ulong, float>();
+        private readonly Dictionary<ulong, float> lastPacketRealtimeFrom = new Dictionary<ulong, float>();
+        private readonly HashSet<ulong> sessionPeers = new HashSet<ulong>();
+        private static readonly UTF8Encoding StrictUtf8 = new UTF8Encoding(false, true);
+        private byte[] receiveBuffer = new byte[2048];
+        private bool ownsRunInBackground;
+        private bool previousRunInBackground;
 
         // Events for game state
         public event Action<CSteamID, string> OnGameStartReceived;
         public event Action<CSteamID> OnClientGameLoaded;
         public event Action<CSteamID> OnPlayerReadyToPlay;
+        public event Action<CSteamID, WorldEntryBarrierPhase> OnWorldEntryBarrier;
 
         // Events for player sync
         public event Action<CSteamID, Vector3, float> OnRemotePlayerPosition; // position + timestamp
-        public event Action<CSteamID, Vector2, bool> OnRemotePlayerState;
+        public event Action<CSteamID, Vector2, bool, Vector2> OnRemotePlayerState;
         public event Action<CSteamID, int, int> OnRemotePlayerAnimation; // animState (CharAnimState), itemType (ItemDefinition.ItemType as int)
         public event Action<CSteamID, byte[]> OnPlayerParityReceived;
         public event Action<CSteamID, byte[]> OnPlayerVisualSyncReceived;
@@ -125,9 +131,10 @@ namespace GraveyardKeeperCoop.Network
         /// Fired when the remote player interacted with an NPC (donkey, Gerry, etc.) so we can
         /// replay the same interaction locally and keep both save states in sync.
         /// Args: senderID, NPC custom_tag (may be ""), NPC obj_id, NPC world position,
-        /// origin zone id, whether scope metadata was present.
+        /// origin zone id, whether scope metadata was present, interaction owner.
         /// </summary>
-        public event Action<CSteamID, string, string, Vector3, string, bool> OnNpcInteractionReceived;
+        public event Action<CSteamID, string, string, Vector3, string, bool, CSteamID> OnNpcInteractionReceived;
+        public event Action<CSteamID, string, string> OnNpcInteractionCompleteReceived;
 
         /// <summary>
         /// Fired on the HOST when a client asks for the save slot list.
@@ -151,6 +158,7 @@ namespace GraveyardKeeperCoop.Network
 
         // Intro skip sync
         public event Action<CSteamID> OnSkipIntroReceived;
+        public event Action<CSteamID, IntroSkipPhase, CSteamID, uint, float> OnIntroSkipStateReceived;
 
         // Lobby control
         public event Action<CSteamID, string> OnLobbyKickReceived;
@@ -158,6 +166,10 @@ namespace GraveyardKeeperCoop.Network
         // Ping measurement
         public event Action<CSteamID, int> OnPingResult; // steamID, ping in ms
         private readonly System.Collections.Generic.Dictionary<ulong, float> _pendingPings = new System.Collections.Generic.Dictionary<ulong, float>();
+        private CSteamID pendingLobbyInfoHost = CSteamID.Nil;
+        private readonly Dictionary<ulong, float> preLobbyAdmissionUntil = new Dictionary<ulong, float>();
+        private readonly HashSet<ulong> loggedUnvalidatedPeerPackets =
+            new HashSet<ulong>();
 
         private readonly Queue<QueuedReliablePacket> queuedReliablePackets = new Queue<QueuedReliablePacket>();
         private readonly Dictionary<ulong, float> nextSendFailureWarningAt = new Dictionary<ulong, float>();
@@ -186,6 +198,21 @@ namespace GraveyardKeeperCoop.Network
         private string lastNetworkError = string.Empty;
         private float lastNetworkErrorAt;
 
+        // Low-overhead receive telemetry. The raw Steam queue contains RNET frames,
+        // while application messages may be delivered after channel reassembly, so
+        // track both layers. This is reported only when the per-frame receive budget
+        // leaves packets queued.
+        private readonly int[] receivedAppOps = new int[256];
+        private readonly long[] receivedAppOpTicks = new long[256];
+        private readonly long[] receivedAppOpBytes = new long[256];
+        private float receiveTelemetryWindowStart;
+        private int receiveWirePackets;
+        private long receiveWireBytes;
+        private int receiveRnetDataFrames;
+        private int receiveRnetAckFrames;
+        private int receiveBudgetLimitedFrames;
+        private int maxPacketsProcessedInFrame;
+
         public int ReliableQueueLength => queuedReliablePackets.Count;
         public int ReliableDroppedPackets => reliableDroppedPackets;
         public int PacketsSentPerSecond { get { UpdatePacketStatsWindow(); return packetsSentPerSecond; } }
@@ -212,7 +239,6 @@ namespace GraveyardKeeperCoop.Network
 
             p2pSessionRequestCallback = Callback<P2PSessionRequest_t>.Create(OnP2PSessionRequest);
             Reliable = new ReliableTransport(this);
-            Reliable.OnChannelResynced += Multiplayer.SaveTransferManager.OnReliableChannelResynced;
             CoopMod.Logger.LogInfo("[P2P] ✓ SteamP2PManager initialized with binary protocol");
         }
 
@@ -225,22 +251,41 @@ namespace GraveyardKeeperCoop.Network
                 return;
 
             DrainReliableQueue();
+            long transportStartedAt = GraveyardKeeperCoop.Utils.FrameProfiler.BeginSection();
             Reliable?.Tick();
+            GraveyardKeeperCoop.Utils.FrameProfiler.EndSection("P2P.Transport", transportStartedAt);
             UpdatePacketStatsWindow();
 
             uint msgSize;
             int processed = 0;
-            while (processed < MaxPacketsProcessedPerFrame && SteamNetworking.IsP2PPacketAvailable(out msgSize, 0))
+            long receiveStartedAt = Stopwatch.GetTimestamp();
+            while (processed < MaxPacketsProcessedPerFrame &&
+                   (processed == 0 ||
+                    ElapsedMilliseconds(receiveStartedAt) < MaxPacketProcessingMilliseconds) &&
+                   SteamNetworking.IsP2PPacketAvailable(out msgSize, 0))
             {
-                byte[] data = new byte[msgSize];
+                if (msgSize > int.MaxValue)
+                {
+                    SetLastNetworkError($"Incoming P2P packet is too large ({msgSize} bytes)");
+                    CoopMod.Logger.LogError($"[P2P] Incoming packet is too large: {msgSize} bytes");
+                    break;
+                }
+
+                EnsureReceiveBuffer((int)msgSize);
                 CSteamID senderID;
                 uint bytesRead;
 
-                if (SteamNetworking.ReadP2PPacket(data, msgSize, out bytesRead, out senderID, 0))
+                if (SteamNetworking.ReadP2PPacket(
+                    receiveBuffer,
+                    (uint)receiveBuffer.Length,
+                    out bytesRead,
+                    out senderID,
+                    0))
                 {
                     RecordPacketReceived((int)bytesRead);
-                    lastPacketAtFrom[senderID.m_SteamID] = Time.time;
-                    HandleIncomingPacket(senderID, data, (int)bytesRead);
+                    RecordIncomingWirePacket(receiveBuffer, (int)bytesRead);
+                    lastPacketRealtimeFrom[senderID.m_SteamID] = Time.realtimeSinceStartup;
+                    HandleIncomingPacket(senderID, receiveBuffer, (int)bytesRead);
                 }
                 else
                 {
@@ -249,6 +294,44 @@ namespace GraveyardKeeperCoop.Network
                 }
                 processed++;
             }
+            if (processed > maxPacketsProcessedInFrame)
+                maxPacketsProcessedInFrame = processed;
+
+            bool processingLimitReached =
+                processed >= MaxPacketsProcessedPerFrame ||
+                (processed > 0 &&
+                 ElapsedMilliseconds(receiveStartedAt) >= MaxPacketProcessingMilliseconds);
+            if (processingLimitReached &&
+                SteamNetworking.IsP2PPacketAvailable(out uint pendingPacketSize, 0))
+            {
+                receiveBudgetLimitedFrames++;
+            }
+
+            if (GraveyardKeeperCoop.Utils.FrameProfiler.Enabled)
+            {
+                GraveyardKeeperCoop.Utils.FrameProfiler.Record(
+                    "P2P.Receive",
+                    Stopwatch.GetTimestamp() - receiveStartedAt);
+            }
+            MaybeReportReceiveTelemetry();
+        }
+
+        private static long ElapsedMilliseconds(long startedAt)
+        {
+            return (Stopwatch.GetTimestamp() - startedAt) * 1000L / Stopwatch.Frequency;
+        }
+
+        private void EnsureReceiveBuffer(int requiredBytes)
+        {
+            if (receiveBuffer.Length >= requiredBytes)
+                return;
+
+            int size = receiveBuffer.Length;
+            while (size < requiredBytes && size <= int.MaxValue / 2)
+                size *= 2;
+            if (size < requiredBytes)
+                size = requiredBytes;
+            receiveBuffer = new byte[size];
         }
 
         #region Send Methods
@@ -261,17 +344,39 @@ namespace GraveyardKeeperCoop.Network
             if (!SteamManager.Initialized) return false;
             if (recipientID == CSteamID.Nil || data == null || data.Length == 0) return false;
 
-            // Ride the application-level reliable channel when the peer supports it (game traffic is
-            // channel 0 only; the lobby-phase side channels keep native reliable). Oversized unreliable
-            // messages go the same way - fragmentation is native to the channel, no warning needed.
-            if (channel == 0 && Reliable != null &&
-                (IsReliableSend(sendType) || (IsUnreliableSend(sendType) && data.Length > MaxUnreliablePacketBytes)) &&
-                Reliable.PeerSupportsChannel(recipientID))
+            bool isLobbyKick = data[0] == (byte)Op.LobbyKick;
+            bool isUnvalidatedHostPeer =
+                SteamLobbyManager.Instance.IsHost &&
+                !SteamLobbyManager.Instance.IsPeerVersionValidated(recipientID) &&
+                IsCurrentLobbyMember(recipientID);
+            if (isUnvalidatedHostPeer)
             {
-                return Reliable.Send(recipientID, data);
+                if (isLobbyKick)
+                {
+                    // The application channel is deliberately unopened for rejected
+                    // peers, so its rejection must use Steam native reliable directly.
+                    return SendReliableWithBackpressure(recipientID, data, channel);
+                }
+
+                CoopMod.Logger.LogWarning(
+                    $"[P2P] Blocked send to unvalidated lobby member " +
+                    recipientID);
+                return false;
             }
 
-            if (IsUnreliableSend(sendType) && data.Length > MaxUnreliablePacketBytes)
+            bool oversizedUnreliable = IsUnreliableSend(sendType) && data.Length > MaxUnreliablePacketBytes;
+            if ((IsReliableSend(sendType) || oversizedUnreliable) &&
+                Reliable != null &&
+                IsCurrentLobbyMember(recipientID))
+            {
+                ReliableSendDisposition disposition = Reliable.RouteSend(recipientID, data, channel);
+                if (disposition == ReliableSendDisposition.Handled)
+                    return true;
+                if (disposition == ReliableSendDisposition.Rejected)
+                    return false;
+            }
+
+            if (oversizedUnreliable)
             {
                 RecordOversizedUnreliableFallback(recipientID, data, sendType, channel);
                 return SendReliableWithBackpressure(recipientID, data, channel);
@@ -283,6 +388,24 @@ namespace GraveyardKeeperCoop.Network
             }
 
             return SendBinaryImmediate(recipientID, data, sendType, channel);
+        }
+
+        public bool SendVersionHello(CSteamID hostID)
+        {
+            if (hostID == CSteamID.Nil)
+                return false;
+
+            using (var writer = new MsgWriter(Op.Hello))
+            {
+                writer.Write(PluginInfo.PLUGIN_VERSION ?? string.Empty);
+                // Admission precedes RNET capability. Keep this one packet on
+                // native Steam reliable so the host can validate us first.
+                return SendBinaryImmediate(
+                    hostID,
+                    writer.ToArray(),
+                    EP2PSend.k_EP2PSendReliable,
+                    0);
+            }
         }
 
         private bool SendReliableWithBackpressure(CSteamID recipientID, byte[] data, int channel)
@@ -312,6 +435,7 @@ namespace GraveyardKeeperCoop.Network
             }
             else
             {
+                sessionPeers.Add(recipientID.m_SteamID);
                 RecordPacketSent(data.Length);
             }
 
@@ -541,36 +665,185 @@ namespace GraveyardKeeperCoop.Network
             return SendBinary(recipientID, data, sendType, channel);
         }
 
-        /// <summary>
-        /// Send one raw unreliable datagram, bypassing the reliable channel and the rate limiter.
-        /// Used by ReliableTransport for its wire frames and resync control messages.
-        /// </summary>
         internal bool SendRawDatagram(CSteamID recipientID, byte[] data)
         {
             return SendBinaryImmediate(recipientID, data, EP2PSend.k_EP2PSendUnreliable, 0);
         }
 
-        /// <summary>
-        /// Dispatch a message the reliable channel reassembled, exactly as if it had arrived as its
-        /// own packet. Safe from recursion: inner messages are app messages (Op or legacy string)
-        /// and can never start with the reserved 0xFE/0xFF frame tags.
-        /// </summary>
-        internal void DispatchReassembledMessage(CSteamID senderID, byte[] message)
+        internal bool SendNativeReliableFromTransport(CSteamID recipientID, byte[] data, int lane)
         {
-            HandleIncomingPacket(senderID, message, message.Length);
+            if (!SteamManager.Initialized || recipientID == CSteamID.Nil || data == null || data.Length == 0)
+                return false;
+
+            return SendReliableWithBackpressure(recipientID, data, lane);
         }
 
-        /// <summary>Last Time.time any P2P packet arrived from this peer (0 = never).</summary>
-        internal float GetLastPacketTimeFrom(CSteamID peer)
+        internal void DispatchReassembledMessage(CSteamID senderID, byte[] data, int lane)
         {
-            return lastPacketAtFrom.TryGetValue(peer.m_SteamID, out float t) ? t : 0f;
+            if (data == null || data.Length == 0)
+                return;
+
+            if (lane == 0)
+            {
+                if (!SteamLobbyManager.Instance.IsPeerVersionValidated(senderID))
+                {
+                    CoopMod.Logger.LogWarning(
+                        $"[P2P] Dropped RNET application message from " +
+                        $"unvalidated lobby member {senderID}");
+                    return;
+                }
+                DispatchApplicationMessage(senderID, data, data.Length);
+                return;
+            }
+
+            if (lane != Multiplayer.LobbyChatSync.CHAT_CHANNEL ||
+                data.Length > MaxLobbyLaneMessageBytes ||
+                !IsCurrentLobbyMember(senderID) ||
+                !SteamLobbyManager.Instance.IsPeerVersionValidated(senderID))
+            {
+                CoopMod.Logger.LogWarning(
+                    $"[P2P] Dropped invalid RNET lobby-lane message from {senderID} (lane={lane}, bytes={data.Length})");
+                return;
+            }
+
+            DispatchLobbyLaneMessage(senderID, data, data.Length);
         }
 
-        /// <summary>Called by the lobby manager when a member leaves: tear down their reliable channel.</summary>
+        internal void DispatchNativeLobbyLaneMessage(CSteamID senderID, byte[] data, int length)
+        {
+            if (data == null || length <= 0 || length > data.Length || length > MaxLobbyLaneMessageBytes)
+                return;
+
+            RecordPacketReceived(length);
+            lastPacketRealtimeFrom[senderID.m_SteamID] = Time.realtimeSinceStartup;
+
+            if (!IsCurrentLobbyMember(senderID) ||
+                !SteamLobbyManager.Instance.IsPeerVersionValidated(senderID))
+            {
+                CoopMod.Logger.LogWarning($"[P2P] Dropped native lobby-lane message from non-member {senderID}");
+                return;
+            }
+
+            if (Reliable != null && !Reliable.AcceptNativeInbound(senderID))
+                return;
+
+            DispatchLobbyLaneMessage(senderID, data, length);
+        }
+
+        internal float GetLastPacketRealtimeFrom(CSteamID peer)
+        {
+            return lastPacketRealtimeFrom.TryGetValue(peer.m_SteamID, out float timestamp)
+                ? timestamp
+                : 0f;
+        }
+
+        internal bool IsCurrentLobbyMember(CSteamID peer)
+        {
+            if (peer == CSteamID.Nil)
+                return false;
+
+            SteamLobbyManager lobbyManager = SteamLobbyManager.Instance;
+            CSteamID lobbyID = lobbyManager?.CurrentLobbyID ?? CSteamID.Nil;
+            if (lobbyID == CSteamID.Nil || lobbyManager?.IsInLobby != true)
+                return false;
+
+            int memberCount = SteamMatchmaking.GetNumLobbyMembers(lobbyID);
+            for (int i = 0; i < memberCount; i++)
+            {
+                if (SteamMatchmaking.GetLobbyMemberByIndex(lobbyID, i) == peer)
+                    return true;
+            }
+
+            return false;
+        }
+
+        public void BeginLobbySession(CSteamID lobbyID)
+        {
+            EnableBackgroundNetworkServicing();
+            queuedReliablePackets.Clear();
+            lastPacketRealtimeFrom.Clear();
+            pendingLobbyInfoHost = CSteamID.Nil;
+            preLobbyAdmissionUntil.Clear();
+            loggedUnvalidatedPeerPackets.Clear();
+            Reliable?.BeginLobby(lobbyID);
+        }
+
+        public void OnPeerEnteredLobby(CSteamID peer)
+        {
+            if (peer != CSteamID.Nil && peer != SteamUser.GetSteamID())
+            {
+                preLobbyAdmissionUntil.Remove(peer.m_SteamID);
+                Reliable?.OnPeerEntered(peer);
+            }
+        }
+
         public void OnPeerLeftLobby(CSteamID peer)
         {
+            Multiplayer.SaveTransferManager.OnPeerUnavailable(
+                peer,
+                "The host left during save transfer");
+            Multiplayer.SpawnSync.Instance?.OnPeerLeftLobby(peer);
+            Multiplayer.CraftSync.Instance?.OnPeerLeftLobby(peer);
+            Multiplayer.InventorySync.Instance?.OnPeerLeftLobby(peer);
             Reliable?.RemovePeer(peer);
-            lastPacketAtFrom.Remove(peer.m_SteamID);
+            lastPacketRealtimeFrom.Remove(peer.m_SteamID);
+            RemoveQueuedReliablePacketsFor(peer);
+            if (SteamManager.Initialized && peer != CSteamID.Nil)
+                SteamNetworking.CloseP2PSessionWithUser(peer);
+            sessionPeers.Remove(peer.m_SteamID);
+            loggedUnvalidatedPeerPackets.Remove(peer.m_SteamID);
+        }
+
+        public void ClearLobbySession()
+        {
+            if (SteamManager.Initialized)
+            {
+                foreach (ulong peerID in sessionPeers)
+                    SteamNetworking.CloseP2PSessionWithUser(new CSteamID(peerID));
+            }
+            sessionPeers.Clear();
+
+            Multiplayer.SaveTransferManager.Reset();
+            Reliable?.Clear();
+            lastPacketRealtimeFrom.Clear();
+            queuedReliablePackets.Clear();
+            pendingLobbyInfoHost = CSteamID.Nil;
+            preLobbyAdmissionUntil.Clear();
+            loggedUnvalidatedPeerPackets.Clear();
+            RestoreBackgroundNetworkServicing();
+        }
+
+        private void EnableBackgroundNetworkServicing()
+        {
+            if (ownsRunInBackground)
+                return;
+
+            previousRunInBackground = Application.runInBackground;
+            ownsRunInBackground = true;
+            Application.runInBackground = true;
+            CoopMod.Logger.LogInfo(
+                $"[P2P] Background execution enabled for lobby network servicing " +
+                $"(previous={previousRunInBackground})");
+        }
+
+        private void RestoreBackgroundNetworkServicing()
+        {
+            if (!ownsRunInBackground)
+                return;
+
+            Application.runInBackground = previousRunInBackground;
+            ownsRunInBackground = false;
+        }
+
+        private void RemoveQueuedReliablePacketsFor(CSteamID peer)
+        {
+            int count = queuedReliablePackets.Count;
+            for (int i = 0; i < count; i++)
+            {
+                QueuedReliablePacket packet = queuedReliablePackets.Dequeue();
+                if (packet.Recipient != peer)
+                    queuedReliablePackets.Enqueue(packet);
+            }
         }
 
         #endregion
@@ -584,21 +857,290 @@ namespace GraveyardKeeperCoop.Network
         {
             if (length < 1) return;
 
-            // Reliable-channel frames (0xFE/0xFF) are transport plumbing, not app messages: hand them
-            // to the layer, which delivers reassembled messages back through DispatchReassembledMessage.
+            bool isUnvalidatedHostMember =
+                SteamLobbyManager.Instance.IsHost &&
+                !SteamLobbyManager.Instance.IsPeerVersionValidated(senderID) &&
+                IsCurrentLobbyMember(senderID);
+            if (isUnvalidatedHostMember)
+            {
+                if (HandleVersionHelloPacket(senderID, data, length))
+                    return;
+
+                if (loggedUnvalidatedPeerPackets.Add(senderID.m_SteamID))
+                {
+                    CoopMod.Logger.LogWarning(
+                        $"[P2P] Dropping traffic from unvalidated lobby member " +
+                        senderID);
+                }
+                return;
+            }
+
             if (Reliable != null && Reliable.HandleRawIncoming(senderID, data, length))
                 return;
 
-            // Check if this is a binary protocol message
-            if (BinaryProtocolExtensions.IsBinaryMessage(data, length))
+            bool isLobbyMember = IsCurrentLobbyMember(senderID);
+            if (!isLobbyMember)
             {
-                HandleBinaryMessage(senderID, data, length);
+                if (!IsAllowedPreLobbyPacket(senderID, data, length))
+                {
+                    CoopMod.Logger.LogWarning($"[P2P] Dropped application packet from non-member {senderID}");
+                    return;
+                }
             }
-            else
+            else if (!IsKnownNativeUnreliablePacket(data, length) &&
+                     Reliable != null &&
+                     !Reliable.AcceptNativeInbound(senderID))
             {
-                // Legacy string message (for backwards compatibility during transition)
-                string message = Encoding.UTF8.GetString(data, 0, length);
-                HandleLegacyStringMessage(senderID, message);
+                return;
+            }
+
+            DispatchApplicationMessage(senderID, data, length);
+        }
+
+        private static bool HandleVersionHelloPacket(
+            CSteamID senderID,
+            byte[] data,
+            int length)
+        {
+            if (data == null || length < 2 || data[0] != (byte)Op.Hello)
+                return false;
+
+            try
+            {
+                var reader = new MsgReader(data, length);
+                string version = reader.ReadString();
+                if (reader.Remaining != 0 || version.Length > 64)
+                {
+                    CoopMod.Logger.LogWarning(
+                        $"[P2P] Dropped malformed version hello from {senderID}");
+                    return true;
+                }
+
+                SteamLobbyManager.Instance.HandleVersionHello(senderID, version);
+            }
+            catch (Exception ex)
+            {
+                CoopMod.Logger.LogWarning(
+                    $"[P2P] Dropped malformed version hello from {senderID}: " +
+                    ex.Message);
+            }
+
+            return true;
+        }
+
+        private void DispatchApplicationMessage(CSteamID senderID, byte[] data, int length)
+        {
+            if (data == null || length < 1 || length > data.Length)
+                return;
+
+            long startedAt = Stopwatch.GetTimestamp();
+            try
+            {
+                // Check if this is a binary protocol message
+                if (BinaryProtocolExtensions.IsBinaryMessage(data, length))
+                {
+                    HandleBinaryMessage(senderID, data, length);
+                }
+                else
+                {
+                    // Legacy string message (for backwards compatibility during transition)
+                    string message = Encoding.UTF8.GetString(data, 0, length);
+                    HandleLegacyStringMessage(senderID, message);
+                }
+            }
+            finally
+            {
+                RecordIncomingApplicationMessage(
+                    data[0],
+                    length,
+                    Stopwatch.GetTimestamp() - startedAt);
+            }
+        }
+
+        private void RecordIncomingWirePacket(byte[] data, int length)
+        {
+            receiveWirePackets++;
+            receiveWireBytes += Mathf.Max(0, length);
+            if (data == null || length <= 0)
+                return;
+
+            if (data[0] == 0xFE)
+                receiveRnetDataFrames++;
+            else if (data[0] == 0xFF)
+                receiveRnetAckFrames++;
+        }
+
+        private void RecordIncomingApplicationMessage(byte op, int length, long elapsedTicks)
+        {
+            receivedAppOps[op]++;
+            receivedAppOpBytes[op] += Mathf.Max(0, length);
+            receivedAppOpTicks[op] += elapsedTicks;
+        }
+
+        private void MaybeReportReceiveTelemetry()
+        {
+            float now = Time.realtimeSinceStartup;
+            if (receiveTelemetryWindowStart <= 0f)
+            {
+                receiveTelemetryWindowStart = now;
+                return;
+            }
+            if (now - receiveTelemetryWindowStart < ReceiveTelemetryIntervalSeconds)
+                return;
+
+            if (receiveBudgetLimitedFrames > 0)
+            {
+                var details = new StringBuilder();
+                var selected = new bool[256];
+                for (int rank = 0; rank < 5; rank++)
+                {
+                    int best = -1;
+                    long bestTicks = -1L;
+                    for (int op = 0; op < 256; op++)
+                    {
+                        if (!selected[op] &&
+                            receivedAppOps[op] > 0 &&
+                            receivedAppOpTicks[op] > bestTicks)
+                        {
+                            best = op;
+                            bestTicks = receivedAppOpTicks[op];
+                        }
+                    }
+
+                    if (best < 0 || receivedAppOps[best] == 0)
+                        break;
+
+                    selected[best] = true;
+                    if (details.Length > 0)
+                        details.Append(", ");
+                    details
+                        .Append(DescribeReceiveOp((byte)best))
+                        .Append('=')
+                        .Append(receivedAppOps[best])
+                        .Append('/')
+                        .Append((receivedAppOpTicks[best] * 1000.0 / Stopwatch.Frequency).ToString("F1"))
+                        .Append("ms/")
+                        .Append(receivedAppOpBytes[best])
+                        .Append('B');
+                }
+
+                CoopMod.Logger.LogWarning(
+                    $"[P2P] Receive backlog: budget_frames={receiveBudgetLimitedFrames}, " +
+                    $"max_batch={maxPacketsProcessedInFrame}, wire={receiveWirePackets}/{receiveWireBytes}B, " +
+                    $"rnet_data={receiveRnetDataFrames}, rnet_ack={receiveRnetAckFrames}, " +
+                    $"top_app=[{details}]");
+            }
+
+            Array.Clear(receivedAppOps, 0, receivedAppOps.Length);
+            Array.Clear(receivedAppOpTicks, 0, receivedAppOpTicks.Length);
+            Array.Clear(receivedAppOpBytes, 0, receivedAppOpBytes.Length);
+            receiveWirePackets = 0;
+            receiveWireBytes = 0L;
+            receiveRnetDataFrames = 0;
+            receiveRnetAckFrames = 0;
+            receiveBudgetLimitedFrames = 0;
+            maxPacketsProcessedInFrame = 0;
+            receiveTelemetryWindowStart = now;
+        }
+
+        private static string DescribeReceiveOp(byte value)
+        {
+            return Enum.IsDefined(typeof(Op), value)
+                ? ((Op)value).ToString()
+                : $"0x{value:X2}";
+        }
+
+        private static bool IsKnownNativeUnreliablePacket(byte[] data, int length)
+        {
+            if (!BinaryProtocolExtensions.IsBinaryMessage(data, length))
+                return false;
+
+            // Steam does not expose the original send mode on receive. Keep this list aligned
+            // with the opcodes this manager explicitly sends as native unreliable traffic.
+            switch ((Op)data[0])
+            {
+                case Op.Ping:
+                case Op.Pong:
+                case Op.PlayerPosition:
+                case Op.PlayerState:
+                case Op.PlayerVisualSync:
+                case Op.TimeSync:
+                case Op.WorldEntryBarrier:
+                case Op.WorkIndicatorSync:
+                case Op.WGOTransformSync:
+                case Op.NpcVisualSync:
+                    return true;
+                case Op.SpawnSync:
+                    return Multiplayer.SpawnSync.IsBuildingPreviewWirePacket(
+                        data,
+                        length);
+                default:
+                    return false;
+            }
+        }
+
+        private bool IsAllowedPreLobbyPacket(CSteamID senderID, byte[] data, int length)
+        {
+            if (!BinaryProtocolExtensions.IsBinaryMessage(data, length))
+                return false;
+
+            Op op = (Op)data[0];
+            if (op == Op.LobbyInfo)
+                return senderID == pendingLobbyInfoHost;
+
+            if (!IsPreLobbyPeerAllowed(senderID))
+                return false;
+
+            return op == Op.Ping || op == Op.Pong || op == Op.Invite || op == Op.LobbyRequest;
+        }
+
+        private bool IsPreLobbyPeerAllowed(CSteamID peer)
+        {
+            if (peer == CSteamID.Nil)
+                return false;
+            if (peer == pendingLobbyInfoHost || IsImmediateFriend(peer))
+                return true;
+
+            if (!preLobbyAdmissionUntil.TryGetValue(peer.m_SteamID, out float expiresAt))
+                return false;
+            if (Time.realtimeSinceStartup <= expiresAt)
+                return true;
+
+            preLobbyAdmissionUntil.Remove(peer.m_SteamID);
+            return false;
+        }
+
+        private static bool IsImmediateFriend(CSteamID peer)
+        {
+            int friendCount = SteamFriends.GetFriendCount(EFriendFlags.k_EFriendFlagImmediate);
+            for (int i = 0; i < friendCount; i++)
+            {
+                if (SteamFriends.GetFriendByIndex(i, EFriendFlags.k_EFriendFlagImmediate) == peer)
+                    return true;
+            }
+            return false;
+        }
+
+        private void AllowPreLobbyPeer(CSteamID peer)
+        {
+            if (peer != CSteamID.Nil)
+                preLobbyAdmissionUntil[peer.m_SteamID] = Time.realtimeSinceStartup + PreLobbyAdmissionSeconds;
+        }
+
+        private void DispatchLobbyLaneMessage(CSteamID senderID, byte[] data, int length)
+        {
+            try
+            {
+                string message = StrictUtf8.GetString(data, 0, length);
+                string senderName = SteamFriends.GetFriendPersonaName(senderID);
+                CoopMod.Logger.LogInfo($"[P2P] Lobby lane from {senderName} ({length} bytes)");
+
+                if (!Multiplayer.LobbyReadySystem.HandleReadyMessage(senderID, message))
+                    Multiplayer.LobbyChatSync.HandleChatMessage(senderID, message);
+            }
+            catch (DecoderFallbackException)
+            {
+                CoopMod.Logger.LogWarning($"[P2P] Dropped invalid UTF-8 lobby-lane message from {senderID}");
             }
         }
 
@@ -612,16 +1154,6 @@ namespace GraveyardKeeperCoop.Network
             switch (reader.Op)
             {
                 case Op.Heartbeat:
-                    // Reliable-lane keepalive: the delivery itself is the signal (it feeds the
-                    // degraded-link detector inside ReliableTransport); nothing to do here.
-                    break;
-
-                case Op.ResyncRequest:
-                    Reliable?.OnResyncRequest(senderID, reader.ReadByte());
-                    break;
-
-                case Op.ResyncConfirm:
-                    Reliable?.OnResyncConfirm(senderID, reader.ReadByte());
                     break;
 
                 case Op.Ping:
@@ -646,6 +1178,20 @@ namespace GraveyardKeeperCoop.Network
 
                 case Op.ReadyToPlay:
                     OnPlayerReadyToPlay?.Invoke(senderID);
+                    break;
+
+                case Op.WorldEntryBarrier:
+                    if (reader.Remaining < 1)
+                        break;
+                    OnWorldEntryBarrier?.Invoke(
+                        senderID,
+                        (WorldEntryBarrierPhase)reader.ReadByte());
+                    break;
+
+                case Op.JoinerProfileCommit:
+                    Multiplayer.JoinerProfileManager.Instance?.HandleHostSaveCommit(
+                        senderID,
+                        ref reader);
                     break;
 
                 case Op.PlayerPosition:
@@ -756,11 +1302,17 @@ namespace GraveyardKeeperCoop.Network
                     HandleSkipIntroMessage(senderID, ref reader);
                     break;
 
+                case Op.IntroSkipState:
+                    HandleIntroSkipStateMessage(senderID, ref reader);
+                    break;
+
                 case Op.DialogueStart:
                 case Op.DialogueAdvance:
                 case Op.DialogueEnd:
                 case Op.DialogueChoice:
                 case Op.DialogueBubble:
+                case Op.DialogueOptions:
+                case Op.DialogueHover:
                     OnDialogueMessage?.Invoke(senderID, reader.Op, reader);
                     break;
 
@@ -770,6 +1322,14 @@ namespace GraveyardKeeperCoop.Network
                 case Op.SaveEnd:
                 case Op.SaveAck:
                     Multiplayer.SaveTransferManager.HandleBinaryMessage(senderID, reader.Op, data, length);
+                    break;
+
+                case Op.SleepSync:
+                    Multiplayer.GameTimeSync.Instance?.HandleSleepSyncMessage(senderID, ref reader);
+                    break;
+
+                case Op.PlayerTrade:
+                    Multiplayer.PlayerTradeManager.Instance?.HandleNetworkMessage(senderID, ref reader);
                     break;
 
                 case Op.ChatMessage:
@@ -802,6 +1362,10 @@ namespace GraveyardKeeperCoop.Network
 
                 case Op.NpcInteraction:
                     HandleNpcInteractionMessage(senderID, ref reader);
+                    break;
+
+                case Op.NpcInteractionComplete:
+                    HandleNpcInteractionCompleteMessage(senderID, ref reader);
                     break;
 
                 case Op.CutsceneComplete:
@@ -863,12 +1427,14 @@ namespace GraveyardKeeperCoop.Network
             if (friendID == CSteamID.Nil || lobbyID == CSteamID.Nil) return false;
 
             string inviterName = SteamFriends.GetPersonaName();
+            AllowPreLobbyPeer(friendID);
 
             using (var w = new MsgWriter(Op.Invite))
             {
                 w.Write(lobbyID.m_SteamID);
                 w.Write(inviterName);
                 w.Write(ModConfig.GetDLCRequirementsString());
+                w.Write(PluginInfo.PLUGIN_VERSION ?? string.Empty);
                 CoopMod.Logger.LogInfo($"[P2P] Sending invite to {SteamFriends.GetFriendPersonaName(friendID)} for lobby {lobbyID}");
                 return SendBinary(friendID, w.ToArray(), EP2PSend.k_EP2PSendReliable);
             }
@@ -881,9 +1447,20 @@ namespace GraveyardKeeperCoop.Network
                 ulong lobbyIDValue = reader.ReadUInt64();
                 string inviterName = reader.ReadString();
                 string dlcRequirements = reader.Remaining > 0 ? reader.ReadString() : "";
+                string modVersion = reader.Remaining > 0 ? reader.ReadString() : "";
                 CSteamID lobbyID = new CSteamID(lobbyIDValue);
 
                 CoopMod.Logger.LogInfo($"[P2P] Received invite from '{inviterName}' for lobby {lobbyID}");
+                if (!SteamLobbyManager.TryValidateHostModVersion(
+                        modVersion,
+                        out string versionRejectMessage))
+                {
+                    CoopMod.Logger.LogWarning(
+                        $"[P2P] Invite rejected by mod version: " +
+                        versionRejectMessage.Replace('\n', ' '));
+                    GUIElements.me?.dialog?.OpenOK(versionRejectMessage);
+                    return;
+                }
                 ShowInviteNotification(senderID, lobbyID, inviterName, dlcRequirements);
             }
             catch (Exception ex)
@@ -960,11 +1537,15 @@ namespace GraveyardKeeperCoop.Network
         {
             if (!SteamManager.Initialized) return;
 
+            pendingLobbyInfoHost = hostID;
+            AllowPreLobbyPeer(hostID);
+
             using (var w = new MsgWriter(Op.LobbyRequest))
             {
                 // No payload needed - just asking for lobby info
                 CoopMod.Logger.LogInfo($"[P2P] Requesting lobby info from host {hostID}");
-                SendBinary(hostID, w.ToArray(), EP2PSend.k_EP2PSendReliable);
+                if (!SendBinary(hostID, w.ToArray(), EP2PSend.k_EP2PSendReliable))
+                    pendingLobbyInfoHost = CSteamID.Nil;
             }
         }
 
@@ -995,6 +1576,7 @@ namespace GraveyardKeeperCoop.Network
                 w.Write(lobbyID.m_SteamID);
                 w.Write(hostName);
                 w.Write(ModConfig.GetDLCRequirementsString());
+                w.Write(PluginInfo.PLUGIN_VERSION ?? string.Empty);
                 CoopMod.Logger.LogInfo($"[P2P] Sending lobby info {lobbyID} to {senderID}");
                 SendBinary(senderID, w.ToArray(), EP2PSend.k_EP2PSendReliable);
             }
@@ -1005,11 +1587,16 @@ namespace GraveyardKeeperCoop.Network
         /// </summary>
         private void HandleLobbyInfo(CSteamID senderID, ref MsgReader reader)
         {
+            if (senderID != pendingLobbyInfoHost)
+                return;
+
+            pendingLobbyInfoHost = CSteamID.Nil;
             try
             {
                 ulong lobbyIDValue = reader.ReadUInt64();
                 string hostName = reader.ReadString();
                 string dlcRequirements = reader.Remaining > 0 ? reader.ReadString() : "";
+                string modVersion = reader.Remaining > 0 ? reader.ReadString() : "";
                 CSteamID lobbyID = new CSteamID(lobbyIDValue);
 
                 CoopMod.Logger.LogInfo($"[P2P] Received lobby info from '{hostName}': lobby {lobbyID}");
@@ -1021,6 +1608,17 @@ namespace GraveyardKeeperCoop.Network
                     {
                         GUIElements.me.dialog.OpenOK(rejectMessage);
                     }
+                    return;
+                }
+
+                if (!SteamLobbyManager.TryValidateHostModVersion(
+                        modVersion,
+                        out string versionRejectMessage))
+                {
+                    CoopMod.Logger.LogWarning(
+                        $"[P2P] Lobby info rejected by mod version: " +
+                        versionRejectMessage.Replace('\n', ' '));
+                    GUIElements.me?.dialog?.OpenOK(versionRejectMessage);
                     return;
                 }
 
@@ -1157,6 +1755,37 @@ namespace GraveyardKeeperCoop.Network
             CoopMod.Logger.LogInfo("[P2P] Broadcast READY_TO_PLAY");
         }
 
+        /// <summary>
+        /// Send a world-entry barrier phase outside the reliable bulk stream so
+        /// initial world snapshots cannot delay it. Repetition handles ordinary
+        /// datagram loss; the final release also gets a reliable fallback.
+        /// </summary>
+        public void BroadcastWorldEntryBarrier(
+            WorldEntryBarrierPhase phase,
+            bool reliableFallback = false)
+        {
+            using (var w = new MsgWriter(Op.WorldEntryBarrier, 2))
+            {
+                w.Write((byte)phase);
+                byte[] message = w.ToArray();
+                for (int i = 0; i < 3; i++)
+                    BroadcastBinary(message, EP2PSend.k_EP2PSendUnreliable);
+                if (reliableFallback)
+                    BroadcastBinary(message, EP2PSend.k_EP2PSendReliable);
+            }
+        }
+
+        public void SendWorldEntryPreparedToHost()
+        {
+            using (var w = new MsgWriter(Op.WorldEntryBarrier, 2))
+            {
+                w.Write((byte)WorldEntryBarrierPhase.Prepared);
+                byte[] message = w.ToArray();
+                for (int i = 0; i < 3; i++)
+                    SendToHost(message, EP2PSend.k_EP2PSendUnreliable);
+            }
+        }
+
         #endregion
 
         #region Position Messages
@@ -1211,11 +1840,13 @@ namespace GraveyardKeeperCoop.Network
             // Read timestamp if present (after velocity)
             float timestamp = reader.Remaining >= 4 ? reader.ReadFloat() : Time.realtimeSinceStartup;
 
-            // Store velocity for GhostDriver (accessed via OnlineCoopManager)
+            // Preserve the legacy accessor, but also deliver velocity with the
+            // sender-specific state event so multi-peer snapshots cannot consume
+            // another player's most recently received velocity.
             _lastReceivedVelocity = velocity;
 
+            OnRemotePlayerState?.Invoke(senderID, direction, isMoving, velocity);
             OnRemotePlayerPosition?.Invoke(senderID, position, timestamp);
-            OnRemotePlayerState?.Invoke(senderID, direction, isMoving);
         }
 
         // Last received velocity from PlayerState packet (for GhostDriver)
@@ -1399,6 +2030,23 @@ namespace GraveyardKeeperCoop.Network
             => SendSyncPayloadToHost(Op.InventorySync, payload);
 
         /// <summary>
+        /// Send a targeted inventory-operation decision back to its requesting peer.
+        /// </summary>
+        public void SendInventorySyncToPeer(CSteamID peer, byte[] payload)
+        {
+            using (var w = new MsgWriter(
+                       Op.InventorySync,
+                       (payload?.Length ?? 0) + 8))
+            {
+                w.WriteBytes(payload ?? new byte[0]);
+                SendBinary(
+                    peer,
+                    w.ToArray(),
+                    EP2PSend.k_EP2PSendReliable);
+            }
+        }
+
+        /// <summary>
         /// Broadcast host-canonical inventory/drop state to all lobby members.
         /// </summary>
         public void BroadcastInventorySync(byte[] payload, CSteamID? except = null)
@@ -1498,7 +2146,10 @@ namespace GraveyardKeeperCoop.Network
 
         #region Work Indicator Sync Messages
 
-        public void BroadcastWorkIndicatorSync(byte[] payload, CSteamID? except = null)
+        public void BroadcastWorkIndicatorSync(
+            byte[] payload,
+            CSteamID? except = null,
+            bool reliable = false)
         {
             using (var w = new MsgWriter(
                 Op.WorkIndicatorSync,
@@ -1507,7 +2158,9 @@ namespace GraveyardKeeperCoop.Network
                 w.WriteBytes(payload ?? new byte[0]);
                 BroadcastBinary(
                     w.ToArray(),
-                    EP2PSend.k_EP2PSendUnreliable,
+                    reliable
+                        ? EP2PSend.k_EP2PSendReliable
+                        : EP2PSend.k_EP2PSendUnreliable,
                     except);
             }
         }
@@ -1537,6 +2190,63 @@ namespace GraveyardKeeperCoop.Network
 
         public void BroadcastSpawnSync(byte[] payload, CSteamID? except = null)
             => BroadcastSyncPayload(Op.SpawnSync, payload, except);
+
+        /// <summary>
+        /// Build-cursor projections are transient and supersede older poses, so they use
+        /// Steam unreliable packets instead of occupying the reliable gameplay stream.
+        /// </summary>
+        public void SendSpawnPreviewToHost(byte[] payload)
+        {
+            CSteamID lobbyID =
+                SteamLobbyManager.Instance?.CurrentLobbyID ?? CSteamID.Nil;
+            if (lobbyID == CSteamID.Nil)
+                return;
+            CSteamID hostID = SteamMatchmaking.GetLobbyOwner(lobbyID);
+            if (!Multiplayer.SpawnSync.PeerSupportsBuildingPreview(hostID))
+                return;
+
+            using (var w = new MsgWriter(Op.SpawnSync, (payload?.Length ?? 0) + 8))
+            {
+                w.WriteBytes(payload ?? new byte[0]);
+                SendBinary(
+                    hostID,
+                    w.ToArray(),
+                    EP2PSend.k_EP2PSendUnreliable);
+            }
+        }
+
+        public void BroadcastSpawnPreview(
+            byte[] payload,
+            CSteamID? except = null)
+        {
+            using (var w = new MsgWriter(Op.SpawnSync, (payload?.Length ?? 0) + 8))
+            {
+                w.WriteBytes(payload ?? new byte[0]);
+                byte[] message = w.ToArray();
+                CSteamID lobbyID =
+                    SteamLobbyManager.Instance?.CurrentLobbyID ?? CSteamID.Nil;
+                if (lobbyID == CSteamID.Nil)
+                    return;
+
+                CSteamID localID = SteamUser.GetSteamID();
+                int memberCount = SteamMatchmaking.GetNumLobbyMembers(lobbyID);
+                for (int i = 0; i < memberCount; i++)
+                {
+                    CSteamID memberID =
+                        SteamMatchmaking.GetLobbyMemberByIndex(lobbyID, i);
+                    if (memberID == localID || memberID == except ||
+                        !Multiplayer.SpawnSync.PeerSupportsBuildingPreview(memberID))
+                    {
+                        continue;
+                    }
+
+                    SendBinary(
+                        memberID,
+                        message,
+                        EP2PSend.k_EP2PSendUnreliable);
+                }
+            }
+        }
 
         private void HandleSpawnSyncMessage(CSteamID senderID, ref MsgReader reader)
             => HandleSyncPayload(senderID, ref reader, OnSpawnSyncReceived);
@@ -1623,12 +2333,20 @@ namespace GraveyardKeeperCoop.Network
             OnInteractionZeroHpReceived?.Invoke(senderID, payload);
         }
 
-        public void BroadcastNpcVisualSync(byte[] payload, CSteamID? except = null)
+        public void BroadcastNpcVisualSync(
+            byte[] payload,
+            CSteamID? except = null,
+            bool reliable = false)
         {
             using (var w = new MsgWriter(Op.NpcVisualSync, (payload?.Length ?? 0) + 8))
             {
                 w.WriteBytes(payload ?? new byte[0]);
-                BroadcastBinary(w.ToArray(), EP2PSend.k_EP2PSendUnreliable, except);
+                BroadcastBinary(
+                    w.ToArray(),
+                    reliable
+                        ? EP2PSend.k_EP2PSendReliable
+                        : EP2PSend.k_EP2PSendUnreliable,
+                    except);
             }
         }
 
@@ -1648,6 +2366,88 @@ namespace GraveyardKeeperCoop.Network
         {
             CoopMod.Logger.LogInfo($"[P2P] Received SkipIntro from {SteamFriends.GetFriendPersonaName(senderID)}");
             OnSkipIntroReceived?.Invoke(senderID);
+        }
+
+        public void SendIntroSkipRequest(uint attemptID, bool cancel)
+        {
+            SendIntroSkipState(
+                cancel ? IntroSkipPhase.Cancel : IntroSkipPhase.Request,
+                SteamUser.GetSteamID(),
+                attemptID,
+                0f,
+                toHost: true,
+                EP2PSend.k_EP2PSendReliable);
+        }
+
+        public void BroadcastIntroSkipAuthority(IntroSkipPhase phase, CSteamID ownerID, uint attemptID)
+        {
+            if (phase != IntroSkipPhase.Grant && phase != IntroSkipPhase.Release)
+                return;
+
+            SendIntroSkipState(
+                phase,
+                ownerID,
+                attemptID,
+                0f,
+                toHost: false,
+                EP2PSend.k_EP2PSendReliable);
+        }
+
+        public void BroadcastIntroSkipProgress(uint attemptID, float progress)
+        {
+            SendIntroSkipState(
+                IntroSkipPhase.Progress,
+                SteamUser.GetSteamID(),
+                attemptID,
+                Mathf.Clamp01(progress),
+                toHost: false,
+                EP2PSend.k_EP2PSendUnreliable);
+        }
+
+        private void SendIntroSkipState(
+            IntroSkipPhase phase,
+            CSteamID ownerID,
+            uint attemptID,
+            float progress,
+            bool toHost,
+            EP2PSend sendType)
+        {
+            using (var w = new MsgWriter(Op.IntroSkipState, 20))
+            {
+                w.Write((byte)phase);
+                w.Write(ownerID.m_SteamID);
+                w.Write(attemptID);
+                w.Write(progress);
+
+                if (toHost)
+                    SendToHost(w.ToArray(), sendType);
+                else
+                    BroadcastBinary(w.ToArray(), sendType);
+            }
+        }
+
+        private void HandleIntroSkipStateMessage(CSteamID senderID, ref MsgReader reader)
+        {
+            const int PayloadBytes = 17;
+            if (reader.Remaining < PayloadBytes)
+            {
+                CoopMod.Logger.LogWarning($"[P2P] Ignoring truncated IntroSkipState from {senderID}");
+                return;
+            }
+
+            var phase = (IntroSkipPhase)reader.ReadByte();
+            var ownerID = new CSteamID(reader.ReadUInt64());
+            uint attemptID = reader.ReadUInt32();
+            float progress = reader.ReadFloat();
+
+            if (phase > IntroSkipPhase.Release || ownerID == CSteamID.Nil || attemptID == 0 ||
+                float.IsNaN(progress) || float.IsInfinity(progress))
+            {
+                CoopMod.Logger.LogWarning($"[P2P] Ignoring invalid IntroSkipState from {senderID}");
+                return;
+            }
+
+            OnIntroSkipStateReceived?.Invoke(senderID, phase, ownerID, attemptID, Mathf.Clamp01(progress));
         }
 
         #endregion
@@ -1699,6 +2499,61 @@ namespace GraveyardKeeperCoop.Network
                 w.Write(choiceText ?? "");
                 BroadcastBinary(w.ToArray(), EP2PSend.k_EP2PSendReliable);
             }
+        }
+
+        public void SendDialogueOptions(List<AnswerVisualData> answers, bool showToLeft)
+        {
+            if (answers == null || answers.Count == 0)
+                return;
+
+            using (var w = new MsgWriter(Op.DialogueOptions, 1024))
+            {
+                w.Write(showToLeft);
+                int count = Math.Min(answers.Count, 64);
+                w.Write((byte)count);
+                for (int i = 0; i < count; i++)
+                    WriteAnswerVisualData(w, answers[i], 0);
+                BroadcastBinary(w.ToArray(), EP2PSend.k_EP2PSendReliable);
+            }
+        }
+
+        public void SendDialogueHover(int choiceIndex)
+        {
+            using (var w = new MsgWriter(Op.DialogueHover))
+            {
+                w.Write(choiceIndex);
+                BroadcastBinary(w.ToArray(), EP2PSend.k_EP2PSendReliable);
+            }
+        }
+
+        private static void WriteAnswerVisualData(
+            MsgWriter writer,
+            AnswerVisualData answer,
+            int depth)
+        {
+            answer = answer ?? new AnswerVisualData();
+            bool multiple = answer is MultipleAnswerVisualData && depth == 0;
+            writer.Write(multiple);
+            writer.Write(answer.id ?? "");
+            writer.Write(answer.icon_price ?? "");
+            writer.Write(answer.icon_lock ?? "");
+            writer.Write(answer.icon_reward ?? "");
+            writer.Write(answer.can_be_picked);
+            writer.Write(answer.inside_price_is_red);
+            writer.Write(answer.price_txt ?? "");
+            writer.Write(answer.icon_price_quality ?? "");
+            writer.Write(answer.icon_reward_quality ?? "");
+            writer.Write(answer.icon_lock_quality ?? "");
+            writer.Write(answer.n_price);
+            writer.Write(answer.n_reward);
+            writer.Write(answer.n_lock);
+
+            int childCount = multiple && answer.answer_visual_datas != null
+                ? Math.Min(answer.answer_visual_datas.Count, 32)
+                : 0;
+            writer.Write((byte)childCount);
+            for (int i = 0; i < childCount; i++)
+                WriteAnswerVisualData(writer, answer.answer_visual_datas[i], depth + 1);
         }
 
         /// <summary>
@@ -1992,17 +2847,52 @@ namespace GraveyardKeeperCoop.Network
         /// Broadcast an NPC interaction so the remote machine replays it (keeps dialogue/walk-off/
         /// corpse-drop state in sync).
         /// </summary>
-        public void SendNpcInteraction(string customTag, string objId, Vector3 npcWorldPos, string originZoneId = "")
+        public void SendNpcInteraction(
+            string customTag,
+            string objId,
+            Vector3 npcWorldPos,
+            string originZoneId = "",
+            CSteamID? interactionOwner = null)
         {
+            CSteamID owner = interactionOwner ?? SteamUser.GetSteamID();
             using (var w = new MsgWriter(Op.NpcInteraction))
             {
                 w.Write(customTag ?? "");
                 w.Write(objId ?? "");
                 w.Write(npcWorldPos);
                 w.Write(originZoneId ?? "");
+                w.Write(owner.m_SteamID);
                 BroadcastBinary(w.ToArray(), EP2PSend.k_EP2PSendReliable);
             }
-            CoopMod.Logger.LogInfo($"[P2P] Sent NpcInteraction: tag='{customTag}', obj_id='{objId}', pos={npcWorldPos}, zone='{originZoneId}'");
+            CoopMod.Logger.LogInfo($"[P2P] Sent NpcInteraction: tag='{customTag}', obj_id='{objId}', pos={npcWorldPos}, zone='{originZoneId}', owner={owner}");
+        }
+
+        /// <summary>
+        /// Send a client NPC-interaction request only to the lobby host. Spectators
+        /// receive the host's approval broadcast, not an unvalidated request.
+        /// </summary>
+        public bool SendNpcInteractionToHost(
+            string customTag,
+            string objId,
+            Vector3 npcWorldPos,
+            string originZoneId = "")
+        {
+            CSteamID owner = SteamUser.GetSteamID();
+            using (var w = new MsgWriter(Op.NpcInteraction))
+            {
+                w.Write(customTag ?? "");
+                w.Write(objId ?? "");
+                w.Write(npcWorldPos);
+                w.Write(originZoneId ?? "");
+                w.Write(owner.m_SteamID);
+                bool sent = SendToHost(
+                    w.ToArray(),
+                    EP2PSend.k_EP2PSendReliable);
+                CoopMod.Logger.LogInfo(
+                    $"[P2P] Sent NpcInteraction request to host: tag='{customTag}', " +
+                    $"obj_id='{objId}', pos={npcWorldPos}, zone='{originZoneId}', sent={sent}");
+                return sent;
+            }
         }
 
         private void HandleNpcInteractionMessage(CSteamID senderID, ref MsgReader reader)
@@ -2011,9 +2901,46 @@ namespace GraveyardKeeperCoop.Network
             string objId = reader.ReadString();
             Vector3 pos = reader.ReadVector3();
             string originZoneId = reader.Remaining > 0 ? reader.ReadString() : "";
+            CSteamID interactionOwner = reader.Remaining >= sizeof(ulong)
+                ? new CSteamID(reader.ReadUInt64())
+                : senderID;
             bool hasScope = pos != Vector3.zero || !string.IsNullOrEmpty(originZoneId);
-            CoopMod.Logger.LogInfo($"[P2P] Received NpcInteraction from {SteamFriends.GetFriendPersonaName(senderID)}: tag='{tag}', obj_id='{objId}', pos={pos}, zone='{originZoneId}', hasScope={hasScope}");
-            OnNpcInteractionReceived?.Invoke(senderID, tag, objId, pos, originZoneId, hasScope);
+            CoopMod.Logger.LogInfo($"[P2P] Received NpcInteraction from {SteamFriends.GetFriendPersonaName(senderID)}: tag='{tag}', obj_id='{objId}', pos={pos}, zone='{originZoneId}', hasScope={hasScope}, owner={interactionOwner}");
+            OnNpcInteractionReceived?.Invoke(
+                senderID,
+                tag,
+                objId,
+                pos,
+                originZoneId,
+                hasScope,
+                interactionOwner);
+        }
+
+        public void SendNpcInteractionComplete(string customTag, string objId)
+        {
+            using (var w = new MsgWriter(Op.NpcInteractionComplete))
+            {
+                w.Write(customTag ?? "");
+                w.Write(objId ?? "");
+                BroadcastBinary(
+                    w.ToArray(),
+                    EP2PSend.k_EP2PSendReliable);
+            }
+            CoopMod.Logger.LogInfo(
+                $"[P2P] Sent NpcInteractionComplete: tag='{customTag}', obj_id='{objId}'");
+        }
+
+        private void HandleNpcInteractionCompleteMessage(
+            CSteamID senderID,
+            ref MsgReader reader)
+        {
+            string tag = reader.ReadString();
+            string objId = reader.ReadString();
+            CoopMod.Logger.LogInfo(
+                $"[P2P] Received NpcInteractionComplete from " +
+                $"{SteamFriends.GetFriendPersonaName(senderID)}: " +
+                $"tag='{tag}', obj_id='{objId}'");
+            OnNpcInteractionCompleteReceived?.Invoke(senderID, tag, objId);
         }
 
         /// <summary>
@@ -2138,7 +3065,15 @@ namespace GraveyardKeeperCoop.Network
             CSteamID remoteID = callback.m_steamIDRemote;
             string remoteName = SteamFriends.GetFriendPersonaName(remoteID);
 
+            if (!IsCurrentLobbyMember(remoteID) && !IsPreLobbyPeerAllowed(remoteID))
+            {
+                CoopMod.Logger.LogWarning($"[P2P] Rejected unauthorized P2P session request from {remoteName} ({remoteID})");
+                return;
+            }
+
             bool accepted = SteamNetworking.AcceptP2PSessionWithUser(remoteID);
+            if (accepted)
+                sessionPeers.Add(remoteID.m_SteamID);
             CoopMod.Logger.LogInfo($"[P2P] P2P session request from {remoteName}: {(accepted ? "accepted" : "failed")}");
         }
 
@@ -2146,6 +3081,7 @@ namespace GraveyardKeeperCoop.Network
         {
             if (!SteamManager.Initialized) return;
             SteamNetworking.CloseP2PSessionWithUser(userID);
+            sessionPeers.Remove(userID.m_SteamID);
             CoopMod.Logger.LogInfo($"[P2P] Closed P2P session with {SteamFriends.GetFriendPersonaName(userID)}");
         }
 

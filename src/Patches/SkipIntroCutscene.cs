@@ -61,6 +61,9 @@ namespace GraveyardKeeperCoop.Patches
     public class IntroSkipHandler : MonoBehaviour
     {
         private const float HoldDuration = 3f;
+        private const float RequestRetryInterval = 0.5f;
+        private const float ProgressBroadcastInterval = 0.1f;
+        private const float OwnerTimeout = 1.5f;
         private const int TexSize = 32;
         private const float OuterRadius = 14f;
         private const float InnerRadius = 10f;
@@ -69,6 +72,18 @@ namespace GraveyardKeeperCoop.Patches
         private bool isHolding;
         private bool skipTriggered;
         private float currentProgress;
+        private bool awaitingGrant;
+        private bool localInputBlockedUntilRelease;
+        private uint nextAttemptID;
+        private uint localAttemptID;
+        private float nextRequestAt;
+        private float nextProgressBroadcastAt;
+
+        private CSteamID activeSkipperID = CSteamID.Nil;
+        private uint activeAttemptID;
+        private float activeProgress;
+        private float activeProgressUpdatedAt;
+        private float ownerLastActivityAt;
 
         private Texture2D ringTexture;
         private GUIStyle promptLabelStyle;
@@ -83,7 +98,12 @@ namespace GraveyardKeeperCoop.Patches
         private bool iconReady;
         private bool iconAttempted;
 
-        private static bool _skipIntroEventSubscribed;
+        private SteamP2PManager subscribedP2PManager;
+
+        void Awake()
+        {
+            EnsureNetworkSubscriptions();
+        }
 
         public void ResetSkipState()
         {
@@ -91,6 +111,16 @@ namespace GraveyardKeeperCoop.Patches
             isHolding = false;
             holdStartTime = -1f;
             currentProgress = 0f;
+            awaitingGrant = false;
+            localInputBlockedUntilRelease = false;
+            localAttemptID = 0;
+            nextRequestAt = 0f;
+            nextProgressBroadcastAt = 0f;
+            activeSkipperID = CSteamID.Nil;
+            activeAttemptID = 0;
+            activeProgress = 0f;
+            activeProgressUpdatedAt = 0f;
+            ownerLastActivityAt = 0f;
             lastIntroEligibility = false;
             lastIntroSkipDebugLogTime = -100f;
             lastHoldDebugLogTime = -100f;
@@ -99,6 +129,7 @@ namespace GraveyardKeeperCoop.Patches
 
         void Update()
         {
+            EnsureNetworkSubscriptions();
             if (skipTriggered) return;
 
             Intro introInstance = SkipIntroCutscene.GetIntroInstance();
@@ -116,14 +147,12 @@ namespace GraveyardKeeperCoop.Patches
                 holdStartTime = -1f;
                 isHolding = false;
                 currentProgress = 0f;
+                awaitingGrant = false;
+                localInputBlockedUntilRelease = false;
+                activeSkipperID = CSteamID.Nil;
+                activeAttemptID = 0;
+                activeProgress = 0f;
                 return;
-            }
-
-            if (!_skipIntroEventSubscribed && SteamP2PManager.Instance != null)
-            {
-                SteamP2PManager.Instance.OnSkipIntroReceived += OnRemoteSkipIntro;
-                _skipIntroEventSubscribed = true;
-                CoopMod.Logger.LogInfo("[IntroSkip] Subscribed to OnSkipIntroReceived event");
             }
 
             if (!iconReady && !iconAttempted)
@@ -140,26 +169,87 @@ namespace GraveyardKeeperCoop.Patches
                                || submitButton
                                || lazyInteractionHeld
                                || lazySelectHeld;
+            bool inputHeld = mouseHeld || controllerHeld;
+            float now = Time.realtimeSinceStartup;
 
-            if (mouseHeld || controllerHeld)
+            var lobby = SteamLobbyManager.Instance;
+            bool isMultiplayer = lobby != null && lobby.IsInLobby && SteamP2PManager.Instance != null;
+
+            if (isMultiplayer && lobby.IsHost && activeSkipperID != CSteamID.Nil &&
+                now - ownerLastActivityAt > OwnerTimeout)
             {
+                ReleaseActiveAttempt("owner progress timed out");
+            }
+
+            if (!inputHeld)
+                localInputBlockedUntilRelease = false;
+
+            if (activeSkipperID != CSteamID.Nil && !IsLocalActiveSkipper())
+            {
+                if (inputHeld)
+                    localInputBlockedUntilRelease = true;
+                return;
+            }
+
+            if (awaitingGrant)
+            {
+                if (!inputHeld)
+                {
+                    CoopMod.Logger.LogInfo("[IntroSkip] Skip request cancelled before host grant");
+                    SteamP2PManager.Instance?.SendIntroSkipRequest(localAttemptID, cancel: true);
+                    awaitingGrant = false;
+                    localAttemptID = 0;
+                }
+                else if (now >= nextRequestAt)
+                {
+                    SteamP2PManager.Instance?.SendIntroSkipRequest(localAttemptID, cancel: false);
+                    nextRequestAt = now + RequestRetryInterval;
+                }
+                return;
+            }
+
+            // A client that released an already-granted hold waits for the host's Release message.
+            if (activeSkipperID != CSteamID.Nil && IsLocalActiveSkipper() && !isHolding)
+                return;
+
+            if (inputHeld)
+            {
+                if (localInputBlockedUntilRelease)
+                    return;
+
                 if (!isHolding)
                 {
-                    isHolding = true;
-                    holdStartTime = Time.unscaledTime;
+                    BeginLocalAttempt(isMultiplayer, lobby);
+                    if (!isHolding)
+                        return;
+
                     CoopMod.Logger.LogInfo($"[IntroSkipDebug] hold started source={(mouseHeld ? "mouse" : "controller")}, rawJoystickA={rawJoystickA}, submit={submitButton}, lazyInteraction={lazyInteractionHeld}, lazySelect={lazySelectHeld}, lazyGamepadActive={SafeLazyGamepadActive()}, time={Time.realtimeSinceStartup:F2}");
                 }
                 currentProgress = Mathf.Clamp01((Time.unscaledTime - holdStartTime) / HoldDuration);
 
-                if (Time.realtimeSinceStartup - lastHoldDebugLogTime >= 0.75f)
+                if (isMultiplayer && IsLocalActiveSkipper())
+                {
+                    if (lobby.IsHost)
+                        ownerLastActivityAt = now;
+
+                    if (now >= nextProgressBroadcastAt)
+                    {
+                        SteamP2PManager.Instance?.BroadcastIntroSkipProgress(localAttemptID, currentProgress);
+                        nextProgressBroadcastAt = now + ProgressBroadcastInterval;
+                    }
+                }
+
+                if (now - lastHoldDebugLogTime >= 0.75f)
                 {
                     CoopMod.Logger.LogInfo($"[IntroSkipDebug] hold progress={currentProgress:P0}, rawJoystickA={rawJoystickA}, submit={submitButton}, lazyInteraction={lazyInteractionHeld}, lazySelect={lazySelectHeld}, mouse={mouseHeld}, time={Time.realtimeSinceStartup:F2}");
-                    lastHoldDebugLogTime = Time.realtimeSinceStartup;
+                    lastHoldDebugLogTime = now;
                 }
 
                 if (currentProgress >= 1f)
                 {
-                    SkipIntro();
+                    if (isMultiplayer)
+                        SteamP2PManager.Instance?.BroadcastIntroSkipProgress(localAttemptID, 1f);
+                    SkipIntro(broadcast: true);
                 }
             }
             else
@@ -168,15 +258,15 @@ namespace GraveyardKeeperCoop.Patches
                 {
                     CoopMod.Logger.LogInfo($"[IntroSkipDebug] hold cancelled at progress={currentProgress:P0}, time={Time.realtimeSinceStartup:F2}");
                 }
-                isHolding = false;
-                holdStartTime = -1f;
-                currentProgress = 0f;
+                CancelLocalHold(isMultiplayer, lobby);
             }
         }
 
         void OnGUI()
         {
-            if (skipTriggered || currentProgress <= 0.001f) return;
+            bool showingRemoteSkipper = activeSkipperID != CSteamID.Nil && !IsLocalActiveSkipper();
+            float displayProgress = showingRemoteSkipper ? GetRemoteDisplayProgress() : currentProgress;
+            if (skipTriggered || (!showingRemoteSkipper && displayProgress <= 0.001f)) return;
 
             Intro introInstance = SkipIntroCutscene.GetIntroInstance();
             bool needShow = SkipIntroCutscene.NeedShowFirstIntro();
@@ -188,9 +278,10 @@ namespace GraveyardKeeperCoop.Patches
             float scale = Mathf.Min(Screen.width, Screen.height) / 720f;
             float displaySize = TexSize * scale;
             bool usingController = IsControllerInput();
+            bool fixedPosition = showingRemoteSkipper || usingController;
 
             float cx, cy;
-            if (usingController)
+            if (fixedPosition)
             {
                 cx = Screen.width - 80f * scale - displaySize / 2f;
                 cy = Screen.height - 80f * scale - displaySize / 2f;
@@ -202,10 +293,291 @@ namespace GraveyardKeeperCoop.Patches
                 cy = Screen.height - mousePos.y - displaySize / 2f;
             }
 
-            RegenerateRingTexture(currentProgress);
+            RegenerateRingTexture(displayProgress);
             GUI.DrawTexture(new Rect(cx, cy, displaySize, displaySize), ringTexture);
 
-            DrawPromptLabel(cx, cy, displaySize, usingController, scale);
+            string labelText = showingRemoteSkipper
+                ? $"{GetPlayerName(activeSkipperID)} is skipping intro"
+                : "Hold to Skip Intro";
+            DrawPromptLabel(
+                cx,
+                cy,
+                displaySize,
+                fixedPosition,
+                usingController && !showingRemoteSkipper,
+                scale,
+                labelText);
+        }
+
+        private void EnsureNetworkSubscriptions()
+        {
+            var manager = SteamP2PManager.Instance;
+            if (ReferenceEquals(manager, subscribedP2PManager))
+                return;
+
+            if (subscribedP2PManager != null)
+            {
+                subscribedP2PManager.OnSkipIntroReceived -= OnRemoteSkipIntro;
+                subscribedP2PManager.OnIntroSkipStateReceived -= OnIntroSkipStateReceived;
+            }
+
+            subscribedP2PManager = manager;
+            if (subscribedP2PManager != null)
+            {
+                subscribedP2PManager.OnSkipIntroReceived += OnRemoteSkipIntro;
+                subscribedP2PManager.OnIntroSkipStateReceived += OnIntroSkipStateReceived;
+                CoopMod.Logger.LogInfo("[IntroSkip] Subscribed to intro skip network events");
+            }
+        }
+
+        private void BeginLocalAttempt(bool isMultiplayer, SteamLobbyManager lobby)
+        {
+            if (!isMultiplayer)
+            {
+                StartLocalHold();
+                return;
+            }
+
+            localAttemptID = NextAttemptID();
+            CSteamID localID = SteamUser.GetSteamID();
+            if (lobby.IsHost)
+            {
+                GrantAttempt(localID, localAttemptID);
+                return;
+            }
+
+            awaitingGrant = true;
+            nextRequestAt = Time.realtimeSinceStartup + RequestRetryInterval;
+            SteamP2PManager.Instance.SendIntroSkipRequest(localAttemptID, cancel: false);
+            CoopMod.Logger.LogInfo($"[IntroSkip] Requested skip ownership (attempt {localAttemptID})");
+        }
+
+        private uint NextAttemptID()
+        {
+            nextAttemptID++;
+            if (nextAttemptID == 0)
+                nextAttemptID++;
+            return nextAttemptID;
+        }
+
+        private void StartLocalHold()
+        {
+            isHolding = true;
+            holdStartTime = Time.unscaledTime;
+            currentProgress = 0f;
+            nextProgressBroadcastAt = 0f;
+        }
+
+        private void CancelLocalHold(bool isMultiplayer, SteamLobbyManager lobby)
+        {
+            if (!isHolding)
+            {
+                holdStartTime = -1f;
+                currentProgress = 0f;
+                return;
+            }
+
+            isHolding = false;
+            holdStartTime = -1f;
+            currentProgress = 0f;
+
+            if (!isMultiplayer || activeSkipperID == CSteamID.Nil || !IsLocalActiveSkipper())
+                return;
+
+            if (lobby.IsHost)
+            {
+                ReleaseActiveAttempt("host cancelled hold");
+            }
+            else
+            {
+                SteamP2PManager.Instance?.SendIntroSkipRequest(localAttemptID, cancel: true);
+                localInputBlockedUntilRelease = true;
+            }
+        }
+
+        private void GrantAttempt(CSteamID ownerID, uint attemptID)
+        {
+            ApplyGrant(ownerID, attemptID);
+            SteamP2PManager.Instance?.BroadcastIntroSkipAuthority(IntroSkipPhase.Grant, ownerID, attemptID);
+            CoopMod.Logger.LogInfo($"[IntroSkip] Host granted skip ownership to {GetPlayerName(ownerID)} (attempt {attemptID})");
+        }
+
+        private void ApplyGrant(CSteamID ownerID, uint attemptID)
+        {
+            float now = Time.realtimeSinceStartup;
+            if (activeSkipperID == ownerID && activeAttemptID == attemptID)
+            {
+                ownerLastActivityAt = now;
+                return;
+            }
+
+            bool localOwnsGrant = ownerID == SteamUser.GetSteamID();
+            activeSkipperID = ownerID;
+            activeAttemptID = attemptID;
+            activeProgress = 0f;
+            activeProgressUpdatedAt = now;
+            ownerLastActivityAt = now;
+
+            if (localOwnsGrant)
+            {
+                awaitingGrant = false;
+                localAttemptID = attemptID;
+                StartLocalHold();
+            }
+            else
+            {
+                awaitingGrant = false;
+                localAttemptID = 0;
+                isHolding = false;
+                holdStartTime = -1f;
+                currentProgress = 0f;
+                localInputBlockedUntilRelease = true;
+            }
+        }
+
+        private void ReleaseActiveAttempt(string reason)
+        {
+            var lobby = SteamLobbyManager.Instance;
+            if (lobby == null || !lobby.IsHost || activeSkipperID == CSteamID.Nil)
+                return;
+
+            CSteamID releasedOwner = activeSkipperID;
+            uint releasedAttempt = activeAttemptID;
+            ApplyRelease(releasedOwner, releasedAttempt);
+            SteamP2PManager.Instance?.BroadcastIntroSkipAuthority(
+                IntroSkipPhase.Release,
+                releasedOwner,
+                releasedAttempt);
+            CoopMod.Logger.LogInfo($"[IntroSkip] Host released {GetPlayerName(releasedOwner)}'s skip attempt ({reason})");
+        }
+
+        private void ApplyRelease(CSteamID ownerID, uint attemptID)
+        {
+            if (activeSkipperID != ownerID || activeAttemptID != attemptID)
+                return;
+
+            bool releasedLocalOwner = IsLocalActiveSkipper();
+            activeSkipperID = CSteamID.Nil;
+            activeAttemptID = 0;
+            activeProgress = 0f;
+            activeProgressUpdatedAt = 0f;
+            ownerLastActivityAt = 0f;
+
+            if (releasedLocalOwner)
+            {
+                awaitingGrant = false;
+                localAttemptID = 0;
+                isHolding = false;
+                holdStartTime = -1f;
+                currentProgress = 0f;
+            }
+            else
+            {
+                localInputBlockedUntilRelease = true;
+            }
+        }
+
+        private void OnIntroSkipStateReceived(
+            CSteamID senderID,
+            IntroSkipPhase phase,
+            CSteamID ownerID,
+            uint attemptID,
+            float progress)
+        {
+            if (!IsIntroEligible())
+                return;
+
+            var lobby = SteamLobbyManager.Instance;
+            if (lobby == null || !lobby.IsInLobby)
+                return;
+
+            switch (phase)
+            {
+                case IntroSkipPhase.Request:
+                    if (!lobby.IsHost || senderID != ownerID)
+                        return;
+
+                    if (activeSkipperID == CSteamID.Nil)
+                    {
+                        GrantAttempt(ownerID, attemptID);
+                    }
+                    else
+                    {
+                        if (activeSkipperID == ownerID && activeAttemptID == attemptID)
+                            ownerLastActivityAt = Time.realtimeSinceStartup;
+
+                        // Re-announce the current owner so simultaneous or retried requests converge.
+                        SteamP2PManager.Instance?.BroadcastIntroSkipAuthority(
+                            IntroSkipPhase.Grant,
+                            activeSkipperID,
+                            activeAttemptID);
+                    }
+                    break;
+
+                case IntroSkipPhase.Cancel:
+                    if (!lobby.IsHost || senderID != ownerID)
+                        return;
+                    if (activeSkipperID == ownerID && activeAttemptID == attemptID)
+                        ReleaseActiveAttempt("owner cancelled hold");
+                    break;
+
+                case IntroSkipPhase.Grant:
+                    if (senderID != lobby.GetLobbyOwner())
+                        return;
+                    ApplyGrant(ownerID, attemptID);
+                    break;
+
+                case IntroSkipPhase.Release:
+                    if (senderID != lobby.GetLobbyOwner())
+                        return;
+                    ApplyRelease(ownerID, attemptID);
+                    break;
+
+                case IntroSkipPhase.Progress:
+                    if (senderID != ownerID || activeSkipperID != ownerID || activeAttemptID != attemptID)
+                        return;
+
+                    float progressReceivedAt = Time.realtimeSinceStartup;
+                    if (progress >= activeProgress)
+                    {
+                        activeProgress = progress;
+                        activeProgressUpdatedAt = progressReceivedAt;
+                    }
+                    if (lobby.IsHost)
+                        ownerLastActivityAt = progressReceivedAt;
+                    break;
+            }
+        }
+
+        private bool IsLocalActiveSkipper()
+        {
+            return activeSkipperID != CSteamID.Nil && activeSkipperID == SteamUser.GetSteamID();
+        }
+
+        private static bool IsIntroEligible()
+        {
+            Intro introInstance = SkipIntroCutscene.GetIntroInstance();
+            return introInstance != null &&
+                   SkipIntroCutscene.NeedShowFirstIntro() &&
+                   introInstance.gameObject.activeSelf;
+        }
+
+        private float GetRemoteDisplayProgress()
+        {
+            if (activeSkipperID == CSteamID.Nil)
+                return 0f;
+
+            float elapsed = Mathf.Max(0f, Time.realtimeSinceStartup - activeProgressUpdatedAt);
+            return Mathf.Clamp01(activeProgress + elapsed / HoldDuration);
+        }
+
+        private static string GetPlayerName(CSteamID playerID)
+        {
+            string playerName = SteamFriends.GetFriendPersonaName(playerID);
+            if (string.IsNullOrEmpty(playerName))
+                return "Player";
+            playerName = playerName.Replace('\r', ' ').Replace('\n', ' ').Trim();
+            return string.IsNullOrEmpty(playerName) ? "Player" : playerName;
         }
 
         /// <summary>
@@ -394,15 +766,16 @@ namespace GraveyardKeeperCoop.Patches
             }
         }
 
-        private void DrawPromptLabel(float ringCx, float ringCy, float displaySize, bool usingController, float scale)
+        private void DrawPromptLabel(
+            float ringCx,
+            float ringCy,
+            float displaySize,
+            bool fixedPosition,
+            bool showControllerIcon,
+            float scale,
+            string labelText)
         {
-            string labelText;
-            if (usingController)
-                labelText = "Hold to Skip Intro";
-            else
-                labelText = "Hold to Skip Intro";
-
-            if (usingController && Time.realtimeSinceStartup - lastIntroSkipDebugLogTime >= 1f)
+            if (showControllerIcon && Time.realtimeSinceStartup - lastIntroSkipDebugLogTime >= 1f)
             {
                 CoopMod.Logger.LogInfo($"[IntroSkipDebug] OnGUI label, iconReady={iconReady}, time={Time.realtimeSinceStartup:F2}");
                 lastIntroSkipDebugLogTime = Time.realtimeSinceStartup;
@@ -424,13 +797,13 @@ namespace GraveyardKeeperCoop.Patches
 
             float iconHeight = fontSize * 1.6f;
             float iconWidth = 0f;
-            if (iconReady)
+            if (iconReady && showControllerIcon)
             {
                 float aspect = iconUVRect.width > 0.001f ? iconUVRect.height / iconUVRect.width : 1f;
                 iconWidth = iconHeight / aspect;
                 iconWidth += 4f * scale; // gap between icon and text
             }
-            else if (usingController)
+            else if (showControllerIcon)
             {
                 labelText = "(A) " + labelText;
                 iconWidth = 0f;
@@ -441,8 +814,9 @@ namespace GraveyardKeeperCoop.Patches
             float textHeight = fontSize * 1.3f;
 
             float labelX = ringCx + displaySize / 2f - totalWidth / 2f;
+            labelX = Mathf.Clamp(labelX, 8f * scale, Mathf.Max(8f * scale, Screen.width - totalWidth - 8f * scale));
             float labelY;
-            if (usingController)
+            if (fixedPosition)
                 labelY = ringCy - textHeight - 4f * scale;
             else
                 labelY = ringCy + displaySize + 4f * scale;
@@ -459,7 +833,7 @@ namespace GraveyardKeeperCoop.Patches
             promptLabelStyle.normal.textColor = savedColor;
             GUI.Label(new Rect(textStartX, labelY, textWidth, textHeight), labelText, promptLabelStyle);
 
-            if (iconReady && usingController)
+            if (iconReady && showControllerIcon)
             {
                 float iconX = labelX;
                 float iconY = labelY + (textHeight - iconHeight) / 2f;
@@ -564,10 +938,11 @@ namespace GraveyardKeeperCoop.Patches
 
         void OnDestroy()
         {
-            if (_skipIntroEventSubscribed && SteamP2PManager.Instance != null)
+            if (subscribedP2PManager != null)
             {
-                SteamP2PManager.Instance.OnSkipIntroReceived -= OnRemoteSkipIntro;
-                _skipIntroEventSubscribed = false;
+                subscribedP2PManager.OnSkipIntroReceived -= OnRemoteSkipIntro;
+                subscribedP2PManager.OnIntroSkipStateReceived -= OnIntroSkipStateReceived;
+                subscribedP2PManager = null;
             }
             if (ringTexture != null)
             {
@@ -578,14 +953,14 @@ namespace GraveyardKeeperCoop.Patches
             iconReady = false;
         }
 
-        private void SkipIntro()
+        private void SkipIntro(bool broadcast)
         {
             if (skipTriggered) return;
             skipTriggered = true;
             currentProgress = 1f;
 
             // Multiplayer: broadcast skip to other players
-            if (SteamLobbyManager.Instance?.IsInLobby == true)
+            if (broadcast && SteamLobbyManager.Instance?.IsInLobby == true)
             {
                 SteamP2PManager.Instance?.SendSkipIntro();
             }
@@ -603,8 +978,8 @@ namespace GraveyardKeeperCoop.Patches
             if (introInstance == null || !needShow || !introInstance.gameObject.activeSelf)
                 return;
 
-            CoopMod.Logger.LogInfo($"[IntroSkip] Remote player {senderID} skipped intro - skipping locally");
-            SkipIntro();
+            CoopMod.Logger.LogInfo($"[IntroSkip] Remote player {GetPlayerName(senderID)} skipped intro - skipping locally");
+            SkipIntro(broadcast: false);
         }
     }
 }

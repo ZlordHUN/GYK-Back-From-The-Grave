@@ -17,6 +17,10 @@ namespace GraveyardKeeperCoop.Multiplayer
         private PlayerCosmetics _localCosmetics;
         private PlayerCosmetics _remoteCosmetics;
         private PlayerCosmeticsDriver _remoteDriver;
+        private readonly Dictionary<ulong, PlayerCosmetics> remoteCosmeticsByPeer =
+            new Dictionary<ulong, PlayerCosmetics>();
+        private readonly Dictionary<ulong, PlayerCosmeticsDriver> remoteDriversByPeer =
+            new Dictionary<ulong, PlayerCosmeticsDriver>();
 
         public PlayerCosmetics LocalCosmetics => _localCosmetics;
         public PlayerCosmetics RemoteCosmetics => _remoteCosmetics;
@@ -125,9 +129,56 @@ namespace GraveyardKeeperCoop.Multiplayer
             }
         }
 
+        public void SetRemotePlayerDriver(
+            CSteamID peer,
+            PlayerCosmeticsDriver driver)
+        {
+            if (peer == CSteamID.Nil)
+            {
+                SetRemotePlayerDriver(driver);
+                return;
+            }
+
+            if (driver == null)
+            {
+                remoteDriversByPeer.Remove(peer.m_SteamID);
+                return;
+            }
+
+            remoteDriversByPeer[peer.m_SteamID] = driver;
+            if (remoteCosmeticsByPeer.TryGetValue(
+                    peer.m_SteamID,
+                    out PlayerCosmetics cosmetics))
+            {
+                driver.SetCosmetics(cosmetics);
+            }
+
+            if (OnlineCoopManager.Instance?.RemotePlayerSteamID == peer)
+            {
+                _remoteDriver = driver;
+                if (_remoteCosmetics != null)
+                    driver.SetCosmetics(_remoteCosmetics);
+            }
+        }
+
+        public void RemoveRemotePlayerDriver(CSteamID peer)
+        {
+            if (peer == CSteamID.Nil)
+                return;
+
+            remoteDriversByPeer.Remove(peer.m_SteamID);
+            remoteCosmeticsByPeer.Remove(peer.m_SteamID);
+            if (OnlineCoopManager.Instance?.RemotePlayerSteamID == peer)
+            {
+                _remoteDriver = null;
+                _remoteCosmetics = null;
+            }
+        }
+
         public void OnCoopStarted()
         {
             _remoteCosmetics = PlayerCosmetics.Player2Default;
+            remoteCosmeticsByPeer.Clear();
 
             StartCoroutine(SendCosmeticsAfterDelay(0.5f));
         }
@@ -142,6 +193,8 @@ namespace GraveyardKeeperCoop.Multiplayer
         {
             _remoteCosmetics = null;
             _remoteDriver = null;
+            remoteCosmeticsByPeer.Clear();
+            remoteDriversByPeer.Clear();
         }
 
         private void OnCosmeticsReceived(CSteamID senderID, byte[] cosmeticsData)
@@ -149,11 +202,20 @@ namespace GraveyardKeeperCoop.Multiplayer
             try
             {
                 _remoteCosmetics = PlayerCosmetics.FromBytes(cosmeticsData);
+                remoteCosmeticsByPeer[senderID.m_SteamID] = _remoteCosmetics;
                 string senderName = SteamFriends.GetFriendPersonaName(senderID);
 
                 CoopMod.Logger.LogInfo($"{LogPrefix} Received cosmetics from {senderName}: {_remoteCosmetics}");
 
-                if (_remoteDriver != null)
+                if (remoteDriversByPeer.TryGetValue(
+                        senderID.m_SteamID,
+                        out PlayerCosmeticsDriver driver) &&
+                    driver != null)
+                {
+                    driver.SetCosmetics(_remoteCosmetics);
+                }
+                else if (_remoteDriver != null &&
+                         OnlineCoopManager.Instance?.RemotePlayerSteamID == senderID)
                 {
                     _remoteDriver.SetCosmetics(_remoteCosmetics);
                 }

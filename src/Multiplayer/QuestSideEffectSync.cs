@@ -6,6 +6,13 @@ namespace GraveyardKeeperCoop.Multiplayer
 {
     internal static class QuestSideEffectSync
     {
+        private const string GraveToolsQuestId = "take_tools_from_grave_chest";
+        private const string GraveToolsPlayerParam = "take_tools_from_grave_chest";
+        private const string FirstBurialQuestId = "skull_talk_after_burial";
+        private const string MorgueEntryLockParam = "tp_to_morgue_locked";
+        private const string MorgueExitBodyLockParam =
+            "tp_from_morgue_only_with_body";
+
         private static readonly Dictionary<string, string[]> ScriptsByQuest = new Dictionary<string, string[]>
         {
             { "go_to_talk_with_donkey_first_time", new[] { "unlock_tps" } }
@@ -16,6 +23,74 @@ namespace GraveyardKeeperCoop.Multiplayer
         public static void ResetSession()
         {
             AppliedThisSession.Clear();
+        }
+
+        /// <summary>
+        /// Repair player parameters whose vanilla quest-end FlowScripts
+        /// are intentionally not replayed on observing peers.
+        /// </summary>
+        public static void ReconcileSucceededQuestParameters()
+        {
+            QuestSystem quests = MainGame.me?.save?.quests;
+            if (quests == null)
+                return;
+
+            if (quests.IsQuestSucced(GraveToolsQuestId))
+                ApplySucceededQuestParameterRepair(GraveToolsQuestId);
+            if (quests.IsQuestSucced(FirstBurialQuestId))
+                ApplySucceededQuestParameterRepair(FirstBurialQuestId);
+        }
+
+        public static void ApplySucceededQuestParameterRepair(string questId)
+        {
+            WorldGameObject player = MainGame.me?.player;
+            if (player?.data == null)
+                return;
+
+            bool changed;
+            string description;
+            if (string.Equals(questId, GraveToolsQuestId, StringComparison.Ordinal))
+            {
+                // A value of 1 means the Bishop should keep saying "Check the
+                // trunk." Opening it completes the quest and clears the reminder.
+                changed = ClearPlayerFlag(player, GraveToolsPlayerParam);
+                description = "grave-tools dialogue reminder";
+            }
+            else if (string.Equals(questId, FirstBurialQuestId, StringComparison.Ordinal))
+            {
+                // on_after_first_bureal clears both restrictions before its live
+                // presentation. Observing peers do not execute that FlowScript.
+                bool entryChanged = ClearPlayerFlag(player, MorgueEntryLockParam);
+                bool exitChanged = ClearPlayerFlag(player, MorgueExitBodyLockParam);
+                changed = entryChanged || exitChanged;
+                description = "first-burial morgue restrictions";
+            }
+            else
+            {
+                return;
+            }
+
+            if (!changed)
+                return;
+
+            PlayerParamSync.Instance?.MarkDirty();
+            CoopMod.Logger.LogInfo(
+                $"[QuestSideEffectSync] Cleared {description} " +
+                $"from succeeded quest '{questId}'");
+        }
+
+        private static bool ClearPlayerFlag(
+            WorldGameObject player,
+            string paramName)
+        {
+            if (player?.data == null ||
+                player.data.GetParam(paramName, 0f) < 0.5f)
+            {
+                return false;
+            }
+
+            player.data.SetParam(paramName, 0f);
+            return true;
         }
 
         public static void ApplyNewSucceededQuests(HashSet<string> previousSucceeded, List<string> currentSucceeded)
@@ -35,6 +110,8 @@ namespace GraveyardKeeperCoop.Multiplayer
 
         public static void OnRemoteQuestSucceeded(string questId)
         {
+            ApplySucceededQuestParameterRepair(questId);
+
             if (string.IsNullOrEmpty(questId) ||
                 !ScriptsByQuest.TryGetValue(questId, out string[] scripts) ||
                 scripts == null ||

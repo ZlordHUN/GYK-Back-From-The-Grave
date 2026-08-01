@@ -21,6 +21,8 @@ namespace GraveyardKeeperCoop.Patches
         private static bool pendingNoWords;
         private static bool pendingStopAllPlaylist;
         private static bool introDelayed;
+        private static bool newGameIntroActive;
+        private static bool introDisabledHud;
         
         // Re-entry guard to prevent infinite recursion when we call Intro.ShowIntro ourselves
         private static bool isCallingOriginal;
@@ -45,6 +47,9 @@ namespace GraveyardKeeperCoop.Patches
             // Check if we're in a multiplayer session
             bool isInLobby = SteamLobbyManager.Instance?.IsInLobby == true;
             CoopMod.Logger.LogInfo($"[IntroSyncPatch] IsInLobby: {isInLobby}");
+
+            if (isInLobby && Intro.need_show_first_intro)
+                newGameIntroActive = true;
             
             if (!isInLobby)
             {
@@ -111,6 +116,38 @@ namespace GraveyardKeeperCoop.Patches
         {
             SkipIntroCutscene.ResetSkipStateForCurrentIntro();
         }
+
+        [HarmonyPatch(typeof(GUIElements), nameof(GUIElements.EnableHUD))]
+        [HarmonyPostfix]
+        public static void EnableHUD_Postfix(bool enable)
+        {
+            if (!enable && newGameIntroActive)
+            {
+                introDisabledHud = true;
+                CoopMod.Logger.LogInfo("[IntroSyncPatch] New-game intro disabled the HUD");
+            }
+        }
+
+        [HarmonyPatch(typeof(GS), nameof(GS.SetPlayerEnable))]
+        [HarmonyPostfix]
+        public static void RestoreHudAfterIntro_Postfix(bool player_enabled, bool affect_cinematic)
+        {
+            if (!player_enabled || !affect_cinematic || !newGameIntroActive || !introDisabledHud)
+                return;
+
+            newGameIntroActive = false;
+            introDisabledHud = false;
+
+            var gui = GUIElements.me;
+            if (gui?.hud == null)
+                return;
+
+            if (!gui.hud_enabled || !gui.hud.gameObject.activeSelf)
+                gui.EnableHUD(true);
+
+            GUIElements.ChangeHUDAlpha(true, false);
+            CoopMod.Logger.LogInfo("[IntroSyncPatch] Restored HUD after new-game intro completed");
+        }
         
         /// <summary>
         /// Called by GameLoadSync when all players are ready - starts the delayed intro
@@ -158,6 +195,8 @@ namespace GraveyardKeeperCoop.Patches
         {
             pendingIntroCallback = null;
             introDelayed = false;
+            newGameIntroActive = false;
+            introDisabledHud = false;
             CoopMod.Logger.LogInfo("[IntroSyncPatch] State reset");
         }
     }

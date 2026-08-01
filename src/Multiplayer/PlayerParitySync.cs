@@ -11,7 +11,9 @@ namespace GraveyardKeeperCoop.Multiplayer
 {
     /// <summary>
     /// Synchronizes the shared player state that is not covered by movement packets:
-    /// raw stats/resources, active buffs, animator action state, and carried overhead item.
+    /// shared stats/resources, animator action state, and carried overhead item.
+    /// Health, energy, red/green/blue/violet technology points, refugee gratitude,
+    /// and active effects are personal state persisted by JoinerProfileManager.
     /// </summary>
     public class PlayerParitySync : MonoBehaviour
     {
@@ -25,7 +27,16 @@ namespace GraveyardKeeperCoop.Multiplayer
         {
             "lock_tp",
             "lock_tp_param",
-            "speed"
+            "speed",
+            "hp",
+            "energy",
+            "tiredness",
+            "tired",
+            "r",
+            "g",
+            "b",
+            "v",
+            "gratitude_points"
         };
         private static readonly BindingFlags RuntimeFieldFlags = BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.Public;
 
@@ -299,23 +310,7 @@ namespace GraveyardKeeperCoop.Multiplayer
                 save.max_hp = snapshot.MaxHp;
                 save.max_energy = snapshot.MaxEnergy;
                 save.max_sanity = snapshot.MaxSanity;
-
-                var buffs = new List<PlayerBuff>(snapshot.BuffJsons.Count);
-                for (int i = 0; i < snapshot.BuffJsons.Count; i++)
-                {
-                    string buffJson = snapshot.BuffJsons[i];
-                    if (string.IsNullOrEmpty(buffJson))
-                        continue;
-
-                    PlayerBuff buff = JsonUtility.FromJson<PlayerBuff>(buffJson);
-                    if (buff != null && !string.IsNullOrEmpty(buff.buff_id))
-                    {
-                        buffs.Add(buff);
-                    }
-                }
-
-                save.buffs = buffs;
-                RedrawStatAndBuffUi();
+                RedrawStatUi();
             }
 
             if (applySharedLocalState)
@@ -327,6 +322,7 @@ namespace GraveyardKeeperCoop.Multiplayer
             if (onlineCoop.IsRemotePlayer(origin) && ShouldApplyAction(snapshot))
             {
                 onlineCoop.ApplyRemoteParityAction(
+                    origin,
                     snapshot.AnimState,
                     snapshot.ItemType,
                     snapshot.GlobalState,
@@ -334,7 +330,8 @@ namespace GraveyardKeeperCoop.Multiplayer
                     snapshot.HasOverhead,
                     snapshot.OverheadItemJson);
 
-                if (snapshot.Version >= PayloadVersion)
+                if (snapshot.Version >= PayloadVersion &&
+                    origin == onlineCoop.RemotePlayerSteamID)
                 {
                     onlineCoop.ApplyRemoteRuntimeContext(
                         snapshot.ZoneId,
@@ -381,18 +378,23 @@ namespace GraveyardKeeperCoop.Multiplayer
             if (localParams == null)
                 return;
 
+            List<PlayerBuff> localBuffs = MainGame.me?.save?.buffs;
             GameRes localBefore = localParams.Clone();
+            PersonalBuffState.SubtractContributions(localBefore, localBuffs);
             GameRes hostParams = JsonUtility.FromJson<GameRes>(hostParamsJson);
-            float localMovementSpeed =
-                player.data.GetParam("speed", LazyConsts.PLAYER_SPEED);
+            float localMoney = player.data.money;
+            float[] localOnlyValues = CaptureLocalOnlyPlayerParamValues(localParams);
 
             JsonUtility.FromJsonOverwrite(hostParamsJson, localParams);
             int preserved = MergeMissingNonZeroParams(localParams, localBefore, hostParams);
             ScrubLocalOnlyPlayerParams(localParams);
-            player.data.SetParam("speed", localMovementSpeed);
+            player.data.money = localMoney;
+            PersonalBuffState.AddContributions(localParams, localBuffs);
+            RestoreLocalOnlyPlayerParamValues(localParams, localOnlyValues);
 
             if (preserved > 0)
             {
+                PlayerParamSync.RefreshRelationshipUi();
                 CoopMod.Logger.LogInfo(
                     $"[PlayerParitySync] Preserved {preserved} client-created " +
                     "story parameter(s) until host acknowledgement");
@@ -419,6 +421,7 @@ namespace GraveyardKeeperCoop.Multiplayer
             if (merged > 0)
             {
                 MainGame.me?.save?.quests?.CheckQuestsState();
+                PlayerParamSync.RefreshRelationshipUi();
                 CoopMod.Logger.LogInfo(
                     $"[PlayerParitySync] Merged {merged} new client story " +
                     "parameter(s) into host progression");
@@ -439,13 +442,33 @@ namespace GraveyardKeeperCoop.Multiplayer
             {
                 string type = types[i];
                 if (string.IsNullOrEmpty(type) ||
-                    IsLocalOnlyPlayerParam(type) ||
-                    (authoritative != null && authoritative.Has(type)))
+                    IsLocalOnlyPlayerParam(type))
                 {
                     continue;
                 }
 
                 float value = source.Get(type);
+                if (IsSharedRelationshipParam(type))
+                {
+                    // NPC relation is shared story progression. A client can earn
+                    // it while driving a synchronized FlowScript, but the host
+                    // normally already has the same key at zero. Treating an
+                    // existing key as authoritative discarded the reward and the
+                    // next host snapshot reset the client. Keep the greatest
+                    // observed progression value on both merge directions.
+                    float current = destination.Get(type, 0f);
+                    if (value > current + 0.0001f)
+                    {
+                        destination.Set(type, value);
+                        merged++;
+                        CoopMod.Logger.LogInfo(
+                            $"[PlayerParitySync] Advanced shared relationship {type}: {current:F0} -> {value:F0}");
+                    }
+                    continue;
+                }
+
+                if (authoritative != null && authoritative.Has(type))
+                    continue;
                 if (Mathf.Abs(value) < 0.0001f)
                     continue;
 
@@ -454,6 +477,12 @@ namespace GraveyardKeeperCoop.Multiplayer
             }
 
             return merged;
+        }
+
+        private static bool IsSharedRelationshipParam(string type)
+        {
+            return !string.IsNullOrEmpty(type) &&
+                   type.StartsWith("_rel_", StringComparison.OrdinalIgnoreCase);
         }
 
         private static bool IsLocalOnlyPlayerParam(string type)
@@ -528,18 +557,13 @@ namespace GraveyardKeeperCoop.Multiplayer
             return true;
         }
 
-        private static void RedrawStatAndBuffUi()
+        private static void RedrawStatUi()
         {
             try
             {
                 GUIElements gui = GUIElements.me;
                 if (gui != null)
                 {
-                    if (gui.buffs != null)
-                    {
-                        gui.buffs.Redraw();
-                    }
-
                     if (gui.hud != null)
                     {
                         gui.hud.Update();
@@ -622,18 +646,6 @@ namespace GraveyardKeeperCoop.Multiplayer
             CaptureToolContext(snapshot, player);
             CaptureAttackContext(snapshot, character);
 
-            if (save.buffs != null)
-            {
-                for (int i = 0; i < save.buffs.Count; i++)
-                {
-                    PlayerBuff buff = save.buffs[i];
-                    if (buff != null && !string.IsNullOrEmpty(buff.buff_id))
-                    {
-                        snapshot.BuffJsons.Add(JsonUtility.ToJson(buff));
-                    }
-                }
-            }
-
             if (snapshot.HasOverhead && character != null)
             {
                 Item overhead = character.GetOverheadItem();
@@ -648,6 +660,9 @@ namespace GraveyardKeeperCoop.Multiplayer
         private static GameRes GetSharedPlayerParamsForSnapshot(WorldGameObject player)
         {
             GameRes sharedParams = player.data.GetParams().Clone();
+            PersonalBuffState.SubtractContributions(
+                sharedParams,
+                MainGame.me?.save?.buffs);
             ScrubLocalOnlyPlayerParams(sharedParams);
             return sharedParams;
         }
@@ -660,6 +675,34 @@ namespace GraveyardKeeperCoop.Multiplayer
             for (int i = 0; i < LocalOnlyPlayerParams.Length; i++)
             {
                 playerParams.Set(LocalOnlyPlayerParams[i], 0f);
+            }
+        }
+
+        private static float[] CaptureLocalOnlyPlayerParamValues(GameRes playerParams)
+        {
+            var values = new float[LocalOnlyPlayerParams.Length];
+            for (int i = 0; i < LocalOnlyPlayerParams.Length; i++)
+            {
+                float defaultValue = LocalOnlyPlayerParams[i] == "speed"
+                    ? LazyConsts.PLAYER_SPEED
+                    : 0f;
+                values[i] = playerParams.Get(LocalOnlyPlayerParams[i], defaultValue);
+            }
+
+            return values;
+        }
+
+        private static void RestoreLocalOnlyPlayerParamValues(
+            GameRes playerParams,
+            float[] values)
+        {
+            if (playerParams == null || values == null)
+                return;
+
+            int count = Math.Min(LocalOnlyPlayerParams.Length, values.Length);
+            for (int i = 0; i < count; i++)
+            {
+                playerParams.Set(LocalOnlyPlayerParams[i], values[i]);
             }
         }
 
@@ -865,12 +908,6 @@ namespace GraveyardKeeperCoop.Multiplayer
             builder.Append(snapshot.MaxHp).Append('|');
             builder.Append(snapshot.MaxEnergy).Append('|');
             builder.Append(snapshot.MaxSanity).Append('|');
-            builder.Append(snapshot.BuffJsons.Count).Append('|');
-
-            for (int i = 0; i < snapshot.BuffJsons.Count; i++)
-            {
-                builder.Append(snapshot.BuffJsons[i]).Append('|');
-            }
 
             return builder.ToString();
         }
@@ -906,7 +943,6 @@ namespace GraveyardKeeperCoop.Multiplayer
             builder.Append(snapshot.ToolTriedToStop).Append('|');
             builder.Append(snapshot.ToolWasUsing).Append('|');
             builder.Append(snapshot.ToolActionDelay).Append('|');
-            builder.Append(Mathf.Round(snapshot.ToolActionElapsed * 20f) / 20f).Append('|');
             builder.Append(snapshot.ToolCurrentType).Append('|');
             builder.Append(snapshot.ToolTargetUniqueId).Append('|');
             builder.Append(snapshot.ToolTargetObjId).Append('|');
@@ -917,8 +953,7 @@ namespace GraveyardKeeperCoop.Multiplayer
             builder.Append(snapshot.AttackType).Append('|');
             builder.Append(snapshot.AttackAnimBasedTiming).Append('|');
             builder.Append(snapshot.AttackUsingItem).Append('|');
-            builder.Append(snapshot.AttackSuccessed).Append('|');
-            builder.Append(Mathf.Round(snapshot.AttackStoppedElapsed * 20f) / 20f);
+            builder.Append(snapshot.AttackSuccessed);
             return builder.ToString();
         }
 

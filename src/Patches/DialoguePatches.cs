@@ -98,12 +98,15 @@ namespace GraveyardKeeperCoop.Patches
             var onlineCoop = Network.OnlineCoopManager.Instance;
             if (onlineCoop != null && onlineCoop.IsOnlineCoopEnabled)
             {
-                WorldGameObject remotePlayer = onlineCoop.GetRemotePlayer();
-                if (remotePlayer != null && remotePlayer.unique_id == speakerId)
+                var remotes = onlineCoop.GetRemotePlayersSnapshot();
+                for (int i = 0; i < remotes.Count; i++)
                 {
-                    Steamworks.CSteamID remoteId = onlineCoop.RemotePlayerSteamID;
-                    if (remoteId != Steamworks.CSteamID.Nil)
-                        return Steamworks.SteamFriends.GetFriendPersonaName(remoteId);
+                    WorldGameObject remotePlayer = remotes[i].Value?.wgo;
+                    if (remotePlayer != null && remotePlayer.unique_id == speakerId)
+                    {
+                        return Steamworks.SteamFriends.GetFriendPersonaName(
+                            remotes[i].Key);
+                    }
                 }
             }
 

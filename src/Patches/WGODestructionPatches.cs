@@ -19,6 +19,12 @@ namespace GraveyardKeeperCoop.Patches
         [HarmonyPrefix]
         public static void DestroyMe_Prefix(WorldGameObject __instance)
         {
+            if (__instance == null ||
+                __instance.GetComponent<RemoteBuildingPreviewMarker>() != null)
+            {
+                return;
+            }
+
             if (__instance != null && __instance.unique_id != 0)
             {
                 WGORegistry.Instance?.Unregister(__instance.unique_id);

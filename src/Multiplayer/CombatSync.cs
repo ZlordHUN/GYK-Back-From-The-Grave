@@ -16,6 +16,7 @@ namespace GraveyardKeeperCoop.Multiplayer
         private const byte PayloadVersion = 1;
         private const float DropDuplicateDistance = 3f;
         private const float DropFallbackMatchDistance = 12f;
+        private const float BodyDropMatchDistance = 64f;
         private const float DropCreateBroadcastRememberSeconds = 8f;
         private const float DropPositionSyncIntervalSeconds = 0.2f;
         private const float DropPositionMoveDistance = 0.35f;
@@ -24,6 +25,7 @@ namespace GraveyardKeeperCoop.Multiplayer
         private const int MaxWgoFieldUpdatesPerBatch = 32;
         private const int MaxDropPositionsPerTick = 16;
         private const int MaxDropItemJsonLength = 262144;
+        private const string SharedCemeteryShovelId = "shovel_0";
 
         private readonly Dictionary<long, float> pendingHpUpdates = new Dictionary<long, float>();
         private readonly Dictionary<long, float> pendingDurabilityUpdates = new Dictionary<long, float>();
@@ -154,6 +156,7 @@ namespace GraveyardKeeperCoop.Multiplayer
         {
             if (!IsSyncEnabled || drop == null || drop.res == null) return;
             if (!IsOnline) return;
+            if (drop.res.is_tech_point) return;
 
             PruneDropCreateBroadcasts();
             PruneDropCollectBroadcasts();
@@ -534,6 +537,9 @@ namespace GraveyardKeeperCoop.Multiplayer
                     var wgo = FindWgoByUniqueId(uid);
                     if (wgo != null && !wgo.is_player)
                     {
+                        var workIndicator = WorkIndicatorSync.Instance;
+                        if (workIndicator != null)
+                            newHp = workIndicator.ClampIncomingHp(wgo, newHp);
                         wgo.hp = newHp;
                     }
                 }
@@ -578,7 +584,12 @@ namespace GraveyardKeeperCoop.Multiplayer
             Item item = DeserializeDropItem(itemJson, itemId, value);
             if (item.is_tech_point)
             {
-                MainGame.me.player.AddToParams(itemId, (float)value);
+                // Technology-point drops are personal action rewards. Current
+                // senders never broadcast them; reject legacy or malformed
+                // packets instead of changing this player's balance.
+                CoopMod.Logger.LogDebug(
+                    $"{LogPrefix} Ignored remote personal technology-point drop: " +
+                    $"item='{itemId}', value={value}, sender={senderID}");
                 return;
             }
 
@@ -596,7 +607,11 @@ namespace GraveyardKeeperCoop.Multiplayer
                 dropsByNetId.Remove(netId);
             }
 
-            DropResGameObject existing = FindMatchingDrop(itemId, value, pos, DropDuplicateDistance);
+            DropResGameObject existing = FindMatchingDrop(
+                itemId,
+                value,
+                pos,
+                GetDropMatchDistance(itemId, DropDuplicateDistance));
             if (existing != null)
             {
                 existing.res = item;
@@ -644,6 +659,111 @@ namespace GraveyardKeeperCoop.Multiplayer
                 CoopMod.Logger.LogInfo(
                     $"{LogPrefix} Applied DropCollect: net_id='{netId}', item='{itemId}', pos={pos}");
             }
+            else
+            {
+                CoopMod.Logger.LogWarning(
+                    $"{LogPrefix} Could not resolve DropCollect: net_id='{netId}', item='{itemId}', pos={pos}");
+            }
+
+            EnsureSharedProgressionDrop(itemId, value, senderID);
+        }
+
+        /// <summary>
+        /// Gerry's first shovel is emitted as an ordinary ground drop by vanilla.
+        /// Ground-drop ownership is otherwise personal, but this particular tool is
+        /// a shared-progression grant: every player must be able to perform the
+        /// burial objective after any one player completes Gerry's dialogue.
+        /// </summary>
+        private static void EnsureSharedProgressionDrop(
+            string itemId,
+            int value,
+            CSteamID collector)
+        {
+            if (!string.Equals(
+                    itemId,
+                    SharedCemeteryShovelId,
+                    StringComparison.Ordinal) ||
+                value <= 0)
+            {
+                return;
+            }
+
+            WorldGameObject player = MainGame.me?.player;
+            if (player?.data == null ||
+                ContainsPersonalItem(player.data, itemId))
+            {
+                return;
+            }
+
+            var reward = new Item(itemId, 1);
+            if (!player.AddToInventory(reward))
+            {
+                CoopMod.Logger.LogWarning(
+                    "[CombatSync] Could not grant shared Gerry shovel after " +
+                    $"{collector} collected it; local inventory rejected the item");
+                return;
+            }
+
+            // Vanilla DropResGameObject.CollectDrop auto-equips a newly collected
+            // tool when that equipment slot is empty. The shared grant bypasses
+            // CollectDrop, so mirror that side effect for the non-collector too.
+            player.TryEquipPickupedDrop(reward, true);
+            DropCollectGUI.OnDropCollected(reward);
+            JoinerProfileManager.NotifyPersonalInventoryChanged(
+                "shared Gerry shovel");
+            CoopMod.Logger.LogInfo(
+                "[CombatSync] Granted shared Gerry shovel locally after " +
+                $"{collector} collected the progression drop");
+        }
+
+        private static bool ContainsPersonalItem(
+            Item root,
+            string itemId)
+        {
+            if (root == null || string.IsNullOrEmpty(itemId))
+                return false;
+            return ContainsPersonalItem(root.inventory, itemId, 0) ||
+                   ContainsPersonalItem(
+                       root.secondary_inventory,
+                       itemId,
+                       0);
+        }
+
+        private static bool ContainsPersonalItem(
+            List<Item> items,
+            string itemId,
+            int depth)
+        {
+            if (items == null || depth > 4)
+                return false;
+
+            for (int i = 0; i < items.Count; i++)
+            {
+                Item item = items[i];
+                if (item == null)
+                    continue;
+                if (item.value > 0 &&
+                    string.Equals(
+                        item.id,
+                        itemId,
+                        StringComparison.Ordinal))
+                {
+                    return true;
+                }
+                if (ContainsPersonalItem(
+                        item.inventory,
+                        itemId,
+                        depth + 1) ||
+                    ContainsPersonalItem(
+                        item.secondary_inventory,
+                        itemId,
+                        depth + 1))
+                {
+                    return true;
+                }
+            }
+
+            return false;
         }
 
         private void HandleWgoDurabilityChange(BinaryReader reader, CSteamID senderID)
@@ -705,7 +825,14 @@ namespace GraveyardKeeperCoop.Multiplayer
                     var wgo = FindWgoByUniqueId(uid);
                     if (wgo != null && !wgo.is_player)
                     {
-                        wgo.progress = newProgress;
+                        var workIndicator = WorkIndicatorSync.Instance;
+                        if (workIndicator != null)
+                        {
+                            newProgress = workIndicator.ClampIncomingProgress(
+                                wgo,
+                                newProgress);
+                        }
+                        wgo.progress = Mathf.Clamp01(newProgress);
                     }
                 }
             });
@@ -787,7 +914,7 @@ namespace GraveyardKeeperCoop.Multiplayer
             });
         }
 
-        private static void ApplyRemoteState(Action action)
+        internal static void ApplyRemoteState(Action action)
         {
             bool wasApplying = IsApplyingRemoteState;
             IsApplyingRemoteState = true;
@@ -906,7 +1033,22 @@ namespace GraveyardKeeperCoop.Multiplayer
                     if (dropNetIdsByInstance.TryGetValue(stale[i], out string netId))
                     {
                         dropNetIdsByInstance.Remove(stale[i]);
-                        dropsByNetId.Remove(netId);
+                        if (dropsByNetId.TryGetValue(netId, out DropResGameObject staleDrop))
+                        {
+                            var aliases = new List<string>();
+                            foreach (var pair in dropsByNetId)
+                            {
+                                if (ReferenceEquals(pair.Value, staleDrop))
+                                    aliases.Add(pair.Key);
+                            }
+
+                            for (int aliasIndex = 0; aliasIndex < aliases.Count; aliasIndex++)
+                                dropsByNetId.Remove(aliases[aliasIndex]);
+                        }
+                        else
+                        {
+                            dropsByNetId.Remove(netId);
+                        }
                     }
                 }
             }
@@ -949,7 +1091,11 @@ namespace GraveyardKeeperCoop.Multiplayer
                 !string.IsNullOrEmpty(previousNetId) &&
                 !string.Equals(previousNetId, netId, StringComparison.Ordinal))
             {
-                dropsByNetId.Remove(previousNetId);
+                // The same deterministic drop can be created by both simulations
+                // before either creation packet arrives. Preserve the previous ID
+                // as an alias so a collect sent with either peer's ID removes the
+                // one shared object.
+                dropsByNetId[previousNetId] = drop;
             }
 
             dropNetIdsByInstance[instanceId] = netId;
@@ -959,6 +1105,7 @@ namespace GraveyardKeeperCoop.Multiplayer
 
         private void RemoveTrackedDrop(string netId, DropResGameObject drop)
         {
+            var aliases = new List<string>();
             if (drop != null)
             {
                 int instanceId = drop.GetInstanceID();
@@ -967,13 +1114,22 @@ namespace GraveyardKeeperCoop.Multiplayer
 
                 dropNetIdsByInstance.Remove(instanceId);
                 lastDropPositions.Remove(instanceId);
+
+                foreach (var pair in dropsByNetId)
+                {
+                    if (ReferenceEquals(pair.Value, drop))
+                        aliases.Add(pair.Key);
+                }
             }
 
-            if (string.IsNullOrEmpty(netId))
-                return;
+            if (!string.IsNullOrEmpty(netId) && !aliases.Contains(netId))
+                aliases.Add(netId);
 
-            dropsByNetId.Remove(netId);
-            removedDropNetIds.Add(netId);
+            for (int i = 0; i < aliases.Count; i++)
+            {
+                dropsByNetId.Remove(aliases[i]);
+                removedDropNetIds.Add(aliases[i]);
+            }
         }
 
         private static void FinalizeDropRemoval(
@@ -1024,11 +1180,22 @@ namespace GraveyardKeeperCoop.Multiplayer
                 }
             }
 
-            DropResGameObject fallback = FindMatchingDrop(itemId, value, pos, DropFallbackMatchDistance);
+            DropResGameObject fallback = FindMatchingDrop(
+                itemId,
+                value,
+                pos,
+                GetDropMatchDistance(itemId, DropFallbackMatchDistance));
             if (fallback != null)
                 RegisterDrop(netId, fallback);
 
             return fallback;
+        }
+
+        private static float GetDropMatchDistance(string itemId, float defaultDistance)
+        {
+            return string.Equals(itemId, "body", StringComparison.Ordinal)
+                ? BodyDropMatchDistance
+                : defaultDistance;
         }
 
         private static string ReadOptionalString(BinaryReader reader)

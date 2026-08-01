@@ -81,6 +81,16 @@ namespace GraveyardKeeperCoop.Network
 
             try
             {
+                SteamFriends.SetRichPresence("status", status);
+                SteamFriends.SetRichPresence(
+                    SteamLobbyManager.LobbyDataDLC,
+                    ModConfig.GetDLCRequirementsString());
+                SteamFriends.SetRichPresence(
+                    SteamLobbyManager.LobbyDataModVersion,
+                    PluginInfo.PLUGIN_VERSION ?? string.Empty);
+
+                // Publish the connect token last so anyone reacting to it can
+                // already read the compatibility metadata above.
                 if (allowJoinViaPresence)
                 {
                     SetConnectToken($"steam:{hostId.m_SteamID}");
@@ -90,9 +100,6 @@ namespace GraveyardKeeperCoop.Network
                     SteamFriends.SetRichPresence("connect", "");
                     CoopMod.Logger.LogInfo("[SteamJoinFlow] Cleared connect token for private host presence");
                 }
-
-                SteamFriends.SetRichPresence("status", status);
-                SteamFriends.SetRichPresence(SteamLobbyManager.LobbyDataDLC, ModConfig.GetDLCRequirementsString());
                 CoopMod.Logger.LogInfo($"[SteamJoinFlow] Set {logContext} presence (join via presence: {allowJoinViaPresence})");
             }
             catch (Exception ex)

@@ -327,7 +327,7 @@ namespace GraveyardKeeperCoop.Patches
                 return;
 
             Player2InputPatches.currentUpdatingCharacter = __instance;
-            __charUpdateStart = System.Diagnostics.Stopwatch.GetTimestamp();
+            __charUpdateStart = GraveyardKeeperCoop.Utils.FrameProfiler.BeginSection();
 
             // Debug log to see if Player 2's UpdateComponent is being called
             var manager = GraveyardKeeperCoop.LocalCoop.LocalCoopManager.Instance;
@@ -369,7 +369,7 @@ namespace GraveyardKeeperCoop.Patches
             Player2InputPatches.currentUpdatingCharacter = null;
             if (__charUpdateStart != 0)
             {
-                GraveyardKeeperCoop.Utils.FrameProfiler.Record("Char.Update", System.Diagnostics.Stopwatch.GetTimestamp() - __charUpdateStart);
+                GraveyardKeeperCoop.Utils.FrameProfiler.EndSection("Char.Update", __charUpdateStart);
                 __charUpdateStart = 0;
             }
         }
