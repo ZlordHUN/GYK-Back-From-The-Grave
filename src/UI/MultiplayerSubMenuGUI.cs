@@ -311,6 +311,17 @@ namespace GraveyardKeeperCoop.UI
             }
         }
 
+        public override void Update()
+        {
+            base.Update();
+
+            // Escape leaves the menu, same as the Back button (issue #8). Matches ModsListGUI.
+            if (Input.GetKeyDown(KeyCode.Escape))
+            {
+                OnBackPressed();
+            }
+        }
+
         private void OnBackPressed()
         {
             CoopMod.Logger.LogInfo("Back to main menu");

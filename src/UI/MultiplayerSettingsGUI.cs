@@ -1599,6 +1599,17 @@ namespace GraveyardKeeperCoop.UI
                                   $"DLC: Stories={ModConfig.EnableDLCStories.Value}, Refugees={ModConfig.EnableDLCRefugees.Value}, Souls={ModConfig.EnableDLCSouls.Value}");
         }
 
+        public override void Update()
+        {
+            base.Update();
+
+            // Escape leaves the menu, same as the Back button (issue #8). Matches ModsListGUI.
+            if (Input.GetKeyDown(KeyCode.Escape))
+            {
+                OnBackPressed();
+            }
+        }
+
         public void OnBackPressed()
         {
             CoopMod.Logger.LogInfo("Back button pressed in settings");

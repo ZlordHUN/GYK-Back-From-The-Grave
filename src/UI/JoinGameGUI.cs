@@ -1201,7 +1201,15 @@ namespace GraveyardKeeperCoop.UI
         {
             // Call base Update first
             base.Update();
-            
+
+            // Escape leaves the menu, same as the Back button (issue #8: players reported being
+            // stuck here with no way out). Matches the existing behaviour of ModsListGUI.
+            if (Input.GetKeyDown(KeyCode.Escape))
+            {
+                OnBackButtonPressed();
+                return;
+            }
+
             // Manual click detection for Back button (same pattern as lobby)
             if (Input.GetMouseButtonDown(0) && uiCamera != null)
             {
