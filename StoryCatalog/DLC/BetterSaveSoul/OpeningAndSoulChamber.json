@@ -1,0 +1,865 @@
+{
+  "schemaVersion": 5,
+  "catalogId": "dlc.better-save-soul.opening-and-soul-chamber",
+  "campaign": "BetterSaveSoul",
+  "chapter": "EuricArrivalThroughSoulChamberOpening",
+  "quests": [
+    {
+      "questId": "dlc_souls_s_s_1",
+      "title": "Serialized Euric-arrival achievement checkpoint",
+      "definitionKind": "AchievementDefinition",
+      "counter": 1,
+      "vanilla": {
+        "startTrigger": "",
+        "successTrigger": "1",
+        "failTrigger": "",
+        "startKeys": ["dlc_souls_s_s_1"],
+        "questVisible": false,
+        "oneTimeQuest": false,
+        "startScript": "",
+        "successScript": "",
+        "failScript": "",
+        "arrowWgoCustomTag": "",
+        "arrowWgoObjectId": "",
+        "successRewards": [],
+        "failureRewards": []
+      },
+      "policy": {
+        "stateOwnership": "shared_campaign",
+        "eligibleInitiator": "any_player",
+        "livePresentationOwner": "initiating_player",
+        "observerQuestApplication": "durable_state_only",
+        "personalRewardDelivery": "party_exactly_once",
+        "observerSuccess": {
+          "globalScripts": [],
+          "playerParamRepairs": [],
+          "playerParamMinimums": [],
+          "taskStateMinimums": [],
+          "unlockedTechs": [],
+          "unlockedPhrases": [],
+          "blacklistedPhrases": [],
+          "unlockedCrafts": [],
+          "completedOneTimeCrafts": [],
+          "personalItemGrants": []
+        }
+      },
+      "completionChecks": []
+    },
+    {
+      "questId": "unlock_melting_glass",
+      "title": "Unlock broken-glass recycling recipes",
+      "vanilla": {
+        "startTrigger": "1",
+        "successTrigger": "",
+        "failTrigger": "",
+        "startKeys": ["item_glass_broken"],
+        "questVisible": false,
+        "oneTimeQuest": true,
+        "startScript": "on_broken_glass_pick_first_time",
+        "successScript": "",
+        "failScript": "",
+        "arrowWgoCustomTag": "",
+        "arrowWgoObjectId": "",
+        "successRewards": [],
+        "failureRewards": []
+      },
+      "policy": {
+        "stateOwnership": "shared_campaign",
+        "eligibleInitiator": "any_player",
+        "livePresentationOwner": "initiating_player",
+        "observerQuestApplication": "durable_state_only",
+        "personalRewardDelivery": "party_exactly_once",
+        "observerStart": {
+          "globalScripts": [],
+          "playerParamRepairs": [],
+          "playerParamMinimums": [],
+          "taskStateMinimums": [],
+          "unlockedTechs": [],
+          "unlockedPhrases": [],
+          "blacklistedPhrases": [],
+          "unlockedCrafts": ["glass_broken_0", "glass_broken_1", "glass_broken_2"],
+          "completedOneTimeCrafts": [],
+          "personalItemGrants": []
+        },
+        "observerSuccess": {
+          "globalScripts": [],
+          "playerParamRepairs": [],
+          "playerParamMinimums": [],
+          "taskStateMinimums": [],
+          "unlockedTechs": [],
+          "unlockedPhrases": [],
+          "blacklistedPhrases": [],
+          "unlockedCrafts": [],
+          "completedOneTimeCrafts": [],
+          "personalItemGrants": []
+        }
+      },
+      "completionChecks": []
+    }
+  ],
+  "taskMilestones": [
+    {
+      "milestoneId": "better_save_soul_euric_met",
+      "npcId": "player",
+      "taskId": "dlc_souls_s1",
+      "activeStates": ["Visible"],
+      "playerParamRepairs": [],
+      "playerParamMinimums": [
+        { "key": "ev_s_s1_dropped_euric", "value": 1.0 },
+        { "key": "ev_s_s1_started", "value": 1.0 }
+      ],
+      "taskStateMinimums": [],
+      "unlockedTechs": [],
+      "unlockedPhrases": ["@souls_s_s2_ask"],
+      "blacklistedPhrases": [],
+      "unlockedCrafts": [],
+      "completedOneTimeCrafts": [],
+      "wgoParamMinimums": [],
+      "personalItemGrants": []
+    },
+    {
+      "milestoneId": "better_save_soul_gerry_supplies_requested",
+      "npcId": "crafting_skull_3",
+      "taskId": "dlc_souls_s2",
+      "activeStates": ["Visible"],
+      "playerParamRepairs": [],
+      "playerParamMinimums": [
+        { "key": "ev_s_s1_dropped_euric", "value": 1.0 },
+        { "key": "ev_s_s1_started", "value": 1.0 }
+      ],
+      "taskStateMinimums": [
+        { "npcId": "player", "taskId": "dlc_souls_s1", "state": "Visible" }
+      ],
+      "unlockedTechs": [],
+      "unlockedPhrases": ["@souls_s_s2_1_ask"],
+      "blacklistedPhrases": ["@souls_s_s2_ask"],
+      "unlockedCrafts": [],
+      "completedOneTimeCrafts": [],
+      "wgoParamMinimums": [],
+      "personalItemGrants": []
+    },
+    {
+      "milestoneId": "better_save_soul_zone_key_issued",
+      "npcId": "npc_euric",
+      "taskId": "dlc_souls_s2_1",
+      "activeStates": ["Visible"],
+      "playerParamRepairs": [],
+      "playerParamMinimums": [
+        { "key": "ev_s_s1_dropped_euric", "value": 1.0 },
+        { "key": "ev_s_s1_started", "value": 1.0 }
+      ],
+      "taskStateMinimums": [
+        { "npcId": "player", "taskId": "dlc_souls_s1", "state": "Complete" },
+        { "npcId": "crafting_skull_3", "taskId": "dlc_souls_s2", "state": "Complete" }
+      ],
+      "unlockedTechs": [],
+      "unlockedPhrases": [],
+      "blacklistedPhrases": ["@souls_s_s2_ask", "@souls_s_s2_1_ask"],
+      "unlockedCrafts": [],
+      "completedOneTimeCrafts": [],
+      "wgoParamMinimums": [],
+      "personalItemGrants": []
+    },
+    {
+      "milestoneId": "better_save_soul_chamber_opened",
+      "npcId": "npc_euric",
+      "taskId": "dlc_souls_s3",
+      "activeStates": ["Visible"],
+      "playerParamRepairs": [],
+      "playerParamMinimums": [
+        { "key": "ev_s_s1_dropped_euric", "value": 1.0 },
+        { "key": "ev_s_s1_started", "value": 1.0 }
+      ],
+      "taskStateMinimums": [
+        { "npcId": "player", "taskId": "dlc_souls_s1", "state": "Complete" },
+        { "npcId": "crafting_skull_3", "taskId": "dlc_souls_s2", "state": "Complete" },
+        { "npcId": "npc_euric", "taskId": "dlc_souls_s2_1", "state": "Complete" }
+      ],
+      "unlockedTechs": [],
+      "unlockedPhrases": [],
+      "blacklistedPhrases": ["@souls_s_s2_ask", "@souls_s_s2_1_ask"],
+      "unlockedCrafts": [],
+      "completedOneTimeCrafts": [],
+      "wgoParamMinimums": [],
+      "personalItemGrants": []
+    }
+  ],
+  "cutscenes": [
+    {
+      "cutsceneId": "better_save_soul_meet_euric",
+      "linkedQuestIds": ["dlc_souls_s_s_1"],
+      "triggerScripts": [
+        "gykmp_story_dispatch_better_save_soul_s1",
+        "ev_s_s1"
+      ],
+      "actors": ["initiating_player", "body_lying", "npc_euric"],
+      "observerPolicy": "all_loaded_party_members",
+      "lateJoinPolicy": "join_live_checkpoint_or_observe",
+      "remoteExecutionPolicy": "live_observation",
+      "executionOwnerPolicy": "lobby_host",
+      "dialogueOwnerPolicy": "initiating_player",
+      "formationPolicy": "initiator_with_observer_follow",
+      "cleanupRequirements": [
+        "claim-the-qualified-on_enter_ev_s_s1_gd_zone-S1-branch-before-setting-ev_s_s1_started-or-locking-the-initiator",
+        "stage-only-the-actual-initiating-player-through-ev_s_s1_1-ev_s_s1_2-and-ev_s_s1_body_fix_while-observers-follow-or-watch",
+        "preserve-souls_s_s1_1-through-souls_s_s1_29_and-the-source-body-player-and-Euric-animation-timing",
+        "collapse-the-doubled-and-tripled-movement-or-dialogue-control-edges_and-repeated-WGO-or-GD-bindings-to-one-semantic-sequence",
+        "destroy-one-body_lying-and-spawn-or-adopt-one-canonical-npc_euric-at-ev_s_s1_euric_spawn-under-host-authority_only-as-S1-creation-or-pre-S3-resume-state",
+        "defer-the-fresh-S1-dispatch-until-the-Euric-body-object-and-body-complete-receipts-are-durable-and-body_lying-resolves_or-explicitly-select-forward-recovery-for-a-legacy-partial",
+        "treat-the-achievement-check-on-the-immediate-Out-of-souls_s_s1_1-as-an-early-prefix-receipt_not-proof-of-the-world-task-or-phrase-tail",
+        "resume-or-converge-from-an-entered-receipt-because-the-source-sets-ev_s_s1_started-before-running-the-scene",
+        "on-success-leave-the-initiator-facing-Right-and-Euric-facing-Left_as-the-source-does_and-restore-pre-scene-facing-only-on-abort",
+        "restore-the-initiators-animator-camera-cinematic-state-and-control-on-success-disconnect-timeout-or-recovery"
+      ]
+    },
+    {
+      "cutsceneId": "better_save_soul_ask_gerry_about_euric",
+      "linkedQuestIds": ["dlc_souls_s_s_1"],
+      "triggerScripts": [
+        "gykmp_story_dispatch_better_save_soul_s2_request",
+        "crafting_skull_3:@souls_s_s2_ask"
+      ],
+      "actors": ["initiating_player", "crafting_skull_3"],
+      "observerPolicy": "all_loaded_party_members",
+      "lateJoinPolicy": "join_live_checkpoint_or_observe",
+      "remoteExecutionPolicy": "live_observation",
+      "executionOwnerPolicy": "lobby_host",
+      "dialogueOwnerPolicy": "initiating_player",
+      "formationPolicy": "initiator_with_observer_follow",
+      "cleanupRequirements": [
+        "bind-only-the-qualified-crafting_skull_3-custom-function-topic_and-never-claim-the-generic-interaction-menu",
+        "require-gykmp_story_phase_better_save_soul_s1_complete-before-claiming-the-Gerry-request_even-if-an-observer-menu-is-stale",
+        "claim-the-topic-before-blacklisting-it-or-presenting-souls_s_s2_1-through-souls_s_s2_15",
+        "keep-player-lines-on-the-actual-initiator_and-Gerry-lines-on-the-canonical-crafting_skull_3",
+        "show-crafting_skull_3-dlc_souls_s2-then-unlock-souls_s_s2_1_ask-in-source-order",
+        "treat-the-blacklisted-opening-topic-as-an-entry-prefix_not-proof-that-the-dialogue-task-and-followup-topic-committed",
+        "adopt-a-pre-receipt-blacklisted-opening-topic-as-an-irreversible-legacy-entered-prefix_and-converge-the-missing-dialogue-task-and-followup-topic-tail-without-replaying-the-blacklist",
+        "return-to-one-Gerry-menu-only-for-a-still-connected-initiator-with-a-live-interaction_session_otherwise-clear-that-players-interaction-state-without-blocking-shared-completion"
+      ]
+    },
+    {
+      "cutsceneId": "better_save_soul_receive_soul_chamber_key",
+      "linkedQuestIds": ["dlc_souls_s_s_1"],
+      "triggerScripts": [
+        "gykmp_story_dispatch_better_save_soul_s2_key",
+        "crafting_skull_3:@souls_s_s2_1_ask"
+      ],
+      "actors": ["initiating_player", "crafting_skull_3"],
+      "observerPolicy": "all_loaded_party_members",
+      "lateJoinPolicy": "join_live_checkpoint_or_observe",
+      "remoteExecutionPolicy": "live_observation",
+      "executionOwnerPolicy": "lobby_host",
+      "dialogueOwnerPolicy": "initiating_player",
+      "formationPolicy": "initiator_with_observer_follow",
+      "cleanupRequirements": [
+        "claim-and-prepare-one-atomic-cup_beer-colon-1-one-plus-sand_river-one-payment-before-MultiAnswerOptionGUI-debits-the-choosing-profile",
+        "require-gykmp_story_phase_better_save_soul_s2_request_complete-before-accepting-the-paid-followup-choice",
+        "if-only-one-sequential-source-debit-commits-before-shared-entry_refund-that-exact-item-once-to-the-recorded-selecting-profile_while-prepared-only-aborts-mint-nothing-and-entered-transactions-resume-without-refund",
+        "never-charge-the-lobby-host-an-observer-or-one-copy-of-the-price-per-peer",
+        "adopt-a-pre-receipt-blacklisted-paid-topic-or-completed-Gerry-supply-task-as-a-legacy-post-debit-entered-prefix_without-recharging-refunding-synthesizing-personal-payment-receipts-or-guessing-the-payer",
+        "preserve-source-chronology_souls_s_s2_1_1-through-souls_s_s2_1_12_then-the-line-twelve-immediate-Out-key-drop_then-line-twelve-Finished-wash_end-Gerry-enable-and-souls_s_s2_1_13-through-souls_s_s2_1_15_bracketed-by-Flow_DisablePlayerAnimation-true-then-false",
+        "collapse-the-doubled-line-four-to-line-five-control-edge_and-duplicate-wash-dialogue-position-bindings",
+        "create-or-adopt-exactly-one-physical-souls_zone_key-drop-from-crafting_skull_3-when-line-twelve-fires-its-immediate-Out",
+        "keep-exactly-one-unconsumed-key-across-the-authoritative-world-loaded-or-persisted-disconnected-party-inventories-and-in-flight-pickup-or-transfer-receipts_and-never-fan-it-out-as-a-personal-item-grant",
+        "after-a-qualified-fresh-or-legacy-paid-entered-prefix_recreate-one-authoritative-world-token-only-when-global-reconciliation-proves-it-absent-from-the-world-every-loaded-or-offline-party-inventory-and-every-in-flight-transfer_and-no-S3-entry-reservation-consumption-open-chamber-complete-or-disabled-trigger-plus-Euric-complete-legacy-post-consume-evidence-exists",
+        "do-not-infer-the-payer-key-holder-or-key-consumption-from-the-early-blacklist-or-completed-Gerry-task",
+        "complete-player-dlc_souls_s1_show-npc_euric-dlc_souls_s2_1_and-restore-the-initiators-animation-and-control-only-after-the-key-tail-converges"
+      ]
+    },
+    {
+      "cutsceneId": "better_save_soul_open_soul_chamber",
+      "linkedQuestIds": ["dlc_souls_s_s_1"],
+      "triggerScripts": [
+        "gykmp_story_dispatch_better_save_soul_s3",
+        "ev_s_s3"
+      ],
+      "actors": ["initiating_player", "npc_euric", "souls_zone_wall_closed"],
+      "observerPolicy": "all_loaded_party_members",
+      "lateJoinPolicy": "join_live_checkpoint_or_observe",
+      "remoteExecutionPolicy": "live_observation",
+      "executionOwnerPolicy": "lobby_host",
+      "dialogueOwnerPolicy": "initiating_player",
+      "formationPolicy": "initiator_with_observer_follow",
+      "cleanupRequirements": [
+        "claim-only-a-fresh-on_enter_ev_s_s1_gd_zone-key-branch_for-the-player-who-currently-carries-souls_zone_key",
+        "queue-S3-until-gykmp_story_phase_better_save_soul_s2_key_complete-and-its-player-Gerry-Euric-task-suffix-are-durable_even-if-the-physical-key-was-picked-up-early",
+        "adopt-an-already-disabled-ev_s_s1_euric_spawn-with-the-durable-S2-tail-and-a-globally-present-key-as-a-legacy-S3-entered-prefix_instead-of-waiting-for-the-one-shot-zone-trigger",
+        "adopt-an-already-disabled-ev_s_s1_euric_spawn-plus-Euric-s2_1-Complete-a-globally-absent-key-and-a-still-closed-wall-without-an-open-receipt-as-a-legacy-post-consume-prefix_then-converge-the-wall-and-tail-without-reminting-the-key",
+        "when-that-disabled-trigger-and-Euric-complete-prefix-still-has-the-real-key_reserve-and-consume-that-token-and-resume-after-the-five-line-task-prefix-without-replaying-it",
+        "collapse-the-raw-doubled-zone-RunScript-edge-before-launching-one-ev_s_s3-instance",
+        "bind-the-key-removal-to-the-actual-initiating-carrier_even-when-the-lobby-host-executes-the-shared-scene",
+        "reserve-and-transfer-lock-that-carriers-one-souls_zone_key-from-S3-claim-through-the-five-pre-removal-lines_preserve-the-reservation-across-disconnect-rejoin_and-release-it-only-on-abort-before-consumption",
+        "journal-the-prepared-key-consumption-before-the-source-completes-npc_euric-dlc_souls_s2_1-and-removes-the-item",
+        "preserve-souls_s_s3_1-through-souls_s_s3_19_the-door-animations-six-second-parallel-wait_camera-shake_and-Euric-player-routes",
+        "run-do_preparings_before_souls_zone_activation-once_to-destroy-or-adopt-the-absent-closed-wall-and-disable-gd_soul_zone_colliders",
+        "collapse-the-helper-WGO-binding_and-ev_s_s3s-duplicate-wait-direction-and-dialogue-bindings-without-skipping-the-tail",
+        "never-invoke-activate_souls_zone-as-an-ev_s_s3-child_because-it-is-a-separate-zone-bootstrap-graph",
+        "show-npc_euric-dlc_souls_s3_then-durably-unlock-both-S4-question-topics-before-S3-terminal_while-leaving-their-one-shot-consumption-lifecycles-to-the-next-catalogue-batch",
+        "keep-the-chamber-opened-task-milestones-unlockedPhrases-empty_so-repair-or-late-join-convergence-cannot-rearm-an-S4-topic-after-the-next-batch-consumes-it",
+        "on-success-leave-the-initiator-facing-Right_as-the-source-does_and-restore-pre-scene-facing-only-on-abort",
+        "start-or-adopt-dlc_souls_zone_theme-for-each-loaded-observer-while-S3-is-live_start-it-for-a-rejoining-observer-only-at-a-live-checkpoint_and-stop-or-clear-it-per-observer-on-exit-terminal-or-terminal-rejoin",
+        "restore-the-initiators-camera-cinematic-state-and-control-on-every-exit"
+      ]
+    }
+  ],
+  "storySteps": [
+    {
+      "stepId": "better_save_soul_spawn_eurics_body",
+      "title": "Add Euric's body to the first qualifying donkey delivery",
+      "linkedQuestIds": ["dlc_souls_s_s_1"],
+      "linkedTaskMilestoneIds": [],
+      "triggerScripts": [
+        "gykmp_story_dispatch_better_save_soul_euric_body",
+        "npc_donkey:drop_body:better_save_soul_qualification"
+      ],
+      "triggerKeys": [
+        "Souls",
+        "ev_s_s1_dropped_euric",
+        "fixed_morgue_throw",
+        "cup_20_reached",
+        "ev_s_s1_euric_spawn",
+        "body_lying",
+        "gykmp_story_phase_better_save_soul_euric_body_entered",
+        "gykmp_story_object_better_save_soul_euric_body",
+        "gykmp_story_object_better_save_soul_euric_body_replaced",
+        "gykmp_story_phase_better_save_soul_euric_body_complete",
+        "gykmp_story_phase_better_save_soul_s3_entered",
+        "gykmp_story_object_better_save_soul_soul_chamber_open",
+        "gykmp_story_phase_better_save_soul_s3_complete"
+      ],
+      "expectedEffects": [
+        {
+          "kind": "story_phase",
+          "id": "gykmp_story_phase_better_save_soul_euric_body_entered",
+          "operation": "claim-after-one-real-donkey-body-arrival-qualifies-and-before-the-special-player-flag-or-world-spawn",
+          "amount": 1.0,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "player_param",
+          "id": "ev_s_s1_dropped_euric",
+          "operation": "set-after-Souls-availability-fixed_morgue_throw-at-least-one-and-cup_20_reached-at-least-one",
+          "amount": 1.0,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "world_gd_point",
+          "id": "ev_s_s1_euric_spawn",
+          "operation": "enable-once-before-the-special-body-spawn",
+          "amount": 1.0,
+          "ownership": "shared_world"
+        },
+        {
+          "kind": "story_object_receipt",
+          "id": "gykmp_story_object_better_save_soul_euric_body",
+          "operation": "spawn-or-adopt-one-body_lying-at-ev_s_s1_euric_spawn_only-before-S1-entry-and-while-no-replaced-or-S3-terminal-receipt-exists",
+          "amount": 1.0,
+          "ownership": "shared_world"
+        },
+        {
+          "kind": "story_phase",
+          "id": "gykmp_story_phase_better_save_soul_euric_body_complete",
+          "operation": "commit-after-the-flag-GD-point-and-single-body-object-are-durable",
+          "amount": 1.0,
+          "ownership": "shared_campaign"
+        }
+      ],
+      "safeguards": [
+        "run-the-special-branch-only-after-the-source-ordinary-Flow_DropBody-cur_bodies_count-plus-one-and-BodyArrivedNotify-complete",
+        "never-replay-or-repair-the-ordinary-body-drop-count-notification-or-donkey-inventory-loop-as-Better-Save-Soul-state",
+        "serialize-the-player-looking-qualification-flags-as-one-campaign-opening_not-one-Euric-body-per-profile",
+        "require-the-hard-fresh-claim-gate-ev_s_s1_dropped_euric-equals-zero_flag-one-is-recovery-or-migration-evidence-and-never-licenses-a-later-donkey-delivery-to-spawn-again",
+        "the-source-sets-ev_s_s1_dropped_euric-before-enabling-the-point-or-spawning-the-body_so-resume-that-suffix-from-the-entered-or-object-receipt",
+        "on-retry-adopt-the-existing-body_lying-instead-of-spawning-a-duplicate",
+        "S1-entered-body-replaced-S3-entered-open-or-complete-receipts-dominate-this-spawn_and-S3-state-also-dominates-the-earlier-GD-point-enable"
+      ]
+    },
+    {
+      "stepId": "better_save_soul_meet_euric",
+      "title": "Investigate the body and meet Euric",
+      "linkedQuestIds": ["dlc_souls_s_s_1"],
+      "linkedTaskMilestoneIds": ["better_save_soul_euric_met"],
+      "triggerScripts": ["gykmp_story_dispatch_better_save_soul_s1", "ev_s_s1"],
+      "triggerKeys": [
+        "ev_s_s1_started",
+        "ev_s_s1_1",
+        "ev_s_s1_2",
+        "ev_s_s1_body_fix",
+        "body_lying",
+        "npc_euric",
+        "gykmp_story_object_better_save_soul_euric_body",
+        "gykmp_story_phase_better_save_soul_euric_body_complete",
+        "gykmp_story_object_better_save_soul_euric_body_replaced",
+        "souls_s_s1_1",
+        "souls_s_s1_29",
+        "dlc_souls_s_s_1",
+        "player:dlc_souls_s1",
+        "@souls_s_s2_ask",
+        "gykmp_story_phase_better_save_soul_s1_entered",
+        "gykmp_story_achievement_eligibility_better_save_soul_s1",
+        "gykmp_story_achievement_better_save_soul_s1",
+        "gykmp_story_phase_better_save_soul_s1_complete"
+      ],
+      "expectedEffects": [
+        {
+          "kind": "story_phase",
+          "id": "gykmp_story_phase_better_save_soul_s1_entered",
+          "operation": "claim-the-S1-zone-branch-before-setting-ev_s_s1_started-and-running-the-live-scene",
+          "amount": 1.0,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "player_param",
+          "id": "ev_s_s1_started",
+          "operation": "set-before-ev_s_s1",
+          "amount": 1.0,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "dialogue_sequence",
+          "id": "souls_s_s1_1",
+          "operation": "present-the-first-initiator-line-and-fire-its-immediate-Out-achievement-branch-before-continuing",
+          "amount": 1.0,
+          "ownership": "live_presentation"
+        },
+        {
+          "kind": "achievement_eligibility_receipt",
+          "id": "gykmp_story_achievement_eligibility_better_save_soul_s1",
+          "operation": "record-shared-eligibility-when-the-immediate-Out-of-souls_s_s1_1-checks-dlc_souls_s_s_1",
+          "amount": 1.0,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "achievement_delivery_receipt",
+          "id": "gykmp_story_achievement_better_save_soul_s1",
+          "operation": "deliver-the-platform-achievement-exactly-once-per-eligible-personal-profile",
+          "amount": 1.0,
+          "ownership": "personal_platform"
+        },
+        {
+          "kind": "dialogue_sequence",
+          "id": "souls_s_s1_2_through_souls_s_s1_9",
+          "operation": "present-the-eight-remaining-body-inspection-lines-with-player-lines-owned-by-the-actual-initiator",
+          "amount": 8.0,
+          "ownership": "live_presentation"
+        },
+        {
+          "kind": "story_object_tombstone",
+          "id": "gykmp_story_object_better_save_soul_euric_body_replaced",
+          "operation": "prepare-before-destroying-body_lying_then-commit-consumed-and-replaced-after-one-canonical-npc_euric-is-spawned-or-adopted",
+          "amount": 1.0,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "world_object",
+          "id": "body_lying",
+          "operation": "destroy-once-after-the-body-inspection-animation",
+          "amount": 1.0,
+          "ownership": "shared_world"
+        },
+        {
+          "kind": "world_actor",
+          "id": "npc_euric:npc_euric",
+          "operation": "spawn-or-adopt-one-canonical-actor-at-ev_s_s1_euric_spawn-facing-left-only-for-S1-creation-or-pre-S3-resume_never-reposition-a-later-Euric",
+          "amount": 1.0,
+          "ownership": "shared_world"
+        },
+        {
+          "kind": "dialogue_sequence",
+          "id": "souls_s_s1_10_through_souls_s_s1_29",
+          "operation": "present-the-twenty-Euric-conversation-lines_with-player-lines-owned-by-the-actual-initiator",
+          "amount": 20.0,
+          "ownership": "live_presentation"
+        },
+        {
+          "kind": "npc_task",
+          "id": "player:dlc_souls_s1",
+          "operation": "set-Visible-after-the-final-Euric-line",
+          "amount": 1.0,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "dialogue_phrase",
+          "id": "@souls_s_s2_ask",
+          "operation": "unlock-after-player-dlc_souls_s1-is-visible",
+          "amount": 1.0,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "story_phase",
+          "id": "gykmp_story_phase_better_save_soul_s1_complete",
+          "operation": "commit-after-world-actor-task-phrase-and-participant-cleanup-converge",
+          "amount": 1.0,
+          "ownership": "shared_campaign"
+        }
+      ],
+      "safeguards": [
+        "route-a-fresh-S1-only-when-ev_s_s1_started-is-zero-ev_s_s1_dropped_euric-is-at-least-one-and-the-body-object-plus-body-complete-receipts-are-durable",
+        "for-legacy-dropped-at-least-one-plus-started-at-least-one-without-the-S1-tail_synthesize-or-adopt-the-entered-phase-and-converge-forward-from-body-or-Euric-evidence_without-waiting-for-another-donkey-delivery",
+        "the-achievement-check-is-an-early-prefix-and-must-never-skip-the-body-destruction-Euric-spawn-dialogue-task-or-phrase-tail",
+        "normalize-only-exact-doubled-or-tripled-control-and-data-bindings_without-removing-the-parallel-read-book-animation-joins",
+        "observers-never-run-the-player-animator-state-110-or-own-player-dialogue",
+        "never-resurrect-body_lying-after-the-replaced-tombstone-S1-complete-or-any-S3-terminal-receipt",
+        "S3-entered-open-or-complete-state-dominates-S1-placement_and-never-moves-an-adopted-later-Euric-back-to-ev_s_s1_euric_spawn-or-reapplies-S1-facing",
+        "late-joiners-adopt-the-single-Euric-and-durable-task-state_without-recreating-the-body-or-replaying-the-scene"
+      ]
+    },
+    {
+      "stepId": "better_save_soul_ask_gerry_for_help",
+      "title": "Ask Gerry how to help Euric",
+      "linkedQuestIds": ["dlc_souls_s_s_1"],
+      "linkedTaskMilestoneIds": ["better_save_soul_gerry_supplies_requested"],
+      "triggerScripts": ["gykmp_story_dispatch_better_save_soul_s2_request"],
+      "triggerKeys": [
+        "crafting_skull_3:@souls_s_s2_ask",
+        "souls_s_s2_1",
+        "souls_s_s2_15",
+        "crafting_skull_3:dlc_souls_s2",
+        "@souls_s_s2_1_ask",
+        "cup_beer:1",
+        "sand_river:1",
+        "gykmp_story_phase_better_save_soul_s1_complete",
+        "gykmp_story_phase_better_save_soul_s2_request_entered",
+        "gykmp_story_phase_better_save_soul_s2_request_complete"
+      ],
+      "expectedEffects": [
+        {
+          "kind": "story_phase",
+          "id": "gykmp_story_phase_better_save_soul_s2_request_entered",
+          "operation": "claim-the-qualified-Gerry-topic-before-its-source-blacklist_or-adopt-an-already-blacklisted-topic-as-an-irreversible-legacy-entered-prefix",
+          "amount": 1.0,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "dialogue_phrase",
+          "id": "@souls_s_s2_ask",
+          "operation": "blacklist-before-dialogue",
+          "amount": 1.0,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "dialogue_sequence",
+          "id": "souls_s_s2_1_through_souls_s_s2_15",
+          "operation": "present-fifteen-lines-once_with-the-actual-initiator-owning-player-lines",
+          "amount": 15.0,
+          "ownership": "live_presentation"
+        },
+        {
+          "kind": "npc_task",
+          "id": "crafting_skull_3:dlc_souls_s2",
+          "operation": "set-Visible-with-zero-story-point-rewards",
+          "amount": 1.0,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "dialogue_phrase",
+          "id": "@souls_s_s2_1_ask",
+          "operation": "unlock-after-the-Gerry-supply-task-is-visible",
+          "amount": 1.0,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "story_phase",
+          "id": "gykmp_story_phase_better_save_soul_s2_request_complete",
+          "operation": "commit-after-the-dialogue-task-and-followup-topic-tail-is-durable_with-menu-return-treated-as-best-effort-live-initiator-cleanup",
+          "amount": 1.0,
+          "ownership": "shared_campaign"
+        }
+      ],
+      "safeguards": [
+        "require-the-S1-complete-receipt-before-this-topic-so-live-Gerry-dialogue-cannot-overlap-the-still-converging-Euric-introduction",
+        "the-source-answer-is-Try-to-explain-the-situation-and-the-handler-is-the-exact-custom-function-not-Gerrys-whole-interaction",
+        "never-use-the-blacklisted-opening-topic-alone-as-proof-that-dlc_souls_s2-or-its-followup-topic-was-created",
+        "when-the-opening-topic-is-already-blacklisted-without-an-entered-receipt_adopt-only-the-entered-prefix-and-converge-each-missing-source-ordered-tail-effect",
+        "menu-return-is-best-effort-for-the-still-connected-initiator_and-never-a-shared-durable-completion-requirement",
+        "do-not-consume-beer-or-sand-in-this-request-step_they-belong-to-the-separate-followup-choice"
+      ]
+    },
+    {
+      "stepId": "better_save_soul_trade_supplies_for_chamber_key",
+      "title": "Give Gerry beer and river sand for the soul chamber key",
+      "linkedQuestIds": ["dlc_souls_s_s_1"],
+      "linkedTaskMilestoneIds": ["better_save_soul_zone_key_issued"],
+      "triggerScripts": ["gykmp_story_dispatch_better_save_soul_s2_key"],
+      "triggerKeys": [
+        "crafting_skull_3:@souls_s_s2_1_ask",
+        "cup_beer:1",
+        "sand_river:1",
+        "souls_s_s2_1_1",
+        "souls_s_s2_1_15",
+        "souls_zone_key",
+        "player:dlc_souls_s1",
+        "crafting_skull_3:dlc_souls_s2",
+        "npc_euric:dlc_souls_s2_1",
+        "gykmp_story_payment_better_save_soul_s2_beer",
+        "gykmp_story_payment_better_save_soul_s2_sand",
+        "gykmp_story_transaction_better_save_soul_s2_supplies",
+        "gykmp_story_phase_better_save_soul_s2_request_complete",
+        "gykmp_story_phase_better_save_soul_s2_key_entered",
+        "gykmp_story_item_better_save_soul_souls_zone_key",
+        "gykmp_story_phase_better_save_soul_s2_key_complete",
+        "ev_s_s1_euric_spawn",
+        "gykmp_story_phase_better_save_soul_s3_entered",
+        "gykmp_story_reservation_better_save_soul_souls_zone_key",
+        "gykmp_story_payment_better_save_soul_souls_zone_key",
+        "gykmp_story_object_better_save_soul_soul_chamber_open",
+        "gykmp_story_phase_better_save_soul_s3_complete"
+      ],
+      "expectedEffects": [
+        {
+          "kind": "initiator_payment_transaction",
+          "id": "gykmp_story_transaction_better_save_soul_s2_supplies",
+          "operation": "prepare-one-selecting-profile-and-reserve-cup_beer-colon-1-one-plus-sand_river-one_then-mark-both_debited-before-shared-entry_refund-only-a-recorded-single-debit-on-pre-entry-abort_and-resume-without-refund-after-entry",
+          "amount": 1.0,
+          "ownership": "initiating_player_transaction"
+        },
+        {
+          "kind": "initiator_payment_receipt",
+          "id": "gykmp_story_payment_better_save_soul_s2_beer",
+          "operation": "reserve-and-consume-one-exact-cup_beer-colon-1-from-the-profile-that-selected-Lets-start",
+          "amount": 1.0,
+          "ownership": "initiating_player_transaction"
+        },
+        {
+          "kind": "initiator_payment_receipt",
+          "id": "gykmp_story_payment_better_save_soul_s2_sand",
+          "operation": "reserve-and-consume-one-sand_river-from-the-same-selecting-profile-in-the-same-atomic-choice",
+          "amount": 1.0,
+          "ownership": "initiating_player_transaction"
+        },
+        {
+          "kind": "story_phase",
+          "id": "gykmp_story_phase_better_save_soul_s2_key_entered",
+          "operation": "commit-after-both-recorded-payment-debits-before-blacklist-task-or-dialogue-mutation_or-adopt-a-qualified-legacy-blacklisted-topic-or-completed-task-prefix-with-the-payer-left-unknown",
+          "amount": 1.0,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "dialogue_phrase",
+          "id": "@souls_s_s2_1_ask",
+          "operation": "blacklist-after-the-atomic-payment",
+          "amount": 1.0,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "npc_task",
+          "id": "crafting_skull_3:dlc_souls_s2",
+          "operation": "set-Complete-before-dialogue-without-treating-that-prefix-as-key-proof",
+          "amount": 1.0,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "dialogue_sequence",
+          "id": "souls_s_s2_1_1_through_souls_s_s2_1_12",
+          "operation": "present-lines-one-through-eleven-and-line-twelve-through-its-Immediate-Out-once_with-the-source-overridden-dialogue-positions_then-after-line-nine-disable-initiator-animation-play-wash_start-and-disable-Gerry_before-lines-ten-through-twelve_leave-line-twelve-Finished-for-the-post-key-edge",
+          "amount": 12.0,
+          "ownership": "live_presentation"
+        },
+        {
+          "kind": "story_item_receipt",
+          "id": "gykmp_story_item_better_save_soul_souls_zone_key",
+          "operation": "prepare-then-spawn-or-adopt-one-physical-souls_zone_key-at-crafting_skull_3-and-track-it-across-world-loaded-or-persisted-offline-player-inventory-and-in-flight-transfer-until-consumed",
+          "amount": 1.0,
+          "ownership": "shared_story_token"
+        },
+        {
+          "kind": "world_item",
+          "id": "souls_zone_key",
+          "operation": "drop-once-from-crafting_skull_3-on-the-immediate-Out-of-souls_s_s2_1_12",
+          "amount": 1.0,
+          "ownership": "shared_story_token"
+        },
+        {
+          "kind": "dialogue_sequence",
+          "id": "souls_s_s2_1_13_through_souls_s_s2_1_15",
+          "operation": "take-the-line-twelve-Finished-edge_after-the-key-drop_then-play-initiator-wash_end-enable-Gerry-and-present-lines-thirteen-through-fifteen-once",
+          "amount": 3.0,
+          "ownership": "live_presentation"
+        },
+        {
+          "kind": "npc_task",
+          "id": "player:dlc_souls_s1",
+          "operation": "set-Complete-after-the-final-dialogue-line",
+          "amount": 1.0,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "npc_task",
+          "id": "npc_euric:dlc_souls_s2_1",
+          "operation": "set-Visible-after-player-dlc_souls_s1-completes",
+          "amount": 1.0,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "story_phase",
+          "id": "gykmp_story_phase_better_save_soul_s2_key_complete",
+          "operation": "commit-after-payment-dialogue-key-task-and-participant-cleanup-receipts-converge",
+          "amount": 1.0,
+          "ownership": "shared_campaign"
+        }
+      ],
+      "safeguards": [
+        "require-the-Gerry-request-complete-receipt-before-enabling-or-claiming-the-paid-followup",
+        "MultiAnswerOptionGUI-removes-both-prices-from-MainGame-player-before-the-source-custom-function-so-the-mod-must-preserve-the-actual-choice-owner",
+        "reserve-both-exact-prices-before-consuming-either_and-never-split-one-choice-across-two-player-inventories",
+        "prepared-only-aborts-mint-nothing_a-pre-entry-single-debit-is-refunded-exactly-once-to-its-recorded-profile_and-both-debited-or-entered-transactions-resume-without-refund",
+        "a-blacklisted-topic-or-completed-Gerry-task-is-post-debit-prefix-evidence_but-cannot-identify-the-payer-or-prove-the-key-spawned",
+        "for-that-pre-receipt-legacy-prefix_adopt-the-shared-entered-phase-and-reconcile-the-global-key-and-task-tail_without-recharging-refunding-guessing-a-payer-or-inventing-profile-payment-receipts",
+        "the-key-is-one-transferable-campaign-token_not-a-party-personal-reward_and-the-payer-need-not-be-its-eventual-picker-or-carrier",
+        "never-repair-the-key-from-task-state-with-personalItemGrants",
+        "if-both-payment-receipts-and-the-entered-receipt_or-a-qualified-legacy-blacklisted-topic-or-completed-Gerry-task-prefix_or-the-terminal-player-s1-complete-plus-Euric-s2_1-visible-suffix-exists_but-no-S3-entry-reservation-consumption-open-chamber-complete-or-qualified-disabled-trigger-plus-Euric-complete-post-consume-prefix-exists_spawn-one-recovery-token-only-after-global-reconciliation-proves-no-key-in-the-world-any-loaded-or-offline-party-inventory-or-any-in-flight-pickup-or-transfer-receipt",
+        "keep-the-recorded-key-carrier-authoritative-while-offline_and-never-mint-a-replacement-merely-because-that-client-disconnected",
+        "restore-Gerrys-enabled-state-and-the-initiators-animation-state-animation-control-and-menu-state-on-every-exit"
+      ]
+    },
+    {
+      "stepId": "better_save_soul_open_the_soul_chamber",
+      "title": "Use the key with Euric and open the soul chamber",
+      "linkedQuestIds": ["dlc_souls_s_s_1"],
+      "linkedTaskMilestoneIds": ["better_save_soul_chamber_opened"],
+      "triggerScripts": ["gykmp_story_dispatch_better_save_soul_s3", "ev_s_s3"],
+      "triggerKeys": [
+        "on_enter_ev_s_s1_gd_zone:souls_zone_key",
+        "ev_s_s1_euric_spawn",
+        "souls_zone_key",
+        "player:dlc_souls_s1",
+        "crafting_skull_3:dlc_souls_s2",
+        "npc_euric:dlc_souls_s2_1",
+        "souls_s_s3_1",
+        "souls_s_s3_19",
+        "souls_zone_wall_closed",
+        "gd_soul_zone_colliders",
+        "do_preparings_before_souls_zone_activation",
+        "dlc_souls_zone_theme",
+        "npc_euric:dlc_souls_s3",
+        "@souls_s_s4_ask_1",
+        "@souls_s_s4_ask_2",
+        "gykmp_story_phase_better_save_soul_s2_key_complete",
+        "gykmp_story_phase_better_save_soul_s3_entered",
+        "gykmp_story_reservation_better_save_soul_souls_zone_key",
+        "gykmp_story_payment_better_save_soul_souls_zone_key",
+        "gykmp_story_object_better_save_soul_soul_chamber_open",
+        "gykmp_story_phase_better_save_soul_s3_complete"
+      ],
+      "expectedEffects": [
+        {
+          "kind": "story_phase",
+          "id": "gykmp_story_phase_better_save_soul_s3_entered",
+          "operation": "claim-the-qualified-key-carrier-zone-entry-before-disabling-the-trigger-or-launching-ev_s_s3_or-adopt-a-qualified-spent-trigger-legacy-entry-or-post-consume-prefix",
+          "amount": 1.0,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "story_item_reservation_receipt",
+          "id": "gykmp_story_reservation_better_save_soul_souls_zone_key",
+          "operation": "for-a-fresh-or-key-present-resume_reserve-and-transfer-lock-the-one-souls_zone_key-on-the-actual-initiating-carrier-from-S3-claim-until-consumption_release-only-on-a-pre-consume-abort_and-preserve-through-disconnect-rejoin_while-qualified-legacy-post-consume-adoption-neither-mints-a-key-nor-synthesizes-a-reservation",
+          "amount": 1.0,
+          "ownership": "initiating_player_transaction"
+        },
+        {
+          "kind": "world_gd_point",
+          "id": "ev_s_s1_euric_spawn",
+          "operation": "disable-once-before-ev_s_s3",
+          "amount": 0.0,
+          "ownership": "shared_world"
+        },
+        {
+          "kind": "observer_music_override",
+          "id": "dlc_souls_zone_theme",
+          "operation": "start-or-adopt-on-each-loaded-participant-while-S3-is-live_stop-on-that-participants-exit-or-terminal_and-on-rejoin-start-only-for-a-live-checkpoint-otherwise-clear",
+          "amount": 1.0,
+          "ownership": "per_observer_live_presentation"
+        },
+        {
+          "kind": "dialogue_sequence",
+          "id": "souls_s_s3_1_through_souls_s_s3_5",
+          "operation": "present-the-five-pre-opening-lines-once",
+          "amount": 5.0,
+          "ownership": "live_presentation"
+        },
+        {
+          "kind": "npc_task",
+          "id": "npc_euric:dlc_souls_s2_1",
+          "operation": "set-Complete-before-key-removal_as-a-source-prefix-not-a-terminal-witness",
+          "amount": 1.0,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "story_item_consumption_receipt",
+          "id": "gykmp_story_payment_better_save_soul_souls_zone_key",
+          "operation": "prepare-then-consume-the-reserved-souls_zone_key-from-the-actual-initiating-carrier-and-mark-the-single-story-token-consumed_or-adopt-qualified-disabled-trigger-Euric-complete-global-key-absent-legacy-post-consume-evidence-without-reminting",
+          "amount": 1.0,
+          "ownership": "initiating_player_transaction"
+        },
+        {
+          "kind": "world_animation",
+          "id": "npc_euric:open_key",
+          "operation": "play-once-after-Euric-reaches-ev_s_s3_2",
+          "amount": 1.0,
+          "ownership": "shared_world"
+        },
+        {
+          "kind": "world_animation",
+          "id": "souls_zone_wall_closed:open_start",
+          "operation": "play-once-before-the-parallel-six-second-helper-wait",
+          "amount": 1.0,
+          "ownership": "shared_world"
+        },
+        {
+          "kind": "story_object_receipt",
+          "id": "gykmp_story_object_better_save_soul_soul_chamber_open",
+          "operation": "destroy-or-adopt-absent-souls_zone_wall_closed-and-disable-gd_soul_zone_colliders-once",
+          "amount": 1.0,
+          "ownership": "shared_world"
+        },
+        {
+          "kind": "dialogue_sequence",
+          "id": "souls_s_s3_6_through_souls_s_s3_19",
+          "operation": "present-the-fourteen-post-opening-lines-once_after-player-and-Euric-enter",
+          "amount": 14.0,
+          "ownership": "live_presentation"
+        },
+        {
+          "kind": "npc_task",
+          "id": "npc_euric:dlc_souls_s3",
+          "operation": "set-Visible-after-souls_s_s3_19",
+          "amount": 1.0,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "dialogue_phrase_bundle",
+          "id": "better_save_soul_s4_question_handoff",
+          "operation": "write-the-souls_s_s4_ask_1-unlock-then-the-souls_s_s4_ask_2-unlock-exactly-once-before-S3-terminal_without-owning-or-rearming-their-next-batch-one-shot-consumption-lifecycle",
+          "amount": 2.0,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "story_phase",
+          "id": "gykmp_story_phase_better_save_soul_s3_complete",
+          "operation": "commit-only-after-key-consumption-wall-collider-dialogue-task-both-S4-unlock-writes-per-observer-music-stop-and-player-cleanup-converge",
+          "amount": 1.0,
+          "ownership": "shared_campaign"
+        }
+      ],
+      "safeguards": [
+        "route-a-fresh-S3-only-when-ev_s_s1_started-is-at-least-one-the-entering-player-actually-has-souls_zone_key_and-the-S2-key-complete-receipt-plus-player-s1-Complete-Gerry-s2-Complete-Euric-s2_1-Visible-suffix-are-durable",
+        "if-the-key-is-picked-up-and-carried-into-the-zone-before-Gerrys-lines-thirteen-through-fifteen-finish_queue-the-zone-claim-until-the-key-step-completes",
+        "if-ev_s_s1_euric_spawn-is-already-disabled-with-the-durable-S2-tail-and-a-real-globally-present-key_bypass-the-spent-one-shot-trigger-adopt-S3-entered-and-bind-that-real-carrier",
+        "if-the-trigger-is-disabled-Euric-s2_1-is-Complete-the-key-is-globally-absent-the-wall-is-still-closed-and-no-consumption-or-open-chamber-receipt-exists_adopt-the-legacy-post-consume-prefix-and-converge-forward-without-key-recreation",
+        "if-that-disabled-trigger-and-Euric-complete-prefix-still-has-the-real-key_bind-reserve-and-consume-that-token-and-resume-after-the-five-line-task-prefix-without-replaying-it",
+        "serialize-concurrent-zone-entries-before-the-source-duplicate-RunScript-edge-can-launch-two-scenes-or-remove-two-keys",
+        "reserve-and-transfer-lock-the-bound-carriers-key-through-the-five-pre-removal-lines_keep-that-binding-authoritative-while-offline_and-release-only-on-an-abort-before-consumption",
+        "never-let-the-still-running-Gerry-tail-downgrade-Euric-s2_1-from-S3-Complete-back-to-Visible",
+        "the-key-debit-target-is-the-bound-initiating-carrier_not-MainGame-player-on-the-host-and-never-every-observer",
+        "npc_euric-dlc_souls_s2_1-completes-before-key-removal-and-is-therefore-not-proof-of-consumption-or-an-open-wall",
+        "on-resume-after-key-consumption_adopt-an-already-open-or-absent-wall-run-only-the-missing-helper-tail-and-never-recreate-the-consumed-key",
+        "do_preparings_before_souls_zone_activation-owns-only-the-closed-wall-and-collider-tail_while-activate_souls_zone-remains-separate-bootstrap-state",
+        "do-not-repair-or-blacklist-the-S4-question-topics-from-this-earlier-task-milestone_the-next-batch-owns-their-independent-consumption-and-convergence",
+        "S3-complete-is-invalid-until-both-S4-question-unlock-writes-are-durable_and-the-chamber-opened-milestones-unlockedPhrases-must-remain-empty-so-later-repair-cannot-rearm-consumed-topics",
+        "successful-S3-cleanup-converges-the-initiator-to-facing-Right_pre-scene-facing-is-abort-only",
+        "while-S3-is-live-each-loaded-or-rejoining-observer-starts-or-adopts-the-zone-theme_at-terminal-or-observer-exit-stop-and-clear-it_per-observer",
+        "late-joiners-receive-the-open-chamber-task-and-world-state_without-door-animation-dialogue-key-debit-or-terminal-theme-replay"
+      ]
+    }
+  ]
+}

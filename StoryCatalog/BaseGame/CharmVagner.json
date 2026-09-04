@@ -1,0 +1,3802 @@
+{
+  "schemaVersion": 5,
+  "catalogId": "base-game.charm-vagner",
+  "campaign": "BaseGame",
+  "chapter": "CharmPerfumeStoryAlisaSongVagnerRescueAndBaseGameSideStoriesThroughGypsyBaronCrossoverFarmerRecipesKoukolMountainFortIntroductionAndEggSellerCuisine",
+  "quests": [
+    {
+      "questId": "actor_remove_from_tavern_quest",
+      "title": "Remove Vagner from the tavern after the infusion",
+      "vanilla": {
+        "startTrigger": "Ppar(\"remove_actor_from_tavern\")",
+        "successTrigger": "1",
+        "failTrigger": "",
+        "startKeys": ["wake_up"],
+        "questVisible": false,
+        "oneTimeQuest": true,
+        "startScript": "remove_actor_from_tavern",
+        "successScript": "",
+        "failScript": "",
+        "arrowWgoCustomTag": "",
+        "arrowWgoObjectId": "",
+        "successRewards": [],
+        "failureRewards": []
+      },
+      "policy": {
+        "stateOwnership": "shared_campaign",
+        "eligibleInitiator": "any_player",
+        "livePresentationOwner": "initiating_player",
+        "observerQuestApplication": "durable_state_only",
+        "personalRewardDelivery": "party_exactly_once"
+      },
+      "completionChecks": [
+        {
+          "source": "player_param",
+          "key": "remove_actor_from_tavern",
+          "comparison": ">=",
+          "value": 1.0
+        }
+      ]
+    }
+  ],
+  "taskMilestones": [
+    {
+      "milestoneId": "charm_necklace_truth_returned",
+      "npcId": "npc_actress",
+      "taskId": "actress_necklace",
+      "activeStates": ["Complete"],
+      "playerParamRepairs": [],
+      "playerParamMinimums": [
+        { "key": "_rel_npc_actress", "value": 30.0 }
+      ],
+      "taskStateMinimums": [
+        { "npcId": "npc_actress", "taskId": "actress_money", "state": "Complete" }
+      ],
+      "unlockedTechs": [],
+      "unlockedPhrases": ["@actress_parfume_ready"],
+      "blacklistedPhrases": [
+        "@snake_1с",
+        "@actress_snake_back",
+        "@actress_money_back",
+        "@snake_nacklase_0",
+        "@snake_nacklase_again",
+        "@snake_nacklase_again_10a",
+        "@snake_nacklase_again_10b",
+        "@snake_nacklase_again_10c"
+      ],
+      "unlockedCrafts": [],
+      "completedOneTimeCrafts": [],
+      "wgoParamMinimums": [],
+      "personalItemGrants": []
+    },
+    {
+      "milestoneId": "charm_waiting_for_perfume",
+      "npcId": "npc_actress",
+      "taskId": "actress_parfume",
+      "activeStates": ["Visible"],
+      "playerParamRepairs": [],
+      "playerParamMinimums": [
+        { "key": "_rel_npc_actress", "value": 30.0 }
+      ],
+      "taskStateMinimums": [
+        { "npcId": "npc_actress", "taskId": "actress_money", "state": "Complete" },
+        { "npcId": "npc_actress", "taskId": "actress_necklace", "state": "Complete" }
+      ],
+      "unlockedTechs": [],
+      "unlockedPhrases": ["@actress_parfume_ready"],
+      "blacklistedPhrases": ["@actress_money_back"],
+      "unlockedCrafts": [],
+      "completedOneTimeCrafts": [],
+      "wgoParamMinimums": [],
+      "personalItemGrants": []
+    },
+    {
+      "milestoneId": "charm_perfume_delivered",
+      "npcId": "npc_actress",
+      "taskId": "actress_parfume",
+      "activeStates": ["Complete"],
+      "playerParamRepairs": [],
+      "playerParamMinimums": [
+        { "key": "_rel_npc_actress", "value": 40.0 },
+        { "key": "_rel_npc_mrs chain", "value": 20.0 }
+      ],
+      "taskStateMinimums": [
+        { "npcId": "npc_actress", "taskId": "actress_necklace", "state": "Complete" },
+        { "npcId": "npc_actress", "taskId": "actress_story", "state": "Visible" }
+      ],
+      "unlockedTechs": [],
+      "unlockedPhrases": ["@actress_story_gold"],
+      "blacklistedPhrases": [
+        "@actress_money_back",
+        "@chain_parfume",
+        "@clotho_give_food",
+        "@chain_get_parfue",
+        "@actress_parfume_ready"
+      ],
+      "unlockedCrafts": [],
+      "completedOneTimeCrafts": [],
+      "wgoParamMinimums": [],
+      "personalItemGrants": []
+    },
+    {
+      "milestoneId": "charm_waiting_for_gold_story",
+      "npcId": "npc_actress",
+      "taskId": "actress_story",
+      "activeStates": ["Visible"],
+      "playerParamRepairs": [],
+      "playerParamMinimums": [
+        { "key": "_rel_npc_actress", "value": 40.0 }
+      ],
+      "taskStateMinimums": [
+        { "npcId": "npc_actress", "taskId": "actress_parfume", "state": "Complete" }
+      ],
+      "unlockedTechs": [],
+      "unlockedPhrases": ["@actress_story_gold"],
+      "blacklistedPhrases": ["@actress_parfume_ready"],
+      "unlockedCrafts": [],
+      "completedOneTimeCrafts": [],
+      "wgoParamMinimums": [],
+      "personalItemGrants": []
+    },
+    {
+      "milestoneId": "charm_gold_story_delivered",
+      "npcId": "npc_actress",
+      "taskId": "actress_story",
+      "activeStates": ["Complete"],
+      "playerParamRepairs": [],
+      "playerParamMinimums": [
+        { "key": "_rel_npc_actress", "value": 50.0 }
+      ],
+      "taskStateMinimums": [
+        { "npcId": "npc_actress", "taskId": "actress_parfume", "state": "Complete" },
+        { "npcId": "npc_actress", "taskId": "actress_alisa", "state": "Visible" }
+      ],
+      "unlockedTechs": [],
+      "unlockedPhrases": ["@actress_lute_done"],
+      "blacklistedPhrases": [
+        "@actress_parfume_ready",
+        "@actress_story_gold"
+      ],
+      "unlockedCrafts": [],
+      "completedOneTimeCrafts": [],
+      "wgoParamMinimums": [],
+      "personalItemGrants": []
+    },
+    {
+      "milestoneId": "charm_waiting_for_alisa_paper",
+      "npcId": "npc_actress",
+      "taskId": "actress_alisa",
+      "activeStates": ["Visible"],
+      "playerParamRepairs": [],
+      "playerParamMinimums": [
+        { "key": "_rel_npc_actress", "value": 50.0 }
+      ],
+      "taskStateMinimums": [
+        { "npcId": "npc_actress", "taskId": "actress_story", "state": "Complete" }
+      ],
+      "unlockedTechs": [],
+      "unlockedPhrases": ["@actress_lute_done"],
+      "blacklistedPhrases": ["@actress_story_gold"],
+      "unlockedCrafts": [],
+      "completedOneTimeCrafts": [],
+      "wgoParamMinimums": [],
+      "personalItemGrants": []
+    },
+    {
+      "milestoneId": "charm_alisa_paper_delivered",
+      "npcId": "npc_actress",
+      "taskId": "actress_alisa",
+      "activeStates": ["Complete"],
+      "playerParamRepairs": [],
+      "playerParamMinimums": [
+        { "key": "_rel_npc_actress", "value": 60.0 },
+        { "key": "_rel_npc_farmer", "value": 10.0 },
+        { "key": "_rel_npc_astrologer", "value": 60.0 }
+      ],
+      "taskStateMinimums": [
+        { "npcId": "npc_actress", "taskId": "actress_story", "state": "Complete" },
+        { "npcId": "npc_actress", "taskId": "actress_aristocrat", "state": "Visible" }
+      ],
+      "unlockedTechs": [],
+      "unlockedPhrases": ["@actress_title"],
+      "blacklistedPhrases": [
+        "@actress_story_gold",
+        "@farmer_alisa",
+        "@miller_fix_mill",
+        "@astrologer_fix_mill",
+        "@astrologer_fix",
+        "@actress_lute_done"
+      ],
+      "unlockedCrafts": [],
+      "completedOneTimeCrafts": [],
+      "wgoParamMinimums": [],
+      "personalItemGrants": []
+    },
+    {
+      "milestoneId": "charm_waiting_for_aristocrat_papers",
+      "npcId": "npc_actress",
+      "taskId": "actress_aristocrat",
+      "activeStates": ["Visible"],
+      "playerParamRepairs": [],
+      "playerParamMinimums": [
+        { "key": "_rel_npc_actress", "value": 60.0 }
+      ],
+      "taskStateMinimums": [
+        { "npcId": "npc_actress", "taskId": "actress_alisa", "state": "Complete" }
+      ],
+      "unlockedTechs": [],
+      "unlockedPhrases": ["@actress_title"],
+      "blacklistedPhrases": [],
+      "unlockedCrafts": [],
+      "completedOneTimeCrafts": [],
+      "wgoParamMinimums": [],
+      "personalItemGrants": []
+    },
+    {
+      "milestoneId": "charm_waiting_for_vagner_song",
+      "npcId": "npc_actress",
+      "taskId": "actress_song",
+      "activeStates": ["Visible"],
+      "playerParamRepairs": [],
+      "playerParamMinimums": [
+        { "key": "_rel_npc_actress", "value": 70.0 }
+      ],
+      "taskStateMinimums": [
+        { "npcId": "npc_actress", "taskId": "actress_aristocrat", "state": "Complete" }
+      ],
+      "unlockedTechs": [],
+      "unlockedPhrases": ["@actress_ song_done"],
+      "blacklistedPhrases": ["@actress_title"],
+      "unlockedCrafts": [],
+      "completedOneTimeCrafts": [],
+      "wgoParamMinimums": [],
+      "personalItemGrants": []
+    },
+    {
+      "milestoneId": "vagner_waiting_for_infusion",
+      "npcId": "npc_actor",
+      "taskId": "actor_song",
+      "activeStates": ["Visible"],
+      "playerParamRepairs": [],
+      "playerParamMinimums": [
+        { "key": "_rel_npc_actor", "value": 20.0 }
+      ],
+      "taskStateMinimums": [
+        { "npcId": "npc_actress", "taskId": "actress_song", "state": "Visible" }
+      ],
+      "unlockedTechs": [],
+      "unlockedPhrases": ["@actress_ song_done", "@actor_inspiration"],
+      "blacklistedPhrases": ["@actor_song"],
+      "unlockedCrafts": ["infusion"],
+      "completedOneTimeCrafts": [],
+      "wgoParamMinimums": [],
+      "personalItemGrants": []
+    },
+    {
+      "milestoneId": "vagner_departure_armed",
+      "npcId": "npc_actor",
+      "taskId": "actor_song",
+      "activeStates": ["Complete"],
+      "playerParamRepairs": [],
+      "playerParamMinimums": [
+        { "key": "_rel_npc_actor", "value": 20.0 }
+      ],
+      "taskStateMinimums": [
+        { "npcId": "npc_actress", "taskId": "actress_song", "state": "Visible" }
+      ],
+      "unlockedTechs": [],
+      "unlockedPhrases": ["@actress_ song_done"],
+      "blacklistedPhrases": ["@actor_song", "@actor_inspiration"],
+      "unlockedCrafts": ["infusion"],
+      "completedOneTimeCrafts": [],
+      "wgoParamMinimums": [],
+      "personalItemGrants": []
+    },
+    {
+      "milestoneId": "vagner_cliff_meeting_pending",
+      "npcId": "npc_actor",
+      "taskId": "actor_meeting",
+      "activeStates": ["Visible"],
+      "playerParamRepairs": [],
+      "playerParamMinimums": [],
+      "taskStateMinimums": [
+        { "npcId": "npc_actor", "taskId": "actor_song", "state": "Complete" },
+        { "npcId": "npc_actress", "taskId": "actress_song", "state": "Visible" }
+      ],
+      "unlockedTechs": [],
+      "unlockedPhrases": ["@actress_ song_done"],
+      "blacklistedPhrases": ["@actor_song", "@actor_inspiration"],
+      "unlockedCrafts": ["infusion"],
+      "completedOneTimeCrafts": [],
+      "wgoParamMinimums": [],
+      "personalItemGrants": []
+    },
+    {
+      "milestoneId": "vagner_cliff_confrontation_reached",
+      "npcId": "npc_actor",
+      "taskId": "actor_meeting",
+      "activeStates": ["Complete"],
+      "playerParamRepairs": [],
+      "playerParamMinimums": [],
+      "taskStateMinimums": [
+        { "npcId": "npc_actor", "taskId": "actor_song", "state": "Complete" },
+        { "npcId": "npc_actress", "taskId": "actress_song", "state": "Visible" }
+      ],
+      "unlockedTechs": [],
+      "unlockedPhrases": ["@actress_ song_done"],
+      "blacklistedPhrases": ["@actor_song", "@actor_inspiration"],
+      "unlockedCrafts": ["infusion"],
+      "completedOneTimeCrafts": [],
+      "wgoParamMinimums": [],
+      "personalItemGrants": []
+    },
+    {
+      "milestoneId": "charm_song_delivered",
+      "npcId": "npc_actress",
+      "taskId": "actress_song",
+      "activeStates": ["Complete"],
+      "playerParamRepairs": [],
+      "playerParamMinimums": [
+        { "key": "_rel_npc_actress", "value": 90.0 }
+      ],
+      "taskStateMinimums": [
+        { "npcId": "npc_actress", "taskId": "actress_aristocrat", "state": "Complete" },
+        { "npcId": "npc_actor", "taskId": "actor_song", "state": "Complete" },
+        { "npcId": "npc_actor", "taskId": "actor_meeting", "state": "Complete" }
+      ],
+      "unlockedTechs": [],
+      "unlockedPhrases": [],
+      "blacklistedPhrases": [
+        "@actress_title",
+        "@actor_song",
+        "@actor_inspiration",
+        "@actress_ song_done"
+      ],
+      "unlockedCrafts": ["infusion"],
+      "completedOneTimeCrafts": [],
+      "wgoParamMinimums": [],
+      "personalItemGrants": []
+    },
+    {
+      "milestoneId": "charm_vagner_rescue_opened",
+      "npcId": "npc_actress",
+      "taskId": "actress_Vagner",
+      "activeStates": ["Visible"],
+      "playerParamRepairs": [],
+      "playerParamMinimums": [
+        { "key": "_rel_npc_actress", "value": 90.0 }
+      ],
+      "taskStateMinimums": [
+        { "npcId": "npc_actress", "taskId": "actress_song", "state": "Complete" },
+        { "npcId": "npc_astrologer", "taskId": "astrologer_find_help", "state": "Visible" }
+      ],
+      "unlockedTechs": [],
+      "unlockedPhrases": ["@astrologer_charm_know"],
+      "blacklistedPhrases": [
+        "@actress_title",
+        "@actor_song",
+        "@actor_inspiration",
+        "@actress_ song_done"
+      ],
+      "unlockedCrafts": ["infusion"],
+      "completedOneTimeCrafts": [],
+      "wgoParamMinimums": [],
+      "personalItemGrants": []
+    },
+    {
+      "milestoneId": "astrologer_vagner_help_requested",
+      "npcId": "npc_astrologer",
+      "taskId": "astrologer_find_help",
+      "activeStates": ["Visible"],
+      "playerParamRepairs": [],
+      "playerParamMinimums": [
+        { "key": "_rel_npc_actress", "value": 90.0 }
+      ],
+      "taskStateMinimums": [
+        { "npcId": "npc_actress", "taskId": "actress_song", "state": "Complete" },
+        { "npcId": "npc_actress", "taskId": "actress_Vagner", "state": "Visible" }
+      ],
+      "unlockedTechs": [],
+      "unlockedPhrases": ["@astrologer_charm_know"],
+      "blacklistedPhrases": [
+        "@actress_title",
+        "@actor_song",
+        "@actor_inspiration",
+        "@actress_ song_done"
+      ],
+      "unlockedCrafts": ["infusion"],
+      "completedOneTimeCrafts": [],
+      "wgoParamMinimums": [],
+      "personalItemGrants": []
+    },
+    {
+      "milestoneId": "astrologer_rescue_plan_agreed",
+      "npcId": "npc_astrologer",
+      "taskId": "astrologer_find_help",
+      "activeStates": ["Complete"],
+      "playerParamRepairs": [],
+      "playerParamMinimums": [
+        { "key": "_rel_npc_actress", "value": 90.0 },
+        { "key": "_rel_npc_astrologer", "value": 70.0 }
+      ],
+      "taskStateMinimums": [
+        { "npcId": "npc_actress", "taskId": "actress_song", "state": "Complete" },
+        { "npcId": "npc_actress", "taskId": "actress_Vagner", "state": "Visible" },
+        { "npcId": "npc_astrologer", "taskId": "astrologer_help", "state": "Complete" }
+      ],
+      "unlockedTechs": [],
+      "unlockedPhrases": ["@astrolog_expedition"],
+      "blacklistedPhrases": ["@actress_ song_done", "@astrologer_charm_know"],
+      "unlockedCrafts": ["infusion"],
+      "completedOneTimeCrafts": [],
+      "wgoParamMinimums": [],
+      "personalItemGrants": []
+    },
+    {
+      "milestoneId": "astrologer_silver_book_requested",
+      "npcId": "npc_astrologer",
+      "taskId": "astrologer_sbook",
+      "activeStates": ["Visible"],
+      "playerParamRepairs": [],
+      "playerParamMinimums": [
+        { "key": "_rel_npc_actress", "value": 90.0 },
+        { "key": "_rel_npc_astrologer", "value": 70.0 }
+      ],
+      "taskStateMinimums": [
+        { "npcId": "npc_actress", "taskId": "actress_song", "state": "Complete" },
+        { "npcId": "npc_actress", "taskId": "actress_Vagner", "state": "Visible" },
+        { "npcId": "npc_astrologer", "taskId": "astrologer_find_help", "state": "Complete" },
+        { "npcId": "npc_astrologer", "taskId": "astrologer_help", "state": "Complete" }
+      ],
+      "unlockedTechs": [],
+      "unlockedPhrases": ["@astrologer_silver"],
+      "blacklistedPhrases": ["@actress_ song_done", "@astrologer_charm_know", "@astrolog_expedition"],
+      "unlockedCrafts": ["infusion"],
+      "completedOneTimeCrafts": [],
+      "wgoParamMinimums": [],
+      "personalItemGrants": []
+    },
+    {
+      "milestoneId": "astrologer_silver_book_delivered",
+      "npcId": "npc_astrologer",
+      "taskId": "astrologer_sbook",
+      "activeStates": ["Complete"],
+      "playerParamRepairs": [],
+      "playerParamMinimums": [
+        { "key": "_rel_npc_actress", "value": 90.0 },
+        { "key": "_rel_npc_astrologer", "value": 75.0 }
+      ],
+      "taskStateMinimums": [
+        { "npcId": "npc_actress", "taskId": "actress_song", "state": "Complete" },
+        { "npcId": "npc_actress", "taskId": "actress_Vagner", "state": "Visible" },
+        { "npcId": "npc_astrologer", "taskId": "astrologer_find_help", "state": "Complete" },
+        { "npcId": "npc_astrologer", "taskId": "astrologer_help", "state": "Complete" }
+      ],
+      "unlockedTechs": [],
+      "unlockedPhrases": [],
+      "blacklistedPhrases": [
+        "@actress_ song_done",
+        "@astrologer_charm_know",
+        "@astrolog_expedition",
+        "@astrologer_silver",
+        "@tr_quest_13_research_1"
+      ],
+      "unlockedCrafts": ["infusion"],
+      "completedOneTimeCrafts": [],
+      "wgoParamMinimums": [],
+      "personalItemGrants": []
+    },
+    {
+      "milestoneId": "astrologer_gold_book_requested",
+      "npcId": "npc_astrologer",
+      "taskId": "astrologer_gbook",
+      "activeStates": ["Visible"],
+      "playerParamRepairs": [],
+      "playerParamMinimums": [
+        { "key": "_rel_npc_actress", "value": 90.0 },
+        { "key": "_rel_npc_astrologer", "value": 75.0 }
+      ],
+      "taskStateMinimums": [
+        { "npcId": "npc_actress", "taskId": "actress_song", "state": "Complete" },
+        { "npcId": "npc_actress", "taskId": "actress_Vagner", "state": "Visible" },
+        { "npcId": "npc_astrologer", "taskId": "astrologer_find_help", "state": "Complete" },
+        { "npcId": "npc_astrologer", "taskId": "astrologer_help", "state": "Complete" },
+        { "npcId": "npc_astrologer", "taskId": "astrologer_sbook", "state": "Complete" }
+      ],
+      "unlockedTechs": [],
+      "unlockedPhrases": ["@astrologer_gold"],
+      "blacklistedPhrases": [
+        "@actress_ song_done",
+        "@astrologer_charm_know",
+        "@astrolog_expedition",
+        "@astrologer_silver",
+        "@tr_quest_13_research_1"
+      ],
+      "unlockedCrafts": ["infusion"],
+      "completedOneTimeCrafts": [],
+      "wgoParamMinimums": [],
+      "personalItemGrants": []
+    },
+    {
+      "milestoneId": "astrologer_gold_book_delivered",
+      "npcId": "npc_astrologer",
+      "taskId": "astrologer_gbook",
+      "activeStates": ["Complete"],
+      "playerParamRepairs": [],
+      "playerParamMinimums": [
+        { "key": "_rel_npc_actress", "value": 90.0 },
+        { "key": "_rel_npc_astrologer", "value": 80.0 }
+      ],
+      "taskStateMinimums": [
+        { "npcId": "npc_actress", "taskId": "actress_song", "state": "Complete" },
+        { "npcId": "npc_actress", "taskId": "actress_Vagner", "state": "Visible" },
+        { "npcId": "npc_astrologer", "taskId": "astrologer_find_help", "state": "Complete" },
+        { "npcId": "npc_astrologer", "taskId": "astrologer_help", "state": "Complete" },
+        { "npcId": "npc_astrologer", "taskId": "astrologer_sbook", "state": "Complete" }
+      ],
+      "unlockedTechs": [],
+      "unlockedPhrases": [],
+      "blacklistedPhrases": [
+        "@actress_ song_done",
+        "@astrologer_charm_know",
+        "@astrolog_expedition",
+        "@astrologer_silver",
+        "@astrologer_gold",
+        "@tr_quest_13_research_1"
+      ],
+      "unlockedCrafts": ["infusion"],
+      "completedOneTimeCrafts": [],
+      "wgoParamMinimums": [],
+      "personalItemGrants": []
+    },
+    {
+      "milestoneId": "astrologer_aristocrat_papers_requested",
+      "npcId": "npc_astrologer",
+      "taskId": "astrologer_aristocrat",
+      "activeStates": ["Visible"],
+      "playerParamRepairs": [],
+      "playerParamMinimums": [
+        { "key": "_rel_npc_actress", "value": 90.0 },
+        { "key": "_rel_npc_astrologer", "value": 80.0 }
+      ],
+      "taskStateMinimums": [
+        { "npcId": "npc_actress", "taskId": "actress_song", "state": "Complete" },
+        { "npcId": "npc_actress", "taskId": "actress_Vagner", "state": "Visible" },
+        { "npcId": "npc_astrologer", "taskId": "astrologer_find_help", "state": "Complete" },
+        { "npcId": "npc_astrologer", "taskId": "astrologer_help", "state": "Complete" },
+        { "npcId": "npc_astrologer", "taskId": "astrologer_sbook", "state": "Complete" },
+        { "npcId": "npc_astrologer", "taskId": "astrologer_gbook", "state": "Complete" }
+      ],
+      "unlockedTechs": [],
+      "unlockedPhrases": ["@astrologer_title"],
+      "blacklistedPhrases": [
+        "@actress_ song_done",
+        "@astrologer_charm_know",
+        "@astrolog_expedition",
+        "@astrologer_silver",
+        "@astrologer_gold",
+        "@tr_quest_13_research_1"
+      ],
+      "unlockedCrafts": ["infusion"],
+      "completedOneTimeCrafts": [],
+      "wgoParamMinimums": [],
+      "personalItemGrants": []
+    },
+    {
+      "milestoneId": "astrologer_aristocrat_papers_delivered",
+      "npcId": "npc_astrologer",
+      "taskId": "astrologer_aristocrat",
+      "activeStates": ["Complete"],
+      "playerParamRepairs": [],
+      "playerParamMinimums": [
+        { "key": "_rel_npc_actress", "value": 90.0 },
+        { "key": "_rel_npc_astrologer", "value": 90.0 }
+      ],
+      "taskStateMinimums": [
+        { "npcId": "npc_actress", "taskId": "actress_song", "state": "Complete" },
+        { "npcId": "npc_actress", "taskId": "actress_Vagner", "state": "Visible" },
+        { "npcId": "npc_astrologer", "taskId": "astrologer_find_help", "state": "Complete" },
+        { "npcId": "npc_astrologer", "taskId": "astrologer_help", "state": "Complete" },
+        { "npcId": "npc_astrologer", "taskId": "astrologer_sbook", "state": "Complete" },
+        { "npcId": "npc_astrologer", "taskId": "astrologer_gbook", "state": "Complete" }
+      ],
+      "unlockedTechs": [],
+      "unlockedPhrases": ["@astrologer_last_0"],
+      "blacklistedPhrases": [
+        "@actress_ song_done",
+        "@astrologer_charm_know",
+        "@astrolog_expedition",
+        "@astrologer_silver",
+        "@astrologer_gold",
+        "@astrologer_title",
+        "@tr_quest_13_research_1"
+      ],
+      "unlockedCrafts": ["infusion"],
+      "completedOneTimeCrafts": [],
+      "wgoParamMinimums": [],
+      "personalItemGrants": []
+    },
+    {
+      "milestoneId": "charm_vagner_rescued",
+      "npcId": "npc_actress",
+      "taskId": "actress_Vagner",
+      "activeStates": ["Complete"],
+      "playerParamRepairs": [],
+      "playerParamMinimums": [
+        { "key": "_rel_npc_actress", "value": 100.0 },
+        { "key": "_rel_npc_astrologer", "value": 100.0 }
+      ],
+      "taskStateMinimums": [
+        { "npcId": "npc_actress", "taskId": "actress_song", "state": "Complete" },
+        { "npcId": "npc_astrologer", "taskId": "astrologer_find_help", "state": "Complete" },
+        { "npcId": "npc_astrologer", "taskId": "astrologer_help", "state": "Complete" },
+        { "npcId": "npc_astrologer", "taskId": "astrologer_sbook", "state": "Complete" },
+        { "npcId": "npc_astrologer", "taskId": "astrologer_gbook", "state": "Complete" },
+        { "npcId": "npc_astrologer", "taskId": "astrologer_aristocrat", "state": "Complete" }
+      ],
+      "unlockedTechs": [],
+      "unlockedPhrases": [],
+      "blacklistedPhrases": [
+        "@actress_ song_done",
+        "@astrologer_charm_know",
+        "@astrolog_expedition",
+        "@astrologer_silver",
+        "@astrologer_gold",
+        "@astrologer_title",
+        "@astrologer_last_0",
+        "@tr_quest_13_research_1"
+      ],
+      "unlockedCrafts": ["infusion"],
+      "completedOneTimeCrafts": [],
+      "wgoParamMinimums": [],
+      "personalItemGrants": []
+    },
+    {
+      "milestoneId": "clotho_memory_remedy_requested",
+      "npcId": "npc_witch",
+      "taskId": "npc_clotho_task_1",
+      "activeStates": ["Visible"],
+      "playerParamRepairs": [],
+      "playerParamMinimums": [],
+      "taskStateMinimums": [],
+      "unlockedTechs": ["The Beginning Of Alchemy"],
+      "unlockedPhrases": [],
+      "blacklistedPhrases": [],
+      "unlockedCrafts": [],
+      "completedOneTimeCrafts": [],
+      "wgoParamMinimums": [],
+      "personalItemGrants": []
+    },
+    {
+      "milestoneId": "clotho_memory_restored",
+      "npcId": "npc_witch",
+      "taskId": "npc_clotho_task_1",
+      "activeStates": ["Complete"],
+      "playerParamRepairs": [],
+      "playerParamMinimums": [
+        { "key": "_rel_npc_witch", "value": 20.0 }
+      ],
+      "taskStateMinimums": [],
+      "unlockedTechs": ["The Beginning Of Alchemy"],
+      "unlockedPhrases": ["@clotho_trade"],
+      "blacklistedPhrases": [
+        "сlotho_vat",
+        "сlotho_pot",
+        "@сlotho_intence",
+        "@сlotho_bee"
+      ],
+      "unlockedCrafts": [],
+      "completedOneTimeCrafts": [],
+      "wgoParamMinimums": [],
+      "personalItemGrants": []
+    },
+    {
+      "milestoneId": "clotho_pumpkin_requested",
+      "npcId": "npc_witch",
+      "taskId": "clotho_pumpkin",
+      "activeStates": ["Visible"],
+      "playerParamRepairs": [],
+      "playerParamMinimums": [],
+      "taskStateMinimums": [],
+      "unlockedTechs": [],
+      "unlockedPhrases": ["@clotho_resipe_done_1"],
+      "blacklistedPhrases": [],
+      "unlockedCrafts": [],
+      "completedOneTimeCrafts": [],
+      "wgoParamMinimums": [],
+      "personalItemGrants": []
+    },
+    {
+      "milestoneId": "clotho_pumpkin_delivered",
+      "npcId": "npc_witch",
+      "taskId": "clotho_pumpkin",
+      "activeStates": ["Complete"],
+      "playerParamRepairs": [],
+      "playerParamMinimums": [],
+      "taskStateMinimums": [],
+      "unlockedTechs": ["Vegetable soups"],
+      "unlockedPhrases": [],
+      "blacklistedPhrases": ["@clotho_resipe_done_1"],
+      "unlockedCrafts": [],
+      "completedOneTimeCrafts": [],
+      "wgoParamMinimums": [],
+      "personalItemGrants": []
+    },
+    {
+      "milestoneId": "gypsy_fish_requested",
+      "npcId": "npc_gypsy",
+      "taskId": "gypsy_fish",
+      "activeStates": ["Visible"],
+      "playerParamRepairs": [],
+      "playerParamMinimums": [],
+      "taskStateMinimums": [],
+      "unlockedTechs": [],
+      "unlockedPhrases": ["@gypsy_recipe_done_1"],
+      "blacklistedPhrases": ["gypsy_recipe_1"],
+      "unlockedCrafts": [],
+      "completedOneTimeCrafts": [],
+      "wgoParamMinimums": [],
+      "personalItemGrants": []
+    },
+    {
+      "milestoneId": "gypsy_fish_delivered",
+      "npcId": "npc_gypsy",
+      "taskId": "gypsy_fish",
+      "activeStates": ["Complete"],
+      "playerParamRepairs": [],
+      "playerParamMinimums": [],
+      "taskStateMinimums": [],
+      "unlockedTechs": ["Fish shish kebab"],
+      "unlockedPhrases": [],
+      "blacklistedPhrases": ["gypsy_recipe_1", "@gypsy_recipe_done_1"],
+      "unlockedCrafts": [],
+      "completedOneTimeCrafts": [],
+      "wgoParamMinimums": [],
+      "personalItemGrants": []
+    },
+    {
+      "milestoneId": "lightkeeper_moths_requested",
+      "npcId": "npc_light_keeper",
+      "taskId": "lightkeeper_moth",
+      "activeStates": ["Visible"],
+      "playerParamRepairs": [],
+      "playerParamMinimums": [],
+      "taskStateMinimums": [],
+      "unlockedTechs": [],
+      "unlockedPhrases": ["@light_keeper_rode_done_1"],
+      "blacklistedPhrases": ["@light_keeper_rode_1"],
+      "unlockedCrafts": [],
+      "completedOneTimeCrafts": [],
+      "wgoParamMinimums": [],
+      "personalItemGrants": []
+    },
+    {
+      "milestoneId": "lightkeeper_moths_delivered",
+      "npcId": "npc_light_keeper",
+      "taskId": "lightkeeper_moth",
+      "activeStates": ["Complete"],
+      "playerParamRepairs": [],
+      "playerParamMinimums": [],
+      "taskStateMinimums": [],
+      "unlockedTechs": [],
+      "unlockedPhrases": [],
+      "blacklistedPhrases": [
+        "@light_keeper_rode_1",
+        "@light_keeper_rode_done_1"
+      ],
+      "unlockedCrafts": [],
+      "completedOneTimeCrafts": [],
+      "wgoParamMinimums": [],
+      "personalItemGrants": []
+    },
+    {
+      "milestoneId": "astrologer_daughter_search_started",
+      "npcId": "npc_astrologer",
+      "taskId": "astrologer_daghter",
+      "activeStates": ["Visible"],
+      "playerParamRepairs": [],
+      "playerParamMinimums": [
+        { "key": "_rel_npc_astrologer", "value": 50.0 }
+      ],
+      "taskStateMinimums": [
+        { "npcId": "npc_astrologer", "taskId": "astrologer_baron", "state": "Complete" }
+      ],
+      "unlockedTechs": [],
+      "unlockedPhrases": ["@actress_father"],
+      "blacklistedPhrases": ["@astrologer_charm"],
+      "unlockedCrafts": [],
+      "completedOneTimeCrafts": [],
+      "wgoParamMinimums": [],
+      "personalItemGrants": []
+    },
+    {
+      "milestoneId": "astrologer_daughter_truth_returned",
+      "npcId": "npc_astrologer",
+      "taskId": "astrologer_daghter",
+      "activeStates": ["Complete"],
+      "playerParamRepairs": [],
+      "playerParamMinimums": [
+        { "key": "_rel_npc_astrologer", "value": 60.0 }
+      ],
+      "taskStateMinimums": [
+        { "npcId": "npc_astrologer", "taskId": "astrologer_baron", "state": "Complete" },
+        { "npcId": "npc_astrologer", "taskId": "astrologer_help", "state": "Visible" }
+      ],
+      "unlockedTechs": [],
+      "unlockedPhrases": [],
+      "blacklistedPhrases": [
+        "@astrologer_charm",
+        "@actress_father",
+        "@astrologer_charm_no"
+      ],
+      "unlockedCrafts": [],
+      "completedOneTimeCrafts": [],
+      "wgoParamMinimums": [],
+      "personalItemGrants": []
+    },
+    {
+      "milestoneId": "dig_honey_requested",
+      "npcId": "npc_dig",
+      "taskId": "dig_honey",
+      "activeStates": ["Visible"],
+      "playerParamRepairs": [],
+      "playerParamMinimums": [],
+      "taskStateMinimums": [],
+      "unlockedTechs": [],
+      "unlockedPhrases": ["@dig_recipe_done_1"],
+      "blacklistedPhrases": [],
+      "unlockedCrafts": [],
+      "completedOneTimeCrafts": [],
+      "wgoParamMinimums": [],
+      "personalItemGrants": []
+    },
+    {
+      "milestoneId": "dig_honey_delivered",
+      "npcId": "npc_dig",
+      "taskId": "dig_honey",
+      "activeStates": ["Complete"],
+      "playerParamRepairs": [],
+      "playerParamMinimums": [],
+      "taskStateMinimums": [],
+      "unlockedTechs": ["Desert"],
+      "unlockedPhrases": [],
+      "blacklistedPhrases": ["@dig_recipe_done_1"],
+      "unlockedCrafts": [],
+      "completedOneTimeCrafts": [],
+      "wgoParamMinimums": [],
+      "personalItemGrants": []
+    },
+    {
+      "milestoneId": "wood_cutter_axe_requested",
+      "npcId": "npc_wood_cutter",
+      "taskId": "logger_axe",
+      "activeStates": ["Visible"],
+      "playerParamRepairs": [],
+      "playerParamMinimums": [],
+      "taskStateMinimums": [],
+      "unlockedTechs": [],
+      "unlockedPhrases": ["@logger_recipe_1"],
+      "blacklistedPhrases": [],
+      "unlockedCrafts": [],
+      "completedOneTimeCrafts": [],
+      "wgoParamMinimums": [],
+      "personalItemGrants": []
+    },
+    {
+      "milestoneId": "wood_cutter_axe_delivered",
+      "npcId": "npc_wood_cutter",
+      "taskId": "logger_axe",
+      "activeStates": ["Complete"],
+      "playerParamRepairs": [],
+      "playerParamMinimums": [],
+      "taskStateMinimums": [],
+      "unlockedTechs": ["Italian kitchen"],
+      "unlockedPhrases": [],
+      "blacklistedPhrases": ["@logger_recipe_1"],
+      "unlockedCrafts": [],
+      "completedOneTimeCrafts": [],
+      "wgoParamMinimums": [],
+      "personalItemGrants": []
+    },
+    {
+      "milestoneId": "gypsy_baron_help_requested",
+      "npcId": "npc_gypsy",
+      "taskId": "baron_help",
+      "activeStates": ["Visible"],
+      "playerParamRepairs": [],
+      "playerParamMinimums": [],
+      "taskStateMinimums": [],
+      "unlockedTechs": [],
+      "unlockedPhrases": ["@inquisitor_gypsy"],
+      "blacklistedPhrases": ["@gypsy_esmeralda"],
+      "unlockedCrafts": [],
+      "completedOneTimeCrafts": [],
+      "wgoParamMinimums": [],
+      "personalItemGrants": []
+    },
+    {
+      "milestoneId": "gypsy_baron_help_completed",
+      "npcId": "npc_gypsy",
+      "taskId": "baron_help",
+      "activeStates": ["Complete"],
+      "playerParamRepairs": [],
+      "playerParamMinimums": [
+        { "key": "_rel_npc_inquisitor", "value": 60.0 }
+      ],
+      "taskStateMinimums": [],
+      "unlockedTechs": [],
+      "unlockedPhrases": [],
+      "blacklistedPhrases": ["@gypsy_esmeralda", "@inquisitor_gypsy"],
+      "unlockedCrafts": [],
+      "completedOneTimeCrafts": [],
+      "wgoParamMinimums": [],
+      "personalItemGrants": []
+    }
+  ],
+  "cutscenes": [
+    {
+      "cutsceneId": "charm_necklace_truth_return_dialogue",
+      "linkedQuestIds": [],
+      "triggerScripts": ["npc_actress:@actress_money_back"],
+      "actors": ["initiating_player", "npc_actress"],
+      "observerPolicy": "all_loaded_party_members",
+      "lateJoinPolicy": "join_live_checkpoint_or_observe",
+      "remoteExecutionPolicy": "live_observation",
+      "executionOwnerPolicy": "any_player",
+      "dialogueOwnerPolicy": "initiating_player",
+      "formationPolicy": "initiator_with_observer_follow",
+      "cleanupRequirements": [
+        "complete_actress_necklace_once",
+        "apply_charm_relation_plus_10_once",
+        "apply_two_bronze_and_two_silver_story_points_once",
+        "show_actress_parfume_once",
+        "unlock_perfume_acquisition_branch_once",
+        "restore_player_control",
+        "close_letterbox"
+      ]
+    },
+    {
+      "cutsceneId": "mrs_chain_perfume_errand",
+      "linkedQuestIds": [],
+      "triggerScripts": ["npc_mrs chain:@chain_parfume"],
+      "actors": ["initiating_player", "npc_mrs chain"],
+      "observerPolicy": "all_loaded_party_members",
+      "lateJoinPolicy": "join_live_checkpoint_or_observe",
+      "remoteExecutionPolicy": "live_observation",
+      "executionOwnerPolicy": "any_player",
+      "dialogueOwnerPolicy": "initiating_player",
+      "formationPolicy": "initiator_with_observer_follow",
+      "cleanupRequirements": [
+        "drop_one_picnic_basket_to_the_initiator",
+        "unlock_clotho_food_handoff_once",
+        "unlock_chain_frog_once",
+        "do_not_drop_one_basket_per_observer",
+        "restore_player_control",
+        "close_letterbox"
+      ]
+    },
+    {
+      "cutsceneId": "charm_perfume_handoff",
+      "linkedQuestIds": [],
+      "triggerScripts": ["npc_actress:@actress_parfume_ready"],
+      "actors": ["initiating_player", "npc_actress"],
+      "observerPolicy": "all_loaded_party_members",
+      "lateJoinPolicy": "join_live_checkpoint_or_observe",
+      "remoteExecutionPolicy": "live_observation",
+      "executionOwnerPolicy": "any_player",
+      "dialogueOwnerPolicy": "initiating_player",
+      "formationPolicy": "initiator_with_observer_follow",
+      "cleanupRequirements": [
+        "consume_one_parfum_1_from_the_initiator",
+        "complete_actress_parfume_once",
+        "apply_charm_relation_plus_10_once",
+        "apply_two_bronze_story_points_once",
+        "emit_actress_parfume_key_quest_check_once",
+        "show_actress_story_once",
+        "unlock_actress_story_gold_once",
+        "restore_player_control",
+        "close_letterbox"
+      ]
+    },
+    {
+      "cutsceneId": "charm_gold_story_handoff",
+      "linkedQuestIds": [],
+      "triggerScripts": ["npc_actress:@actress_story_gold"],
+      "actors": ["initiating_player", "npc_actress"],
+      "observerPolicy": "all_loaded_party_members",
+      "lateJoinPolicy": "join_live_checkpoint_or_observe",
+      "remoteExecutionPolicy": "live_observation",
+      "executionOwnerPolicy": "any_player",
+      "dialogueOwnerPolicy": "initiating_player",
+      "formationPolicy": "initiator_with_observer_follow",
+      "cleanupRequirements": [
+        "consume_one_gold_quality_story_from_the_initiator",
+        "complete_actress_story_once",
+        "apply_charm_relation_plus_10_once",
+        "apply_five_bronze_and_five_silver_story_points_once",
+        "show_actress_alisa_once",
+        "unlock_actress_lute_done_and_farmer_alisa_once",
+        "restore_player_control",
+        "close_letterbox"
+      ]
+    },
+    {
+      "cutsceneId": "farmer_alisa_family_visit",
+      "linkedQuestIds": [],
+      "triggerScripts": ["npc_farmer:@farmer_alisa"],
+      "actors": [
+        "initiating_player",
+        "npc_farmer",
+        "npc_farmers_son",
+        "npc_alice"
+      ],
+      "observerPolicy": "all_loaded_party_members",
+      "lateJoinPolicy": "join_live_checkpoint_or_observe",
+      "remoteExecutionPolicy": "live_observation",
+      "executionOwnerPolicy": "any_player",
+      "dialogueOwnerPolicy": "initiating_player",
+      "formationPolicy": "initiator_with_observer_follow",
+      "cleanupRequirements": [
+        "restore_all_family_actor_paths",
+        "unlock_miller_fix_mill_once",
+        "despawn_temporary_alice_after_the_scene",
+        "restore_player_control",
+        "restore_camera",
+        "close_letterbox"
+      ]
+    },
+    {
+      "cutsceneId": "miller_alisa_repair_request",
+      "linkedQuestIds": [],
+      "triggerScripts": ["npc_miller:@miller_fix_mill"],
+      "actors": ["initiating_player", "npc_miller"],
+      "observerPolicy": "all_loaded_party_members",
+      "lateJoinPolicy": "join_live_checkpoint_or_observe",
+      "remoteExecutionPolicy": "live_observation",
+      "executionOwnerPolicy": "any_player",
+      "dialogueOwnerPolicy": "initiating_player",
+      "formationPolicy": "initiator_with_observer_follow",
+      "cleanupRequirements": [
+        "blacklist_miller_fix_mill_once",
+        "unlock_astrologer_fix_mill_once",
+        "return_only_the_initiator_to_miller_dialogue",
+        "restore_player_control",
+        "restore_camera",
+        "close_letterbox"
+      ]
+    },
+    {
+      "cutsceneId": "miller_repair_completion_scene",
+      "linkedQuestIds": [],
+      "triggerScripts": ["npc_miller:miller_after_fix"],
+      "actors": ["initiating_player", "npc_miller"],
+      "observerPolicy": "all_loaded_party_members",
+      "lateJoinPolicy": "join_live_checkpoint_or_observe",
+      "remoteExecutionPolicy": "live_observation",
+      "executionOwnerPolicy": "any_player",
+      "dialogueOwnerPolicy": "initiating_player",
+      "formationPolicy": "initiator_with_observer_follow",
+      "cleanupRequirements": [
+        "queue_farmer_alisa_done_once",
+        "unlock_miller_wheat_mill_once",
+        "restore_player_control",
+        "restore_camera",
+        "close_letterbox"
+      ]
+    },
+    {
+      "cutsceneId": "farmer_alisa_paper_reward",
+      "linkedQuestIds": [],
+      "triggerScripts": ["npc_farmer:farmer_alisa_done"],
+      "actors": ["initiating_player", "npc_farmer"],
+      "observerPolicy": "all_loaded_party_members",
+      "lateJoinPolicy": "join_live_checkpoint_or_observe",
+      "remoteExecutionPolicy": "live_observation",
+      "executionOwnerPolicy": "any_player",
+      "dialogueOwnerPolicy": "initiating_player",
+      "formationPolicy": "initiator_with_observer_follow",
+      "cleanupRequirements": [
+        "apply_farmer_relation_plus_10_once",
+        "drop_one_alice_paper_to_the_initiator",
+        "do_not_drop_one_paper_per_observer",
+        "restore_player_control",
+        "close_letterbox"
+      ]
+    },
+    {
+      "cutsceneId": "charm_alisa_paper_handoff",
+      "linkedQuestIds": [],
+      "triggerScripts": ["npc_actress:@actress_lute_done"],
+      "actors": ["initiating_player", "npc_actress"],
+      "observerPolicy": "all_loaded_party_members",
+      "lateJoinPolicy": "join_live_checkpoint_or_observe",
+      "remoteExecutionPolicy": "live_observation",
+      "executionOwnerPolicy": "any_player",
+      "dialogueOwnerPolicy": "initiating_player",
+      "formationPolicy": "initiator_with_observer_follow",
+      "cleanupRequirements": [
+        "consume_one_alice_paper_from_the_initiator",
+        "complete_actress_alisa_once",
+        "apply_charm_relation_plus_10_once",
+        "apply_five_bronze_and_five_silver_story_points_once",
+        "show_actress_aristocrat_once",
+        "unlock_actress_title_once",
+        "restore_player_control",
+        "close_letterbox"
+      ]
+    },
+    {
+      "cutsceneId": "vagner_missing_note",
+      "linkedQuestIds": ["actor_remove_from_tavern_quest"],
+      "triggerScripts": ["actors_fake_object:disapearing"],
+      "actors": ["initiating_player", "actors_fake_object"],
+      "observerPolicy": "all_loaded_party_members",
+      "lateJoinPolicy": "join_live_checkpoint_or_observe",
+      "remoteExecutionPolicy": "live_observation",
+      "executionOwnerPolicy": "any_player",
+      "dialogueOwnerPolicy": "initiating_player",
+      "formationPolicy": "initiator_with_observer_follow",
+      "cleanupRequirements": [
+        "restore_player_control",
+        "show_actor_meeting_once",
+        "arm_actor_is_waiting_at_the_sea_for_the_cutscene_owner",
+        "destroy_actors_fake_object_once",
+        "do_not_respawn_consumed_note",
+        "close_letterbox"
+      ]
+    },
+    {
+      "cutsceneId": "vagner_satyr_arrest",
+      "linkedQuestIds": ["actor_remove_from_tavern_quest"],
+      "triggerScripts": ["actor_satyr_cutscene"],
+      "actors": [
+        "initiating_player",
+        "npc_satyr",
+        "satyr_guard_0",
+        "satyr_guard_1",
+        "satyr_guard_2"
+      ],
+      "observerPolicy": "all_loaded_party_members",
+      "lateJoinPolicy": "join_live_checkpoint_or_observe",
+      "remoteExecutionPolicy": "live_observation",
+      "executionOwnerPolicy": "any_player",
+      "dialogueOwnerPolicy": "initiating_player",
+      "formationPolicy": "initiator_with_observer_follow",
+      "cleanupRequirements": [
+        "restore_player_control",
+        "restore_camera",
+        "destroy_all_three_temporary_guards",
+        "return_npc_satyr_to_stock",
+        "clear_actor_is_waiting_at_the_sea_only_after_script_completion",
+        "preserve_actor_meeting_complete",
+        "drop_one_actors_song_for_the_campaign",
+        "close_letterbox"
+      ]
+    },
+    {
+      "cutsceneId": "astrologer_vagner_rescue_plan",
+      "linkedQuestIds": [],
+      "triggerScripts": ["npc_astrologer:@astrologer_charm_know"],
+      "actors": ["initiating_player", "npc_astrologer"],
+      "observerPolicy": "all_loaded_party_members",
+      "lateJoinPolicy": "join_live_checkpoint_or_observe",
+      "remoteExecutionPolicy": "live_observation",
+      "executionOwnerPolicy": "any_player",
+      "dialogueOwnerPolicy": "initiating_player",
+      "formationPolicy": "initiator_with_observer_follow",
+      "cleanupRequirements": [
+        "blacklist_astrologer_charm_know_once",
+        "complete_astrologer_find_help_with_five_bronze_and_five_silver_story_points_once",
+        "apply_astrologer_relation_plus_10_once",
+        "complete_astrologer_help_with_three_silver_and_seven_gold_story_points_once",
+        "unlock_astrolog_expedition_once",
+        "restore_player_control",
+        "close_letterbox"
+      ]
+    },
+    {
+      "cutsceneId": "astrologer_rescue_expedition_briefing",
+      "linkedQuestIds": [],
+      "triggerScripts": ["npc_astrologer:@astrolog_expedition"],
+      "actors": ["initiating_player", "npc_astrologer"],
+      "observerPolicy": "all_loaded_party_members",
+      "lateJoinPolicy": "join_live_checkpoint_or_observe",
+      "remoteExecutionPolicy": "live_observation",
+      "executionOwnerPolicy": "any_player",
+      "dialogueOwnerPolicy": "initiating_player",
+      "formationPolicy": "initiator_with_observer_follow",
+      "cleanupRequirements": [
+        "blacklist_astrolog_expedition_once",
+        "show_astrologer_sbook_once",
+        "unlock_astrologer_silver_once",
+        "unlock_tr_quest_13_research_1_only_when_need_unlock_obsidian_research_is_at_least_1",
+        "never_force_the_conditional_obsidian_research_phrase",
+        "restore_player_control",
+        "close_letterbox"
+      ]
+    },
+    {
+      "cutsceneId": "astrologer_silver_book_handoff",
+      "linkedQuestIds": [],
+      "triggerScripts": ["npc_astrologer:@astrologer_silver"],
+      "actors": ["initiating_player", "npc_astrologer"],
+      "observerPolicy": "all_loaded_party_members",
+      "lateJoinPolicy": "join_live_checkpoint_or_observe",
+      "remoteExecutionPolicy": "live_observation",
+      "executionOwnerPolicy": "any_player",
+      "dialogueOwnerPolicy": "initiating_player",
+      "formationPolicy": "initiator_with_observer_follow",
+      "cleanupRequirements": [
+        "consume_one_book_book_hard_2_from_the_initiator",
+        "blacklist_astrologer_silver_once",
+        "apply_astrologer_relation_plus_5_once",
+        "complete_astrologer_sbook_with_five_silver_story_points_once",
+        "arm_astrologer_books_1_interaction_once",
+        "blacklist_tr_quest_13_research_1_once",
+        "do_not_repair_the_consumed_books_1_interaction_latch_from_task_state",
+        "restore_player_control",
+        "close_letterbox"
+      ]
+    },
+    {
+      "cutsceneId": "astrologer_gold_book_request",
+      "linkedQuestIds": [],
+      "triggerScripts": ["npc_astrologer:astrologer_books_1"],
+      "actors": ["initiating_player", "npc_astrologer"],
+      "observerPolicy": "all_loaded_party_members",
+      "lateJoinPolicy": "join_live_checkpoint_or_observe",
+      "remoteExecutionPolicy": "live_observation",
+      "executionOwnerPolicy": "any_player",
+      "dialogueOwnerPolicy": "initiating_player",
+      "formationPolicy": "initiator_with_observer_follow",
+      "cleanupRequirements": [
+        "clear_astrologer_books_1_interaction_latch_once",
+        "show_astrologer_gbook_once",
+        "unlock_astrologer_gold_once",
+        "restore_player_control",
+        "close_letterbox"
+      ]
+    },
+    {
+      "cutsceneId": "astrologer_gold_book_handoff",
+      "linkedQuestIds": [],
+      "triggerScripts": ["npc_astrologer:@astrologer_gold"],
+      "actors": ["initiating_player", "npc_astrologer"],
+      "observerPolicy": "all_loaded_party_members",
+      "lateJoinPolicy": "join_live_checkpoint_or_observe",
+      "remoteExecutionPolicy": "live_observation",
+      "executionOwnerPolicy": "any_player",
+      "dialogueOwnerPolicy": "initiating_player",
+      "formationPolicy": "initiator_with_observer_follow",
+      "cleanupRequirements": [
+        "consume_one_book_book_hard_3_from_the_initiator",
+        "blacklist_astrologer_gold_once",
+        "blacklist_tr_quest_13_research_1_once",
+        "apply_astrologer_relation_plus_5_once",
+        "complete_astrologer_gbook_with_seven_silver_and_three_gold_story_points_once",
+        "emit_gold_book_key_quest_check_once",
+        "arm_astrologer_books_2_interaction_once",
+        "do_not_repair_the_consumed_books_2_interaction_latch_from_task_state",
+        "restore_player_control",
+        "close_letterbox"
+      ]
+    },
+    {
+      "cutsceneId": "astrologer_aristocrat_papers_request",
+      "linkedQuestIds": [],
+      "triggerScripts": ["npc_astrologer:astrologer_books_2"],
+      "actors": ["initiating_player", "npc_astrologer"],
+      "observerPolicy": "all_loaded_party_members",
+      "lateJoinPolicy": "join_live_checkpoint_or_observe",
+      "remoteExecutionPolicy": "live_observation",
+      "executionOwnerPolicy": "any_player",
+      "dialogueOwnerPolicy": "initiating_player",
+      "formationPolicy": "initiator_with_observer_follow",
+      "cleanupRequirements": [
+        "clear_astrologer_books_2_interaction_latch_once",
+        "show_astrologer_aristocrat_once",
+        "unlock_astrologer_title_once",
+        "restore_player_control",
+        "close_letterbox"
+      ]
+    },
+    {
+      "cutsceneId": "astrologer_aristocrat_papers_handoff",
+      "linkedQuestIds": [],
+      "triggerScripts": ["npc_astrologer:@astrologer_title"],
+      "actors": ["initiating_player", "npc_astrologer"],
+      "observerPolicy": "all_loaded_party_members",
+      "lateJoinPolicy": "join_live_checkpoint_or_observe",
+      "remoteExecutionPolicy": "live_observation",
+      "executionOwnerPolicy": "any_player",
+      "dialogueOwnerPolicy": "initiating_player",
+      "formationPolicy": "initiator_with_observer_follow",
+      "cleanupRequirements": [
+        "consume_and_return_the_same_aristocrat_paper_atomically",
+        "blacklist_astrologer_title_once",
+        "apply_astrologer_relation_plus_10_once",
+        "complete_astrologer_aristocrat_with_eight_silver_and_two_gold_story_points_once",
+        "unlock_astrologer_last_0_once",
+        "do_not_create_one_aristocrat_paper_per_observer",
+        "restore_player_control",
+        "close_letterbox"
+      ]
+    },
+    {
+      "cutsceneId": "vagner_archaeological_rescue",
+      "linkedQuestIds": [],
+      "triggerScripts": ["archaeological_excavations"],
+      "actors": [
+        "initiating_player",
+        "npc_astrologer",
+        "npc_actress",
+        "npc_guard_6",
+        "war_camp_turnpike",
+        "npc_satyr",
+        "npc_guard_9",
+        "npc_guard_10",
+        "npc_lord_commander",
+        "npc_actor",
+        "only_bubble_pos_1",
+        "only_bubble_pos_2"
+      ],
+      "observerPolicy": "all_loaded_party_members",
+      "lateJoinPolicy": "join_live_checkpoint_or_observe",
+      "remoteExecutionPolicy": "live_observation",
+      "executionOwnerPolicy": "any_player",
+      "dialogueOwnerPolicy": "initiating_player",
+      "formationPolicy": "initiator_with_observer_follow",
+      "cleanupRequirements": [
+        "blacklist_astrologer_last_0_once",
+        "emit_astr_actr_together_key_quest_check_once",
+        "apply_charm_relation_plus_10_once",
+        "drop_one_necklace_to_the_initiator",
+        "apply_astrologer_relation_plus_10_once",
+        "drop_one_sextant_to_the_initiator",
+        "complete_actress_Vagner_with_two_gold_story_points_once",
+        "return_npc_satyr_to_stock",
+        "before-the-raw-npc_actor-remove-to-stock-node-acquire-or-queue-on-both-the-shared-better-save-soul-S11-route-fulfillment-lock-and-the-canonical-campaign-npc_actor-actor-keyed-scene-lease",
+        "only-the-archaeological-winner-performs-the-vanilla-npc_actor-return-to-stock_if-an-entered-but-nonterminal-direct-Actor-ode-route-owns-either-lease-defer-removal-and-fallback-until-that-route-recovers-or-terminates",
+        "after-the-archaeological-winner-returns-npc_actor-to-stock-evaluate-the-exact-DLC-fallback-gate_under-the-same-lock",
+        "close_war_camp_turnpike_and_destroy_temporary_scene_objects",
+        "send_actress_and_astrologer_back_to_their_start_paths",
+        "set_actress_afterall_event_and_arm_astrologer_afterall_event_once_only_during_finale_cleanup",
+        "only-when-souls_s_s12_1_ask-is-not-blacklisted-and-souls_ev_11_vagner_asked-is-at-least-one_author-the-cross-catalog-actor-to-mailbox-fallback-receipt-and-unlock-souls_s_s12_2_ask-once",
+        "the-fallback-never-shows-or-completes-a-royal-box-task_never-clears-or-completes-the-stale-Actor-task-and-never-authors-an-initial-route",
+        "do_not_repair_any_post_rescue_world_param_from_actress_Vagner_complete",
+        "restore_pseudo_time_music_camera_and_player_control",
+        "close_letterbox"
+      ]
+    },
+    {
+      "cutsceneId": "clotho_first_meeting",
+      "linkedQuestIds": [],
+      "triggerScripts": ["npc_witch:intro"],
+      "actors": ["initiating_player", "npc_witch"],
+      "observerPolicy": "all_loaded_party_members",
+      "lateJoinPolicy": "join_live_checkpoint_or_observe",
+      "remoteExecutionPolicy": "live_observation",
+      "executionOwnerPolicy": "any_player",
+      "dialogueOwnerPolicy": "initiating_player",
+      "formationPolicy": "initiator_with_observer_follow",
+      "cleanupRequirements": [
+        "show_npc_clotho_task_1_once",
+        "unlock_The_Beginning_Of_Alchemy_once",
+        "preserve_the_initiators_optional_witch_is_princess_dialogue_result",
+        "never_force_witch_is_princess_from_task_state",
+        "restore_player_control",
+        "close_letterbox"
+      ]
+    },
+    {
+      "cutsceneId": "clotho_pumpkin_request",
+      "linkedQuestIds": [],
+      "triggerScripts": ["npc_witch:clotho_recipe"],
+      "actors": ["initiating_player", "npc_witch"],
+      "observerPolicy": "all_loaded_party_members",
+      "lateJoinPolicy": "join_live_checkpoint_or_observe",
+      "remoteExecutionPolicy": "live_observation",
+      "executionOwnerPolicy": "any_player",
+      "dialogueOwnerPolicy": "initiating_player",
+      "formationPolicy": "initiator_with_observer_follow",
+      "cleanupRequirements": [
+        "show_clotho_pumpkin_once",
+        "unlock_clotho_resipe_done_1_once",
+        "consume_the_queued_clotho_recipe_event_once",
+        "never_rearm_clotho_recipe_from_task_state",
+        "restore_player_control",
+        "close_letterbox"
+      ]
+    },
+    {
+      "cutsceneId": "clotho_pumpkin_handoff",
+      "linkedQuestIds": [],
+      "triggerScripts": ["npc_witch:@clotho_resipe_done_1"],
+      "actors": ["initiating_player", "npc_witch"],
+      "observerPolicy": "all_loaded_party_members",
+      "lateJoinPolicy": "join_live_checkpoint_or_observe",
+      "remoteExecutionPolicy": "live_observation",
+      "executionOwnerPolicy": "any_player",
+      "dialogueOwnerPolicy": "initiating_player",
+      "formationPolicy": "initiator_with_observer_follow",
+      "cleanupRequirements": [
+        "consume_one_pumpkin_crop_2_from_the_initiator",
+        "blacklist_clotho_resipe_done_1_once",
+        "complete_clotho_pumpkin_once",
+        "unlock_Vegetable_soups_once",
+        "restore_player_control",
+        "close_letterbox"
+      ]
+    },
+    {
+      "cutsceneId": "gypsy_fish_recipe_request",
+      "linkedQuestIds": [],
+      "triggerScripts": ["npc_gypsy:gypsy_recipe_1"],
+      "actors": ["initiating_player", "npc_gypsy"],
+      "observerPolicy": "all_loaded_party_members",
+      "lateJoinPolicy": "join_live_checkpoint_or_observe",
+      "remoteExecutionPolicy": "live_observation",
+      "executionOwnerPolicy": "any_player",
+      "dialogueOwnerPolicy": "initiating_player",
+      "formationPolicy": "initiator_with_observer_follow",
+      "cleanupRequirements": [
+        "blacklist_gypsy_recipe_1_once",
+        "show_gypsy_fish_once",
+        "unlock_gypsy_recipe_done_1_once",
+        "restore_player_control",
+        "close_letterbox"
+      ]
+    },
+    {
+      "cutsceneId": "gypsy_fish_recipe_handoff",
+      "linkedQuestIds": [],
+      "triggerScripts": ["npc_gypsy:@gypsy_recipe_done_1"],
+      "actors": ["initiating_player", "npc_gypsy"],
+      "observerPolicy": "all_loaded_party_members",
+      "lateJoinPolicy": "join_live_checkpoint_or_observe",
+      "remoteExecutionPolicy": "live_observation",
+      "executionOwnerPolicy": "any_player",
+      "dialogueOwnerPolicy": "initiating_player",
+      "formationPolicy": "initiator_with_observer_follow",
+      "cleanupRequirements": [
+        "consume_four_fillet_fish_red_2_from_the_initiator",
+        "blacklist_gypsy_recipe_done_1_once",
+        "complete_gypsy_fish_once",
+        "unlock_Fish_shish_kebab_once",
+        "restore_player_control",
+        "close_letterbox"
+      ]
+    },
+    {
+      "cutsceneId": "lightkeeper_first_meeting",
+      "linkedQuestIds": [],
+      "triggerScripts": ["npc_light_keeper:intro"],
+      "actors": ["initiating_player", "npc_light_keeper"],
+      "observerPolicy": "all_loaded_party_members",
+      "lateJoinPolicy": "join_live_checkpoint_or_observe",
+      "remoteExecutionPolicy": "live_observation",
+      "executionOwnerPolicy": "any_player",
+      "dialogueOwnerPolicy": "initiating_player",
+      "formationPolicy": "initiator_with_observer_follow",
+      "cleanupRequirements": [
+        "unlock_light_keeper_recipe_1_once",
+        "unlock_light_keeper_rode_1_once",
+        "do_not_reunlock_the_optional_recipe_topic_from_lightkeeper_moth_state",
+        "restore_player_control",
+        "close_letterbox"
+      ]
+    },
+    {
+      "cutsceneId": "lightkeeper_moth_request",
+      "linkedQuestIds": [],
+      "triggerScripts": ["npc_light_keeper:@light_keeper_rode_1"],
+      "actors": ["initiating_player", "npc_light_keeper"],
+      "observerPolicy": "all_loaded_party_members",
+      "lateJoinPolicy": "join_live_checkpoint_or_observe",
+      "remoteExecutionPolicy": "live_observation",
+      "executionOwnerPolicy": "any_player",
+      "dialogueOwnerPolicy": "initiating_player",
+      "formationPolicy": "initiator_with_observer_follow",
+      "cleanupRequirements": [
+        "blacklist_light_keeper_rode_1_once",
+        "unlock_light_keeper_rode_done_1_once",
+        "show_lightkeeper_moth_once",
+        "restore_player_control",
+        "close_letterbox"
+      ]
+    },
+    {
+      "cutsceneId": "lightkeeper_moth_handoff",
+      "linkedQuestIds": [],
+      "triggerScripts": ["npc_light_keeper:@light_keeper_rode_done_1"],
+      "actors": ["initiating_player", "npc_light_keeper"],
+      "observerPolicy": "all_loaded_party_members",
+      "lateJoinPolicy": "join_live_checkpoint_or_observe",
+      "remoteExecutionPolicy": "live_observation",
+      "executionOwnerPolicy": "any_player",
+      "dialogueOwnerPolicy": "initiating_player",
+      "formationPolicy": "initiator_with_observer_follow",
+      "cleanupRequirements": [
+        "consume_six_moths_from_the_initiator",
+        "grant_one_fishing_rod_0_to_the_initiator_once",
+        "blacklist_light_keeper_rode_done_1_once",
+        "complete_lightkeeper_moth_once",
+        "never_grant_the_fishing_rod_to_observers_or_from_task_state",
+        "restore_player_control",
+        "close_letterbox"
+      ]
+    },
+    {
+      "cutsceneId": "astrologer_daughter_search_request",
+      "linkedQuestIds": [],
+      "triggerScripts": ["npc_astrologer:@astrologer_charm"],
+      "actors": ["initiating_player", "npc_astrologer"],
+      "observerPolicy": "all_loaded_party_members",
+      "lateJoinPolicy": "join_live_checkpoint_or_observe",
+      "remoteExecutionPolicy": "live_observation",
+      "executionOwnerPolicy": "any_player",
+      "dialogueOwnerPolicy": "initiating_player",
+      "formationPolicy": "initiator_with_observer_follow",
+      "cleanupRequirements": [
+        "blacklist_astrologer_charm_once",
+        "complete_astrologer_baron_with_three_bronze_and_seven_silver_story_points_for_the_initiator_once",
+        "show_astrologer_daghter_once",
+        "apply_astrologer_relation_plus_10_once",
+        "unlock_actress_father_once",
+        "restore_player_control",
+        "close_letterbox"
+      ]
+    },
+    {
+      "cutsceneId": "charm_father_interview",
+      "linkedQuestIds": [],
+      "triggerScripts": ["npc_actress:@actress_father"],
+      "actors": ["initiating_player", "npc_actress"],
+      "observerPolicy": "all_loaded_party_members",
+      "lateJoinPolicy": "join_live_checkpoint_or_observe",
+      "remoteExecutionPolicy": "live_observation",
+      "executionOwnerPolicy": "any_player",
+      "dialogueOwnerPolicy": "initiating_player",
+      "formationPolicy": "initiator_with_observer_follow",
+      "cleanupRequirements": [
+        "blacklist_actress_father_once",
+        "unlock_astrologer_charm_no_once",
+        "do_not_infer_this_one_shot_interview_from_astrologer_daghter_visible_alone",
+        "restore_player_control",
+        "close_letterbox"
+      ]
+    },
+    {
+      "cutsceneId": "astrologer_daughter_report",
+      "linkedQuestIds": [],
+      "triggerScripts": ["npc_astrologer:@astrologer_charm_no"],
+      "actors": ["initiating_player", "npc_astrologer"],
+      "observerPolicy": "all_loaded_party_members",
+      "lateJoinPolicy": "join_live_checkpoint_or_observe",
+      "remoteExecutionPolicy": "live_observation",
+      "executionOwnerPolicy": "any_player",
+      "dialogueOwnerPolicy": "initiating_player",
+      "formationPolicy": "initiator_with_observer_follow",
+      "cleanupRequirements": [
+        "blacklist_astrologer_charm_no_once",
+        "complete_astrologer_daghter_with_three_bronze_and_seven_silver_story_points_for_the_initiator_once",
+        "show_astrologer_help_once",
+        "apply_astrologer_relation_plus_10_once",
+        "do_not_unlock_or_replay_astrologer_charm_know_from_daughter_completion",
+        "restore_player_control",
+        "close_letterbox"
+      ]
+    },
+    {
+      "cutsceneId": "dig_first_meeting",
+      "linkedQuestIds": [],
+      "triggerScripts": ["npc_dig:intro"],
+      "actors": ["initiating_player", "npc_dig"],
+      "observerPolicy": "all_loaded_party_members",
+      "lateJoinPolicy": "join_live_checkpoint_or_observe",
+      "remoteExecutionPolicy": "live_observation",
+      "executionOwnerPolicy": "any_player",
+      "dialogueOwnerPolicy": "initiating_player",
+      "formationPolicy": "initiator_with_observer_follow",
+      "cleanupRequirements": [
+        "unlock_dig_recipe_done_1_once",
+        "show_dig_honey_once",
+        "restore_player_control",
+        "close_letterbox"
+      ]
+    },
+    {
+      "cutsceneId": "dig_honey_handoff",
+      "linkedQuestIds": [],
+      "triggerScripts": ["npc_dig:@dig_recipe_done_1"],
+      "actors": ["initiating_player", "npc_dig"],
+      "observerPolicy": "all_loaded_party_members",
+      "lateJoinPolicy": "join_live_checkpoint_or_observe",
+      "remoteExecutionPolicy": "live_observation",
+      "executionOwnerPolicy": "any_player",
+      "dialogueOwnerPolicy": "initiating_player",
+      "formationPolicy": "initiator_with_observer_follow",
+      "cleanupRequirements": [
+        "consume_five_honey_from_the_initiator",
+        "blacklist_dig_recipe_done_1_once",
+        "complete_dig_honey_once",
+        "unlock_Desert_once",
+        "never_consume_honey_from_observers_or_completed_task_state",
+        "restore_player_control",
+        "close_letterbox"
+      ]
+    },
+    {
+      "cutsceneId": "wood_cutter_first_meeting",
+      "linkedQuestIds": [],
+      "triggerScripts": ["npc_wood_cutter:intro"],
+      "actors": ["initiating_player", "npc_wood_cutter"],
+      "observerPolicy": "all_loaded_party_members",
+      "lateJoinPolicy": "join_live_checkpoint_or_observe",
+      "remoteExecutionPolicy": "live_observation",
+      "executionOwnerPolicy": "any_player",
+      "dialogueOwnerPolicy": "initiating_player",
+      "formationPolicy": "initiator_with_observer_follow",
+      "cleanupRequirements": [
+        "unlock_logger_recipe_1_once",
+        "show_logger_axe_once",
+        "restore_player_control",
+        "close_letterbox"
+      ]
+    },
+    {
+      "cutsceneId": "wood_cutter_axe_handoff",
+      "linkedQuestIds": [],
+      "triggerScripts": ["npc_wood_cutter:@logger_recipe_1"],
+      "actors": ["initiating_player", "npc_wood_cutter"],
+      "observerPolicy": "all_loaded_party_members",
+      "lateJoinPolicy": "join_live_checkpoint_or_observe",
+      "remoteExecutionPolicy": "live_observation",
+      "executionOwnerPolicy": "any_player",
+      "dialogueOwnerPolicy": "initiating_player",
+      "formationPolicy": "initiator_with_observer_follow",
+      "cleanupRequirements": [
+        "consume_one_axe_1_from_the_initiator",
+        "blacklist_logger_recipe_1_once",
+        "complete_logger_axe_once",
+        "unlock_Italian_kitchen_once",
+        "never_consume_an_axe_from_observers_or_completed_task_state",
+        "restore_player_control",
+        "close_letterbox"
+      ]
+    },
+    {
+      "cutsceneId": "gypsy_baron_esmeralda_request",
+      "linkedQuestIds": [],
+      "triggerScripts": ["npc_gypsy:@gypsy_esmeralda"],
+      "actors": ["initiating_player", "npc_gypsy"],
+      "observerPolicy": "all_loaded_party_members",
+      "lateJoinPolicy": "join_live_checkpoint_or_observe",
+      "remoteExecutionPolicy": "live_observation",
+      "executionOwnerPolicy": "any_player",
+      "dialogueOwnerPolicy": "initiating_player",
+      "formationPolicy": "initiator_with_observer_follow",
+      "cleanupRequirements": [
+        "blacklist_gypsy_esmeralda_once",
+        "show_npc_gypsy_baron_help_once",
+        "unlock_gypsy_esmeralda_again_and_inquisitor_gypsy_after_the_task_is_visible",
+        "never_rearm_gypsy_esmeralda_again_from_visible_task_state_after_its_separate_dialogue_is_consumed",
+        "restore_player_control",
+        "close_letterbox"
+      ]
+    },
+    {
+      "cutsceneId": "inquisitor_gypsy_information_handoff",
+      "linkedQuestIds": [],
+      "triggerScripts": ["npc_inquisitor:@inquisitor_gypsy"],
+      "actors": ["initiating_player", "npc_inquisitor"],
+      "observerPolicy": "all_loaded_party_members",
+      "lateJoinPolicy": "join_live_checkpoint_or_observe",
+      "remoteExecutionPolicy": "live_observation",
+      "executionOwnerPolicy": "any_player",
+      "dialogueOwnerPolicy": "initiating_player",
+      "formationPolicy": "initiator_with_observer_follow",
+      "cleanupRequirements": [
+        "require_inquisitor_relation_60_before_the_answer_is_selectable",
+        "blacklist_inquisitor_gypsy_once",
+        "complete_npc_gypsy_baron_help_with_seven_bronze_and_three_silver_story_points_for_the_initiator_once",
+        "unlock_gypsy_inquisitor_once_during_the_live_dialogue",
+        "never_regrant_story_points_or_rearm_gypsy_inquisitor_from_completed_task_state",
+        "restore_player_control",
+        "close_letterbox"
+      ]
+    },
+    {
+      "cutsceneId": "gypsy_baron_inquisitor_followup",
+      "linkedQuestIds": [],
+      "triggerScripts": ["npc_gypsy:@gypsy_inquisitor"],
+      "actors": ["initiating_player", "npc_gypsy"],
+      "observerPolicy": "all_loaded_party_members",
+      "lateJoinPolicy": "join_live_checkpoint_or_observe",
+      "remoteExecutionPolicy": "live_observation",
+      "executionOwnerPolicy": "any_player",
+      "dialogueOwnerPolicy": "initiating_player",
+      "formationPolicy": "initiator_with_observer_follow",
+      "cleanupRequirements": [
+        "blacklist_gypsy_inquisitor_once",
+        "apply_the_answer_reward_of_gypsy_relation_plus_10_once_during_the_live_dialogue",
+        "never_repair_the_followup_relation_reward_from_baron_help_task_state",
+        "restore_player_control",
+        "close_letterbox"
+      ]
+    },
+    {
+      "cutsceneId": "farmer_first_meeting",
+      "linkedQuestIds": [],
+      "triggerScripts": ["npc_farmer:intro"],
+      "actors": ["initiating_player", "npc_farmer"],
+      "observerPolicy": "all_loaded_party_members",
+      "lateJoinPolicy": "join_live_checkpoint_or_observe",
+      "remoteExecutionPolicy": "live_observation",
+      "executionOwnerPolicy": "any_player",
+      "dialogueOwnerPolicy": "initiating_player",
+      "formationPolicy": "initiator_with_observer_follow",
+      "cleanupRequirements": [
+        "unlock_farmer_farm_1_once",
+        "continue_into_the_shared_farmer_dialogue_menu",
+        "do_not_infer_the_optional_recipe_conversation_from_any_later_farmer_task"
+      ]
+    },
+    {
+      "cutsceneId": "farmer_vegetable_dishes_recipe",
+      "linkedQuestIds": [],
+      "triggerScripts": ["npc_farmer:@farmer_farm_1"],
+      "actors": ["initiating_player", "npc_farmer"],
+      "observerPolicy": "all_loaded_party_members",
+      "lateJoinPolicy": "join_live_checkpoint_or_observe",
+      "remoteExecutionPolicy": "live_observation",
+      "executionOwnerPolicy": "any_player",
+      "dialogueOwnerPolicy": "initiating_player",
+      "formationPolicy": "initiator_with_observer_follow",
+      "cleanupRequirements": [
+        "blacklist_farmer_farm_1_once",
+        "unlock_Vegetable_dishes_once",
+        "return_to_the_shared_farmer_dialogue_menu",
+        "never_replay_the_recipe_dialogue_from_the_unlocked_technology"
+      ]
+    },
+    {
+      "cutsceneId": "mrs_chain_frog_exchange",
+      "linkedQuestIds": [],
+      "triggerScripts": ["npc_mrs chain:@chain_frog"],
+      "actors": ["initiating_player", "npc_mrs chain"],
+      "observerPolicy": "all_loaded_party_members",
+      "lateJoinPolicy": "join_live_checkpoint_or_observe",
+      "remoteExecutionPolicy": "live_observation",
+      "executionOwnerPolicy": "any_player",
+      "dialogueOwnerPolicy": "initiating_player",
+      "formationPolicy": "initiator_with_observer_follow",
+      "cleanupRequirements": [
+        "consume_twelve_fish_frog_green_from_the_initiator_only",
+        "apply_mrs_chain_relation_plus_10_once",
+        "blacklist_chain_frog_once",
+        "never_consume_frogs_or_reapply_relation_from_later_perfume_task_state"
+      ]
+    },
+    {
+      "cutsceneId": "lightkeeper_fish_recipe",
+      "linkedQuestIds": [],
+      "triggerScripts": ["npc_light_keeper:@light_keeper_recipe_1"],
+      "actors": ["initiating_player", "npc_light_keeper"],
+      "observerPolicy": "all_loaded_party_members",
+      "lateJoinPolicy": "join_live_checkpoint_or_observe",
+      "remoteExecutionPolicy": "live_observation",
+      "executionOwnerPolicy": "any_player",
+      "dialogueOwnerPolicy": "initiating_player",
+      "formationPolicy": "initiator_with_observer_follow",
+      "cleanupRequirements": [
+        "blacklist_light_keeper_recipe_1_once",
+        "unlock_Fish_once",
+        "never_replay_the_optional_recipe_dialogue_from_lightkeeper_moth_task_state"
+      ]
+    },
+    {
+      "cutsceneId": "gypsy_baron_esmeralda_followup",
+      "linkedQuestIds": [],
+      "triggerScripts": ["npc_gypsy:@gypsy_esmeralda_again"],
+      "actors": ["initiating_player", "npc_gypsy"],
+      "observerPolicy": "all_loaded_party_members",
+      "lateJoinPolicy": "join_live_checkpoint_or_observe",
+      "remoteExecutionPolicy": "live_observation",
+      "executionOwnerPolicy": "any_player",
+      "dialogueOwnerPolicy": "initiating_player",
+      "formationPolicy": "initiator_with_observer_follow",
+      "cleanupRequirements": [
+        "require_gypsy_relation_10_before_the_answer_is_selectable",
+        "blacklist_gypsy_esmeralda_again_once",
+        "unlock_astrologer_charm_once",
+        "never_rearm_the_consumed_followup_from_baron_help_task_state"
+      ]
+    },
+    {
+      "cutsceneId": "koukol_mountain_fort_first_interaction",
+      "linkedQuestIds": [],
+      "triggerScripts": ["npc_hunchback:interaction"],
+      "actors": [
+        "initiating_player",
+        "npc_hunchback",
+        "tp_mountain_fort_point_a"
+      ],
+      "observerPolicy": "all_loaded_party_members",
+      "lateJoinPolicy": "join_live_checkpoint_or_observe",
+      "remoteExecutionPolicy": "live_observation",
+      "executionOwnerPolicy": "any_player",
+      "dialogueOwnerPolicy": "initiating_player",
+      "formationPolicy": "initiator_with_observer_follow",
+      "cleanupRequirements": [
+        "run_the_mountain_fort_unlock_branch_only_when_the_initiating_player_unlocked_mountain_fort_flag_is_zero",
+        "unlock_zone_nountain_fort_spawn_one_teleport_point_at_tp_mountain_fort_point_a_and_set_unlocked_mountain_fort_once_in_the_live_branch",
+        "blacklist_koukol_naclase_only_when_the_initiator_selects_that_answer",
+        "play_koukol_naclase_1_through_koukol_naclase_4_once_then_unlock_koukol_trade_and_return_to_the_shared_dialogue_menu",
+        "never_infer_or_repair_the_teleport_phrase_player_flag_naclase_blacklist_or_trade_phrase_from_later_vagner_task_state",
+        "exclude_all_tr_quest_and_refugee_answer_branches",
+        "restore_player_control"
+      ]
+    },
+    {
+      "cutsceneId": "egg_seller_first_use_cuisine_unlock",
+      "linkedQuestIds": ["get_out_from_house"],
+      "triggerScripts": ["egg_seller:first_use"],
+      "actors": ["initiating_player", "egg_seller"],
+      "observerPolicy": "all_loaded_party_members",
+      "lateJoinPolicy": "join_live_checkpoint_or_observe",
+      "remoteExecutionPolicy": "live_observation",
+      "executionOwnerPolicy": "any_player",
+      "dialogueOwnerPolicy": "initiating_player",
+      "formationPolicy": "initiator_with_observer_follow",
+      "cleanupRequirements": [
+        "show_egg_seller_info_then_unlock_French_cuisine_before_opening_the_vendor_multianswer",
+        "bind_only_egg_seller_first_use_and_never_the_later_generic_interaction",
+        "preserve_the_base_Trade_and_Leave_answers_without_replaying_the_first_use_unlock",
+        "exclude_the_refugee_tanner_answer_and_its_task_script",
+        "never_infer_repair_or_replay_French_cuisine_or_its_recipes_from_get_out_from_house_vendor_trade_or_later_story_state",
+        "restore_player_control"
+      ]
+    }
+  ],
+  "storySteps": [
+    {
+      "stepId": "return_necklace_truth_to_charm",
+      "title": "Tell Charm the truth about her necklace and receive the perfume request",
+      "linkedQuestIds": [],
+      "linkedTaskMilestoneIds": [
+        "charm_necklace_truth_returned",
+        "charm_waiting_for_perfume"
+      ],
+      "triggerScripts": ["npc_actress:@actress_money_back"],
+      "triggerKeys": [
+        "@actress_money_back",
+        "actress_necklace",
+        "actress_parfume",
+        "@chain_parfume"
+      ],
+      "expectedEffects": [
+        {
+          "kind": "dialogue_phrase",
+          "id": "@actress_money_back",
+          "operation": "blacklist",
+          "amount": 1.0,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "npc_task",
+          "id": "npc_actress:actress_necklace",
+          "operation": "complete",
+          "amount": 1.0,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "story_point",
+          "id": "bronze",
+          "operation": "grant_to_initiator",
+          "amount": 2.0,
+          "ownership": "personal_character"
+        },
+        {
+          "kind": "story_point",
+          "id": "silver",
+          "operation": "grant_to_initiator",
+          "amount": 2.0,
+          "ownership": "personal_character"
+        },
+        {
+          "kind": "player_param",
+          "id": "_rel_npc_actress",
+          "operation": "add_once",
+          "amount": 10.0,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "npc_task",
+          "id": "npc_actress:actress_parfume",
+          "operation": "show",
+          "amount": 1.0,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "dialogue_phrase",
+          "id": "@actress_parfume_ready",
+          "operation": "unlock",
+          "amount": 1.0,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "dialogue_phrase",
+          "id": "@chain_parfume",
+          "operation": "unlock_once",
+          "amount": 1.0,
+          "ownership": "shared_campaign"
+        }
+      ],
+      "safeguards": [
+        "relation_and_story_points_once",
+        "do_not_reunlock_chain_parfume_from_persistent_task_state",
+        "never_grant_perfume_from_actress_parfume_visible"
+      ]
+    },
+    {
+      "stepId": "ask_mrs_chain_for_perfume",
+      "title": "Ask Mrs Chain how to obtain perfume",
+      "linkedQuestIds": [],
+      "linkedTaskMilestoneIds": ["charm_waiting_for_perfume"],
+      "triggerScripts": ["npc_mrs chain:@chain_parfume"],
+      "triggerKeys": [
+        "@chain_parfume",
+        "picnic_basket",
+        "@clotho_give_food",
+        "@chain_frog"
+      ],
+      "expectedEffects": [
+        {
+          "kind": "dialogue_phrase",
+          "id": "@chain_parfume",
+          "operation": "blacklist",
+          "amount": 1.0,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "inventory_item",
+          "id": "picnic_basket",
+          "operation": "drop_once_to_initiator",
+          "amount": 1.0,
+          "ownership": "shared_story_token"
+        },
+        {
+          "kind": "dialogue_phrase",
+          "id": "@clotho_give_food",
+          "operation": "unlock_once",
+          "amount": 1.0,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "dialogue_phrase",
+          "id": "@chain_frog",
+          "operation": "unlock_once",
+          "amount": 1.0,
+          "ownership": "shared_campaign"
+        }
+      ],
+      "safeguards": [
+        "one_picnic_basket_for_the_campaign",
+        "drop_the_basket_to_the_dialogue_initiator_only",
+        "do_not_repair_one_shot_acquisition_phrases_from_task_visibility"
+      ]
+    },
+    {
+      "stepId": "give_clotho_the_picnic_basket",
+      "title": "Give Clotho the picnic basket for access to the perfume",
+      "linkedQuestIds": [],
+      "linkedTaskMilestoneIds": ["charm_waiting_for_perfume"],
+      "triggerScripts": ["npc_witch:@clotho_give_food"],
+      "triggerKeys": [
+        "@clotho_give_food",
+        "picnic_basket",
+        "@chain_food",
+        "@chain_get_parfue"
+      ],
+      "expectedEffects": [
+        {
+          "kind": "inventory_item",
+          "id": "picnic_basket",
+          "operation": "consume_from_initiator",
+          "amount": 1.0,
+          "ownership": "shared_story_token"
+        },
+        {
+          "kind": "dialogue_phrase",
+          "id": "@clotho_give_food",
+          "operation": "blacklist",
+          "amount": 1.0,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "dialogue_phrase",
+          "id": "@chain_food",
+          "operation": "unlock_once",
+          "amount": 1.0,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "dialogue_phrase",
+          "id": "@chain_get_parfue",
+          "operation": "unlock_once",
+          "amount": 1.0,
+          "ownership": "shared_campaign"
+        }
+      ],
+      "safeguards": [
+        "consume_the_single_basket_from_the_initiator_only",
+        "never_replay_clotho_handoff_for_observers",
+        "preserve_vanilla_parfue_spelling"
+      ]
+    },
+    {
+      "stepId": "thank_mrs_chain_for_clothos_help",
+      "title": "Thank Mrs Chain after delivering Clotho's food",
+      "linkedQuestIds": [],
+      "linkedTaskMilestoneIds": ["charm_waiting_for_perfume"],
+      "triggerScripts": ["npc_mrs chain:@chain_food"],
+      "triggerKeys": ["@chain_food", "_rel_npc_mrs chain", "@chain_get_parfue"],
+      "expectedEffects": [
+        {
+          "kind": "dialogue_phrase",
+          "id": "@chain_food",
+          "operation": "blacklist",
+          "amount": 1.0,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "player_param",
+          "id": "_rel_npc_mrs chain",
+          "operation": "add_once",
+          "amount": 10.0,
+          "ownership": "shared_campaign"
+        }
+      ],
+      "safeguards": [
+        "chain_relation_reward_once",
+        "do_not_reunlock_chain_food_from_persistent_task_state",
+        "chain_get_parfue_still_requires_relation_20"
+      ]
+    },
+    {
+      "stepId": "collect_perfume_from_mrs_chain",
+      "title": "Collect the perfume from Mrs Chain",
+      "linkedQuestIds": [],
+      "linkedTaskMilestoneIds": ["charm_waiting_for_perfume"],
+      "triggerScripts": ["npc_mrs chain:@chain_get_parfue"],
+      "triggerKeys": ["@chain_get_parfue", "parfum_1"],
+      "expectedEffects": [
+        {
+          "kind": "player_param",
+          "id": "_rel_npc_mrs chain",
+          "operation": "require_minimum",
+          "amount": 20.0,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "dialogue_phrase",
+          "id": "@chain_get_parfue",
+          "operation": "blacklist",
+          "amount": 1.0,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "inventory_item",
+          "id": "parfum_1",
+          "operation": "grant_once_to_initiator",
+          "amount": 1.0,
+          "ownership": "shared_story_token"
+        }
+      ],
+      "safeguards": [
+        "one_perfume_item_for_the_campaign",
+        "answer_reward_goes_to_the_initiator_only",
+        "never_grant_perfume_from_persistent_task_state"
+      ]
+    },
+    {
+      "stepId": "deliver_perfume_to_charm",
+      "title": "Give the perfume to Charm and receive her gold-story request",
+      "linkedQuestIds": [],
+      "linkedTaskMilestoneIds": [
+        "charm_perfume_delivered",
+        "charm_waiting_for_gold_story"
+      ],
+      "triggerScripts": ["npc_actress:@actress_parfume_ready"],
+      "triggerKeys": [
+        "@actress_parfume_ready",
+        "parfum_1",
+        "actress_parfume",
+        "actress_story",
+        "@actress_story_gold"
+      ],
+      "expectedEffects": [
+        {
+          "kind": "inventory_item",
+          "id": "parfum_1",
+          "operation": "consume_from_initiator",
+          "amount": 1.0,
+          "ownership": "shared_story_token"
+        },
+        {
+          "kind": "player_param",
+          "id": "_rel_npc_actress",
+          "operation": "add_once",
+          "amount": 10.0,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "dialogue_phrase",
+          "id": "@actress_parfume_ready",
+          "operation": "blacklist",
+          "amount": 1.0,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "npc_task",
+          "id": "npc_actress:actress_parfume",
+          "operation": "complete",
+          "amount": 1.0,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "story_point",
+          "id": "bronze",
+          "operation": "grant_to_initiator",
+          "amount": 2.0,
+          "ownership": "personal_character"
+        },
+        {
+          "kind": "key_quest_check",
+          "id": "actress_parfume",
+          "operation": "check_once",
+          "amount": 1.0,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "npc_task",
+          "id": "npc_actress:actress_story",
+          "operation": "show",
+          "amount": 1.0,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "dialogue_phrase",
+          "id": "@actress_story_gold",
+          "operation": "unlock",
+          "amount": 1.0,
+          "ownership": "shared_campaign"
+        }
+      ],
+      "safeguards": [
+        "consume_perfume_from_the_initiator_only",
+        "relation_and_story_points_once",
+        "emit_actress_parfume_key_quest_check_once"
+      ]
+    },
+    {
+      "stepId": "give_gold_story_to_charm",
+      "title": "Give Charm a gold-quality story and receive the Alisa request",
+      "linkedQuestIds": [],
+      "linkedTaskMilestoneIds": [
+        "charm_gold_story_delivered",
+        "charm_waiting_for_alisa_paper"
+      ],
+      "triggerScripts": ["npc_actress:@actress_story_gold"],
+      "triggerKeys": [
+        "@actress_story_gold",
+        "story:3",
+        "actress_story",
+        "actress_alisa",
+        "@farmer_alisa"
+      ],
+      "expectedEffects": [
+        {
+          "kind": "inventory_item",
+          "id": "story:3",
+          "operation": "consume_from_initiator",
+          "amount": 1.0,
+          "ownership": "personal_character"
+        },
+        {
+          "kind": "player_param",
+          "id": "_rel_npc_actress",
+          "operation": "add_once",
+          "amount": 10.0,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "dialogue_phrase",
+          "id": "@actress_story_gold",
+          "operation": "blacklist",
+          "amount": 1.0,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "npc_task",
+          "id": "npc_actress:actress_story",
+          "operation": "complete",
+          "amount": 1.0,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "story_point",
+          "id": "bronze",
+          "operation": "grant_to_initiator",
+          "amount": 5.0,
+          "ownership": "personal_character"
+        },
+        {
+          "kind": "story_point",
+          "id": "silver",
+          "operation": "grant_to_initiator",
+          "amount": 5.0,
+          "ownership": "personal_character"
+        },
+        {
+          "kind": "npc_task",
+          "id": "npc_actress:actress_alisa",
+          "operation": "show",
+          "amount": 1.0,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "dialogue_phrase",
+          "id": "@actress_lute_done",
+          "operation": "unlock",
+          "amount": 1.0,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "dialogue_phrase",
+          "id": "@farmer_alisa",
+          "operation": "unlock_once",
+          "amount": 1.0,
+          "ownership": "shared_campaign"
+        }
+      ],
+      "safeguards": [
+        "consume_one_gold_quality_story_from_the_initiator_only",
+        "relation_and_story_points_once",
+        "do_not_reunlock_farmer_alisa_from_persistent_task_state"
+      ]
+    },
+    {
+      "stepId": "ask_farmer_about_alisa",
+      "title": "Ask the Farmer's family about Alisa",
+      "linkedQuestIds": [],
+      "linkedTaskMilestoneIds": ["charm_waiting_for_alisa_paper"],
+      "triggerScripts": ["npc_farmer:@farmer_alisa"],
+      "triggerKeys": [
+        "@farmer_alisa",
+        "alice_spawn_near_home_and_send_to_bench",
+        "@miller_fix_mill"
+      ],
+      "expectedEffects": [
+        {
+          "kind": "dialogue_phrase",
+          "id": "@farmer_alisa",
+          "operation": "blacklist",
+          "amount": 1.0,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "npc_event",
+          "id": "npc_alice:alice_spawn_near_home_and_send_to_bench",
+          "operation": "run_once",
+          "amount": 1.0,
+          "ownership": "shared_world"
+        },
+        {
+          "kind": "dialogue_phrase",
+          "id": "@miller_fix_mill",
+          "operation": "unlock_once",
+          "amount": 1.0,
+          "ownership": "shared_campaign"
+        }
+      ],
+      "safeguards": [
+        "one_live_family_scene_owner",
+        "do_not_spawn_one_alice_per_observer",
+        "restore_farmer_son_and_alice_paths_before_releasing_players",
+        "do_not_reunlock_farmer_alisa_from_actress_alisa_visible"
+      ]
+    },
+    {
+      "stepId": "obtain_mill_repair_calculations",
+      "title": "Ask the Miller and Astrologer for the mill repair calculations",
+      "linkedQuestIds": [],
+      "linkedTaskMilestoneIds": ["charm_waiting_for_alisa_paper"],
+      "triggerScripts": [
+        "npc_miller:@miller_fix_mill",
+        "npc_astrologer:@astrologer_fix_mill",
+        "npc_astrologer:@astrologer_fix"
+      ],
+      "triggerKeys": [
+        "@miller_fix_mill",
+        "@astrologer_fix_mill",
+        "@astrologer_fix",
+        "calculation_for_mill_fix"
+      ],
+      "expectedEffects": [
+        {
+          "kind": "player_param",
+          "id": "_rel_npc_astrologer",
+          "operation": "require_minimum",
+          "amount": 60.0,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "dialogue_phrase",
+          "id": "@miller_fix_mill",
+          "operation": "blacklist",
+          "amount": 1.0,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "dialogue_phrase",
+          "id": "@astrologer_fix_mill",
+          "operation": "unlock_once",
+          "amount": 1.0,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "dialogue_phrase",
+          "id": "@astrologer_fix_mill",
+          "operation": "blacklist",
+          "amount": 1.0,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "dialogue_phrase",
+          "id": "@astrologer_fix",
+          "operation": "unlock_once",
+          "amount": 1.0,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "dialogue_phrase",
+          "id": "@astrologer_fix",
+          "operation": "blacklist",
+          "amount": 1.0,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "inventory_item",
+          "id": "calculation_for_mill_fix",
+          "operation": "drop_once_to_initiator",
+          "amount": 1.0,
+          "ownership": "shared_story_token"
+        }
+      ],
+      "safeguards": [
+        "each_topic_is_consumed_only_after_its_own_live_dialogue",
+        "one_calculation_item_for_the_campaign",
+        "never_grant_calculations_from_actress_alisa_visible",
+        "do_not_replay_any_of_the_three_dialogues_for_observers"
+      ]
+    },
+    {
+      "stepId": "repair_the_mill_for_alisa",
+      "title": "Repair the mill and notify the Miller",
+      "linkedQuestIds": [],
+      "linkedTaskMilestoneIds": ["charm_waiting_for_alisa_paper"],
+      "triggerScripts": ["repair_mill", "npc_miller:miller_after_fix"],
+      "triggerKeys": [
+        "calculation_for_mill_fix",
+        "fixed_mill",
+        "miller_after_fix",
+        "farmer_alisa_done",
+        "@miller_wheat_mill"
+      ],
+      "expectedEffects": [
+        {
+          "kind": "inventory_item",
+          "id": "calculation_for_mill_fix",
+          "operation": "consume_from_initiator",
+          "amount": 1.0,
+          "ownership": "shared_story_token"
+        },
+        {
+          "kind": "inventory_item",
+          "id": "detail_2",
+          "operation": "consume_from_initiator",
+          "amount": 5.0,
+          "ownership": "personal_character"
+        },
+        {
+          "kind": "inventory_item",
+          "id": "wooden_plank",
+          "operation": "consume_from_initiator",
+          "amount": 6.0,
+          "ownership": "personal_character"
+        },
+        {
+          "kind": "world_object",
+          "id": "repair_mill",
+          "operation": "complete_once",
+          "amount": 1.0,
+          "ownership": "shared_world"
+        },
+        {
+          "kind": "key_quest_check",
+          "id": "fixed_mill",
+          "operation": "check_once",
+          "amount": 1.0,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "npc_event",
+          "id": "npc_miller:miller_after_fix",
+          "operation": "queue_once",
+          "amount": 1.0,
+          "ownership": "shared_world"
+        },
+        {
+          "kind": "npc_event",
+          "id": "npc_farmer:farmer_alisa_done",
+          "operation": "queue_once_after_miller_dialogue",
+          "amount": 1.0,
+          "ownership": "shared_world"
+        },
+        {
+          "kind": "dialogue_phrase",
+          "id": "@miller_wheat_mill",
+          "operation": "unlock_once",
+          "amount": 1.0,
+          "ownership": "shared_campaign"
+        }
+      ],
+      "safeguards": [
+        "mill_construction_and_fixed_mill_check_are_host_authoritative",
+        "consume_the_shared_calculation_once",
+        "farmer_alisa_done_is_queued_only_after_miller_after_fix_finishes",
+        "never_repair_consumed_interaction_event_latches"
+      ]
+    },
+    {
+      "stepId": "receive_alisa_paper_from_farmer",
+      "title": "Return to the Farmer and receive Alisa's paper",
+      "linkedQuestIds": [],
+      "linkedTaskMilestoneIds": ["charm_waiting_for_alisa_paper"],
+      "triggerScripts": ["npc_farmer:farmer_alisa_done"],
+      "triggerKeys": ["farmer_alisa_done", "alice_paper"],
+      "expectedEffects": [
+        {
+          "kind": "player_param",
+          "id": "_rel_npc_farmer",
+          "operation": "add_once",
+          "amount": 10.0,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "inventory_item",
+          "id": "alice_paper",
+          "operation": "drop_once_to_initiator",
+          "amount": 1.0,
+          "ownership": "shared_story_token"
+        }
+      ],
+      "safeguards": [
+        "farmer_relation_reward_once",
+        "one_alice_paper_for_the_campaign",
+        "drop_the_paper_to_the_dialogue_initiator_only",
+        "never_grant_alice_paper_from_actress_alisa_visible"
+      ]
+    },
+    {
+      "stepId": "deliver_alisa_paper_to_charm",
+      "title": "Give Alisa's paper to Charm and open the aristocrat request",
+      "linkedQuestIds": [],
+      "linkedTaskMilestoneIds": [
+        "charm_alisa_paper_delivered",
+        "charm_waiting_for_aristocrat_papers"
+      ],
+      "triggerScripts": ["npc_actress:@actress_lute_done"],
+      "triggerKeys": [
+        "@actress_lute_done",
+        "alice_paper",
+        "actress_alisa",
+        "actress_aristocrat",
+        "@actress_title"
+      ],
+      "expectedEffects": [
+        {
+          "kind": "inventory_item",
+          "id": "alice_paper",
+          "operation": "consume_from_initiator",
+          "amount": 1.0,
+          "ownership": "shared_story_token"
+        },
+        {
+          "kind": "player_param",
+          "id": "_rel_npc_actress",
+          "operation": "add_once",
+          "amount": 10.0,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "dialogue_phrase",
+          "id": "@actress_lute_done",
+          "operation": "blacklist",
+          "amount": 1.0,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "npc_task",
+          "id": "npc_actress:actress_alisa",
+          "operation": "complete",
+          "amount": 1.0,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "story_point",
+          "id": "bronze",
+          "operation": "grant_to_initiator",
+          "amount": 5.0,
+          "ownership": "personal_character"
+        },
+        {
+          "kind": "story_point",
+          "id": "silver",
+          "operation": "grant_to_initiator",
+          "amount": 5.0,
+          "ownership": "personal_character"
+        },
+        {
+          "kind": "npc_task",
+          "id": "npc_actress:actress_aristocrat",
+          "operation": "show",
+          "amount": 1.0,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "dialogue_phrase",
+          "id": "@actress_title",
+          "operation": "unlock",
+          "amount": 1.0,
+          "ownership": "shared_campaign"
+        }
+      ],
+      "safeguards": [
+        "consume_the_single_alice_paper_from_the_initiator_only",
+        "relation_and_story_points_once",
+        "do_not_replay_farmer_or_mill_acquisition_events_for_observers"
+      ]
+    },
+    {
+      "stepId": "give_charm_aristocrat_papers",
+      "title": "Give Charm the Aristocrat Papers and receive her song request",
+      "linkedQuestIds": [],
+      "linkedTaskMilestoneIds": [
+        "charm_waiting_for_aristocrat_papers",
+        "charm_waiting_for_vagner_song"
+      ],
+      "triggerScripts": ["npc_actress:@actress_title"],
+      "triggerKeys": ["@actress_title", "aristocrat_paper", "actress_song"],
+      "expectedEffects": [
+        {
+          "kind": "inventory_item",
+          "id": "aristocrat_paper",
+          "operation": "consume_from_initiator",
+          "amount": 1.0,
+          "ownership": "shared_story_token"
+        },
+        {
+          "kind": "inventory_item",
+          "id": "aristocrat_paper",
+          "operation": "return_once_to_initiator",
+          "amount": 1.0,
+          "ownership": "shared_story_token"
+        },
+        {
+          "kind": "player_param",
+          "id": "_rel_npc_actress",
+          "operation": "add_once",
+          "amount": 10.0,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "npc_task",
+          "id": "npc_actress:actress_aristocrat",
+          "operation": "complete",
+          "amount": 1.0,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "story_point",
+          "id": "silver",
+          "operation": "grant_to_initiator",
+          "amount": 8.0,
+          "ownership": "personal_character"
+        },
+        {
+          "kind": "story_point",
+          "id": "gold",
+          "operation": "grant_to_initiator",
+          "amount": 2.0,
+          "ownership": "personal_character"
+        },
+        {
+          "kind": "npc_task",
+          "id": "npc_actress:actress_song",
+          "operation": "show",
+          "amount": 1.0,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "dialogue_phrase",
+          "id": "@actress_title",
+          "operation": "blacklist",
+          "amount": 1.0,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "dialogue_phrase",
+          "id": "@actress_ song_done",
+          "operation": "unlock",
+          "amount": 1.0,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "dialogue_phrase",
+          "id": "@actor_song",
+          "operation": "unlock",
+          "amount": 1.0,
+          "ownership": "shared_campaign"
+        }
+      ],
+      "safeguards": [
+        "consume_and_return_the_same_aristocrat_paper_atomically",
+        "never_create_one_aristocrat_paper_per_observer",
+        "relation_reward_once",
+        "story_points_to_dialogue_initiator_once"
+      ]
+    },
+    {
+      "stepId": "commission_vagner_song",
+      "title": "Ask Vagner to write Charm's love song",
+      "linkedQuestIds": [],
+      "linkedTaskMilestoneIds": ["vagner_waiting_for_infusion"],
+      "triggerScripts": ["npc_actor:@actor_song"],
+      "triggerKeys": ["@actor_song", "actor_song", "infusion"],
+      "expectedEffects": [
+        {
+          "kind": "player_param",
+          "id": "_rel_npc_actor",
+          "operation": "require_minimum",
+          "amount": 20.0,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "npc_task",
+          "id": "npc_actor:actor_song",
+          "operation": "show",
+          "amount": 1.0,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "craft",
+          "id": "infusion",
+          "operation": "unlock",
+          "amount": 1.0,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "dialogue_phrase",
+          "id": "@actor_song",
+          "operation": "blacklist",
+          "amount": 1.0,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "dialogue_phrase",
+          "id": "@actor_inspiration",
+          "operation": "unlock",
+          "amount": 1.0,
+          "ownership": "shared_campaign"
+        }
+      ],
+      "safeguards": [
+        "single_vagner_dialogue_owner",
+        "infusion_craft_shared",
+        "do_not_consume_aristocrat_paper_again"
+      ]
+    },
+    {
+      "stepId": "give_vagner_infusion",
+      "title": "Give Vagner the fly agaric infusion",
+      "linkedQuestIds": ["actor_remove_from_tavern_quest"],
+      "linkedTaskMilestoneIds": ["vagner_departure_armed"],
+      "triggerScripts": ["npc_actor:@actor_inspiration"],
+      "triggerKeys": ["@actor_inspiration", "infusion", "remove_actor_from_tavern"],
+      "expectedEffects": [
+        {
+          "kind": "inventory_item",
+          "id": "infusion",
+          "operation": "consume_from_initiator",
+          "amount": 1.0,
+          "ownership": "personal_character"
+        },
+        {
+          "kind": "npc_task",
+          "id": "npc_actor:actor_song",
+          "operation": "complete",
+          "amount": 1.0,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "story_point",
+          "id": "silver",
+          "operation": "grant_to_initiator",
+          "amount": 5.0,
+          "ownership": "personal_character"
+        },
+        {
+          "kind": "player_param",
+          "id": "remove_actor_from_tavern",
+          "operation": "set_for_quest_owner",
+          "amount": 1.0,
+          "ownership": "initiating_player_quest"
+        },
+        {
+          "kind": "dialogue_phrase",
+          "id": "@actor_inspiration",
+          "operation": "blacklist",
+          "amount": 1.0,
+          "ownership": "shared_campaign"
+        }
+      ],
+      "safeguards": [
+        "consume_one_infusion_from_initiator_only",
+        "story_points_once",
+        "do_not_run_remove_actor_from_tavern_until_wake_up",
+        "never_repair_remove_actor_from_tavern_onto_observers"
+      ]
+    },
+    {
+      "stepId": "remove_vagner_on_wake",
+      "title": "Remove Vagner from the tavern on the next wake-up",
+      "linkedQuestIds": ["actor_remove_from_tavern_quest"],
+      "linkedTaskMilestoneIds": ["vagner_departure_armed"],
+      "triggerScripts": ["remove_actor_from_tavern"],
+      "triggerKeys": [
+        "wake_up",
+        "remove_actor_from_tavern",
+        "actors_fake_object",
+        "gd_actors_fake_object",
+        "disapearing"
+      ],
+      "expectedEffects": [
+        {
+          "kind": "quest",
+          "id": "actor_remove_from_tavern_quest",
+          "operation": "start",
+          "amount": 1.0,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "world_object",
+          "id": "npc_actor",
+          "operation": "remove_once",
+          "amount": 1.0,
+          "ownership": "shared_world"
+        },
+        {
+          "kind": "world_object",
+          "id": "actors_fake_object",
+          "operation": "spawn_once_at_gd_actors_fake_object",
+          "amount": 1.0,
+          "ownership": "shared_world"
+        },
+        {
+          "kind": "npc_event",
+          "id": "actors_fake_object:disapearing",
+          "operation": "queue_once",
+          "amount": 1.0,
+          "ownership": "shared_world"
+        }
+      ],
+      "safeguards": [
+        "only_the_quest_initiator_runs_the_start_script",
+        "observers_apply_quest_state_only",
+        "never_replay_world_mutation_from_observer_success",
+        "spawn_one_fake_note_at_gd_actors_fake_object"
+      ]
+    },
+    {
+      "stepId": "read_vagner_note",
+      "title": "Read Vagner's tavern note and learn where to meet him",
+      "linkedQuestIds": ["actor_remove_from_tavern_quest"],
+      "linkedTaskMilestoneIds": ["vagner_cliff_meeting_pending"],
+      "triggerScripts": ["actors_fake_object:disapearing"],
+      "triggerKeys": [
+        "actor_inspiration_info",
+        "actor_inspiration_info_1",
+        "actor_meeting",
+        "actor_is_waiting_at_the_sea"
+      ],
+      "expectedEffects": [
+        {
+          "kind": "npc_task",
+          "id": "npc_actor:actor_meeting",
+          "operation": "show",
+          "amount": 1.0,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "player_param",
+          "id": "actor_is_waiting_at_the_sea",
+          "operation": "set_transient_for_initiator",
+          "amount": 1.0,
+          "ownership": "initiating_player_cutscene"
+        },
+        {
+          "kind": "world_object",
+          "id": "actors_fake_object",
+          "operation": "remove_once",
+          "amount": 1.0,
+          "ownership": "shared_world"
+        }
+      ],
+      "safeguards": [
+        "single_note_dialogue_owner",
+        "restore_player_control",
+        "do_not_make_actor_is_waiting_at_the_sea_a_milestone_minimum",
+        "do_not_respawn_the_note_after_consumption"
+      ]
+    },
+    {
+      "stepId": "meet_transformed_vagner",
+      "title": "Meet transformed Vagner at the sea cliffs at night",
+      "linkedQuestIds": ["actor_remove_from_tavern_quest"],
+      "linkedTaskMilestoneIds": [
+        "vagner_cliff_meeting_pending",
+        "vagner_cliff_confrontation_reached"
+      ],
+      "triggerScripts": ["on_enter_actor_hiding_place", "actor_satyr_cutscene"],
+      "triggerKeys": ["actor_is_waiting_at_the_sea", "Night", "actors_song"],
+      "expectedEffects": [
+        {
+          "kind": "npc_task",
+          "id": "npc_actor:actor_meeting",
+          "operation": "complete",
+          "amount": 1.0,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "story_point",
+          "id": "silver",
+          "operation": "grant_to_initiator",
+          "amount": 7.0,
+          "ownership": "personal_character"
+        },
+        {
+          "kind": "story_point",
+          "id": "gold",
+          "operation": "grant_to_initiator",
+          "amount": 3.0,
+          "ownership": "personal_character"
+        },
+        {
+          "kind": "inventory_item",
+          "id": "actors_song",
+          "operation": "drop_once_to_initiator",
+          "amount": 1.0,
+          "ownership": "shared_story_token"
+        },
+        {
+          "kind": "player_param",
+          "id": "actor_is_waiting_at_the_sea",
+          "operation": "clear_transient_for_initiator",
+          "amount": 0.0,
+          "ownership": "initiating_player_cutscene"
+        }
+      ],
+      "safeguards": [
+        "morning_daytime_and_evening_entries_are_noops",
+        "single_live_cutscene_owner",
+        "one_song_lyrics_token_for_the_campaign",
+        "story_points_once",
+        "task_completion_occurs_before_song_drop",
+        "do_not_grant_song_from_task_or_quest_state",
+        "destroy_temporary_guards_and_return_satyr_to_stock"
+      ]
+    },
+    {
+      "stepId": "deliver_vagner_song_to_charm",
+      "title": "Give Vagner's song to Charm and open the rescue branch",
+      "linkedQuestIds": ["actor_remove_from_tavern_quest"],
+      "linkedTaskMilestoneIds": [
+        "charm_song_delivered",
+        "charm_vagner_rescue_opened",
+        "astrologer_vagner_help_requested"
+      ],
+      "triggerScripts": ["npc_actress:@actress_ song_done"],
+      "triggerKeys": [
+        "@actress_ song_done",
+        "actors_song",
+        "actress_song",
+        "actress_Vagner",
+        "astrologer_find_help",
+        "@astrologer_charm_know"
+      ],
+      "expectedEffects": [
+        {
+          "kind": "inventory_item",
+          "id": "actors_song",
+          "operation": "consume_from_initiator",
+          "amount": 1.0,
+          "ownership": "shared_story_token"
+        },
+        {
+          "kind": "npc_task",
+          "id": "npc_actress:actress_song",
+          "operation": "complete",
+          "amount": 1.0,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "story_point",
+          "id": "silver",
+          "operation": "grant_to_initiator",
+          "amount": 8.0,
+          "ownership": "personal_character"
+        },
+        {
+          "kind": "story_point",
+          "id": "gold",
+          "operation": "grant_to_initiator",
+          "amount": 2.0,
+          "ownership": "personal_character"
+        },
+        {
+          "kind": "player_param",
+          "id": "_rel_npc_actress",
+          "operation": "add_once",
+          "amount": 20.0,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "npc_task",
+          "id": "npc_actress:actress_Vagner",
+          "operation": "show",
+          "amount": 1.0,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "npc_task",
+          "id": "npc_astrologer:astrologer_find_help",
+          "operation": "show",
+          "amount": 1.0,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "dialogue_phrase",
+          "id": "@actress_ song_done",
+          "operation": "blacklist",
+          "amount": 1.0,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "dialogue_phrase",
+          "id": "@astrologer_charm_know",
+          "operation": "unlock",
+          "amount": 1.0,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "key_quest_check",
+          "id": "actress_song",
+          "operation": "check_once",
+          "amount": 1.0,
+          "ownership": "shared_campaign"
+        }
+      ],
+      "safeguards": [
+        "consume_the_single_song_token_once",
+        "first_relation_reward_is_answer_data_plus_ten",
+        "second_relation_reward_is_explicit_flow_add_relation_plus_ten",
+        "relation_repairs_use_minimum_90_not_additive_replay",
+        "story_points_once",
+        "preserve_astrologer_charm_no_state",
+        "emit_actress_song_check_key_once"
+      ]
+    },
+    {
+      "stepId": "plan_vagner_rescue_with_astrologer",
+      "title": "Ask the Astrologer to help rescue Vagner",
+      "linkedQuestIds": [],
+      "linkedTaskMilestoneIds": [
+        "astrologer_rescue_plan_agreed"
+      ],
+      "triggerScripts": ["npc_astrologer:@astrologer_charm_know"],
+      "triggerKeys": [
+        "@astrologer_charm_know",
+        "astrologer_find_help",
+        "astrologer_help",
+        "@astrolog_expedition"
+      ],
+      "expectedEffects": [
+        { "kind": "dialogue_phrase", "id": "@astrologer_charm_know", "operation": "blacklist", "amount": 1.0, "ownership": "shared_campaign" },
+        { "kind": "npc_task", "id": "npc_astrologer:astrologer_find_help", "operation": "complete", "amount": 1.0, "ownership": "shared_campaign" },
+        { "kind": "story_point", "id": "bronze", "operation": "grant_to_initiator_from_astrologer_find_help", "amount": 5.0, "ownership": "personal_character" },
+        { "kind": "story_point", "id": "silver", "operation": "grant_to_initiator_from_astrologer_find_help", "amount": 5.0, "ownership": "personal_character" },
+        { "kind": "player_param", "id": "_rel_npc_astrologer", "operation": "add_once", "amount": 10.0, "ownership": "shared_campaign" },
+        { "kind": "npc_task", "id": "npc_astrologer:astrologer_help", "operation": "complete", "amount": 1.0, "ownership": "shared_campaign" },
+        { "kind": "story_point", "id": "silver", "operation": "grant_to_initiator_from_astrologer_help", "amount": 3.0, "ownership": "personal_character" },
+        { "kind": "story_point", "id": "gold", "operation": "grant_to_initiator_from_astrologer_help", "amount": 7.0, "ownership": "personal_character" },
+        { "kind": "dialogue_phrase", "id": "@astrolog_expedition", "operation": "unlock", "amount": 1.0, "ownership": "shared_campaign" }
+      ],
+      "safeguards": [
+        "the_answer_relation_reward_applies_once",
+        "both_task_reward_sets_go_to_the_dialogue_initiator_once",
+        "do_not_replay_the_fourteen_line_rescue_plan_for_observers"
+      ]
+    },
+    {
+      "stepId": "prepare_astrologer_rescue_expedition",
+      "title": "Prepare the Astrologer's university expedition",
+      "linkedQuestIds": [],
+      "linkedTaskMilestoneIds": [
+        "astrologer_rescue_plan_agreed",
+        "astrologer_silver_book_requested"
+      ],
+      "triggerScripts": ["npc_astrologer:@astrolog_expedition"],
+      "triggerKeys": [
+        "@astrolog_expedition",
+        "astrologer_sbook",
+        "@astrologer_silver",
+        "need_unlock_obsidian_research",
+        "@tr_quest_13_research_1"
+      ],
+      "expectedEffects": [
+        { "kind": "dialogue_phrase", "id": "@astrolog_expedition", "operation": "blacklist", "amount": 1.0, "ownership": "shared_campaign" },
+        { "kind": "npc_task", "id": "npc_astrologer:astrologer_sbook", "operation": "show", "amount": 1.0, "ownership": "shared_campaign" },
+        { "kind": "dialogue_phrase", "id": "@astrologer_silver", "operation": "unlock", "amount": 1.0, "ownership": "shared_campaign" },
+        { "kind": "dialogue_phrase", "id": "@tr_quest_13_research_1", "operation": "unlock_if_need_unlock_obsidian_research_is_at_least_1", "amount": 1.0, "ownership": "shared_campaign" }
+      ],
+      "safeguards": [
+        "the_obsidian_research_phrase_is_a_serialized_conditional_branch",
+        "never_infer_or_repair_need_unlock_obsidian_research",
+        "never_unlock_tr_quest_13_research_1_when_the_condition_is_zero"
+      ]
+    },
+    {
+      "stepId": "give_astrologer_silver_book",
+      "title": "Give the Astrologer a silver-quality university book",
+      "linkedQuestIds": [],
+      "linkedTaskMilestoneIds": [
+        "astrologer_silver_book_requested",
+        "astrologer_silver_book_delivered"
+      ],
+      "triggerScripts": ["npc_astrologer:@astrologer_silver"],
+      "triggerKeys": [
+        "@astrologer_silver",
+        "book:book_hard:2",
+        "astrologer_sbook",
+        "astrologer_books_1_is_unlocked",
+        "@tr_quest_13_research_1"
+      ],
+      "expectedEffects": [
+        { "kind": "inventory_item", "id": "book:book_hard:2", "operation": "consume_from_initiator", "amount": 1.0, "ownership": "personal_character" },
+        { "kind": "player_param", "id": "_rel_npc_astrologer", "operation": "add_once", "amount": 5.0, "ownership": "shared_campaign" },
+        { "kind": "dialogue_phrase", "id": "@astrologer_silver", "operation": "blacklist", "amount": 1.0, "ownership": "shared_campaign" },
+        { "kind": "npc_task", "id": "npc_astrologer:astrologer_sbook", "operation": "complete", "amount": 1.0, "ownership": "shared_campaign" },
+        { "kind": "story_point", "id": "silver", "operation": "grant_to_initiator", "amount": 5.0, "ownership": "personal_character" },
+        { "kind": "world_param", "id": "npc_astrologer:astrologer_books_1_is_unlocked", "operation": "set_during_vanilla_cleanup", "amount": 1.0, "ownership": "shared_world" },
+        { "kind": "dialogue_phrase", "id": "@tr_quest_13_research_1", "operation": "blacklist", "amount": 1.0, "ownership": "shared_campaign" }
+      ],
+      "safeguards": [
+        "consume_the_book_from_the_dialogue_initiator_only",
+        "relation_and_story_points_once",
+        "astrologer_books_1_is_unlocked_only_arms_the_next_interaction",
+        "never_repair_the_books_1_latch_from_astrologer_sbook_complete"
+      ]
+    },
+    {
+      "stepId": "hear_astrologer_silver_book_report",
+      "title": "Hear the Astrologer's report and receive the gold-book request",
+      "linkedQuestIds": [],
+      "linkedTaskMilestoneIds": [
+        "astrologer_silver_book_delivered",
+        "astrologer_gold_book_requested"
+      ],
+      "triggerScripts": ["npc_astrologer:astrologer_books_1"],
+      "triggerKeys": [
+        "astrologer_books_1",
+        "astrologer_books_1_is_unlocked",
+        "astrologer_gbook",
+        "@astrologer_gold"
+      ],
+      "expectedEffects": [
+        { "kind": "world_param", "id": "npc_astrologer:astrologer_books_1_is_unlocked", "operation": "clear_consumed_interaction_latch", "amount": 0.0, "ownership": "shared_world" },
+        { "kind": "npc_task", "id": "npc_astrologer:astrologer_gbook", "operation": "show", "amount": 1.0, "ownership": "shared_campaign" },
+        { "kind": "dialogue_phrase", "id": "@astrologer_gold", "operation": "unlock", "amount": 1.0, "ownership": "shared_campaign" }
+      ],
+      "safeguards": [
+        "consume_the_books_1_interaction_event_once",
+        "the_gold_book_request_is_shared_after_the_live_dialogue",
+        "do_not_rearm_books_1_for_observers_or_from_task_state"
+      ]
+    },
+    {
+      "stepId": "give_astrologer_gold_book",
+      "title": "Give the Astrologer a gold-quality university book",
+      "linkedQuestIds": [],
+      "linkedTaskMilestoneIds": [
+        "astrologer_gold_book_requested",
+        "astrologer_gold_book_delivered"
+      ],
+      "triggerScripts": ["npc_astrologer:@astrologer_gold"],
+      "triggerKeys": [
+        "@astrologer_gold",
+        "book:book_hard:3",
+        "astrologer_gbook",
+        "gold_book",
+        "astrologer_books_2_is_unlocked"
+      ],
+      "expectedEffects": [
+        { "kind": "inventory_item", "id": "book:book_hard:3", "operation": "consume_from_initiator", "amount": 1.0, "ownership": "personal_character" },
+        { "kind": "player_param", "id": "_rel_npc_astrologer", "operation": "add_once", "amount": 5.0, "ownership": "shared_campaign" },
+        { "kind": "dialogue_phrase", "id": "@astrologer_gold", "operation": "blacklist", "amount": 1.0, "ownership": "shared_campaign" },
+        { "kind": "dialogue_phrase", "id": "@tr_quest_13_research_1", "operation": "blacklist", "amount": 1.0, "ownership": "shared_campaign" },
+        { "kind": "npc_task", "id": "npc_astrologer:astrologer_gbook", "operation": "complete", "amount": 1.0, "ownership": "shared_campaign" },
+        { "kind": "story_point", "id": "silver", "operation": "grant_to_initiator", "amount": 7.0, "ownership": "personal_character" },
+        { "kind": "story_point", "id": "gold", "operation": "grant_to_initiator", "amount": 3.0, "ownership": "personal_character" },
+        { "kind": "achievement_key", "id": "gold_book", "operation": "check_for_initiator", "amount": 1.0, "ownership": "personal_platform" },
+        { "kind": "world_param", "id": "npc_astrologer:astrologer_books_2_is_unlocked", "operation": "set_during_vanilla_cleanup", "amount": 1.0, "ownership": "shared_world" }
+      ],
+      "safeguards": [
+        "consume_the_book_from_the_dialogue_initiator_only",
+        "relation_and_story_points_once",
+        "emit_gold_book_key_quest_check_once",
+        "astrologer_books_2_is_unlocked_only_arms_the_next_interaction",
+        "never_repair_the_books_2_latch_from_astrologer_gbook_complete"
+      ]
+    },
+    {
+      "stepId": "hear_astrologer_gold_book_report",
+      "title": "Hear the Astrologer's report and receive the Aristocrat Papers request",
+      "linkedQuestIds": [],
+      "linkedTaskMilestoneIds": [
+        "astrologer_gold_book_delivered",
+        "astrologer_aristocrat_papers_requested"
+      ],
+      "triggerScripts": ["npc_astrologer:astrologer_books_2"],
+      "triggerKeys": [
+        "astrologer_books_2",
+        "astrologer_books_2_is_unlocked",
+        "astrologer_aristocrat",
+        "@astrologer_title"
+      ],
+      "expectedEffects": [
+        { "kind": "world_param", "id": "npc_astrologer:astrologer_books_2_is_unlocked", "operation": "clear_consumed_interaction_latch", "amount": 0.0, "ownership": "shared_world" },
+        { "kind": "npc_task", "id": "npc_astrologer:astrologer_aristocrat", "operation": "show", "amount": 1.0, "ownership": "shared_campaign" },
+        { "kind": "dialogue_phrase", "id": "@astrologer_title", "operation": "unlock", "amount": 1.0, "ownership": "shared_campaign" }
+      ],
+      "safeguards": [
+        "consume_the_books_2_interaction_event_once",
+        "the_aristocrat_request_is_shared_after_the_live_dialogue",
+        "do_not_rearm_books_2_for_observers_or_from_task_state"
+      ]
+    },
+    {
+      "stepId": "give_astrologer_aristocrat_papers",
+      "title": "Show the Aristocrat Papers to the Astrologer",
+      "linkedQuestIds": [],
+      "linkedTaskMilestoneIds": [
+        "astrologer_aristocrat_papers_requested",
+        "astrologer_aristocrat_papers_delivered"
+      ],
+      "triggerScripts": ["npc_astrologer:@astrologer_title"],
+      "triggerKeys": [
+        "@astrologer_title",
+        "aristocrat_paper",
+        "astrologer_aristocrat",
+        "@astrologer_last_0"
+      ],
+      "expectedEffects": [
+        { "kind": "inventory_item", "id": "aristocrat_paper", "operation": "consume_from_initiator", "amount": 1.0, "ownership": "shared_story_token" },
+        { "kind": "inventory_item", "id": "aristocrat_paper", "operation": "return_once_to_initiator", "amount": 1.0, "ownership": "shared_story_token" },
+        { "kind": "player_param", "id": "_rel_npc_astrologer", "operation": "add_once", "amount": 10.0, "ownership": "shared_campaign" },
+        { "kind": "dialogue_phrase", "id": "@astrologer_title", "operation": "blacklist", "amount": 1.0, "ownership": "shared_campaign" },
+        { "kind": "npc_task", "id": "npc_astrologer:astrologer_aristocrat", "operation": "complete", "amount": 1.0, "ownership": "shared_campaign" },
+        { "kind": "story_point", "id": "silver", "operation": "grant_to_initiator", "amount": 8.0, "ownership": "personal_character" },
+        { "kind": "story_point", "id": "gold", "operation": "grant_to_initiator", "amount": 2.0, "ownership": "personal_character" },
+        { "kind": "dialogue_phrase", "id": "@astrologer_last_0", "operation": "unlock", "amount": 1.0, "ownership": "shared_campaign" }
+      ],
+      "safeguards": [
+        "consume_and_return_the_same_aristocrat_paper_atomically",
+        "never_create_one_aristocrat_paper_per_observer",
+        "relation_and_story_points_once",
+        "the_final_rescue_phrase_still_requires_astrologer_relation_90"
+      ]
+    },
+    {
+      "stepId": "rescue_vagner_at_the_mountain_fort",
+      "title": "Join the archaeological expedition and rescue Vagner",
+      "linkedQuestIds": [],
+      "linkedTaskMilestoneIds": [
+        "astrologer_aristocrat_papers_delivered",
+        "charm_vagner_rescued"
+      ],
+      "triggerScripts": [
+        "npc_astrologer:@astrologer_last_0",
+        "archaeological_excavations"
+      ],
+      "triggerKeys": [
+        "@astrologer_last_0",
+        "astr_actr_together",
+        "necklace",
+        "sextant",
+        "actress_Vagner",
+        "actress_afterall_event",
+        "astrologer_afterall_event",
+        "souls_ev_11_vagner_asked",
+        "@souls_s_s12_1_ask",
+        "@souls_s_s12_2_ask",
+        "gykmp_story_lock_better_save_soul_s11_route_fulfillment",
+        "gykmp_story_route_better_save_soul_s11_actor_to_mailbox_fallback"
+      ],
+      "expectedEffects": [
+        { "kind": "dialogue_phrase", "id": "@astrologer_last_0", "operation": "blacklist_before_running_archaeological_excavations", "amount": 1.0, "ownership": "shared_campaign" },
+        { "kind": "achievement_key", "id": "astr_actr_together", "operation": "check_for_initiator", "amount": 1.0, "ownership": "personal_platform" },
+        { "kind": "player_param", "id": "_rel_npc_actress", "operation": "add_once", "amount": 10.0, "ownership": "shared_campaign" },
+        { "kind": "inventory_item", "id": "necklace", "operation": "drop_once_to_initiator", "amount": 1.0, "ownership": "shared_story_token" },
+        { "kind": "player_param", "id": "_rel_npc_astrologer", "operation": "add_once", "amount": 10.0, "ownership": "shared_campaign" },
+        { "kind": "inventory_item", "id": "sextant", "operation": "drop_once_to_initiator", "amount": 1.0, "ownership": "shared_story_token" },
+        { "kind": "npc_task", "id": "npc_actress:actress_Vagner", "operation": "complete", "amount": 1.0, "ownership": "shared_campaign" },
+        { "kind": "story_point", "id": "gold", "operation": "grant_to_initiator", "amount": 2.0, "ownership": "personal_character" },
+        { "kind": "shared_story_lock", "id": "gykmp_story_lock_better_save_soul_s11_route_fulfillment", "operation": "acquire_or_queue_together_with_the_canonical_campaign_npc_actor_actor_keyed_scene_lease_before_the_raw_remove_to_stock_node_yielding_to_any_entered_nonterminal_direct_Actor_route_recovery", "amount": 1.0, "ownership": "shared_campaign" },
+        { "kind": "world_actor_group", "id": "vagner_archaeological_rescue_cast", "operation": "stage_once_then_only_the_archaeological_lock_winner_restores_or_removes_the_cast_including_the_vanilla_npc_actor_return_to_stock", "amount": 11.0, "ownership": "shared_world" },
+        { "kind": "npc_event", "id": "npc_actress:on_back_to_start", "operation": "fire_once", "amount": 1.0, "ownership": "shared_world" },
+        { "kind": "npc_event", "id": "npc_astrologer:on_back_to_start", "operation": "fire_once", "amount": 1.0, "ownership": "shared_world" },
+        { "kind": "world_param", "id": "npc_actress:actress_afterall_event", "operation": "set_during_vanilla_cleanup", "amount": 1.0, "ownership": "shared_world" },
+        { "kind": "world_param", "id": "npc_astrologer:astrologer_afterall_event", "operation": "set_during_vanilla_cleanup", "amount": 1.0, "ownership": "shared_world" },
+        { "kind": "cross_catalog_route_receipt", "id": "gykmp_story_route_better_save_soul_s11_actor_to_mailbox_fallback", "operation": "author_once_only_when_souls_s_s12_1_ask_is_not_blacklisted_and_souls_ev_11_vagner_asked_is_at_least_1_without_authoring_a_royal_task_or_initial_route", "amount": 1.0, "ownership": "shared_campaign" },
+        { "kind": "dialogue_phrase", "id": "@souls_s_s12_2_ask", "operation": "unlock_once_with_the_fallback_receipt_under_the_same_exact_not_blacklisted_and_vagner_asked_at_least_1_gate", "amount": 1.0, "ownership": "shared_campaign" }
+      ],
+      "safeguards": [
+        "the_final_phrase_requires_astrologer_relation_90",
+        "run_one_authoritative_archaeological_excavations_scene_for_all_observers",
+        "all_relation_and_story_point_rewards_apply_once",
+        "drop_exactly_one_necklace_and_one_sextant_for_the_campaign",
+        "drop_both_artifacts_to_the_initiator_only_and_never_from_completed_task_state",
+        "set_afterall_event_world_params_only_when_vanilla_finale_cleanup_reaches_them",
+        "never_repair_afterall_event_world_params_from_actress_Vagner_complete",
+        "never_force_the_conditional_souls_phrase-player-flag-fallback-receipt-or-route-lock",
+        "the-exact-fallback-gate-is-souls_s_s12_1_ask-not-blacklisted-and-souls_ev_11_vagner_asked-at-least-one_not-equality-to-one",
+        "serialize-the-fallback-with-the-direct-Actor-topic-claim-and-prefix-recovery_so-only-one-ode-source-can-be-fulfilled",
+        "if-the-Actor-topic-is-blacklisted-or-vagner_asked-is-below-one_author-neither-the-mail-topic-nor-fallback-receipt",
+        "after-a-deferred-direct-Actor-route-reaches-terminal_archaeology-may-perform-its-vanilla-remove-to-stock-but-the-now-blacklisted-Actor-topic-suppresses-the-mail-fallback",
+        "the-cross-catalog-receipt-records-the-existing-vanilla-conditional-unlock_but-adds-no-cutscene-dialogue-task-item-payment-or-world-mutation",
+        "restore_turnpike_temporary_actors_pseudo_time_music_camera_and_control"
+      ]
+    },
+    {
+      "stepId": "meet_clotho_and_begin_memory_remedy",
+      "title": "Meet Clotho and offer to restore her memory",
+      "linkedQuestIds": [],
+      "linkedTaskMilestoneIds": ["clotho_memory_remedy_requested"],
+      "triggerScripts": ["npc_witch:intro"],
+      "triggerKeys": [
+        "intro",
+        "npc_clotho_task_1",
+        "The Beginning Of Alchemy",
+        "witch_is_princess"
+      ],
+      "expectedEffects": [
+        { "kind": "npc_task", "id": "npc_witch:npc_clotho_task_1", "operation": "show", "amount": 1.0, "ownership": "shared_campaign" },
+        { "kind": "technology", "id": "The Beginning Of Alchemy", "operation": "unlock", "amount": 1.0, "ownership": "shared_campaign" }
+      ],
+      "safeguards": [
+        "run_one_authoritative_intro_dialogue_for_all_observers",
+        "preserve_only_the_initiators_actual_optional_witch_is_princess_answer",
+        "never_infer_witch_is_princess_from_npc_clotho_task_1_state"
+      ]
+    },
+    {
+      "stepId": "restore_clothos_memory",
+      "title": "Restore Clotho's memory with one of the serialized remedy routes",
+      "linkedQuestIds": [],
+      "linkedTaskMilestoneIds": [
+        "clotho_memory_remedy_requested",
+        "clotho_memory_restored"
+      ],
+      "triggerScripts": ["npc_witch:interaction"],
+      "triggerKeys": [
+        "сlotho_vat",
+        "сlotho_pot",
+        "@сlotho_intence",
+        "@сlotho_bee",
+        "caldron",
+        "pot_heal",
+        "alchemy_1_yellow",
+        "bee",
+        "ingredients",
+        "@clotho_trade",
+        "npc_clotho_task_1"
+      ],
+      "expectedEffects": [
+        { "kind": "inventory_item", "id": "caldron", "operation": "consume_from_initiator_if_cauldron_route_selected", "amount": 1.0, "ownership": "personal_character" },
+        { "kind": "inventory_item", "id": "pot_heal", "operation": "consume_from_initiator_if_direct_remedy_selected", "amount": 1.0, "ownership": "personal_character" },
+        { "kind": "inventory_item", "id": "alchemy_1_yellow", "operation": "consume_from_initiator_if_incense_ingredient_selected", "amount": 1.0, "ownership": "personal_character" },
+        { "kind": "inventory_item", "id": "bee", "operation": "consume_from_initiator_if_bee_ingredient_selected", "amount": 1.0, "ownership": "personal_character" },
+        { "kind": "player_param", "id": "_rel_npc_witch", "operation": "add_canonical_route_total_once", "amount": 20.0, "ownership": "shared_campaign" },
+        { "kind": "inventory_item", "id": "pot_heal", "operation": "drop_three_to_initiator_only_on_the_two_ingredient_route", "amount": 3.0, "ownership": "personal_character" },
+        { "kind": "dialogue_phrase", "id": "@clotho_trade", "operation": "unlock", "amount": 1.0, "ownership": "shared_campaign" },
+        { "kind": "npc_task", "id": "npc_witch:npc_clotho_task_1", "operation": "complete", "amount": 1.0, "ownership": "shared_campaign" },
+        { "kind": "story_point", "id": "bronze", "operation": "grant_to_initiator", "amount": 2.0, "ownership": "personal_character" }
+      ],
+      "safeguards": [
+        "consume_only_the_prices_for_the_initiators_selected_canonical_route",
+        "relation_totals_20_across_either_the_direct_potion_or_cauldron_plus_two_ingredients_route",
+        "drop_three_healing_potions_only_during_the_live_two_ingredient_completion",
+        "never_regrant_the_three_healing_potions_from_completed_task_state",
+        "never_repair_the_transient_ingredients_counter",
+        "never_force_the_conditional_stranger_sins_clotho_followup_phrase"
+      ]
+    },
+    {
+      "stepId": "receive_clotho_pumpkin_request",
+      "title": "Receive Clotho's silver-quality pumpkin request",
+      "linkedQuestIds": [],
+      "linkedTaskMilestoneIds": ["clotho_pumpkin_requested"],
+      "triggerScripts": ["npc_witch:clotho_recipe"],
+      "triggerKeys": ["clotho_recipe", "clotho_pumpkin", "@clotho_resipe_done_1"],
+      "expectedEffects": [
+        { "kind": "dialogue_phrase", "id": "@clotho_resipe_done_1", "operation": "unlock", "amount": 1.0, "ownership": "shared_campaign" },
+        { "kind": "npc_task", "id": "npc_witch:clotho_pumpkin", "operation": "show", "amount": 1.0, "ownership": "shared_campaign" }
+      ],
+      "safeguards": [
+        "consume_the_queued_clotho_recipe_event_once",
+        "share_the_visible_task_and_handoff_phrase_after_the_live_dialogue",
+        "never_rearm_clotho_recipe_from_clotho_pumpkin_state"
+      ]
+    },
+    {
+      "stepId": "give_clotho_silver_pumpkin",
+      "title": "Give Clotho one silver-quality pumpkin and learn vegetable soups",
+      "linkedQuestIds": [],
+      "linkedTaskMilestoneIds": [
+        "clotho_pumpkin_requested",
+        "clotho_pumpkin_delivered"
+      ],
+      "triggerScripts": ["npc_witch:@clotho_resipe_done_1"],
+      "triggerKeys": [
+        "@clotho_resipe_done_1",
+        "pumpkin_crop:2",
+        "clotho_pumpkin",
+        "Vegetable soups"
+      ],
+      "expectedEffects": [
+        { "kind": "inventory_item", "id": "pumpkin_crop:2", "operation": "consume_from_initiator", "amount": 1.0, "ownership": "personal_character" },
+        { "kind": "dialogue_phrase", "id": "@clotho_resipe_done_1", "operation": "blacklist", "amount": 1.0, "ownership": "shared_campaign" },
+        { "kind": "npc_task", "id": "npc_witch:clotho_pumpkin", "operation": "complete", "amount": 1.0, "ownership": "shared_campaign" },
+        { "kind": "technology", "id": "Vegetable soups", "operation": "unlock", "amount": 1.0, "ownership": "shared_campaign" }
+      ],
+      "safeguards": [
+        "consume_the_silver_quality_pumpkin_from_the_dialogue_initiator_only",
+        "complete_the_shared_task_once",
+        "do_not_consume_one_pumpkin_per_observer"
+      ]
+    },
+    {
+      "stepId": "receive_gypsy_fish_request",
+      "title": "Ask the Gypsy Baron for a recipe and receive his fish request",
+      "linkedQuestIds": [],
+      "linkedTaskMilestoneIds": ["gypsy_fish_requested"],
+      "triggerScripts": ["npc_gypsy:gypsy_recipe_1"],
+      "triggerKeys": ["gypsy_recipe_1", "gypsy_fish", "@gypsy_recipe_done_1"],
+      "expectedEffects": [
+        { "kind": "dialogue_phrase", "id": "gypsy_recipe_1", "operation": "blacklist", "amount": 1.0, "ownership": "shared_campaign" },
+        { "kind": "npc_task", "id": "npc_gypsy:gypsy_fish", "operation": "show", "amount": 1.0, "ownership": "shared_campaign" },
+        { "kind": "dialogue_phrase", "id": "@gypsy_recipe_done_1", "operation": "unlock", "amount": 1.0, "ownership": "shared_campaign" }
+      ],
+      "safeguards": [
+        "run_the_recipe_request_once_for_all_observers",
+        "share_only_the_durable_task_and_phrase_state"
+      ]
+    },
+    {
+      "stepId": "give_gypsy_silver_red_fish_fillets",
+      "title": "Give the Gypsy Baron four silver-quality red fish fillets",
+      "linkedQuestIds": [],
+      "linkedTaskMilestoneIds": ["gypsy_fish_requested", "gypsy_fish_delivered"],
+      "triggerScripts": ["npc_gypsy:@gypsy_recipe_done_1"],
+      "triggerKeys": [
+        "@gypsy_recipe_done_1",
+        "fillet_fish:fillet_fish_red:2",
+        "gypsy_fish",
+        "Fish shish kebab"
+      ],
+      "expectedEffects": [
+        { "kind": "inventory_item", "id": "fillet_fish:fillet_fish_red:2", "operation": "consume_from_initiator", "amount": 4.0, "ownership": "personal_character" },
+        { "kind": "dialogue_phrase", "id": "@gypsy_recipe_done_1", "operation": "blacklist", "amount": 1.0, "ownership": "shared_campaign" },
+        { "kind": "npc_task", "id": "npc_gypsy:gypsy_fish", "operation": "complete", "amount": 1.0, "ownership": "shared_campaign" },
+        { "kind": "technology", "id": "Fish shish kebab", "operation": "unlock", "amount": 1.0, "ownership": "shared_campaign" }
+      ],
+      "safeguards": [
+        "consume_all_four_silver_quality_red_fillets_from_the_dialogue_initiator_only",
+        "complete_the_shared_task_once",
+        "do_not_consume_four_fillets_per_observer"
+      ]
+    },
+    {
+      "stepId": "meet_the_lighthouse_keeper",
+      "title": "Meet the Lighthouse Keeper and unlock his fishing topics",
+      "linkedQuestIds": [],
+      "linkedTaskMilestoneIds": ["lightkeeper_moths_requested"],
+      "triggerScripts": ["npc_light_keeper:intro"],
+      "triggerKeys": ["intro", "@light_keeper_recipe_1", "@light_keeper_rode_1"],
+      "expectedEffects": [
+        { "kind": "dialogue_phrase", "id": "@light_keeper_recipe_1", "operation": "unlock", "amount": 1.0, "ownership": "shared_campaign" },
+        { "kind": "dialogue_phrase", "id": "@light_keeper_rode_1", "operation": "unlock", "amount": 1.0, "ownership": "shared_campaign" }
+      ],
+      "safeguards": [
+        "run_one_authoritative_intro_dialogue_for_all_observers",
+        "the_recipe_topic_is_an_independent_one_shot_branch",
+        "never_reunlock_light_keeper_recipe_1_from_lightkeeper_moth_state"
+      ]
+    },
+    {
+      "stepId": "receive_lightkeeper_moth_request",
+      "title": "Ask the Lighthouse Keeper for a fishing rod",
+      "linkedQuestIds": [],
+      "linkedTaskMilestoneIds": ["lightkeeper_moths_requested"],
+      "triggerScripts": ["npc_light_keeper:@light_keeper_rode_1"],
+      "triggerKeys": [
+        "@light_keeper_rode_1",
+        "lightkeeper_moth",
+        "@light_keeper_rode_done_1"
+      ],
+      "expectedEffects": [
+        { "kind": "dialogue_phrase", "id": "@light_keeper_rode_1", "operation": "blacklist", "amount": 1.0, "ownership": "shared_campaign" },
+        { "kind": "dialogue_phrase", "id": "@light_keeper_rode_done_1", "operation": "unlock", "amount": 1.0, "ownership": "shared_campaign" },
+        { "kind": "npc_task", "id": "npc_light_keeper:lightkeeper_moth", "operation": "show", "amount": 1.0, "ownership": "shared_campaign" }
+      ],
+      "safeguards": [
+        "run_the_fishing_rod_request_once_for_all_observers",
+        "do_not_mutate_the_independent_recipe_topic"
+      ]
+    },
+    {
+      "stepId": "give_lightkeeper_six_moths",
+      "title": "Give the Lighthouse Keeper six moths and receive the first fishing rod",
+      "linkedQuestIds": [],
+      "linkedTaskMilestoneIds": [
+        "lightkeeper_moths_requested",
+        "lightkeeper_moths_delivered"
+      ],
+      "triggerScripts": ["npc_light_keeper:@light_keeper_rode_done_1"],
+      "triggerKeys": [
+        "@light_keeper_rode_done_1",
+        "moth",
+        "fishing_rod_0",
+        "lightkeeper_moth"
+      ],
+      "expectedEffects": [
+        { "kind": "inventory_item", "id": "moth", "operation": "consume_from_initiator", "amount": 6.0, "ownership": "personal_character" },
+        { "kind": "inventory_item", "id": "fishing_rod_0", "operation": "grant_to_initiator", "amount": 1.0, "ownership": "personal_character" },
+        { "kind": "dialogue_phrase", "id": "@light_keeper_rode_done_1", "operation": "blacklist", "amount": 1.0, "ownership": "shared_campaign" },
+        { "kind": "npc_task", "id": "npc_light_keeper:lightkeeper_moth", "operation": "complete", "amount": 1.0, "ownership": "shared_campaign" }
+      ],
+      "safeguards": [
+        "consume_six_moths_from_the_dialogue_initiator_only",
+        "grant_exactly_one_fishing_rod_0_to_the_dialogue_initiator",
+        "never_grant_a_rod_to_observers",
+        "never_regrant_the_unique_rod_from_completed_task_state"
+      ]
+    },
+    {
+      "stepId": "ask_astrologer_about_his_daughter",
+      "title": "Tell the Astrologer what the Gypsy Baron revealed about his daughter",
+      "linkedQuestIds": [],
+      "linkedTaskMilestoneIds": ["astrologer_daughter_search_started"],
+      "triggerScripts": ["npc_astrologer:@astrologer_charm"],
+      "triggerKeys": [
+        "@astrologer_charm",
+        "astrologer_baron",
+        "astrologer_daghter",
+        "@actress_father"
+      ],
+      "expectedEffects": [
+        { "kind": "dialogue_phrase", "id": "@astrologer_charm", "operation": "blacklist", "amount": 1.0, "ownership": "shared_campaign" },
+        { "kind": "npc_task", "id": "npc_astrologer:astrologer_baron", "operation": "complete", "amount": 1.0, "ownership": "shared_campaign" },
+        { "kind": "story_point", "id": "bronze", "operation": "grant_to_initiator", "amount": 3.0, "ownership": "personal_character" },
+        { "kind": "story_point", "id": "silver", "operation": "grant_to_initiator", "amount": 7.0, "ownership": "personal_character" },
+        { "kind": "npc_task", "id": "npc_astrologer:astrologer_daghter", "operation": "show", "amount": 1.0, "ownership": "shared_campaign" },
+        { "kind": "player_param", "id": "_rel_npc_astrologer", "operation": "add_once", "amount": 10.0, "ownership": "shared_campaign" },
+        { "kind": "dialogue_phrase", "id": "@actress_father", "operation": "unlock", "amount": 1.0, "ownership": "shared_campaign" }
+      ],
+      "safeguards": [
+        "complete_astrologer_baron_and_grant_its_story_points_once",
+        "story_points_go_to_the_dialogue_initiator_only",
+        "share_the_daughter_task_relation_and_followup_phrase",
+        "do_not_unlock_astrologer_charm_know_at_this_stage"
+      ]
+    },
+    {
+      "stepId": "ask_charm_about_the_astrologers_daughter",
+      "title": "Ask Charm whether the Astrologer is her father",
+      "linkedQuestIds": [],
+      "linkedTaskMilestoneIds": ["astrologer_daughter_search_started"],
+      "triggerScripts": ["npc_actress:@actress_father"],
+      "triggerKeys": ["@actress_father", "@astrologer_charm_no", "astrologer_daghter"],
+      "expectedEffects": [
+        { "kind": "dialogue_phrase", "id": "@actress_father", "operation": "blacklist", "amount": 1.0, "ownership": "shared_campaign" },
+        { "kind": "dialogue_phrase", "id": "@astrologer_charm_no", "operation": "unlock", "amount": 1.0, "ownership": "shared_campaign" }
+      ],
+      "safeguards": [
+        "run_one_authoritative_interview_for_all_observers",
+        "this_interview_does_not_change_astrologer_daghter_task_state",
+        "never_infer_or_replay_the_one_shot_interview_from_the_visible_task_alone"
+      ]
+    },
+    {
+      "stepId": "report_charm_answer_to_astrologer",
+      "title": "Return Charm's answer to the Astrologer",
+      "linkedQuestIds": [],
+      "linkedTaskMilestoneIds": [
+        "astrologer_daughter_search_started",
+        "astrologer_daughter_truth_returned"
+      ],
+      "triggerScripts": ["npc_astrologer:@astrologer_charm_no"],
+      "triggerKeys": [
+        "@astrologer_charm_no",
+        "astrologer_daghter",
+        "astrologer_help",
+        "@astrologer_charm_know"
+      ],
+      "expectedEffects": [
+        { "kind": "dialogue_phrase", "id": "@astrologer_charm_no", "operation": "blacklist", "amount": 1.0, "ownership": "shared_campaign" },
+        { "kind": "npc_task", "id": "npc_astrologer:astrologer_daghter", "operation": "complete", "amount": 1.0, "ownership": "shared_campaign" },
+        { "kind": "story_point", "id": "bronze", "operation": "grant_to_initiator", "amount": 3.0, "ownership": "personal_character" },
+        { "kind": "story_point", "id": "silver", "operation": "grant_to_initiator", "amount": 7.0, "ownership": "personal_character" },
+        { "kind": "npc_task", "id": "npc_astrologer:astrologer_help", "operation": "show", "amount": 1.0, "ownership": "shared_campaign" },
+        { "kind": "player_param", "id": "_rel_npc_astrologer", "operation": "add_once", "amount": 10.0, "ownership": "shared_campaign" }
+      ],
+      "safeguards": [
+        "complete_astrologer_daghter_and_grant_its_story_points_once",
+        "story_points_go_to_the_dialogue_initiator_only",
+        "show_astrologer_help_and_share_the_relation_gain",
+        "astrologer_charm_know_belongs_to_the_later_vagner_rescue_chain",
+        "never_unlock_or_replay_astrologer_charm_know_from_daughter_completion"
+      ]
+    },
+    {
+      "stepId": "meet_dig_and_receive_honey_request",
+      "title": "Meet Dig and receive his honey request",
+      "linkedQuestIds": [],
+      "linkedTaskMilestoneIds": ["dig_honey_requested"],
+      "triggerScripts": ["npc_dig:intro"],
+      "triggerKeys": ["intro", "dig_honey", "@dig_recipe_done_1"],
+      "expectedEffects": [
+        { "kind": "dialogue_phrase", "id": "@dig_recipe_done_1", "operation": "unlock", "amount": 1.0, "ownership": "shared_campaign" },
+        { "kind": "npc_task", "id": "npc_dig:dig_honey", "operation": "show", "amount": 1.0, "ownership": "shared_campaign" }
+      ],
+      "safeguards": [
+        "run_one_authoritative_intro_dialogue_for_all_observers",
+        "share_only_the_durable_task_and_handoff_phrase_state"
+      ]
+    },
+    {
+      "stepId": "give_dig_five_honey",
+      "title": "Give Dig five honey and learn desert cooking",
+      "linkedQuestIds": [],
+      "linkedTaskMilestoneIds": [
+        "dig_honey_requested",
+        "dig_honey_delivered"
+      ],
+      "triggerScripts": ["npc_dig:@dig_recipe_done_1"],
+      "triggerKeys": ["@dig_recipe_done_1", "honey", "dig_honey", "Desert"],
+      "expectedEffects": [
+        { "kind": "inventory_item", "id": "honey", "operation": "consume_from_initiator", "amount": 5.0, "ownership": "personal_character" },
+        { "kind": "dialogue_phrase", "id": "@dig_recipe_done_1", "operation": "blacklist", "amount": 1.0, "ownership": "shared_campaign" },
+        { "kind": "npc_task", "id": "npc_dig:dig_honey", "operation": "complete", "amount": 1.0, "ownership": "shared_campaign" },
+        { "kind": "technology", "id": "Desert", "operation": "unlock", "amount": 1.0, "ownership": "shared_campaign" }
+      ],
+      "safeguards": [
+        "consume_all_five_honey_from_the_dialogue_initiator_only",
+        "complete_the_shared_task_once",
+        "never_consume_honey_per_observer_or_from_completed_task_state"
+      ]
+    },
+    {
+      "stepId": "meet_wood_cutter_and_receive_axe_request",
+      "title": "Meet the Wood Cutter and receive his axe request",
+      "linkedQuestIds": [],
+      "linkedTaskMilestoneIds": ["wood_cutter_axe_requested"],
+      "triggerScripts": ["npc_wood_cutter:intro"],
+      "triggerKeys": ["intro", "logger_axe", "@logger_recipe_1"],
+      "expectedEffects": [
+        { "kind": "dialogue_phrase", "id": "@logger_recipe_1", "operation": "unlock", "amount": 1.0, "ownership": "shared_campaign" },
+        { "kind": "npc_task", "id": "npc_wood_cutter:logger_axe", "operation": "show", "amount": 1.0, "ownership": "shared_campaign" }
+      ],
+      "safeguards": [
+        "run_one_authoritative_intro_dialogue_for_all_observers",
+        "share_only_the_durable_task_and_handoff_phrase_state"
+      ]
+    },
+    {
+      "stepId": "give_wood_cutter_axe_1",
+      "title": "Give the Wood Cutter an axe and learn Italian cooking",
+      "linkedQuestIds": [],
+      "linkedTaskMilestoneIds": [
+        "wood_cutter_axe_requested",
+        "wood_cutter_axe_delivered"
+      ],
+      "triggerScripts": ["npc_wood_cutter:@logger_recipe_1"],
+      "triggerKeys": ["@logger_recipe_1", "axe_1", "logger_axe", "Italian kitchen"],
+      "expectedEffects": [
+        { "kind": "inventory_item", "id": "axe_1", "operation": "consume_from_initiator", "amount": 1.0, "ownership": "personal_character" },
+        { "kind": "dialogue_phrase", "id": "@logger_recipe_1", "operation": "blacklist", "amount": 1.0, "ownership": "shared_campaign" },
+        { "kind": "npc_task", "id": "npc_wood_cutter:logger_axe", "operation": "complete", "amount": 1.0, "ownership": "shared_campaign" },
+        { "kind": "technology", "id": "Italian kitchen", "operation": "unlock", "amount": 1.0, "ownership": "shared_campaign" }
+      ],
+      "safeguards": [
+        "consume_one_axe_1_from_the_dialogue_initiator_only",
+        "complete_the_shared_task_once",
+        "never_consume_an_axe_per_observer_or_from_completed_task_state"
+      ]
+    },
+    {
+      "stepId": "ask_gypsy_baron_about_esmeralda",
+      "title": "Ask the Gypsy Baron about Esmeralda and receive his request",
+      "linkedQuestIds": [],
+      "linkedTaskMilestoneIds": ["gypsy_baron_help_requested"],
+      "triggerScripts": ["npc_gypsy:@gypsy_esmeralda"],
+      "triggerKeys": [
+        "@gypsy_esmeralda",
+        "baron_help",
+        "@gypsy_esmeralda_again",
+        "@inquisitor_gypsy"
+      ],
+      "expectedEffects": [
+        { "kind": "dialogue_phrase", "id": "@gypsy_esmeralda", "operation": "blacklist", "amount": 1.0, "ownership": "shared_campaign" },
+        { "kind": "npc_task", "id": "npc_gypsy:baron_help", "operation": "show", "amount": 1.0, "ownership": "shared_campaign" },
+        { "kind": "dialogue_phrase", "id": "@gypsy_esmeralda_again", "operation": "unlock_only_during_live_dialogue", "amount": 1.0, "ownership": "shared_campaign" },
+        { "kind": "dialogue_phrase", "id": "@inquisitor_gypsy", "operation": "unlock", "amount": 1.0, "ownership": "shared_campaign" }
+      ],
+      "safeguards": [
+        "set_baron_help_visible_before_unlocking_both_followup_topics",
+        "repair_inquisitor_gypsy_while_the_task_is_visible_because_consuming_it_completes_the_task",
+        "never_rearm_gypsy_esmeralda_again_from_visible_baron_help_after_its_separate_branch_is_consumed"
+      ]
+    },
+    {
+      "stepId": "tell_inquisitor_about_gypsy_baron",
+      "title": "Ask the Inquisitor about the Gypsy Baron's request",
+      "linkedQuestIds": [],
+      "linkedTaskMilestoneIds": [
+        "gypsy_baron_help_requested",
+        "gypsy_baron_help_completed"
+      ],
+      "triggerScripts": ["npc_inquisitor:@inquisitor_gypsy"],
+      "triggerKeys": [
+        "@inquisitor_gypsy",
+        "_rel_npc_inquisitor",
+        "baron_help",
+        "@gypsy_inquisitor"
+      ],
+      "expectedEffects": [
+        { "kind": "dialogue_gate", "id": "_rel_npc_inquisitor", "operation": "require_minimum", "amount": 60.0, "ownership": "shared_campaign" },
+        { "kind": "dialogue_phrase", "id": "@inquisitor_gypsy", "operation": "blacklist", "amount": 1.0, "ownership": "shared_campaign" },
+        { "kind": "npc_task", "id": "npc_gypsy:baron_help", "operation": "complete", "amount": 1.0, "ownership": "shared_campaign" },
+        { "kind": "story_point", "id": "bronze", "operation": "grant_to_initiator", "amount": 7.0, "ownership": "personal_character" },
+        { "kind": "story_point", "id": "silver", "operation": "grant_to_initiator", "amount": 3.0, "ownership": "personal_character" },
+        { "kind": "dialogue_phrase", "id": "@gypsy_inquisitor", "operation": "unlock_only_during_live_dialogue", "amount": 1.0, "ownership": "shared_campaign" }
+      ],
+      "safeguards": [
+        "the_inquisitor_answer_is_locked_until_relation_60",
+        "complete_baron_help_and_grant_its_story_points_once",
+        "story_points_go_to_the_dialogue_initiator_only",
+        "never_regrant_story_points_or_rearm_gypsy_inquisitor_from_completed_task_state"
+      ]
+    },
+    {
+      "stepId": "report_inquisitor_answer_to_gypsy_baron",
+      "title": "Return the Inquisitor's answer to the Gypsy Baron",
+      "linkedQuestIds": [],
+      "linkedTaskMilestoneIds": ["gypsy_baron_help_completed"],
+      "triggerScripts": ["npc_gypsy:@gypsy_inquisitor"],
+      "triggerKeys": [
+        "@gypsy_inquisitor",
+        "_rel_npc_gypsy"
+      ],
+      "expectedEffects": [
+        { "kind": "dialogue_phrase", "id": "@gypsy_inquisitor", "operation": "blacklist", "amount": 1.0, "ownership": "shared_campaign" },
+        { "kind": "player_param", "id": "_rel_npc_gypsy", "operation": "add_once_from_live_answer_reward", "amount": 10.0, "ownership": "shared_campaign" }
+      ],
+      "safeguards": [
+        "apply_the_answer_reward_once_for_the_authoritative_dialogue",
+        "the_followup_does_not_change_baron_help_task_state",
+        "never_repair_or_replay_the_gypsy_relation_reward_from_completed_task_state"
+      ]
+    },
+    {
+      "stepId": "trade_frogs_with_mrs_chain",
+      "title": "Give Mrs Chain twelve green frogs for her favor",
+      "linkedQuestIds": [],
+      "linkedTaskMilestoneIds": ["charm_waiting_for_perfume"],
+      "triggerScripts": ["npc_mrs chain:@chain_frog"],
+      "triggerKeys": ["@chain_frog", "fish_frog_green", "_rel_npc_mrs chain"],
+      "expectedEffects": [
+        { "kind": "inventory_item", "id": "fish_frog_green", "operation": "consume_from_initiator", "amount": 12.0, "ownership": "personal_character" },
+        { "kind": "player_param", "id": "_rel_npc_mrs chain", "operation": "add_once_from_live_answer_reward", "amount": 10.0, "ownership": "shared_campaign" },
+        { "kind": "dialogue_phrase", "id": "@chain_frog", "operation": "blacklist", "amount": 1.0, "ownership": "shared_campaign" }
+      ],
+      "safeguards": [
+        "consume_all_twelve_green_frogs_from_the_dialogue_initiator_only",
+        "apply_the_relation_reward_once_for_the_authoritative_dialogue",
+        "never_replay_the_exchange_from_charm_waiting_for_perfume"
+      ]
+    },
+    {
+      "stepId": "learn_fish_recipes_from_lighthouse_keeper",
+      "title": "Ask the Lighthouse Keeper about cooking fish",
+      "linkedQuestIds": [],
+      "linkedTaskMilestoneIds": ["lightkeeper_moths_requested"],
+      "triggerScripts": ["npc_light_keeper:@light_keeper_recipe_1"],
+      "triggerKeys": ["@light_keeper_recipe_1", "Fish"],
+      "expectedEffects": [
+        { "kind": "dialogue_phrase", "id": "@light_keeper_recipe_1", "operation": "blacklist", "amount": 1.0, "ownership": "shared_campaign" },
+        { "kind": "technology", "id": "Fish", "operation": "unlock", "amount": 1.0, "ownership": "shared_campaign" }
+      ],
+      "safeguards": [
+        "run_one_authoritative_recipe_dialogue_for_all_observers",
+        "share_the_durable_technology_unlock",
+        "do_not_infer_or_replay_the_optional_topic_from_lightkeeper_moth_task_state"
+      ]
+    },
+    {
+      "stepId": "ask_gypsy_baron_about_esmeralda_again",
+      "title": "Ask the Gypsy Baron for more information about Esmeralda",
+      "linkedQuestIds": [],
+      "linkedTaskMilestoneIds": ["gypsy_baron_help_requested"],
+      "triggerScripts": ["npc_gypsy:@gypsy_esmeralda_again"],
+      "triggerKeys": ["@gypsy_esmeralda_again", "_rel_npc_gypsy", "@astrologer_charm"],
+      "expectedEffects": [
+        { "kind": "dialogue_gate", "id": "_rel_npc_gypsy", "operation": "require_minimum", "amount": 10.0, "ownership": "shared_campaign" },
+        { "kind": "dialogue_phrase", "id": "@gypsy_esmeralda_again", "operation": "blacklist", "amount": 1.0, "ownership": "shared_campaign" },
+        { "kind": "dialogue_phrase", "id": "@astrologer_charm", "operation": "unlock", "amount": 1.0, "ownership": "shared_campaign" }
+      ],
+      "safeguards": [
+        "the_followup_answer_is_locked_until_gypsy_relation_10",
+        "unlock_the_astrologer_lead_once_for_the_shared_campaign",
+        "never_rearm_the_consumed_gypsy_followup_from_baron_help_visibility"
+      ]
+    },
+    {
+      "stepId": "learn_french_cuisine_from_the_egg_seller",
+      "title": "Visit the Egg Seller for the first time and learn French cuisine",
+      "linkedQuestIds": ["get_out_from_house"],
+      "linkedTaskMilestoneIds": [],
+      "triggerScripts": ["egg_seller:first_use"],
+      "triggerKeys": [
+        "first_use",
+        "egg_seller_info",
+        "French cuisine",
+        "Trade",
+        "Leave"
+      ],
+      "expectedEffects": [
+        { "kind": "technology", "id": "French cuisine", "operation": "unlock_once_during_live_first_use", "amount": 1.0, "ownership": "shared_campaign" }
+      ],
+      "safeguards": [
+        "first_use_runs_the_info_box_and_technology_unlock_before_the_shared_vendor_menu",
+        "the_generic_interaction_event_opens_the_menu_without_unlocking_or_replaying_French_cuisine",
+        "exclude_the_refugee_tanner_answer_function_and_all_of_its_task_and_spawn_effects",
+        "get_out_from_house_is_only_the_truthful_outdoor_access_anchor_and_never_repairs_vendor_or_recipe_state",
+        "never_unlock_individual_French_cuisine_recipes_or_replay_the_info_box_from_later_trade_or_story_state"
+      ]
+    }
+  ]
+}

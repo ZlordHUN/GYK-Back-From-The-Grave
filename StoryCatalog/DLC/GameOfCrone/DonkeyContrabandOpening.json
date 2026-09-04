@@ -1,0 +1,1079 @@
+{
+  "schemaVersion": 5,
+  "catalogId": "dlc.game-of-crone.donkey-contraband-opening",
+  "campaign": "GameOfCrone",
+  "chapter": "DonkeyStrikeThroughFirstContrabandFulfillment",
+  "quests": [
+    {
+      "questId": "dlc_refugees_d1",
+      "title": "Serialized Donkey contraband-request achievement checkpoint",
+      "definitionKind": "AchievementDefinition",
+      "counter": 1,
+      "vanilla": {
+        "startTrigger": "",
+        "successTrigger": "1",
+        "failTrigger": "",
+        "startKeys": [
+          "dlc_refugees_d1"
+        ],
+        "questVisible": false,
+        "oneTimeQuest": false,
+        "startScript": "",
+        "successScript": "",
+        "failScript": "",
+        "arrowWgoCustomTag": "",
+        "arrowWgoObjectId": "",
+        "successRewards": [],
+        "failureRewards": []
+      },
+      "policy": {
+        "stateOwnership": "shared_campaign",
+        "eligibleInitiator": "any_player",
+        "livePresentationOwner": "initiating_player",
+        "observerQuestApplication": "durable_state_only",
+        "personalRewardDelivery": "party_exactly_once",
+        "observerSuccess": {
+          "globalScripts": [],
+          "playerParamRepairs": [],
+          "playerParamMinimums": [],
+          "taskStateMinimums": [],
+          "unlockedTechs": [],
+          "unlockedPhrases": [],
+          "blacklistedPhrases": [],
+          "unlockedCrafts": [],
+          "completedOneTimeCrafts": [],
+          "personalItemGrants": []
+        }
+      },
+      "completionChecks": []
+    }
+  ],
+  "taskMilestones": [
+    {
+      "milestoneId": "game_of_crone_donkey_contraband_box_requested",
+      "npcId": "donkey",
+      "taskId": "dlc_refugees_s_ev_d1_box",
+      "activeStates": [
+        "Visible"
+      ],
+      "playerParamRepairs": [],
+      "playerParamMinimums": [],
+      "taskStateMinimums": [
+        {
+          "npcId": "donkey",
+          "taskId": "dlc_refugees_s_ev_d1_cookbook",
+          "state": "Visible"
+        },
+        {
+          "npcId": "donkey",
+          "taskId": "dlc_refugees_s_ev_d1_5_apples",
+          "state": "Visible"
+        }
+      ],
+      "unlockedTechs": [],
+      "unlockedPhrases": [],
+      "blacklistedPhrases": [],
+      "unlockedCrafts": [],
+      "completedOneTimeCrafts": [],
+      "wgoParamMinimums": [
+        {
+          "objectId": "donkey",
+          "key": "is_d_1_started",
+          "value": 1
+        }
+      ],
+      "personalItemGrants": []
+    },
+    {
+      "milestoneId": "game_of_crone_donkey_receipt_books_requested",
+      "npcId": "donkey",
+      "taskId": "dlc_refugees_s_ev_d1_cookbook",
+      "activeStates": [
+        "Visible"
+      ],
+      "playerParamRepairs": [],
+      "playerParamMinimums": [],
+      "taskStateMinimums": [
+        {
+          "npcId": "donkey",
+          "taskId": "dlc_refugees_s_ev_d1_box",
+          "state": "Visible"
+        },
+        {
+          "npcId": "donkey",
+          "taskId": "dlc_refugees_s_ev_d1_5_apples",
+          "state": "Visible"
+        }
+      ],
+      "unlockedTechs": [],
+      "unlockedPhrases": [],
+      "blacklistedPhrases": [],
+      "unlockedCrafts": [],
+      "completedOneTimeCrafts": [],
+      "wgoParamMinimums": [
+        {
+          "objectId": "donkey",
+          "key": "is_d_1_started",
+          "value": 1
+        }
+      ],
+      "personalItemGrants": []
+    },
+    {
+      "milestoneId": "game_of_crone_donkey_apples_requested",
+      "npcId": "donkey",
+      "taskId": "dlc_refugees_s_ev_d1_5_apples",
+      "activeStates": [
+        "Visible"
+      ],
+      "playerParamRepairs": [],
+      "playerParamMinimums": [],
+      "taskStateMinimums": [
+        {
+          "npcId": "donkey",
+          "taskId": "dlc_refugees_s_ev_d1_box",
+          "state": "Visible"
+        },
+        {
+          "npcId": "donkey",
+          "taskId": "dlc_refugees_s_ev_d1_cookbook",
+          "state": "Visible"
+        }
+      ],
+      "unlockedTechs": [],
+      "unlockedPhrases": [],
+      "blacklistedPhrases": [],
+      "unlockedCrafts": [],
+      "completedOneTimeCrafts": [],
+      "wgoParamMinimums": [
+        {
+          "objectId": "donkey",
+          "key": "is_d_1_started",
+          "value": 1
+        }
+      ],
+      "personalItemGrants": []
+    },
+    {
+      "milestoneId": "game_of_crone_donkey_contraband_box_completed",
+      "npcId": "donkey",
+      "taskId": "dlc_refugees_s_ev_d1_box",
+      "activeStates": [
+        "Complete"
+      ],
+      "playerParamRepairs": [],
+      "playerParamMinimums": [],
+      "taskStateMinimums": [],
+      "unlockedTechs": [],
+      "unlockedPhrases": [],
+      "blacklistedPhrases": [],
+      "unlockedCrafts": [],
+      "completedOneTimeCrafts": [],
+      "wgoParamMinimums": [
+        {
+          "objectId": "donkey",
+          "key": "check_contraband_box",
+          "value": 1
+        }
+      ],
+      "personalItemGrants": []
+    },
+    {
+      "milestoneId": "game_of_crone_donkey_receipt_books_fulfilled",
+      "npcId": "donkey",
+      "taskId": "dlc_refugees_s_ev_d1_cookbook",
+      "activeStates": [
+        "Complete"
+      ],
+      "playerParamRepairs": [],
+      "playerParamMinimums": [],
+      "taskStateMinimums": [
+        {
+          "npcId": "donkey",
+          "taskId": "dlc_refugees_s_ev_d1_box",
+          "state": "Complete"
+        }
+      ],
+      "unlockedTechs": [],
+      "unlockedPhrases": [],
+      "blacklistedPhrases": [],
+      "unlockedCrafts": [],
+      "completedOneTimeCrafts": [],
+      "wgoParamMinimums": [],
+      "personalItemGrants": []
+    },
+    {
+      "milestoneId": "game_of_crone_donkey_apples_fulfilled",
+      "npcId": "donkey",
+      "taskId": "dlc_refugees_s_ev_d1_5_apples",
+      "activeStates": [
+        "Complete"
+      ],
+      "playerParamRepairs": [],
+      "playerParamMinimums": [],
+      "taskStateMinimums": [
+        {
+          "npcId": "donkey",
+          "taskId": "dlc_refugees_s_ev_d1_box",
+          "state": "Complete"
+        }
+      ],
+      "unlockedTechs": [],
+      "unlockedPhrases": [],
+      "blacklistedPhrases": [],
+      "unlockedCrafts": [],
+      "completedOneTimeCrafts": [],
+      "wgoParamMinimums": [],
+      "personalItemGrants": []
+    }
+  ],
+  "cutscenes": [
+    {
+      "cutsceneId": "game_of_crone_receive_donkeys_contraband_requests",
+      "linkedQuestIds": [
+        "dlc_refugees_d1"
+      ],
+      "triggerScripts": [
+        "gykmp_story_dispatch_game_of_crone_d1_arm",
+        "gykmp_story_dispatch_game_of_crone_d1_scene"
+      ],
+      "actors": [
+        "initiating_player",
+        "donkey",
+        "refugee_s22_trigger_zone",
+        "contraband_box"
+      ],
+      "observerPolicy": "all_loaded_party_members",
+      "lateJoinPolicy": "join_live_checkpoint_or_observe",
+      "remoteExecutionPolicy": "live_observation",
+      "executionOwnerPolicy": "lobby_host",
+      "dialogueOwnerPolicy": "initiating_player",
+      "formationPolicy": "initiator_with_observer_follow",
+      "cleanupRequirements": [
+        "arm_the_D1_visit_only_when_the_Refugees_DLC_is_available_Donkeys_strike_completed_is_at_least_two_and_is_d_1_started_is_zero_then_commit_the_shared_arm_before_setting_is_d_1_started_and_is_ready_to_unlock_d_1_or_firing_try_force_send",
+        "on_Donkeys_authoritative_cemetery_arrival_consume_is_ready_to_unlock_d_1_once_set_donkey_should_stop_in_d1_one_spawn_exactly_one_refugee_s22_trigger_zone_and_set_is_zone_d1_active_one_with_separate_spawn_and_armed_receipts",
+        "after_Donkeys_normal_body_drop_tail_set_donkey_ready_for_d1_one_instead_of_sending_him_home_and_preserve_the_sources_D1_before_s22_s30_d16_d17_stop_priority",
+        "allow_only_one_host_owned_E_N_or_W_zone_claim_when_is_zone_d1_active_and_donkey_ready_for_d1_are_both_one_and_persist_the_ingress_variant_and_initiating_peer_before_clearing_any_source_latch",
+        "clear_is_zone_d1_active_donkey_ready_for_d1_and_donkey_should_stop_in_d1_then_destroy_only_the_single_refugee_s22_trigger_zone_after_the_durable_scene_claim_so_an_interruption_cannot_erase_the_only_launch",
+        "bind_every_player_direction_move_camera_dialogue_and_enable_operation_to_the_claiming_remote_or_local_initiator_and_expose_only_live_observation_to_other_party_members",
+        "preserve_the_shared_directional_wrapper_pause_of_0_2_seconds_after_line_one_before_any_direction-specific_movement",
+        "for_E_face_the_initiator_toward_Donkey_present_line_one_then_move_at_speed_2_2_directly_to_gd_refugee_d1_player_E_and_by_GDGraph_to_gd_refugee_d1_player_before_the_core_scene",
+        "for_N_face_the_initiator_toward_Donkey_present_line_one_then_move_at_speed_2_2_directly_to_gd_refugee_s22_N_1_and_by_GDGraph_to_gd_refugee_d1_player_before_the_core_scene",
+        "for_W_face_the_initiator_toward_Donkey_present_line_one_then_move_at_speed_2_2_directly_to_gd_refugee_d1_player_before_the_core_scene",
+        "preserve_the_core_dialogue_lines_two_through_fourteen_then_move_the_initiator_at_speed_1_9_directly_to_gd_refugee_d1_player_2_and_present_lines_fifteen_through_twenty_seven",
+        "after_line_twenty_seven_fire_going_home_on_Donkey_and_run_the_one_second_InOut_fade_without_releasing_the_recorded_dialogue_owner",
+        "treat_try_force_send_and_going_home_as_engine-timer-scheduled_Flow_FireEvent_calls_whose_Out_does_not_wait_and_begin_the_core_refugee_ev_d1_with_the_null_camera_reset_before_line_two",
+        "at_fade_middle_spawn_or_reconcile_exactly_one_contraband_box_place_with_custom_tag_contraband_box_at_gd_contraband_box_and_journal_its_existence_independently_because_the_source_spawn_branch_never_joins_the_main_tail",
+        "after_fade_completion_show_the_box_cookbook_and_five_apples_tasks_in_exact_source_order_with_zero_bronze_silver_and_gold_story_rewards_but_treat_each_visible_task_as_an_early_prefix",
+        "set_get_items_d2_1_and_get_items_d2_2_to_one_only_on_the_canonical_Donkey_WGO_and_treat_both_as_consumable_box-seeding_latches_that_must_never_be_rearmed_from_a_persistent_task_milestone",
+        "record_shared_D1_achievement_eligibility_then_check_the_exact_dlc_refugees_d1_AchievementDefinition_once_in_the_authoritative_AchievementsSystem_and_reconcile_one_optional_platform_unlock_receipt_per_profile_outside_ordinary_QuestSync",
+        "preserve_the_source_order_that_re-enables_the_initiator_before_the_non-silent_book_of_receipts_reveal_and_record_reveal_entered_before_the_completed-one-time_write_and_GUI_open",
+        "resume_after_an_interrupted_or_dismissed_reveal_dialogue_without_reopening_it_indefinitely_then_unlock_book_of_receipts_book_of_receipts_2_d1_send_items_and_d2_send_items_in_order",
+        "keep_all_four_craft_unlocks_and_the_completed-one-time_recipe_marker_out_of_every_early_Visible_task_milestone_and_reconcile_them_only_as_phase-scoped_one-shot_transition_repairs_from_the_recorded_reveal_and_terminal_phases",
+        "commit_the_terminal_D1_opening_phase_only_after_the_box_spawn_tasks_Donkey_flags_achievement_receipts_reveal_callback_four_craft_unlocks_camera_and_control_cleanup_are_all_reconciled",
+        "do_not_infer_scene_completion_from_is_d_1_started_any_consumable_Donkey_latch_any_visible_task_the_achievement_check_or_the_early_completed-one-time_recipe_marker"
+      ]
+    },
+    {
+      "cutsceneId": "game_of_crone_complete_donkeys_contraband_box",
+      "linkedQuestIds": [
+        "dlc_refugees_d1"
+      ],
+      "triggerScripts": [
+        "gykmp_story_dispatch_game_of_crone_d1_box_build_completion"
+      ],
+      "actors": [
+        "initiating_player",
+        "donkey",
+        "contraband_box"
+      ],
+      "observerPolicy": "all_loaded_party_members",
+      "lateJoinPolicy": "join_live_checkpoint_or_observe",
+      "remoteExecutionPolicy": "live_observation",
+      "executionOwnerPolicy": "lobby_host",
+      "dialogueOwnerPolicy": "initiating_player",
+      "formationPolicy": "initiator_with_observer_follow",
+      "cleanupRequirements": [
+        "treat_contraband_box_place_as_an_HP-three_world_object_with_one_tool-action_enum-five_coefficient-one_and_no_material_CraftDefinition_then_resolve_it_to_contraband_box_before_on_contraband_box_build",
+        "accept_the_shared_box_build_completion_once_on_the_host_and_commit_the_build_receipt_before_completing_donkey_dlc_refugees_s_ev_d1_box",
+        "after_the_task_write_set_exactly_donkey_check_contraband_box_one_and_commit_the_terminal_build_phase_without_running_the_callback_once_per_observer",
+        "resolve_the_exact_canonical_Donkey_before_the_strict_source_write_and_reconcile_a_missing_actor_without_redirecting_the_param_to_the_builder_or_a_null_owner",
+        "treat_the_Complete_task_as_an_early_prefix_to_the_check_contraband_box_write_and_resume_the_unconditional_suffix_from_the_synthetic_build_receipt"
+      ]
+    },
+    {
+      "cutsceneId": "game_of_crone_fulfill_donkeys_first_contraband_requests",
+      "linkedQuestIds": [
+        "dlc_refugees_d1"
+      ],
+      "triggerScripts": [
+        "gykmp_story_dispatch_game_of_crone_d1_cookbook_deposit",
+        "gykmp_story_dispatch_game_of_crone_d1_apples_deposit",
+        "gykmp_story_dispatch_game_of_crone_d1_contraband_collection"
+      ],
+      "actors": [
+        "initiating_player",
+        "donkey",
+        "contraband_box"
+      ],
+      "observerPolicy": "all_loaded_party_members",
+      "lateJoinPolicy": "join_live_checkpoint_or_observe",
+      "remoteExecutionPolicy": "live_observation",
+      "executionOwnerPolicy": "lobby_host",
+      "dialogueOwnerPolicy": "initiating_player",
+      "formationPolicy": "initiator_with_observer_follow",
+      "cleanupRequirements": [
+        "allow_the_two_request_deposits_in_either_player_order_but_serialize_each_shared_contraband_box_inventory_transaction_and_record_the_initiating_interaction_plus_the_exact_AllFromFirst_source_inventory_selected_from_its_MultiInventory",
+        "for_the_cookbook_deposit_remove_exactly_one_book_of_receipts_from_the_initiating_player_interaction_MultiInventory_using_AllFromFirst_add_the_identical_output_to_wgo_payload_to_the_shared_box_complete_donkey_dlc_refugees_s_ev_d1_cookbook_then_remove_book_of_receipts_and_book_of_receipts_2_from_unlocked_crafts_in_source_order",
+        "for_the_apples_deposit_remove_exactly_five_fruit_apple_red_crop_from_the_initiating_player_interaction_MultiInventory_using_AllFromFirst_add_the_identical_output_to_wgo_payload_to_the_shared_box_then_complete_donkey_dlc_refugees_s_ev_d1_5_apples",
+        "preserve_each_auto_one-time_delivery_recipe_order_as_debit_needs_add_the_identical_output_to_wgo_payload_attach_the_end_callback_then_record_one-time_completion_without_joining_callback_execution_and_reconcile_each_callback_suffix_independently",
+        "after_each_successful_deposit_request_authoritative_Donkey_try_force_send_with_requested_delay_zero_through_Flow_FireEvent_unjoined_outer_0_03-second_timer_without_allowing_mechanically_local_donkey_on_scene_checks_to_spawn_or_route_a_second_Donkey",
+        "treat_each_Complete_request_task_as_deposit_evidence_only_and_never_as_proof_that_Donkey_removed_the_corresponding_box_payload_incremented_the_D3_counter_or_received_relation",
+        "on_each_authoritative_Donkey_box_check_process_the_cookbook_branch_before_the_apples_branch_when_both_are_ready_but_allow_either_branch_to_finish_independently_across_visits",
+        "for_the_cookbook_collection_commit_claimed_and_removed_subreceipts_around_exactly_one_book_of_receipts_then_clear_donkey_get_items_d2_1_set_transient_donkey_contraband_one_increment_the_D3_counter_once_run_any_threshold_timer_registration_and_only_then_apply_Donkey_relation_plus_ten_once",
+        "for_the_apples_collection_collapse_the_duplicate_serialized_Yes_edge_and_duplicate_contraband-box_WGO_value_links_to_one_logical_removal_commit_claimed_and_removed_subreceipts_around_exactly_five_fruit_apple_red_crop_then_clear_donkey_get_items_d2_2_set_transient_donkey_contraband_one_increment_the_D3_counter_once_run_any_threshold_timer_registration_and_only_then_apply_Donkey_relation_plus_ten_once",
+        "treat_donkey_contraband_as_a_transient_source_flag_set_by_each_successful_collection_and_cleared_only_by_npc_donkey_on_returned_home_never_as_a_task_milestone_minimum",
+        "journal_each_destructive_inventory_removal_flag_clear_counter_increment_and_additive_relation_delta_with_separate_per_bundle_subreceipts_so_recovery_converges_without_lost_items_double_removal_or_double_relation",
+        "derive_the_D3_threshold_only_from_the_two_distinct_counter-delta_receipts_and_never_minimum_repair_or_re-add_the_raw_additive_donkey_ev_d3_check_count",
+        "when_the_second_counter-delta_receipt_reaches_the_threshold_persist_one_host-authoritative_gameplay-time_remaining_delay_for_unlock_event_d3_at_plus_ten_simulated_seconds_and_one_delay_computed_once_from_GetSecondsToTheMidnight_for_try_force_send_then_register_both_before_the_second_bundle_relation_delta",
+        "treat_both_Flow_FireEvent_registrations_as_children_of_the_sources_unjoined_outer_0_03-second_timer_and_never_recompute_midnight_or_reset_either_remaining_delay_during_recovery",
+        "treat_npc_donkeys_Flow_RunScript_check_contraband_box_Out_as_immediate_and_never_join_the_arrival_continuation_to_collection_completion",
+        "commit_the_D1_fulfillment_terminal_phase_after_both_relation_and_counter_receipts_and_both_durable_timers_exist_but_before_delivering_unlock_event_d3",
+        "keep_Donkey_navigation_box_inventory_counter_relation_and_event_scheduling_host_authoritative_while_remote_players_retain_their_real_initiating_interaction_identity_selected_source_allocations_and_live_observation_and_treat_the_initiator_as_intent_owner_not_necessarily_the_owner_of_every_debited_item"
+      ]
+    }
+  ],
+  "storySteps": [
+    {
+      "stepId": "game_of_crone_arm_donkeys_first_contraband_visit",
+      "title": "Arm Donkey's first contraband visit after his strike",
+      "linkedQuestIds": [
+        "dlc_refugees_d1"
+      ],
+      "linkedTaskMilestoneIds": [],
+      "triggerScripts": [
+        "gykmp_story_dispatch_game_of_crone_d1_arm"
+      ],
+      "triggerKeys": [
+        "check_d_1_to_unlock",
+        "donkey_start",
+        "donkey_start:normal_route",
+        "npc_donkey:@donkey_oil",
+        "npc_donkey:donkey_strike_done_2",
+        "npc_donkey:try_force_send",
+        "npc_donkey:force_send",
+        "Refugees",
+        "strike_completed",
+        "is_d_1_started",
+        "is_ready_to_unlock_d_1",
+        "try_force_send",
+        "on_came_to_cemetery",
+        "donkey_should_stop_in_d1",
+        "refugee_s22_trigger_zone",
+        "refugee_s22_trigger_zone_spawn",
+        "is_zone_d1_active",
+        "drop_body",
+        "donkey_ready_for_d1",
+        "gykmp_story_phase_game_of_crone_d1_arm_claimed",
+        "gykmp_story_phase_game_of_crone_d1_arrival_armed",
+        "gykmp_story_phase_game_of_crone_d1_donkey_ready"
+      ],
+      "expectedEffects": [
+        {
+          "kind": "story_phase",
+          "id": "gykmp_story_phase_game_of_crone_d1_arm_claimed",
+          "operation": "commit_after_the_DLC_strike_and_not-started_guards_pass_before_any_Donkey_write_or_force-send_event",
+          "amount": 1,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "wgo_param",
+          "id": "donkey:is_d_1_started",
+          "operation": "set_one_once_as_the_persistent_source_guard_after_the_shared_arm_claim",
+          "amount": 1,
+          "ownership": "shared_world"
+        },
+        {
+          "kind": "wgo_param",
+          "id": "donkey:is_ready_to_unlock_d_1",
+          "operation": "arm_to_one_until_Donkeys_next_authoritative_cemetery_arrival_then_consume_to_zero",
+          "amount": 1,
+          "ownership": "shared_world"
+        },
+        {
+          "kind": "world_event",
+          "id": "donkey:try_force_send",
+          "operation": "fire_once_after_the_D1_start_and_ready_flags_are_durable",
+          "amount": 1,
+          "ownership": "shared_world"
+        },
+        {
+          "kind": "wgo_param",
+          "id": "donkey:donkey_should_stop_in_d1",
+          "operation": "set_one_on_arrival_until_the_directional_zone_claim_consumes_it",
+          "amount": 1,
+          "ownership": "shared_world"
+        },
+        {
+          "kind": "world_object",
+          "id": "refugee_s22_trigger_zone:refugee_s22_trigger_zone",
+          "operation": "spawn_exactly_once_at_the_source_D1_zone_point_on_Donkeys_arrival",
+          "amount": 1,
+          "ownership": "shared_world"
+        },
+        {
+          "kind": "wgo_param",
+          "id": "donkey:is_zone_d1_active",
+          "operation": "set_one_only_after_the_single_zone_spawn_and_hold_until_one_directional_claim",
+          "amount": 1,
+          "ownership": "shared_world"
+        },
+        {
+          "kind": "story_phase",
+          "id": "gykmp_story_phase_game_of_crone_d1_arrival_armed",
+          "operation": "commit_after_the_ready_latch_is_consumed_and_the_stop_zone_spawn_and_zone-active_writes_are_reconciled",
+          "amount": 1,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "wgo_param",
+          "id": "donkey:donkey_ready_for_d1",
+          "operation": "set_one_from_the_post-body-drop_D1_priority_branch_until_the_zone_claim_consumes_it",
+          "amount": 1,
+          "ownership": "shared_world"
+        },
+        {
+          "kind": "story_phase",
+          "id": "gykmp_story_phase_game_of_crone_d1_donkey_ready",
+          "operation": "commit_when_the_authoritative_Donkey_is_waiting_and_both_source_zone-entry_conditions_are_true",
+          "amount": 1,
+          "ownership": "shared_campaign"
+        }
+      ],
+      "safeguards": [
+        "require_the_exact_source_DLC_available_strike_completed_at_least_two_and_is_d_1_started_zero_conjunction_before_claiming_the_arm",
+        "persist_the_claim_before_is_d_1_started_so_recovery_can_finish_the_ready_flag_and_try_force_send_without_starting_a_second_D1_visit",
+        "treat_is_d_1_started_as_a_once-only_guard_not_as_proof_that_Donkey_arrived_the_zone_spawned_or_the_cutscene_finished",
+        "consume_is_ready_to_unlock_d_1_only_on_the_authoritative_cemetery_arrival_and_never_force_send_again_after_that_consumption",
+        "deduplicate_the_shared_zone_before_setting_is_zone_d1_active_and_repair_one_missing_spawn_from_the_arrival_phase_without_creating_two",
+        "retain_Donkey_at_the_cemetery_after_his_normal_body_drop_when_donkey_should_stop_in_d1_is_one_and_preserve_the_source_event_priority",
+        "accept_live_check_d_1_to_unlock_invocations_only_from_donkey_start_node_eleven_normal_route_npc_donkey_node_four_hundred_fifty_four_donkey_oil_node_five_hundred_sixty_donkey_strike_done_2_and_the_shared_node_six_hundred_eighty_eight_try_force_send_or_force_send_travel_path",
+        "exclude_the_serialized_donkey_start_node_one_hundred_thirteen_check_d_1_to_unlock_copy_as_unreachable_because_its_upstream_send_forced_donkey_Flow_ParamFlag_node_ninety_four_has_no_In_connection",
+        "do_not_put_is_ready_to_unlock_d_1_donkey_should_stop_in_d1_is_zone_d1_active_or_donkey_ready_for_d1_in_any_task_milestone_minimum_because_the_scene_consumes_them",
+        "do_not_begin_the_directional_scene_until_both_is_zone_d1_active_and_donkey_ready_for_d1_are_one"
+      ]
+    },
+    {
+      "stepId": "game_of_crone_receive_donkeys_contraband_requests",
+      "title": "Meet Donkey and receive his first contraband requests",
+      "linkedQuestIds": [
+        "dlc_refugees_d1"
+      ],
+      "linkedTaskMilestoneIds": [
+        "game_of_crone_donkey_contraband_box_requested",
+        "game_of_crone_donkey_receipt_books_requested",
+        "game_of_crone_donkey_apples_requested"
+      ],
+      "triggerScripts": [
+        "gykmp_story_dispatch_game_of_crone_d1_scene"
+      ],
+      "triggerKeys": [
+        "on_enter_gd_zone_s22_E",
+        "on_enter_gd_zone_s22_N",
+        "on_enter_gd_zone_s22_W",
+        "ev_d1_check_start",
+        "ev_d1_set_flags",
+        "refugee_ev_d1_E",
+        "refugee_ev_d1_N",
+        "refugee_ev_d1_W",
+        "refugee_ev_d1",
+        "gd_refugee_d1_player_E",
+        "gd_refugee_s22_N_1",
+        "gd_refugee_d1_player",
+        "gd_refugee_d1_player_2",
+        "refugee_d_1_1",
+        "refugee_d_1_2",
+        "refugee_d_1_27",
+        "going_home",
+        "gd_contraband_box",
+        "contraband_box_place",
+        "contraband_box",
+        "dlc_refugees_s_ev_d1_box",
+        "dlc_refugees_s_ev_d1_cookbook",
+        "dlc_refugees_s_ev_d1_5_apples",
+        "get_items_d2_1",
+        "get_items_d2_2",
+        "dlc_refugees_d1",
+        "book_of_receipts",
+        "book_of_receipts_2",
+        "d1_send_items",
+        "d2_send_items",
+        "gykmp_story_branch_game_of_crone_d1_ingress",
+        "gykmp_story_phase_game_of_crone_d1_scene_claimed",
+        "gykmp_story_phase_game_of_crone_d1_box_spawned",
+        "gykmp_story_achievement_eligibility_game_of_crone_d1",
+        "gykmp_story_achievement_game_of_crone_d1",
+        "gykmp_story_phase_game_of_crone_d1_recipe_reveal_entered",
+        "gykmp_story_phase_game_of_crone_d1_recipe_reveal_complete",
+        "gykmp_story_phase_game_of_crone_d1_opening_complete"
+      ],
+      "expectedEffects": [
+        {
+          "kind": "branch_dispatch_receipt",
+          "id": "gykmp_story_branch_game_of_crone_d1_ingress",
+          "operation": "persist_E_N_or_W_and_the_claiming_peer_before_dispatching_exactly_one_directional_wrapper",
+          "amount": 1,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "story_phase",
+          "id": "gykmp_story_phase_game_of_crone_d1_scene_claimed",
+          "operation": "commit_before_clearing_the_three_Donkey_latches_or_destroying_the_single_trigger_zone",
+          "amount": 1,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "wgo_param",
+          "id": "donkey:is_zone_d1_active",
+          "operation": "consume_to_zero_after_the_durable_directional_claim",
+          "amount": 0,
+          "ownership": "shared_world"
+        },
+        {
+          "kind": "wgo_param",
+          "id": "donkey:donkey_ready_for_d1",
+          "operation": "consume_to_zero_after_the_durable_directional_claim",
+          "amount": 0,
+          "ownership": "shared_world"
+        },
+        {
+          "kind": "wgo_param",
+          "id": "donkey:donkey_should_stop_in_d1",
+          "operation": "consume_to_zero_after_the_durable_directional_claim",
+          "amount": 0,
+          "ownership": "shared_world"
+        },
+        {
+          "kind": "world_object",
+          "id": "refugee_s22_trigger_zone",
+          "operation": "destroy_only_the_claimed_shared_trigger_after_the_D1_dispatch_is_durable",
+          "amount": 1,
+          "ownership": "shared_world"
+        },
+        {
+          "kind": "conditional_participant_route",
+          "id": "initiating_player:gykmp_story_branch_game_of_crone_d1_ingress",
+          "operation": "run_the_exact_E_N_or_W_speed_2_2_approach_then_converge_at_gd_refugee_d1_player",
+          "amount": 1,
+          "ownership": "initiating_player_transaction"
+        },
+        {
+          "kind": "dialogue_sequence",
+          "id": "refugee_d_1_1_through_27",
+          "operation": "present_the_twenty_seven_source_lines_once_to_the_recorded_dialogue_owner_with_Donkey",
+          "amount": 27,
+          "ownership": "live_presentation"
+        },
+        {
+          "kind": "participant_position_checkpoint",
+          "id": "initiating_player:gd_refugee_d1_player_2",
+          "operation": "move_at_speed_1_9_directly_after_line_fourteen_before_the_remaining_dialogue",
+          "amount": 1,
+          "ownership": "initiating_player_transaction"
+        },
+        {
+          "kind": "world_event",
+          "id": "donkey:going_home",
+          "operation": "fire_once_after_line_twenty_seven_before_the_final_fade",
+          "amount": 1,
+          "ownership": "shared_world"
+        },
+        {
+          "kind": "world_object",
+          "id": "contraband_box_place:contraband_box",
+          "operation": "spawn_or_reconcile_exactly_one_at_gd_contraband_box_from_the_unjoined_fade-middle_branch",
+          "amount": 1,
+          "ownership": "shared_world"
+        },
+        {
+          "kind": "story_phase",
+          "id": "gykmp_story_phase_game_of_crone_d1_box_spawned",
+          "operation": "commit_only_after_the_exact_shared_box_exists_independently_of_the_main_task_tail",
+          "amount": 1,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "npc_task",
+          "id": "donkey:dlc_refugees_s_ev_d1_box",
+          "operation": "set_Visible_first_after_fade_completion_with_zero_story_rewards",
+          "amount": 1,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "npc_task",
+          "id": "donkey:dlc_refugees_s_ev_d1_cookbook",
+          "operation": "set_Visible_second_after_fade_completion_with_zero_story_rewards",
+          "amount": 1,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "npc_task",
+          "id": "donkey:dlc_refugees_s_ev_d1_5_apples",
+          "operation": "set_Visible_third_after_fade_completion_with_zero_story_rewards",
+          "amount": 1,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "wgo_param",
+          "id": "donkey:get_items_d2_1",
+          "operation": "set_one_after_all_three_tasks_are_visible_for_the_source_contraband_box_delivery_path",
+          "amount": 1,
+          "ownership": "shared_world"
+        },
+        {
+          "kind": "wgo_param",
+          "id": "donkey:get_items_d2_2",
+          "operation": "set_one_after_get_items_d2_1_for_the_second_source_contraband_box_delivery_path",
+          "amount": 1,
+          "ownership": "shared_world"
+        },
+        {
+          "kind": "story_eligibility_receipt",
+          "id": "gykmp_story_achievement_eligibility_game_of_crone_d1",
+          "operation": "record_once_after_the_three_tasks_and_two_Donkey_delivery_latches_before_the_source_key_check",
+          "amount": 1,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "serialized_achievement_key",
+          "id": "dlc_refugees_d1",
+          "operation": "check_once_in_the_authoritative_campaign_AchievementsSystem_at_the_exact_source_checkpoint",
+          "amount": 1,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "platform_achievement_receipt",
+          "id": "gykmp_story_achievement_game_of_crone_d1",
+          "operation": "deliver_the_optional_platform_unlock_once_per_personal_profile_outside_ordinary_QuestSync",
+          "amount": 1,
+          "ownership": "personal_profile"
+        },
+        {
+          "kind": "story_phase",
+          "id": "gykmp_story_phase_game_of_crone_d1_recipe_reveal_entered",
+          "operation": "commit_after_control_returns_but_before_the_non-silent_reveal_adds_the_completed-one-time_marker_and_opens_its_GUI",
+          "amount": 1,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "craft",
+          "id": "book_of_receipts",
+          "operation": "reveal_non_silently_register_completed_one_time_once_then_unlock_after_the_reveal_callback",
+          "amount": 1,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "story_phase",
+          "id": "gykmp_story_phase_game_of_crone_d1_recipe_reveal_complete",
+          "operation": "commit_when_the_reveal_GUI_callback_has_returned_before_reconciling_the_remaining_craft-unlock_tail",
+          "amount": 1,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "craft",
+          "id": "book_of_receipts_2",
+          "operation": "unlock_after_book_of_receipts",
+          "amount": 1,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "craft",
+          "id": "d1_send_items",
+          "operation": "unlock_after_both_receipt-book_crafts",
+          "amount": 1,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "craft",
+          "id": "d2_send_items",
+          "operation": "unlock_last_in_the_source_tail",
+          "amount": 1,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "story_phase",
+          "id": "gykmp_story_phase_game_of_crone_d1_opening_complete",
+          "operation": "commit_after_the_independent_box_branch_and_the_tasks_flags_achievement_reveal_crafts_and_participant_cleanup_finish_the_opening",
+          "amount": 1,
+          "ownership": "shared_campaign"
+        }
+      ],
+      "safeguards": [
+        "claim_E_N_or_W_once_on_the_host_and_carry_the_original_zone_entrant_through_every_null_Player_Flow_GetPlayer_player-talk_camera_move_and_enable_operation",
+        "journal_the_scene_and_ingress_before_ev_d1_set_flags_clears_is_zone_d1_active_donkey_ready_for_d1_donkey_should_stop_in_d1_and_destroys_the_shared_trigger",
+        "resume_only_the_recorded_directional_wrapper_or_core_checkpoint_and_never_dispatch_multiple_ingress_variants_when_players_enter_overlapping_zones",
+        "do_not_treat_the_directional_RunScript_Out_as_child_completion_or_enable_any_player_between_the_wrapper_and_core_scene",
+        "reconcile_the_unjoined_contraband_box_spawn_separately_from_the_fade-finished_task_branch_and_never_spawn_one_per_observer",
+        "the_three_visible_tasks_are_ordered_prefixes_and_the_exact_AchievementDefinition_check_is_a_later_prefix_neither_proves_the_box_recipe_dialogue_or_four_craft_unlocks",
+        "keep_get_items_d2_1_and_get_items_d2_2_out_of_wgoParamMinimums_because_the_contraband_box_flow_consumes_them_after_the_opening",
+        "keep_every_task_milestone_craft_and_completed-one-time_array_empty_because_all_three_tasks_are_visible_before_the_achievement_control_restore_reveal_callback_and_unlock_tail",
+        "reconcile_book_of_receipts_book_of_receipts_2_d1_send_items_and_d2_send_items_only_as_phase-scoped_one-shot_transition_repairs_from_the_synthetic_reveal_and_terminal_receipts_never_as_permanent_minima",
+        "never_re-unlock_book_of_receipts_or_book_of_receipts_2_after_donkey_dlc_refugees_s_ev_d1_cookbook_is_Complete_because_on_event_d1_items_sent_intentionally_locks_both",
+        "deduplicate_the_book_of_receipts_completed_one_time_marker_before_the_source_reveal_appends_it_ahead_of_the_GUI_open_and_use_the_reveal-entered_and_reveal-complete_phases_to_resume_without_reopening_or_skipping_the_unlock_tail_but_never_use_that_marker_as_terminal_proof",
+        "keep_each_profiles_platform_achievement_receipt_separate_from_the_single_shared_campaign_eligibility_and_key_check",
+        "restore_the_initiators_camera_control_facing_cinematic_and_movement_baseline_on_completion_disconnect_cancellation_timeout_scene_change_or_recovery",
+        "hand_off_from_the_D1_opening_tail_to_the_separately_receipted_box_build_deposit_and_collection_steps_without_inferring_any_later_transaction_from_opening_state"
+      ]
+    },
+    {
+      "stepId": "game_of_crone_complete_donkeys_contraband_box",
+      "title": "Complete Donkey's contraband box",
+      "linkedQuestIds": [
+        "dlc_refugees_d1"
+      ],
+      "linkedTaskMilestoneIds": [
+        "game_of_crone_donkey_contraband_box_requested",
+        "game_of_crone_donkey_contraband_box_completed"
+      ],
+      "triggerScripts": [
+        "gykmp_story_dispatch_game_of_crone_d1_box_build_completion"
+      ],
+      "triggerKeys": [
+        "contraband_box_place",
+        "contraband_box",
+        "on_contraband_box_build",
+        "dlc_refugees_s_ev_d1_box",
+        "check_contraband_box",
+        "gykmp_story_transaction_game_of_crone_d1_box_build",
+        "gykmp_story_phase_game_of_crone_d1_box_build_complete"
+      ],
+      "expectedEffects": [
+        {
+          "kind": "world_object_construction",
+          "id": "contraband_box_place:contraband_box",
+          "operation": "complete_HP_three_with_one_tool-action_enum-five_coefficient-one_without_inventing_material_inputs_then_run_on_contraband_box_build",
+          "amount": 3,
+          "ownership": "shared_world"
+        },
+        {
+          "kind": "story_transaction",
+          "id": "gykmp_story_transaction_game_of_crone_d1_box_build",
+          "operation": "record_the_single_shared_build_completion_before_the_source_task_and_Donkey_param_writes",
+          "amount": 1,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "npc_task",
+          "id": "donkey:dlc_refugees_s_ev_d1_box",
+          "operation": "set_Complete_with_zero_story_rewards",
+          "amount": 1,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "wgo_param",
+          "id": "donkey:check_contraband_box",
+          "operation": "set_exactly_one_after_the_box_task_completion",
+          "amount": 1,
+          "ownership": "shared_world"
+        },
+        {
+          "kind": "story_phase",
+          "id": "gykmp_story_phase_game_of_crone_d1_box_build_complete",
+          "operation": "commit_after_the_task_and_canonical_Donkey_check_flag_are_converged",
+          "amount": 1,
+          "ownership": "shared_campaign"
+        }
+      ],
+      "safeguards": [
+        "run_the_build_callback_once_for_the_single_shared_contraband_box_not_once_per_player",
+        "resume_the_unconditional_Donkey_flag_suffix_when_a_crash_occurs_after_the_early_Complete_task",
+        "do_not_infer_either_request_deposit_or_collection_from_the_box_task"
+      ]
+    },
+    {
+      "stepId": "game_of_crone_deposit_donkeys_first_contraband_requests",
+      "title": "Deposit the cookbook and five red apples for Donkey",
+      "linkedQuestIds": [
+        "dlc_refugees_d1"
+      ],
+      "linkedTaskMilestoneIds": [
+        "game_of_crone_donkey_receipt_books_fulfilled",
+        "game_of_crone_donkey_apples_fulfilled"
+      ],
+      "triggerScripts": [
+        "gykmp_story_dispatch_game_of_crone_d1_cookbook_deposit",
+        "gykmp_story_dispatch_game_of_crone_d1_apples_deposit"
+      ],
+      "triggerKeys": [
+        "desk",
+        "desk_2",
+        "contraband_box",
+        "book_of_receipts",
+        "book_of_receipts_2",
+        "pen:ink_pen",
+        "paper_clean",
+        "bottle_red_vine",
+        "bottle_red_vine:1",
+        "bottle_red_vine:2",
+        "bottle_red_vine:3",
+        "fruit:apple_red_crop",
+        "d1_send_items",
+        "d2_send_items",
+        "on_event_d1_items_sent",
+        "on_event_d2_items_sent",
+        "try_donkey_force_come",
+        "try_force_send",
+        "gykmp_story_transaction_game_of_crone_d1_cookbook_deposit",
+        "gykmp_story_transaction_game_of_crone_d1_apples_deposit",
+        "gykmp_story_phase_game_of_crone_d1_deposits_complete"
+      ],
+      "expectedEffects": [
+        {
+          "kind": "craft_recipe",
+          "id": "book_of_receipts",
+          "operation": "craft_non-auto_non-one-time_at_desk_in_time_three_energy_ten_from_two_pen_ink_pen_ten_paper_clean_and_one_bottle_red_vine_of_exact_quality_one_two_or_three_into_one_book_of_receipts",
+          "amount": 1,
+          "ownership": "personal_character"
+        },
+        {
+          "kind": "craft_recipe",
+          "id": "book_of_receipts_2",
+          "operation": "craft_non-auto_non-one-time_at_desk_2_in_time_three_energy_ten_from_two_pen_ink_pen_ten_paper_clean_and_one_bottle_red_vine_of_exact_quality_one_two_or_three_into_one_book_of_receipts",
+          "amount": 1,
+          "ownership": "personal_character"
+        },
+        {
+          "kind": "story_transaction",
+          "id": "gykmp_story_transaction_game_of_crone_d1_cookbook_deposit",
+          "operation": "remove_one_book_of_receipts_from_the_initiating_interaction_MultiInventory_via_AllFromFirst_add_it_to_the_shared_contraband_box_attach_on_event_d1_items_sent_then_record_one-time_completion_without_waiting_and_reconcile_the_task-and-craft_callback_suffix_independently",
+          "amount": 1,
+          "ownership": "initiating_player_transaction"
+        },
+        {
+          "kind": "delivery_recipe",
+          "id": "d1_send_items",
+          "operation": "run_as_unlocked_auto_one-time_on_contraband_box_with_zero_time_zero_energy_empty_normal_output_one_book_of_receipts_output_to_wgo_and_on_event_d1_items_sent_callback",
+          "amount": 1,
+          "ownership": "initiating_player_transaction"
+        },
+        {
+          "kind": "npc_task",
+          "id": "donkey:dlc_refugees_s_ev_d1_cookbook",
+          "operation": "set_Complete_in_on_event_d1_items_sent_after_the_payload_has_been_added_to_the_box_with_zero_story_rewards",
+          "amount": 1,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "craft_unlock_removal",
+          "id": "book_of_receipts_book_of_receipts_2",
+          "operation": "remove_both_receipt-book_ids_from_unlocked_crafts_after_the_cookbook_task_completion_without_creating_an_irreversible_locked-crafts_invariant",
+          "amount": 2,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "story_transaction",
+          "id": "gykmp_story_transaction_game_of_crone_d1_apples_deposit",
+          "operation": "remove_exactly_five_fruit_apple_red_crop_from_the_initiating_interaction_MultiInventory_via_AllFromFirst_add_them_to_the_shared_contraband_box_attach_on_event_d2_items_sent_then_record_one-time_completion_without_waiting_and_reconcile_the_task_callback_suffix_independently",
+          "amount": 5,
+          "ownership": "initiating_player_transaction"
+        },
+        {
+          "kind": "delivery_recipe",
+          "id": "d2_send_items",
+          "operation": "run_as_unlocked_auto_one-time_on_contraband_box_with_zero_time_zero_energy_empty_normal_output_five_fruit_apple_red_crop_output_to_wgo_and_on_event_d2_items_sent_callback",
+          "amount": 1,
+          "ownership": "initiating_player_transaction"
+        },
+        {
+          "kind": "npc_task",
+          "id": "donkey:dlc_refugees_s_ev_d1_5_apples",
+          "operation": "set_Complete_in_on_event_d2_items_sent_after_the_payload_has_been_added_to_the_box_with_zero_story_rewards",
+          "amount": 1,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "world_event",
+          "id": "donkey:try_force_send",
+          "operation": "request_delay_zero_after_each_successful_deposit_then_register_the_authoritative_Donkey_event_through_Flow_FireEvent_unjoined_outer_0_03-second_timer_without_waiting_for_delivery",
+          "amount": 2,
+          "ownership": "shared_world"
+        },
+        {
+          "kind": "story_phase",
+          "id": "gykmp_story_phase_game_of_crone_d1_deposits_complete",
+          "operation": "commit_when_both_independent_deposit_transactions_and_task_callback_suffixes_are_converged",
+          "amount": 1,
+          "ownership": "shared_campaign"
+        }
+      ],
+      "safeguards": [
+        "either_player_may_initiate_either_payload_but_each_shared-box_deposit_must_atomically_record_the_exact_AllFromFirst_source_inventory_one_matching_debit_and_one_identical_box_credit",
+        "allow_AllFromFirst_to_select_player_bag_nearby_shared_or_zone_storage_from_the_interaction_MultiInventory_and_record_actual_source_allocations_instead_of_charging_only_the_initiators_personal_inventory",
+        "the_book_can_be_crafted_at_desk_or_desk_2_with_identical_inputs_but_only_one_book_is_deposited",
+        "do_not_reunlock_book_of_receipts_or_book_of_receipts_2_from_the_earlier_visible_task_after_the_cookbook_callback_locks_them",
+        "never_infer_callback_task_completion_or_craft-unlock_removal_from_the_delivery_recipes_one-time_marker_and_resume_each_attached_end-script_suffix_independently",
+        "do_not_treat_either_Complete_task_as_proof_of_box_collection_relation_or_D3_counter_progress"
+      ]
+    },
+    {
+      "stepId": "game_of_crone_complete_donkeys_first_contraband_collection",
+      "title": "Let Donkey collect both contraband deliveries and arm his first letter",
+      "linkedQuestIds": [
+        "dlc_refugees_d1"
+      ],
+      "linkedTaskMilestoneIds": [
+        "game_of_crone_donkey_contraband_box_completed",
+        "game_of_crone_donkey_receipt_books_fulfilled",
+        "game_of_crone_donkey_apples_fulfilled"
+      ],
+      "triggerScripts": [
+        "gykmp_story_dispatch_game_of_crone_d1_contraband_collection"
+      ],
+      "triggerKeys": [
+        "check_contraband_box",
+        "get_items_d2_1",
+        "get_items_d2_2",
+        "contraband",
+        "check_ev_d3_start",
+        "ev_d3_check_count",
+        "_rel_donkey",
+        "unlock_event_d3",
+        "GetSecondsToTheMidnight",
+        "try_donkey_force_come",
+        "try_force_send",
+        "npc_donkey:check_contraband_box",
+        "npc_donkey:on_returned_home",
+        "donkey_on_scene",
+        "going_to_cemetery",
+        "on_the_way_now",
+        "donkey_stays_at_cemetery",
+        "gykmp_story_transaction_game_of_crone_d1_cookbook_collection",
+        "gykmp_story_transaction_game_of_crone_d1_apples_collection",
+        "gykmp_story_relation_game_of_crone_donkey_d1_cookbook",
+        "gykmp_story_relation_game_of_crone_donkey_d1_apples",
+        "gykmp_story_counter_game_of_crone_d3_cookbook_collection",
+        "gykmp_story_counter_game_of_crone_d3_apples_collection",
+        "gykmp_story_phase_game_of_crone_d1_d3_threshold_reached",
+        "gykmp_story_timer_game_of_crone_d3_unlock",
+        "gykmp_story_timer_game_of_crone_d3_midnight_visit",
+        "gykmp_story_phase_game_of_crone_d1_fulfillment_complete"
+      ],
+      "expectedEffects": [
+        {
+          "kind": "story_transaction",
+          "id": "gykmp_story_transaction_game_of_crone_d1_cookbook_collection",
+          "operation": "claim_and_remove_exactly_one_book_of_receipts_then_clear_get_items_d2_1_set_contraband_one_invoke_check_ev_d3_start_and_apply_the_relation_suffix",
+          "amount": 1,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "wgo_param",
+          "id": "donkey:get_items_d2_1",
+          "operation": "set_exactly_zero_only_after_the_book_removal_is_durable",
+          "amount": 0,
+          "ownership": "shared_world"
+        },
+        {
+          "kind": "wgo_param_transition",
+          "id": "donkey:contraband",
+          "operation": "set_one_after_the_book_readiness_clear_until_npc_donkey_on_returned_home_consumes_it",
+          "amount": 1,
+          "ownership": "shared_world"
+        },
+        {
+          "kind": "counter_delta_receipt",
+          "id": "gykmp_story_counter_game_of_crone_d3_cookbook_collection",
+          "operation": "apply_exactly_one_source_increment_to_donkey_ev_d3_check_count_for_the_book_bundle_and_if_it_is_the_second_distinct_delta_register_both_D3_timers_before_returning",
+          "amount": 1,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "relationship_delta_receipt",
+          "id": "gykmp_story_relation_game_of_crone_donkey_d1_cookbook",
+          "operation": "apply_exactly_plus_ten_to_the_shared_player_param__rel_donkey_once_after_the_book_counter_macro_and_any_threshold_timer_registration_return",
+          "amount": 10,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "story_transaction",
+          "id": "gykmp_story_transaction_game_of_crone_d1_apples_collection",
+          "operation": "claim_and_remove_exactly_five_fruit_apple_red_crop_then_clear_get_items_d2_2_set_contraband_one_invoke_check_ev_d3_start_and_apply_the_relation_suffix",
+          "amount": 5,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "wgo_param",
+          "id": "donkey:get_items_d2_2",
+          "operation": "set_exactly_zero_only_after_the_apple_removal_is_durable",
+          "amount": 0,
+          "ownership": "shared_world"
+        },
+        {
+          "kind": "wgo_param_transition",
+          "id": "donkey:contraband",
+          "operation": "set_one_after_the_apple_readiness_clear_until_npc_donkey_on_returned_home_consumes_it",
+          "amount": 1,
+          "ownership": "shared_world"
+        },
+        {
+          "kind": "counter_delta_receipt",
+          "id": "gykmp_story_counter_game_of_crone_d3_apples_collection",
+          "operation": "apply_exactly_one_source_increment_to_donkey_ev_d3_check_count_for_the_apple_bundle_and_if_it_is_the_second_distinct_delta_register_both_D3_timers_before_returning",
+          "amount": 1,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "relationship_delta_receipt",
+          "id": "gykmp_story_relation_game_of_crone_donkey_d1_apples",
+          "operation": "apply_exactly_plus_ten_to_the_shared_player_param__rel_donkey_once_after_the_apple_counter_macro_and_any_threshold_timer_registration_return",
+          "amount": 10,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "story_phase",
+          "id": "gykmp_story_phase_game_of_crone_d1_d3_threshold_reached",
+          "operation": "derive_once_from_both_distinct_counter-delta_receipts_before_the_second_bundle_relation_delta_without_re-reading_the_raw_additive_counter",
+          "amount": 1,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "story_timer",
+          "id": "gykmp_story_timer_game_of_crone_d3_unlock",
+          "operation": "persist_the_host-authoritative_gameplay-time_remaining_delay_of_ten_simulated_seconds_at_the_second_counter_delta_then_register_donkey_unlock_event_d3_through_the_unjoined_outer_0_03-second_timer_before_the_second_relation_delta",
+          "amount": 1,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "story_timer",
+          "id": "gykmp_story_timer_game_of_crone_d3_midnight_visit",
+          "operation": "sample_GetSecondsToTheMidnight_once_at_the_second_counter_delta_persist_that_gameplay-time_remaining_delay_then_register_donkey_try_force_send_through_the_unjoined_outer_0_03-second_timer_before_the_second_relation_delta",
+          "amount": 1,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "world_event_cleanup",
+          "id": "npc_donkey:on_returned_home",
+          "operation": "clear_the_transient_donkey_contraband_flag_to_zero_on_the_authoritative_return-home_event_without_using_it_as_collection_evidence",
+          "amount": 0,
+          "ownership": "shared_world"
+        },
+        {
+          "kind": "story_phase",
+          "id": "gykmp_story_phase_game_of_crone_d1_fulfillment_complete",
+          "operation": "commit_after_both_collections_counter_deltas_relation_deltas_and_timers_are_durable_but_before_unlock_event_d3_delivery",
+          "amount": 1,
+          "ownership": "shared_campaign"
+        }
+      ],
+      "safeguards": [
+        "serialize_shared_box_claims_and_never_allow_one_stack_or_one_payload_to_satisfy_two_collection_receipts",
+        "collapse_both_the_duplicate_source_Yes_edge_and_duplicate_contraband-box_WGO_value_links_on_the_five-apple_branch_to_one_logical_remove_and_suffix",
+        "never_repair_donkey_ev_d3_check_count_or_Donkey_relationship_to_a_minimum_because_both_are_additive_and_the_raw_greater-than-two_path_reschedules_events",
+        "persist_host-authoritative_gameplay-time_remaining_delays_before_event_registration_so_pause_restart_and_recovery_preserve_the_same_simulation_countdown_without_converting_it_to_wall_clock_recomputing_midnight_or_resetting_ten_seconds",
+        "treat_npc_donkeys_Flow_RunScript_check_contraband_box_Out_as_immediate_and_the_outer_0_03-second_Flow_FireEvent_registration_path_as_unjoined_so_arrival_continuation_never_implies_collection_or_timer_completion",
+        "treat_donkey_on_scene_as_mechanically_local_source_state_only_and_route_one_canonical_Donkey_on_the_host",
+        "stop_before_delivering_unlock_event_d3_or_showing_dlc_refugees_d3_note_receive"
+      ]
+    }
+  ]
+}

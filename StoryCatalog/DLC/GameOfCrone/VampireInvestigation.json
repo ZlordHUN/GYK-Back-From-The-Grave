@@ -1,0 +1,1065 @@
+{
+  "schemaVersion": 5,
+  "catalogId": "dlc.game-of-crone.vampire-investigation",
+  "campaign": "GameOfCrone",
+  "chapter": "ShepherdAmbushThroughAlarichBloodRequest",
+  "quests": [
+    {
+      "questId": "dlc_refugees_s10",
+      "title": "Serialized Alarich night-following checkpoint",
+      "definitionKind": "AchievementDefinition",
+      "counter": 1,
+      "vanilla": {
+        "startTrigger": "",
+        "successTrigger": "1",
+        "failTrigger": "",
+        "startKeys": ["dlc_refugees_s10"],
+        "questVisible": false,
+        "oneTimeQuest": false,
+        "startScript": "",
+        "successScript": "",
+        "failScript": "",
+        "arrowWgoCustomTag": "",
+        "arrowWgoObjectId": "",
+        "successRewards": [],
+        "failureRewards": []
+      },
+      "policy": {
+        "stateOwnership": "shared_campaign",
+        "eligibleInitiator": "any_player",
+        "livePresentationOwner": "initiating_player",
+        "observerQuestApplication": "durable_state_only",
+        "personalRewardDelivery": "party_exactly_once",
+        "observerSuccess": {
+          "globalScripts": [],
+          "playerParamRepairs": [],
+          "playerParamMinimums": [],
+          "taskStateMinimums": [],
+          "unlockedTechs": [],
+          "unlockedPhrases": [],
+          "blacklistedPhrases": [],
+          "unlockedCrafts": [],
+          "completedOneTimeCrafts": [],
+          "personalItemGrants": []
+        }
+      },
+      "completionChecks": []
+    },
+    {
+      "questId": "dlc_refugees_s12",
+      "title": "Serialized Alarich disclosure checkpoint",
+      "definitionKind": "AchievementDefinition",
+      "counter": 1,
+      "vanilla": {
+        "startTrigger": "",
+        "successTrigger": "1",
+        "failTrigger": "",
+        "startKeys": ["dlc_refugees_s12"],
+        "questVisible": false,
+        "oneTimeQuest": false,
+        "startScript": "",
+        "successScript": "",
+        "failScript": "",
+        "arrowWgoCustomTag": "",
+        "arrowWgoObjectId": "",
+        "successRewards": [],
+        "failureRewards": []
+      },
+      "policy": {
+        "stateOwnership": "shared_campaign",
+        "eligibleInitiator": "any_player",
+        "livePresentationOwner": "initiating_player",
+        "observerQuestApplication": "durable_state_only",
+        "personalRewardDelivery": "party_exactly_once",
+        "observerSuccess": {
+          "globalScripts": [],
+          "playerParamRepairs": [],
+          "playerParamMinimums": [],
+          "taskStateMinimums": [],
+          "unlockedTechs": [],
+          "unlockedPhrases": [],
+          "blacklistedPhrases": [],
+          "unlockedCrafts": [],
+          "completedOneTimeCrafts": [],
+          "personalItemGrants": []
+        }
+      },
+      "completionChecks": []
+    }
+  ],
+  "taskMilestones": [
+    {
+      "milestoneId": "game_of_crone_vampire_witnesses_opened",
+      "npcId": "npc_mrs chain",
+      "taskId": "s_ev_6_chain_vampire",
+      "activeStates": ["Visible", "Complete"],
+      "playerParamRepairs": [
+        { "key": "s_ev_6_shepherd_waits", "value": 0.0 }
+      ],
+      "playerParamMinimums": [],
+      "taskStateMinimums": [
+        { "npcId": "npc_tavern owner", "taskId": "s_ev_5_find_the_vampire", "state": "Visible" },
+        { "npcId": "npc_farmers son", "taskId": "s_ev_6_fs_vampire", "state": "Visible" },
+        { "npcId": "npc_shepherds_wife", "taskId": "s_ev_6_rose_vampire", "state": "Visible" }
+      ],
+      "unlockedTechs": [],
+      "unlockedPhrases": [
+        "@refugees_s7_1",
+        "@refugees_s7_2",
+        "@refugees_s7_3"
+      ],
+      "blacklistedPhrases": [],
+      "unlockedCrafts": [],
+      "completedOneTimeCrafts": [],
+      "wgoParamMinimums": [],
+      "personalItemGrants": []
+    },
+    {
+      "milestoneId": "game_of_crone_chain_vampire_lead_completed",
+      "npcId": "npc_mrs chain",
+      "taskId": "s_ev_6_chain_vampire",
+      "activeStates": ["Complete"],
+      "playerParamRepairs": [],
+      "playerParamMinimums": [],
+      "taskStateMinimums": [
+        { "npcId": "npc_tavern owner", "taskId": "s_ev_7_1_say_sorry", "state": "Visible" }
+      ],
+      "unlockedTechs": [],
+      "unlockedPhrases": ["@refugees_s7_1_sorry"],
+      "blacklistedPhrases": ["@refugees_s7_1"],
+      "unlockedCrafts": [],
+      "completedOneTimeCrafts": [],
+      "wgoParamMinimums": [],
+      "personalItemGrants": []
+    },
+    {
+      "milestoneId": "game_of_crone_horadric_apology_completed",
+      "npcId": "npc_tavern owner",
+      "taskId": "s_ev_7_1_say_sorry",
+      "activeStates": ["Complete"],
+      "playerParamRepairs": [],
+      "playerParamMinimums": [],
+      "taskStateMinimums": [
+        { "npcId": "npc_mrs chain", "taskId": "s_ev_7_1_explanations", "state": "Visible" }
+      ],
+      "unlockedTechs": [],
+      "unlockedPhrases": ["@refugees_s7_1_explanations"],
+      "blacklistedPhrases": [
+        "@refugees_s7_1",
+        "@refugees_s7_1_sorry"
+      ],
+      "unlockedCrafts": [],
+      "completedOneTimeCrafts": [],
+      "wgoParamMinimums": [],
+      "personalItemGrants": []
+    },
+    {
+      "milestoneId": "game_of_crone_chain_explanation_completed",
+      "npcId": "npc_mrs chain",
+      "taskId": "s_ev_7_1_explanations",
+      "activeStates": ["Complete"],
+      "playerParamRepairs": [],
+      "playerParamMinimums": [],
+      "taskStateMinimums": [
+        { "npcId": "npc_astrologer", "taskId": "s_ev_7_1_astrologer", "state": "Visible" }
+      ],
+      "unlockedTechs": [],
+      "unlockedPhrases": ["@refugees_s_ev_7_1_1"],
+      "blacklistedPhrases": ["@refugees_s7_1_explanations"],
+      "unlockedCrafts": [],
+      "completedOneTimeCrafts": [],
+      "wgoParamMinimums": [],
+      "personalItemGrants": []
+    },
+    {
+      "milestoneId": "game_of_crone_astrologer_vampire_lead_completed",
+      "npcId": "npc_astrologer",
+      "taskId": "s_ev_7_1_astrologer",
+      "activeStates": ["Complete"],
+      "playerParamRepairs": [],
+      "playerParamMinimums": [],
+      "taskStateMinimums": [
+        { "npcId": "npc_mrs chain", "taskId": "s_ev_6_chain_vampire", "state": "Complete" },
+        { "npcId": "npc_tavern owner", "taskId": "s_ev_7_1_say_sorry", "state": "Complete" },
+        { "npcId": "npc_mrs chain", "taskId": "s_ev_7_1_explanations", "state": "Complete" }
+      ],
+      "unlockedTechs": [],
+      "unlockedPhrases": [],
+      "blacklistedPhrases": ["@refugees_s_ev_7_1_1"],
+      "unlockedCrafts": [],
+      "completedOneTimeCrafts": [],
+      "wgoParamMinimums": [],
+      "personalItemGrants": []
+    },
+    {
+      "milestoneId": "game_of_crone_farmer_son_vampire_lead_completed",
+      "npcId": "npc_farmers son",
+      "taskId": "s_ev_6_fs_vampire",
+      "activeStates": ["Complete"],
+      "playerParamRepairs": [],
+      "playerParamMinimums": [],
+      "taskStateMinimums": [],
+      "unlockedTechs": [],
+      "unlockedPhrases": [],
+      "blacklistedPhrases": ["@refugees_s7_2"],
+      "unlockedCrafts": [],
+      "completedOneTimeCrafts": [],
+      "wgoParamMinimums": [],
+      "personalItemGrants": []
+    },
+    {
+      "milestoneId": "game_of_crone_shepherd_wife_vampire_lead_completed",
+      "npcId": "npc_shepherds_wife",
+      "taskId": "s_ev_6_rose_vampire",
+      "activeStates": ["Complete"],
+      "playerParamRepairs": [],
+      "playerParamMinimums": [],
+      "taskStateMinimums": [],
+      "unlockedTechs": [],
+      "unlockedPhrases": [],
+      "blacklistedPhrases": ["@refugees_s7_3"],
+      "unlockedCrafts": [],
+      "completedOneTimeCrafts": [],
+      "wgoParamMinimums": [],
+      "personalItemGrants": []
+    },
+    {
+      "milestoneId": "game_of_crone_alarich_and_teodoro_reports_opened",
+      "npcId": "npc_marquis_teodoro_jr",
+      "taskId": "s_ev_8_teodoro",
+      "activeStates": ["Visible", "Complete"],
+      "playerParamRepairs": [],
+      "playerParamMinimums": [],
+      "taskStateMinimums": [
+        { "npcId": "npc_astrologer", "taskId": "s_ev_7_1_astrologer", "state": "Complete" },
+        { "npcId": "npc_farmers son", "taskId": "s_ev_6_fs_vampire", "state": "Complete" },
+        { "npcId": "npc_shepherds_wife", "taskId": "s_ev_6_rose_vampire", "state": "Complete" },
+        { "npcId": "npc_master_alarich", "taskId": "s_ev_8_alarich", "state": "Visible" }
+      ],
+      "unlockedTechs": [],
+      "unlockedPhrases": [
+        "@refugees_s9_1",
+        "@refugees_s9_2"
+      ],
+      "blacklistedPhrases": [
+        "@refugees_s7_1",
+        "@refugees_s7_1_sorry",
+        "@refugees_s7_1_explanations",
+        "@refugees_s_ev_7_1_1",
+        "@refugees_s7_2",
+        "@refugees_s7_3"
+      ],
+      "unlockedCrafts": [],
+      "completedOneTimeCrafts": [],
+      "wgoParamMinimums": [],
+      "personalItemGrants": []
+    },
+    {
+      "milestoneId": "game_of_crone_alarich_night_meeting_opened",
+      "npcId": "npc_master_alarich",
+      "taskId": "s_ev_9_2_night_wait",
+      "activeStates": ["Visible"],
+      "playerParamRepairs": [],
+      "playerParamMinimums": [],
+      "taskStateMinimums": [
+        { "npcId": "npc_marquis_teodoro_jr", "taskId": "s_ev_8_teodoro", "state": "Visible" },
+        { "npcId": "npc_master_alarich", "taskId": "s_ev_8_alarich", "state": "Complete" }
+      ],
+      "unlockedTechs": [],
+      "unlockedPhrases": ["@refugees_s9_1"],
+      "blacklistedPhrases": ["@refugees_s9_2"],
+      "unlockedCrafts": [],
+      "completedOneTimeCrafts": [],
+      "wgoParamMinimums": [],
+      "personalItemGrants": []
+    },
+    {
+      "milestoneId": "game_of_crone_alarich_night_meeting_completed",
+      "npcId": "npc_master_alarich",
+      "taskId": "s_ev_9_2_night_wait",
+      "activeStates": ["Complete"],
+      "playerParamRepairs": [
+        { "key": "s_10_need_wait_alarich", "value": 0.0 }
+      ],
+      "playerParamMinimums": [],
+      "taskStateMinimums": [
+        { "npcId": "npc_marquis_teodoro_jr", "taskId": "s_ev_8_teodoro", "state": "Complete" },
+        { "npcId": "npc_master_alarich", "taskId": "s_ev_8_alarich", "state": "Complete" }
+      ],
+      "unlockedTechs": [],
+      "unlockedPhrases": [],
+      "blacklistedPhrases": [
+        "@refugees_s9_1",
+        "@refugees_s9_2"
+      ],
+      "unlockedCrafts": [],
+      "completedOneTimeCrafts": [],
+      "wgoParamMinimums": [],
+      "personalItemGrants": []
+    },
+    {
+      "milestoneId": "game_of_crone_alarich_details_opened",
+      "npcId": "npc_master_alarich",
+      "taskId": "s_ev_12_details",
+      "activeStates": ["Visible", "Complete"],
+      "playerParamRepairs": [],
+      "playerParamMinimums": [],
+      "taskStateMinimums": [
+        { "npcId": "npc_master_alarich", "taskId": "s_ev_9_2_night_wait", "state": "Complete" }
+      ],
+      "unlockedTechs": [],
+      "unlockedPhrases": [
+        "@refugees_s12_q1_1",
+        "@refugees_s12_q2_1",
+        "@refugees_s12_q4_1",
+        "@refugees_s12_q6_1"
+      ],
+      "blacklistedPhrases": [],
+      "unlockedCrafts": [],
+      "completedOneTimeCrafts": [],
+      "wgoParamMinimums": [],
+      "personalItemGrants": []
+    },
+    {
+      "milestoneId": "game_of_crone_alarich_details_completed",
+      "npcId": "npc_master_alarich",
+      "taskId": "s_ev_12_details",
+      "activeStates": ["Complete"],
+      "playerParamRepairs": [],
+      "playerParamMinimums": [],
+      "taskStateMinimums": [],
+      "unlockedTechs": [],
+      "unlockedPhrases": [
+        "@refugees_s12_q8_1",
+        "@refugees_s12_q9_1"
+      ],
+      "blacklistedPhrases": [
+        "@refugees_s12_q2_1",
+        "@refugees_s12_q3_1",
+        "@refugees_s12_q6_1",
+        "@refugees_s12_q7_1"
+      ],
+      "unlockedCrafts": [],
+      "completedOneTimeCrafts": [],
+      "wgoParamMinimums": [
+        { "objectId": "npc_master_alarich", "key": "s12_q8_unlocked", "value": 1.0 },
+        { "objectId": "npc_master_alarich", "key": "s12_q9_count", "value": 2.0 }
+      ],
+      "personalItemGrants": []
+    },
+    {
+      "milestoneId": "game_of_crone_alarich_blood_requested",
+      "npcId": "npc_master_alarich",
+      "taskId": "s_ev_12_bring_blood",
+      "activeStates": ["Visible"],
+      "playerParamRepairs": [],
+      "playerParamMinimums": [],
+      "taskStateMinimums": [
+        { "npcId": "npc_master_alarich", "taskId": "s_ev_12_details", "state": "Complete" }
+      ],
+      "unlockedTechs": [],
+      "unlockedPhrases": [
+        "@refugees_s13_1",
+        "@refugees_s13_1_bucket"
+      ],
+      "blacklistedPhrases": ["@refugees_s12_q9_1"],
+      "unlockedCrafts": [],
+      "completedOneTimeCrafts": [],
+      "wgoParamMinimums": [
+        { "objectId": "npc_master_alarich", "key": "multianswer_type", "value": 1.0 }
+      ],
+      "personalItemGrants": []
+    },
+    {
+      "milestoneId": "game_of_crone_alarich_scroll_allocation_received",
+      "npcId": "npc_master_alarich",
+      "taskId": "s_ev_12_bring_blood",
+      "activeStates": ["Visible", "Complete"],
+      "playerParamRepairs": [],
+      "playerParamMinimums": [],
+      "taskStateMinimums": [
+        { "npcId": "npc_master_alarich", "taskId": "s_ev_12_details", "state": "Complete" }
+      ],
+      "unlockedTechs": [],
+      "unlockedPhrases": [],
+      "blacklistedPhrases": ["@refugees_s12_q9_1"],
+      "unlockedCrafts": [],
+      "completedOneTimeCrafts": [],
+      "wgoParamMinimums": [],
+      "personalItemGrants": [
+        {
+          "itemId": "teleport_scroll",
+          "count": 3,
+          "receiptId": "gykmp_story_grant_game_of_crone_alarich_teleport_scrolls"
+        }
+      ]
+    }
+  ],
+  "cutscenes": [
+    {
+      "cutsceneId": "game_of_crone_shepherd_garlic_ambush",
+      "linkedQuestIds": ["dlc_refugees_s10"],
+      "triggerScripts": [
+        "refugee_ev_s6_NE",
+        "refugee_ev_s6_NW",
+        "refugee_ev_s6_SE",
+        "refugee_ev_s6_SW",
+        "refugee_ev_s6_main_part"
+      ],
+      "actors": [
+        "initiating_player",
+        "npc_shepherd_s6",
+        "npc_shepherd"
+      ],
+      "observerPolicy": "all_loaded_party_members",
+      "lateJoinPolicy": "join_live_checkpoint_or_observe",
+      "remoteExecutionPolicy": "live_observation",
+      "executionOwnerPolicy": "any_player",
+      "dialogueOwnerPolicy": "initiating_player",
+      "formationPolicy": "initiator_with_observer_follow",
+      "cleanupRequirements": [
+        "consume_s_ev_6_shepherd_waits_before_running_exactly_one_directional_approach",
+        "preserve_the_NE_NW_SE_or_SW_entry_route_and_set_only_its_matching_side_flag",
+        "temporarily_expand_only_the_initiators_inventory_from_20_to_21_slots",
+        "drop_and_consume_two_temporary_garlic_bunches_for_the_initiator_without_party_grants",
+        "show_the_vampire_search_and_three_witness_tasks_after_refugees_s6_28",
+        "unlock_refugees_s7_1_refugees_s7_2_and_refugees_s7_3_once",
+        "destroy_only_npc_shepherd_s6_and_restore_the_inventory_to_20_slots",
+        "restore_camera_music_animation_and_player_control_on_every_exit"
+      ]
+    },
+    {
+      "cutsceneId": "game_of_crone_chain_vampire_accusation",
+      "linkedQuestIds": ["dlc_refugees_s10"],
+      "triggerScripts": ["npc_mrs chain:@refugees_s7_1"],
+      "actors": ["initiating_player", "npc_mrs chain"],
+      "observerPolicy": "all_loaded_party_members",
+      "lateJoinPolicy": "join_live_checkpoint_or_observe",
+      "remoteExecutionPolicy": "live_observation",
+      "executionOwnerPolicy": "any_player",
+      "dialogueOwnerPolicy": "initiating_player",
+      "formationPolicy": "initiator_with_observer_follow",
+      "cleanupRequirements": [
+        "blacklist_refugees_s7_1_and_complete_s_ev_6_chain_vampire_before_dialogue",
+        "present_refugees_s7_1_1_through_refugees_s7_1_3_once",
+        "show_npc_tavern_owner_s_ev_7_1_say_sorry_then_unlock_refugees_s7_1_sorry",
+        "return_control_without_advancing_the_other_two_witnesses"
+      ]
+    },
+    {
+      "cutsceneId": "game_of_crone_horadric_apology",
+      "linkedQuestIds": ["dlc_refugees_s10"],
+      "triggerScripts": ["npc_tavern owner:@refugees_s7_1_sorry"],
+      "actors": ["initiating_player", "npc_tavern owner"],
+      "observerPolicy": "all_loaded_party_members",
+      "lateJoinPolicy": "join_live_checkpoint_or_observe",
+      "remoteExecutionPolicy": "live_observation",
+      "executionOwnerPolicy": "any_player",
+      "dialogueOwnerPolicy": "initiating_player",
+      "formationPolicy": "initiator_with_observer_follow",
+      "cleanupRequirements": [
+        "complete_s_ev_7_1_say_sorry_then_blacklist_refugees_s7_1_sorry",
+        "present_refugees_s7_1_sorry_1_through_refugees_s7_1_sorry_7_once",
+        "show_npc_mrs_chain_s_ev_7_1_explanations_then_unlock_refugees_s7_1_explanations",
+        "return_to_normal_Horadric_interaction"
+      ]
+    },
+    {
+      "cutsceneId": "game_of_crone_chain_vampire_explanation",
+      "linkedQuestIds": ["dlc_refugees_s10"],
+      "triggerScripts": ["npc_mrs chain:@refugees_s7_1_explanations"],
+      "actors": ["initiating_player", "npc_mrs chain"],
+      "observerPolicy": "all_loaded_party_members",
+      "lateJoinPolicy": "join_live_checkpoint_or_observe",
+      "remoteExecutionPolicy": "live_observation",
+      "executionOwnerPolicy": "any_player",
+      "dialogueOwnerPolicy": "initiating_player",
+      "formationPolicy": "initiator_with_observer_follow",
+      "cleanupRequirements": [
+        "blacklist_refugees_s7_1_explanations_and_complete_its_task_before_dialogue",
+        "present_refugees_s7_1_explanations_1_through_refugees_s7_1_explanations_9_once",
+        "show_npc_astrologer_s_ev_7_1_astrologer_then_unlock_refugees_s_ev_7_1_1",
+        "return_control_without_incrementing_s8_start_param_yet"
+      ]
+    },
+    {
+      "cutsceneId": "game_of_crone_astrologer_vampire_account",
+      "linkedQuestIds": ["dlc_refugees_s10"],
+      "triggerScripts": ["npc_astrologer:@refugees_s_ev_7_1_1"],
+      "actors": ["initiating_player", "npc_astrologer"],
+      "observerPolicy": "all_loaded_party_members",
+      "lateJoinPolicy": "join_live_checkpoint_or_observe",
+      "remoteExecutionPolicy": "live_observation",
+      "executionOwnerPolicy": "any_player",
+      "dialogueOwnerPolicy": "initiating_player",
+      "formationPolicy": "initiator_with_observer_follow",
+      "cleanupRequirements": [
+        "blacklist_refugees_s_ev_7_1_1_and_complete_s_ev_7_1_astrologer_before_dialogue",
+        "present_refugees_s_ev_7_1_1_1_through_refugees_s_ev_7_1_1_9_once",
+        "increment_s8_start_param_once_through_ev_s8_check_start",
+        "run_refugee_ev_s8_only_when_the_shared_counter_reaches_three",
+        "never_replay_the_other_witness_dialogues_to_reconstruct_the_counter"
+      ]
+    },
+    {
+      "cutsceneId": "game_of_crone_farmer_son_vampire_account",
+      "linkedQuestIds": ["dlc_refugees_s10"],
+      "triggerScripts": ["npc_farmers son:@refugees_s7_2"],
+      "actors": ["initiating_player", "npc_farmers son"],
+      "observerPolicy": "all_loaded_party_members",
+      "lateJoinPolicy": "join_live_checkpoint_or_observe",
+      "remoteExecutionPolicy": "live_observation",
+      "executionOwnerPolicy": "any_player",
+      "dialogueOwnerPolicy": "initiating_player",
+      "formationPolicy": "initiator_with_observer_follow",
+      "cleanupRequirements": [
+        "blacklist_refugees_s7_2_and_complete_s_ev_6_fs_vampire_before_dialogue",
+        "present_refugees_s7_2_1_through_refugees_s7_2_12_once",
+        "increment_s8_start_param_once_through_ev_s8_check_start",
+        "run_refugee_ev_s8_only_when_the_shared_counter_reaches_three"
+      ]
+    },
+    {
+      "cutsceneId": "game_of_crone_shepherd_wife_vampire_account",
+      "linkedQuestIds": ["dlc_refugees_s10"],
+      "triggerScripts": ["npc_shepherds_wife:@refugees_s7_3"],
+      "actors": ["initiating_player", "npc_shepherds_wife"],
+      "observerPolicy": "all_loaded_party_members",
+      "lateJoinPolicy": "join_live_checkpoint_or_observe",
+      "remoteExecutionPolicy": "live_observation",
+      "executionOwnerPolicy": "any_player",
+      "dialogueOwnerPolicy": "initiating_player",
+      "formationPolicy": "initiator_with_observer_follow",
+      "cleanupRequirements": [
+        "blacklist_refugees_s7_3_and_complete_s_ev_6_rose_vampire_before_dialogue",
+        "present_refugees_s7_3_1_through_refugees_s7_3_13_with_the_flush_animation",
+        "play_the_sinister_sound_once",
+        "increment_s8_start_param_once_through_ev_s8_check_start",
+        "run_refugee_ev_s8_only_when_the_shared_counter_reaches_three",
+        "restore_player_control"
+      ]
+    },
+    {
+      "cutsceneId": "game_of_crone_compare_vampire_witnesses",
+      "linkedQuestIds": ["dlc_refugees_s10"],
+      "triggerScripts": ["refugee_ev_s8"],
+      "actors": ["initiating_player", "npc_master_alarich"],
+      "observerPolicy": "all_loaded_party_members",
+      "lateJoinPolicy": "join_live_checkpoint_or_observe",
+      "remoteExecutionPolicy": "live_observation",
+      "executionOwnerPolicy": "any_player",
+      "dialogueOwnerPolicy": "initiating_player",
+      "formationPolicy": "initiator_with_observer_follow",
+      "cleanupRequirements": [
+        "run_only_after_s8_start_param_reaches_three",
+        "present_refugees_s8_1_through_refugees_s8_8_as_the_initiators_thoughts",
+        "show_s_ev_8_teodoro_and_s_ev_8_alarich_once",
+        "unlock_refugees_s9_1_and_refugees_s9_2_once",
+        "clear_is_before_disclosure_only_on_the_canonical_Alarich_WGO",
+        "restore_player_control"
+      ]
+    },
+    {
+      "cutsceneId": "game_of_crone_teodoro_vampire_report",
+      "linkedQuestIds": ["dlc_refugees_s10"],
+      "triggerScripts": ["npc_marquis_teodoro_jr:@refugees_s9_1"],
+      "actors": ["initiating_player", "npc_marquis_teodoro_jr"],
+      "observerPolicy": "all_loaded_party_members",
+      "lateJoinPolicy": "join_live_checkpoint_or_observe",
+      "remoteExecutionPolicy": "live_observation",
+      "executionOwnerPolicy": "any_player",
+      "dialogueOwnerPolicy": "initiating_player",
+      "formationPolicy": "initiator_with_observer_follow",
+      "cleanupRequirements": [
+        "blacklist_refugees_s9_1_and_complete_s_ev_8_teodoro_before_dialogue",
+        "present_refugees_s9_1_1_through_refugees_s9_1_8_once",
+        "return_to_normal_Teodoro_interaction_without_arming_the_night_gate"
+      ]
+    },
+    {
+      "cutsceneId": "game_of_crone_alarich_vampire_report",
+      "linkedQuestIds": ["dlc_refugees_s10"],
+      "triggerScripts": ["npc_master_alarich:@refugees_s9_2"],
+      "actors": ["initiating_player", "npc_master_alarich"],
+      "observerPolicy": "all_loaded_party_members",
+      "lateJoinPolicy": "join_live_checkpoint_or_observe",
+      "remoteExecutionPolicy": "live_observation",
+      "executionOwnerPolicy": "any_player",
+      "dialogueOwnerPolicy": "initiating_player",
+      "formationPolicy": "initiator_with_observer_follow",
+      "cleanupRequirements": [
+        "blacklist_refugees_s9_2_and_complete_s_ev_8_alarich_before_dialogue",
+        "present_refugees_s9_2_1_through_refugees_s9_2_21_once",
+        "show_s_ev_9_2_night_wait_before_arming_s_10_need_wait_alarich",
+        "treat_s_10_need_wait_alarich_as_a_consumed_live_night_trigger_and_never_repair_it_from_visible_task_state",
+        "restore_player_control"
+      ]
+    },
+    {
+      "cutsceneId": "game_of_crone_follow_alarich_at_night",
+      "linkedQuestIds": ["dlc_refugees_s10"],
+      "triggerScripts": ["refugee_ev_s10"],
+      "actors": [
+        "initiating_player",
+        "npc_master_alarich_s10",
+        "alarich_bat_s10"
+      ],
+      "observerPolicy": "all_loaded_party_members",
+      "lateJoinPolicy": "join_live_checkpoint_or_observe",
+      "remoteExecutionPolicy": "live_observation",
+      "executionOwnerPolicy": "any_player",
+      "dialogueOwnerPolicy": "initiating_player",
+      "formationPolicy": "initiator_with_observer_follow",
+      "cleanupRequirements": [
+        "require_night_and_consume_s_10_need_wait_alarich_before_script_start",
+        "check_dlc_refugees_s10_once_from_refugees_s10_2_after_the_bat_transformation_and_night_task_completion",
+        "complete_s_ev_9_2_night_wait_and_s_ev_8_teodoro_once",
+        "blacklist_refugees_s9_1_once",
+        "preserve_the_first_serialized_alarich_bat_s10_spawn_the_temporary_Alarich_transformation_and_wind_s10_weather",
+        "continue_into_refugee_ev_s11_once_without_restoring_control_between_scripts"
+      ]
+    },
+    {
+      "cutsceneId": "game_of_crone_alarich_shepherd_confrontation",
+      "linkedQuestIds": ["dlc_refugees_s10"],
+      "triggerScripts": ["refugee_ev_s11"],
+      "actors": [
+        "initiating_player",
+        "npc_master_alarich_s10",
+        "alarich_bat_s10",
+        "npc_shepherd",
+        "empty_char",
+        "empty_char_alarich",
+        "white_object_16_scene"
+      ],
+      "observerPolicy": "all_loaded_party_members",
+      "lateJoinPolicy": "join_live_checkpoint_or_observe",
+      "remoteExecutionPolicy": "live_observation",
+      "executionOwnerPolicy": "any_player",
+      "dialogueOwnerPolicy": "initiating_player",
+      "formationPolicy": "initiator_with_observer_follow",
+      "cleanupRequirements": [
+        "run_one_authoritative_Alarich_shepherd_chase_and_confrontation_for_all_observers",
+        "preserve_the_second_serialized_alarich_bat_s10_spawn_without_peer_duplicating_either_same_tag_spawn",
+        "treat_refugees_s11_12a_and_refugees_s11_12b_as_cosmetic_answers_that_rejoin_before_refugees_s11_13",
+        "destroy_only_the_s11_bat_temporary_Alarich_empty_player_empty_Alarich_and_white_scene_actors",
+        "return_the_canonical_shepherd_to_stock_and_the_player_to_Alarichs_tent",
+        "attach_event_after_s11_to_the_canonical_npc_shepherd_once",
+        "continue_into_refugee_ev_s12_once",
+        "restore_weather_sound_music_camera_and_player_control_through_the_chained_cleanup"
+      ]
+    },
+    {
+      "cutsceneId": "game_of_crone_alarich_recovery_disclosure",
+      "linkedQuestIds": ["dlc_refugees_s12"],
+      "triggerScripts": ["refugee_ev_s12"],
+      "actors": ["initiating_player", "npc_master_alarich"],
+      "observerPolicy": "all_loaded_party_members",
+      "lateJoinPolicy": "join_live_checkpoint_or_observe",
+      "remoteExecutionPolicy": "live_observation",
+      "executionOwnerPolicy": "any_player",
+      "dialogueOwnerPolicy": "initiating_player",
+      "formationPolicy": "initiator_with_observer_follow",
+      "cleanupRequirements": [
+        "present_refugees_s12_1_through_refugees_s12_22_in_serialized_order",
+        "show_npc_master_alarich_s_ev_12_details_once",
+        "unlock_only_the_four_initial_topics_refugees_s12_q1_1_q2_1_q4_1_and_q6_1",
+        "restore_Alarichs_camp_music_environment_camera_and_player_control"
+      ]
+    },
+    {
+      "cutsceneId": "game_of_crone_shepherd_post_reveal_reaction",
+      "linkedQuestIds": ["dlc_refugees_s10"],
+      "triggerScripts": ["npc_shepherd:event_after_s11"],
+      "actors": ["initiating_player", "npc_shepherd"],
+      "observerPolicy": "all_loaded_party_members",
+      "lateJoinPolicy": "join_live_checkpoint_or_observe",
+      "remoteExecutionPolicy": "live_observation",
+      "executionOwnerPolicy": "any_player",
+      "dialogueOwnerPolicy": "initiating_player",
+      "formationPolicy": "initiator_with_observer_follow",
+      "cleanupRequirements": [
+        "present_refugees_s11_18_through_refugees_s11_21_once",
+        "do_not_mutate_tasks_player_params_or_serialized_quest_keys",
+        "never_reattach_event_after_s11_from_downstream_task_state",
+        "restore_player_control"
+      ]
+    },
+    {
+      "cutsceneId": "game_of_crone_alarich_question_tree",
+      "linkedQuestIds": ["dlc_refugees_s12"],
+      "triggerScripts": [
+        "npc_master_alarich:@refugees_s12_q1_1",
+        "npc_master_alarich:@refugees_s12_q2_1",
+        "npc_master_alarich:@refugees_s12_q3_1",
+        "npc_master_alarich:@refugees_s12_q4_1",
+        "npc_master_alarich:@refugees_s12_q5_1",
+        "npc_master_alarich:@refugees_s12_q6_1",
+        "npc_master_alarich:@refugees_s12_q7_1",
+        "npc_master_alarich:@refugees_s12_q8_1"
+      ],
+      "actors": ["initiating_player", "npc_master_alarich"],
+      "observerPolicy": "all_loaded_party_members",
+      "lateJoinPolicy": "join_live_checkpoint_or_observe",
+      "remoteExecutionPolicy": "live_observation",
+      "executionOwnerPolicy": "any_player",
+      "dialogueOwnerPolicy": "initiating_player",
+      "formationPolicy": "initiator_with_observer_follow",
+      "cleanupRequirements": [
+        "blacklist_only_the_selected_topic_before_its_serialized_dialogue",
+        "unlock_q3_after_q2_q5_after_q4_and_q7_after_q6",
+        "let_q5_or_q7_idempotently_set_s12_q8_unlocked_and_unlock_q8",
+        "increment_s12_q9_count_only_after_q3_and_q7",
+        "when_s12_q9_count_reaches_two_unlock_q9_and_complete_s_ev_12_details",
+        "keep_q1_q4_q5_and_q8_optional_and_never_require_them_for_q9",
+        "return_to_normal_Alarich_interaction_after_each_topic"
+      ]
+    },
+    {
+      "cutsceneId": "game_of_crone_alarich_truth_and_blood_request",
+      "linkedQuestIds": ["dlc_refugees_s12"],
+      "triggerScripts": ["npc_master_alarich:@refugees_s12_q9_1"],
+      "actors": [
+        "initiating_player",
+        "npc_master_alarich",
+        "alarich_fainted"
+      ],
+      "observerPolicy": "all_loaded_party_members",
+      "lateJoinPolicy": "join_live_checkpoint_or_observe",
+      "remoteExecutionPolicy": "live_observation",
+      "executionOwnerPolicy": "any_player",
+      "dialogueOwnerPolicy": "initiating_player",
+      "formationPolicy": "initiator_with_observer_follow",
+      "cleanupRequirements": [
+        "blacklist_refugees_s12_q9_1_before_the_final_disclosure",
+        "check_dlc_refugees_s12_after_refugees_s12_q9_2",
+        "drop_three_teleport_scrolls_to_the_live_initiator_and_record_one_personal_allocation_per_profile",
+        "replace_the_fainted_canonical_Alarich_with_one_alarich_fainted_actor",
+        "set_alarich_fainted_is_heartbeat_sound_on_to_one",
+        "show_s_ev_12_bring_blood_then_unlock_refugees_s13_1_and_refugees_s13_1_bucket",
+        "set_multianswer_type_to_one_only_after_both_blood_topics_are_unlocked",
+        "never_duplicate_the_scroll_allocation_for_observers_reconnects_or_late_joiners",
+        "restore_music_and_player_control"
+      ]
+    }
+  ],
+  "storySteps": [
+    {
+      "stepId": "game_of_crone_survive_the_shepherd_garlic_ambush",
+      "title": "Encounter the shepherd near the house and survive his garlic test",
+      "linkedQuestIds": ["dlc_refugees_s10"],
+      "linkedTaskMilestoneIds": [
+        "game_of_crone_vampire_search_opened",
+        "game_of_crone_vampire_witnesses_opened"
+      ],
+      "triggerScripts": [
+        "on_enter_near_house_gd_zone_NE",
+        "on_enter_near_house_gd_zone_NW",
+        "on_enter_near_house_gd_zone_SE",
+        "on_enter_near_house_gd_zone_SW",
+        "refugee_ev_s6_main_part"
+      ],
+      "triggerKeys": [
+        "s_ev_6_shepherd_waits",
+        "s6_player_comes_from_right",
+        "s6_player_comes_from_left",
+        "garlic_bunch"
+      ],
+      "expectedEffects": [
+        { "kind": "player_param", "id": "s_ev_6_shepherd_waits", "operation": "consume_before_the_directional_approach", "amount": 0.0, "ownership": "shared_campaign" },
+        { "kind": "inventory_capacity", "id": "initiating_player", "operation": "temporarily_set_21_then_restore_20", "amount": 1.0, "ownership": "live_presentation" },
+        { "kind": "temporary_item", "id": "garlic_bunch", "operation": "drop_then_consume_twice_during_the_live_scene", "amount": 2.0, "ownership": "initiating_player" },
+        { "kind": "npc_task", "id": "npc_tavern owner:s_ev_5_find_the_vampire", "operation": "show_after_the_ambush", "amount": 1.0, "ownership": "shared_campaign" },
+        { "kind": "npc_task", "id": "npc_mrs chain:s_ev_6_chain_vampire", "operation": "show_after_the_ambush", "amount": 1.0, "ownership": "shared_campaign" },
+        { "kind": "npc_task", "id": "npc_farmers son:s_ev_6_fs_vampire", "operation": "show_after_the_ambush", "amount": 1.0, "ownership": "shared_campaign" },
+        { "kind": "npc_task", "id": "npc_shepherds_wife:s_ev_6_rose_vampire", "operation": "show_after_the_ambush", "amount": 1.0, "ownership": "shared_campaign" }
+      ],
+      "safeguards": [
+        "consume_the_wait_latch_once_before_any_loaded_player_can_enter_another_approach_zone",
+        "never_treat_the_two_garlic_bunches_as_persistent_or_party_item_grants",
+        "never_replay_the_ambush_from_any_visible_witness_task",
+        "destroy_only_the_temporary_npc_shepherd_s6_copy"
+      ]
+    },
+    {
+      "stepId": "game_of_crone_follow_chains_vampire_lead",
+      "title": "Follow Chain's accusation through Horadric and the Astrologer",
+      "linkedQuestIds": ["dlc_refugees_s10"],
+      "linkedTaskMilestoneIds": [
+        "game_of_crone_chain_vampire_lead_completed",
+        "game_of_crone_horadric_apology_completed",
+        "game_of_crone_chain_explanation_completed",
+        "game_of_crone_astrologer_vampire_lead_completed"
+      ],
+      "triggerScripts": [
+        "npc_mrs chain:@refugees_s7_1",
+        "npc_tavern owner:@refugees_s7_1_sorry",
+        "npc_mrs chain:@refugees_s7_1_explanations",
+        "npc_astrologer:@refugees_s_ev_7_1_1"
+      ],
+      "triggerKeys": [
+        "s_ev_6_chain_vampire",
+        "s_ev_7_1_say_sorry",
+        "s_ev_7_1_explanations",
+        "s_ev_7_1_astrologer",
+        "s8_start_param"
+      ],
+      "expectedEffects": [
+        { "kind": "task_chain", "id": "Chain_to_Horadric_to_Chain_to_Astrologer", "operation": "complete_each_task_then_open_the_next_in_serialized_order", "amount": 4.0, "ownership": "shared_campaign" },
+        { "kind": "dialogue_phrase_chain", "id": "@refugees_s7_1..@refugees_s_ev_7_1_1", "operation": "blacklist_each_consumed_topic_and_unlock_the_next", "amount": 4.0, "ownership": "shared_campaign" },
+        { "kind": "player_param", "id": "s8_start_param", "operation": "increment_once_only_after_the_Astrologer_account", "amount": 1.0, "ownership": "shared_campaign" }
+      ],
+      "safeguards": [
+        "do_not_increment_s8_start_param_for_the_three_intermediate_Chain_branch_dialogues",
+        "preserve_all_four_distinct_task_owners",
+        "never_replay_consumed_topics_to_reconstruct_the_counter"
+      ]
+    },
+    {
+      "stepId": "game_of_crone_hear_the_farmer_sons_vampire_account",
+      "title": "Question the farmer's son about the vampire",
+      "linkedQuestIds": ["dlc_refugees_s10"],
+      "linkedTaskMilestoneIds": ["game_of_crone_farmer_son_vampire_lead_completed"],
+      "triggerScripts": ["npc_farmers son:@refugees_s7_2"],
+      "triggerKeys": ["s_ev_6_fs_vampire", "s8_start_param"],
+      "expectedEffects": [
+        { "kind": "npc_task", "id": "npc_farmers son:s_ev_6_fs_vampire", "operation": "complete_before_dialogue", "amount": 1.0, "ownership": "shared_campaign" },
+        { "kind": "dialogue_phrase", "id": "@refugees_s7_2", "operation": "blacklist", "amount": 1.0, "ownership": "shared_campaign" },
+        { "kind": "player_param", "id": "s8_start_param", "operation": "increment_once_after_the_final_line", "amount": 1.0, "ownership": "shared_campaign" }
+      ],
+      "safeguards": [
+        "increment_the_shared_witness_counter_once",
+        "do_not_start_refugee_ev_s8_until_the_counter_reaches_three"
+      ]
+    },
+    {
+      "stepId": "game_of_crone_hear_the_shepherd_wifes_vampire_account",
+      "title": "Question the shepherd's wife about the vampire",
+      "linkedQuestIds": ["dlc_refugees_s10"],
+      "linkedTaskMilestoneIds": ["game_of_crone_shepherd_wife_vampire_lead_completed"],
+      "triggerScripts": ["npc_shepherds_wife:@refugees_s7_3"],
+      "triggerKeys": ["s_ev_6_rose_vampire", "s8_start_param"],
+      "expectedEffects": [
+        { "kind": "npc_task", "id": "npc_shepherds_wife:s_ev_6_rose_vampire", "operation": "complete_before_dialogue", "amount": 1.0, "ownership": "shared_campaign" },
+        { "kind": "dialogue_phrase", "id": "@refugees_s7_3", "operation": "blacklist", "amount": 1.0, "ownership": "shared_campaign" },
+        { "kind": "player_param", "id": "s8_start_param", "operation": "increment_once_after_the_final_line", "amount": 1.0, "ownership": "shared_campaign" }
+      ],
+      "safeguards": [
+        "increment_the_shared_witness_counter_once",
+        "do_not_start_refugee_ev_s8_until_the_counter_reaches_three"
+      ]
+    },
+    {
+      "stepId": "game_of_crone_compare_all_three_vampire_leads",
+      "title": "Compare the three witness accounts and seek Teodoro and Alarich",
+      "linkedQuestIds": ["dlc_refugees_s10"],
+      "linkedTaskMilestoneIds": ["game_of_crone_alarich_and_teodoro_reports_opened"],
+      "triggerScripts": ["ev_s8_check_start", "refugee_ev_s8"],
+      "triggerKeys": [
+        "s8_start_param",
+        "s_ev_8_teodoro",
+        "s_ev_8_alarich",
+        "@refugees_s9_1",
+        "@refugees_s9_2"
+      ],
+      "expectedEffects": [
+        { "kind": "cutscene_script", "id": "refugee_ev_s8", "operation": "run_once_when_s8_start_param_is_at_least_three", "amount": 1.0, "ownership": "shared_world" },
+        { "kind": "npc_task", "id": "npc_marquis_teodoro_jr:s_ev_8_teodoro", "operation": "show", "amount": 1.0, "ownership": "shared_campaign" },
+        { "kind": "npc_task", "id": "npc_master_alarich:s_ev_8_alarich", "operation": "show", "amount": 1.0, "ownership": "shared_campaign" },
+        { "kind": "dialogue_phrase", "id": "@refugees_s9_1", "operation": "unlock", "amount": 1.0, "ownership": "shared_campaign" },
+        { "kind": "dialogue_phrase", "id": "@refugees_s9_2", "operation": "unlock", "amount": 1.0, "ownership": "shared_campaign" },
+        { "kind": "world_param", "id": "npc_master_alarich:is_before_disclosure", "operation": "clear", "amount": 0.0, "ownership": "shared_world" }
+      ],
+      "safeguards": [
+        "all_three_final_witness_tasks_must_be_complete_before_the_transition",
+        "run_refugee_ev_s8_once_for_all_observers",
+        "never_repair_is_before_disclosure_to_zero_from_later_task_state"
+      ]
+    },
+    {
+      "stepId": "game_of_crone_collect_teodoros_vampire_report",
+      "title": "Ask Teodoro about the vampire sightings",
+      "linkedQuestIds": ["dlc_refugees_s10"],
+      "linkedTaskMilestoneIds": ["game_of_crone_alarich_and_teodoro_reports_opened"],
+      "triggerScripts": ["npc_marquis_teodoro_jr:@refugees_s9_1"],
+      "triggerKeys": ["s_ev_8_teodoro", "@refugees_s9_1"],
+      "expectedEffects": [
+        { "kind": "npc_task", "id": "npc_marquis_teodoro_jr:s_ev_8_teodoro", "operation": "complete_before_dialogue", "amount": 1.0, "ownership": "shared_campaign" },
+        { "kind": "dialogue_phrase", "id": "@refugees_s9_1", "operation": "blacklist", "amount": 1.0, "ownership": "shared_campaign" }
+      ],
+      "safeguards": [
+        "this_report_is_optional_before_the_night_scene_because_refugee_ev_s10_also_completes_its_task",
+        "do_not_arm_s_10_need_wait_alarich_from_Teodoros_report"
+      ]
+    },
+    {
+      "stepId": "game_of_crone_arrange_alarichs_night_meeting",
+      "title": "Ask Alarich about the sightings and agree to return at night",
+      "linkedQuestIds": ["dlc_refugees_s10"],
+      "linkedTaskMilestoneIds": ["game_of_crone_alarich_night_meeting_opened"],
+      "triggerScripts": ["npc_master_alarich:@refugees_s9_2"],
+      "triggerKeys": [
+        "s_ev_8_alarich",
+        "s_ev_9_2_night_wait",
+        "s_10_need_wait_alarich"
+      ],
+      "expectedEffects": [
+        { "kind": "npc_task", "id": "npc_master_alarich:s_ev_8_alarich", "operation": "complete_before_dialogue", "amount": 1.0, "ownership": "shared_campaign" },
+        { "kind": "npc_task", "id": "npc_master_alarich:s_ev_9_2_night_wait", "operation": "show_after_refugees_s9_2_21", "amount": 1.0, "ownership": "shared_campaign" },
+        { "kind": "player_param", "id": "s_10_need_wait_alarich", "operation": "arm_after_the_night_wait_task", "amount": 1.0, "ownership": "shared_campaign" }
+      ],
+      "safeguards": [
+        "show_the_night_wait_task_before_arming_the_zone_trigger",
+        "never_repair_s_10_need_wait_alarich_from_the_visible_night_wait_task_or_rearm_it_after_consumption"
+      ]
+    },
+    {
+      "stepId": "game_of_crone_follow_alarich_and_witness_the_confrontation",
+      "title": "Follow Alarich at night and witness his confrontation with the shepherd",
+      "linkedQuestIds": ["dlc_refugees_s10"],
+      "linkedTaskMilestoneIds": ["game_of_crone_alarich_night_meeting_completed"],
+      "triggerScripts": [
+        "on_enter_near_alarich_tent_gd_zone",
+        "refugee_ev_s10",
+        "refugee_ev_s11"
+      ],
+      "triggerKeys": [
+        "s_10_need_wait_alarich",
+        "dlc_refugees_s10",
+        "s_ev_9_2_night_wait",
+        "event_after_s11"
+      ],
+      "expectedEffects": [
+        { "kind": "player_param", "id": "s_10_need_wait_alarich", "operation": "consume_only_at_night_before_the_scene", "amount": 0.0, "ownership": "shared_campaign" },
+        { "kind": "serialized_quest_key", "id": "dlc_refugees_s10", "operation": "check_once", "amount": 1.0, "ownership": "shared_campaign" },
+        { "kind": "npc_task", "id": "npc_master_alarich:s_ev_9_2_night_wait", "operation": "complete", "amount": 1.0, "ownership": "shared_campaign" },
+        { "kind": "npc_task", "id": "npc_marquis_teodoro_jr:s_ev_8_teodoro", "operation": "complete_even_if_its_optional_report_was_skipped", "amount": 1.0, "ownership": "shared_campaign" },
+        { "kind": "world_interaction", "id": "npc_shepherd:event_after_s11", "operation": "attach_once_after_the_confrontation", "amount": 1.0, "ownership": "shared_world" }
+      ],
+      "safeguards": [
+        "morning_daytime_and_evening_zone_entries_leave_the_wait_latch_armed",
+        "both_cosmetic_s11_answers_share_the_same_campaign_outcome",
+        "preserve_exactly_the_two_serialized_alarich_bat_spawns_but_never_peer_duplicate_either_spawn_or_any_flashback_actor",
+        "do_not_rearm_event_after_s11_from_later_task_state"
+      ]
+    },
+    {
+      "stepId": "game_of_crone_open_alarichs_question_tree",
+      "title": "Recover in Alarich's tent and open his disclosure topics",
+      "linkedQuestIds": ["dlc_refugees_s12"],
+      "linkedTaskMilestoneIds": ["game_of_crone_alarich_details_opened"],
+      "triggerScripts": ["refugee_ev_s12"],
+      "triggerKeys": [
+        "s_ev_12_details",
+        "@refugees_s12_q1_1",
+        "@refugees_s12_q2_1",
+        "@refugees_s12_q4_1",
+        "@refugees_s12_q6_1"
+      ],
+      "expectedEffects": [
+        { "kind": "npc_task", "id": "npc_master_alarich:s_ev_12_details", "operation": "show_after_refugees_s12_22", "amount": 1.0, "ownership": "shared_campaign" },
+        { "kind": "dialogue_phrase_set", "id": "Alarich_initial_disclosure_topics", "operation": "unlock_q1_q2_q4_and_q6", "amount": 4.0, "ownership": "shared_campaign" }
+      ],
+      "safeguards": [
+        "unlock_only_the_four_serialized_root_topics_at_this_boundary",
+        "do_not_unlock_q3_q5_q7_q8_or_q9_early"
+      ]
+    },
+    {
+      "stepId": "game_of_crone_follow_alarichs_required_question_branches",
+      "title": "Follow Alarich's two required question branches",
+      "linkedQuestIds": ["dlc_refugees_s12"],
+      "linkedTaskMilestoneIds": ["game_of_crone_alarich_details_completed"],
+      "triggerScripts": [
+        "npc_master_alarich:@refugees_s12_q2_1",
+        "npc_master_alarich:@refugees_s12_q3_1",
+        "npc_master_alarich:@refugees_s12_q6_1",
+        "npc_master_alarich:@refugees_s12_q7_1"
+      ],
+      "triggerKeys": [
+        "s12_q8_unlocked",
+        "s12_q9_count",
+        "@refugees_s12_q8_1",
+        "@refugees_s12_q9_1"
+      ],
+      "expectedEffects": [
+        { "kind": "dialogue_phrase_chain", "id": "q2_to_q3", "operation": "consume_q2_then_unlock_and_consume_q3", "amount": 2.0, "ownership": "shared_campaign" },
+        { "kind": "dialogue_phrase_chain", "id": "q6_to_q7", "operation": "consume_q6_then_unlock_and_consume_q7", "amount": 2.0, "ownership": "shared_campaign" },
+        { "kind": "world_param", "id": "npc_master_alarich:s12_q9_count", "operation": "increment_after_q3_and_q7", "amount": 2.0, "ownership": "shared_world" },
+        { "kind": "world_param", "id": "npc_master_alarich:s12_q8_unlocked", "operation": "set_from_q7_if_q5_did_not_set_it", "amount": 1.0, "ownership": "shared_world" },
+        { "kind": "npc_task", "id": "npc_master_alarich:s_ev_12_details", "operation": "complete_when_s12_q9_count_reaches_two", "amount": 1.0, "ownership": "shared_campaign" },
+        { "kind": "dialogue_phrase", "id": "@refugees_s12_q9_1", "operation": "unlock_when_both_required_branches_finish", "amount": 1.0, "ownership": "shared_campaign" }
+      ],
+      "safeguards": [
+        "each_required_branch_increments_s12_q9_count_once",
+        "never_complete_s_ev_12_details_from_q1_q4_q5_or_q8",
+        "preserve_q8_as_an_optional_topic"
+      ]
+    },
+    {
+      "stepId": "game_of_crone_explore_alarichs_optional_questions",
+      "title": "Explore Alarich's optional disclosure questions",
+      "linkedQuestIds": ["dlc_refugees_s12"],
+      "linkedTaskMilestoneIds": ["game_of_crone_alarich_details_opened"],
+      "triggerScripts": [
+        "npc_master_alarich:@refugees_s12_q1_1",
+        "npc_master_alarich:@refugees_s12_q4_1",
+        "npc_master_alarich:@refugees_s12_q5_1",
+        "npc_master_alarich:@refugees_s12_q8_1"
+      ],
+      "triggerKeys": [
+        "@refugees_s12_q1_1",
+        "@refugees_s12_q4_1",
+        "@refugees_s12_q5_1",
+        "@refugees_s12_q8_1"
+      ],
+      "expectedEffects": [
+        { "kind": "dialogue_phrase", "id": "@refugees_s12_q1_1", "operation": "blacklist_after_optional_answer", "amount": 1.0, "ownership": "shared_campaign" },
+        { "kind": "dialogue_phrase_chain", "id": "q4_to_q5", "operation": "consume_q4_then_unlock_and_optionally_consume_q5", "amount": 2.0, "ownership": "shared_campaign" },
+        { "kind": "dialogue_phrase", "id": "@refugees_s12_q8_1", "operation": "unlock_from_q5_or_q7_then_optionally_blacklist", "amount": 1.0, "ownership": "shared_campaign" }
+      ],
+      "safeguards": [
+        "none_of_these_topics_increment_s12_q9_count",
+        "do_not_require_optional_topics_before_q9",
+        "keep_q8_unlock_idempotent_across_q5_and_q7"
+      ]
+    },
+    {
+      "stepId": "game_of_crone_learn_alarichs_truth_and_receive_the_blood_request",
+      "title": "Learn Alarich's truth and agree to bring him blood",
+      "linkedQuestIds": ["dlc_refugees_s12"],
+      "linkedTaskMilestoneIds": [
+        "game_of_crone_alarich_details_completed",
+        "game_of_crone_alarich_blood_requested",
+        "game_of_crone_alarich_scroll_allocation_received"
+      ],
+      "triggerScripts": ["npc_master_alarich:@refugees_s12_q9_1"],
+      "triggerKeys": [
+        "dlc_refugees_s12",
+        "teleport_scroll",
+        "alarich_fainted",
+        "s_ev_12_bring_blood",
+        "@refugees_s13_1",
+        "@refugees_s13_1_bucket",
+        "multianswer_type"
+      ],
+      "expectedEffects": [
+        { "kind": "serialized_quest_key", "id": "dlc_refugees_s12", "operation": "check_once_after_refugees_s12_q9_2", "amount": 1.0, "ownership": "shared_campaign" },
+        { "kind": "inventory_item", "id": "teleport_scroll", "operation": "allocate_three_once_to_each_personal_profile", "amount": 3.0, "ownership": "personal_character" },
+        { "kind": "world_actor", "id": "alarich_fainted", "operation": "replace_the_canonical_Alarich_during_the_live_faint", "amount": 1.0, "ownership": "shared_world" },
+        { "kind": "world_param", "id": "alarich_fainted:is_heartbeat_sound_on", "operation": "set_after_the_faint", "amount": 1.0, "ownership": "shared_world" },
+        { "kind": "npc_task", "id": "npc_master_alarich:s_ev_12_bring_blood", "operation": "show_after_the_faint_dialogue", "amount": 1.0, "ownership": "shared_campaign" },
+        { "kind": "dialogue_phrase", "id": "@refugees_s13_1", "operation": "unlock", "amount": 1.0, "ownership": "shared_campaign" },
+        { "kind": "dialogue_phrase", "id": "@refugees_s13_1_bucket", "operation": "unlock", "amount": 1.0, "ownership": "shared_campaign" },
+        { "kind": "world_param", "id": "npc_master_alarich:multianswer_type", "operation": "set_after_both_blood_topics_unlock", "amount": 1.0, "ownership": "shared_world" }
+      ],
+      "safeguards": [
+        "record_the_initiators_vanilla_scroll_drop_then_grant_full_observer_allocations_exactly_once",
+        "never_recreate_consumed_teleport_scrolls_after_the_personal_receipt_is_recorded",
+        "reconcile_the_blood_topics_only_while_the_bring_blood_task_is_visible_so_later_supply_shutdown_remains_authoritative",
+        "do_not_start_the_blood_handoff_or_Beatrice_arrival_in_this_batch",
+        "never_spawn_multiple_alarich_fainted_actors"
+      ]
+    }
+  ]
+}

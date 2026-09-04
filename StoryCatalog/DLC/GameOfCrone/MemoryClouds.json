@@ -1,0 +1,1352 @@
+{
+  "schemaVersion": 5,
+  "catalogId": "dlc.game-of-crone.memory-clouds",
+  "campaign": "GameOfCrone",
+  "chapter": "RefugeeMemoryCloudsThroughGhostPriest",
+  "quests": [
+    {
+      "questId": "dlc_refugees_s18",
+      "title": "Serialized vampire-jaw memory checkpoint",
+      "definitionKind": "AchievementDefinition",
+      "counter": 1,
+      "vanilla": {
+        "startTrigger": "",
+        "successTrigger": "1",
+        "failTrigger": "",
+        "startKeys": ["dlc_refugees_s18"],
+        "questVisible": false,
+        "oneTimeQuest": false,
+        "startScript": "",
+        "successScript": "",
+        "failScript": "",
+        "arrowWgoCustomTag": "",
+        "arrowWgoObjectId": "",
+        "successRewards": [],
+        "failureRewards": []
+      },
+      "policy": {
+        "stateOwnership": "shared_campaign",
+        "eligibleInitiator": "any_player",
+        "livePresentationOwner": "initiating_player",
+        "observerQuestApplication": "durable_state_only",
+        "personalRewardDelivery": "party_exactly_once",
+        "observerSuccess": {
+          "globalScripts": [],
+          "playerParamRepairs": [],
+          "playerParamMinimums": [],
+          "taskStateMinimums": [],
+          "unlockedTechs": [],
+          "unlockedPhrases": [],
+          "blacklistedPhrases": [],
+          "unlockedCrafts": [],
+          "completedOneTimeCrafts": [],
+          "personalItemGrants": []
+        }
+      },
+      "completionChecks": []
+    },
+    {
+      "questId": "dlc_refugees_s23",
+      "title": "Serialized ghost-priest encounter checkpoint",
+      "definitionKind": "AchievementDefinition",
+      "counter": 1,
+      "vanilla": {
+        "startTrigger": "",
+        "successTrigger": "1",
+        "failTrigger": "",
+        "startKeys": ["dlc_refugees_s23"],
+        "questVisible": false,
+        "oneTimeQuest": false,
+        "startScript": "",
+        "successScript": "",
+        "failScript": "",
+        "arrowWgoCustomTag": "",
+        "arrowWgoObjectId": "",
+        "successRewards": [],
+        "failureRewards": []
+      },
+      "policy": {
+        "stateOwnership": "shared_campaign",
+        "eligibleInitiator": "any_player",
+        "livePresentationOwner": "initiating_player",
+        "observerQuestApplication": "durable_state_only",
+        "personalRewardDelivery": "party_exactly_once",
+        "observerSuccess": {
+          "globalScripts": [],
+          "playerParamRepairs": [],
+          "playerParamMinimums": [],
+          "taskStateMinimums": [],
+          "unlockedTechs": [],
+          "unlockedPhrases": [],
+          "blacklistedPhrases": [],
+          "unlockedCrafts": [],
+          "completedOneTimeCrafts": [],
+          "personalItemGrants": []
+        }
+      },
+      "completionChecks": []
+    }
+  ],
+  "taskMilestones": [
+    {
+      "milestoneId": "game_of_crone_alarich_beatrice_report_completed",
+      "npcId": "npc_master_alarich",
+      "taskId": "s_ev_15_1_alar_beatrice",
+      "activeStates": ["Complete"],
+      "playerParamRepairs": [],
+      "playerParamMinimums": [],
+      "taskStateMinimums": [],
+      "unlockedTechs": [],
+      "unlockedPhrases": [],
+      "blacklistedPhrases": ["@refugees_s15_1_1"],
+      "unlockedCrafts": [],
+      "completedOneTimeCrafts": [],
+      "wgoParamMinimums": [],
+      "personalItemGrants": []
+    },
+    {
+      "milestoneId": "game_of_crone_inquisitor_beatrice_report_completed",
+      "npcId": "npc_inquisitor",
+      "taskId": "s_ev_15_1_inq_beatrice",
+      "activeStates": ["Complete"],
+      "playerParamRepairs": [],
+      "playerParamMinimums": [],
+      "taskStateMinimums": [],
+      "unlockedTechs": [],
+      "unlockedPhrases": [],
+      "blacklistedPhrases": ["@refugees_s15_1_2"],
+      "unlockedCrafts": [],
+      "completedOneTimeCrafts": [],
+      "wgoParamMinimums": [],
+      "personalItemGrants": []
+    },
+    {
+      "milestoneId": "game_of_crone_witchers_eye_allocation_received",
+      "npcId": "player",
+      "taskId": "s_ev_14_survey_area",
+      "activeStates": ["Visible", "Complete"],
+      "playerParamRepairs": [],
+      "playerParamMinimums": [],
+      "taskStateMinimums": [],
+      "unlockedTechs": [],
+      "unlockedPhrases": [],
+      "blacklistedPhrases": [],
+      "unlockedCrafts": [],
+      "completedOneTimeCrafts": [],
+      "wgoParamMinimums": [],
+      "personalItemGrants": [
+        {
+          "itemId": "witchers_eye",
+          "count": 1,
+          "receiptId": "gykmp_story_grant_game_of_crone_witchers_eye"
+        }
+      ]
+    },
+    {
+      "milestoneId": "game_of_crone_refugee_cloud_survey_completed",
+      "npcId": "player",
+      "taskId": "s_ev_14_survey_area",
+      "activeStates": ["Complete"],
+      "playerParamRepairs": [
+        { "key": "s16_need_actiavate_event", "value": 0.0 }
+      ],
+      "playerParamMinimums": [
+        { "key": "has_witchers_eye", "value": 1.0 },
+        { "key": "is_s_ev_14_triggered", "value": 1.0 }
+      ],
+      "taskStateMinimums": [],
+      "unlockedTechs": [],
+      "unlockedPhrases": [],
+      "blacklistedPhrases": [],
+      "unlockedCrafts": [],
+      "completedOneTimeCrafts": [],
+      "wgoParamMinimums": [],
+      "personalItemGrants": []
+    },
+    {
+      "milestoneId": "game_of_crone_vampire_jaw_lead_opened",
+      "npcId": "npc_witch",
+      "taskId": "s_ev_16_jaw",
+      "activeStates": ["Visible"],
+      "playerParamRepairs": [],
+      "playerParamMinimums": [],
+      "taskStateMinimums": [],
+      "unlockedTechs": [],
+      "unlockedPhrases": ["@refugees_s17"],
+      "blacklistedPhrases": [],
+      "unlockedCrafts": [],
+      "completedOneTimeCrafts": [],
+      "wgoParamMinimums": [],
+      "personalItemGrants": []
+    },
+    {
+      "milestoneId": "game_of_crone_vampire_jaw_allocation_received",
+      "npcId": "npc_witch",
+      "taskId": "s_ev_16_jaw",
+      "activeStates": ["Visible", "Complete"],
+      "playerParamRepairs": [],
+      "playerParamMinimums": [],
+      "taskStateMinimums": [],
+      "unlockedTechs": [],
+      "unlockedPhrases": [],
+      "blacklistedPhrases": [],
+      "unlockedCrafts": [],
+      "completedOneTimeCrafts": [],
+      "wgoParamMinimums": [],
+      "personalItemGrants": [
+        {
+          "itemId": "vampire_jaw",
+          "count": 1,
+          "receiptId": "gykmp_story_grant_game_of_crone_vampire_jaw"
+        }
+      ]
+    },
+    {
+      "milestoneId": "game_of_crone_vampire_jaw_presented_to_clotho",
+      "npcId": "npc_witch",
+      "taskId": "s_ev_16_jaw",
+      "activeStates": ["Complete"],
+      "playerParamRepairs": [],
+      "playerParamMinimums": [],
+      "taskStateMinimums": [],
+      "unlockedTechs": [],
+      "unlockedPhrases": [],
+      "blacklistedPhrases": ["@refugees_s17"],
+      "unlockedCrafts": [],
+      "completedOneTimeCrafts": [],
+      "wgoParamMinimums": [],
+      "personalItemGrants": []
+    },
+    {
+      "milestoneId": "game_of_crone_memory_tincture_kit_received",
+      "npcId": "player",
+      "taskId": "s_ev_17_tinctures",
+      "activeStates": ["Visible", "Complete"],
+      "playerParamRepairs": [],
+      "playerParamMinimums": [],
+      "taskStateMinimums": [
+        { "npcId": "npc_witch", "taskId": "s_ev_16_jaw", "state": "Complete" }
+      ],
+      "unlockedTechs": [],
+      "unlockedPhrases": ["@buy_memory_powder"],
+      "blacklistedPhrases": ["@refugees_s17"],
+      "unlockedCrafts": [],
+      "completedOneTimeCrafts": [],
+      "wgoParamMinimums": [],
+      "personalItemGrants": [
+        {
+          "itemId": "memory_potion_receipt",
+          "count": 1,
+          "receiptId": "gykmp_story_grant_game_of_crone_memory_potion_receipt"
+        },
+        {
+          "itemId": "memory_powder",
+          "count": 3,
+          "receiptId": "gykmp_story_grant_game_of_crone_memory_powder"
+        }
+      ]
+    },
+    {
+      "milestoneId": "game_of_crone_vampire_jaw_memory_completed",
+      "npcId": "player",
+      "taskId": "s_ev_17_tinctures",
+      "activeStates": ["Complete"],
+      "playerParamRepairs": [],
+      "playerParamMinimums": [],
+      "taskStateMinimums": [
+        { "npcId": "npc_witch", "taskId": "s_ev_16_jaw", "state": "Complete" }
+      ],
+      "unlockedTechs": [],
+      "unlockedPhrases": [],
+      "blacklistedPhrases": ["@refugees_s17"],
+      "unlockedCrafts": [],
+      "completedOneTimeCrafts": [],
+      "wgoParamMinimums": [],
+      "personalItemGrants": []
+    },
+    {
+      "milestoneId": "game_of_crone_alarich_memory_report_opened",
+      "npcId": "npc_master_alarich",
+      "taskId": "s_ev_18_alarich_woman",
+      "activeStates": ["Visible"],
+      "playerParamRepairs": [],
+      "playerParamMinimums": [],
+      "taskStateMinimums": [
+        { "npcId": "player", "taskId": "s_ev_17_tinctures", "state": "Complete" }
+      ],
+      "unlockedTechs": [],
+      "unlockedPhrases": ["@refugees_s19_1"],
+      "blacklistedPhrases": [],
+      "unlockedCrafts": [],
+      "completedOneTimeCrafts": [],
+      "wgoParamMinimums": [],
+      "personalItemGrants": []
+    },
+    {
+      "milestoneId": "game_of_crone_shepherd_memory_report_opened",
+      "npcId": "npc_shepherd",
+      "taskId": "s_ev_18_shepherd_woman",
+      "activeStates": ["Visible"],
+      "playerParamRepairs": [],
+      "playerParamMinimums": [],
+      "taskStateMinimums": [
+        { "npcId": "player", "taskId": "s_ev_17_tinctures", "state": "Complete" },
+        { "npcId": "npc_master_alarich", "taskId": "s_ev_18_alarich_woman", "state": "Visible" }
+      ],
+      "unlockedTechs": [],
+      "unlockedPhrases": ["@refugees_s19_3"],
+      "blacklistedPhrases": [],
+      "unlockedCrafts": [],
+      "completedOneTimeCrafts": [],
+      "wgoParamMinimums": [],
+      "personalItemGrants": []
+    },
+    {
+      "milestoneId": "game_of_crone_alarich_memory_report_completed",
+      "npcId": "npc_master_alarich",
+      "taskId": "s_ev_18_alarich_woman",
+      "activeStates": ["Complete"],
+      "playerParamRepairs": [],
+      "playerParamMinimums": [],
+      "taskStateMinimums": [
+        { "npcId": "player", "taskId": "s_ev_17_tinctures", "state": "Complete" }
+      ],
+      "unlockedTechs": [],
+      "unlockedPhrases": [],
+      "blacklistedPhrases": ["@refugees_s19_1"],
+      "unlockedCrafts": [],
+      "completedOneTimeCrafts": [],
+      "wgoParamMinimums": [],
+      "personalItemGrants": []
+    },
+    {
+      "milestoneId": "game_of_crone_shepherd_memory_report_completed",
+      "npcId": "npc_shepherd",
+      "taskId": "s_ev_18_shepherd_woman",
+      "activeStates": ["Complete"],
+      "playerParamRepairs": [],
+      "playerParamMinimums": [],
+      "taskStateMinimums": [
+        { "npcId": "player", "taskId": "s_ev_17_tinctures", "state": "Complete" }
+      ],
+      "unlockedTechs": [],
+      "unlockedPhrases": [],
+      "blacklistedPhrases": ["@refugees_s19_3"],
+      "unlockedCrafts": [],
+      "completedOneTimeCrafts": [],
+      "wgoParamMinimums": [],
+      "personalItemGrants": []
+    },
+    {
+      "milestoneId": "game_of_crone_gerry_memory_question_opened",
+      "npcId": "crafting_skull_3",
+      "taskId": "s_ev_19_ask_gerry",
+      "activeStates": ["Visible"],
+      "playerParamRepairs": [],
+      "playerParamMinimums": [],
+      "taskStateMinimums": [
+        { "npcId": "npc_master_alarich", "taskId": "s_ev_18_alarich_woman", "state": "Complete" },
+        { "npcId": "npc_shepherd", "taskId": "s_ev_18_shepherd_woman", "state": "Complete" }
+      ],
+      "unlockedTechs": [],
+      "unlockedPhrases": ["@refugees_s20"],
+      "blacklistedPhrases": [
+        "@refugees_s19_1",
+        "@refugees_s19_3"
+      ],
+      "unlockedCrafts": [],
+      "completedOneTimeCrafts": [],
+      "wgoParamMinimums": [],
+      "personalItemGrants": []
+    },
+    {
+      "milestoneId": "game_of_crone_gerry_memory_question_completed",
+      "npcId": "crafting_skull_3",
+      "taskId": "s_ev_19_ask_gerry",
+      "activeStates": ["Complete"],
+      "playerParamRepairs": [],
+      "playerParamMinimums": [],
+      "taskStateMinimums": [
+        { "npcId": "npc_master_alarich", "taskId": "s_ev_18_alarich_woman", "state": "Complete" },
+        { "npcId": "npc_shepherd", "taskId": "s_ev_18_shepherd_woman", "state": "Complete" }
+      ],
+      "unlockedTechs": [],
+      "unlockedPhrases": [],
+      "blacklistedPhrases": [
+        "@refugees_s19_1",
+        "@refugees_s19_3",
+        "@refugees_s20"
+      ],
+      "unlockedCrafts": [],
+      "completedOneTimeCrafts": [],
+      "wgoParamMinimums": [],
+      "personalItemGrants": []
+    },
+    {
+      "milestoneId": "game_of_crone_queen_memory_story_opened",
+      "npcId": "crafting_skull_3",
+      "taskId": "s_ev_20_about_queen",
+      "activeStates": ["Visible"],
+      "playerParamRepairs": [],
+      "playerParamMinimums": [],
+      "taskStateMinimums": [
+        { "npcId": "crafting_skull_3", "taskId": "s_ev_19_ask_gerry", "state": "Complete" }
+      ],
+      "unlockedTechs": [],
+      "unlockedPhrases": [],
+      "blacklistedPhrases": ["@refugees_s20"],
+      "unlockedCrafts": [],
+      "completedOneTimeCrafts": [],
+      "wgoParamMinimums": [],
+      "personalItemGrants": []
+    },
+    {
+      "milestoneId": "game_of_crone_queen_memory_story_completed",
+      "npcId": "crafting_skull_3",
+      "taskId": "s_ev_20_about_queen",
+      "activeStates": ["Complete"],
+      "playerParamRepairs": [],
+      "playerParamMinimums": [],
+      "taskStateMinimums": [
+        { "npcId": "crafting_skull_3", "taskId": "s_ev_19_ask_gerry", "state": "Complete" }
+      ],
+      "unlockedTechs": [],
+      "unlockedPhrases": [],
+      "blacklistedPhrases": [
+        "@refugees_s20",
+        "@refugees_s21"
+      ],
+      "unlockedCrafts": [],
+      "completedOneTimeCrafts": [],
+      "wgoParamMinimums": [],
+      "personalItemGrants": []
+    },
+    {
+      "milestoneId": "game_of_crone_donkey_hair_requested",
+      "npcId": "donkey",
+      "taskId": "s_ev_21_take_hair",
+      "activeStates": ["Visible"],
+      "playerParamRepairs": [],
+      "playerParamMinimums": [],
+      "taskStateMinimums": [
+        { "npcId": "crafting_skull_3", "taskId": "s_ev_20_about_queen", "state": "Complete" }
+      ],
+      "unlockedTechs": [],
+      "unlockedPhrases": [],
+      "blacklistedPhrases": [
+        "@refugees_s20",
+        "@refugees_s21"
+      ],
+      "unlockedCrafts": [],
+      "completedOneTimeCrafts": [],
+      "wgoParamMinimums": [],
+      "personalItemGrants": []
+    },
+    {
+      "milestoneId": "game_of_crone_donkey_hair_received",
+      "npcId": "donkey",
+      "taskId": "s_ev_21_take_hair",
+      "activeStates": ["Complete"],
+      "playerParamRepairs": [],
+      "playerParamMinimums": [],
+      "taskStateMinimums": [
+        { "npcId": "crafting_skull_3", "taskId": "s_ev_20_about_queen", "state": "Complete" }
+      ],
+      "unlockedTechs": [],
+      "unlockedPhrases": [],
+      "blacklistedPhrases": [
+        "@refugees_s20",
+        "@refugees_s21"
+      ],
+      "unlockedCrafts": ["pagan_amulet"],
+      "completedOneTimeCrafts": [],
+      "wgoParamMinimums": [],
+      "personalItemGrants": []
+    },
+    {
+      "milestoneId": "game_of_crone_pagan_amulet_craft_opened",
+      "npcId": "player",
+      "taskId": "s_ev_22_make_amulet",
+      "activeStates": ["Visible"],
+      "playerParamRepairs": [],
+      "playerParamMinimums": [],
+      "taskStateMinimums": [
+        { "npcId": "donkey", "taskId": "s_ev_21_take_hair", "state": "Complete" }
+      ],
+      "unlockedTechs": [],
+      "unlockedPhrases": [],
+      "blacklistedPhrases": [
+        "@refugees_s20",
+        "@refugees_s21"
+      ],
+      "unlockedCrafts": ["pagan_amulet"],
+      "completedOneTimeCrafts": [],
+      "wgoParamMinimums": [],
+      "personalItemGrants": []
+    },
+    {
+      "milestoneId": "game_of_crone_pagan_amulet_crafted",
+      "npcId": "player",
+      "taskId": "s_ev_22_make_amulet",
+      "activeStates": ["Complete"],
+      "playerParamRepairs": [],
+      "playerParamMinimums": [],
+      "taskStateMinimums": [
+        { "npcId": "donkey", "taskId": "s_ev_21_take_hair", "state": "Complete" }
+      ],
+      "unlockedTechs": [],
+      "unlockedPhrases": [],
+      "blacklistedPhrases": [
+        "@refugees_s20",
+        "@refugees_s21"
+      ],
+      "unlockedCrafts": [],
+      "completedOneTimeCrafts": ["pagan_amulet"],
+      "wgoParamMinimums": [],
+      "personalItemGrants": [
+        {
+          "itemId": "pagan_amulet",
+          "count": 1,
+          "receiptId": "gykmp_story_grant_game_of_crone_pagan_amulet"
+        }
+      ]
+    },
+    {
+      "milestoneId": "game_of_crone_dungeon_level_eight_search_opened",
+      "npcId": "player",
+      "taskId": "s_ev_22_goto_8lvl",
+      "activeStates": ["Visible"],
+      "playerParamRepairs": [],
+      "playerParamMinimums": [],
+      "taskStateMinimums": [
+        { "npcId": "player", "taskId": "s_ev_22_make_amulet", "state": "Complete" }
+      ],
+      "unlockedTechs": [],
+      "unlockedPhrases": [],
+      "blacklistedPhrases": [],
+      "unlockedCrafts": [],
+      "completedOneTimeCrafts": ["pagan_amulet"],
+      "wgoParamMinimums": [],
+      "personalItemGrants": []
+    },
+    {
+      "milestoneId": "game_of_crone_shepherd_golem_help_opened",
+      "npcId": "npc_shepherd",
+      "taskId": "s_ev_23_help",
+      "activeStates": ["Visible"],
+      "playerParamRepairs": [
+        { "key": "gd_zone_s23_is_active", "value": 0.0 }
+      ],
+      "playerParamMinimums": [],
+      "taskStateMinimums": [
+        { "npcId": "player", "taskId": "s_ev_22_make_amulet", "state": "Complete" }
+      ],
+      "unlockedTechs": [],
+      "unlockedPhrases": [
+        "@refugees_s24_1",
+        "@refugees_s24_2"
+      ],
+      "blacklistedPhrases": [],
+      "unlockedCrafts": [],
+      "completedOneTimeCrafts": ["pagan_amulet"],
+      "wgoParamMinimums": [],
+      "personalItemGrants": []
+    },
+    {
+      "milestoneId": "game_of_crone_ghost_priest_encounter_completed",
+      "npcId": "player",
+      "taskId": "s_ev_22_goto_8lvl",
+      "activeStates": ["Complete"],
+      "playerParamRepairs": [
+        { "key": "gd_zone_s23_is_active", "value": 0.0 }
+      ],
+      "playerParamMinimums": [],
+      "taskStateMinimums": [
+        { "npcId": "player", "taskId": "s_ev_22_make_amulet", "state": "Complete" },
+        { "npcId": "npc_shepherd", "taskId": "s_ev_23_help", "state": "Visible" }
+      ],
+      "unlockedTechs": [],
+      "unlockedPhrases": [
+        "@refugees_s24_1",
+        "@refugees_s24_2"
+      ],
+      "blacklistedPhrases": [],
+      "unlockedCrafts": [],
+      "completedOneTimeCrafts": ["pagan_amulet"],
+      "wgoParamMinimums": [],
+      "personalItemGrants": []
+    }
+  ],
+  "cutscenes": [
+    {
+      "cutsceneId": "game_of_crone_report_beatrice_to_alarich",
+      "linkedQuestIds": ["dlc_refugees_s18"],
+      "triggerScripts": ["npc_master_alarich:@refugees_s15_1_1"],
+      "actors": [
+        "initiating_player",
+        "npc_master_alarich"
+      ],
+      "observerPolicy": "all_loaded_party_members",
+      "lateJoinPolicy": "join_live_checkpoint_or_observe",
+      "remoteExecutionPolicy": "live_observation",
+      "executionOwnerPolicy": "any_player",
+      "dialogueOwnerPolicy": "initiating_player",
+      "formationPolicy": "initiator_with_observer_follow",
+      "cleanupRequirements": [
+        "blacklist_refugees_s15_1_1_once_before_the_ten_line_Alarich_report",
+        "complete_s_ev_15_1_alar_beatrice_only_after_the_report_finishes",
+        "keep_this_optional_report_independent_of_the_cloud_and_memory_order",
+        "restore_the_initiator_to_normal_Alarich_interaction"
+      ]
+    },
+    {
+      "cutsceneId": "game_of_crone_report_beatrice_to_inquisitor",
+      "linkedQuestIds": ["dlc_refugees_s18"],
+      "triggerScripts": ["npc_inquisitor:@refugees_s15_1_2"],
+      "actors": [
+        "initiating_player",
+        "npc_inquisitor"
+      ],
+      "observerPolicy": "all_loaded_party_members",
+      "lateJoinPolicy": "join_live_checkpoint_or_observe",
+      "remoteExecutionPolicy": "live_observation",
+      "executionOwnerPolicy": "any_player",
+      "dialogueOwnerPolicy": "initiating_player",
+      "formationPolicy": "initiator_with_observer_follow",
+      "cleanupRequirements": [
+        "blacklist_refugees_s15_1_2_once_before_the_ten_line_Inquisitor_report",
+        "complete_s_ev_15_1_inq_beatrice_only_after_the_report_finishes",
+        "keep_this_optional_report_independent_of_the_cloud_and_memory_order",
+        "restore_the_initiator_to_normal_Inquisitor_interaction"
+      ]
+    },
+    {
+      "cutsceneId": "game_of_crone_reveal_refugee_memory_clouds",
+      "linkedQuestIds": ["dlc_refugees_s18"],
+      "triggerScripts": [
+        "refugee_ev_s16_on_trigger_zone_enter",
+        "refugee_ev_s16"
+      ],
+      "actors": [
+        "initiating_player",
+        "refugee_s16_trigger_zone",
+        "refugee_purple_cloud_1",
+        "refugee_purple_cloud_2",
+        "refugee_purple_cloud_3",
+        "refugee_purple_cloud_4",
+        "refugee_purple_cloud_10",
+        "refugee_purple_cloud_11",
+        "refugee_purple_cloud_12",
+        "refugee_purple_cloud_13",
+        "refugee_purple_cloud_14",
+        "refugee_purple_cloud_15",
+        "refugee_purple_cloud_16",
+        "refugee_purple_cloud_17",
+        "refugee_purple_cloud_18",
+        "refugee_purple_cloud_19",
+        "refugee_purple_cloud_20",
+        "refugee_purple_cloud_21",
+        "refugee_purple_cloud_22",
+        "refugee_purple_cloud_23",
+        "refugee_purple_cloud_24"
+      ],
+      "observerPolicy": "all_loaded_party_members",
+      "lateJoinPolicy": "join_live_checkpoint_or_observe",
+      "remoteExecutionPolicy": "live_observation",
+      "executionOwnerPolicy": "any_player",
+      "dialogueOwnerPolicy": "initiating_player",
+      "formationPolicy": "initiator_with_observer_follow",
+      "cleanupRequirements": [
+        "require_s16_need_actiavate_event_and_the_initiators_witchers_eye_without_consuming_the_eye",
+        "clear_s16_need_actiavate_event_before_any_cloud_spawn_or_presentation",
+        "play_refugees_s16_think_1_through_3_once_for_the_live_initiator",
+        "spawn_exactly_four_story_clouds_at_refugee_s16_purple_cloud_1_through_4",
+        "spawn_exactly_fifteen_optional_clouds_at_gd_refugee_cloud_10_through_24",
+        "never_spawn_one_cloud_set_per_observer_or_rearm_the_consumed_zone_latch",
+        "restore_player_control_after_all_nineteen_initial_clouds_exist"
+      ]
+    },
+    {
+      "cutsceneId": "game_of_crone_explore_refugee_memory_clouds",
+      "linkedQuestIds": ["dlc_refugees_s18"],
+      "triggerScripts": [
+        "refugee_purple_cloud:interaction",
+        "refugee_purple_cloud:refugee_purple_cloud_1",
+        "refugee_purple_cloud:refugee_purple_cloud_2",
+        "refugee_purple_cloud:refugee_purple_cloud_3",
+        "refugee_purple_cloud:refugee_purple_cloud_4",
+        "refugee_purple_cloud:refugee_purple_cloud_5",
+        "refugee_purple_cloud:refugee_purple_cloud_6",
+        "refugee_purple_cloud:refugee_purple_cloud_7",
+        "refugee_purple_cloud:refugee_purple_cloud_8",
+        "refugee_purple_cloud:refugee_purple_cloud_9"
+      ],
+      "actors": [
+        "initiating_player",
+        "refugee_purple_cloud_1",
+        "refugee_purple_cloud_2",
+        "refugee_purple_cloud_3",
+        "refugee_purple_cloud_4",
+        "refugee_purple_cloud_5",
+        "refugee_purple_cloud_6",
+        "refugee_purple_cloud_7",
+        "refugee_purple_cloud_8",
+        "refugee_purple_cloud_9",
+        "pile_on_ground_with_jaw",
+        "refugee_s16_trigger_zone"
+      ],
+      "observerPolicy": "all_loaded_party_members",
+      "lateJoinPolicy": "join_live_checkpoint_or_observe",
+      "remoteExecutionPolicy": "live_observation",
+      "executionOwnerPolicy": "any_player",
+      "dialogueOwnerPolicy": "initiating_player",
+      "formationPolicy": "initiator_with_observer_follow",
+      "cleanupRequirements": [
+        "serialize_interaction_ownership_per_cloud_so_two_players_cannot_run_one_cloud_event_twice",
+        "temporarily_disable_only_the_live_initiator_set_is_invulnerable_and_play_cloud_start",
+        "let_cloud_one_alone_complete_player_s_ev_14_survey_area_between_refugees_s16_past_1_and_2",
+        "keep_clouds_two_and_three_independent_from_the_cloud_four_through_nine_successor_chain",
+        "spawn_each_successor_cloud_five_through_nine_exactly_once_from_its_predecessor",
+        "from_cloud_nine_spawn_one_pile_on_ground_with_jaw_add_one_vampire_jaw_then_destroy_the_trigger_zone",
+        "treat_the_pile_and_its_initial_jaw_as_one_authoritative_world_spawn_not_one_drop_per_observer",
+        "let_optional_clouds_ten_through_twenty_four_remain_order_independent_and_side_effect_free",
+        "destroy_only_the_interacted_cloud_then_restore_animation_is_invulnerable_and_player_control"
+      ]
+    },
+    {
+      "cutsceneId": "game_of_crone_unearth_vampire_jaw",
+      "linkedQuestIds": ["dlc_refugees_s18"],
+      "triggerScripts": ["pile_on_ground_with_jaw_digged"],
+      "actors": [
+        "initiating_player",
+        "pile_on_ground_with_jaw"
+      ],
+      "observerPolicy": "all_loaded_party_members",
+      "lateJoinPolicy": "join_live_checkpoint_or_observe",
+      "remoteExecutionPolicy": "live_observation",
+      "executionOwnerPolicy": "any_player",
+      "dialogueOwnerPolicy": "initiating_player",
+      "formationPolicy": "initiator_with_observer_follow",
+      "cleanupRequirements": [
+        "preserve_the_single_live_pile_pickup_and_do_not_duplicate_its_physical_inventory_for_observers",
+        "play_refugees_s16_past_12_and_13_once",
+        "show_npc_witch_s_ev_16_jaw_before_unlocking_refugees_s17",
+        "leave_the_jaw_task_visible_until_a_jaw_holder_selects_Clothos_locked_answer",
+        "restore_player_control_after_the_task_and_topic_exist"
+      ]
+    },
+    {
+      "cutsceneId": "game_of_crone_present_jaw_to_clotho",
+      "linkedQuestIds": ["dlc_refugees_s18"],
+      "triggerScripts": ["npc_witch:@refugees_s17"],
+      "actors": [
+        "initiating_player",
+        "npc_witch"
+      ],
+      "observerPolicy": "all_loaded_party_members",
+      "lateJoinPolicy": "join_live_checkpoint_or_observe",
+      "remoteExecutionPolicy": "live_observation",
+      "executionOwnerPolicy": "any_player",
+      "dialogueOwnerPolicy": "initiating_player",
+      "formationPolicy": "initiator_with_observer_follow",
+      "cleanupRequirements": [
+        "require_vampire_jaw_x1_as_an_answer_lock_but_never_consume_it",
+        "blacklist_refugees_s17_and_complete_s_ev_16_jaw_at_dialogue_entry_without_treating_that_early_task_write_as_the_kit_endpoint",
+        "preserve_Clothos_route_stock_and_teleport_choreography_across_refugees_s17_1_through_16",
+        "drop_exactly_one_memory_potion_receipt_and_three_memory_powder_to_the_live_initiator",
+        "show_player_s_ev_17_tinctures_before_setting_memory_potion_mode_one_and_unlocking_buy_memory_powder",
+        "record_or_deliver_the_jaw_receipt_and_the_tincture_kit_once_per_profile_at_their_safe_task_boundaries",
+        "never_replay_the_vanilla_drops_or_duplicate_the_buy_topic_for_observers",
+        "restore_player_control_after_the_kit_task_mode_and_topic_exist"
+      ]
+    },
+    {
+      "cutsceneId": "game_of_crone_recover_vampire_jaw_memory",
+      "linkedQuestIds": ["dlc_refugees_s18"],
+      "triggerScripts": [
+        "OnMemoryPotionUse",
+        "refugee_ev_s18_flashback"
+      ],
+      "actors": [
+        "initiating_player",
+        "npc_woman_black_gold_s18",
+        "npc_vampire_common_s18_1",
+        "npc_vampire_common_s18_2",
+        "npc_vampire_common_s18_3",
+        "npc_vampire_common_s18_4",
+        "unfade_circle"
+      ],
+      "observerPolicy": "all_loaded_party_members",
+      "lateJoinPolicy": "join_live_checkpoint_or_observe",
+      "remoteExecutionPolicy": "live_observation",
+      "executionOwnerPolicy": "any_player",
+      "dialogueOwnerPolicy": "initiating_player",
+      "formationPolicy": "initiator_with_observer_follow",
+      "cleanupRequirements": [
+        "serialize_all_valid_memory_potion_uses_so_concurrent_players_cannot_advance_the_shared_jaw_counter_twice",
+        "require_mode_one_and_the_acting_players_retained_vampire_jaw_and_refund_only_invalid_or_blocked_uses",
+        "consume_one_memory_potion_and_increment_memory_potion_jaw_use_count_once_before_each_valid_branch",
+        "play_the_first_second_and_third_use_dialogue_branches_at_counts_one_two_and_three_without_resetting_or_reincrementing_the_counter",
+        "on_count_three_resume_or_finish_the_committed_flashback_checkpoint_after_interruption_instead_of_allowing_a_count_four_refund_dead_end",
+        "load_DLC_scene_ev_18_colosseum_night_and_preserve_all_five_flashback_characters_the_unfade_circle_and_refugees_s18_4_through_14",
+        "restore_subscene_pseudotime_environment_weather_music_sound_playlist_and_past_camera_filter_on_every_exit",
+        "check_dlc_refugees_s18_once_during_the_restored_flashback_cleanup",
+        "after_return_play_refugees_s18_15_through_18_unlock_both_report_topics_reset_mode_zero_and_complete_s_ev_17_tinctures",
+        "never_persistently_repair_memory_potion_mode_zero_because_the_blackened_boot_memory_later_reuses_mode_two",
+        "show_the_Alarich_report_then_the_Shepherd_report_without_precreating_either_from_the_early_tincture_complete_prefix",
+        "restore_animation_facing_invulnerability_and_player_control_for_every_participant"
+      ]
+    },
+    {
+      "cutsceneId": "game_of_crone_report_memory_to_alarich",
+      "linkedQuestIds": ["dlc_refugees_s18"],
+      "triggerScripts": ["npc_master_alarich:@refugees_s19_1"],
+      "actors": [
+        "initiating_player",
+        "npc_master_alarich"
+      ],
+      "observerPolicy": "all_loaded_party_members",
+      "lateJoinPolicy": "join_live_checkpoint_or_observe",
+      "remoteExecutionPolicy": "live_observation",
+      "executionOwnerPolicy": "any_player",
+      "dialogueOwnerPolicy": "initiating_player",
+      "formationPolicy": "initiator_with_observer_follow",
+      "cleanupRequirements": [
+        "blacklist_refugees_s19_1_and_complete_s_ev_18_alarich_woman_before_the_dialogue",
+        "play_refugees_s19_1_1_through_8_and_only_add_9_and_10_when_ev_s15_1_completed_is_set",
+        "increment_s_ev_19_dialogues_count_exactly_once_after_the_report_without_repairing_it_from_the_early_complete_task",
+        "run_refugee_ev_s19_about_gerry_only_when_this_is_the_second_finished_report",
+        "restore_player_control_after_the_report_or_its_convergence_tail"
+      ]
+    },
+    {
+      "cutsceneId": "game_of_crone_report_memory_to_shepherd",
+      "linkedQuestIds": ["dlc_refugees_s18"],
+      "triggerScripts": ["npc_shepherd:@refugees_s19_3"],
+      "actors": [
+        "initiating_player",
+        "npc_shepherd"
+      ],
+      "observerPolicy": "all_loaded_party_members",
+      "lateJoinPolicy": "join_live_checkpoint_or_observe",
+      "remoteExecutionPolicy": "live_observation",
+      "executionOwnerPolicy": "any_player",
+      "dialogueOwnerPolicy": "initiating_player",
+      "formationPolicy": "initiator_with_observer_follow",
+      "cleanupRequirements": [
+        "blacklist_refugees_s19_3_and_complete_s_ev_18_shepherd_woman_before_the_dialogue",
+        "play_refugees_s19_3_1_through_10_once",
+        "increment_s_ev_19_dialogues_count_exactly_once_after_the_report_without_repairing_it_from_the_early_complete_task",
+        "run_refugee_ev_s19_about_gerry_only_when_this_is_the_second_finished_report",
+        "restore_player_control_after_the_report_or_its_convergence_tail"
+      ]
+    },
+    {
+      "cutsceneId": "game_of_crone_converge_memory_reports_on_gerry",
+      "linkedQuestIds": ["dlc_refugees_s18"],
+      "triggerScripts": ["refugee_ev_s19_about_gerry"],
+      "actors": ["initiating_player"],
+      "observerPolicy": "all_loaded_party_members",
+      "lateJoinPolicy": "join_live_checkpoint_or_observe",
+      "remoteExecutionPolicy": "live_observation",
+      "executionOwnerPolicy": "any_player",
+      "dialogueOwnerPolicy": "initiating_player",
+      "formationPolicy": "initiator_with_observer_follow",
+      "cleanupRequirements": [
+        "run_once_after_both_memory_reports_finish_in_either_order",
+        "face_the_live_initiator_down_and_play_refugees_s19_1_11_and_12",
+        "show_crafting_skull_3_s_ev_19_ask_gerry_before_unlocking_refugees_s20",
+        "never_reincrement_s_ev_19_dialogues_count_or_replay_the_setup_for_observers",
+        "return_the_initiator_to_normal_control"
+      ]
+    },
+    {
+      "cutsceneId": "game_of_crone_ask_gerry_about_the_memory",
+      "linkedQuestIds": ["dlc_refugees_s18"],
+      "triggerScripts": ["crafting_skull_3:@refugees_s20"],
+      "actors": [
+        "initiating_player",
+        "crafting_skull_3"
+      ],
+      "observerPolicy": "all_loaded_party_members",
+      "lateJoinPolicy": "join_live_checkpoint_or_observe",
+      "remoteExecutionPolicy": "live_observation",
+      "executionOwnerPolicy": "any_player",
+      "dialogueOwnerPolicy": "initiating_player",
+      "formationPolicy": "initiator_with_observer_follow",
+      "cleanupRequirements": [
+        "blacklist_refugees_s20_and_complete_s_ev_19_ask_gerry_at_dialogue_entry",
+        "play_refugees_s20_1_through_9_and_only_add_10_when_ev_s15_1_completed_is_set",
+        "schedule_unlock_s21_event_on_Gerry_once_with_the_exact_450_second_delay",
+        "show_s_ev_20_about_queen_without_treating_its_visible_state_as_proof_the_delay_elapsed",
+        "never_unlock_refugees_s21_early_refire_the_timer_or_reset_its_remaining_delay_from_task_reconciliation",
+        "restore_player_control_after_the_timer_and_task_are_established"
+      ]
+    },
+    {
+      "cutsceneId": "game_of_crone_hear_gerrys_queen_memory",
+      "linkedQuestIds": ["dlc_refugees_s18"],
+      "triggerScripts": ["crafting_skull_3:@refugees_s21"],
+      "actors": [
+        "initiating_player",
+        "crafting_skull_3",
+        "donkey",
+        "refugee_s22_trigger_zone"
+      ],
+      "observerPolicy": "all_loaded_party_members",
+      "lateJoinPolicy": "join_live_checkpoint_or_observe",
+      "remoteExecutionPolicy": "live_observation",
+      "executionOwnerPolicy": "any_player",
+      "dialogueOwnerPolicy": "initiating_player",
+      "formationPolicy": "initiator_with_observer_follow",
+      "cleanupRequirements": [
+        "blacklist_refugees_s21_and_complete_s_ev_20_about_queen_before_the_twelve_line_dialogue",
+        "show_donkey_s_ev_21_take_hair_before_arming_any_world_latch",
+        "set_donkey_should_stop_in_s22_spawn_one_refugee_s22_trigger_zone_and_set_is_zone_s22_active_once",
+        "treat_the_visible_hair_task_as_an_early_prefix_not_proof_the_hidden_zone_setup_finished",
+        "never_rearm_or_respawn_the_consumed_donkey_zone_from_the_still_visible_hair_task",
+        "restore_player_control_after_the_task_and_world_setup_finish"
+      ]
+    },
+    {
+      "cutsceneId": "game_of_crone_intercept_donkey_for_hair",
+      "linkedQuestIds": ["dlc_refugees_s18"],
+      "triggerScripts": [
+        "on_enter_gd_zone_s22_E",
+        "on_enter_gd_zone_s22_N",
+        "on_enter_gd_zone_s22_W",
+        "refugee_ev_s22_E",
+        "refugee_ev_s22_N",
+        "refugee_ev_s22_W",
+        "refugee_ev_s22",
+        "refugee_ev_d6"
+      ],
+      "actors": [
+        "initiating_player",
+        "donkey",
+        "refugee_s22_trigger_zone"
+      ],
+      "observerPolicy": "all_loaded_party_members",
+      "lateJoinPolicy": "join_live_checkpoint_or_observe",
+      "remoteExecutionPolicy": "live_observation",
+      "executionOwnerPolicy": "any_player",
+      "dialogueOwnerPolicy": "initiating_player",
+      "formationPolicy": "initiator_with_observer_follow",
+      "cleanupRequirements": [
+        "require_both_is_zone_s22_active_and_donkey_ready_for_s22_before_launch",
+        "clear_is_zone_s22_active_donkey_ready_for_s22_and_donkey_should_stop_in_s22_before_any_directional_scene",
+        "preserve_the_E_N_or_W_player_route_then_run_one_shared_refugee_ev_s22",
+        "if_is_ev_d6_completed_drop_one_donkey_lock_wool_unlock_pagan_amulet_set_gd_zone_s23_is_active_complete_the_hair_task_and_show_the_amulet_task",
+        "if_d6_is_not_complete_set_is_waiting_amulet_from_s22_and_defer_the_entire_grant_task_and_craft_tail",
+        "let_the_first_later_refugee_ev_d6_read_deliver_the_deferred_wool_craft_flag_and_tasks_exactly_once",
+        "treat_donkey_lock_wool_as_the_single_live_crafting_input_and_never_as_a_party_item_grant",
+        "ignore_the_disconnected_contraband_box_hair_nodes",
+        "send_the_donkey_home_destroy_the_trigger_zone_and_restore_cinematic_state_and_player_control_on_both_orderings"
+      ]
+    },
+    {
+      "cutsceneId": "game_of_crone_meet_ghost_priest_on_level_eight",
+      "linkedQuestIds": ["dlc_refugees_s23"],
+      "triggerScripts": [
+        "on_enter_gd_zone_s23",
+        "refugee_ev_s23"
+      ],
+      "actors": [
+        "initiating_player",
+        "npc_ghost_priest"
+      ],
+      "observerPolicy": "all_loaded_party_members",
+      "lateJoinPolicy": "join_live_checkpoint_or_observe",
+      "remoteExecutionPolicy": "live_observation",
+      "executionOwnerPolicy": "any_player",
+      "dialogueOwnerPolicy": "initiating_player",
+      "formationPolicy": "initiator_with_observer_follow",
+      "cleanupRequirements": [
+        "require_gd_zone_s23_is_active_dungeon_level_eight_complete_and_the_initiators_retained_pagan_amulet",
+        "clear_gd_zone_s23_is_active_before_running_the_scene_and_never_rearm_it_from_the_still_visible_goto_task",
+        "disable_the_live_initiator_set_is_invulnerable_and_spawn_exactly_one_npc_ghost_priest_at_gd_refugee_s23_ghost_spawn",
+        "preserve_instrumental_disturbing_the_ghost_appear_route_and_refugees_s23_1_through_10",
+        "check_dlc_refugees_s23_once_from_the_refugees_s23_4_parallel_branch_without_treating_that_early_check_as_terminal",
+        "destroy_only_the_transient_ghost_restore_the_camera_face_the_player_down_and_play_refugees_s23_11",
+        "show_npc_shepherd_s_ev_23_help_then_unlock_both_refugees_s24_1_and_refugees_s24_2",
+        "stop_the_music_complete_player_s_ev_22_goto_8lvl_and_leave_the_pagan_amulet_unconsumed",
+        "allocate_one_retained_amulet_per_profile_without_allowing_multiple_owners_to_replay_the_shared_scene",
+        "restore_is_invulnerable_music_camera_facing_and_player_control_on_every_exit",
+        "leave_refugees_s24_1_and_s24_2_and_the_Shepherd_wife_scene_to_the_next_catalogue_chapter"
+      ]
+    }
+  ],
+  "storySteps": [
+    {
+      "stepId": "game_of_crone_finish_parallel_beatrice_reports",
+      "title": "Finish the independent Alarich and Inquisitor Beatrice reports",
+      "linkedQuestIds": ["dlc_refugees_s18"],
+      "linkedTaskMilestoneIds": [
+        "game_of_crone_alarich_beatrice_report_completed",
+        "game_of_crone_inquisitor_beatrice_report_completed"
+      ],
+      "triggerScripts": [
+        "npc_master_alarich:@refugees_s15_1_1",
+        "npc_inquisitor:@refugees_s15_1_2"
+      ],
+      "triggerKeys": [
+        "@refugees_s15_1_1",
+        "@refugees_s15_1_2",
+        "s_ev_15_1_alar_beatrice",
+        "s_ev_15_1_inq_beatrice"
+      ],
+      "expectedEffects": [
+        { "kind": "dialogue_phrase", "id": "@refugees_s15_1_1", "operation": "blacklist_at_Alarich_report_entry", "amount": 1.0, "ownership": "shared_campaign" },
+        { "kind": "npc_task", "id": "npc_master_alarich:s_ev_15_1_alar_beatrice", "operation": "complete_after_the_ten_line_report", "amount": 1.0, "ownership": "shared_campaign" },
+        { "kind": "dialogue_phrase", "id": "@refugees_s15_1_2", "operation": "blacklist_at_Inquisitor_report_entry", "amount": 1.0, "ownership": "shared_campaign" },
+        { "kind": "npc_task", "id": "npc_inquisitor:s_ev_15_1_inq_beatrice", "operation": "complete_after_the_ten_line_report", "amount": 1.0, "ownership": "shared_campaign" }
+      ],
+      "safeguards": [
+        "allow_both_reports_in_either_order_and_independently_of_the_cloud_chain",
+        "do_not_replay_either_dialogue_for_observers",
+        "leave_Teodoros_city_2_build_unlock_report_to_the_dedicated_camp_catalogue"
+      ]
+    },
+    {
+      "stepId": "game_of_crone_reveal_and_explore_memory_clouds",
+      "title": "Reveal the refugee memory field and follow the clouds to the jaw",
+      "linkedQuestIds": ["dlc_refugees_s18"],
+      "linkedTaskMilestoneIds": [
+        "game_of_crone_witchers_eye_allocation_received",
+        "game_of_crone_refugee_cloud_survey_completed",
+        "game_of_crone_vampire_jaw_lead_opened",
+        "game_of_crone_vampire_jaw_allocation_received"
+      ],
+      "triggerScripts": [
+        "refugee_ev_s16_on_trigger_zone_enter",
+        "refugee_ev_s16",
+        "refugee_purple_cloud:interaction",
+        "pile_on_ground_with_jaw_digged"
+      ],
+      "triggerKeys": [
+        "s16_need_actiavate_event",
+        "witchers_eye",
+        "s_ev_14_survey_area",
+        "refugee_purple_cloud_1",
+        "refugee_purple_cloud_9",
+        "pile_on_ground_with_jaw",
+        "vampire_jaw",
+        "s_ev_16_jaw",
+        "@refugees_s17"
+      ],
+      "expectedEffects": [
+        { "kind": "inventory_item", "id": "witchers_eye", "operation": "retain_and_allocate_exactly_one_per_profile_at_the_durable_survey_task", "amount": 1.0, "ownership": "personal_character" },
+        { "kind": "player_param", "id": "s16_need_actiavate_event", "operation": "clear_before_cloud_field_spawn", "amount": 0.0, "ownership": "shared_campaign" },
+        { "kind": "world_object", "id": "refugee_purple_cloud_1_through_4", "operation": "spawn_four_initial_story_clouds", "amount": 4.0, "ownership": "shared_world" },
+        { "kind": "world_object", "id": "refugee_purple_cloud_10_through_24", "operation": "spawn_fifteen_optional_clouds", "amount": 15.0, "ownership": "shared_world" },
+        { "kind": "npc_task", "id": "player:s_ev_14_survey_area", "operation": "complete_only_from_cloud_one", "amount": 1.0, "ownership": "shared_campaign" },
+        { "kind": "world_object", "id": "refugee_purple_cloud_5_through_9", "operation": "spawn_once_in_the_serial_four_to_nine_chain", "amount": 5.0, "ownership": "shared_world" },
+        { "kind": "world_container", "id": "pile_on_ground_with_jaw", "operation": "spawn_once_with_one_vampire_jaw_from_cloud_nine", "amount": 1.0, "ownership": "shared_world" },
+        { "kind": "npc_task", "id": "npc_witch:s_ev_16_jaw", "operation": "show_after_the_jaw_pile_is_dug", "amount": 1.0, "ownership": "shared_campaign" },
+        { "kind": "dialogue_phrase", "id": "@refugees_s17", "operation": "unlock_after_the_jaw_task", "amount": 1.0, "ownership": "shared_campaign" },
+        { "kind": "inventory_item", "id": "vampire_jaw", "operation": "retain_and_allocate_exactly_one_per_profile_at_the_durable_jaw_task", "amount": 1.0, "ownership": "personal_character" }
+      ],
+      "safeguards": [
+        "allocate_the_retained_witchers_eye_once_per_profile_from_the_survey_task_because_the_Teodoro_eye_task_can_be_skipped_when_reward_order_is_reversed",
+        "do_not_consume_the_witchers_eye_or_rearm_the_zone_latch",
+        "serialize_each_cloud_interaction_and_never_spawn_a_successor_or_jaw_pile_twice",
+        "do_not_infer_cloud_one_survey_completion_from_the_independent_cloud_nine_chain_or_vice_versa",
+        "do_not_treat_optional_clouds_ten_through_twenty_four_as_story_gates",
+        "keep_the_single_physical_pile_authoritative_while_using_the_receipt_only_for_retained_profile_eligibility"
+      ]
+    },
+    {
+      "stepId": "game_of_crone_take_jaw_to_clotho",
+      "title": "Show Clotho the jaw and receive the memory-tincture kit",
+      "linkedQuestIds": ["dlc_refugees_s18"],
+      "linkedTaskMilestoneIds": [
+        "game_of_crone_vampire_jaw_lead_opened",
+        "game_of_crone_vampire_jaw_allocation_received",
+        "game_of_crone_vampire_jaw_presented_to_clotho",
+        "game_of_crone_memory_tincture_kit_received"
+      ],
+      "triggerScripts": ["npc_witch:@refugees_s17"],
+      "triggerKeys": [
+        "vampire_jaw",
+        "@refugees_s17",
+        "s_ev_16_jaw",
+        "memory_potion_receipt",
+        "memory_powder",
+        "s_ev_17_tinctures",
+        "memory_potion_mode",
+        "@buy_memory_powder",
+        "mix:mf_alchemy_craft_03:memory_powder:powder_silver:powder_gold:"
+      ],
+      "expectedEffects": [
+        { "kind": "inventory_item", "id": "vampire_jaw", "operation": "require_as_a_retained_answer_lock_without_consumption", "amount": 1.0, "ownership": "personal_character" },
+        { "kind": "dialogue_phrase", "id": "@refugees_s17", "operation": "blacklist_at_dialogue_entry", "amount": 1.0, "ownership": "shared_campaign" },
+        { "kind": "npc_task", "id": "npc_witch:s_ev_16_jaw", "operation": "complete_at_dialogue_entry", "amount": 1.0, "ownership": "shared_campaign" },
+        { "kind": "inventory_item", "id": "memory_potion_receipt", "operation": "drop_to_initiator_then_allocate_once_per_profile", "amount": 1.0, "ownership": "personal_character" },
+        { "kind": "inventory_item", "id": "memory_powder", "operation": "drop_to_initiator_then_allocate_once_per_profile", "amount": 3.0, "ownership": "personal_character" },
+        { "kind": "npc_task", "id": "player:s_ev_17_tinctures", "operation": "show_after_both_vanilla_drops", "amount": 1.0, "ownership": "shared_campaign" },
+        { "kind": "player_param", "id": "memory_potion_mode", "operation": "set_one_for_the_live_jaw_memory_phase", "amount": 1.0, "ownership": "shared_campaign" },
+        { "kind": "dialogue_phrase", "id": "@buy_memory_powder", "operation": "unlock_repeatable_purchase_topic", "amount": 1.0, "ownership": "shared_campaign" },
+        { "kind": "craft_recipe", "id": "mix:mf_alchemy_craft_03:memory_powder:powder_silver:powder_gold:", "operation": "unlock_when_each_profiles_receipt_is_used", "amount": 1.0, "ownership": "personal_character" }
+      ],
+      "safeguards": [
+        "do_not_consume_the_jaw_or_treat_it_as_the_answer_price",
+        "treat_s_ev_16_jaw_complete_as_an_early_prefix_and_never_infer_the_later_kit_from_it",
+        "anchor_the_receipt_and_three_powder_only_at_s_ev_17_tinctures_visible_or_complete",
+        "record_the_live_initiators_vanilla_allocations_and_grant_only_missing_observer_allocations",
+        "do_not_persistently_repair_memory_potion_mode_from_task_state",
+        "leave_repeatable_buy_memory_powder_as_normal_personal_commerce"
+      ]
+    },
+    {
+      "stepId": "game_of_crone_complete_three_jaw_memories",
+      "title": "Use three memory tinctures and witness the colosseum flashback",
+      "linkedQuestIds": ["dlc_refugees_s18"],
+      "linkedTaskMilestoneIds": [
+        "game_of_crone_memory_tincture_kit_received",
+        "game_of_crone_vampire_jaw_memory_completed",
+        "game_of_crone_alarich_memory_report_opened",
+        "game_of_crone_shepherd_memory_report_opened"
+      ],
+      "triggerScripts": [
+        "OnMemoryPotionUse",
+        "refugee_ev_s18_flashback"
+      ],
+      "triggerKeys": [
+        "memory_potion",
+        "memory_potion_mode",
+        "vampire_jaw",
+        "memory_potion_jaw_use_count",
+        "dlc_refugees_s18",
+        "s_ev_17_tinctures",
+        "@refugees_s19_1",
+        "@refugees_s19_3",
+        "s_ev_18_alarich_woman",
+        "s_ev_18_shepherd_woman"
+      ],
+      "expectedEffects": [
+        { "kind": "inventory_item", "id": "memory_potion", "operation": "consume_one_from_the_live_initiator_for_each_of_three_valid_uses", "amount": 3.0, "ownership": "personal_character" },
+        { "kind": "player_param", "id": "memory_potion_jaw_use_count", "operation": "increment_once_before_each_valid_branch", "amount": 3.0, "ownership": "shared_campaign" },
+        { "kind": "serialized_quest_key", "id": "dlc_refugees_s18", "operation": "check_once_during_flashback_cleanup", "amount": 1.0, "ownership": "shared_campaign" },
+        { "kind": "dialogue_phrase", "id": "@refugees_s19_1", "operation": "unlock_after_the_flashback", "amount": 1.0, "ownership": "shared_campaign" },
+        { "kind": "dialogue_phrase", "id": "@refugees_s19_3", "operation": "unlock_after_the_flashback", "amount": 1.0, "ownership": "shared_campaign" },
+        { "kind": "player_param", "id": "memory_potion_mode", "operation": "reset_zero_before_completing_the_tincture_task", "amount": 0.0, "ownership": "shared_campaign" },
+        { "kind": "npc_task", "id": "player:s_ev_17_tinctures", "operation": "complete_after_both_report_topics_unlock", "amount": 1.0, "ownership": "shared_campaign" },
+        { "kind": "npc_task", "id": "npc_master_alarich:s_ev_18_alarich_woman", "operation": "show_after_tincture_completion", "amount": 1.0, "ownership": "shared_campaign" },
+        { "kind": "npc_task", "id": "npc_shepherd:s_ev_18_shepherd_woman", "operation": "show_after_the_Alarich_report_task", "amount": 1.0, "ownership": "shared_campaign" }
+      ],
+      "safeguards": [
+        "refund_only_invalid_blocked_or_wrong_mode_uses_and_never_refund_a_valid_memory",
+        "serialize_valid_uses_across_the_party",
+        "resume_or_finish_the_already_committed_count_three_flashback_checkpoint_after_interruption",
+        "never_reset_reincrement_or_repair_the_additive_jaw_use_counter",
+        "never_persistently_force_mode_zero_because_the_later_boot_memory_reuses_the_param",
+        "do_not_precreate_either_report_task_from_the_early_s_ev_17_tinctures_complete_prefix",
+        "restore_every_flashback_environment_and_control_override"
+      ]
+    },
+    {
+      "stepId": "game_of_crone_finish_memory_reports_and_ask_gerry",
+      "title": "Report the mysterious woman to Alarich and the Shepherd, then question Gerry",
+      "linkedQuestIds": ["dlc_refugees_s18"],
+      "linkedTaskMilestoneIds": [
+        "game_of_crone_alarich_memory_report_opened",
+        "game_of_crone_shepherd_memory_report_opened",
+        "game_of_crone_alarich_memory_report_completed",
+        "game_of_crone_shepherd_memory_report_completed",
+        "game_of_crone_gerry_memory_question_opened",
+        "game_of_crone_gerry_memory_question_completed",
+        "game_of_crone_queen_memory_story_opened"
+      ],
+      "triggerScripts": [
+        "npc_master_alarich:@refugees_s19_1",
+        "npc_shepherd:@refugees_s19_3",
+        "refugee_ev_s19_about_gerry",
+        "crafting_skull_3:@refugees_s20"
+      ],
+      "triggerKeys": [
+        "@refugees_s19_1",
+        "@refugees_s19_3",
+        "s_ev_18_alarich_woman",
+        "s_ev_18_shepherd_woman",
+        "s_ev_19_dialogues_count",
+        "s_ev_19_ask_gerry",
+        "@refugees_s20",
+        "unlock_s21_event",
+        "s_ev_20_about_queen"
+      ],
+      "expectedEffects": [
+        { "kind": "npc_task", "id": "npc_master_alarich:s_ev_18_alarich_woman", "operation": "complete_at_Alarich_report_entry", "amount": 1.0, "ownership": "shared_campaign" },
+        { "kind": "npc_task", "id": "npc_shepherd:s_ev_18_shepherd_woman", "operation": "complete_at_Shepherd_report_entry", "amount": 1.0, "ownership": "shared_campaign" },
+        { "kind": "player_param", "id": "s_ev_19_dialogues_count", "operation": "increment_once_after_each_finished_report", "amount": 2.0, "ownership": "shared_campaign" },
+        { "kind": "npc_task", "id": "crafting_skull_3:s_ev_19_ask_gerry", "operation": "show_only_after_both_report_increments", "amount": 1.0, "ownership": "shared_campaign" },
+        { "kind": "dialogue_phrase", "id": "@refugees_s20", "operation": "unlock_after_the_Gerry_setup_thoughts_then_blacklist_at_dialogue_entry", "amount": 1.0, "ownership": "shared_campaign" },
+        { "kind": "npc_task", "id": "crafting_skull_3:s_ev_19_ask_gerry", "operation": "complete_before_refugees_s20_1", "amount": 1.0, "ownership": "shared_campaign" },
+        { "kind": "timed_event", "id": "crafting_skull_3:unlock_s21_event", "operation": "schedule_once_after_Gerry_dialogue", "amount": 450.0, "ownership": "shared_world" },
+        { "kind": "npc_task", "id": "crafting_skull_3:s_ev_20_about_queen", "operation": "show_after_the_timer_is_scheduled", "amount": 1.0, "ownership": "shared_campaign" }
+      ],
+      "safeguards": [
+        "allow_the_two_reports_in_either_order_but_serialize_simultaneous_completions",
+        "never_increment_or_minimum_s_ev_19_dialogues_count_from_either_early_complete_task",
+        "run_refugee_ev_s19_about_gerry_once_only_on_the_second_finished_report",
+        "preserve_the_optional_ev_s15_1_completed_lines_without_making_Beatrices_arrival_a_gate",
+        "do_not_unlock_refugees_s21_from_s_ev_20_about_queen_visible_or_replay_the_450_second_timer"
+      ]
+    },
+    {
+      "stepId": "game_of_crone_hear_queen_story_and_arm_donkey",
+      "title": "Hear Gerry's delayed queen story and prepare the donkey interception",
+      "linkedQuestIds": ["dlc_refugees_s18"],
+      "linkedTaskMilestoneIds": [
+        "game_of_crone_queen_memory_story_opened",
+        "game_of_crone_queen_memory_story_completed",
+        "game_of_crone_donkey_hair_requested"
+      ],
+      "triggerScripts": [
+        "crafting_skull_3:unlock_s21_event",
+        "crafting_skull_3:@refugees_s21"
+      ],
+      "triggerKeys": [
+        "@refugees_s21",
+        "s_ev_20_about_queen",
+        "s_ev_21_take_hair",
+        "donkey_should_stop_in_s22",
+        "refugee_s22_trigger_zone",
+        "is_zone_s22_active"
+      ],
+      "expectedEffects": [
+        { "kind": "dialogue_phrase", "id": "@refugees_s21", "operation": "unlock_only_when_unlock_s21_event_fires_then_blacklist_at_dialogue_entry", "amount": 1.0, "ownership": "shared_campaign" },
+        { "kind": "npc_task", "id": "crafting_skull_3:s_ev_20_about_queen", "operation": "complete_before_the_twelve_line_story", "amount": 1.0, "ownership": "shared_campaign" },
+        { "kind": "npc_task", "id": "donkey:s_ev_21_take_hair", "operation": "show_before_world_arming", "amount": 1.0, "ownership": "shared_campaign" },
+        { "kind": "world_param", "id": "donkey:donkey_should_stop_in_s22", "operation": "set_after_the_hair_task", "amount": 1.0, "ownership": "shared_world" },
+        { "kind": "world_object", "id": "refugee_s22_trigger_zone", "operation": "spawn_once_at_refugee_s22_trigger_zone_spawn", "amount": 1.0, "ownership": "shared_world" },
+        { "kind": "world_param", "id": "donkey:is_zone_s22_active", "operation": "set_after_the_zone_spawn", "amount": 1.0, "ownership": "shared_world" }
+      ],
+      "safeguards": [
+        "do_not_treat_the_hair_task_visible_prefix_as_proof_the_world_setup_finished",
+        "never_rearm_hidden_latches_or_respawn_the_zone_from_the_visible_task",
+        "spawn_one_authoritative_zone_and_not_one_per_observer",
+        "let_the_donkeys_normal_route_set_donkey_ready_for_s22"
+      ]
+    },
+    {
+      "stepId": "game_of_crone_intercept_donkey_and_open_amulet_craft",
+      "title": "Intercept the donkey and converge the hair grant with the second camp letter",
+      "linkedQuestIds": ["dlc_refugees_s18"],
+      "linkedTaskMilestoneIds": [
+        "game_of_crone_donkey_hair_requested",
+        "game_of_crone_donkey_hair_received",
+        "game_of_crone_pagan_amulet_craft_opened"
+      ],
+      "triggerScripts": [
+        "on_enter_gd_zone_s22_E",
+        "on_enter_gd_zone_s22_N",
+        "on_enter_gd_zone_s22_W",
+        "refugee_ev_s22_E",
+        "refugee_ev_s22_N",
+        "refugee_ev_s22_W",
+        "refugee_ev_s22",
+        "refugee_ev_d6"
+      ],
+      "triggerKeys": [
+        "donkey_ready_for_s22",
+        "donkey_should_stop_in_s22",
+        "is_zone_s22_active",
+        "is_ev_d6_completed",
+        "is_waiting_amulet_from_s22",
+        "donkey_lock_wool",
+        "pagan_amulet",
+        "gd_zone_s23_is_active",
+        "s_ev_21_take_hair",
+        "s_ev_22_make_amulet"
+      ],
+      "expectedEffects": [
+        { "kind": "world_param_set", "id": "donkey_s22_live_latches", "operation": "clear_all_three_before_directional_launch", "amount": 0.0, "ownership": "shared_world" },
+        { "kind": "player_param", "id": "is_waiting_amulet_from_s22", "operation": "set_only_when_s22_finishes_before_d6", "amount": 1.0, "ownership": "shared_campaign" },
+        { "kind": "inventory_item", "id": "donkey_lock_wool", "operation": "drop_once_to_the_live_initiator_immediately_or_from_the_first_later_d6_read", "amount": 1.0, "ownership": "shared_story_token" },
+        { "kind": "craft", "id": "pagan_amulet", "operation": "unlock_with_the_single_hair_grant", "amount": 1.0, "ownership": "shared_campaign" },
+        { "kind": "player_param", "id": "gd_zone_s23_is_active", "operation": "set_with_the_hair_grant_until_s23_consumes_it", "amount": 1.0, "ownership": "shared_campaign" },
+        { "kind": "npc_task", "id": "donkey:s_ev_21_take_hair", "operation": "complete_with_the_hair_grant", "amount": 1.0, "ownership": "shared_campaign" },
+        { "kind": "npc_task", "id": "player:s_ev_22_make_amulet", "operation": "show_after_the_hair_task_completes", "amount": 1.0, "ownership": "shared_campaign" },
+        { "kind": "world_object", "id": "refugee_s22_trigger_zone", "operation": "destroy_after_s22_and_send_the_donkey_home", "amount": 1.0, "ownership": "shared_world" }
+      ],
+      "safeguards": [
+        "support_d6_first_and_s22_first_without_duplicate_wool_craft_flags_or_tasks",
+        "never_party_grant_the_transient_wool_or_allow_two_concurrent_one_time_crafts",
+        "do_not_reset_the_historical_is_waiting_amulet_from_s22_latch",
+        "do_not_rearm_consumed_s22_world_flags_from_either_visible_task",
+        "ignore_the_disconnected_contraband_box_hair_nodes",
+        "restore_directional_scene_control_and_destroy_the_zone_on_both_branches"
+      ]
+    },
+    {
+      "stepId": "game_of_crone_craft_retained_pagan_amulet",
+      "title": "Craft the pagan amulet and open the level-eight search",
+      "linkedQuestIds": ["dlc_refugees_s23"],
+      "linkedTaskMilestoneIds": [
+        "game_of_crone_pagan_amulet_craft_opened",
+        "game_of_crone_pagan_amulet_crafted",
+        "game_of_crone_dungeon_level_eight_search_opened"
+      ],
+      "triggerScripts": ["on_pagan_amulet_crafted"],
+      "triggerKeys": [
+        "pagan_amulet",
+        "s_ev_22_make_amulet",
+        "s_ev_22_goto_8lvl"
+      ],
+      "expectedEffects": [
+        { "kind": "craft", "id": "pagan_amulet", "operation": "lock_after_the_first_successful_craft", "amount": 1.0, "ownership": "shared_campaign" },
+        { "kind": "npc_task", "id": "player:s_ev_22_make_amulet", "operation": "complete_after_the_craft_output_exists", "amount": 1.0, "ownership": "shared_campaign" },
+        { "kind": "inventory_item", "id": "pagan_amulet", "operation": "retain_and_allocate_exactly_one_per_profile", "amount": 1.0, "ownership": "personal_character" },
+        { "kind": "npc_task", "id": "player:s_ev_22_goto_8lvl", "operation": "show_after_the_craft_task", "amount": 1.0, "ownership": "shared_campaign" }
+      ],
+      "safeguards": [
+        "let_only_one_live_crafter_consume_the_single_wool_and_produce_the_vanilla_amulet",
+        "record_the_crafters_existing_amulet_and_grant_only_missing_retained_observer_allocations",
+        "keep_the_one_time_craft_locked_after_allocation",
+        "do_not_minimum_gd_zone_s23_is_active_from_the_goto_task_because_s23_consumes_it_before_its_long_scene"
+      ]
+    },
+    {
+      "stepId": "game_of_crone_meet_ghost_priest_and_open_golem_phase",
+      "title": "Meet the ghost priest on dungeon level eight and open the Shepherd and Gerry leads",
+      "linkedQuestIds": ["dlc_refugees_s23"],
+      "linkedTaskMilestoneIds": [
+        "game_of_crone_dungeon_level_eight_search_opened",
+        "game_of_crone_shepherd_golem_help_opened",
+        "game_of_crone_ghost_priest_encounter_completed"
+      ],
+      "triggerScripts": [
+        "on_enter_gd_zone_s23",
+        "refugee_ev_s23"
+      ],
+      "triggerKeys": [
+        "gd_zone_s23_is_active",
+        "pagan_amulet",
+        "dlc_refugees_s23",
+        "npc_ghost_priest",
+        "s_ev_23_help",
+        "@refugees_s24_1",
+        "@refugees_s24_2",
+        "s_ev_22_goto_8lvl"
+      ],
+      "expectedEffects": [
+        { "kind": "player_param", "id": "gd_zone_s23_is_active", "operation": "clear_before_scene_launch_and_repair_zero_at_the_terminal_task", "amount": 0.0, "ownership": "shared_campaign" },
+        { "kind": "world_actor", "id": "npc_ghost_priest", "operation": "spawn_once_appear_then_destroy_after_dialogue", "amount": 1.0, "ownership": "shared_world" },
+        { "kind": "serialized_quest_key", "id": "dlc_refugees_s23", "operation": "check_once_in_parallel_at_refugees_s23_4", "amount": 1.0, "ownership": "shared_campaign" },
+        { "kind": "npc_task", "id": "npc_shepherd:s_ev_23_help", "operation": "show_after_the_ghost_cleanup_and_player_line", "amount": 1.0, "ownership": "shared_campaign" },
+        { "kind": "dialogue_phrase", "id": "@refugees_s24_1", "operation": "unlock_for_the_next_Shepherd_phase", "amount": 1.0, "ownership": "shared_campaign" },
+        { "kind": "dialogue_phrase", "id": "@refugees_s24_2", "operation": "unlock_optional_Gerry_amulet_aside", "amount": 1.0, "ownership": "shared_campaign" },
+        { "kind": "npc_task", "id": "player:s_ev_22_goto_8lvl", "operation": "complete_after_both_topics_unlock", "amount": 1.0, "ownership": "shared_campaign" },
+        { "kind": "inventory_item", "id": "pagan_amulet", "operation": "retain_without_consumption", "amount": 1.0, "ownership": "personal_character" }
+      ],
+      "safeguards": [
+        "require_level_eight_completion_and_the_initiators_personal_amulet_before_consuming_the_launch_flag",
+        "never_rearm_the_launch_flag_during_an_interrupted_scene_or_from_the_still_visible_goto_task",
+        "do_not_treat_the_mid_dialogue_serialized_check_as_the_terminal_scene_receipt",
+        "use_s_ev_22_goto_8lvl_complete_as_the_safe_tail_for_task_phrase_and_flag_zero_repairs",
+        "do_not_consume_the_amulet_or_allow_an_observer_copy_to_replay_the_shared_scene",
+        "stop_before_refugees_s24_1_completes_the_Shepherd_task_and_launches_the_long_s25_wife_scene"
+      ]
+    }
+  ]
+}

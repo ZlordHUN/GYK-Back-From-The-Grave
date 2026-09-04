@@ -1,0 +1,460 @@
+{
+  "schemaVersion": 5,
+  "catalogId": "dlc.game-of-crone.camp-opening",
+  "campaign": "GameOfCrone",
+  "chapter": "FirstQualifyingSleepThroughRefugeeCampArrivalAndVampireSearchChoice",
+  "quests": [
+    {
+      "questId": "dlc_refugees_s1",
+      "title": "Serialized refugee-camp opening checkpoint",
+      "definitionKind": "AchievementDefinition",
+      "counter": 1,
+      "vanilla": {
+        "startTrigger": "",
+        "successTrigger": "1",
+        "failTrigger": "",
+        "startKeys": ["dlc_refugees_s1"],
+        "questVisible": false,
+        "oneTimeQuest": false,
+        "startScript": "",
+        "successScript": "",
+        "failScript": "",
+        "arrowWgoCustomTag": "",
+        "arrowWgoObjectId": "",
+        "successRewards": [],
+        "failureRewards": []
+      },
+      "policy": {
+        "stateOwnership": "shared_campaign",
+        "eligibleInitiator": "any_player",
+        "livePresentationOwner": "initiating_player",
+        "observerQuestApplication": "durable_state_only",
+        "personalRewardDelivery": "party_exactly_once",
+        "observerSuccess": {
+          "globalScripts": [],
+          "playerParamRepairs": [],
+          "playerParamMinimums": [],
+          "taskStateMinimums": [],
+          "unlockedTechs": [],
+          "unlockedPhrases": [],
+          "blacklistedPhrases": [],
+          "unlockedCrafts": [],
+          "completedOneTimeCrafts": [],
+          "personalItemGrants": []
+        }
+      },
+      "completionChecks": []
+    },
+    {
+      "questId": "dlc_refugees_s5",
+      "title": "Serialized village-meeting checkpoint",
+      "definitionKind": "AchievementDefinition",
+      "counter": 1,
+      "vanilla": {
+        "startTrigger": "",
+        "successTrigger": "1",
+        "failTrigger": "",
+        "startKeys": ["dlc_refugees_s5"],
+        "questVisible": false,
+        "oneTimeQuest": false,
+        "startScript": "",
+        "successScript": "",
+        "failScript": "",
+        "arrowWgoCustomTag": "",
+        "arrowWgoObjectId": "",
+        "successRewards": [],
+        "failureRewards": []
+      },
+      "policy": {
+        "stateOwnership": "shared_campaign",
+        "eligibleInitiator": "any_player",
+        "livePresentationOwner": "initiating_player",
+        "observerQuestApplication": "durable_state_only",
+        "personalRewardDelivery": "party_exactly_once",
+        "observerSuccess": {
+          "globalScripts": [],
+          "playerParamRepairs": [],
+          "playerParamMinimums": [],
+          "taskStateMinimums": [],
+          "unlockedTechs": [],
+          "unlockedPhrases": [],
+          "blacklistedPhrases": [],
+          "unlockedCrafts": [],
+          "completedOneTimeCrafts": [],
+          "personalItemGrants": []
+        }
+      },
+      "completionChecks": []
+    }
+  ],
+  "taskMilestones": [
+    {
+      "milestoneId": "game_of_crone_vampire_search_opened",
+      "npcId": "npc_tavern owner",
+      "taskId": "s_ev_5_find_the_vampire",
+      "activeStates": ["Visible"],
+      "playerParamRepairs": [],
+      "playerParamMinimums": [
+        { "key": "dlc_refugees_started", "value": 1.0 }
+      ],
+      "taskStateMinimums": [],
+      "unlockedTechs": [],
+      "unlockedPhrases": ["@zone_refugees_camp_tp"],
+      "blacklistedPhrases": [],
+      "unlockedCrafts": [],
+      "completedOneTimeCrafts": [],
+      "wgoParamMinimums": [],
+      "personalItemGrants": []
+    }
+  ],
+  "cutscenes": [
+    {
+      "cutsceneId": "game_of_crone_marquis_night_invitation",
+      "linkedQuestIds": ["dlc_refugees_s1"],
+      "triggerScripts": ["refugee_ev_s1"],
+      "actors": [
+        "initiating_player",
+        "npc_marquis_teodoro_jr_s1",
+        "npc_marquis_teodoro_jr",
+        "npc_master_alarich"
+      ],
+      "observerPolicy": "all_loaded_party_members",
+      "lateJoinPolicy": "join_live_checkpoint_or_observe",
+      "remoteExecutionPolicy": "live_observation",
+      "executionOwnerPolicy": "any_player",
+      "dialogueOwnerPolicy": "initiating_player",
+      "formationPolicy": "initiator_with_observer_follow",
+      "cleanupRequirements": [
+        "run_only_after_the_sleep_graph_consumes_need_to_start_ev_s1",
+        "preserve_Teodoros_exact_direct_and_GDGraph_route_between_the_house_and_camp",
+        "destroy_only_the_temporary_npc_marquis_teodoro_jr_s1_actor",
+        "unlock_the_refugee_camp_map_phrase_and_spawn_one_tp_refugee_point_a",
+        "continue_into_refugee_ev_s2_without_rechecking_or_replaying_the_sleep_gate",
+        "restore_camera_cinematic_state_and_player_control_on_every_exit"
+      ]
+    },
+    {
+      "cutsceneId": "game_of_crone_alarich_tent_arrival",
+      "linkedQuestIds": ["dlc_refugees_s1"],
+      "triggerScripts": ["refugee_ev_s2"],
+      "actors": [
+        "initiating_player",
+        "npc_marquis_teodoro_jr",
+        "npc_master_alarich"
+      ],
+      "observerPolicy": "all_loaded_party_members",
+      "lateJoinPolicy": "join_live_checkpoint_or_observe",
+      "remoteExecutionPolicy": "live_observation",
+      "executionOwnerPolicy": "any_player",
+      "dialogueOwnerPolicy": "initiating_player",
+      "formationPolicy": "initiator_with_observer_follow",
+      "cleanupRequirements": [
+        "preserve_the_tp_alarich_tent_a_environment_transition_and_refugee_theme",
+        "attach_ev_city_1_1_to_the_same_vanilla_Teodoro_actor_once",
+        "continue_into_refugee_ev_s3_once",
+        "restore_camera_weather_and_player_control_on_every_exit"
+      ]
+    },
+    {
+      "cutsceneId": "game_of_crone_alarich_camp_disclosure",
+      "linkedQuestIds": ["dlc_refugees_s1"],
+      "triggerScripts": ["refugee_ev_s3"],
+      "actors": [
+        "initiating_player",
+        "npc_master_alarich",
+        "npc_marquis_teodoro_jr",
+        "npc_blacksmith"
+      ],
+      "observerPolicy": "all_loaded_party_members",
+      "lateJoinPolicy": "join_live_checkpoint_or_observe",
+      "remoteExecutionPolicy": "live_observation",
+      "executionOwnerPolicy": "any_player",
+      "dialogueOwnerPolicy": "initiating_player",
+      "formationPolicy": "initiator_with_observer_follow",
+      "cleanupRequirements": [
+        "store_the_current_day_in_event_s3_day_num_instead_of_the_serialized_zero_default",
+        "arm_check_krezvold_come_after_s3_on_the_canonical_npc_blacksmith",
+        "run_refugee_ev_s4_2_once_before_leaving_the_opening_disclosure",
+        "return_the_player_to_the_outside_camp_environment",
+        "restore_camera_weather_music_and_player_control_on_every_exit"
+      ]
+    },
+    {
+      "cutsceneId": "game_of_crone_teodoro_post_disclosure",
+      "linkedQuestIds": ["dlc_refugees_s1"],
+      "triggerScripts": ["refugee_ev_s4_2"],
+      "actors": [
+        "initiating_player",
+        "npc_marquis_teodoro_jr",
+        "npc_master_alarich"
+      ],
+      "observerPolicy": "all_loaded_party_members",
+      "lateJoinPolicy": "join_live_checkpoint_or_observe",
+      "remoteExecutionPolicy": "live_observation",
+      "executionOwnerPolicy": "any_player",
+      "dialogueOwnerPolicy": "initiating_player",
+      "formationPolicy": "initiator_with_observer_follow",
+      "cleanupRequirements": [
+        "set_say_random_phrase_on_the_vanilla_Teodoro_actor_and_is_before_disclosure_on_the_canonical_Alarich_actor",
+        "do_not_spawn_Krezvold_or_begin_the_tavern_meeting_from_this_scene",
+        "stop_the_refugee_theme_at_the_vanilla_boundary",
+        "restore_camera_cinematic_state_and_player_control_on_every_exit"
+      ]
+    },
+    {
+      "cutsceneId": "game_of_crone_krezvold_house_confrontation",
+      "linkedQuestIds": ["dlc_refugees_s5"],
+      "triggerScripts": ["refugee_ev_s4_1"],
+      "actors": [
+        "initiating_player",
+        "npc_blacksmith_ev4_1"
+      ],
+      "observerPolicy": "all_loaded_party_members",
+      "lateJoinPolicy": "join_live_checkpoint_or_observe",
+      "remoteExecutionPolicy": "live_observation",
+      "executionOwnerPolicy": "any_player",
+      "dialogueOwnerPolicy": "initiating_player",
+      "formationPolicy": "initiator_with_observer_follow",
+      "cleanupRequirements": [
+        "require_a_later_day_than_event_s3_day_num_before_the_sleep_graph_spawns_Krezvold",
+        "require_both_check_krezvold_come_after_s3_and_krezvold_spawned_for_ev4_1",
+        "preserve_on_enter_house_outside_gd_zone_priority_for_the_inquisitor_farmer_and_sword_branches",
+        "set_is_player_locked_by_cutscene_before_movement_to_the_tavern",
+        "continue_into_refugee_ev_s5_once",
+        "let_refugee_ev_s5_own_the_final_player_unlock"
+      ]
+    },
+    {
+      "cutsceneId": "game_of_crone_village_tavern_appeal",
+      "linkedQuestIds": ["dlc_refugees_s5"],
+      "triggerScripts": ["refugee_ev_s5"],
+      "actors": [
+        "initiating_player",
+        "npc_blacksmith_ev4_1",
+        "npc_mrs chain",
+        "npc_tavern owner",
+        "npc_captain",
+        "npc_alice",
+        "npc_actress",
+        "npc_farmers son",
+        "npc_shepherds_wife",
+        "npc_beekeeper",
+        "npc_wood_cutter",
+        "npc_potter",
+        "npc_dig",
+        "npc_engineer",
+        "npc_carpenter",
+        "npc_farmer",
+        "npc_shepherd_s6"
+      ],
+      "observerPolicy": "all_loaded_party_members",
+      "lateJoinPolicy": "join_live_checkpoint_or_observe",
+      "remoteExecutionPolicy": "live_observation",
+      "executionOwnerPolicy": "any_player",
+      "dialogueOwnerPolicy": "initiating_player",
+      "formationPolicy": "initiator_with_observer_follow",
+      "cleanupRequirements": [
+        "spawn_and_stage_each_temporary_villager_copy_once",
+        "preserve_existing_tavern_NPCs_and_their_pre_event_routes",
+        "free_the_Tavern_and_Village_idle_points_and_remove_only_temporary_participants",
+        "spawn_one_real_npc_shepherd_s6_and_set_s_ev_6_shepherd_waits_once",
+        "show_s_ev_5_find_the_vampire_only_for_refugees_s5_37a",
+        "leave_the_task_hidden_for_refugees_s5_37b_and_refugees_s5_37c",
+        "never_infer_acceptance_from_the_dlc_refugees_s5_checkpoint_alone",
+        "clear_is_player_locked_by_cutscene_and_restore_camera_music_and_player_control_on_every_answer"
+      ]
+    }
+  ],
+  "storySteps": [
+    {
+      "stepId": "game_of_crone_initialize_camp_after_qualifying_sleep",
+      "title": "Initialize the refugee camp after the first qualifying sleep",
+      "linkedQuestIds": ["dlc_refugees_s1"],
+      "linkedTaskMilestoneIds": [],
+      "triggerScripts": [
+        "sleep",
+        "activate_refugee_camp",
+        "spawn_init_refugees_in_camp"
+      ],
+      "triggerKeys": [
+        "Refugees",
+        "cup_20_reached",
+        "dlc_refugees_started",
+        "need_to_start_ev_s1",
+        "do_spawn_refugees"
+      ],
+      "expectedEffects": [
+        { "kind": "player_param", "id": "dlc_refugees_started", "operation": "set", "amount": 1.0, "ownership": "shared_campaign" },
+        { "kind": "player_param", "id": "need_to_start_ev_s1", "operation": "arm_until_the_wake_branch_consumes_it", "amount": 1.0, "ownership": "shared_campaign" },
+        { "kind": "world_script", "id": "activate_refugee_camp", "operation": "run_once", "amount": 1.0, "ownership": "shared_world" },
+        { "kind": "world_object", "id": "refugee_roof:refugee_roof_player", "operation": "spawn_once", "amount": 1.0, "ownership": "shared_world" },
+        { "kind": "world_object", "id": "refugee_builddesk:refugee_builddesk", "operation": "spawn_once", "amount": 1.0, "ownership": "shared_world" },
+        { "kind": "world_object", "id": "refugee_camp_tent_1:refugee_camp_tent_1", "operation": "spawn_once", "amount": 1.0, "ownership": "shared_world" },
+        { "kind": "world_object", "id": "refugee_camp_tent_2:refugee_camp_tent_2", "operation": "spawn_once", "amount": 1.0, "ownership": "shared_world" },
+        { "kind": "world_object", "id": "refugee_camp_tent_3:refugee_camp_tent_3", "operation": "spawn_once", "amount": 1.0, "ownership": "shared_world" },
+        { "kind": "world_inventory", "id": "refugee_camp_tent_1:refugee_tent_place_busy_item", "operation": "seed_once", "amount": 1.0, "ownership": "shared_world" },
+        { "kind": "world_inventory", "id": "refugee_camp_tent_2:refugee_tent_place_busy_item", "operation": "seed_once", "amount": 1.0, "ownership": "shared_world" },
+        { "kind": "world_inventory", "id": "refugee_camp_tent_3:refugee_tent_place_busy_item", "operation": "seed_once", "amount": 2.0, "ownership": "shared_world" },
+        { "kind": "world_object", "id": "refugee_camp_depot_small:refugee_camp_depot", "operation": "spawn_once", "amount": 1.0, "ownership": "shared_world" },
+        { "kind": "world_object", "id": "refugee_camp_campfire:refugee_camp_campfire", "operation": "spawn_once", "amount": 1.0, "ownership": "shared_world" },
+        { "kind": "world_object", "id": "refugee_camp_progress_obj:refugee_camp_progress_obj", "operation": "spawn_once", "amount": 1.0, "ownership": "shared_world" },
+        { "kind": "world_object", "id": "idle_points_stock:camp_idle_stock", "operation": "spawn_and_seed_32_slot_layout_once", "amount": 1.0, "ownership": "shared_world" },
+        { "kind": "refugee_population", "id": "gd_refugee_camp_wp_home_2", "operation": "spawn_initial_refugee", "amount": 1.0, "ownership": "shared_world" },
+        { "kind": "refugee_population", "id": "gd_refugee_camp_wp_home_1", "operation": "spawn_initial_refugee", "amount": 1.0, "ownership": "shared_world" },
+        { "kind": "refugee_population", "id": "gd_refugee_camp_wp_home_3", "operation": "spawn_initial_refugees", "amount": 2.0, "ownership": "shared_world" },
+        { "kind": "refugee_camp_engine", "id": "GameSave.refugees_camp_data", "operation": "start_camp_live", "amount": 1.0, "ownership": "shared_world" },
+        { "kind": "player_param", "id": "do_spawn_refugees", "operation": "set", "amount": 1.0, "ownership": "shared_campaign" },
+        { "kind": "world_actor", "id": "npc_marquis_teodoro_jr:npc_marquis_teodoro_jr_s1", "operation": "spawn_once_at_teodoro_walk_point_1", "amount": 1.0, "ownership": "shared_world" }
+      ],
+      "safeguards": [
+        "require_DLCEngine_Refugees_availability_dlc_refugees_started_equals_zero_and_cup_20_reached_at_least_one",
+        "preserve_the_sleep_graph_priority_for_the_tutorial_cultist_first_burial_first_river_and_Better_Save_Soul_branches",
+        "perform_camp_vegetation_replacement_and_every_camp_WGO_spawn_on_campaign_authority_once",
+        "preserve_the_initial_refugee_order_home_tags_unique_ids_and_initialize_or_on_came_home_events",
+        "never_repeat_activate_refugee_camp_or_spawn_init_refugees_in_camp_for_an_observer_reconnect_or_late_join",
+        "treat_need_to_start_ev_s1_as_a_consumed_live_wake_trigger_not_a_persistent_repair_target",
+        "do_not_run_refugee_ev_s1_until_the_normal_on_wake_branch"
+      ]
+    },
+    {
+      "stepId": "game_of_crone_follow_teodoro_to_refugee_camp",
+      "title": "Follow Teodoro to the refugee camp",
+      "linkedQuestIds": ["dlc_refugees_s1"],
+      "linkedTaskMilestoneIds": [],
+      "triggerScripts": ["refugee_ev_s1"],
+      "triggerKeys": [
+        "dlc_refugees_s1",
+        "@zone_refugees_camp_tp",
+        "tp_refugee_point_a",
+        "refugee_ev_s2"
+      ],
+      "expectedEffects": [
+        { "kind": "serialized_quest_key", "id": "dlc_refugees_s1", "operation": "check_once", "amount": 1.0, "ownership": "shared_campaign" },
+        { "kind": "dialogue_phrase", "id": "@zone_refugees_camp_tp", "operation": "unlock", "amount": 1.0, "ownership": "shared_campaign" },
+        { "kind": "world_object", "id": "teleport_point:tp_refugee_point_a", "operation": "spawn_once", "amount": 1.0, "ownership": "shared_world" },
+        { "kind": "world_actor", "id": "npc_marquis_teodoro_jr_s1", "operation": "destroy_temporary_copy", "amount": 1.0, "ownership": "shared_world" },
+        { "kind": "cutscene_script", "id": "refugee_ev_s2", "operation": "run_chained_once", "amount": 1.0, "ownership": "shared_world" }
+      ],
+      "safeguards": [
+        "consume_need_to_start_ev_s1_before_running_the_scene",
+        "keep_the_hidden_dlc_refugees_s1_record_as_a_checkpoint_not_a_replay_command",
+        "never_duplicate_the_refugee_camp_teleport_point",
+        "do_not_destroy_the_persistent_npc_marquis_teodoro_jr_actor",
+        "share_the_durable_phrase_and_world_object_without_replaying_dialogue_for_late_joiners"
+      ]
+    },
+    {
+      "stepId": "game_of_crone_enter_alarich_tent",
+      "title": "Enter Alarich's tent and begin the camp disclosure",
+      "linkedQuestIds": ["dlc_refugees_s1"],
+      "linkedTaskMilestoneIds": [],
+      "triggerScripts": ["refugee_ev_s2"],
+      "triggerKeys": [
+        "tp_alarich_tent_a",
+        "npc_marquis_teodoro_jr:ev_city_1_1",
+        "refugee_ev_s3"
+      ],
+      "expectedEffects": [
+        { "kind": "world_interaction", "id": "npc_marquis_teodoro_jr:ev_city_1_1", "operation": "add_once", "amount": 1.0, "ownership": "shared_world" },
+        { "kind": "cutscene_script", "id": "refugee_ev_s3", "operation": "run_chained_once", "amount": 1.0, "ownership": "shared_world" }
+      ],
+      "safeguards": [
+        "preserve_the_live_tent_environment_and_real_time_weather_transition",
+        "bind_ev_city_1_1_to_the_persistent_Teodoro_actor",
+        "never_add_duplicate_interaction_events_for_observers",
+        "do_not_treat_local_camera_music_or_facing_as_campaign_state"
+      ]
+    },
+    {
+      "stepId": "game_of_crone_complete_alarich_disclosure",
+      "title": "Complete Alarich's disclosure and arm Krezvold's next-day visit",
+      "linkedQuestIds": ["dlc_refugees_s1"],
+      "linkedTaskMilestoneIds": [],
+      "triggerScripts": ["refugee_ev_s3", "refugee_ev_s4_2"],
+      "triggerKeys": [
+        "event_s3_day_num",
+        "npc_blacksmith:check_krezvold_come_after_s3",
+        "npc_marquis_teodoro_jr:say_random_phrase",
+        "npc_master_alarich:is_before_disclosure"
+      ],
+      "expectedEffects": [
+        { "kind": "player_param", "id": "event_s3_day_num", "operation": "set_to_current_day", "amount": 1.0, "ownership": "shared_campaign" },
+        { "kind": "world_param", "id": "npc_blacksmith:check_krezvold_come_after_s3", "operation": "set", "amount": 1.0, "ownership": "shared_world" },
+        { "kind": "world_param", "id": "npc_marquis_teodoro_jr:say_random_phrase", "operation": "set", "amount": 1.0, "ownership": "shared_world" },
+        { "kind": "world_param", "id": "npc_master_alarich:is_before_disclosure", "operation": "set", "amount": 1.0, "ownership": "shared_world" }
+      ],
+      "safeguards": [
+        "use_Flow_GetDayN_for_event_s3_day_num_and_never_commit_the_serialized_zero_default",
+        "keep_check_krezvold_come_after_s3_on_the_canonical_blacksmith_WGO",
+        "do_not_spawn_npc_blacksmith_ev4_1_until_a_later_sleep_day",
+        "do_not_repair_Teodoros_random_phrase_or_Alarichs_disclosure_flag_after_the_story_moves_beyond_disclosure",
+        "restore_the_outdoor_environment_before_releasing_the_initiator"
+      ]
+    },
+    {
+      "stepId": "game_of_crone_trigger_krezvold_tavern_meeting",
+      "title": "Trigger Krezvold's next-day visit and move the confrontation to the tavern",
+      "linkedQuestIds": ["dlc_refugees_s5"],
+      "linkedTaskMilestoneIds": [],
+      "triggerScripts": [
+        "sleep",
+        "on_enter_house_outside_gd_zone",
+        "refugee_ev_s4_1"
+      ],
+      "triggerKeys": [
+        "event_s3_day_num",
+        "npc_blacksmith:check_krezvold_come_after_s3",
+        "npc_blacksmith:krezvold_spawned_for_ev4_1",
+        "npc_blacksmith_ev4_1",
+        "is_player_locked_by_cutscene"
+      ],
+      "expectedEffects": [
+        { "kind": "world_param", "id": "npc_blacksmith:krezvold_spawned_for_ev4_1", "operation": "set_after_current_day_exceeds_event_s3_day_num", "amount": 1.0, "ownership": "shared_world" },
+        { "kind": "world_actor", "id": "npc_blacksmith:npc_blacksmith_ev4_1", "operation": "spawn_once_at_krezvold_ev_s4_1_spawn", "amount": 1.0, "ownership": "shared_world" },
+        { "kind": "world_param", "id": "npc_blacksmith:check_krezvold_come_after_s3", "operation": "clear_when_the_house_exit_consumes_it", "amount": 0.0, "ownership": "shared_world" },
+        { "kind": "player_param", "id": "is_player_locked_by_cutscene", "operation": "set_until_refugee_ev_s5_answer_cleanup", "amount": 1.0, "ownership": "shared_campaign" },
+        { "kind": "cutscene_script", "id": "refugee_ev_s5", "operation": "run_chained_once", "amount": 1.0, "ownership": "shared_world" }
+      ],
+      "safeguards": [
+        "require_event_s3_day_num_to_be_less_than_the_current_day",
+        "never_spawn_Krezvold_twice_when_multiple_players_finish_sleep",
+        "preserve_on_enter_house_outside_gd_zone_priority_for_other_waiting_story_visitors",
+        "consume_check_krezvold_come_after_s3_only_when_krezvold_spawned_for_ev4_1_is_set",
+        "do_not_clear_is_player_locked_by_cutscene_between_refugee_ev_s4_1_and_refugee_ev_s5"
+      ]
+    },
+    {
+      "stepId": "game_of_crone_choose_whether_to_hunt_the_vampire",
+      "title": "Hear the village appeal and choose whether to hunt the vampire",
+      "linkedQuestIds": ["dlc_refugees_s5"],
+      "linkedTaskMilestoneIds": ["game_of_crone_vampire_search_opened"],
+      "triggerScripts": ["refugee_ev_s5"],
+      "triggerKeys": [
+        "dlc_refugees_s5",
+        "refugees_s5_37a",
+        "refugees_s5_37b",
+        "refugees_s5_37c",
+        "s_ev_6_shepherd_waits",
+        "s_ev_5_find_the_vampire"
+      ],
+      "expectedEffects": [
+        { "kind": "serialized_quest_key", "id": "dlc_refugees_s5", "operation": "check_once_before_the_final_answer", "amount": 1.0, "ownership": "shared_campaign" },
+        { "kind": "world_actor", "id": "npc_shepherd:npc_shepherd_s6", "operation": "spawn_once", "amount": 1.0, "ownership": "shared_world" },
+        { "kind": "player_param", "id": "s_ev_6_shepherd_waits", "operation": "set", "amount": 1.0, "ownership": "shared_campaign" },
+        { "kind": "npc_task", "id": "npc_tavern owner:s_ev_5_find_the_vampire", "operation": "show_only_if_refugees_s5_37a_is_selected", "amount": 1.0, "ownership": "shared_campaign" },
+        { "kind": "story_choice", "id": "refugees_s5_37b", "operation": "defer_without_showing_the_vampire_task", "amount": 1.0, "ownership": "live_presentation" },
+        { "kind": "story_choice", "id": "refugees_s5_37c", "operation": "decline_without_showing_the_vampire_task", "amount": 1.0, "ownership": "live_presentation" },
+        { "kind": "player_param", "id": "is_player_locked_by_cutscene", "operation": "clear_on_every_answer", "amount": 0.0, "ownership": "shared_campaign" }
+      ],
+      "safeguards": [
+        "present_the_three_answers_to_the_single_dialogue_owner",
+        "present_exactly_one_live_answer_then_converge_on_the_shared_cleanup",
+        "never_infer_refugees_s5_37a_or_show_s_ev_5_find_the_vampire_from_dlc_refugees_s5_completion",
+        "leave_the_task_hidden_when_the_player_defers_or_declines_until_refugee_ev_s6_main_part_shows_it_for_every_answer_path",
+        "spawn_the_waiting_shepherd_before_the_answer_without_duplicating_him_for_observers",
+        "remove_temporary_villager_copies_and_restore_canonical_tavern_NPC_routes",
+        "restore_player_control_camera_music_and_idle_point_ownership_on_every_answer"
+      ]
+    }
+  ]
+}

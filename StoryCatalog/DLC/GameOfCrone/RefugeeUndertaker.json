@@ -1,0 +1,934 @@
+{
+  "schemaVersion": 5,
+  "catalogId": "dlc.game-of-crone.refugee-undertaker",
+  "campaign": "GameOfCrone",
+  "chapter": "RefugeeUndertakerCoffinWorkplaceAndFinalVendor",
+  "quests": [
+    {
+      "questId": "dlc_refugees_undertaker",
+      "title": "Serialized refugee-undertaker achievement checkpoint",
+      "definitionKind": "AchievementDefinition",
+      "counter": 1,
+      "vanilla": {
+        "startTrigger": "",
+        "successTrigger": "1",
+        "failTrigger": "",
+        "startKeys": ["dlc_refugees_undertaker"],
+        "questVisible": false,
+        "oneTimeQuest": false,
+        "startScript": "",
+        "successScript": "",
+        "failScript": "",
+        "arrowWgoCustomTag": "",
+        "arrowWgoObjectId": "",
+        "successRewards": [],
+        "failureRewards": []
+      },
+      "policy": {
+        "stateOwnership": "shared_campaign",
+        "eligibleInitiator": "any_player",
+        "livePresentationOwner": "initiating_player",
+        "observerQuestApplication": "durable_state_only",
+        "personalRewardDelivery": "party_exactly_once",
+        "observerSuccess": {
+          "globalScripts": [],
+          "playerParamRepairs": [],
+          "playerParamMinimums": [],
+          "taskStateMinimums": [],
+          "unlockedTechs": [],
+          "unlockedPhrases": [],
+          "blacklistedPhrases": [],
+          "unlockedCrafts": [],
+          "completedOneTimeCrafts": [],
+          "personalItemGrants": []
+        }
+      },
+      "completionChecks": []
+    }
+  ],
+  "taskMilestones": [
+    {
+      "milestoneId": "game_of_crone_undertaker_chisels_requested",
+      "npcId": "npc_refugee_coffin_maker",
+      "taskId": "dlc_refugees_city_und_1_1",
+      "activeStates": ["Visible"],
+      "playerParamRepairs": [],
+      "playerParamMinimums": [],
+      "taskStateMinimums": [
+        { "npcId": "npc_refugee_coffin_maker", "taskId": "dlc_refugees_city_und_1_2", "state": "Visible" }
+      ],
+      "unlockedTechs": [],
+      "unlockedPhrases": ["@refugee_undertaker_2_1", "@refugee_undertaker_2_2"],
+      "blacklistedPhrases": [],
+      "unlockedCrafts": [],
+      "completedOneTimeCrafts": [],
+      "wgoParamMinimums": [],
+      "personalItemGrants": []
+    },
+    {
+      "milestoneId": "game_of_crone_undertaker_spikes_requested",
+      "npcId": "npc_refugee_coffin_maker",
+      "taskId": "dlc_refugees_city_und_1_2",
+      "activeStates": ["Visible"],
+      "playerParamRepairs": [],
+      "playerParamMinimums": [],
+      "taskStateMinimums": [
+        { "npcId": "npc_refugee_coffin_maker", "taskId": "dlc_refugees_city_und_1_1", "state": "Visible" }
+      ],
+      "unlockedTechs": [],
+      "unlockedPhrases": ["@refugee_undertaker_2_1", "@refugee_undertaker_2_2"],
+      "blacklistedPhrases": [],
+      "unlockedCrafts": [],
+      "completedOneTimeCrafts": [],
+      "wgoParamMinimums": [],
+      "personalItemGrants": []
+    },
+    {
+      "milestoneId": "game_of_crone_undertaker_chisels_delivered",
+      "npcId": "npc_refugee_coffin_maker",
+      "taskId": "dlc_refugees_city_und_1_1",
+      "activeStates": ["Complete"],
+      "playerParamRepairs": [],
+      "playerParamMinimums": [],
+      "taskStateMinimums": [
+        { "npcId": "npc_refugee_coffin_maker", "taskId": "dlc_refugees_city_und_1_2", "state": "Visible" }
+      ],
+      "unlockedTechs": [],
+      "unlockedPhrases": [],
+      "blacklistedPhrases": ["@refugee_undertaker_2_1"],
+      "unlockedCrafts": [],
+      "completedOneTimeCrafts": [],
+      "wgoParamMinimums": [],
+      "personalItemGrants": []
+    },
+    {
+      "milestoneId": "game_of_crone_undertaker_spikes_delivered",
+      "npcId": "npc_refugee_coffin_maker",
+      "taskId": "dlc_refugees_city_und_1_2",
+      "activeStates": ["Complete"],
+      "playerParamRepairs": [],
+      "playerParamMinimums": [],
+      "taskStateMinimums": [
+        { "npcId": "npc_refugee_coffin_maker", "taskId": "dlc_refugees_city_und_1_1", "state": "Visible" }
+      ],
+      "unlockedTechs": [],
+      "unlockedPhrases": [],
+      "blacklistedPhrases": ["@refugee_undertaker_2_2"],
+      "unlockedCrafts": [],
+      "completedOneTimeCrafts": [],
+      "wgoParamMinimums": [],
+      "personalItemGrants": []
+    },
+    {
+      "milestoneId": "game_of_crone_undertaker_workplace_requested",
+      "npcId": "npc_refugee_coffin_maker",
+      "taskId": "dlc_refugees_city_und_2",
+      "activeStates": ["Visible"],
+      "playerParamRepairs": [],
+      "playerParamMinimums": [],
+      "taskStateMinimums": [
+        { "npcId": "npc_refugee_coffin_maker", "taskId": "dlc_refugees_city_und_1_1", "state": "Complete" },
+        { "npcId": "npc_refugee_coffin_maker", "taskId": "dlc_refugees_city_und_1_2", "state": "Complete" }
+      ],
+      "unlockedTechs": [],
+      "unlockedPhrases": ["@undertaker_vendor_inventory_1"],
+      "blacklistedPhrases": ["@refugee_undertaker_2_1", "@refugee_undertaker_2_2"],
+      "unlockedCrafts": ["refugee_builddesk:p:refugee_coffin_workplace_place"],
+      "completedOneTimeCrafts": [],
+      "wgoParamMinimums": [],
+      "personalItemGrants": []
+    },
+    {
+      "milestoneId": "game_of_crone_undertaker_workplace_completed",
+      "npcId": "npc_refugee_coffin_maker",
+      "taskId": "dlc_refugees_city_und_2",
+      "activeStates": ["Complete"],
+      "playerParamRepairs": [],
+      "playerParamMinimums": [],
+      "taskStateMinimums": [],
+      "unlockedTechs": [],
+      "unlockedPhrases": [],
+      "blacklistedPhrases": [],
+      "unlockedCrafts": [],
+      "completedOneTimeCrafts": [],
+      "wgoParamMinimums": [],
+      "personalItemGrants": []
+    },
+    {
+      "milestoneId": "game_of_crone_undertaker_advanced_work_requested",
+      "npcId": "npc_refugee_coffin_maker",
+      "taskId": "dlc_refugees_city_und_3",
+      "activeStates": ["Visible"],
+      "playerParamRepairs": [],
+      "playerParamMinimums": [],
+      "taskStateMinimums": [
+        { "npcId": "npc_refugee_coffin_maker", "taskId": "dlc_refugees_city_und_2", "state": "Complete" }
+      ],
+      "unlockedTechs": [],
+      "unlockedPhrases": [],
+      "blacklistedPhrases": ["@refugee_undertaker_3"],
+      "unlockedCrafts": [],
+      "completedOneTimeCrafts": [],
+      "wgoParamMinimums": [],
+      "personalItemGrants": []
+    },
+    {
+      "milestoneId": "game_of_crone_undertaker_profession_completed",
+      "npcId": "npc_refugee_coffin_maker",
+      "taskId": "dlc_refugees_city_und_3",
+      "activeStates": ["Complete"],
+      "playerParamRepairs": [],
+      "playerParamMinimums": [],
+      "taskStateMinimums": [],
+      "unlockedTechs": [],
+      "unlockedPhrases": [],
+      "blacklistedPhrases": ["@refugee_undertaker_4"],
+      "unlockedCrafts": [],
+      "completedOneTimeCrafts": [],
+      "wgoParamMinimums": [],
+      "personalItemGrants": []
+    }
+  ],
+  "cutscenes": [
+    {
+      "cutsceneId": "game_of_crone_initialize_refugee_undertaker",
+      "linkedQuestIds": ["dlc_refugees_undertaker"],
+      "triggerScripts": [
+        "gykmp_story_dispatch_game_of_crone_refugee_undertaker_initialize",
+        "npc_refugee_coffin_maker:initialize"
+      ],
+      "actors": ["npc_refugee_coffin_maker"],
+      "observerPolicy": "all_loaded_party_members",
+      "lateJoinPolicy": "join_live_checkpoint_or_observe",
+      "remoteExecutionPolicy": "live_observation",
+      "executionOwnerPolicy": "lobby_host",
+      "dialogueOwnerPolicy": "lobby_host",
+      "formationPolicy": "preserve_positions",
+      "cleanupRequirements": [
+        "apply-the-canonical-RefugeeParams-values-only-at-a-genuine-first-initialization_and-never-reset-personal_1-personal_2-personal_3-to-two-on-mature-progress",
+        "persist-one-durable-four-hundred-fifty-second-event_undertaker_1_unlock-arm-and-never-create-one-timer-per-peer",
+        "collapse-the-delayed-events-two-identical-Received-to-AddInteractionEvent-control-edges-to-one-semantic-add",
+        "keep-the-coffin-makers-movement-and-roll-support-edges-to-one-semantic-schedule-update_without-promoting-them-to-story-phases",
+        "add-event_undertaker_1-exactly-once-when-the-authoritative-delay-expires_rearm-only-if-consumed-without-an-entered-receipt_and-never-after-durable-opening-or-downstream-progress"
+      ]
+    },
+    {
+      "cutsceneId": "game_of_crone_meet_refugee_undertaker",
+      "linkedQuestIds": ["dlc_refugees_undertaker"],
+      "triggerScripts": [
+        "gykmp_story_dispatch_game_of_crone_refugee_undertaker_1",
+        "npc_refugee_coffin_maker:event_undertaker_1"
+      ],
+      "actors": ["initiating_player", "npc_refugee_coffin_maker"],
+      "observerPolicy": "all_loaded_party_members",
+      "lateJoinPolicy": "join_live_checkpoint_or_observe",
+      "remoteExecutionPolicy": "live_observation",
+      "executionOwnerPolicy": "lobby_host",
+      "dialogueOwnerPolicy": "initiating_player",
+      "formationPolicy": "initiator_with_observer_follow",
+      "cleanupRequirements": [
+        "claim-and-consume-the-single-event_undertaker_1-interaction-before-locking-the-initiator-or-the-coffin-maker",
+        "collapse-the-doubled-facing-ingress_every-doubled-talk-edge_and-the-doubled-line-1_13-to-first-task-edge-to-one-semantic-sequence",
+        "present-refugee_undertaker_1_1-through-1_13-once-with-lines-2-5-10-and-11-owned-by-the-actual-initiator",
+        "show-both-zero-reward-material-tasks_then-unlock-refugee_undertaker_2_1-and-2_2-in-source-order",
+        "normalize-the-Unlock-functions-doubled-player-enable-to-refugee_unrollable-reset-edge_then-restore-control-and-NPC-state_on-success-disconnect-timeout-or-recovery"
+      ]
+    },
+    {
+      "cutsceneId": "game_of_crone_supply_refugee_undertaker",
+      "linkedQuestIds": ["dlc_refugees_undertaker"],
+      "triggerScripts": [
+        "gykmp_story_dispatch_game_of_crone_refugee_undertaker_supplies",
+        "npc_refugee_coffin_maker:@refugee_undertaker_2_1",
+        "npc_refugee_coffin_maker:@refugee_undertaker_2_2"
+      ],
+      "actors": ["initiating_player", "npc_refugee_coffin_maker", "vendor_refugee_undertaker"],
+      "observerPolicy": "all_loaded_party_members",
+      "lateJoinPolicy": "join_live_checkpoint_or_observe",
+      "remoteExecutionPolicy": "live_observation",
+      "executionOwnerPolicy": "lobby_host",
+      "dialogueOwnerPolicy": "initiating_player",
+      "formationPolicy": "initiator_with_observer_follow",
+      "cleanupRequirements": [
+        "claim-each-paid-topic-before-the-local-MultiAnswer-GUI-can-debit-five-chisel-colon-chisel_1-or-ten-spike_1-from-the-selecting-profile",
+        "collapse-the-spike-topics-two-identical-SmartRes-to-AnswerData-value-bindings-to-one-ten-spike-price",
+        "blacklist-and-complete-only-the-selected-topics-matching-task_then-record-one-distinct-contribution-before-the-source-additive-counter",
+        "derive-convergence-from-the-two-distinct-paid-topic-receipts_not-an-unreceipted-or-minimum-repaired-undertaker_event_1_count",
+        "at-the-two-topic-gate_apply-one-plus-thirty-relation-delta_then-present-only-refugee_undertaker_2_2-through-2_5",
+        "unlock-the-coffin-workplace_spawn-or-adopt-one-vendor_refugee_undertaker_1_unlock-its-inventory-topic_and-show-task-und-2",
+        "normalize-the-vendor-UIs-doubled-WGO-binding-and-OnHide-to-Return-edge_without-opening-or-closing-two-vendor-sessions",
+        "allow-either-player-to-deliver-either-topic_without-charging-the-host-or-stranding-two-per-player-counter-values",
+        "restore-the-selecting-players-control-and-interaction-state_after-each-standalone-contribution-and-after-the-converged-tail"
+      ]
+    },
+    {
+      "cutsceneId": "game_of_crone_build_refugee_undertaker_workplace",
+      "linkedQuestIds": ["dlc_refugees_undertaker"],
+      "triggerScripts": [
+        "gykmp_story_dispatch_game_of_crone_refugee_undertaker_workplace",
+        "place_coffin_workplace"
+      ],
+      "actors": ["initiating_player", "npc_refugee_coffin_maker", "refugee_coffin_workplace_place", "refugee_coffin_workplace"],
+      "observerPolicy": "all_loaded_party_members",
+      "lateJoinPolicy": "join_live_checkpoint_or_observe",
+      "remoteExecutionPolicy": "live_observation",
+      "executionOwnerPolicy": "lobby_host",
+      "dialogueOwnerPolicy": "initiating_player",
+      "formationPolicy": "preserve_positions",
+      "cleanupRequirements": [
+        "claim-the-workplace-build-for-the-initiator_then-reserve-ten-wooden-planks-sixteen-nails-and-ten-shared-happiness-before-placement",
+        "treat-generic-place_refugee_workplace-as-a-support-effect_not-a-whole-story-cutscene-or-completion-witness",
+        "run-UpdateRefugeeCampValues-zero-ItemUpdatesGameRes-once-under-host-authority_to-refresh-rounded-quality-slots_clamp-happiness_cap-physical-happiness-items-and-update-the-progress-bar",
+        "record-distinct-placement-and-seven-HP-completed-refugee_coffin_workplace-receipts",
+        "only-from-the-completed-workplace-receipt_complete-task-und-2_unlock-refugee_undertaker_3_and-enable-canopy-roads-one-two-three-in-order",
+        "clear-exactly-one-coffin-maker-personal-slot-by-source-x-threshold_greater-than-4000-to-personal_3_greater-than-3700-to-personal_2_greater-than-3300-to-personal_1",
+        "if-the-completed-workplaces-x-is-at-most-3300_flag-the-dangling-source-branch-and-wait-for-authoritative-reconciliation_instead-of-inventing-a-slot",
+        "if-the-strict-coffin-maker-WGO-is-absent_defer-the-selected-personal-slot-repair-and-never-write-that-param-to-the-workplace-object",
+        "restore-the-building-players-camera-control-and-BuildMode-state_after-the-shared-world-and-task-receipts-are-durable"
+      ]
+    },
+    {
+      "cutsceneId": "game_of_crone_advance_refugee_undertaker_three",
+      "linkedQuestIds": ["dlc_refugees_undertaker"],
+      "triggerScripts": [
+        "gykmp_story_dispatch_game_of_crone_refugee_undertaker_3",
+        "npc_refugee_coffin_maker:@refugee_undertaker_3"
+      ],
+      "actors": ["initiating_player", "npc_refugee_coffin_maker", "vendor_refugee_undertaker"],
+      "observerPolicy": "all_loaded_party_members",
+      "lateJoinPolicy": "join_live_checkpoint_or_observe",
+      "remoteExecutionPolicy": "live_observation",
+      "executionOwnerPolicy": "lobby_host",
+      "dialogueOwnerPolicy": "initiating_player",
+      "formationPolicy": "initiator_with_observer_follow",
+      "cleanupRequirements": [
+        "claim-refugee_undertaker_3-before-blacklisting-or-the-plus-forty-relation-delta",
+        "present-refugee_undertaker_3_1-through-3_5-once_with-only-line-four-owned-by-the-initiator",
+        "show-task-und-3_then-unlock-refugee_undertaker_4-in-source-order",
+        "collapse-the-three-identical-old-vendor-Destroy-to-level-two-Spawn-control-edges-and-doubled-old-vendor-binding-to-one-replacement",
+        "when-the-tagged-old-vendor-is-missing_never-call-Flow_DestroyWGOs-null-fallback-which-targets-flow-self_strict-target-a-lower-vendor-or-adopt-or-spawn-one-level-two-vendor",
+        "deduplicate-all-vendor_refugee_undertaker-tagged-objects_and-restore-participant-state-after-the-single-level-two-vendor-is-durable"
+      ]
+    },
+    {
+      "cutsceneId": "game_of_crone_complete_refugee_undertaker",
+      "linkedQuestIds": ["dlc_refugees_undertaker"],
+      "triggerScripts": [
+        "gykmp_story_dispatch_game_of_crone_refugee_undertaker_4",
+        "npc_refugee_coffin_maker:@refugee_undertaker_4"
+      ],
+      "actors": ["initiating_player", "npc_refugee_coffin_maker", "vendor_refugee_undertaker"],
+      "observerPolicy": "all_loaded_party_members",
+      "lateJoinPolicy": "join_live_checkpoint_or_observe",
+      "remoteExecutionPolicy": "live_observation",
+      "executionOwnerPolicy": "lobby_host",
+      "dialogueOwnerPolicy": "initiating_player",
+      "formationPolicy": "initiator_with_observer_follow",
+      "cleanupRequirements": [
+        "claim-the-paid-final-topic-before-the-local-MultiAnswer-GUI-debits-five-of-exact-item-chisel-colon-chisel_2-colon-3-from-the-selecting-profile",
+        "blacklist-the-topic_apply-one-plus-thirty-relation-delta_and-complete-task-und-3-before-dialogue",
+        "present-refugee_undertaker_4_1-through-4_7-once_with-lines-one-five-and-seven-owned-by-the-initiator",
+        "collapse-the-two-identical-Destroy-to-Spawn-control-edges_and-duplicate-vendor-and-GD-point-bindings-to-one-level-three-replacement",
+        "when-the-old-vendor-is-missing_never-call-Flow_DestroyWGOs-null-fallback-which-targets-flow-self_adopt-or-spawn-one-canonical-level-three-vendor-and-continue-the-tail",
+        "unlock-advanced_gravestones_once_then-honor-the-sources-two-identical-advanced_gravestones_2-unlocks-as-one-idempotent-topic-state_without-unlocking-stone_statues",
+        "invoke-Flow_CheckKeyQuest-dlc_refugees_undertaker-after-the-vendor-and-phrase-tail_but-before-the-callers-Unlock-control-restore-and-on_talk_end-exactly-as-the-source-does_then-commit-the-shared-terminal-only-after-cleanup",
+        "keep-shared-achievement-eligibility-separate-from-per-profile-platform-delivery_and-do-not-use-the-early-advanced-gravestones-phrase-as-a-terminal-witness",
+        "on-mature-save-migration_use-an-already-unlocked-advanced_gravestones-only-as-a-per-profile-platform-delivery-witness_never-as-proof-of-shared-finale-completion"
+      ]
+    },
+    {
+      "cutsceneId": "game_of_crone_unlock_refugee_undertaker_technologies",
+      "linkedQuestIds": ["dlc_refugees_undertaker"],
+      "triggerScripts": [
+        "gykmp_story_dispatch_game_of_crone_refugee_undertaker_tech",
+        "npc_refugee_coffin_maker:@advanced_gravestones",
+        "npc_refugee_coffin_maker:@advanced_gravestones_2",
+        "npc_refugee_coffin_maker:@stone_statues"
+      ],
+      "actors": ["initiating_player", "npc_refugee_coffin_maker"],
+      "observerPolicy": "all_loaded_party_members",
+      "lateJoinPolicy": "join_live_checkpoint_or_observe",
+      "remoteExecutionPolicy": "live_observation",
+      "executionOwnerPolicy": "lobby_host",
+      "dialogueOwnerPolicy": "initiating_player",
+      "formationPolicy": "preserve_positions",
+      "cleanupRequirements": [
+        "claim-each-optional-topic-independently-before-blacklisting-or-unlocking-its-technology",
+        "map-advanced_gravestones-to-Advanced-gravestones_advanced_gravestones_2-to-Advanced-gravestones-II_and-stone_statues-to-Stone-statues-exactly",
+        "collapse-advanced_gravestones_2s-two-identical-function-entry-edges-to-one-semantic-call",
+        "do-not-invent-a-finale-unlock-for-stone_statues_the-source-function-exists-but-the-profession-chain-never-unlocks-its-topic",
+        "for-each-selected-topic-open-the-non-silent-show-tech-false-tech_dialog-on-the-initiating-player_and-wait-for-its-close-callback-before-returning",
+        "on-disconnect-dismiss-or-recovery_close-or-adopt-the-initiators-tech-dialog-and-release-the-function-callback-without-replaying-the-unlock",
+        "apply-each-selected-technology-as-shared-durable-state_then-restore-only-the-selecting-players-interaction-state"
+      ]
+    }
+  ],
+  "storySteps": [
+    {
+      "stepId": "game_of_crone_settle_and_meet_refugee_undertaker",
+      "title": "Let the refugee coffin maker settle and request materials",
+      "linkedQuestIds": ["dlc_refugees_undertaker"],
+      "linkedTaskMilestoneIds": ["game_of_crone_undertaker_chisels_requested", "game_of_crone_undertaker_spikes_requested"],
+      "triggerScripts": [
+        "gykmp_story_dispatch_game_of_crone_refugee_undertaker_initialize",
+        "gykmp_story_dispatch_game_of_crone_refugee_undertaker_1"
+      ],
+      "triggerKeys": [
+        "npc_refugee_coffin_maker:initialize",
+        "event_undertaker_1_unlock:450",
+        "event_undertaker_1",
+        "refugee_unrollable",
+        "refugee_undertaker_1_1",
+        "refugee_undertaker_1_13",
+        "dlc_refugees_city_und_1_1",
+        "dlc_refugees_city_und_1_2",
+        "@refugee_undertaker_2_1",
+        "@refugee_undertaker_2_2",
+        "gykmp_story_phase_game_of_crone_refugee_undertaker_invite_armed",
+        "gykmp_story_phase_game_of_crone_refugee_undertaker_1_entered",
+        "gykmp_story_phase_game_of_crone_refugee_undertaker_1_complete"
+      ],
+      "expectedEffects": [
+        {
+          "kind": "world_event_timer",
+          "id": "gykmp_story_phase_game_of_crone_refugee_undertaker_invite_armed",
+          "operation": "schedule-one-authoritative-event_undertaker_1_unlock-for-four-hundred-fifty-seconds-after-coffin-maker-initialization_then-add-one-opening-interaction",
+          "amount": 450,
+          "ownership": "shared_world"
+        },
+        {
+          "kind": "story_phase",
+          "id": "gykmp_story_phase_game_of_crone_refugee_undertaker_1_entered",
+          "operation": "consume-the-single-opening-interaction-and-commit-before-player-or-NPC-lock-facing-and-dialogue",
+          "amount": 1,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "dialogue_sequence",
+          "id": "refugee_undertaker_1_1_through_1_13",
+          "operation": "normalize-every-doubled-control-edge_then-present-thirteen-lines-once-with-the-actual-initiator-owning-player-lines-two-five-ten-and-eleven",
+          "amount": 13,
+          "ownership": "live_presentation"
+        },
+        {
+          "kind": "npc_task_bundle",
+          "id": "game_of_crone_refugee_undertaker_first_material_tasks",
+          "operation": "set-und-1_1-Visible_then-und-1_2-Visible_with-zero-task-story-rewards",
+          "amount": 2,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "dialogue_phrase_bundle",
+          "id": "game_of_crone_refugee_undertaker_first_material_topics",
+          "operation": "unlock-refugee_undertaker_2_1-then-refugee_undertaker_2_2-in-source-order",
+          "amount": 2,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "story_phase",
+          "id": "gykmp_story_phase_game_of_crone_refugee_undertaker_1_complete",
+          "operation": "commit-after-dialogue-tasks-topics-and-participant-cleanup-are-durable",
+          "amount": 1,
+          "ownership": "shared_campaign"
+        }
+      ],
+      "safeguards": [
+        "the-delayed-WGO-event-is-shared-world-state_not-a-per-player-timer",
+        "reinitialization-must-not-reset-the-three-personal-slots-or-rearm-the-opening-after-workplace-or-downstream-evidence",
+        "collapse-the-events-doubled-add-interaction-edge-and-the-intros-doubled-dialogue-chain-before-execution",
+        "do-not-import-the-disconnected-refugee_unrollable-to-Talk-island",
+        "normal-interaction-event2-and-its-doubled-Received-edge-are-menu-support_not-a-story-terminal",
+        "preserve-the-source-Leave-route-which-unlocks-control-without-firing-on_talk_end"
+      ]
+    },
+    {
+      "stepId": "game_of_crone_supply_refugee_undertaker_materials",
+      "title": "Deliver both paid material requests and open the coffin workplace",
+      "linkedQuestIds": ["dlc_refugees_undertaker"],
+      "linkedTaskMilestoneIds": [
+        "game_of_crone_undertaker_chisels_delivered",
+        "game_of_crone_undertaker_spikes_delivered",
+        "game_of_crone_undertaker_workplace_requested"
+      ],
+      "triggerScripts": ["gykmp_story_dispatch_game_of_crone_refugee_undertaker_supplies"],
+      "triggerKeys": [
+        "@refugee_undertaker_2_1",
+        "item-id=chisel:chisel_1",
+        "item-amount=5",
+        "@refugee_undertaker_2_2",
+        "item-id=spike_1",
+        "item-amount=10",
+        "undertaker_event_1_count",
+        "refugee_undertaker_2_2",
+        "refugee_undertaker_2_5",
+        "refugee_builddesk:p:refugee_coffin_workplace_place",
+        "vendor_refugee_undertaker_1",
+        "vendor_refugee_undertaker",
+        "default_destroy_point",
+        "@undertaker_vendor_inventory_1",
+        "dlc_refugees_city_und_2",
+        "grave_refigee_1",
+        "recipe_advanced_gravestones",
+        "vendor_refugee_undertaker_1:tier1:money10:daily0.05",
+        "gykmp_story_payment_game_of_crone_refugee_undertaker_chisels",
+        "gykmp_story_payment_game_of_crone_refugee_undertaker_spikes",
+        "gykmp_story_contribution_game_of_crone_refugee_undertaker_chisels",
+        "gykmp_story_contribution_game_of_crone_refugee_undertaker_spikes",
+        "gykmp_story_relation_game_of_crone_refugee_undertaker_supplies",
+        "gykmp_story_phase_game_of_crone_refugee_undertaker_workplace_armed"
+      ],
+      "expectedEffects": [
+        {
+          "kind": "initiator_payment_receipt",
+          "id": "gykmp_story_payment_game_of_crone_refugee_undertaker_chisels",
+          "operation": "reserve-and-consume-five-of-exact-item-chisel-colon-chisel_1-from-the-player-who-selected-topic-2_1",
+          "amount": 5,
+          "ownership": "initiating_player_transaction"
+        },
+        {
+          "kind": "story_contribution_receipt",
+          "id": "gykmp_story_contribution_game_of_crone_refugee_undertaker_chisels",
+          "operation": "blacklist-only-topic-2_1_complete-only-task-und-1_1_and-record-one-shared-contribution-before-the-source-counter",
+          "amount": 1,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "wgo_param_delta_receipt",
+          "id": "undertaker_event_1_count:chisels",
+          "operation": "increment-the-coffin-makers-source-counter-by-one-only-after-the-distinct-chisel-contribution-receipt",
+          "amount": 1,
+          "ownership": "shared_world"
+        },
+        {
+          "kind": "initiator_payment_receipt",
+          "id": "gykmp_story_payment_game_of_crone_refugee_undertaker_spikes",
+          "operation": "reserve-and-consume-ten-spike_1-from-the-player-who-selected-topic-2_2",
+          "amount": 10,
+          "ownership": "initiating_player_transaction"
+        },
+        {
+          "kind": "story_contribution_receipt",
+          "id": "gykmp_story_contribution_game_of_crone_refugee_undertaker_spikes",
+          "operation": "blacklist-only-topic-2_2_complete-only-task-und-1_2_and-record-one-shared-contribution-before-the-source-counter",
+          "amount": 1,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "wgo_param_delta_receipt",
+          "id": "undertaker_event_1_count:spikes",
+          "operation": "increment-the-coffin-makers-source-counter-by-one-only-after-the-distinct-spike-contribution-receipt",
+          "amount": 1,
+          "ownership": "shared_world"
+        },
+        {
+          "kind": "relationship_delta_receipt",
+          "id": "gykmp_story_relation_game_of_crone_refugee_undertaker_supplies",
+          "operation": "after-both-distinct-contributions-apply-coffin-maker-plus-thirty-exactly-once_reaching-the-canonical-profession-total-thirty",
+          "amount": 30,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "dialogue_sequence",
+          "id": "refugee_undertaker_2_2_through_2_5",
+          "operation": "present-the-four-source-lines-once_after-the-relation-delta_with-lines-2_2-through-2_4-owned-by-the-NPC_line-2_5-owned-by-the-actual-initiator_and-no-invented-2_1-line",
+          "amount": 4,
+          "ownership": "live_presentation"
+        },
+        {
+          "kind": "craft",
+          "id": "refugee_builddesk:p:refugee_coffin_workplace_place",
+          "operation": "unlock-after-dialogue-and-before-the-level-one-vendor",
+          "amount": 1,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "world_vendor",
+          "id": "vendor_refugee_undertaker_1:vendor_refugee_undertaker",
+          "operation": "spawn-or-adopt-one-level-one-vendor-at-default_destroy_point_with-preset-grave_refigee_1_including-recipe_advanced_gravestones_start-tier-one_money-ten_and-daily-point-zero-five",
+          "amount": 1,
+          "ownership": "shared_world"
+        },
+        {
+          "kind": "npc_task",
+          "id": "npc_refugee_coffin_maker:dlc_refugees_city_und_2",
+          "operation": "set-Visible-after-vendor-inventory-topic-unlock",
+          "amount": 1,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "story_phase",
+          "id": "gykmp_story_phase_game_of_crone_refugee_undertaker_workplace_armed",
+          "operation": "commit-after-both-payments-contributions-relation-dialogue-craft-vendor-topic-task-and-cleanup-are-durable",
+          "amount": 1,
+          "ownership": "shared_campaign"
+        }
+      ],
+      "safeguards": [
+        "claim-each-topic-before-MultiAnswerOptionGUI-removes-resources-from-MainGame-player",
+        "normalize-the-spike-answers-doubled-price-binding_before-reserving-or-consuming-the-single-ten-spike-payment",
+        "payments-belong-to-the-selecting-profiles_and-may-legitimately-belong-to-two-different-players",
+        "never-minimum-repair-or-replay-undertaker_event_1_count_from-task-state",
+        "the-gate-is-both-distinct-contribution-receipts_not-counter-equality-or-one-complete-task",
+        "a-blacklisted-topic-is-entry-prefix-evidence_not-proof-that-its-payment-and-task-receipts-committed",
+        "normalize-the-vendor-menu-WGO-and-OnHide-bindings_without-treating-vendor-use-as-story-progress"
+      ]
+    },
+    {
+      "stepId": "game_of_crone_build_refugee_undertaker_workplace",
+      "title": "Build and finish the refugee coffin workplace",
+      "linkedQuestIds": ["dlc_refugees_undertaker"],
+      "linkedTaskMilestoneIds": ["game_of_crone_undertaker_workplace_requested", "game_of_crone_undertaker_workplace_completed"],
+      "triggerScripts": ["gykmp_story_dispatch_game_of_crone_refugee_undertaker_workplace"],
+      "triggerKeys": [
+        "wooden_plank:10",
+        "nails:16",
+        "refugee_happiness_item:10",
+        "place_refugee_workplace",
+        "refugee_builddesk:r:refugee_coffin_workplace_place",
+        "refugee_coffin_workplace_place",
+        "hp:7",
+        "refugee_coffin_workplace",
+        "place_coffin_workplace",
+        "gd_refugees_road_canopy_1",
+        "gd_refugees_road_canopy_2",
+        "gd_refugees_road_canopy_3",
+        "personal_1:0",
+        "personal_2:0",
+        "personal_3:0",
+        "@refugee_undertaker_3",
+        "gykmp_story_build_game_of_crone_refugee_undertaker_workplace",
+        "gykmp_story_object_game_of_crone_refugee_undertaker_workplace_completed",
+        "gykmp_story_phase_game_of_crone_refugee_undertaker_3_armed"
+      ],
+      "expectedEffects": [
+        {
+          "kind": "build_transaction",
+          "id": "gykmp_story_build_game_of_crone_refugee_undertaker_workplace",
+          "operation": "claim-for-the-initiator_then-reserve-and-consume-ten-wooden-planks-sixteen-nails-from-the-authoritative-BuildMode-player-plus-zone-MultiInventory_and-ten-happiness-from-shared-camp-state",
+          "amount": 1,
+          "ownership": "initiating_player_transaction"
+        },
+        {
+          "kind": "world_object",
+          "id": "refugee_coffin_workplace_place",
+          "operation": "place-one-placeholder_then-host-once-refresh-rounded-quality-slots_clamp-current-happiness_cap-refugee_happiness_item-count-to-slots_adjust-cur_refugee_happiness-to-that-count_and-update-the-progress-bar_without-completing-the-story-task",
+          "amount": 1,
+          "ownership": "shared_world"
+        },
+        {
+          "kind": "story_object_receipt",
+          "id": "gykmp_story_object_game_of_crone_refugee_undertaker_workplace_completed",
+          "operation": "record-only-after-the-seven-HP-placeholder-transforms-to-a-real-refugee_coffin_workplace",
+          "amount": 1,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "npc_task",
+          "id": "npc_refugee_coffin_maker:dlc_refugees_city_und_2",
+          "operation": "set-Complete-from-the-completed-object-receipt_then-unlock-refugee_undertaker_3",
+          "amount": 1,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "world_layout",
+          "id": "refugee_coffin_workplace:canopy_roads",
+          "operation": "enable-road-canopy-one_two_then-three-in-source-order",
+          "amount": 3,
+          "ownership": "shared_world"
+        },
+        {
+          "kind": "conditional_wgo_param",
+          "id": "npc_refugee_coffin_maker:personal_1_or_2_or_3",
+          "operation": "clear-exactly-one-slot-from-the-completed-workplaces-authoritative-x-threshold_and-never-clear-all-three",
+          "amount": 0,
+          "ownership": "shared_world"
+        },
+        {
+          "kind": "story_phase",
+          "id": "gykmp_story_phase_game_of_crone_refugee_undertaker_3_armed",
+          "operation": "commit-after-the-real-workplace_task_topic_roads_selected-slot_and-builder-cleanup-are-durable",
+          "amount": 1,
+          "ownership": "shared_campaign"
+        }
+      ],
+      "safeguards": [
+        "serialize-same-workplace-build-claims-before-consuming-any-personal-or-shared-resource",
+        "placement-and-seven-HP-completion-are-separate-receipts_and-only-the-latter-advances-the-task",
+        "the-paired-refugee_builddesk-r-remove-definition-is-placeholder-rollback-support_not-proof-of-placement-or-completion",
+        "do-not-bind-generic-place_refugee_workplace-as-a-whole-story-cutscene_because-other-professions-share-it",
+        "observers-must-not-run-the-generic-local-player-camp-update-or-apply-another-fixed-happiness-debit",
+        "the-x-at-most-3300-source-branch-is-dangling_and-must-not-be-repaired-by-guessing-a-personal-slot",
+        "defer-the-x-selected-slot-repair-when-the-strict-coffin-maker-is-unloaded_instead-of-writing-to-the-workplace-WGO"
+      ]
+    },
+    {
+      "stepId": "game_of_crone_advance_refugee_undertaker_vendor",
+      "title": "Advance the refugee undertaker to the level-two vendor",
+      "linkedQuestIds": ["dlc_refugees_undertaker"],
+      "linkedTaskMilestoneIds": ["game_of_crone_undertaker_advanced_work_requested"],
+      "triggerScripts": ["gykmp_story_dispatch_game_of_crone_refugee_undertaker_3"],
+      "triggerKeys": [
+        "@refugee_undertaker_3",
+        "refugee_undertaker_3_1",
+        "refugee_undertaker_3_5",
+        "dlc_refugees_city_und_3",
+        "@refugee_undertaker_4",
+        "vendor_refugee_undertaker_2",
+        "grave_refigee_1",
+        "grave_refigee_2",
+        "recipe_advanced_gravestones",
+        "recipe_advanced_gravestones_2",
+        "recipe_stone_statues",
+        "vendor_refugee_undertaker_2:tier2:money15:daily0.05",
+        "gykmp_story_phase_game_of_crone_refugee_undertaker_3_entered",
+        "gykmp_story_relation_game_of_crone_refugee_undertaker_3",
+        "gykmp_story_vendor_game_of_crone_refugee_undertaker_2",
+        "gykmp_story_phase_game_of_crone_refugee_undertaker_4_armed"
+      ],
+      "expectedEffects": [
+        {
+          "kind": "story_phase",
+          "id": "gykmp_story_phase_game_of_crone_refugee_undertaker_3_entered",
+          "operation": "claim-the-topic-before-blacklisting-relation-or-dialogue",
+          "amount": 1,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "relationship_delta_receipt",
+          "id": "gykmp_story_relation_game_of_crone_refugee_undertaker_3",
+          "operation": "apply-coffin-maker-plus-forty-once-before-line-3_1_reaching-the-canonical-profession-total-seventy",
+          "amount": 40,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "dialogue_sequence",
+          "id": "refugee_undertaker_3_1_through_3_5",
+          "operation": "present-five-lines-once_with-only-line-four-owned-by-the-actual-initiator",
+          "amount": 5,
+          "ownership": "live_presentation"
+        },
+        {
+          "kind": "npc_task",
+          "id": "npc_refugee_coffin_maker:dlc_refugees_city_und_3",
+          "operation": "set-Visible-before-unlocking-refugee_undertaker_4",
+          "amount": 1,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "story_vendor_receipt",
+          "id": "gykmp_story_vendor_game_of_crone_refugee_undertaker_2",
+          "operation": "destroy-all-obsolete-same-tag-vendors_if-present_then-spawn-or-adopt-exactly-one-level-two-vendor-with-presets-grave_refigee_1-and-2_including-recipe_advanced_gravestones_recipe_advanced_gravestones_2-and-recipe_stone_statues_start-tier-two_money-fifteen_and-daily-point-zero-five",
+          "amount": 1,
+          "ownership": "shared_world"
+        },
+        {
+          "kind": "story_phase",
+          "id": "gykmp_story_phase_game_of_crone_refugee_undertaker_4_armed",
+          "operation": "commit-after-blacklist-relation-dialogue-task-topic-vendor-and-participant-cleanup-are-durable",
+          "amount": 1,
+          "ownership": "shared_campaign"
+        }
+      ],
+      "safeguards": [
+        "blacklisted-refugee_undertaker_3-is-entry-prefix-evidence_not-proof-that-dialogue-task-or-vendor-finished",
+        "collapse-the-three-identical-destroy-to-spawn-edges-before-vendor-mutation",
+        "never-let-a-missing-vendor-input-fall-back-to-destroying-the-coffin-maker-flow-self_strict-target-or-adopt-or-spawn-the-canonical-level-two-vendor",
+        "never-apply-the-plus-forty-relation-delta-from-task-or-phrase-state-without-its-receipt"
+      ]
+    },
+    {
+      "stepId": "game_of_crone_complete_refugee_undertaker_profession",
+      "title": "Complete the refugee undertaker's vendor and achievement progression",
+      "linkedQuestIds": ["dlc_refugees_undertaker"],
+      "linkedTaskMilestoneIds": ["game_of_crone_undertaker_profession_completed"],
+      "triggerScripts": ["gykmp_story_dispatch_game_of_crone_refugee_undertaker_4"],
+      "triggerKeys": [
+        "@refugee_undertaker_4",
+        "item-id=chisel:chisel_2:3",
+        "item-amount=5",
+        "refugee_undertaker_4_1",
+        "refugee_undertaker_4_7",
+        "vendor_refugee_undertaker_3",
+        "grave_refigee_1",
+        "grave_refigee_2",
+        "grave_refigee_3",
+        "recipe_advanced_gravestones",
+        "recipe_advanced_gravestones_2",
+        "recipe_stone_statues",
+        "recipe_marble_statues",
+        "recipe_marble_fences",
+        "vendor_refugee_undertaker_3:tier3:money20:daily0.05",
+        "@advanced_gravestones",
+        "@advanced_gravestones_2",
+        "dlc_refugees_undertaker",
+        "gykmp_story_phase_game_of_crone_refugee_undertaker_4_entered",
+        "gykmp_story_payment_game_of_crone_refugee_undertaker_final_chisels",
+        "gykmp_story_relation_game_of_crone_refugee_undertaker_4",
+        "gykmp_story_vendor_game_of_crone_refugee_undertaker_3",
+        "gykmp_story_achievement_eligibility_game_of_crone_undertaker",
+        "gykmp_story_achievement_game_of_crone_undertaker",
+        "gykmp_story_phase_game_of_crone_refugee_undertaker_complete"
+      ],
+      "expectedEffects": [
+        {
+          "kind": "story_phase",
+          "id": "gykmp_story_phase_game_of_crone_refugee_undertaker_4_entered",
+          "operation": "claim-the-final-topic-before-MultiAnswer-payment_blacklist_relation_task-or-dialogue",
+          "amount": 1,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "initiator_payment_receipt",
+          "id": "gykmp_story_payment_game_of_crone_refugee_undertaker_final_chisels",
+          "operation": "reserve-and-consume-five-of-exact-item-chisel-colon-chisel_2-colon-3-from-the-player-who-selected-the-final-topic",
+          "amount": 5,
+          "ownership": "initiating_player_transaction"
+        },
+        {
+          "kind": "relationship_delta_receipt",
+          "id": "gykmp_story_relation_game_of_crone_refugee_undertaker_4",
+          "operation": "apply-coffin-maker-plus-thirty-once-after-blacklist-and-before-task-completion_reaching-the-canonical-profession-total-one-hundred",
+          "amount": 30,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "npc_task",
+          "id": "npc_refugee_coffin_maker:dlc_refugees_city_und_3",
+          "operation": "set-Complete-before-line-4_1",
+          "amount": 1,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "dialogue_sequence",
+          "id": "refugee_undertaker_4_1_through_4_7",
+          "operation": "present-seven-lines-once_with-lines-one-five-and-seven-owned-by-the-actual-initiator",
+          "amount": 7,
+          "ownership": "live_presentation"
+        },
+        {
+          "kind": "story_vendor_receipt",
+          "id": "gykmp_story_vendor_game_of_crone_refugee_undertaker_3",
+          "operation": "destroy-all-obsolete-same-tag-vendors_if-present_then-spawn-or-adopt-exactly-one-level-three-vendor-with-presets-grave_refigee_1-through-3_including-the-five-advanced-stone-and-marble-recipe-products_start-tier-three_money-twenty_and-daily-point-zero-five",
+          "amount": 1,
+          "ownership": "shared_world"
+        },
+        {
+          "kind": "dialogue_phrase_bundle",
+          "id": "game_of_crone_refugee_undertaker_final_topics",
+          "operation": "unlock-advanced_gravestones-once_then-collapse-the-sources-two-identical-advanced_gravestones_2-unlocks-to-one-state_write-and-do-not-unlock-stone_statues",
+          "amount": 2,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "story_eligibility_receipt",
+          "id": "gykmp_story_achievement_eligibility_game_of_crone_undertaker",
+          "operation": "invoke-the-serialized-dlc_refugees_undertaker-check-after-vendor-and-phrase-tail-convergence",
+          "amount": 1,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "platform_achievement_receipt",
+          "id": "gykmp_story_achievement_game_of_crone_undertaker",
+          "operation": "settle-once-per-personal-profile-as-unlocked-already-unlocked-or-unsupported_outside-ordinary-QuestSync_accepting-legacy-advanced_gravestones-only-as-a-personal-platform-migration-witness",
+          "amount": 1,
+          "ownership": "personal_profile"
+        },
+        {
+          "kind": "story_phase",
+          "id": "gykmp_story_phase_game_of_crone_refugee_undertaker_complete",
+          "operation": "commit-after-payment-blacklist-relation-task-dialogue-vendor-phrases-key-check-and-participant-cleanup_without-waiting-for-platform-delivery",
+          "amount": 1,
+          "ownership": "shared_campaign"
+        }
+      ],
+      "safeguards": [
+        "claim-before-the-GUI-debits-the-local-MainGame-player_and-never-charge-the-host-for-a-client-selection",
+        "blacklisted-refugee_undertaker_4-and-advanced_gravestones-are-prefix-evidence_not-an-exact-finale-terminal",
+        "collapse-the-doubled-final-vendor-control-and-value-edges_before-running-the-single-phrase-and-key-check-tail",
+        "never-let-a-missing-old-vendor-fall-back-to-destroying-the-coffin-maker-flow-self_strict-target-or-adopt-or-spawn-vendor-three",
+        "the-source-unlocks-advanced_gravestones_2-twice-but-idempotent-state-must-not-trigger-two-observer-effects",
+        "do-not-silently-invent-the-missing-stone_statues-topic-unlock",
+        "the-source-key-check-precedes-the-callers-control-restore-and-on_talk_end_shared-terminal-recovery-must-preserve-that-order-while-waiting-for-cleanup",
+        "legacy-advanced_gravestones-state-may-repair-only-the-personal-platform-achievement_not-the-shared-vendor-dialogue-task-or-terminal",
+        "shared-achievement-eligibility-does-not-wait-for-offline-per-profile-platform-settlement"
+      ]
+    },
+    {
+      "stepId": "game_of_crone_learn_refugee_undertaker_technologies",
+      "title": "Learn the refugee undertaker's optional monument technologies",
+      "linkedQuestIds": ["dlc_refugees_undertaker"],
+      "linkedTaskMilestoneIds": [],
+      "triggerScripts": ["gykmp_story_dispatch_game_of_crone_refugee_undertaker_tech"],
+      "triggerKeys": [
+        "@advanced_gravestones",
+        "Advanced gravestones",
+        "@advanced_gravestones_2",
+        "Advanced gravestones II",
+        "@stone_statues",
+        "Stone statues",
+        "grave_bot_stn_3",
+        "grave_bot_stn_4",
+        "grave_top_memorial_stn_1",
+        "grave_bot_stn_5",
+        "grave_top_memorial_mrb_1",
+        "grave_bot_mrb_3",
+        "grave_top_womansaver_stn_1",
+        "grave_top_highangel_stn_1",
+        "gykmp_story_tech_game_of_crone_refugee_undertaker_advanced_gravestones",
+        "gykmp_story_tech_game_of_crone_refugee_undertaker_advanced_gravestones_2",
+        "gykmp_story_tech_game_of_crone_refugee_undertaker_stone_statues"
+      ],
+      "expectedEffects": [
+        {
+          "kind": "technology_unlock_receipt",
+          "id": "gykmp_story_tech_game_of_crone_refugee_undertaker_advanced_gravestones",
+          "operation": "when-the-first-advanced-gravestones-topic-is-selected_blacklist-it_unlock-exact-tech-Advanced-gravestones-with-grave_bot_stn_3_grave_bot_stn_4_and-grave_top_memorial_stn_1_once_and-commit-on-the-tech-dialog-close-callback",
+          "amount": 1,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "conditional_tech_dialogue",
+          "id": "tech_dialog:Advanced gravestones",
+          "operation": "show-the-source-non-silent-show-tech-false-dialog-to-the-initiating-player_and-wait-for-close-before-function-return",
+          "amount": 1,
+          "ownership": "live_presentation"
+        },
+        {
+          "kind": "technology_unlock_receipt",
+          "id": "gykmp_story_tech_game_of_crone_refugee_undertaker_advanced_gravestones_2",
+          "operation": "when-the-second-advanced-gravestones-topic-is-selected_normalize-its-doubled-entry_blacklist-it_unlock-exact-tech-Advanced-gravestones-II-with-grave_bot_stn_5_grave_top_memorial_mrb_1_and-grave_bot_mrb_3_once_and-commit-on-the-tech-dialog-close-callback",
+          "amount": 1,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "conditional_tech_dialogue",
+          "id": "tech_dialog:Advanced gravestones II",
+          "operation": "show-the-source-non-silent-show-tech-false-dialog-to-the-initiating-player_and-wait-for-close-before-function-return",
+          "amount": 1,
+          "ownership": "live_presentation"
+        },
+        {
+          "kind": "conditional_technology_unlock_receipt",
+          "id": "gykmp_story_tech_game_of_crone_refugee_undertaker_stone_statues",
+          "operation": "only-if-the-otherwise-unreached-stone-statues-topic-is-legitimately-available-and-selected_blacklist-it_unlock-exact-tech-Stone-statues-with-grave_top_womansaver_stn_1-and-grave_top_highangel_stn_1_once_and-commit-on-the-tech-dialog-close-callback",
+          "amount": 1,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "conditional_tech_dialogue",
+          "id": "tech_dialog:Stone statues",
+          "operation": "only-for-a-legitimately-selected-stone-statues-topic_show-the-source-non-silent-show-tech-false-dialog-to-the-initiating-player_and-wait-for-close-before-function-return",
+          "amount": 1,
+          "ownership": "live_presentation"
+        }
+      ],
+      "safeguards": [
+        "the-three-functions-have-no-SmartRes-price-and-must-not-debit-any-player",
+        "each-topic-is-independent_do-not-auto-complete-unselected-technologies-from-the-achievement-terminal",
+        "stone_statues-has-a-handler-but-no-profession-chain-unlock_and-must-remain-dormant-unless-separate-authoritative-evidence-exists",
+        "route-each-choice-and-tech_dialog-through-the-initiating-player-while-keeping-the-technology-unlock-shared-and-idempotent",
+        "a-disconnect-or-dismiss-between-tech-unlock-and-dialog-close-must-resume-or-release-only-the-presentation-callback_without-replaying-shared-tech-state"
+      ]
+    }
+  ]
+}

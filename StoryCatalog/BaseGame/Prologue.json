@@ -1,0 +1,1323 @@
+{
+  "schemaVersion": 5,
+  "catalogId": "base-game.prologue",
+  "campaign": "BaseGame",
+  "chapter": "CompletePrologueThroughGerrysBeer",
+  "quests": [
+    {
+      "questId": "start",
+      "title": "Start",
+      "vanilla": {
+        "startTrigger": "1",
+        "successTrigger": "1",
+        "failTrigger": "0",
+        "startKeys": ["game_start"],
+        "questVisible": true,
+        "oneTimeQuest": true,
+        "startScript": "red_eye_talk_1",
+        "successScript": "",
+        "failScript": "",
+        "arrowWgoCustomTag": "",
+        "arrowWgoObjectId": "",
+        "successRewards": [],
+        "failureRewards": []
+      },
+      "policy": {
+        "stateOwnership": "shared_campaign",
+        "eligibleInitiator": "any_player",
+        "livePresentationOwner": "lobby_host",
+        "observerQuestApplication": "durable_state_only",
+        "personalRewardDelivery": "party_exactly_once",
+        "observerSuccess": {
+          "globalScripts": [],
+          "taskStateMinimums": [
+            { "npcId": "player", "taskId": "player_main", "state": "Visible" },
+            { "npcId": "player", "taskId": "player_gerry", "state": "Visible" }
+          ],
+          "personalItemGrants": []
+        }
+      },
+      "completionChecks": []
+    },
+    {
+      "questId": "get_out_from_house",
+      "title": "Get out of the house",
+      "vanilla": {
+        "startTrigger": "0",
+        "successTrigger": "Ppar(\"gone_out_from_house\")",
+        "failTrigger": "",
+        "startKeys": ["quest_finished"],
+        "questVisible": true,
+        "oneTimeQuest": true,
+        "startScript": "",
+        "successScript": "lock_tps",
+        "failScript": "",
+        "arrowWgoCustomTag": "tp_house_a_",
+        "arrowWgoObjectId": "",
+        "successRewards": [
+          { "type": "dig_graved_skull", "amount": 1.0 }
+        ],
+        "failureRewards": []
+      },
+      "policy": {
+        "stateOwnership": "shared_campaign",
+        "eligibleInitiator": "any_player",
+        "livePresentationOwner": "initiating_player",
+        "observerQuestApplication": "durable_state_only",
+        "personalRewardDelivery": "party_exactly_once",
+        "observerSuccess": {
+          "globalScripts": [],
+          "playerParamRepairs": [
+            { "key": "gone_out_from_house", "value": 1.0 },
+            {
+              "key": "lock_tp",
+              "value": 1.0,
+              "unlessQuestSucceeded": ["go_to_talk_with_donkey_first_time"]
+            }
+          ],
+          "playerParamMinimums": [
+            { "key": "dig_graved_skull", "value": 1.0 }
+          ],
+          "personalItemGrants": []
+        }
+      },
+      "completionChecks": [
+        { "source": "player_param", "key": "gone_out_from_house", "comparison": ">=", "value": 1.0 }
+      ]
+    },
+    {
+      "questId": "get_out_from_house_tech",
+      "title": "Leave Sweet Home teleport bridge",
+      "vanilla": {
+        "startTrigger": "1",
+        "successTrigger": "1",
+        "failTrigger": "",
+        "startKeys": ["tp_house"],
+        "questVisible": false,
+        "oneTimeQuest": true,
+        "startScript": "",
+        "successScript": "",
+        "failScript": "",
+        "arrowWgoCustomTag": "",
+        "arrowWgoObjectId": "",
+        "successRewards": [
+          { "type": "gone_out_from_house", "amount": 1.0 }
+        ],
+        "failureRewards": []
+      },
+      "policy": {
+        "stateOwnership": "shared_campaign",
+        "eligibleInitiator": "any_player",
+        "livePresentationOwner": "initiating_player",
+        "observerQuestApplication": "durable_state_only",
+        "personalRewardDelivery": "party_exactly_once",
+        "observerSuccess": {
+          "globalScripts": [],
+          "playerParamRepairs": [
+            { "key": "gone_out_from_house", "value": 1.0 }
+          ],
+          "personalItemGrants": []
+        }
+      },
+      "completionChecks": [
+        { "source": "player_param", "key": "gone_out_from_house", "comparison": ">=", "value": 1.0 }
+      ]
+    },
+    {
+      "questId": "dig_graved_skull",
+      "title": "Find Gerry - Dig up Gerry",
+      "vanilla": {
+        "startTrigger": "Ppar(\"dig_graved_skull\")",
+        "successTrigger": "Ppar(\"skull_digged\")",
+        "failTrigger": "",
+        "startKeys": ["quest_finished"],
+        "questVisible": true,
+        "oneTimeQuest": true,
+        "startScript": "",
+        "successScript": "",
+        "failScript": "",
+        "arrowWgoCustomTag": "graved_skull",
+        "arrowWgoObjectId": "",
+        "successRewards": [],
+        "failureRewards": []
+      },
+      "policy": {
+        "stateOwnership": "shared_campaign",
+        "eligibleInitiator": "any_player",
+        "livePresentationOwner": "initiating_player",
+        "observerQuestApplication": "durable_state_only",
+        "personalRewardDelivery": "party_exactly_once",
+        "observerSuccess": {
+          "globalScripts": [],
+          "playerParamRepairs": [
+            { "key": "skull_digged", "value": 1.0 }
+          ],
+          "taskStateMinimums": [
+            { "npcId": "player", "taskId": "player_gerry", "state": "Complete" }
+          ],
+          "personalItemGrants": []
+        }
+      },
+      "completionChecks": [
+        { "source": "player_param", "key": "skull_digged", "comparison": ">=", "value": 1.0 }
+      ]
+    },
+    {
+      "questId": "go_to_talk_with_donkey_first_time",
+      "title": "Listen to Gerry - Talk to Donkey",
+      "vanilla": {
+        "startTrigger": "Ppar(\"go_to_talk_with_donkey_first_time\")",
+        "successTrigger": "Ppar(\"met_donkey\")",
+        "failTrigger": "",
+        "startKeys": [""],
+        "questVisible": true,
+        "oneTimeQuest": true,
+        "startScript": "",
+        "successScript": "unlock_tps",
+        "failScript": "",
+        "arrowWgoCustomTag": "donkey",
+        "arrowWgoObjectId": "",
+        "successRewards": [],
+        "failureRewards": []
+      },
+      "policy": {
+        "stateOwnership": "shared_campaign",
+        "eligibleInitiator": "any_player",
+        "livePresentationOwner": "initiating_player",
+        "observerQuestApplication": "durable_state_only",
+        "personalRewardDelivery": "party_exactly_once",
+        "observerStart": {
+          "globalScripts": [],
+          "playerParamRepairs": [
+            { "key": "go_to_talk_with_donkey_first_time", "value": 1.0 }
+          ],
+          "personalItemGrants": []
+        },
+        "observerSuccess": {
+          "globalScripts": ["unlock_tps"],
+          "playerParamRepairs": [
+            { "key": "met_donkey", "value": 1.0 },
+            { "key": "before_talk_with_donkey", "value": 0.0 },
+            { "key": "go_to_talk_with_donkey_first_time", "value": 0.0 }
+          ],
+          "unlockedCrafts": ["keeper_room_builddesk:p:keeper_room_picture_7"],
+          "completedOneTimeCrafts": ["keeper_room_builddesk:p:keeper_room_picture_7"],
+          "personalItemGrants": []
+        }
+      },
+      "completionChecks": [
+        { "source": "player_param", "key": "met_donkey", "comparison": ">=", "value": 1.0 }
+      ]
+    },
+    {
+      "questId": "go_to_mortuary_after_skull",
+      "title": "Carry a Corpse into the Morgue",
+      "vanilla": {
+        "startTrigger": "Ppar(\"go_to_mortuary_after_skull\")",
+        "successTrigger": "Ppar(\"in_morgue\")",
+        "failTrigger": "",
+        "startKeys": [""],
+        "questVisible": true,
+        "oneTimeQuest": true,
+        "startScript": "",
+        "successScript": "",
+        "failScript": "",
+        "arrowWgoCustomTag": "morgue",
+        "arrowWgoObjectId": "",
+        "successRewards": [],
+        "failureRewards": []
+      },
+      "policy": {
+        "stateOwnership": "shared_campaign",
+        "eligibleInitiator": "any_player",
+        "livePresentationOwner": "initiating_player",
+        "observerQuestApplication": "durable_state_only",
+        "personalRewardDelivery": "party_exactly_once",
+        "observerStart": {
+          "globalScripts": [],
+          "playerParamRepairs": [
+            { "key": "go_to_mortuary_after_skull", "value": 1.0 },
+            {
+              "key": "skull_talk_body",
+              "value": 1.0,
+              "unlessQuestReached": [
+                "on_skull_talk_autopsi",
+                "go_to_graveyard_and_talk_with_skull",
+                "skull_talk_after_burial"
+              ]
+            }
+          ],
+          "personalItemGrants": []
+        },
+        "observerSuccess": {
+          "globalScripts": [],
+          "playerParamRepairs": [
+            { "key": "go_to_mortuary_after_skull", "value": 1.0 },
+            {
+              "key": "skull_talk_body",
+              "value": 1.0,
+              "unlessQuestReached": [
+                "on_skull_talk_autopsi",
+                "go_to_graveyard_and_talk_with_skull",
+                "skull_talk_after_burial"
+              ]
+            },
+            { "key": "in_morgue", "value": 1.0 }
+          ],
+          "personalItemGrants": []
+        }
+      },
+      "completionChecks": [
+        { "source": "player_param", "key": "in_morgue", "comparison": ">=", "value": 1.0 }
+      ]
+    },
+    {
+      "questId": "go_to_mortuary_after_skull_tech",
+      "title": "Morgue teleport bridge",
+      "vanilla": {
+        "startTrigger": "Ppar(\"go_to_mortuary_after_skull\")",
+        "successTrigger": "1",
+        "failTrigger": "",
+        "startKeys": ["tp_mortuary"],
+        "questVisible": false,
+        "oneTimeQuest": true,
+        "startScript": "",
+        "successScript": "",
+        "failScript": "",
+        "arrowWgoCustomTag": "",
+        "arrowWgoObjectId": "",
+        "successRewards": [
+          { "type": "in_morgue", "amount": 1.0 }
+        ],
+        "failureRewards": []
+      },
+      "policy": {
+        "stateOwnership": "shared_campaign",
+        "eligibleInitiator": "any_player",
+        "livePresentationOwner": "initiating_player",
+        "observerQuestApplication": "durable_state_only",
+        "personalRewardDelivery": "party_exactly_once",
+        "observerSuccess": {
+          "globalScripts": [],
+          "playerParamRepairs": [
+            { "key": "in_morgue", "value": 1.0 }
+          ],
+          "personalItemGrants": []
+        }
+      },
+      "completionChecks": [
+        { "source": "player_param", "key": "in_morgue", "comparison": ">=", "value": 1.0 }
+      ]
+    },
+    {
+      "questId": "on_skull_talk_autopsi",
+      "title": "Extract Flesh",
+      "vanilla": {
+        "startTrigger": "Ppar(\"skull_talk_autopsi\")",
+        "successTrigger": "1",
+        "failTrigger": "",
+        "startKeys": ["item_flesh"],
+        "questVisible": false,
+        "oneTimeQuest": true,
+        "startScript": "on_skull_talk_autopsi",
+        "successScript": "",
+        "failScript": "",
+        "arrowWgoCustomTag": "",
+        "arrowWgoObjectId": "",
+        "successRewards": [
+          { "type": "skull_talk_autopsi", "amount": 0.0 }
+        ],
+        "failureRewards": []
+      },
+      "policy": {
+        "stateOwnership": "shared_campaign",
+        "eligibleInitiator": "any_player",
+        "livePresentationOwner": "initiating_player",
+        "observerQuestApplication": "durable_state_only",
+        "personalRewardDelivery": "grant_to_worker",
+        "observerStart": {
+          "globalScripts": [],
+          "playerParamRepairs": [
+            { "key": "skull_talk_body", "value": 0.0 },
+            { "key": "skull_talk_autopsi", "value": 1.0 },
+            { "key": "lock_tp", "value": 1.0 },
+            { "key": "lock_tp_param", "value": 1.0 }
+          ],
+          "taskStateMinimums": [
+            { "npcId": "crafting_skull_3", "taskId": "skull_beer", "state": "Visible" }
+          ],
+          "unlockedTechs": ["First slice"],
+          "unlockedPhrases": ["@horadric_2_1h"],
+          "personalItemGrants": []
+        },
+        "observerSuccess": {
+          "globalScripts": [],
+          "playerParamRepairs": [
+            { "key": "skull_talk_body", "value": 0.0 },
+            { "key": "skull_talk_autopsi", "value": 0.0 },
+            {
+              "key": "lock_tp",
+              "value": 0.0,
+              "unlessQuestReached": [
+                "go_to_graveyard_and_talk_with_skull",
+                "skull_talk_after_burial"
+              ]
+            },
+            {
+              "key": "lock_tp_param",
+              "value": 0.0,
+              "unlessQuestReached": [
+                "go_to_graveyard_and_talk_with_skull",
+                "skull_talk_after_burial"
+              ]
+            },
+            {
+              "key": "skull_wait_in_cemetery",
+              "value": 1.0,
+              "unlessQuestReached": [
+                "go_to_graveyard_and_talk_with_skull",
+                "skull_talk_after_burial"
+              ]
+            },
+            {
+              "key": "tp_to_morgue_locked",
+              "value": 1.0,
+              "unlessQuestReached": [
+                "go_to_graveyard_and_talk_with_skull",
+                "skull_talk_after_burial"
+              ]
+            },
+            {
+              "key": "tp_from_morgue_only_with_body",
+              "value": 1.0,
+              "unlessQuestReached": [
+                "go_to_graveyard_and_talk_with_skull",
+                "skull_talk_after_burial"
+              ]
+            }
+          ],
+          "taskStateMinimums": [
+            { "npcId": "crafting_skull_3", "taskId": "skull_beer", "state": "Visible" }
+          ],
+          "unlockedTechs": ["First slice", "Fast food"],
+          "unlockedPhrases": ["@horadric_2_1h"],
+          "personalItemGrants": []
+        }
+      },
+      "completionChecks": [
+        { "source": "player_param", "key": "skull_talk_body", "comparison": "==", "value": 0.0 },
+        { "source": "player_param", "key": "skull_talk_autopsi", "comparison": "==", "value": 0.0 }
+      ]
+    },
+    {
+      "questId": "go_to_graveyard_and_talk_with_skull",
+      "title": "Carry a Corpse to the Graveyard",
+      "vanilla": {
+        "startTrigger": "Ppar(\"skull_wait_in_cemetery\")",
+        "successTrigger": "1-Ppar(\"skull_wait_in_cemetery\")",
+        "failTrigger": "",
+        "startKeys": ["tp_mortuary"],
+        "questVisible": true,
+        "oneTimeQuest": true,
+        "startScript": "",
+        "successScript": "",
+        "failScript": "",
+        "arrowWgoCustomTag": "talking_skull",
+        "arrowWgoObjectId": "",
+        "successRewards": [],
+        "failureRewards": []
+      },
+      "policy": {
+        "stateOwnership": "shared_campaign",
+        "eligibleInitiator": "any_player",
+        "livePresentationOwner": "initiating_player",
+        "observerQuestApplication": "durable_state_only",
+        "personalRewardDelivery": "party_exactly_once",
+        "observerStart": {
+          "globalScripts": [],
+          "playerParamRepairs": [
+            { "key": "skull_talk_body", "value": 0.0 },
+            { "key": "skull_talk_autopsi", "value": 0.0 },
+            { "key": "lock_tp", "value": 0.0 },
+            { "key": "lock_tp_param", "value": 0.0 },
+            {
+              "key": "skull_wait_in_cemetery",
+              "value": 1.0,
+              "unlessQuestReached": ["skull_talk_after_burial"]
+            },
+            {
+              "key": "tp_to_morgue_locked",
+              "value": 1.0,
+              "unlessQuestReached": ["skull_talk_after_burial"]
+            },
+            {
+              "key": "tp_from_morgue_only_with_body",
+              "value": 1.0,
+              "unlessQuestReached": ["skull_talk_after_burial"]
+            }
+          ],
+          "personalItemGrants": []
+        },
+        "observerSuccess": {
+          "globalScripts": [],
+          "playerParamRepairs": [
+            { "key": "skull_wait_in_cemetery", "value": 0.0 },
+            {
+              "key": "waiting_for_first_bureal",
+              "value": 1.0,
+              "unlessQuestReached": ["skull_talk_after_burial"]
+            },
+            {
+              "key": "tp_to_morgue_locked",
+              "value": 1.0,
+              "unlessQuestReached": ["skull_talk_after_burial"]
+            },
+            {
+              "key": "tp_from_morgue_only_with_body",
+              "value": 1.0,
+              "unlessQuestReached": ["skull_talk_after_burial"]
+            }
+          ],
+          "personalItemGrants": [
+            {
+              "itemId": "shovel_0",
+              "count": 1,
+              "receiptId": "gykmp_story_grant_prologue_first_cemetery_shovel"
+            }
+          ]
+        }
+      },
+      "completionChecks": [
+        { "source": "player_param", "key": "skull_wait_in_cemetery", "comparison": "==", "value": 0.0 }
+      ]
+    },
+    {
+      "questId": "skull_talk_after_burial",
+      "title": "Bury a Corpse",
+      "vanilla": {
+        "startTrigger": "Ppar(\"waiting_for_first_bureal\")",
+        "successTrigger": "1",
+        "failTrigger": "",
+        "startKeys": ["item_scroll_2"],
+        "questVisible": false,
+        "oneTimeQuest": true,
+        "startScript": "on_after_first_bureal",
+        "successScript": "",
+        "failScript": "",
+        "arrowWgoCustomTag": "",
+        "arrowWgoObjectId": "",
+        "successRewards": [
+          { "type": "waiting_for_first_bureal", "amount": -1.0 }
+        ],
+        "failureRewards": []
+      },
+      "policy": {
+        "stateOwnership": "shared_campaign",
+        "eligibleInitiator": "any_player",
+        "livePresentationOwner": "initiating_player",
+        "observerQuestApplication": "durable_state_only",
+        "personalRewardDelivery": "party_exactly_once",
+        "observerSuccess": {
+          "globalScripts": [],
+          "playerParamRepairs": [
+            { "key": "skull_wait_in_cemetery", "value": 0.0 },
+            { "key": "waiting_for_first_bureal", "value": 0.0 },
+            { "key": "skull_talk_body", "value": 0.0 },
+            { "key": "skull_talk_autopsi", "value": 0.0 },
+            { "key": "tp_to_morgue_locked", "value": 0.0 },
+            { "key": "tp_from_morgue_only_with_body", "value": 0.0 }
+          ],
+          "personalItemGrants": [
+            {
+              "itemId": "item_scroll_2",
+              "count": 1,
+              "receiptId": "gykmp_story_grant_prologue_first_burial_certificate"
+            }
+          ]
+        }
+      },
+      "completionChecks": [
+        { "source": "player_param", "key": "waiting_for_first_bureal", "comparison": "==", "value": 0.0 }
+      ]
+    },
+    {
+      "questId": "take_tools_from_grave_chest",
+      "title": "Check the Bishop's Trunk",
+      "vanilla": {
+        "startTrigger": "Ppar(\"take_tools_from_grave_chest\")",
+        "successTrigger": "Ppar(\"tools_from_grave_chest_taken\")",
+        "failTrigger": "",
+        "startKeys": [""],
+        "questVisible": true,
+        "oneTimeQuest": true,
+        "startScript": "",
+        "successScript": "",
+        "failScript": "",
+        "arrowWgoCustomTag": "grave_chest",
+        "arrowWgoObjectId": "",
+        "successRewards": [
+          { "type": "tools_from_grave_chest_taken", "amount": -1.0 },
+          { "type": "take_tools_from_grave_chest", "amount": -1.0 }
+        ],
+        "failureRewards": []
+      },
+      "policy": {
+        "stateOwnership": "shared_campaign",
+        "eligibleInitiator": "any_player",
+        "livePresentationOwner": "initiating_player",
+        "observerQuestApplication": "durable_state_only",
+        "personalRewardDelivery": "party_exactly_once",
+        "observerStart": {
+          "globalScripts": [],
+          "playerParamRepairs": [
+            { "key": "take_tools_from_grave_chest", "value": 1.0 },
+            { "key": "not_available_throw_body", "value": 0.0 },
+            { "key": "in_tutorial", "value": 0.0 },
+            { "key": "do_not_show_wgo_qualities", "value": 0.0 },
+            {
+              "key": "goto_tavern",
+              "value": 1.0,
+              "unlessQuestReached": ["goto_tavern_2", "goto_tavern_tech"]
+            }
+          ],
+          "playerParamMinimums": [
+            { "key": "met_bishop", "value": 1.0 },
+            { "key": "church_level", "value": 1.0 },
+            { "key": "craft_tut", "value": 1.0 }
+          ],
+          "taskStateMinimums": [
+            { "npcId": "npc_bishop", "taskId": "bishop_5_qual", "state": "Visible" }
+          ],
+          "unlockedTechs": ["Grave plate", "The idea of the stone", "The idea of the tree"],
+          "unlockedCrafts": ["keeper_room_builddesk:p:keeper_room_picture_4"],
+          "completedOneTimeCrafts": ["keeper_room_builddesk:p:keeper_room_picture_4"],
+          "personalItemGrants": []
+        },
+        "observerSuccess": {
+          "globalScripts": [],
+          "playerParamRepairs": [
+            { "key": "take_tools_from_grave_chest", "value": 0.0 },
+            { "key": "tools_from_grave_chest_taken", "value": 0.0 },
+            { "key": "not_available_throw_body", "value": 0.0 },
+            { "key": "in_tutorial", "value": 0.0 },
+            { "key": "do_not_show_wgo_qualities", "value": 0.0 },
+            {
+              "key": "goto_tavern",
+              "value": 1.0,
+              "unlessQuestReached": ["goto_tavern_2", "goto_tavern_tech"]
+            }
+          ],
+          "playerParamMinimums": [
+            { "key": "met_bishop", "value": 1.0 },
+            { "key": "church_level", "value": 1.0 },
+            { "key": "craft_tut", "value": 1.0 }
+          ],
+          "taskStateMinimums": [
+            { "npcId": "npc_bishop", "taskId": "bishop_5_qual", "state": "Visible" }
+          ],
+          "unlockedTechs": ["Grave plate", "The idea of the stone", "The idea of the tree"],
+          "unlockedCrafts": ["keeper_room_builddesk:p:keeper_room_picture_4"],
+          "completedOneTimeCrafts": ["keeper_room_builddesk:p:keeper_room_picture_4"],
+          "personalItemGrants": []
+        }
+      },
+      "completionChecks": [
+        { "source": "player_param", "key": "take_tools_from_grave_chest", "comparison": "==", "value": 0.0 }
+      ]
+    },
+    {
+      "questId": "tools_from_grave_chest_taken_tech",
+      "title": "Grave tools interaction bridge",
+      "vanilla": {
+        "startTrigger": "Ppar(\"take_tools_from_grave_chest\")",
+        "successTrigger": "1",
+        "failTrigger": "",
+        "startKeys": ["interact_mf_box_stuff"],
+        "questVisible": false,
+        "oneTimeQuest": true,
+        "startScript": "",
+        "successScript": "",
+        "failScript": "",
+        "arrowWgoCustomTag": "",
+        "arrowWgoObjectId": "",
+        "successRewards": [
+          { "type": "tools_from_grave_chest_taken", "amount": 1.0 }
+        ],
+        "failureRewards": []
+      },
+      "policy": {
+        "stateOwnership": "shared_campaign",
+        "eligibleInitiator": "any_player",
+        "livePresentationOwner": "initiating_player",
+        "observerQuestApplication": "durable_state_only",
+        "personalRewardDelivery": "party_exactly_once",
+        "personalRewardSource": {
+          "containerCustomTag": "grave_chest",
+          "conversionMode": "consume_exact_untouched_seed",
+          "conversionMarker": "gykmp_story_source_grave_tools_resolved_v1"
+        },
+        "observerSuccess": {
+          "globalScripts": [],
+          "playerParamRepairs": [
+            {
+              "key": "tools_from_grave_chest_taken",
+              "value": 1.0,
+              "unlessQuestSucceeded": ["take_tools_from_grave_chest"]
+            }
+          ],
+          "personalItemGrants": [
+            {
+              "itemId": "axe_0",
+              "count": 1,
+              "receiptId": "gykmp_story_grant_prologue_first_grave_tools_axe"
+            },
+            {
+              "itemId": "pickaxe_0",
+              "count": 1,
+              "receiptId": "gykmp_story_grant_prologue_first_grave_tools_pickaxe"
+            },
+            {
+              "itemId": "hammer_0",
+              "count": 1,
+              "receiptId": "gykmp_story_grant_prologue_first_grave_tools_hammer"
+            },
+            {
+              "itemId": "repair_stn",
+              "count": 4,
+              "receiptId": "gykmp_story_grant_prologue_first_grave_tools_stone_repairs"
+            },
+            {
+              "itemId": "repair_wdn",
+              "count": 4,
+              "receiptId": "gykmp_story_grant_prologue_first_grave_tools_wood_repairs"
+            }
+          ]
+        }
+      },
+      "completionChecks": []
+    },
+    {
+      "questId": "goto_tavern",
+      "title": "Go to the Dead Horse",
+      "vanilla": {
+        "startTrigger": "Ppar(\"goto_tavern\")",
+        "successTrigger": "Ppar(\"test_tavern\")",
+        "failTrigger": "",
+        "startKeys": ["quest_finished"],
+        "questVisible": true,
+        "oneTimeQuest": true,
+        "startScript": "",
+        "successScript": "",
+        "failScript": "",
+        "arrowWgoCustomTag": "Tavern_1",
+        "arrowWgoObjectId": "",
+        "successRewards": [],
+        "failureRewards": []
+      },
+      "policy": {
+        "stateOwnership": "shared_campaign",
+        "eligibleInitiator": "any_player",
+        "livePresentationOwner": "initiating_player",
+        "observerQuestApplication": "durable_state_only",
+        "personalRewardDelivery": "party_exactly_once",
+        "observerStart": {
+          "globalScripts": [],
+          "playerParamRepairs": [
+            { "key": "goto_tavern", "value": 1.0 }
+          ],
+          "personalItemGrants": []
+        },
+        "observerSuccess": {
+          "globalScripts": [],
+          "playerParamRepairs": [
+            {
+              "key": "goto_tavern",
+              "value": 1.0,
+              "unlessQuestReached": ["goto_tavern_2", "goto_tavern_tech"]
+            }
+          ],
+          "playerParamMinimums": [
+            { "key": "test_tavern", "value": 1.0 }
+          ],
+          "personalItemGrants": []
+        }
+      },
+      "completionChecks": []
+    },
+    {
+      "questId": "goto_tavern_2",
+      "title": "Enter the Dead Horse",
+      "vanilla": {
+        "startTrigger": "",
+        "successTrigger": "Ppar(\"was_in_tavern\")",
+        "failTrigger": "",
+        "startKeys": [""],
+        "questVisible": true,
+        "oneTimeQuest": true,
+        "startScript": "",
+        "successScript": "",
+        "failScript": "",
+        "arrowWgoCustomTag": "Tavern",
+        "arrowWgoObjectId": "",
+        "successRewards": [
+          { "type": "goto_tavern", "amount": -1.0 }
+        ],
+        "failureRewards": []
+      },
+      "policy": {
+        "stateOwnership": "shared_campaign",
+        "eligibleInitiator": "any_player",
+        "livePresentationOwner": "initiating_player",
+        "observerQuestApplication": "durable_state_only",
+        "personalRewardDelivery": "party_exactly_once",
+        "observerStart": {
+          "globalScripts": [],
+          "playerParamRepairs": [
+            { "key": "goto_tavern", "value": 1.0 }
+          ],
+          "playerParamMinimums": [
+            { "key": "test_tavern", "value": 1.0 }
+          ],
+          "personalItemGrants": []
+        },
+        "observerSuccess": {
+          "globalScripts": [],
+          "playerParamRepairs": [
+            { "key": "goto_tavern", "value": 0.0 }
+          ],
+          "playerParamMinimums": [
+            { "key": "test_tavern", "value": 1.0 },
+            { "key": "was_in_tavern", "value": 1.0 }
+          ],
+          "personalItemGrants": []
+        }
+      },
+      "completionChecks": [
+        { "source": "player_param", "key": "goto_tavern", "comparison": "==", "value": 0.0 }
+      ]
+    },
+    {
+      "questId": "goto_tavern_tech",
+      "title": "Tavern entry bridge",
+      "vanilla": {
+        "startTrigger": "Ppar(\"goto_tavern\")",
+        "successTrigger": "1",
+        "failTrigger": "",
+        "startKeys": ["tp_tavern"],
+        "questVisible": false,
+        "oneTimeQuest": true,
+        "startScript": "",
+        "successScript": "",
+        "failScript": "",
+        "arrowWgoCustomTag": "",
+        "arrowWgoObjectId": "",
+        "successRewards": [
+          { "type": "was_in_tavern", "amount": 1.0 }
+        ],
+        "failureRewards": []
+      },
+      "policy": {
+        "stateOwnership": "shared_campaign",
+        "eligibleInitiator": "any_player",
+        "livePresentationOwner": "initiating_player",
+        "observerQuestApplication": "durable_state_only",
+        "personalRewardDelivery": "party_exactly_once",
+        "observerSuccess": {
+          "globalScripts": [],
+          "playerParamRepairs": [
+            { "key": "was_in_tavern", "value": 1.0 }
+          ],
+          "playerParamMinimums": [
+            { "key": "test_tavern", "value": 1.0 }
+          ],
+          "personalItemGrants": []
+        }
+      },
+      "completionChecks": [
+        { "source": "player_param", "key": "was_in_tavern", "comparison": ">=", "value": 1.0 }
+      ]
+    }
+  ],
+  "taskMilestones": [
+    {
+      "milestoneId": "bishop_intro_complete",
+      "npcId": "npc_bishop",
+      "taskId": "bishop_5_qual",
+      "activeStates": ["Visible", "Complete"],
+      "playerParamRepairs": [
+        { "key": "not_available_throw_body", "value": 0.0 },
+        { "key": "in_tutorial", "value": 0.0 },
+        { "key": "do_not_show_wgo_qualities", "value": 0.0 },
+        {
+          "key": "take_tools_from_grave_chest",
+          "value": 1.0,
+          "unlessQuestSucceeded": ["take_tools_from_grave_chest"]
+        },
+        {
+          "key": "goto_tavern",
+          "value": 1.0,
+          "unlessQuestSucceeded": ["goto_tavern_2", "goto_tavern_tech"]
+        }
+      ],
+      "playerParamMinimums": [
+        { "key": "met_bishop", "value": 1.0 },
+        { "key": "church_level", "value": 1.0 },
+        { "key": "craft_tut", "value": 1.0 }
+      ],
+      "unlockedTechs": ["Grave plate", "The idea of the stone", "The idea of the tree"],
+      "unlockedCrafts": ["keeper_room_builddesk:p:keeper_room_picture_4"],
+      "completedOneTimeCrafts": ["keeper_room_builddesk:p:keeper_room_picture_4"],
+      "wgoParamMinimums": [],
+      "personalItemGrants": []
+    },
+    {
+      "milestoneId": "gerry_body_dialogue_complete",
+      "npcId": "crafting_skull_3",
+      "taskId": "skull_beer",
+      "activeStates": ["Visible", "Complete"],
+      "playerParamRepairs": [
+        { "key": "skull_talk_body", "value": 0.0 }
+      ],
+      "playerParamMinimums": [],
+      "wgoParamMinimums": [],
+      "personalItemGrants": []
+    },
+    {
+      "milestoneId": "horadric_letter_received",
+      "npcId": "npc_tavern owner",
+      "taskId": "horadric_letter",
+      "activeStates": ["Visible", "Complete"],
+      "unlockedPhrases": ["@blacksmith_2_1a", "@horadric_2_1e"],
+      "playerParamMinimums": [],
+      "wgoParamMinimums": [
+        { "objectId": "npc_tavern owner", "key": "letter_to_bs", "value": 1.0 },
+        { "objectId": "npc_tavern owner", "key": "first_time", "value": 1.0 }
+      ],
+      "personalItemGrants": []
+    },
+    {
+      "milestoneId": "blacksmith_slime_tutorial",
+      "npcId": "npc_blacksmith",
+      "taskId": "blacksmith_slimes",
+      "activeStates": ["Visible", "Complete"],
+      "unlockedPhrases": ["@blacksmith_2_1e"],
+      "playerParamMinimums": [
+        { "key": "_rel_npc_blacksmith", "value": 10.0 },
+        { "key": "key_to_cellar", "value": 1.0 }
+      ],
+      "unlockedTechs": ["Gathering", "Bread"],
+      "blacklistedPhrases": ["@blacksmith_2_1a", "@horadric_2_1e"],
+      "wgoParamMinimums": [],
+      "personalItemGrants": [
+        {
+          "itemId": "broken_sword",
+          "count": 1,
+          "receiptId": "gykmp_story_grant_prologue_blacksmith_broken_sword"
+        },
+        {
+          "itemId": "pot_mana",
+          "count": 2,
+          "receiptId": "gykmp_story_grant_prologue_blacksmith_mana_potions"
+        },
+        {
+          "itemId": "whetstone",
+          "count": 1,
+          "receiptId": "gykmp_story_grant_prologue_blacksmith_whetstone"
+        }
+      ]
+    },
+    {
+      "milestoneId": "blacksmith_slime_tutorial_completed",
+      "npcId": "npc_blacksmith",
+      "taskId": "blacksmith_slimes",
+      "activeStates": ["Complete"],
+      "playerParamMinimums": [],
+      "unlockedTechs": ["Jelly"],
+      "blacklistedPhrases": ["@blacksmith_2_1e"],
+      "wgoParamMinimums": [],
+      "personalItemGrants": []
+    },
+    {
+      "milestoneId": "gerry_waiting_for_beer",
+      "npcId": "npc_tavern owner",
+      "taskId": "horadric_letter",
+      "activeStates": ["Complete"],
+      "playerParamRepairs": [
+        { "key": "skull_talk_body", "value": 0.0 },
+        { "key": "skull_talk_autopsi", "value": 0.0 },
+        { "key": "skull_wait_in_cemetery", "value": 0.0 },
+        { "key": "waiting_for_first_bureal", "value": 0.0 },
+        { "key": "tp_to_morgue_locked", "value": 0.0 },
+        { "key": "tp_from_morgue_only_with_body", "value": 0.0 }
+      ],
+      "playerParamMinimums": [
+        { "key": "_rel_npc_tavern owner", "value": 10.0 }
+      ],
+      "wgoParamMinimums": [],
+      "personalItemGrants": []
+    },
+    {
+      "milestoneId": "gerry_beer_delivered",
+      "npcId": "crafting_skull_3",
+      "taskId": "skull_beer",
+      "activeStates": ["Complete"],
+      "playerParamRepairs": [
+        { "key": "skull_talk_body", "value": 0.0 },
+        { "key": "skull_talk_autopsi", "value": 0.0 },
+        { "key": "skull_wait_in_cemetery", "value": 0.0 },
+        { "key": "waiting_for_first_bureal", "value": 0.0 },
+        { "key": "tp_to_morgue_locked", "value": 0.0 },
+        { "key": "tp_from_morgue_only_with_body", "value": 0.0 }
+      ],
+      "playerParamMinimums": [
+        { "key": "_rel_crafting_skull_3", "value": 20.0 }
+      ],
+      "unlockedPhrases": ["@skull_8_2a_wine"],
+      "blacklistedPhrases": ["skull_8_2a"],
+      "wgoParamMinimums": [
+        { "objectId": "crafting_skull_3", "key": "accepted_beer", "value": 1.0 }
+      ],
+      "personalItemGrants": []
+    }
+  ],
+  "cutscenes": [
+    {
+      "cutsceneId": "red_eye_intro",
+      "linkedQuestIds": ["start"],
+      "triggerScripts": ["red_eye_talk_1"],
+      "actors": ["player_party", "red_eye"],
+      "observerPolicy": "all_loaded_party_members",
+      "lateJoinPolicy": "presentation_checkpoint_required",
+      "remoteExecutionPolicy": "local_mirror_required",
+      "executionOwnerPolicy": "any_player",
+      "dialogueOwnerPolicy": "lobby_host",
+      "formationPolicy": "intro_red_eye_party",
+      "cleanupRequirements": [
+        "restore_player_control",
+        "restore_player_facing",
+        "restore_player_position",
+        "remove_presentation_dummies",
+        "close_letterbox"
+      ]
+    },
+    {
+      "cutsceneId": "gerry_dig_up",
+      "linkedQuestIds": ["dig_graved_skull"],
+      "triggerScripts": ["skull_spawn_after_dig"],
+      "actors": ["initiating_player", "talking_skull"],
+      "observerPolicy": "all_loaded_party_members",
+      "lateJoinPolicy": "join_live_checkpoint_or_observe",
+      "remoteExecutionPolicy": "live_observation",
+      "executionOwnerPolicy": "any_player",
+      "dialogueOwnerPolicy": "initiating_player",
+      "formationPolicy": "initiator_with_observer_follow",
+      "cleanupRequirements": ["restore_player_control", "restore_player_speed", "finalize_gerry_position", "close_letterbox"]
+    },
+    {
+      "cutsceneId": "gerry_before_donkey",
+      "linkedQuestIds": ["go_to_talk_with_donkey_first_time"],
+      "triggerScripts": ["talking_skull:on_came_to_skull_talk_before_donkey_1"],
+      "actors": ["initiating_player", "talking_skull"],
+      "observerPolicy": "all_loaded_party_members",
+      "lateJoinPolicy": "join_live_checkpoint_or_observe",
+      "remoteExecutionPolicy": "live_observation",
+      "executionOwnerPolicy": "any_player",
+      "dialogueOwnerPolicy": "initiating_player",
+      "formationPolicy": "initiator_with_observer_follow",
+      "cleanupRequirements": ["restore_player_control", "finalize_gerry_position", "close_letterbox"]
+    },
+    {
+      "cutsceneId": "donkey_intro",
+      "linkedQuestIds": ["go_to_talk_with_donkey_first_time"],
+      "triggerScripts": ["npc_donkey:intro"],
+      "actors": ["initiating_player", "npc_donkey", "talking_skull", "corpse"],
+      "observerPolicy": "all_loaded_party_members",
+      "lateJoinPolicy": "join_live_checkpoint_or_observe",
+      "remoteExecutionPolicy": "live_observation",
+      "executionOwnerPolicy": "any_player",
+      "dialogueOwnerPolicy": "initiating_player",
+      "formationPolicy": "initiator_with_observer_follow",
+      "cleanupRequirements": ["restore_player_control", "finalize_donkey_position", "finalize_corpse_cart_state", "close_letterbox"]
+    },
+    {
+      "cutsceneId": "gerry_corpse_instruction",
+      "linkedQuestIds": ["go_to_mortuary_after_skull"],
+      "triggerScripts": ["talking_skull:on_came_to_skull_talk_point_1_rem"],
+      "actors": ["initiating_player", "talking_skull", "corpse"],
+      "observerPolicy": "all_loaded_party_members",
+      "lateJoinPolicy": "join_live_checkpoint_or_observe",
+      "remoteExecutionPolicy": "live_observation",
+      "executionOwnerPolicy": "any_player",
+      "dialogueOwnerPolicy": "initiating_player",
+      "formationPolicy": "initiator_with_observer_follow",
+      "cleanupRequirements": ["restore_player_control", "finalize_gerry_position", "close_letterbox"]
+    },
+    {
+      "cutsceneId": "gerry_autopsy_intro",
+      "linkedQuestIds": ["go_to_mortuary_after_skull", "go_to_mortuary_after_skull_tech"],
+      "triggerScripts": ["crafting_skull_3:on_skull_talk_body"],
+      "actors": ["initiating_player", "crafting_skull_3", "corpse"],
+      "observerPolicy": "all_loaded_party_members",
+      "lateJoinPolicy": "join_live_checkpoint_or_observe",
+      "remoteExecutionPolicy": "live_observation",
+      "executionOwnerPolicy": "any_player",
+      "dialogueOwnerPolicy": "initiating_player",
+      "formationPolicy": "initiator_with_observer_follow",
+      "cleanupRequirements": ["restore_player_control", "restore_camera", "close_letterbox"]
+    },
+    {
+      "cutsceneId": "gerry_post_autopsy",
+      "linkedQuestIds": ["on_skull_talk_autopsi", "go_to_graveyard_and_talk_with_skull"],
+      "triggerScripts": ["crafting_skull_3:on_skull_talk_autopsi"],
+      "actors": ["initiating_player", "crafting_skull_3", "talking_skull"],
+      "observerPolicy": "all_loaded_party_members",
+      "lateJoinPolicy": "join_live_checkpoint_or_observe",
+      "remoteExecutionPolicy": "live_observation",
+      "executionOwnerPolicy": "any_player",
+      "dialogueOwnerPolicy": "initiating_player",
+      "formationPolicy": "initiator_with_observer_follow",
+      "cleanupRequirements": ["restore_player_control", "restore_teleports", "finalize_gerry_stock_state", "close_letterbox"]
+    },
+    {
+      "cutsceneId": "gerry_cemetery_tutorial",
+      "linkedQuestIds": ["go_to_graveyard_and_talk_with_skull", "skull_talk_after_burial"],
+      "triggerScripts": ["talking_skull:tutor_cemetery"],
+      "actors": ["initiating_player", "talking_skull"],
+      "observerPolicy": "all_loaded_party_members",
+      "lateJoinPolicy": "join_live_checkpoint_or_observe",
+      "remoteExecutionPolicy": "live_observation",
+      "executionOwnerPolicy": "any_player",
+      "dialogueOwnerPolicy": "initiating_player",
+      "formationPolicy": "initiator_with_observer_follow",
+      "cleanupRequirements": ["restore_player_control", "deliver_party_shovels_exactly_once", "close_letterbox"]
+    },
+    {
+      "cutsceneId": "first_burial_bishop_arrival",
+      "linkedQuestIds": ["skull_talk_after_burial"],
+      "triggerScripts": ["on_after_first_bureal"],
+      "actors": ["initiating_player", "talking_skull", "npc_bishop"],
+      "observerPolicy": "all_loaded_party_members",
+      "lateJoinPolicy": "join_live_checkpoint_or_observe",
+      "remoteExecutionPolicy": "live_observation",
+      "executionOwnerPolicy": "any_player",
+      "dialogueOwnerPolicy": "initiating_player",
+      "formationPolicy": "initiator_with_observer_follow",
+      "cleanupRequirements": ["restore_player_control", "unlock_morgue_transitions", "finalize_bishop_position", "close_letterbox"]
+    },
+    {
+      "cutsceneId": "yorick_first_sleep",
+      "linkedQuestIds": ["skull_talk_after_burial"],
+      "triggerScripts": ["ghost_comes_after_players_sleep"],
+      "actors": ["initiating_player", "npc_ghost"],
+      "observerPolicy": "all_loaded_party_members",
+      "lateJoinPolicy": "join_live_checkpoint_or_observe",
+      "remoteExecutionPolicy": "live_observation",
+      "executionOwnerPolicy": "any_player",
+      "dialogueOwnerPolicy": "initiating_player",
+      "formationPolicy": "initiator_with_observer_follow",
+      "participantFacing": "Right",
+      "personalGrantPrerequisiteQuestIds": ["ghost_come_after_1st_burial"],
+      "personalItemGrants": [
+        {
+          "itemId": "permission",
+          "count": 1,
+          "receiptId": "gykmp_story_grant_prologue_first_exhumation_permission"
+        }
+      ],
+      "completionChecks": [
+        {
+          "source": "player_param",
+          "key": "ghost_comes_2_home_after_1st_burial",
+          "comparison": "==",
+          "value": 0.0
+        }
+      ],
+      "cleanupRequirements": ["restore_player_control", "restore_player_facing", "deliver_exhumation_permission_to_party_exactly_once", "finalize_ghost_position", "close_letterbox"]
+    },
+    {
+      "cutsceneId": "bishop_intro",
+      "linkedQuestIds": ["take_tools_from_grave_chest"],
+      "triggerScripts": ["npc_bishop:intro"],
+      "actors": ["initiating_player", "npc_bishop"],
+      "observerPolicy": "all_loaded_party_members",
+      "lateJoinPolicy": "join_live_checkpoint_or_observe",
+      "remoteExecutionPolicy": "live_observation",
+      "executionOwnerPolicy": "any_player",
+      "dialogueOwnerPolicy": "initiating_player",
+      "formationPolicy": "initiator_with_observer_follow",
+      "cleanupRequirements": ["restore_player_control", "restore_hud", "preserve_bishop_availability", "close_letterbox"]
+    }
+  ],
+  "storySteps": [
+    {
+      "stepId": "wake_and_leave_sweet_home",
+      "title": "Wake, meet Red Eye, and leave Sweet Home",
+      "linkedQuestIds": ["start", "get_out_from_house", "get_out_from_house_tech"],
+      "triggerScripts": ["red_eye_talk_1", "lock_tps"],
+      "triggerKeys": ["game_start", "tp_house", "quest_finished"],
+      "expectedEffects": [
+        { "kind": "player_param", "id": "gone_out_from_house", "operation": "set", "amount": 1.0, "ownership": "shared_campaign" },
+        { "kind": "quest", "id": "dig_graved_skull", "operation": "start", "amount": 1.0, "ownership": "shared_campaign" }
+      ],
+      "safeguards": ["one_red_eye_dialogue_owner", "all_players_exit_intro_together"]
+    },
+    {
+      "stepId": "find_and_dig_up_gerry",
+      "title": "Find Gerry and dig him up",
+      "linkedQuestIds": ["dig_graved_skull"],
+      "triggerScripts": ["skull_spawn_after_dig"],
+      "triggerKeys": ["quest_finished"],
+      "expectedEffects": [
+        { "kind": "player_param", "id": "skull_digged", "operation": "set", "amount": 1.0, "ownership": "shared_campaign" },
+        { "kind": "npc_task", "id": "player_gerry", "operation": "complete", "amount": 1.0, "ownership": "shared_campaign" }
+      ],
+      "safeguards": ["single_work_completion", "gerry_final_position_authoritative", "restore_player_speed"]
+    },
+    {
+      "stepId": "listen_to_gerry_and_meet_donkey",
+      "title": "Listen to Gerry and talk to Donkey",
+      "linkedQuestIds": ["go_to_talk_with_donkey_first_time"],
+      "triggerScripts": ["talking_skull:on_came_to_skull_talk_before_donkey_1", "npc_donkey:intro", "unlock_tps"],
+      "triggerKeys": ["met_donkey"],
+      "expectedEffects": [
+        { "kind": "player_param", "id": "met_donkey", "operation": "set", "amount": 1.0, "ownership": "shared_campaign" },
+        { "kind": "one_time_craft", "id": "keeper_room_builddesk:p:keeper_room_picture_7", "operation": "unlock_and_complete", "amount": 1.0, "ownership": "shared_campaign" },
+        { "kind": "world_body", "id": "tutorial_corpse", "operation": "drop_once", "amount": 1.0, "ownership": "shared_world" }
+      ],
+      "safeguards": ["single_donkey_intro", "single_corpse_drop", "cart_corpse_removed_on_every_peer"]
+    },
+    {
+      "stepId": "carry_corpse_to_morgue",
+      "title": "Carry the corpse into the Morgue and listen to Gerry",
+      "linkedQuestIds": ["go_to_mortuary_after_skull", "go_to_mortuary_after_skull_tech"],
+      "linkedTaskMilestoneIds": ["gerry_body_dialogue_complete"],
+      "triggerScripts": ["talking_skull:on_came_to_skull_talk_point_1_rem", "crafting_skull_3:on_skull_talk_body"],
+      "triggerKeys": ["tp_mortuary"],
+      "expectedEffects": [
+        { "kind": "player_param", "id": "go_to_mortuary_after_skull", "operation": "set", "amount": 1.0, "ownership": "shared_campaign" },
+        { "kind": "player_param", "id": "skull_talk_body", "operation": "set_until_autopsy", "amount": 1.0, "ownership": "shared_campaign" },
+        { "kind": "player_param", "id": "in_morgue", "operation": "set", "amount": 1.0, "ownership": "shared_campaign" },
+        { "kind": "technology", "id": "First slice", "operation": "unlock", "amount": 1.0, "ownership": "shared_campaign" },
+        { "kind": "dialogue_phrase", "id": "@horadric_2_1h", "operation": "unlock", "amount": 1.0, "ownership": "shared_campaign" },
+        { "kind": "npc_task", "id": "crafting_skull_3:skull_beer", "operation": "show", "amount": 1.0, "ownership": "shared_campaign" }
+      ],
+      "safeguards": ["corpse_has_one_owner", "single_autopsy_introduction", "morgue_entry_available_to_party"]
+    },
+    {
+      "stepId": "extract_flesh",
+      "title": "Extract flesh from the tutorial corpse",
+      "linkedQuestIds": ["on_skull_talk_autopsi"],
+      "triggerScripts": ["on_skull_talk_autopsi", "crafting_skull_3:on_skull_talk_autopsi"],
+      "triggerKeys": ["item_flesh", "ach_slice_flesh"],
+      "expectedEffects": [
+        { "kind": "inventory_item", "id": "item_flesh", "operation": "grant_to_worker", "amount": 1.0, "ownership": "personal_character" },
+        { "kind": "technology", "id": "Fast food", "operation": "unlock", "amount": 1.0, "ownership": "shared_campaign" },
+        { "kind": "achievement", "id": "first_slice", "operation": "unlock", "amount": 1.0, "ownership": "personal_platform" }
+      ],
+      "safeguards": ["single_autopsy_completion", "no_duplicate_flesh", "work_progress_cannot_repeat_for_xp"]
+    },
+    {
+      "stepId": "carry_and_bury_first_corpse",
+      "title": "Carry the corpse to the Graveyard and bury it",
+      "linkedQuestIds": ["go_to_graveyard_and_talk_with_skull", "skull_talk_after_burial"],
+      "triggerScripts": ["talking_skull:tutor_cemetery", "on_after_first_bureal"],
+      "triggerKeys": ["tp_mortuary", "item_scroll_2"],
+      "expectedEffects": [
+        { "kind": "inventory_item", "id": "shovel_0", "operation": "grant_exactly_once", "amount": 1.0, "ownership": "party_personal" },
+        { "kind": "inventory_item", "id": "item_scroll_2", "operation": "grant_exactly_once", "amount": 1.0, "ownership": "party_personal" },
+        { "kind": "player_param", "id": "skull_wait_in_cemetery", "operation": "set", "amount": 0.0, "ownership": "shared_campaign" },
+        { "kind": "player_param", "id": "waiting_for_first_bureal", "operation": "set", "amount": 0.0, "ownership": "shared_campaign" },
+        { "kind": "player_param", "id": "skull_talk_body", "operation": "set", "amount": 0.0, "ownership": "shared_campaign" },
+        { "kind": "player_param", "id": "skull_talk_autopsi", "operation": "set", "amount": 0.0, "ownership": "shared_campaign" },
+        { "kind": "player_param", "id": "tp_to_morgue_locked", "operation": "set", "amount": 0.0, "ownership": "shared_campaign" },
+        { "kind": "player_param", "id": "tp_from_morgue_only_with_body", "operation": "set", "amount": 0.0, "ownership": "shared_campaign" }
+      ],
+      "safeguards": ["do_not_discard_tutorial_corpse", "single_burial_completion", "burial_certificate_exactly_once_per_player", "stale_morgue_body_and_autopsy_prompts_cleared"]
+    },
+    {
+      "stepId": "meet_bishop",
+      "title": "Talk to Bishop about the Burial certificate",
+      "linkedQuestIds": ["take_tools_from_grave_chest"],
+      "triggerScripts": ["npc_bishop:intro"],
+      "triggerKeys": ["intro"],
+      "expectedEffects": [
+        { "kind": "technology", "id": "Grave plate", "operation": "unlock", "amount": 1.0, "ownership": "shared_campaign" },
+        { "kind": "technology", "id": "The idea of the stone", "operation": "unlock", "amount": 1.0, "ownership": "shared_campaign" },
+        { "kind": "technology", "id": "The idea of the tree", "operation": "unlock", "amount": 1.0, "ownership": "shared_campaign" },
+        { "kind": "one_time_craft", "id": "keeper_room_builddesk:p:keeper_room_picture_4", "operation": "unlock_and_complete", "amount": 1.0, "ownership": "shared_campaign" },
+        { "kind": "npc_task", "id": "bishop_5_qual", "operation": "show", "amount": 1.0, "ownership": "shared_campaign" },
+        { "kind": "player_param", "id": "church_level", "operation": "minimum", "amount": 1.0, "ownership": "shared_campaign" },
+        { "kind": "player_param", "id": "do_not_show_wgo_qualities", "operation": "set", "amount": 0.0, "ownership": "shared_campaign" },
+        { "kind": "player_param", "id": "craft_tut", "operation": "minimum", "amount": 1.0, "ownership": "shared_campaign" },
+        { "kind": "player_param", "id": "take_tools_from_grave_chest", "operation": "set", "amount": 1.0, "ownership": "shared_campaign" },
+        { "kind": "player_param", "id": "goto_tavern", "operation": "set_until_tavern_entry", "amount": 1.0, "ownership": "shared_campaign" }
+      ],
+      "safeguards": ["single_bishop_intro", "bishop_remains_interactable", "technology_ui_opened_for_all_participants"]
+    },
+    {
+      "stepId": "collect_graveyard_tools",
+      "title": "Open the graveyard trunk and collect the tools",
+      "linkedQuestIds": ["take_tools_from_grave_chest", "tools_from_grave_chest_taken_tech"],
+      "triggerScripts": [],
+      "triggerKeys": ["interact_mf_box_stuff"],
+      "expectedEffects": [
+        { "kind": "inventory_item", "id": "axe_0", "operation": "grant_exactly_once", "amount": 1.0, "ownership": "party_personal" },
+        { "kind": "inventory_item", "id": "pickaxe_0", "operation": "grant_exactly_once", "amount": 1.0, "ownership": "party_personal" },
+        { "kind": "inventory_item", "id": "hammer_0", "operation": "grant_exactly_once", "amount": 1.0, "ownership": "party_personal" },
+        { "kind": "inventory_item", "id": "repair_stn", "operation": "grant_exactly_once", "amount": 4.0, "ownership": "party_personal" },
+        { "kind": "inventory_item", "id": "repair_wdn", "operation": "grant_exactly_once", "amount": 4.0, "ownership": "party_personal" }
+      ],
+      "safeguards": ["opening_chest_completes_reminder", "tools_conserved_across_save_load", "no_duplicate_tool_grants"]
+    },
+    {
+      "stepId": "visit_tavern_and_receive_horadric_letter",
+      "title": "Visit the Dead Horse and receive Horadric's letter",
+      "linkedQuestIds": ["goto_tavern", "goto_tavern_2", "goto_tavern_tech"],
+      "linkedTaskMilestoneIds": ["horadric_letter_received"],
+      "triggerScripts": [],
+      "triggerKeys": ["quest_finished", "tp_tavern", "horadric_letter"],
+      "expectedEffects": [
+        { "kind": "player_param", "id": "was_in_tavern", "operation": "set", "amount": 1.0, "ownership": "shared_campaign" },
+        { "kind": "world_param", "id": "npc_tavern owner:letter_to_bs", "operation": "set", "amount": 1.0, "ownership": "shared_world" },
+        { "kind": "dialogue_phrase", "id": "@blacksmith_2_1a", "operation": "unlock", "amount": 1.0, "ownership": "shared_campaign" },
+        { "kind": "dialogue_phrase", "id": "@horadric_2_1e", "operation": "unlock", "amount": 1.0, "ownership": "shared_campaign" },
+        { "kind": "inventory_item", "id": "bs_letter", "operation": "grant_to_initiator", "amount": 1.0, "ownership": "shared_story_token" }
+      ],
+      "safeguards": ["tavern_entry_state_repaired", "letter_not_regranted_after_consumption", "horadric_task_shared"]
+    },
+    {
+      "stepId": "help_krezvold_and_finish_slime_tutorial",
+      "title": "Deliver the letter to Krezvold and finish the slime tutorial",
+      "linkedQuestIds": [],
+      "linkedTaskMilestoneIds": ["blacksmith_slime_tutorial", "blacksmith_slime_tutorial_completed"],
+      "triggerScripts": [],
+      "triggerKeys": ["horadric_letter", "blacksmith_slimes"],
+      "expectedEffects": [
+        { "kind": "inventory_item", "id": "bs_letter", "operation": "consume_from_initiator", "amount": 1.0, "ownership": "shared_story_token" },
+        { "kind": "inventory_item", "id": "broken_sword", "operation": "grant_exactly_once", "amount": 1.0, "ownership": "party_personal" },
+        { "kind": "inventory_item", "id": "pot_mana", "operation": "grant_exactly_once", "amount": 2.0, "ownership": "party_personal" },
+        { "kind": "inventory_item", "id": "whetstone", "operation": "grant_exactly_once", "amount": 1.0, "ownership": "party_personal" },
+        { "kind": "dialogue_phrase", "id": "@blacksmith_2_1e", "operation": "unlock", "amount": 1.0, "ownership": "shared_campaign" },
+        { "kind": "player_param", "id": "_rel_npc_blacksmith", "operation": "minimum", "amount": 10.0, "ownership": "shared_campaign" },
+        { "kind": "technology", "id": "Jelly", "operation": "unlock", "amount": 1.0, "ownership": "shared_campaign" }
+      ],
+      "safeguards": ["letter_consumed_once", "starter_combat_items_exactly_once_per_player", "slime_task_shared", "jelly_technology_shared"]
+    },
+    {
+      "stepId": "receive_and_deliver_gerry_beer",
+      "title": "Collect Horadric's beer and deliver it to Gerry",
+      "linkedQuestIds": [],
+      "linkedTaskMilestoneIds": ["horadric_letter_received", "gerry_waiting_for_beer", "gerry_beer_delivered"],
+      "triggerScripts": [],
+      "triggerKeys": ["horadric_letter", "skull_beer", "accepted_beer"],
+      "expectedEffects": [
+        { "kind": "inventory_item", "id": "cup_beer:1", "operation": "grant_then_consume_by_initiator", "amount": 1.0, "ownership": "shared_story_token" },
+        { "kind": "player_param", "id": "_rel_npc_tavern owner", "operation": "minimum", "amount": 10.0, "ownership": "shared_campaign" },
+        { "kind": "player_param", "id": "_rel_crafting_skull_3", "operation": "minimum", "amount": 20.0, "ownership": "shared_campaign" },
+        { "kind": "world_param", "id": "crafting_skull_3:accepted_beer", "operation": "set", "amount": 1.0, "ownership": "shared_world" },
+        { "kind": "npc_task", "id": "crafting_skull_3:skull_beer", "operation": "complete", "amount": 1.0, "ownership": "shared_campaign" }
+      ],
+      "safeguards": ["beer_not_regranted_after_consumption", "gerry_relation_gate_repaired", "accepted_beer_repaired", "old_bring_the_body_branch_cannot_reopen"]
+    }
+  ]
+}
