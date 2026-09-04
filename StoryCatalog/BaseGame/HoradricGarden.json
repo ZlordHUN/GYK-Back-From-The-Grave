@@ -1,0 +1,2980 @@
+{
+  "schemaVersion": 5,
+  "catalogId": "base-game.horadric-garden",
+  "campaign": "BaseGame",
+  "chapter": "HoradricGardenThroughMerchantPlanReadiness",
+  "quests": [
+    {
+      "questId": "horadric_recipe_after_1st_onion",
+      "title": "Prompt Horadric's onion recipe conversation",
+      "vanilla": {
+        "startTrigger": "1",
+        "successTrigger": "1",
+        "failTrigger": "",
+        "startKeys": ["item_onion_crop:1"],
+        "questVisible": false,
+        "oneTimeQuest": true,
+        "startScript": "horadric_recipe_after_1st_onion",
+        "successScript": "",
+        "failScript": "",
+        "arrowWgoCustomTag": "",
+        "arrowWgoObjectId": "",
+        "successRewards": [],
+        "failureRewards": []
+      },
+      "policy": {
+        "stateOwnership": "shared_campaign",
+        "eligibleInitiator": "any_player",
+        "livePresentationOwner": "initiating_player",
+        "observerQuestApplication": "durable_state_only",
+        "personalRewardDelivery": "party_exactly_once",
+        "observerSuccess": {
+          "globalScripts": [],
+          "personalItemGrants": []
+        }
+      },
+      "completionChecks": []
+    }
+  ],
+  "taskMilestones": [
+    {
+      "milestoneId": "horadric_burial_certificate_explained",
+      "npcId": "player",
+      "taskId": "player_sertificate",
+      "activeStates": ["Complete"],
+      "playerParamRepairs": [],
+      "playerParamMinimums": [],
+      "taskStateMinimums": [],
+      "unlockedTechs": [],
+      "unlockedPhrases": [],
+      "blacklistedPhrases": ["horadric_2_1a", "bishop_2_1e"],
+      "unlockedCrafts": [],
+      "completedOneTimeCrafts": [],
+      "wgoParamMinimums": [],
+      "personalItemGrants": []
+    },
+    {
+      "milestoneId": "horadric_garden_permission_received",
+      "npcId": "npc_tavern owner",
+      "taskId": "horadric_garden",
+      "activeStates": ["Visible"],
+      "playerParamRepairs": [],
+      "playerParamMinimums": [],
+      "taskStateMinimums": [],
+      "unlockedTechs": ["Garden beds"],
+      "unlockedPhrases": ["@merchant_2b"],
+      "blacklistedPhrases": ["@horadric_2_1d"],
+      "unlockedCrafts": [],
+      "completedOneTimeCrafts": [],
+      "wgoParamMinimums": [],
+      "personalItemGrants": []
+    },
+    {
+      "milestoneId": "horadric_garden_terms_open",
+      "npcId": "npc_tavern owner",
+      "taskId": "horadric_garden",
+      "activeStates": ["Complete"],
+      "playerParamRepairs": [],
+      "playerParamMinimums": [],
+      "taskStateMinimums": [],
+      "unlockedTechs": ["Garden beds"],
+      "unlockedPhrases": ["@merchant_2b"],
+      "blacklistedPhrases": ["@horadric_2_1d"],
+      "unlockedCrafts": [],
+      "completedOneTimeCrafts": [],
+      "wgoParamMinimums": [],
+      "personalItemGrants": []
+    },
+    {
+      "milestoneId": "merchant_garden_barter_requested",
+      "npcId": "npc_merchant",
+      "taskId": "merchant_garden",
+      "activeStates": ["Visible", "Complete"],
+      "playerParamRepairs": [],
+      "playerParamMinimums": [],
+      "taskStateMinimums": [
+        {
+          "npcId": "npc_tavern owner",
+          "taskId": "horadric_garden",
+          "state": "Complete"
+        }
+      ],
+      "unlockedTechs": [],
+      "unlockedPhrases": ["@merchant_favore", "@merchant_2e"],
+      "blacklistedPhrases": ["@merchant_2b"],
+      "unlockedCrafts": [],
+      "completedOneTimeCrafts": [],
+      "wgoParamMinimums": [],
+      "personalItemGrants": []
+    },
+    {
+      "milestoneId": "merchant_garden_refusal_open",
+      "npcId": "npc_merchant",
+      "taskId": "merchant_get_along",
+      "activeStates": ["Visible", "Complete"],
+      "playerParamRepairs": [],
+      "playerParamMinimums": [],
+      "taskStateMinimums": [
+        {
+          "npcId": "npc_tavern owner",
+          "taskId": "horadric_garden",
+          "state": "Complete"
+        }
+      ],
+      "unlockedTechs": [],
+      "unlockedPhrases": ["@merchant_new_trade", "@merchant_forgive"],
+      "blacklistedPhrases": ["merchant_2c", "@merchant_2b"],
+      "unlockedCrafts": [],
+      "completedOneTimeCrafts": [],
+      "wgoParamMinimums": [],
+      "personalItemGrants": []
+    },
+    {
+      "milestoneId": "horadric_stamped_meat_requested",
+      "npcId": "npc_tavern owner",
+      "taskId": "horadric_stampedmeat",
+      "activeStates": ["Visible"],
+      "playerParamRepairs": [],
+      "playerParamMinimums": [],
+      "taskStateMinimums": [],
+      "unlockedTechs": [],
+      "unlockedPhrases": [],
+      "blacklistedPhrases": [],
+      "unlockedCrafts": [],
+      "completedOneTimeCrafts": [],
+      "wgoParamMinimums": [],
+      "personalItemGrants": []
+    },
+    {
+      "milestoneId": "horadric_stamped_meat_approved",
+      "npcId": "npc_tavern owner",
+      "taskId": "horadric_stampedmeat",
+      "activeStates": ["Complete"],
+      "playerParamRepairs": [],
+      "playerParamMinimums": [],
+      "taskStateMinimums": [],
+      "unlockedTechs": [],
+      "unlockedPhrases": ["@actress_2b_1a"],
+      "blacklistedPhrases": ["@horadric_2_1h", "@horadric_2_1h_4b"],
+      "unlockedCrafts": ["insert_stamp_into_table"],
+      "completedOneTimeCrafts": [],
+      "wgoParamMinimums": [],
+      "personalItemGrants": []
+    },
+    {
+      "milestoneId": "horadric_gold_beer_requested",
+      "npcId": "npc_tavern owner",
+      "taskId": "horadric_gold_beer",
+      "activeStates": ["Visible"],
+      "playerParamRepairs": [],
+      "playerParamMinimums": [
+        { "key": "_rel_npc_tavern owner", "value": 10.0 }
+      ],
+      "taskStateMinimums": [
+        {
+          "npcId": "npc_tavern owner",
+          "taskId": "horadric_letter",
+          "state": "Complete"
+        }
+      ],
+      "unlockedTechs": [],
+      "unlockedPhrases": ["@horadric_beer_1"],
+      "blacklistedPhrases": [],
+      "unlockedCrafts": [],
+      "completedOneTimeCrafts": [],
+      "wgoParamMinimums": [],
+      "personalItemGrants": []
+    },
+    {
+      "milestoneId": "horadric_gold_beer_delivered",
+      "npcId": "npc_tavern owner",
+      "taskId": "horadric_gold_beer",
+      "activeStates": ["Complete"],
+      "playerParamRepairs": [],
+      "playerParamMinimums": [
+        { "key": "_rel_npc_tavern owner", "value": 20.0 }
+      ],
+      "taskStateMinimums": [
+        {
+          "npcId": "npc_tavern owner",
+          "taskId": "horadric_letter",
+          "state": "Complete"
+        }
+      ],
+      "unlockedTechs": [],
+      "unlockedPhrases": [],
+      "blacklistedPhrases": ["@horadric_beer_1"],
+      "unlockedCrafts": [],
+      "completedOneTimeCrafts": [],
+      "wgoParamMinimums": [],
+      "personalItemGrants": []
+    },
+    {
+      "milestoneId": "merchant_garden_barter_completed",
+      "npcId": "npc_merchant",
+      "taskId": "merchant_garden",
+      "activeStates": ["Complete"],
+      "playerParamRepairs": [],
+      "playerParamMinimums": [],
+      "taskStateMinimums": [
+        {
+          "npcId": "npc_tavern owner",
+          "taskId": "horadric_garden",
+          "state": "Complete"
+        }
+      ],
+      "unlockedTechs": [],
+      "unlockedPhrases": ["@merchant_favore", "@merchant_2e"],
+      "blacklistedPhrases": [
+        "@merchant_2b",
+        "merchant_2e_1a",
+        "merchant_2e_1b",
+        "merchant_2e_1c",
+        "merchant_2e_1d"
+      ],
+      "unlockedCrafts": [],
+      "completedOneTimeCrafts": [],
+      "wgoParamMinimums": [],
+      "personalItemGrants": []
+    },
+    {
+      "milestoneId": "merchant_garden_refusal_repaid",
+      "npcId": "npc_merchant",
+      "taskId": "merchant_get_along",
+      "activeStates": ["Complete"],
+      "playerParamRepairs": [],
+      "playerParamMinimums": [],
+      "taskStateMinimums": [
+        {
+          "npcId": "npc_tavern owner",
+          "taskId": "horadric_garden",
+          "state": "Complete"
+        }
+      ],
+      "unlockedTechs": [],
+      "unlockedPhrases": ["@merchant_favore", "@merchant_forgive_pay"],
+      "blacklistedPhrases": [
+        "@merchant_2b",
+        "@merchant_forgive",
+        "@merchant_new_trade",
+        "@merchant_forgive_pay"
+      ],
+      "unlockedCrafts": [],
+      "completedOneTimeCrafts": [],
+      "wgoParamMinimums": [],
+      "personalItemGrants": []
+    },
+    {
+      "milestoneId": "merchant_optional_loan_taken",
+      "npcId": "npc_merchant",
+      "taskId": "merchant_debt",
+      "activeStates": ["Visible"],
+      "playerParamRepairs": [],
+      "playerParamMinimums": [],
+      "taskStateMinimums": [],
+      "unlockedTechs": [],
+      "unlockedPhrases": ["@merchant_2e_1f"],
+      "blacklistedPhrases": ["@merchant_2e_1e"],
+      "unlockedCrafts": [],
+      "completedOneTimeCrafts": [],
+      "wgoParamMinimums": [],
+      "personalItemGrants": []
+    },
+    {
+      "milestoneId": "merchant_optional_loan_repaid",
+      "npcId": "npc_merchant",
+      "taskId": "merchant_debt",
+      "activeStates": ["Complete"],
+      "playerParamRepairs": [],
+      "playerParamMinimums": [],
+      "taskStateMinimums": [],
+      "unlockedTechs": [],
+      "unlockedPhrases": [],
+      "blacklistedPhrases": ["@merchant_2e_1e", "@merchant_2e_1f"],
+      "unlockedCrafts": [],
+      "completedOneTimeCrafts": [],
+      "wgoParamMinimums": [],
+      "personalItemGrants": []
+    },
+    {
+      "milestoneId": "merchant_trade_license_requested",
+      "npcId": "npc_merchant",
+      "taskId": "merchant_trade",
+      "activeStates": ["Visible"],
+      "playerParamRepairs": [],
+      "playerParamMinimums": [
+        { "key": "_rel_npc_merchant", "value": 10.0 }
+      ],
+      "taskStateMinimums": [],
+      "unlockedTechs": [],
+      "unlockedPhrases": ["@merchant_on_deal_done_4a", "@merchant_traide_license"],
+      "blacklistedPhrases": ["@merchant_2b", "@merchant_2e"],
+      "unlockedCrafts": [],
+      "completedOneTimeCrafts": [],
+      "wgoParamMinimums": [],
+      "personalItemGrants": []
+    },
+    {
+      "milestoneId": "merchant_grass_requested",
+      "npcId": "npc_merchant",
+      "taskId": "merchant_grass",
+      "activeStates": ["Visible"],
+      "playerParamRepairs": [],
+      "playerParamMinimums": [],
+      "taskStateMinimums": [],
+      "unlockedTechs": [],
+      "unlockedPhrases": ["@merchant_favore_done"],
+      "blacklistedPhrases": ["@merchant_favore"],
+      "unlockedCrafts": [],
+      "completedOneTimeCrafts": [],
+      "wgoParamMinimums": [],
+      "personalItemGrants": []
+    },
+    {
+      "milestoneId": "merchant_grass_delivered",
+      "npcId": "npc_merchant",
+      "taskId": "merchant_grass",
+      "activeStates": ["Complete"],
+      "playerParamRepairs": [],
+      "playerParamMinimums": [
+        { "key": "_rel_npc_merchant", "value": 10.0 }
+      ],
+      "taskStateMinimums": [],
+      "unlockedTechs": [],
+      "unlockedPhrases": ["@merchant_favore_done"],
+      "blacklistedPhrases": ["@merchant_favore"],
+      "unlockedCrafts": [],
+      "completedOneTimeCrafts": [],
+      "wgoParamMinimums": [],
+      "personalItemGrants": []
+    },
+    {
+      "milestoneId": "merchant_cure_requested",
+      "npcId": "npc_merchant",
+      "taskId": "merchant_curse",
+      "activeStates": ["Visible"],
+      "playerParamRepairs": [],
+      "playerParamMinimums": [
+        { "key": "_rel_npc_merchant", "value": 10.0 },
+        { "key": "player_knows_about_witch", "value": 1.0 }
+      ],
+      "taskStateMinimums": [
+        { "npcId": "npc_merchant", "taskId": "merchant_grass", "state": "Complete" }
+      ],
+      "unlockedTechs": [],
+      "unlockedPhrases": ["@сlotho_merch"],
+      "blacklistedPhrases": ["@merchant_favore_done"],
+      "unlockedCrafts": [],
+      "completedOneTimeCrafts": [],
+      "wgoParamMinimums": [],
+      "personalItemGrants": []
+    },
+    {
+      "milestoneId": "merchant_cure_delivered",
+      "npcId": "npc_merchant",
+      "taskId": "merchant_curse",
+      "activeStates": ["Complete"],
+      "playerParamRepairs": [],
+      "playerParamMinimums": [
+        { "key": "_rel_npc_merchant", "value": 20.0 },
+        { "key": "player_knows_about_witch", "value": 1.0 }
+      ],
+      "taskStateMinimums": [
+        { "npcId": "npc_merchant", "taskId": "merchant_grass", "state": "Complete" }
+      ],
+      "unlockedTechs": [],
+      "unlockedPhrases": ["@сlotho_merch_again"],
+      "blacklistedPhrases": [
+        "@merchant_favore_done",
+        "@сlotho_merch",
+        "@merchant_on_cure"
+      ],
+      "unlockedCrafts": [],
+      "completedOneTimeCrafts": [
+        "mix:mf_alchemy_craft_02:taste_booster:salt:alchemy_2_d_green::"
+      ],
+      "wgoParamMinimums": [],
+      "personalItemGrants": []
+    },
+    {
+      "milestoneId": "merchant_dinner_requested",
+      "npcId": "npc_merchant",
+      "taskId": "merchant_dinner",
+      "activeStates": ["Visible"],
+      "playerParamRepairs": [],
+      "playerParamMinimums": [
+        { "key": "_rel_npc_merchant", "value": 20.0 }
+      ],
+      "taskStateMinimums": [
+        { "npcId": "npc_merchant", "taskId": "merchant_curse", "state": "Complete" }
+      ],
+      "unlockedTechs": [],
+      "unlockedPhrases": ["@merchant_dinner"],
+      "blacklistedPhrases": ["@сlotho_merch_again", "сlotho_need_help"],
+      "unlockedCrafts": ["dinner"],
+      "completedOneTimeCrafts": [],
+      "wgoParamMinimums": [],
+      "personalItemGrants": []
+    },
+    {
+      "milestoneId": "merchant_dinner_delivered",
+      "npcId": "npc_merchant",
+      "taskId": "merchant_dinner",
+      "activeStates": ["Complete"],
+      "playerParamRepairs": [],
+      "playerParamMinimums": [
+        { "key": "_rel_npc_merchant", "value": 30.0 }
+      ],
+      "taskStateMinimums": [
+        { "npcId": "npc_merchant", "taskId": "merchant_curse", "state": "Complete" }
+      ],
+      "unlockedTechs": [],
+      "unlockedPhrases": [],
+      "blacklistedPhrases": [
+        "@merchant_dinner",
+        "@сlotho_merch_again",
+        "сlotho_need_help"
+      ],
+      "unlockedCrafts": ["dinner"],
+      "completedOneTimeCrafts": [],
+      "wgoParamMinimums": [],
+      "personalItemGrants": []
+    },
+    {
+      "milestoneId": "merchant_strategy_waiting",
+      "npcId": "npc_merchant",
+      "taskId": "merchant_strategy",
+      "activeStates": ["Visible"],
+      "playerParamRepairs": [],
+      "playerParamMinimums": [
+        { "key": "_rel_npc_merchant", "value": 30.0 }
+      ],
+      "taskStateMinimums": [
+        { "npcId": "npc_merchant", "taskId": "merchant_dinner", "state": "Complete" }
+      ],
+      "unlockedTechs": [],
+      "unlockedPhrases": [],
+      "blacklistedPhrases": ["@merchant_dinner"],
+      "unlockedCrafts": ["dinner"],
+      "completedOneTimeCrafts": [],
+      "wgoParamMinimums": [],
+      "personalItemGrants": []
+    },
+    {
+      "milestoneId": "merchant_strategy_completed",
+      "npcId": "npc_merchant",
+      "taskId": "merchant_strategy",
+      "activeStates": ["Complete"],
+      "playerParamRepairs": [],
+      "playerParamMinimums": [
+        { "key": "_rel_npc_merchant", "value": 70.0 }
+      ],
+      "taskStateMinimums": [
+        { "npcId": "npc_merchant", "taskId": "merchant_dinner", "state": "Complete" }
+      ],
+      "unlockedTechs": [],
+      "unlockedPhrases": [],
+      "blacklistedPhrases": ["@merchant_strategy"],
+      "unlockedCrafts": ["dinner"],
+      "completedOneTimeCrafts": [],
+      "wgoParamMinimums": [],
+      "personalItemGrants": []
+    },
+    {
+      "milestoneId": "merchant_trade_license_delivered",
+      "npcId": "npc_merchant",
+      "taskId": "merchant_trade",
+      "activeStates": ["Complete"],
+      "playerParamRepairs": [],
+      "playerParamMinimums": [
+        { "key": "_rel_npc_merchant", "value": 20.0 }
+      ],
+      "taskStateMinimums": [],
+      "unlockedTechs": [],
+      "unlockedPhrases": [],
+      "blacklistedPhrases": ["@merchant_traide_license", "@merchant_2e"],
+      "unlockedCrafts": [],
+      "completedOneTimeCrafts": [],
+      "wgoParamMinimums": [],
+      "personalItemGrants": []
+    },
+    {
+      "milestoneId": "merchant_marketing_requested",
+      "npcId": "npc_merchant",
+      "taskId": "merchant_marketing",
+      "activeStates": ["Visible"],
+      "playerParamRepairs": [],
+      "playerParamMinimums": [
+        { "key": "_rel_npc_merchant", "value": 20.0 },
+        { "key": "storage_available", "value": 1.0 }
+      ],
+      "taskStateMinimums": [
+        { "npcId": "npc_merchant", "taskId": "merchant_trade", "state": "Complete" }
+      ],
+      "unlockedTechs": [],
+      "unlockedPhrases": [],
+      "blacklistedPhrases": ["@merchant_traide_license"],
+      "unlockedCrafts": ["mf_wood_builddesk::elevator_place"],
+      "completedOneTimeCrafts": [],
+      "wgoParamMinimums": [],
+      "personalItemGrants": []
+    },
+    {
+      "milestoneId": "merchant_sales_requested",
+      "npcId": "npc_merchant",
+      "taskId": "merchant_sales",
+      "activeStates": ["Visible"],
+      "playerParamRepairs": [],
+      "playerParamMinimums": [
+        { "key": "_rel_npc_merchant", "value": 20.0 },
+        { "key": "storage_available", "value": 1.0 }
+      ],
+      "taskStateMinimums": [
+        { "npcId": "npc_merchant", "taskId": "merchant_trade", "state": "Complete" },
+        { "npcId": "npc_merchant", "taskId": "merchant_marketing", "state": "Visible" }
+      ],
+      "unlockedTechs": [],
+      "unlockedPhrases": [
+        "@merchant_business",
+        "@merchant_marketing",
+        "@merchant_marketing_done",
+        "@merchant_sales_done",
+        "@merchant_crate_1"
+      ],
+      "blacklistedPhrases": ["@merchant_traide_license"],
+      "unlockedCrafts": ["mf_wood_builddesk::elevator_place"],
+      "completedOneTimeCrafts": [],
+      "wgoParamMinimums": [],
+      "personalItemGrants": []
+    },
+    {
+      "milestoneId": "merchant_marketing_completed",
+      "npcId": "npc_merchant",
+      "taskId": "merchant_marketing",
+      "activeStates": ["Complete"],
+      "playerParamRepairs": [],
+      "playerParamMinimums": [
+        { "key": "_rel_npc_merchant", "value": 30.0 },
+        { "key": "storage_available", "value": 1.0 }
+      ],
+      "taskStateMinimums": [
+        { "npcId": "npc_merchant", "taskId": "merchant_trade", "state": "Complete" },
+        { "npcId": "npc_merchant", "taskId": "merchant_sales", "state": "Visible" }
+      ],
+      "unlockedTechs": [],
+      "unlockedPhrases": [
+        "@merchant_business",
+        "@merchant_marketing",
+        "@merchant_sales_done",
+        "@merchant_crate_1"
+      ],
+      "blacklistedPhrases": ["@merchant_marketing_done", "@merchant_traide_license"],
+      "unlockedCrafts": ["mf_wood_builddesk::elevator_place"],
+      "completedOneTimeCrafts": [],
+      "wgoParamMinimums": [],
+      "personalItemGrants": []
+    },
+    {
+      "milestoneId": "merchant_sales_completed",
+      "npcId": "npc_merchant",
+      "taskId": "merchant_sales",
+      "activeStates": ["Complete"],
+      "playerParamRepairs": [],
+      "playerParamMinimums": [
+        { "key": "_rel_npc_merchant", "value": 30.0 },
+        { "key": "storage_available", "value": 1.0 }
+      ],
+      "taskStateMinimums": [
+        { "npcId": "npc_merchant", "taskId": "merchant_trade", "state": "Complete" },
+        { "npcId": "npc_merchant", "taskId": "merchant_marketing", "state": "Visible" }
+      ],
+      "unlockedTechs": [],
+      "unlockedPhrases": [
+        "@merchant_business",
+        "@merchant_marketing",
+        "@merchant_marketing_done",
+        "@merchant_crate_1"
+      ],
+      "blacklistedPhrases": ["@merchant_sales_done", "@merchant_traide_license"],
+      "unlockedCrafts": ["mf_wood_builddesk::elevator_place"],
+      "completedOneTimeCrafts": [],
+      "wgoParamMinimums": [],
+      "personalItemGrants": []
+    },
+    {
+      "milestoneId": "merchant_support_requested",
+      "npcId": "npc_merchant",
+      "taskId": "merchant_support",
+      "activeStates": ["Visible"],
+      "playerParamRepairs": [],
+      "playerParamMinimums": [
+        { "key": "_rel_npc_merchant", "value": 70.0 }
+      ],
+      "taskStateMinimums": [],
+      "unlockedTechs": [],
+      "unlockedPhrases": ["@actress_marketing"],
+      "blacklistedPhrases": ["@merchant_70"],
+      "unlockedCrafts": [],
+      "completedOneTimeCrafts": [],
+      "wgoParamMinimums": [],
+      "personalItemGrants": []
+    },
+    {
+      "milestoneId": "merchant_support_completed",
+      "npcId": "npc_merchant",
+      "taskId": "merchant_support",
+      "activeStates": ["Complete"],
+      "playerParamRepairs": [],
+      "playerParamMinimums": [
+        { "key": "_rel_npc_merchant", "value": 80.0 }
+      ],
+      "taskStateMinimums": [],
+      "unlockedTechs": [],
+      "unlockedPhrases": ["@actress_trade"],
+      "blacklistedPhrases": ["@merchant_70", "@actress_marketing", "@actress_ jewelry", "@merchant_actress"],
+      "unlockedCrafts": [],
+      "completedOneTimeCrafts": [],
+      "wgoParamMinimums": [],
+      "personalItemGrants": []
+    },
+    {
+      "milestoneId": "merchant_show_ready",
+      "npcId": "npc_merchant",
+      "taskId": "merchant_show",
+      "activeStates": ["Visible"],
+      "playerParamRepairs": [],
+      "playerParamMinimums": [
+        { "key": "_rel_npc_merchant", "value": 80.0 }
+      ],
+      "taskStateMinimums": [
+        { "npcId": "npc_merchant", "taskId": "merchant_support", "state": "Complete" }
+      ],
+      "unlockedTechs": [],
+      "unlockedPhrases": ["@actress_trade"],
+      "blacklistedPhrases": ["@actress_marketing", "@actress_ jewelry", "@merchant_actress"],
+      "unlockedCrafts": [],
+      "completedOneTimeCrafts": [],
+      "wgoParamMinimums": [],
+      "personalItemGrants": []
+    }
+  ],
+  "cutscenes": [
+    {
+      "cutsceneId": "horadric_first_onion_recipe",
+      "linkedQuestIds": ["horadric_recipe_after_1st_onion"],
+      "triggerScripts": ["npc_tavern owner:horadric_recipe"],
+      "actors": ["initiating_player", "npc_tavern owner"],
+      "observerPolicy": "all_loaded_party_members",
+      "lateJoinPolicy": "join_live_checkpoint_or_observe",
+      "remoteExecutionPolicy": "live_observation",
+      "executionOwnerPolicy": "any_player",
+      "dialogueOwnerPolicy": "initiating_player",
+      "formationPolicy": "initiator_with_observer_follow",
+      "cleanupRequirements": [
+        "restore_player_control",
+        "consume_first_onion_interaction_event",
+        "preserve_for_beer_technology_unlock",
+        "close_letterbox"
+      ]
+    },
+    {
+      "cutsceneId": "horadric_gold_beer_challenge",
+      "linkedQuestIds": [],
+      "triggerScripts": ["npc_tavern owner:horadric_after_burger_witch"],
+      "actors": ["initiating_player", "npc_tavern owner"],
+      "observerPolicy": "all_loaded_party_members",
+      "lateJoinPolicy": "join_live_checkpoint_or_observe",
+      "remoteExecutionPolicy": "live_observation",
+      "executionOwnerPolicy": "any_player",
+      "dialogueOwnerPolicy": "initiating_player",
+      "formationPolicy": "initiator_with_observer_follow",
+      "cleanupRequirements": [
+        "restore_player_control",
+        "consume_horadric_after_burger_witch_interaction_event",
+        "preserve_horadric_gold_beer_task_visibility",
+        "preserve_horadric_beer_phrase_unlock",
+        "close_letterbox"
+      ]
+    },
+    {
+      "cutsceneId": "horadric_gold_beer_handoff",
+      "linkedQuestIds": [],
+      "triggerScripts": ["npc_tavern owner:@horadric_beer_1"],
+      "actors": ["initiating_player", "npc_tavern owner"],
+      "observerPolicy": "all_loaded_party_members",
+      "lateJoinPolicy": "join_live_checkpoint_or_observe",
+      "remoteExecutionPolicy": "live_observation",
+      "executionOwnerPolicy": "any_player",
+      "dialogueOwnerPolicy": "initiating_player",
+      "formationPolicy": "initiator_with_observer_follow",
+      "cleanupRequirements": [
+        "restore_player_control",
+        "consume_one_gold_star_beer_from_initiator_only",
+        "apply_horadric_relation_gain_once",
+        "finalize_horadric_gold_beer_task_once",
+        "blacklist_horadric_beer_phrase_once",
+        "close_letterbox"
+      ]
+    },
+    {
+      "cutsceneId": "merchant_garden_deal_convergence",
+      "linkedQuestIds": [],
+      "triggerScripts": ["npc_merchant:deal_compleat"],
+      "actors": ["initiating_player", "npc_merchant"],
+      "observerPolicy": "all_loaded_party_members",
+      "lateJoinPolicy": "join_live_checkpoint_or_observe",
+      "remoteExecutionPolicy": "live_observation",
+      "executionOwnerPolicy": "any_player",
+      "dialogueOwnerPolicy": "initiating_player",
+      "formationPolicy": "initiator_with_observer_follow",
+      "cleanupRequirements": [
+        "restore_player_control",
+        "apply_merchant_relation_gain_once",
+        "preserve_the_selected_garden_settlement_branch",
+        "preserve_merchant_trade_task_visibility_after_dialogue",
+        "never_replay_crop_money_or_loan_transactions",
+        "close_letterbox"
+      ]
+    },
+    {
+      "cutsceneId": "merchant_refusal_repayment",
+      "linkedQuestIds": [],
+      "triggerScripts": ["npc_merchant:@merchant_forgive_pay"],
+      "actors": ["initiating_player", "npc_merchant"],
+      "observerPolicy": "all_loaded_party_members",
+      "lateJoinPolicy": "join_live_checkpoint_or_observe",
+      "remoteExecutionPolicy": "live_observation",
+      "executionOwnerPolicy": "any_player",
+      "dialogueOwnerPolicy": "initiating_player",
+      "formationPolicy": "initiator_with_observer_follow",
+      "cleanupRequirements": [
+        "restore_player_control",
+        "consume_one_hundred_money_from_initiator_only",
+        "finalize_merchant_get_along_once",
+        "grant_story_points_to_initiator_once",
+        "continue_into_deal_compleat_once",
+        "close_letterbox"
+      ]
+    },
+    {
+      "cutsceneId": "merchant_optional_loan_repayment",
+      "linkedQuestIds": [],
+      "triggerScripts": ["npc_merchant:@merchant_2e_1f"],
+      "actors": ["initiating_player", "npc_merchant"],
+      "observerPolicy": "all_loaded_party_members",
+      "lateJoinPolicy": "join_live_checkpoint_or_observe",
+      "remoteExecutionPolicy": "live_observation",
+      "executionOwnerPolicy": "any_player",
+      "dialogueOwnerPolicy": "initiating_player",
+      "formationPolicy": "initiator_with_observer_follow",
+      "cleanupRequirements": [
+        "restore_player_control",
+        "consume_ten_money_from_initiator_only",
+        "finalize_merchant_debt_once",
+        "grant_story_points_to_initiator_once",
+        "never_repair_first_loan_offer_or_loan_taken_latches",
+        "close_letterbox"
+      ]
+    },
+    {
+      "cutsceneId": "merchant_grass_request",
+      "linkedQuestIds": [],
+      "triggerScripts": ["npc_merchant:@merchant_favore"],
+      "actors": ["initiating_player", "npc_merchant"],
+      "observerPolicy": "all_loaded_party_members",
+      "lateJoinPolicy": "join_live_checkpoint_or_observe",
+      "remoteExecutionPolicy": "live_observation",
+      "executionOwnerPolicy": "any_player",
+      "dialogueOwnerPolicy": "initiating_player",
+      "formationPolicy": "initiator_with_observer_follow",
+      "cleanupRequirements": [
+        "restore_player_control",
+        "preserve_merchant_grass_task_visibility",
+        "preserve_merchant_favore_done_phrase_unlock",
+        "blacklist_merchant_favore_once",
+        "close_letterbox"
+      ]
+    },
+    {
+      "cutsceneId": "merchant_grass_handoff",
+      "linkedQuestIds": [],
+      "triggerScripts": ["npc_merchant:@merchant_favore_done"],
+      "actors": ["initiating_player", "npc_merchant"],
+      "observerPolicy": "all_loaded_party_members",
+      "lateJoinPolicy": "join_live_checkpoint_or_observe",
+      "remoteExecutionPolicy": "live_observation",
+      "executionOwnerPolicy": "any_player",
+      "dialogueOwnerPolicy": "initiating_player",
+      "formationPolicy": "initiator_with_observer_follow",
+      "cleanupRequirements": [
+        "restore_player_control",
+        "consume_one_hiccup_grass_from_initiator_only",
+        "apply_merchant_relation_gain_once",
+        "finalize_merchant_grass_once",
+        "preserve_merchant_curse_task_visibility",
+        "close_letterbox"
+      ]
+    },
+    {
+      "cutsceneId": "clotho_merchant_cure_recipe",
+      "linkedQuestIds": [],
+      "triggerScripts": ["npc_witch:@сlotho_merch"],
+      "actors": ["initiating_player", "npc_witch"],
+      "observerPolicy": "all_loaded_party_members",
+      "lateJoinPolicy": "join_live_checkpoint_or_observe",
+      "remoteExecutionPolicy": "live_observation",
+      "executionOwnerPolicy": "any_player",
+      "dialogueOwnerPolicy": "initiating_player",
+      "formationPolicy": "initiator_with_observer_follow",
+      "cleanupRequirements": [
+        "restore_player_control",
+        "preserve_taste_booster_recipe_reveal",
+        "preserve_merchant_on_cure_phrase_unlock",
+        "never_grant_the_crafted_cure_item",
+        "close_letterbox"
+      ]
+    },
+    {
+      "cutsceneId": "merchant_cure_handoff",
+      "linkedQuestIds": [],
+      "triggerScripts": ["npc_merchant:merchant_on_cure"],
+      "actors": ["initiating_player", "npc_merchant"],
+      "observerPolicy": "all_loaded_party_members",
+      "lateJoinPolicy": "join_live_checkpoint_or_observe",
+      "remoteExecutionPolicy": "live_observation",
+      "executionOwnerPolicy": "any_player",
+      "dialogueOwnerPolicy": "initiating_player",
+      "formationPolicy": "initiator_with_observer_follow",
+      "cleanupRequirements": [
+        "restore_player_control",
+        "consume_one_taste_booster_from_initiator_only",
+        "apply_merchant_relation_gain_once",
+        "finalize_merchant_curse_once",
+        "at-merchant_curse-Completes-OnFinished-leg_acquire-the-shared-Better-Save-Soul-S24-handoff-lock-and-if-wait_merchant_cure_for_sauce-is-at-least-one_author-the-deferred-unlock-receipt-unlock-S24-then-clear-wait-to-zero",
+        "when-the-optional-wait-is-zero_leave-S24-unchanged_and-never-infer-the-DLC-route-from-the-base-cure-task-or-topic-alone",
+        "release-the-S24-handoff-lock-after-the-wait-zero-no-edge-path_the-receipt-unlock-clear-path_abort_or-recovery_so-the-source-nodes-missing-zero-continuation-cannot-strand-the-lease",
+        "preserve_merchant_dinner_task_visibility",
+        "do_not_claim_merchant_ceremony_trigger_ownership",
+        "close_letterbox"
+      ]
+    },
+    {
+      "cutsceneId": "merchant_dinner_handoff",
+      "linkedQuestIds": [],
+      "triggerScripts": ["npc_merchant:merchant_dinner"],
+      "actors": ["initiating_player", "npc_merchant"],
+      "observerPolicy": "all_loaded_party_members",
+      "lateJoinPolicy": "join_live_checkpoint_or_observe",
+      "remoteExecutionPolicy": "live_observation",
+      "executionOwnerPolicy": "any_player",
+      "dialogueOwnerPolicy": "initiating_player",
+      "formationPolicy": "initiator_with_observer_follow",
+      "cleanupRequirements": [
+        "restore_player_control",
+        "consume_five_gold_quality_dinners_from_initiator_only",
+        "apply_merchant_relation_gain_once",
+        "finalize_merchant_dinner_once",
+        "schedule_unlock_merchant_strategy_once_after_720_seconds",
+        "never_repair_the_delayed_event_latch",
+        "close_letterbox"
+      ]
+    },
+    {
+      "cutsceneId": "merchant_trade_license_storage_walkthrough",
+      "linkedQuestIds": [],
+      "triggerScripts": ["npc_merchant:merchant_traide_license"],
+      "actors": ["initiating_player", "npc_merchant"],
+      "observerPolicy": "all_loaded_party_members",
+      "lateJoinPolicy": "join_live_checkpoint_or_observe",
+      "remoteExecutionPolicy": "live_observation",
+      "executionOwnerPolicy": "any_player",
+      "dialogueOwnerPolicy": "initiating_player",
+      "formationPolicy": "initiator_with_observer_follow",
+      "cleanupRequirements": [
+        "restore_player_control",
+        "restore_camera_after_fade",
+        "consume_one_merchant_traide_license_from_initiator_only",
+        "apply_merchant_relation_gain_once",
+        "teleport_initiator_and_merchant_to_storage_once",
+        "preserve_inside_weather_and_storage_environment",
+        "preserve_storage_available_and_elevator_craft",
+        "preserve_marketing_and_sales_task_visibility",
+        "close_letterbox"
+      ]
+    },
+    {
+      "cutsceneId": "merchant_strategy_review",
+      "linkedQuestIds": [],
+      "triggerScripts": ["npc_merchant:merchant_strategy"],
+      "actors": ["initiating_player", "npc_merchant"],
+      "observerPolicy": "all_loaded_party_members",
+      "lateJoinPolicy": "join_live_checkpoint_or_observe",
+      "remoteExecutionPolicy": "live_observation",
+      "executionOwnerPolicy": "any_player",
+      "dialogueOwnerPolicy": "initiating_player",
+      "formationPolicy": "initiator_with_observer_follow",
+      "cleanupRequirements": [
+        "restore_player_control",
+        "finalize_merchant_strategy_once",
+        "grant_story_points_to_initiator_once",
+        "apply_post_task_merchant_relation_gain_once",
+        "preserve_merchant_70_phrase_unlock",
+        "close_letterbox"
+      ]
+    },
+    {
+      "cutsceneId": "merchant_marketing_completion",
+      "linkedQuestIds": [],
+      "triggerScripts": ["npc_merchant:merchant_marketing_done"],
+      "actors": ["initiating_player", "npc_merchant"],
+      "observerPolicy": "all_loaded_party_members",
+      "lateJoinPolicy": "join_live_checkpoint_or_observe",
+      "remoteExecutionPolicy": "live_observation",
+      "executionOwnerPolicy": "any_player",
+      "dialogueOwnerPolicy": "initiating_player",
+      "formationPolicy": "initiator_with_observer_follow",
+      "cleanupRequirements": [
+        "restore_player_control",
+        "apply_merchant_relation_gain_once",
+        "finalize_merchant_marketing_once",
+        "grant_story_points_to_initiator_once",
+        "never_repair_storage_quality_or_the_marketing_done_latch",
+        "close_letterbox"
+      ]
+    },
+    {
+      "cutsceneId": "merchant_sales_completion",
+      "linkedQuestIds": [],
+      "triggerScripts": ["npc_merchant:merchant_sales_done"],
+      "actors": ["initiating_player", "npc_merchant"],
+      "observerPolicy": "all_loaded_party_members",
+      "lateJoinPolicy": "join_live_checkpoint_or_observe",
+      "remoteExecutionPolicy": "live_observation",
+      "executionOwnerPolicy": "any_player",
+      "dialogueOwnerPolicy": "initiating_player",
+      "formationPolicy": "initiator_with_observer_follow",
+      "cleanupRequirements": [
+        "restore_player_control",
+        "apply_merchant_relation_gain_once",
+        "finalize_merchant_sales_once",
+        "grant_story_points_to_initiator_once",
+        "never_repair_crates_sold_total_or_the_sales_done_latch",
+        "close_letterbox"
+      ]
+    },
+    {
+      "cutsceneId": "merchant_support_pitch",
+      "linkedQuestIds": [],
+      "triggerScripts": ["npc_merchant:merchant_70"],
+      "actors": ["initiating_player", "npc_merchant"],
+      "observerPolicy": "all_loaded_party_members",
+      "lateJoinPolicy": "join_live_checkpoint_or_observe",
+      "remoteExecutionPolicy": "live_observation",
+      "executionOwnerPolicy": "any_player",
+      "dialogueOwnerPolicy": "initiating_player",
+      "formationPolicy": "initiator_with_observer_follow",
+      "cleanupRequirements": [
+        "restore_player_control",
+        "preserve_merchant_support_task_visibility",
+        "preserve_actress_marketing_phrase_unlock",
+        "blacklist_merchant_70_once",
+        "close_letterbox"
+      ]
+    },
+    {
+      "cutsceneId": "actress_marketing_pitch",
+      "linkedQuestIds": [],
+      "triggerScripts": ["npc_actress:@actress_marketing"],
+      "actors": ["initiating_player", "npc_actress"],
+      "observerPolicy": "all_loaded_party_members",
+      "lateJoinPolicy": "join_live_checkpoint_or_observe",
+      "remoteExecutionPolicy": "live_observation",
+      "executionOwnerPolicy": "any_player",
+      "dialogueOwnerPolicy": "initiating_player",
+      "formationPolicy": "initiator_with_observer_follow",
+      "cleanupRequirements": [
+        "restore_player_control",
+        "blacklist_actress_marketing_once",
+        "preserve_actress_jewelry_phrase_unlock",
+        "close_letterbox"
+      ]
+    },
+    {
+      "cutsceneId": "actress_jewelry_marketing_handoff",
+      "linkedQuestIds": [],
+      "triggerScripts": ["npc_actress:@actress_ jewelry"],
+      "actors": ["initiating_player", "npc_actress"],
+      "observerPolicy": "all_loaded_party_members",
+      "lateJoinPolicy": "join_live_checkpoint_or_observe",
+      "remoteExecutionPolicy": "live_observation",
+      "executionOwnerPolicy": "any_player",
+      "dialogueOwnerPolicy": "initiating_player",
+      "formationPolicy": "initiator_with_observer_follow",
+      "cleanupRequirements": [
+        "restore_player_control",
+        "consume_one_gold_jewelry_from_initiator_only",
+        "run_give_marketing_point_once",
+        "never_duplicate_the_storage_marketing_point",
+        "preserve_actress_trade_and_merchant_actress_phrase_unlocks",
+        "close_letterbox"
+      ]
+    },
+    {
+      "cutsceneId": "merchant_actress_support_confirmation",
+      "linkedQuestIds": [],
+      "triggerScripts": ["npc_merchant:@merchant_actress"],
+      "actors": ["initiating_player", "npc_merchant"],
+      "observerPolicy": "all_loaded_party_members",
+      "lateJoinPolicy": "join_live_checkpoint_or_observe",
+      "remoteExecutionPolicy": "live_observation",
+      "executionOwnerPolicy": "any_player",
+      "dialogueOwnerPolicy": "initiating_player",
+      "formationPolicy": "initiator_with_observer_follow",
+      "cleanupRequirements": [
+        "restore_player_control",
+        "apply_merchant_relation_gain_once",
+        "finalize_merchant_support_once",
+        "grant_story_points_to_initiator_once",
+        "set_merchant_plan_done_event_only_when_need_merchant_in_sermon_is_zero",
+        "never_repair_the_event_latch",
+        "close_letterbox"
+      ]
+    },
+    {
+      "cutsceneId": "merchant_plan_done_readiness",
+      "linkedQuestIds": [],
+      "triggerScripts": ["npc_merchant:merchant_plan_done_event"],
+      "actors": ["initiating_player", "npc_merchant"],
+      "observerPolicy": "all_loaded_party_members",
+      "lateJoinPolicy": "join_live_checkpoint_or_observe",
+      "remoteExecutionPolicy": "live_observation",
+      "executionOwnerPolicy": "any_player",
+      "dialogueOwnerPolicy": "initiating_player",
+      "formationPolicy": "initiator_with_observer_follow",
+      "cleanupRequirements": [
+        "restore_player_control",
+        "consume_merchant_plan_done_event_once",
+        "preserve_merchant_show_visible",
+        "do_not_complete_merchant_show",
+        "do_not_unlock_or_run_merchant_ceremony",
+        "close_letterbox"
+      ]
+    }
+  ],
+  "storySteps": [
+    {
+      "stepId": "bring_first_bronze_onion_to_horadric",
+      "title": "Show Horadric the first bronze-quality onion",
+      "linkedQuestIds": ["horadric_recipe_after_1st_onion"],
+      "triggerScripts": [
+        "horadric_recipe_after_1st_onion",
+        "npc_tavern owner:horadric_recipe"
+      ],
+      "triggerKeys": ["item_onion_crop:1", "horadric_recipe"],
+      "expectedEffects": [
+        {
+          "kind": "npc_event",
+          "id": "npc_tavern owner:horadric_recipe",
+          "operation": "queue_once",
+          "amount": 1.0,
+          "ownership": "shared_world"
+        },
+        {
+          "kind": "technology",
+          "id": "For beer",
+          "operation": "unlock_after_dialogue",
+          "amount": 1.0,
+          "ownership": "shared_campaign"
+        }
+      ],
+      "safeguards": [
+        "do_not_unlock_recipe_before_dialogue",
+        "do_not_requeue_consumed_horadric_event",
+        "one_dialogue_owner",
+        "do_not_consume_or_duplicate_the_onion"
+      ]
+    },
+    {
+      "stepId": "inspect_broken_garden_plot",
+      "title": "Inspect the broken garden workbench",
+      "linkedQuestIds": [],
+      "linkedTaskMilestoneIds": ["horadric_garden_permission_received"],
+      "triggerScripts": ["garden_builddesk_broken:broken_info"],
+      "triggerKeys": ["broken_info", "@horadric_2_1d", "saw_garden"],
+      "expectedEffects": [
+        {
+          "kind": "dialogue_phrase",
+          "id": "@horadric_2_1d",
+          "operation": "unlock",
+          "amount": 1.0,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "player_param",
+          "id": "saw_garden",
+          "operation": "set",
+          "amount": 1.0,
+          "ownership": "shared_campaign"
+        }
+      ],
+      "safeguards": [
+        "restore_player_control_after_the_garden_menu",
+        "do_not_treat_the_menu_as_a_global_cutscene",
+        "do_not_infer_saw_garden_from_a_later_task_state"
+      ]
+    },
+    {
+      "stepId": "ask_horadric_about_burial_certificates",
+      "title": "Ask Horadric about burial certificates",
+      "linkedQuestIds": [],
+      "linkedTaskMilestoneIds": ["horadric_burial_certificate_explained"],
+      "triggerScripts": ["npc_tavern owner:interaction"],
+      "triggerKeys": ["horadric_2_1a", "player_sertificate"],
+      "expectedEffects": [
+        {
+          "kind": "npc_task",
+          "id": "player:player_sertificate",
+          "operation": "complete",
+          "amount": 1.0,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "dialogue_phrase",
+          "id": "horadric_2_1a",
+          "operation": "blacklist",
+          "amount": 1.0,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "dialogue_phrase",
+          "id": "bishop_2_1e",
+          "operation": "blacklist",
+          "amount": 1.0,
+          "ownership": "shared_campaign"
+        }
+      ],
+      "safeguards": [
+        "preserve_the_serialized_player_sertificate_typo",
+        "do_not_register_generic_horadric_interaction_as_a_cutscene",
+        "apply_no_story_point_or_item_reward"
+      ]
+    },
+    {
+      "stepId": "obtain_horadric_garden_permission",
+      "title": "Ask Horadric for permission to use the garden",
+      "linkedQuestIds": [],
+      "linkedTaskMilestoneIds": ["horadric_garden_permission_received"],
+      "triggerScripts": ["npc_tavern owner:interaction"],
+      "triggerKeys": [
+        "@horadric_2_1d",
+        "scroll_garden_prop",
+        "Garden beds",
+        "horadric_garden",
+        "plot_democracy"
+      ],
+      "expectedEffects": [
+        {
+          "kind": "inventory_item",
+          "id": "scroll_garden_prop",
+          "operation": "drop_once_to_initiator",
+          "amount": 1.0,
+          "ownership": "shared_story_token"
+        },
+        {
+          "kind": "technology",
+          "id": "Garden beds",
+          "operation": "unlock",
+          "amount": 1.0,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "npc_task",
+          "id": "npc_tavern owner:horadric_garden",
+          "operation": "show",
+          "amount": 1.0,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "npc_event",
+          "id": "npc_tavern owner:intro",
+          "operation": "queue_once_after_dialogue",
+          "amount": 1.0,
+          "ownership": "shared_world"
+        },
+        {
+          "kind": "dialogue_phrase",
+          "id": "@merchant_2b",
+          "operation": "unlock",
+          "amount": 1.0,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "dialogue_phrase",
+          "id": "@horadric_2_1d",
+          "operation": "blacklist",
+          "amount": 1.0,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "player_param",
+          "id": "plot_democracy",
+          "operation": "set",
+          "amount": 1.0,
+          "ownership": "shared_campaign"
+        }
+      ],
+      "safeguards": [
+        "drop_one_shared_permission_scroll_only",
+        "never_regrant_the_scroll_from_horadric_garden_task_state",
+        "never_repair_the_consumed_intro_interaction_event",
+        "do_not_repair_plot_democracy_from_the_mid_dialogue_task_write",
+        "generic_horadric_interaction_is_not_a_catalog_cutscene_trigger"
+      ]
+    },
+    {
+      "stepId": "activate_garden_plot",
+      "title": "Use Horadric's permission scroll at the garden workbench",
+      "linkedQuestIds": [],
+      "linkedTaskMilestoneIds": ["horadric_garden_permission_received"],
+      "triggerScripts": [
+        "garden_builddesk_broken:broken_info",
+        "garden_builddesk_broken:interaction"
+      ],
+      "triggerKeys": [
+        "scroll_garden_prop",
+        "garden_builddesk",
+        "fix_garden",
+        "npc_witch:clotho_recipe"
+      ],
+      "expectedEffects": [
+        {
+          "kind": "inventory_item",
+          "id": "scroll_garden_prop",
+          "operation": "consume_from_initiator",
+          "amount": 1.0,
+          "ownership": "shared_story_token"
+        },
+        {
+          "kind": "world_object",
+          "id": "garden_builddesk_broken:garden_builddesk",
+          "operation": "replace_once",
+          "amount": 1.0,
+          "ownership": "shared_world"
+        },
+        {
+          "kind": "quest_key",
+          "id": "fix_garden",
+          "operation": "check_once",
+          "amount": 1.0,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "npc_event",
+          "id": "npc_witch:clotho_recipe",
+          "operation": "queue_once",
+          "amount": 1.0,
+          "ownership": "shared_world"
+        }
+      ],
+      "safeguards": [
+        "consume_the_shared_permission_scroll_once_from_the_initiator",
+        "replace_the_garden_workbench_once_for_the_campaign",
+        "never_repair_the_consumed_clotho_recipe_interaction_event",
+        "restore_player_control_after_the_garden_menu"
+      ]
+    },
+    {
+      "stepId": "settle_garden_terms_with_merchant",
+      "title": "Settle the garden terms with the Merchant",
+      "linkedQuestIds": [],
+      "linkedTaskMilestoneIds": [
+        "horadric_garden_terms_open",
+        "merchant_garden_barter_requested",
+        "merchant_garden_refusal_open"
+      ],
+      "triggerScripts": ["npc_merchant:interaction"],
+      "triggerKeys": [
+        "@merchant_2b",
+        "money1000",
+        "money500",
+        "merchant_garden",
+        "merchant_get_along"
+      ],
+      "expectedEffects": [
+        {
+          "kind": "npc_task",
+          "id": "npc_tavern owner:horadric_garden",
+          "operation": "complete_before_settlement_choice",
+          "amount": 1.0,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "story_point",
+          "id": "bronze",
+          "operation": "grant_to_initiator",
+          "amount": 2.0,
+          "ownership": "personal_character"
+        },
+        {
+          "kind": "currency",
+          "id": "money",
+          "operation": "consume_from_initiator_if_full_price_selected",
+          "amount": 1000.0,
+          "ownership": "personal_character"
+        },
+        {
+          "kind": "currency",
+          "id": "money",
+          "operation": "consume_from_initiator_if_discount_selected",
+          "amount": 500.0,
+          "ownership": "personal_character"
+        },
+        {
+          "kind": "player_param",
+          "id": "_rel_npc_merchant",
+          "operation": "add_once_if_a_paid_settlement_is_selected",
+          "amount": 10.0,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "npc_task",
+          "id": "npc_merchant:merchant_garden",
+          "operation": "show_if_barter_selected",
+          "amount": 1.0,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "dialogue_phrase",
+          "id": "@merchant_favore",
+          "operation": "unlock_if_barter_selected",
+          "amount": 1.0,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "dialogue_phrase",
+          "id": "@merchant_2e",
+          "operation": "unlock_if_barter_selected",
+          "amount": 1.0,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "npc_task",
+          "id": "npc_merchant:merchant_get_along",
+          "operation": "show_if_refusal_selected",
+          "amount": 1.0,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "dialogue_phrase",
+          "id": "@merchant_new_trade",
+          "operation": "unlock_if_refusal_selected",
+          "amount": 1.0,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "dialogue_phrase",
+          "id": "@merchant_forgive",
+          "operation": "unlock_if_refusal_selected",
+          "amount": 1.0,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "dialogue_phrase",
+          "id": "merchant_2c",
+          "operation": "blacklist_if_refusal_selected",
+          "amount": 1.0,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "dialogue_phrase",
+          "id": "@merchant_2b",
+          "operation": "blacklist_after_a_settlement_choice",
+          "amount": 1.0,
+          "ownership": "shared_campaign"
+        }
+      ],
+      "safeguards": [
+        "horadric_garden_completes_before_the_settlement_choice",
+        "never_blacklist_merchant_2b_from_horadric_garden_complete_alone",
+        "only_the_initiator_pays_a_selected_price",
+        "do_not_duplicate_the_paid_branch_relation_gain_or_story_points",
+        "do_not_infer_barter_or_refusal_from_the_common_task_completion",
+        "generic_merchant_interaction_is_not_a_catalog_cutscene_trigger"
+      ]
+    },
+    {
+      "stepId": "ask_horadric_how_to_sell_meat",
+      "title": "Ask Horadric how to sell fresh meat",
+      "linkedQuestIds": [],
+      "linkedTaskMilestoneIds": ["horadric_stamped_meat_requested"],
+      "triggerScripts": ["npc_tavern owner:interaction"],
+      "triggerKeys": [
+        "@horadric_2_1h",
+        "horadric_stampedmeat",
+        "@horadric_2_1h_4b"
+      ],
+      "expectedEffects": [
+        {
+          "kind": "npc_task",
+          "id": "npc_tavern owner:horadric_stampedmeat",
+          "operation": "show_before_stamp_choice",
+          "amount": 1.0,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "dialogue_phrase",
+          "id": "@horadric_2_1h_4b",
+          "operation": "unlock_before_stamp_choice",
+          "amount": 1.0,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "dialogue_phrase",
+          "id": "@horadric_2_1h",
+          "operation": "blacklist_before_stamp_choice",
+          "amount": 1.0,
+          "ownership": "shared_campaign"
+        }
+      ],
+      "safeguards": [
+        "do_not_infer_the_nested_stamp_answer_from_visible_task_state",
+        "do_not_repair_post_choice_phrases_from_visible_task_state",
+        "generic_horadric_interaction_is_not_a_catalog_cutscene_trigger"
+      ]
+    },
+    {
+      "stepId": "follow_horadric_stamp_lead",
+      "title": "Ask where to find a stamp",
+      "linkedQuestIds": [],
+      "linkedTaskMilestoneIds": ["horadric_stamped_meat_requested"],
+      "triggerScripts": ["npc_tavern owner:interaction"],
+      "triggerKeys": [
+        "horadric_2_1h_4a",
+        "@snake_meat",
+        "@actress_2b_1a",
+        "@actress_snake"
+      ],
+      "expectedEffects": [
+        {
+          "kind": "dialogue_phrase",
+          "id": "@snake_meat",
+          "operation": "unlock_if_no_stamp_selected",
+          "amount": 1.0,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "dialogue_phrase",
+          "id": "@actress_2b_1a",
+          "operation": "unlock_if_no_stamp_selected",
+          "amount": 1.0,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "dialogue_phrase",
+          "id": "@actress_snake",
+          "operation": "unlock_if_no_stamp_selected",
+          "amount": 1.0,
+          "ownership": "shared_campaign"
+        }
+      ],
+      "safeguards": [
+        "these_phrase_unlocks_belong_only_to_the_no_stamp_answer",
+        "never_force_the_no_stamp_branch_from_task_visibility",
+        "do_not_register_generic_horadric_interaction_as_a_cutscene"
+      ]
+    },
+    {
+      "stepId": "show_horadric_the_stamp",
+      "title": "Show Horadric the stamp",
+      "linkedQuestIds": [],
+      "linkedTaskMilestoneIds": ["horadric_stamped_meat_approved"],
+      "triggerScripts": ["npc_tavern owner:interaction"],
+      "triggerKeys": [
+        "@horadric_2_1h_4b",
+        "stamp",
+        "insert_stamp_into_table"
+      ],
+      "expectedEffects": [
+        {
+          "kind": "inventory_item",
+          "id": "stamp",
+          "operation": "verify_without_consuming",
+          "amount": 1.0,
+          "ownership": "shared_story_token"
+        },
+        {
+          "kind": "npc_task",
+          "id": "npc_tavern owner:horadric_stampedmeat",
+          "operation": "complete",
+          "amount": 1.0,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "story_point",
+          "id": "bronze",
+          "operation": "grant_to_initiator",
+          "amount": 2.0,
+          "ownership": "personal_character"
+        },
+        {
+          "kind": "dialogue_phrase",
+          "id": "@horadric_2_1h_4b",
+          "operation": "blacklist",
+          "amount": 1.0,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "craft",
+          "id": "insert_stamp_into_table",
+          "operation": "unlock",
+          "amount": 1.0,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "dialogue_phrase",
+          "id": "@actress_2b_1a",
+          "operation": "unlock",
+          "amount": 1.0,
+          "ownership": "shared_campaign"
+        }
+      ],
+      "safeguards": [
+        "the_stamp_is_an_answer_lock_not_a_price",
+        "never_consume_or_duplicate_the_stamp",
+        "grant_the_two_bronze_story_points_to_the_initiator_once",
+        "do_not_infer_the_no_stamp_branch_unlocks_from_completion"
+      ]
+    },
+    {
+      "stepId": "receive_horadric_gold_beer_challenge",
+      "title": "Receive Horadric's gold-star beer challenge",
+      "linkedQuestIds": [],
+      "linkedTaskMilestoneIds": ["horadric_gold_beer_requested"],
+      "triggerScripts": ["npc_tavern owner:horadric_after_burger_witch"],
+      "triggerKeys": [
+        "witch_tasty_burning",
+        "horadric_after_burger_witch",
+        "@horadric_beer_1",
+        "horadric_gold_beer"
+      ],
+      "expectedEffects": [
+        {
+          "kind": "npc_event",
+          "id": "npc_tavern owner:horadric_after_burger_witch",
+          "operation": "queue_once_after_witch_tasting",
+          "amount": 1.0,
+          "ownership": "shared_world"
+        },
+        {
+          "kind": "dialogue_phrase",
+          "id": "@horadric_beer_1",
+          "operation": "unlock",
+          "amount": 1.0,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "npc_task",
+          "id": "npc_tavern owner:horadric_gold_beer",
+          "operation": "show",
+          "amount": 1.0,
+          "ownership": "shared_campaign"
+        }
+      ],
+      "safeguards": [
+        "consume_the_horadric_interaction_event_once",
+        "never_repair_the_consumed_interaction_event_from_task_state",
+        "do_not_claim_the_broader_witch_tasty_burning_cutscene",
+        "restore_control_for_all_loaded_players"
+      ]
+    },
+    {
+      "stepId": "deliver_gold_star_beer_to_horadric",
+      "title": "Give Horadric one gold-star beer",
+      "linkedQuestIds": [],
+      "linkedTaskMilestoneIds": ["horadric_gold_beer_delivered"],
+      "triggerScripts": ["npc_tavern owner:@horadric_beer_1"],
+      "triggerKeys": ["@horadric_beer_1", "cup_beer:3", "horadric_gold_beer"],
+      "expectedEffects": [
+        {
+          "kind": "inventory_item",
+          "id": "cup_beer:3",
+          "operation": "consume_from_initiator",
+          "amount": 1.0,
+          "ownership": "personal_character"
+        },
+        {
+          "kind": "dialogue_phrase",
+          "id": "@horadric_beer_1",
+          "operation": "blacklist",
+          "amount": 1.0,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "npc_task",
+          "id": "npc_tavern owner:horadric_gold_beer",
+          "operation": "complete",
+          "amount": 1.0,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "player_param",
+          "id": "_rel_npc_tavern owner",
+          "operation": "add_once",
+          "amount": 10.0,
+          "ownership": "shared_campaign"
+        }
+      ],
+      "safeguards": [
+        "consume_one_gold_star_beer_from_the_initiator_only",
+        "observers_never_pay_or_repeat_the_relation_gain",
+        "repair_only_the_canonical_twenty_relation_floor_from_completion",
+        "restore_control_for_all_loaded_players"
+      ]
+    },
+    {
+      "stepId": "complete_merchant_garden_barter",
+      "title": "Complete the Merchant's three-crop garden barter",
+      "linkedQuestIds": [],
+      "linkedTaskMilestoneIds": [
+        "merchant_garden_barter_completed",
+        "merchant_trade_license_requested"
+      ],
+      "triggerScripts": ["npc_merchant:deal_compleat"],
+      "triggerKeys": [
+        "merchant_2e_1a",
+        "merchant_2e_1b",
+        "merchant_2e_1c",
+        "carrot_crop",
+        "cabbage_crop",
+        "beet_crop",
+        "garden_deal",
+        "deal_compleat"
+      ],
+      "expectedEffects": [
+        {
+          "kind": "inventory_item",
+          "id": "carrot_crop",
+          "operation": "consume_from_initiator",
+          "amount": 12.0,
+          "ownership": "personal_character"
+        },
+        {
+          "kind": "inventory_item",
+          "id": "cabbage_crop",
+          "operation": "consume_from_initiator",
+          "amount": 12.0,
+          "ownership": "personal_character"
+        },
+        {
+          "kind": "inventory_item",
+          "id": "beet_crop",
+          "operation": "consume_from_initiator",
+          "amount": 12.0,
+          "ownership": "personal_character"
+        },
+        {
+          "kind": "npc_task",
+          "id": "npc_merchant:merchant_garden",
+          "operation": "complete_after_all_three_crop_trades",
+          "amount": 1.0,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "story_point",
+          "id": "bronze",
+          "operation": "grant_to_initiator",
+          "amount": 2.0,
+          "ownership": "personal_character"
+        },
+        {
+          "kind": "player_param",
+          "id": "_rel_npc_merchant",
+          "operation": "add_once_in_deal_compleat",
+          "amount": 10.0,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "dialogue_phrase",
+          "id": "@merchant_2e",
+          "operation": "blacklist",
+          "amount": 1.0,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "npc_task",
+          "id": "npc_merchant:merchant_trade",
+          "operation": "show_after_deal_dialogue",
+          "amount": 1.0,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "dialogue_phrase",
+          "id": "@merchant_traide_license",
+          "operation": "unlock_after_trade_task_write",
+          "amount": 1.0,
+          "ownership": "shared_campaign"
+        }
+      ],
+      "safeguards": [
+        "each_crop_price_is_paid_by_the_initiator_only",
+        "each_crop_answer_is_blacklisted_after_its_single_trade",
+        "never_repair_or_increment_the_transient_garden_deal_counter",
+        "never_repeat_the_two_bronze_story_reward",
+        "do_not_infer_the_optional_loan_state_from_merchant_garden_completion",
+        "deal_compleat_runs_once_after_the_third_crop_and_any_loan_repayment"
+      ]
+    },
+    {
+      "stepId": "repay_merchant_after_refusing_garden_terms",
+      "title": "Pay the Merchant after refusing his garden terms",
+      "linkedQuestIds": [],
+      "linkedTaskMilestoneIds": [
+        "merchant_garden_refusal_repaid",
+        "merchant_trade_license_requested"
+      ],
+      "triggerScripts": ["npc_merchant:@merchant_forgive_pay"],
+      "triggerKeys": [
+        "@merchant_forgive",
+        "@merchant_forgive_pay",
+        "money100",
+        "merchant_get_along",
+        "deal_compleat"
+      ],
+      "expectedEffects": [
+        {
+          "kind": "dialogue_phrase",
+          "id": "@merchant_favore",
+          "operation": "unlock",
+          "amount": 1.0,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "dialogue_phrase",
+          "id": "@merchant_forgive_pay",
+          "operation": "unlock_then_blacklist_after_payment",
+          "amount": 1.0,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "dialogue_phrase",
+          "id": "@merchant_forgive",
+          "operation": "blacklist",
+          "amount": 1.0,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "dialogue_phrase",
+          "id": "@merchant_new_trade",
+          "operation": "blacklist",
+          "amount": 1.0,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "dialogue_phrase",
+          "id": "merchant_2c",
+          "operation": "remove_from_blacklist",
+          "amount": 1.0,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "currency",
+          "id": "money",
+          "operation": "consume_from_initiator",
+          "amount": 100.0,
+          "ownership": "personal_character"
+        },
+        {
+          "kind": "npc_task",
+          "id": "npc_merchant:merchant_get_along",
+          "operation": "complete",
+          "amount": 1.0,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "story_point",
+          "id": "bronze",
+          "operation": "grant_to_initiator",
+          "amount": 2.0,
+          "ownership": "personal_character"
+        },
+        {
+          "kind": "player_param",
+          "id": "_rel_npc_merchant",
+          "operation": "add_once_in_deal_compleat",
+          "amount": 10.0,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "npc_task",
+          "id": "npc_merchant:merchant_trade",
+          "operation": "show_after_deal_dialogue",
+          "amount": 1.0,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "dialogue_phrase",
+          "id": "@merchant_traide_license",
+          "operation": "unlock_after_trade_task_write",
+          "amount": 1.0,
+          "ownership": "shared_campaign"
+        }
+      ],
+      "safeguards": [
+        "only_the_initiator_pays_the_hundred_money",
+        "never_repeat_the_two_bronze_story_reward",
+        "merchant_2c_is_removed_from_the_blacklist_not_unlocked_as_a_new_phrase",
+        "never_infer_or_repair_a_crop_barter_counter_on_the_refusal_path",
+        "deal_compleat_runs_once_after_repayment"
+      ]
+    },
+    {
+      "stepId": "take_and_repay_optional_merchant_loan",
+      "title": "Take and repay the Merchant's optional barter loan",
+      "linkedQuestIds": [],
+      "linkedTaskMilestoneIds": [
+        "merchant_optional_loan_taken",
+        "merchant_optional_loan_repaid"
+      ],
+      "triggerScripts": ["npc_merchant:@merchant_2e_1f"],
+      "triggerKeys": [
+        "merchant_2e_1d",
+        "@merchant_2e_1e",
+        "@merchant_2e_1f",
+        "money5",
+        "money10",
+        "first_loan_offer",
+        "loan_taken",
+        "merchant_debt"
+      ],
+      "expectedEffects": [
+        {
+          "kind": "currency",
+          "id": "money",
+          "operation": "grant_to_initiator_on_acceptance",
+          "amount": 5.0,
+          "ownership": "personal_character"
+        },
+        {
+          "kind": "npc_task",
+          "id": "npc_merchant:merchant_debt",
+          "operation": "show_on_acceptance",
+          "amount": 1.0,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "player_param",
+          "id": "loan_taken",
+          "operation": "set_to_one_on_acceptance_then_zero_on_repayment",
+          "amount": 1.0,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "currency",
+          "id": "money",
+          "operation": "consume_from_initiator_on_repayment",
+          "amount": 10.0,
+          "ownership": "personal_character"
+        },
+        {
+          "kind": "npc_task",
+          "id": "npc_merchant:merchant_debt",
+          "operation": "complete_on_repayment",
+          "amount": 1.0,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "story_point",
+          "id": "bronze",
+          "operation": "grant_to_initiator_on_repayment",
+          "amount": 2.0,
+          "ownership": "personal_character"
+        }
+      ],
+      "safeguards": [
+        "the_optional_loan_is_not_a_required_story_branch",
+        "never_regrant_the_five_money_from_task_state",
+        "never_reconsume_the_ten_money_from_task_state",
+        "never_repair_first_loan_offer_loan_taken_or_garden_deal",
+        "do_not_complete_the_crop_barter_until_all_three_crops_are_traded"
+      ]
+    },
+    {
+      "stepId": "accept_merchant_grass_request",
+      "title": "Accept the Merchant's request for hiccup grass",
+      "linkedQuestIds": [],
+      "linkedTaskMilestoneIds": ["merchant_grass_requested"],
+      "triggerScripts": ["npc_merchant:@merchant_favore"],
+      "triggerKeys": ["@merchant_favore", "@merchant_favore_done", "merchant_grass"],
+      "expectedEffects": [
+        {
+          "kind": "npc_task",
+          "id": "npc_merchant:merchant_grass",
+          "operation": "show",
+          "amount": 1.0,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "dialogue_phrase",
+          "id": "@merchant_favore",
+          "operation": "blacklist_after_task_write",
+          "amount": 1.0,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "dialogue_phrase",
+          "id": "@merchant_favore_done",
+          "operation": "unlock_after_task_write",
+          "amount": 1.0,
+          "ownership": "shared_campaign"
+        }
+      ],
+      "safeguards": [
+        "the_favor_branch_can_progress_in_parallel_with_the_trade_branch",
+        "do_not_infer_a_completed_garden_deal_from_merchant_grass_visibility",
+        "repair_only_the_unconditional_handoff_phrase_and_request_blacklist_from_the_visible_task"
+      ]
+    },
+    {
+      "stepId": "deliver_hiccup_grass_to_merchant",
+      "title": "Give the Merchant one hiccup grass",
+      "linkedQuestIds": [],
+      "linkedTaskMilestoneIds": [
+        "merchant_grass_delivered",
+        "merchant_cure_requested"
+      ],
+      "triggerScripts": ["npc_merchant:@merchant_favore_done"],
+      "triggerKeys": [
+        "@merchant_favore_done",
+        "hiccup_grass",
+        "merchant_grass",
+        "merchant_curse",
+        "player_knows_about_witch",
+        "@сlotho_merch"
+      ],
+      "expectedEffects": [
+        {
+          "kind": "inventory_item",
+          "id": "hiccup_grass",
+          "operation": "consume_from_initiator",
+          "amount": 1.0,
+          "ownership": "personal_character"
+        },
+        {
+          "kind": "player_param",
+          "id": "_rel_npc_merchant",
+          "operation": "add_once",
+          "amount": 10.0,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "npc_task",
+          "id": "npc_merchant:merchant_grass",
+          "operation": "complete",
+          "amount": 1.0,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "story_point",
+          "id": "bronze",
+          "operation": "grant_to_initiator",
+          "amount": 2.0,
+          "ownership": "personal_character"
+        },
+        {
+          "kind": "story_point",
+          "id": "silver",
+          "operation": "grant_to_initiator",
+          "amount": 2.0,
+          "ownership": "personal_character"
+        },
+        {
+          "kind": "player_param",
+          "id": "player_knows_about_witch",
+          "operation": "set",
+          "amount": 1.0,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "npc_task",
+          "id": "npc_merchant:merchant_curse",
+          "operation": "show_after_dialogue",
+          "amount": 1.0,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "dialogue_phrase",
+          "id": "@merchant_favore_done",
+          "operation": "blacklist_after_curse_task_write",
+          "amount": 1.0,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "dialogue_phrase",
+          "id": "@сlotho_merch",
+          "operation": "unlock_after_curse_task_write",
+          "amount": 1.0,
+          "ownership": "shared_campaign"
+        }
+      ],
+      "safeguards": [
+        "consume_one_hiccup_grass_from_the_initiator_only",
+        "apply_relation_and_story_rewards_once",
+        "preserve_the_serialized_cyrillic_first_character_in_clotho_phrase_ids",
+        "repair_the_handoff_blacklist_and_clotho_phrase_only_from_merchant_curse_visibility"
+      ]
+    },
+    {
+      "stepId": "learn_merchant_cure_from_clotho",
+      "title": "Ask Clotho how to cure the Merchant",
+      "linkedQuestIds": [],
+      "linkedTaskMilestoneIds": ["merchant_cure_requested"],
+      "triggerScripts": ["npc_witch:@сlotho_merch"],
+      "triggerKeys": [
+        "сlotho_need_help",
+        "@сlotho_merch",
+        "@сlotho_merch_again",
+        "@merchant_on_cure",
+        "mix:mf_alchemy_craft_02:taste_booster:salt:alchemy_2_d_green::"
+      ],
+      "expectedEffects": [
+        {
+          "kind": "dialogue_phrase",
+          "id": "@сlotho_merch",
+          "operation": "blacklist",
+          "amount": 1.0,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "dialogue_phrase",
+          "id": "@сlotho_merch_again",
+          "operation": "unlock",
+          "amount": 1.0,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "dialogue_phrase",
+          "id": "@merchant_on_cure",
+          "operation": "unlock",
+          "amount": 1.0,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "craft",
+          "id": "mix:mf_alchemy_craft_02:taste_booster:salt:alchemy_2_d_green::",
+          "operation": "reveal",
+          "amount": 1.0,
+          "ownership": "shared_campaign"
+        }
+      ],
+      "safeguards": [
+        "preserve_the_serialized_cyrillic_first_character_in_clotho_phrase_ids",
+        "reveal_the_recipe_without_granting_the_crafted_cure",
+        "do_not_repeat_clotho_dialogue_for_observers",
+        "do_not_treat_generic_witch_interaction_as_a_cutscene_trigger"
+      ]
+    },
+    {
+      "stepId": "deliver_cure_to_merchant",
+      "title": "Give the Merchant the crafted taste booster cure",
+      "linkedQuestIds": [],
+      "linkedTaskMilestoneIds": [
+        "merchant_cure_delivered",
+        "merchant_dinner_requested"
+      ],
+      "triggerScripts": ["npc_merchant:merchant_on_cure"],
+      "triggerKeys": [
+        "@merchant_on_cure",
+        "taste_booster:alchemy_1_spice",
+        "merchant_curse",
+        "merchant_common_part",
+        "merchant_dinner",
+        "dinner",
+        "player_knows_about_dream",
+        "wait_merchant_cure_for_sauce",
+        "@souls_s_s24_ask",
+        "gykmp_story_lock_better_save_soul_s24_handoff",
+        "gykmp_story_route_better_save_soul_s24_deferred_wait",
+        "gykmp_story_route_better_save_soul_s24_deferred_unlock",
+        "DLC/BetterSaveSoul/PrideHealingAndVillageVisit:better_save_soul_cook_first_sauce_for_gluttony"
+      ],
+      "expectedEffects": [
+        {
+          "kind": "inventory_item",
+          "id": "taste_booster:alchemy_1_spice",
+          "operation": "consume_from_initiator",
+          "amount": 1.0,
+          "ownership": "personal_character"
+        },
+        {
+          "kind": "player_param",
+          "id": "_rel_npc_merchant",
+          "operation": "add_once",
+          "amount": 10.0,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "dialogue_phrase",
+          "id": "@merchant_on_cure",
+          "operation": "blacklist",
+          "amount": 1.0,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "npc_task",
+          "id": "npc_merchant:merchant_curse",
+          "operation": "complete",
+          "amount": 1.0,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "story_point",
+          "id": "bronze",
+          "operation": "grant_to_initiator",
+          "amount": 2.0,
+          "ownership": "personal_character"
+        },
+        {
+          "kind": "wgo_param",
+          "id": "npc_merchant:merchant_common_part_called",
+          "operation": "set_during_common_dialogue",
+          "amount": 1.0,
+          "ownership": "shared_world"
+        },
+        {
+          "kind": "wgo_param",
+          "id": "npc_merchant:player_knows_about_dream",
+          "operation": "set_during_common_dialogue",
+          "amount": 1.0,
+          "ownership": "shared_world"
+        },
+        {
+          "kind": "dialogue_phrase",
+          "id": "@merchant_ceremony",
+          "operation": "unlock_only_if_need_merchant_in_sermon_is_one",
+          "amount": 1.0,
+          "ownership": "church_opening_catalog"
+        },
+        {
+          "kind": "npc_task",
+          "id": "npc_merchant:merchant_dinner",
+          "operation": "show_after_common_dialogue",
+          "amount": 1.0,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "craft",
+          "id": "dinner",
+          "operation": "unlock_after_dinner_task_write",
+          "amount": 1.0,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "dialogue_phrase",
+          "id": "@merchant_dinner",
+          "operation": "unlock_after_dinner_task_write",
+          "amount": 1.0,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "cross_catalog_route_reference",
+          "id": "gykmp_story_route_better_save_soul_s24_deferred_wait",
+          "operation": "observe-the-Better-Save-Soul-sauce-owner-pending-receipt_while-preserving-wait_merchant_cure_for_sauce-at-least-one-as-the-exact-raw-OnFinished-branch-gate",
+          "amount": 1.0,
+          "ownership": "cross_catalog_reference"
+        },
+        {
+          "kind": "shared_story_lock",
+          "id": "gykmp_story_lock_better_save_soul_s24_handoff",
+          "operation": "at-merchant_curse-Completes-OnFinished-leg_atomically-serialize-the-optional-wait-read-unlock-receipt-and-clear_with-the-Better-Save-Soul-sauce-callbacks-cure-blacklist-read-and-direct-or-deferred-write_then-release-on-wait-zero-fulfilled-abort-or-recovery",
+          "amount": 1.0,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "cross_catalog_route_receipt",
+          "id": "gykmp_story_route_better_save_soul_s24_deferred_unlock",
+          "operation": "author-once-only-when-wait_merchant_cure_for_sauce-is-at-least-one-on-the-merchant_curse-Complete-OnFinished-leg_before-unlocking-S24-and-clearing-the-wait",
+          "amount": 1.0,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "dialogue_phrase",
+          "id": "@souls_s_s24_ask",
+          "operation": "conditionally-unlock-only-with-the-deferred-unlock-receipt-when-the-optional-Better-Save-Soul-wait-is-at-least-one",
+          "amount": 1.0,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "player_param",
+          "id": "wait_merchant_cure_for_sauce",
+          "operation": "conditionally-clear-to-zero-after-the-deferred-receipt-and-S24-unlock_never-set-or-repair-to-one-from-base-cure-state",
+          "amount": 0.0,
+          "ownership": "shared_campaign"
+        }
+      ],
+      "safeguards": [
+        "consume_one_crafted_cure_from_the_initiator_only",
+        "apply_relation_and_story_rewards_once",
+        "do_not_repair_merchant_common_part_called_or_other_one_shot_latches",
+        "do_not_repair_dinner_craft_or_phrase_from_the_earlier_curse_complete_anchor",
+        "merchant_ceremony_trigger_and_completion_remain_owned_by_church_opening",
+        "the-base-handler-owns-only-the-live-optional-OnFinished-hook_while-the-Better-Save-Soul-catalog-owns-sauce-side-route-lifecycle-and-recovery",
+        "the-optional-hook-runs-from-merchant_curse-Completes-OnFinished-leg_not-its-immediate-Out-base-dialogue-continuation",
+        "when-wait-is-zero-do-not-author-the-cross-catalog-receipt-unlock-S24-or-change-the-flag",
+        "under-the-shared-handoff-lock_when-wait-is-at-least-one-author-the-receipt_then-unlock-S24_then-clear-wait-to-zero-in-that-order",
+        "the-source-wait-zero-branch-has-no-outgoing-node_but-the-synthetic-wrapper-must-still-release-the-shared-handoff-lock",
+        "never-infer-the-optional-wait-or-S24-route-from-merchant_curse-Complete-or-merchant_on_cure-blacklisted-alone"
+      ]
+    },
+    {
+      "stepId": "serve_merchant_gold_quality_dinners",
+      "title": "Serve the Merchant five gold-quality dinners",
+      "linkedQuestIds": [],
+      "linkedTaskMilestoneIds": [
+        "merchant_dinner_delivered",
+        "merchant_strategy_waiting"
+      ],
+      "triggerScripts": ["npc_merchant:merchant_dinner"],
+      "triggerKeys": [
+        "@merchant_dinner",
+        "dinner:3",
+        "merchant_dinner",
+        "merchant_strategy",
+        "unlock_merchant_strategy"
+      ],
+      "expectedEffects": [
+        {
+          "kind": "inventory_item",
+          "id": "dinner:3",
+          "operation": "consume_from_initiator",
+          "amount": 5.0,
+          "ownership": "personal_character"
+        },
+        {
+          "kind": "player_param",
+          "id": "_rel_npc_merchant",
+          "operation": "add_once",
+          "amount": 10.0,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "dialogue_phrase",
+          "id": "@merchant_dinner",
+          "operation": "blacklist",
+          "amount": 1.0,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "npc_task",
+          "id": "npc_merchant:merchant_dinner",
+          "operation": "complete",
+          "amount": 1.0,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "story_point",
+          "id": "bronze",
+          "operation": "grant_to_initiator",
+          "amount": 5.0,
+          "ownership": "personal_character"
+        },
+        {
+          "kind": "story_point",
+          "id": "silver",
+          "operation": "grant_to_initiator",
+          "amount": 5.0,
+          "ownership": "personal_character"
+        },
+        {
+          "kind": "story_point",
+          "id": "gold",
+          "operation": "grant_to_initiator",
+          "amount": 1.0,
+          "ownership": "personal_character"
+        },
+        {
+          "kind": "npc_task",
+          "id": "npc_merchant:merchant_strategy",
+          "operation": "show_after_dinner_dialogue",
+          "amount": 1.0,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "npc_event",
+          "id": "npc_merchant:unlock_merchant_strategy",
+          "operation": "schedule_once_after_720_seconds",
+          "amount": 1.0,
+          "ownership": "shared_world"
+        },
+        {
+          "kind": "dialogue_phrase",
+          "id": "@merchant_strategy",
+          "operation": "unlock_when_delayed_event_fires",
+          "amount": 1.0,
+          "ownership": "shared_campaign"
+        }
+      ],
+      "safeguards": [
+        "consume_five_gold_quality_dinners_from_the_initiator_only",
+        "apply_relation_and_story_rewards_once",
+        "never_repair_or_requeue_the_delayed_unlock_event",
+        "do_not_repair_merchant_strategy_phrase_from_task_visibility",
+        "allow_the_trade_business_branch_to_progress_in_parallel"
+      ]
+    },
+    {
+      "stepId": "deliver_merchant_trade_license_and_open_storage",
+      "title": "Give the Merchant the trade license and open the storage business",
+      "linkedQuestIds": [],
+      "linkedTaskMilestoneIds": [
+        "merchant_trade_license_delivered",
+        "merchant_marketing_requested",
+        "merchant_sales_requested"
+      ],
+      "triggerScripts": ["npc_merchant:merchant_traide_license"],
+      "triggerKeys": [
+        "@merchant_traide_license",
+        "merchant_traide_license",
+        "beginning_of_trading",
+        "storage_available",
+        "mf_wood_builddesk::elevator_place",
+        "merchant_marketing",
+        "merchant_sales",
+        "@merchant_business",
+        "@merchant_crate_1"
+      ],
+      "expectedEffects": [
+        {
+          "kind": "inventory_item",
+          "id": "merchant_traide_license",
+          "operation": "consume_from_initiator",
+          "amount": 1.0,
+          "ownership": "personal_character"
+        },
+        {
+          "kind": "player_param",
+          "id": "_rel_npc_merchant",
+          "operation": "add_once",
+          "amount": 10.0,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "dialogue_phrase",
+          "id": "@merchant_traide_license",
+          "operation": "blacklist",
+          "amount": 1.0,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "npc_task",
+          "id": "npc_merchant:merchant_trade",
+          "operation": "complete_before_storage_walkthrough",
+          "amount": 1.0,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "story_point",
+          "id": "bronze",
+          "operation": "grant_to_initiator",
+          "amount": 5.0,
+          "ownership": "personal_character"
+        },
+        {
+          "kind": "story_point",
+          "id": "silver",
+          "operation": "grant_to_initiator",
+          "amount": 5.0,
+          "ownership": "personal_character"
+        },
+        {
+          "kind": "quest_key",
+          "id": "beginning_of_trading",
+          "operation": "check_once",
+          "amount": 1.0,
+          "ownership": "personal_character"
+        },
+        {
+          "kind": "world_object",
+          "id": "storage_player_point",
+          "operation": "teleport_initiator",
+          "amount": 1.0,
+          "ownership": "live_presentation"
+        },
+        {
+          "kind": "world_object",
+          "id": "storage_merchant_point",
+          "operation": "teleport_merchant",
+          "amount": 1.0,
+          "ownership": "shared_world"
+        },
+        {
+          "kind": "player_param",
+          "id": "storage_available",
+          "operation": "set",
+          "amount": 1.0,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "environment",
+          "id": "tp_storage_b",
+          "operation": "change_after_inside_weather",
+          "amount": 1.0,
+          "ownership": "live_presentation"
+        },
+        {
+          "kind": "craft",
+          "id": "mf_wood_builddesk::elevator_place",
+          "operation": "unlock",
+          "amount": 1.0,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "npc_task",
+          "id": "npc_merchant:merchant_marketing",
+          "operation": "show",
+          "amount": 1.0,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "npc_task",
+          "id": "npc_merchant:merchant_sales",
+          "operation": "show",
+          "amount": 1.0,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "dialogue_phrase",
+          "id": "@merchant_business",
+          "operation": "unlock_after_both_task_writes",
+          "amount": 1.0,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "dialogue_phrase",
+          "id": "@merchant_marketing",
+          "operation": "unlock_after_both_task_writes",
+          "amount": 1.0,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "dialogue_phrase",
+          "id": "@merchant_marketing_done",
+          "operation": "unlock_after_both_task_writes",
+          "amount": 1.0,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "dialogue_phrase",
+          "id": "@merchant_sales_done",
+          "operation": "unlock_after_both_task_writes",
+          "amount": 1.0,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "dialogue_phrase",
+          "id": "@merchant_crate_1",
+          "operation": "unlock_after_both_task_writes",
+          "amount": 1.0,
+          "ownership": "shared_campaign"
+        }
+      ],
+      "safeguards": [
+        "consume_one_trade_license_from_the_initiator_only",
+        "preserve_the_serialized_traide_typo",
+        "apply_relation_and_story_rewards_once",
+        "do_not_repair_storage_or_business_state_from_the_early_trade_complete_anchor",
+        "do_not_replay_the_storage_teleport_or_camera_fade_for_late_joiners",
+        "do_not_duplicate_business_phrases_before_both_task_writes_complete"
+      ]
+    },
+    {
+      "stepId": "complete_merchant_strategy_review",
+      "title": "Return after the Merchant's twelve-hour strategy delay",
+      "linkedQuestIds": [],
+      "linkedTaskMilestoneIds": ["merchant_strategy_completed"],
+      "triggerScripts": ["npc_merchant:merchant_strategy"],
+      "triggerKeys": ["@merchant_strategy", "merchant_strategy", "@merchant_70"],
+      "expectedEffects": [
+        {
+          "kind": "dialogue_phrase",
+          "id": "@merchant_strategy",
+          "operation": "blacklist",
+          "amount": 1.0,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "npc_task",
+          "id": "npc_merchant:merchant_strategy",
+          "operation": "complete_before_relation_write",
+          "amount": 1.0,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "story_point",
+          "id": "silver",
+          "operation": "grant_to_initiator",
+          "amount": 5.0,
+          "ownership": "personal_character"
+        },
+        {
+          "kind": "story_point",
+          "id": "gold",
+          "operation": "grant_to_initiator",
+          "amount": 3.0,
+          "ownership": "personal_character"
+        },
+        {
+          "kind": "dialogue_phrase",
+          "id": "@merchant_70",
+          "operation": "unlock_after_task_write",
+          "amount": 1.0,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "player_param",
+          "id": "_rel_npc_merchant",
+          "operation": "add_once_after_task_write",
+          "amount": 10.0,
+          "ownership": "shared_campaign"
+        }
+      ],
+      "safeguards": [
+        "grant_story_points_and_relation_once",
+        "do_not_repair_the_post_task_relation_gain_from_merchant_strategy_complete",
+        "do_not_repair_the_post_task_merchant_70_unlock_from_merchant_strategy_complete",
+        "allow_the_business_expansion_path_to_unlock_merchant_70_independently"
+      ]
+    },
+    {
+      "stepId": "complete_merchant_marketing_goal",
+      "title": "Reach three storage quality and complete Merchant marketing",
+      "linkedQuestIds": [],
+      "linkedTaskMilestoneIds": ["merchant_marketing_completed"],
+      "triggerScripts": ["npc_merchant:merchant_marketing_done"],
+      "triggerKeys": [
+        "@merchant_marketing",
+        "@merchant_marketing_done",
+        "storage_quality",
+        "merchant_marketing",
+        "merchant_marketing_done",
+        "merchent_expend"
+      ],
+      "expectedEffects": [
+        {
+          "kind": "zone_quality",
+          "id": "storage_quality",
+          "operation": "require_at_least",
+          "amount": 3.0,
+          "ownership": "shared_world"
+        },
+        {
+          "kind": "player_param",
+          "id": "_rel_npc_merchant",
+          "operation": "add_once",
+          "amount": 10.0,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "dialogue_phrase",
+          "id": "@merchant_marketing_done",
+          "operation": "blacklist",
+          "amount": 1.0,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "npc_task",
+          "id": "npc_merchant:merchant_marketing",
+          "operation": "complete",
+          "amount": 1.0,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "story_point",
+          "id": "bronze",
+          "operation": "grant_to_initiator",
+          "amount": 5.0,
+          "ownership": "personal_character"
+        },
+        {
+          "kind": "story_point",
+          "id": "silver",
+          "operation": "grant_to_initiator",
+          "amount": 5.0,
+          "ownership": "personal_character"
+        },
+        {
+          "kind": "story_point",
+          "id": "gold",
+          "operation": "grant_to_initiator",
+          "amount": 1.0,
+          "ownership": "personal_character"
+        },
+        {
+          "kind": "wgo_param",
+          "id": "npc_merchant:merchant_marketing_done",
+          "operation": "set_after_task_write",
+          "amount": 1.0,
+          "ownership": "shared_world"
+        }
+      ],
+      "safeguards": [
+        "storage_quality_is_a_live_threshold_not_a_repair_target",
+        "apply_relation_and_story_rewards_once",
+        "do_not_repair_the_post_task_marketing_done_latch_from_task_completion",
+        "do_not_blacklist_the_optional_merchant_marketing_lore_phrase_unless_selected",
+        "invoke_merchent_expend_after_the_latch_write"
+      ]
+    },
+    {
+      "stepId": "complete_merchant_sales_goal",
+      "title": "Sell seven crates and complete Merchant sales",
+      "linkedQuestIds": [],
+      "linkedTaskMilestoneIds": ["merchant_sales_completed"],
+      "triggerScripts": ["npc_merchant:merchant_sales_done"],
+      "triggerKeys": [
+        "@merchant_sales_done",
+        "crates_sold_total",
+        "merchant_sales",
+        "merchant_sales_done",
+        "merchent_expend"
+      ],
+      "expectedEffects": [
+        {
+          "kind": "player_param",
+          "id": "crates_sold_total",
+          "operation": "require_at_least",
+          "amount": 7.0,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "player_param",
+          "id": "_rel_npc_merchant",
+          "operation": "add_once",
+          "amount": 10.0,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "dialogue_phrase",
+          "id": "@merchant_sales_done",
+          "operation": "blacklist",
+          "amount": 1.0,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "npc_task",
+          "id": "npc_merchant:merchant_sales",
+          "operation": "complete",
+          "amount": 1.0,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "story_point",
+          "id": "bronze",
+          "operation": "grant_to_initiator",
+          "amount": 5.0,
+          "ownership": "personal_character"
+        },
+        {
+          "kind": "story_point",
+          "id": "silver",
+          "operation": "grant_to_initiator",
+          "amount": 5.0,
+          "ownership": "personal_character"
+        },
+        {
+          "kind": "story_point",
+          "id": "gold",
+          "operation": "grant_to_initiator",
+          "amount": 1.0,
+          "ownership": "personal_character"
+        },
+        {
+          "kind": "wgo_param",
+          "id": "npc_merchant:merchant_sales_done",
+          "operation": "set_after_task_write",
+          "amount": 1.0,
+          "ownership": "shared_world"
+        }
+      ],
+      "safeguards": [
+        "crates_sold_total_is_a_production_threshold_not_a_repair_target",
+        "apply_relation_and_story_rewards_once",
+        "do_not_repair_the_post_task_sales_done_latch_from_task_completion",
+        "invoke_merchent_expend_after_the_latch_write",
+        "preserve_the_serialized_merchent_expend_spelling"
+      ]
+    },
+    {
+      "stepId": "converge_merchant_marketing_and_sales",
+      "title": "Converge the Merchant's completed marketing and sales plans",
+      "linkedQuestIds": [],
+      "linkedTaskMilestoneIds": [
+        "merchant_marketing_completed",
+        "merchant_sales_completed"
+      ],
+      "triggerScripts": ["npc_merchant:merchent_expend"],
+      "triggerKeys": [
+        "merchant_marketing_done",
+        "merchant_sales_done",
+        "@merchant_business",
+        "@merchant_70",
+        "merchent_expend"
+      ],
+      "expectedEffects": [
+        {
+          "kind": "dialogue_phrase",
+          "id": "@merchant_70",
+          "operation": "unlock_only_when_both_done_latches_are_one",
+          "amount": 1.0,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "dialogue_phrase",
+          "id": "@merchant_business",
+          "operation": "blacklist_only_when_both_done_latches_are_one",
+          "amount": 1.0,
+          "ownership": "shared_campaign"
+        }
+      ],
+      "safeguards": [
+        "both_completed_tasks_must_have_run_their_post_task_latch_writes",
+        "do_not_synthesize_either_done_latch_from_task_completion",
+        "do_not_blacklist_merchant_business_after_only_one_branch",
+        "preserve_the_serialized_merchent_expend_spelling"
+      ]
+    },
+    {
+      "stepId": "request_actress_support_for_merchant",
+      "title": "Hear the Merchant's relation-seventy support plan",
+      "linkedQuestIds": [],
+      "linkedTaskMilestoneIds": ["merchant_support_requested"],
+      "triggerScripts": ["npc_merchant:merchant_70"],
+      "triggerKeys": ["@merchant_70", "merchant_support", "@actress_marketing"],
+      "expectedEffects": [
+        {
+          "kind": "player_param",
+          "id": "_rel_npc_merchant",
+          "operation": "require_at_least",
+          "amount": 70.0,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "dialogue_phrase",
+          "id": "@merchant_70",
+          "operation": "blacklist",
+          "amount": 1.0,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "npc_task",
+          "id": "npc_merchant:merchant_support",
+          "operation": "show",
+          "amount": 1.0,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "dialogue_phrase",
+          "id": "@actress_marketing",
+          "operation": "unlock_after_support_task_write",
+          "amount": 1.0,
+          "ownership": "shared_campaign"
+        }
+      ],
+      "safeguards": [
+        "merchant_70_can_be_unlocked_by_strategy_or_business_convergence",
+        "do_not_infer_which_parallel_branch_unlocked_merchant_70",
+        "repair_only_the_unconditional_actress_marketing_unlock_from_support_visibility",
+        "do_not_advance_merchant_support_without_the_relation_lock"
+      ]
+    },
+    {
+      "stepId": "brief_actress_on_merchant_marketing",
+      "title": "Ask Charm to support the Merchant's marketing plan",
+      "linkedQuestIds": [],
+      "linkedTaskMilestoneIds": ["merchant_support_requested"],
+      "triggerScripts": ["npc_actress:@actress_marketing"],
+      "triggerKeys": ["@actress_marketing", "@actress_ jewelry"],
+      "expectedEffects": [
+        {
+          "kind": "player_param",
+          "id": "_rel_npc_actress",
+          "operation": "require_at_least",
+          "amount": 40.0,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "dialogue_phrase",
+          "id": "@actress_marketing",
+          "operation": "blacklist",
+          "amount": 1.0,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "dialogue_phrase",
+          "id": "@actress_ jewelry",
+          "operation": "unlock",
+          "amount": 1.0,
+          "ownership": "shared_campaign"
+        }
+      ],
+      "safeguards": [
+        "preserve_the_serialized_space_in_actress_jewelry_phrase_id",
+        "do_not_repeat_charm_dialogue_for_observers",
+        "do_not_infer_merchant_support_completion_from_this_pitch"
+      ]
+    },
+    {
+      "stepId": "give_actress_gold_jewelry_for_merchant_marketing",
+      "title": "Give Charm one gold jewelry for the Merchant's marketing",
+      "linkedQuestIds": [],
+      "linkedTaskMilestoneIds": ["merchant_support_requested"],
+      "triggerScripts": ["npc_actress:@actress_ jewelry"],
+      "triggerKeys": [
+        "@actress_ jewelry",
+        "bijouterie_gold",
+        "give_marketing_point",
+        "marketing_point",
+        "@actress_trade",
+        "@merchant_actress"
+      ],
+      "expectedEffects": [
+        {
+          "kind": "inventory_item",
+          "id": "bijouterie_gold",
+          "operation": "consume_from_initiator",
+          "amount": 1.0,
+          "ownership": "personal_character"
+        },
+        {
+          "kind": "dialogue_phrase",
+          "id": "@actress_ jewelry",
+          "operation": "blacklist",
+          "amount": 1.0,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "script",
+          "id": "give_marketing_point",
+          "operation": "run_once",
+          "amount": 1.0,
+          "ownership": "shared_world"
+        },
+        {
+          "kind": "inventory_item",
+          "id": "marketing_point",
+          "operation": "add_once_to_storage_builddesk",
+          "amount": 1.0,
+          "ownership": "shared_world"
+        },
+        {
+          "kind": "dialogue_phrase",
+          "id": "@actress_trade",
+          "operation": "unlock",
+          "amount": 1.0,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "dialogue_phrase",
+          "id": "@merchant_actress",
+          "operation": "unlock",
+          "amount": 1.0,
+          "ownership": "shared_campaign"
+        }
+      ],
+      "safeguards": [
+        "consume_one_gold_jewelry_from_the_initiator_only",
+        "run_give_marketing_point_once_after_the_dialogue",
+        "never_grant_or_regrant_marketing_point_to_player_inventories",
+        "never_duplicate_marketing_point_in_storage_builddesk",
+        "preserve_the_serialized_space_in_actress_jewelry_phrase_id"
+      ]
+    },
+    {
+      "stepId": "confirm_actress_support_with_merchant",
+      "title": "Tell the Merchant that Charm agreed to help",
+      "linkedQuestIds": [],
+      "linkedTaskMilestoneIds": ["merchant_support_completed"],
+      "triggerScripts": ["npc_merchant:@merchant_actress"],
+      "triggerKeys": [
+        "@merchant_actress",
+        "merchant_support",
+        "need_merchant_in_sermon",
+        "merchant_plan_done_event"
+      ],
+      "expectedEffects": [
+        {
+          "kind": "player_param",
+          "id": "_rel_npc_merchant",
+          "operation": "add_once",
+          "amount": 10.0,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "dialogue_phrase",
+          "id": "@merchant_actress",
+          "operation": "blacklist",
+          "amount": 1.0,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "npc_task",
+          "id": "npc_merchant:merchant_support",
+          "operation": "complete",
+          "amount": 1.0,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "story_point",
+          "id": "silver",
+          "operation": "grant_to_initiator",
+          "amount": 5.0,
+          "ownership": "personal_character"
+        },
+        {
+          "kind": "wgo_param",
+          "id": "npc_merchant:merchant_plan_done_event",
+          "operation": "set_only_if_need_merchant_in_sermon_is_zero",
+          "amount": 1.0,
+          "ownership": "shared_world"
+        }
+      ],
+      "safeguards": [
+        "apply_relation_and_story_rewards_once",
+        "do_not_set_merchant_plan_done_event_when_need_merchant_in_sermon_is_one",
+        "never_repair_or_requeue_merchant_plan_done_event_from_support_completion",
+        "church_opening_remains_owner_when_the_sermon_branch_is_already_waiting"
+      ]
+    },
+    {
+      "stepId": "finish_merchant_plan_and_reveal_show_readiness",
+      "title": "Finish the Merchant's plan briefing and reveal ceremony readiness",
+      "linkedQuestIds": [],
+      "linkedTaskMilestoneIds": ["merchant_show_ready"],
+      "triggerScripts": ["npc_merchant:merchant_plan_done_event"],
+      "triggerKeys": ["merchant_plan_done_event", "merchant_plan_done", "merchant_show"],
+      "expectedEffects": [
+        {
+          "kind": "wgo_param",
+          "id": "npc_merchant:merchant_plan_done_event",
+          "operation": "reset_on_event_entry",
+          "amount": 0.0,
+          "ownership": "shared_world"
+        },
+        {
+          "kind": "npc_task",
+          "id": "npc_merchant:merchant_show",
+          "operation": "show_after_dialogue",
+          "amount": 1.0,
+          "ownership": "shared_campaign"
+        }
+      ],
+      "safeguards": [
+        "disable_and_restore_player_control_around_the_event_dialogue",
+        "consume_the_event_latch_once_without_repairing_it",
+        "stop_at_merchant_show_visible",
+        "do_not_complete_merchant_show",
+        "do_not_claim_merchant_ceremony_or_final_ceremony_trigger_ownership",
+        "church_opening_owns_the_accepted_invitation_and_final_ceremony"
+      ]
+    }
+  ]
+}

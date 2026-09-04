@@ -1,0 +1,3026 @@
+{
+  "schemaVersion": 5,
+  "catalogId": "dlc.better-save-soul.rumors-and-third-healing",
+  "campaign": "BetterSaveSoul",
+  "chapter": "ThreeRumorInvestigationThroughThirdHealingFollowup",
+  "quests": [
+    {
+      "questId": "dlc_souls_s_s_30",
+      "title": "Serialized sloth shard achievement checkpoint",
+      "definitionKind": "AchievementDefinition",
+      "counter": 1,
+      "vanilla": {
+        "startTrigger": "",
+        "successTrigger": "1",
+        "failTrigger": "",
+        "startKeys": [
+          "dlc_souls_s_s_30"
+        ],
+        "questVisible": false,
+        "oneTimeQuest": false,
+        "startScript": "",
+        "successScript": "",
+        "failScript": "",
+        "arrowWgoCustomTag": "",
+        "arrowWgoObjectId": "",
+        "successRewards": [],
+        "failureRewards": []
+      },
+      "policy": {
+        "stateOwnership": "shared_campaign",
+        "eligibleInitiator": "any_player",
+        "livePresentationOwner": "initiating_player",
+        "observerQuestApplication": "durable_state_only",
+        "personalRewardDelivery": "party_exactly_once",
+        "observerSuccess": {
+          "globalScripts": [],
+          "playerParamRepairs": [],
+          "playerParamMinimums": [],
+          "taskStateMinimums": [],
+          "unlockedTechs": [],
+          "unlockedPhrases": [],
+          "blacklistedPhrases": [],
+          "unlockedCrafts": [],
+          "completedOneTimeCrafts": [],
+          "personalItemGrants": []
+        }
+      },
+      "completionChecks": []
+    },
+    {
+      "questId": "dlc_souls_s_s_31",
+      "title": "Serialized lust shard achievement checkpoint",
+      "definitionKind": "AchievementDefinition",
+      "counter": 1,
+      "vanilla": {
+        "startTrigger": "",
+        "successTrigger": "1",
+        "failTrigger": "",
+        "startKeys": [
+          "dlc_souls_s_s_31"
+        ],
+        "questVisible": false,
+        "oneTimeQuest": false,
+        "startScript": "",
+        "successScript": "",
+        "failScript": "",
+        "arrowWgoCustomTag": "",
+        "arrowWgoObjectId": "",
+        "successRewards": [],
+        "failureRewards": []
+      },
+      "policy": {
+        "stateOwnership": "shared_campaign",
+        "eligibleInitiator": "any_player",
+        "livePresentationOwner": "initiating_player",
+        "observerQuestApplication": "durable_state_only",
+        "personalRewardDelivery": "party_exactly_once",
+        "observerSuccess": {
+          "globalScripts": [],
+          "playerParamRepairs": [],
+          "playerParamMinimums": [],
+          "taskStateMinimums": [],
+          "unlockedTechs": [],
+          "unlockedPhrases": [],
+          "blacklistedPhrases": [],
+          "unlockedCrafts": [],
+          "completedOneTimeCrafts": [],
+          "personalItemGrants": []
+        }
+      },
+      "completionChecks": []
+    },
+    {
+      "questId": "dlc_souls_s_s_33",
+      "title": "Serialized envy shard achievement checkpoint",
+      "definitionKind": "AchievementDefinition",
+      "counter": 1,
+      "vanilla": {
+        "startTrigger": "",
+        "successTrigger": "1",
+        "failTrigger": "",
+        "startKeys": [
+          "dlc_souls_s_s_33"
+        ],
+        "questVisible": false,
+        "oneTimeQuest": false,
+        "startScript": "",
+        "successScript": "",
+        "failScript": "",
+        "arrowWgoCustomTag": "",
+        "arrowWgoObjectId": "",
+        "successRewards": [],
+        "failureRewards": []
+      },
+      "policy": {
+        "stateOwnership": "shared_campaign",
+        "eligibleInitiator": "any_player",
+        "livePresentationOwner": "initiating_player",
+        "observerQuestApplication": "durable_state_only",
+        "personalRewardDelivery": "party_exactly_once",
+        "observerSuccess": {
+          "globalScripts": [],
+          "playerParamRepairs": [],
+          "playerParamMinimums": [],
+          "taskStateMinimums": [],
+          "unlockedTechs": [],
+          "unlockedPhrases": [],
+          "blacklistedPhrases": [],
+          "unlockedCrafts": [],
+          "completedOneTimeCrafts": [],
+          "personalItemGrants": []
+        }
+      },
+      "completionChecks": []
+    },
+    {
+      "questId": "dlc_souls_s_s_34",
+      "title": "Serialized third soul-healing achievement checkpoint",
+      "definitionKind": "AchievementDefinition",
+      "counter": 1,
+      "vanilla": {
+        "startTrigger": "",
+        "successTrigger": "1",
+        "failTrigger": "",
+        "startKeys": [
+          "dlc_souls_s_s_34"
+        ],
+        "questVisible": false,
+        "oneTimeQuest": false,
+        "startScript": "",
+        "successScript": "",
+        "failScript": "",
+        "arrowWgoCustomTag": "",
+        "arrowWgoObjectId": "",
+        "successRewards": [],
+        "failureRewards": []
+      },
+      "policy": {
+        "stateOwnership": "shared_campaign",
+        "eligibleInitiator": "any_player",
+        "livePresentationOwner": "initiating_player",
+        "observerQuestApplication": "durable_state_only",
+        "personalRewardDelivery": "party_exactly_once",
+        "observerSuccess": {
+          "globalScripts": [],
+          "playerParamRepairs": [],
+          "playerParamMinimums": [],
+          "taskStateMinimums": [],
+          "unlockedTechs": [],
+          "unlockedPhrases": [],
+          "blacklistedPhrases": [],
+          "unlockedCrafts": [],
+          "completedOneTimeCrafts": [],
+          "personalItemGrants": []
+        }
+      },
+      "completionChecks": []
+    }
+  ],
+  "taskMilestones": [
+    {
+      "milestoneId": "better_save_soul_three_rumor_briefing_entered",
+      "npcId": "npc_euric",
+      "taskId": "dlc_souls_s28_1",
+      "activeStates": [
+        "Complete"
+      ],
+      "playerParamRepairs": [],
+      "playerParamMinimums": [
+        {
+          "key": "soul_min",
+          "value": 3
+        },
+        {
+          "key": "soul_max",
+          "value": 4
+        },
+        {
+          "key": "is_s_s15_done",
+          "value": 1
+        },
+        {
+          "key": "ev_s_s17_ready_start",
+          "value": 1
+        },
+        {
+          "key": "ev_s_s27_ready_start",
+          "value": 1
+        },
+        {
+          "key": "done_sauce_for_meal",
+          "value": 1
+        }
+      ],
+      "taskStateMinimums": [
+        {
+          "npcId": "npc_euric",
+          "taskId": "dlc_souls_s19_2",
+          "state": "Complete"
+        },
+        {
+          "npcId": "npc_euric",
+          "taskId": "dlc_souls_s25",
+          "state": "Complete"
+        },
+        {
+          "npcId": "npc_inquisitor",
+          "taskId": "dlc_souls_s21_2",
+          "state": "Complete"
+        },
+        {
+          "npcId": "npc_merchant",
+          "taskId": "dlc_souls_s23_2",
+          "state": "Complete"
+        }
+      ],
+      "unlockedTechs": [
+        "soul_sins_1",
+        "soul_sins_2",
+        "soul_buildings",
+        "soul_sins_3",
+        "soul_sins_4"
+      ],
+      "unlockedPhrases": [
+        "@souls_s_s20_1_ask",
+        "@souls_s_s28_ask"
+      ],
+      "blacklistedPhrases": [
+        "@souls_s_s15_ask",
+        "@souls_s_s16_1_ask",
+        "@souls_s_s19_ask",
+        "@souls_s_s20_2_ask",
+        "@souls_s_s23_ask",
+        "@souls_s_s24_ask",
+        "@souls_s_s28_ask"
+      ],
+      "unlockedCrafts": [
+        "souls_builddesk:p:soul_container_place",
+        "souls_builddesk::soul_workbench",
+        "souls_builddesk::pride_healing_extension",
+        "fake_global_craft",
+        "souls_builddesk::soul_healing_for_human",
+        "pride_charged_shard_insert",
+        "souls_builddesk:p:soul_container_2_place",
+        "souls_builddesk::soul_extractor_upgrd_to_2",
+        "souls_builddesk::wrath_healing_extension",
+        "souls_builddesk::gluttony_healing_extension",
+        "sauce_for_meal",
+        "wrath_charged_shard_insert",
+        "gluttony_charged_shard_insert",
+        "souls_builddesk::sloth_healing_extension",
+        "souls_builddesk::lust_healing_extension",
+        "souls_builddesk::envy_healing_extension"
+      ],
+      "completedOneTimeCrafts": [
+        "souls_builddesk::soul_healing_for_human",
+        "sauce_for_meal"
+      ],
+      "wgoParamMinimums": [],
+      "personalItemGrants": []
+    },
+    {
+      "milestoneId": "better_save_soul_three_rumor_routes_opened",
+      "npcId": "npc_euric",
+      "taskId": "dlc_souls_s28_2",
+      "activeStates": [
+        "Visible"
+      ],
+      "playerParamRepairs": [],
+      "playerParamMinimums": [
+        {
+          "key": "soul_min",
+          "value": 3
+        },
+        {
+          "key": "soul_max",
+          "value": 4
+        },
+        {
+          "key": "is_s_s15_done",
+          "value": 1
+        },
+        {
+          "key": "ev_s_s17_ready_start",
+          "value": 1
+        },
+        {
+          "key": "ev_s_s27_ready_start",
+          "value": 1
+        },
+        {
+          "key": "done_sauce_for_meal",
+          "value": 1
+        }
+      ],
+      "taskStateMinimums": [
+        {
+          "npcId": "npc_euric",
+          "taskId": "dlc_souls_s19_2",
+          "state": "Complete"
+        },
+        {
+          "npcId": "npc_euric",
+          "taskId": "dlc_souls_s25",
+          "state": "Complete"
+        },
+        {
+          "npcId": "npc_inquisitor",
+          "taskId": "dlc_souls_s21_2",
+          "state": "Complete"
+        },
+        {
+          "npcId": "npc_merchant",
+          "taskId": "dlc_souls_s23_2",
+          "state": "Complete"
+        },
+        {
+          "npcId": "npc_euric",
+          "taskId": "dlc_souls_s28_1",
+          "state": "Complete"
+        }
+      ],
+      "unlockedTechs": [
+        "soul_sins_1",
+        "soul_sins_2",
+        "soul_buildings",
+        "soul_sins_3",
+        "soul_sins_4"
+      ],
+      "unlockedPhrases": [
+        "@souls_s_s20_1_ask",
+        "@souls_s_s28_ask",
+        "@souls_s_s29_1_1_ask",
+        "@souls_s_s29_1_2_ask",
+        "@souls_s_s29_1_3_ask"
+      ],
+      "blacklistedPhrases": [
+        "@souls_s_s15_ask",
+        "@souls_s_s16_1_ask",
+        "@souls_s_s19_ask",
+        "@souls_s_s20_2_ask",
+        "@souls_s_s23_ask",
+        "@souls_s_s24_ask",
+        "@souls_s_s28_ask"
+      ],
+      "unlockedCrafts": [
+        "souls_builddesk:p:soul_container_place",
+        "souls_builddesk::soul_workbench",
+        "souls_builddesk::pride_healing_extension",
+        "fake_global_craft",
+        "souls_builddesk::soul_healing_for_human",
+        "pride_charged_shard_insert",
+        "souls_builddesk:p:soul_container_2_place",
+        "souls_builddesk::soul_extractor_upgrd_to_2",
+        "souls_builddesk::wrath_healing_extension",
+        "souls_builddesk::gluttony_healing_extension",
+        "sauce_for_meal",
+        "wrath_charged_shard_insert",
+        "gluttony_charged_shard_insert",
+        "souls_builddesk::sloth_healing_extension",
+        "souls_builddesk::lust_healing_extension",
+        "souls_builddesk::envy_healing_extension"
+      ],
+      "completedOneTimeCrafts": [
+        "souls_builddesk::soul_healing_for_human",
+        "sauce_for_meal"
+      ],
+      "wgoParamMinimums": [],
+      "personalItemGrants": []
+    },
+    {
+      "milestoneId": "better_save_soul_sloth_lead_opened",
+      "npcId": "npc_astrologer",
+      "taskId": "dlc_souls_s29_1",
+      "activeStates": [
+        "Visible"
+      ],
+      "playerParamRepairs": [],
+      "playerParamMinimums": [
+        {
+          "key": "soul_min",
+          "value": 3
+        },
+        {
+          "key": "soul_max",
+          "value": 4
+        },
+        {
+          "key": "is_s_s15_done",
+          "value": 1
+        },
+        {
+          "key": "ev_s_s17_ready_start",
+          "value": 1
+        },
+        {
+          "key": "ev_s_s27_ready_start",
+          "value": 1
+        },
+        {
+          "key": "done_sauce_for_meal",
+          "value": 1
+        }
+      ],
+      "taskStateMinimums": [
+        {
+          "npcId": "npc_euric",
+          "taskId": "dlc_souls_s19_2",
+          "state": "Complete"
+        },
+        {
+          "npcId": "npc_euric",
+          "taskId": "dlc_souls_s25",
+          "state": "Complete"
+        },
+        {
+          "npcId": "npc_inquisitor",
+          "taskId": "dlc_souls_s21_2",
+          "state": "Complete"
+        },
+        {
+          "npcId": "npc_merchant",
+          "taskId": "dlc_souls_s23_2",
+          "state": "Complete"
+        },
+        {
+          "npcId": "npc_euric",
+          "taskId": "dlc_souls_s28_1",
+          "state": "Complete"
+        },
+        {
+          "npcId": "npc_euric",
+          "taskId": "dlc_souls_s28_2",
+          "state": "Visible"
+        }
+      ],
+      "unlockedTechs": [
+        "soul_sins_1",
+        "soul_sins_2",
+        "soul_buildings",
+        "soul_sins_3",
+        "soul_sins_4"
+      ],
+      "unlockedPhrases": [
+        "@souls_s_s20_1_ask",
+        "@souls_s_s28_ask",
+        "@souls_s_s29_1_1_ask",
+        "@souls_s_s29_1_2_ask",
+        "@souls_s_s29_1_3_ask",
+        "@souls_s_s30_ask"
+      ],
+      "blacklistedPhrases": [
+        "@souls_s_s15_ask",
+        "@souls_s_s16_1_ask",
+        "@souls_s_s19_ask",
+        "@souls_s_s20_2_ask",
+        "@souls_s_s23_ask",
+        "@souls_s_s24_ask",
+        "@souls_s_s28_ask",
+        "@souls_s_s29_1_1_ask"
+      ],
+      "unlockedCrafts": [
+        "souls_builddesk:p:soul_container_place",
+        "souls_builddesk::soul_workbench",
+        "souls_builddesk::pride_healing_extension",
+        "fake_global_craft",
+        "souls_builddesk::soul_healing_for_human",
+        "pride_charged_shard_insert",
+        "souls_builddesk:p:soul_container_2_place",
+        "souls_builddesk::soul_extractor_upgrd_to_2",
+        "souls_builddesk::wrath_healing_extension",
+        "souls_builddesk::gluttony_healing_extension",
+        "sauce_for_meal",
+        "wrath_charged_shard_insert",
+        "gluttony_charged_shard_insert",
+        "souls_builddesk::sloth_healing_extension",
+        "souls_builddesk::lust_healing_extension",
+        "souls_builddesk::envy_healing_extension"
+      ],
+      "completedOneTimeCrafts": [
+        "souls_builddesk::soul_healing_for_human",
+        "sauce_for_meal"
+      ],
+      "wgoParamMinimums": [],
+      "personalItemGrants": []
+    },
+    {
+      "milestoneId": "better_save_soul_sloth_charge_task_completed",
+      "npcId": "npc_astrologer",
+      "taskId": "dlc_souls_s29_1",
+      "activeStates": [
+        "Complete"
+      ],
+      "playerParamRepairs": [],
+      "playerParamMinimums": [
+        {
+          "key": "soul_min",
+          "value": 3
+        },
+        {
+          "key": "soul_max",
+          "value": 4
+        },
+        {
+          "key": "is_s_s15_done",
+          "value": 1
+        },
+        {
+          "key": "ev_s_s17_ready_start",
+          "value": 1
+        },
+        {
+          "key": "ev_s_s27_ready_start",
+          "value": 1
+        },
+        {
+          "key": "done_sauce_for_meal",
+          "value": 1
+        }
+      ],
+      "taskStateMinimums": [
+        {
+          "npcId": "npc_euric",
+          "taskId": "dlc_souls_s19_2",
+          "state": "Complete"
+        },
+        {
+          "npcId": "npc_euric",
+          "taskId": "dlc_souls_s25",
+          "state": "Complete"
+        },
+        {
+          "npcId": "npc_inquisitor",
+          "taskId": "dlc_souls_s21_2",
+          "state": "Complete"
+        },
+        {
+          "npcId": "npc_merchant",
+          "taskId": "dlc_souls_s23_2",
+          "state": "Complete"
+        },
+        {
+          "npcId": "npc_euric",
+          "taskId": "dlc_souls_s28_1",
+          "state": "Complete"
+        },
+        {
+          "npcId": "npc_euric",
+          "taskId": "dlc_souls_s28_2",
+          "state": "Visible"
+        }
+      ],
+      "unlockedTechs": [
+        "soul_sins_1",
+        "soul_sins_2",
+        "soul_buildings",
+        "soul_sins_3",
+        "soul_sins_4"
+      ],
+      "unlockedPhrases": [
+        "@souls_s_s20_1_ask",
+        "@souls_s_s28_ask",
+        "@souls_s_s29_1_1_ask",
+        "@souls_s_s29_1_2_ask",
+        "@souls_s_s29_1_3_ask",
+        "@souls_s_s30_ask"
+      ],
+      "blacklistedPhrases": [
+        "@souls_s_s15_ask",
+        "@souls_s_s16_1_ask",
+        "@souls_s_s19_ask",
+        "@souls_s_s20_2_ask",
+        "@souls_s_s23_ask",
+        "@souls_s_s24_ask",
+        "@souls_s_s28_ask",
+        "@souls_s_s29_1_1_ask",
+        "@souls_s_s30_ask"
+      ],
+      "unlockedCrafts": [
+        "souls_builddesk:p:soul_container_place",
+        "souls_builddesk::soul_workbench",
+        "souls_builddesk::pride_healing_extension",
+        "fake_global_craft",
+        "souls_builddesk::soul_healing_for_human",
+        "pride_charged_shard_insert",
+        "souls_builddesk:p:soul_container_2_place",
+        "souls_builddesk::soul_extractor_upgrd_to_2",
+        "souls_builddesk::wrath_healing_extension",
+        "souls_builddesk::gluttony_healing_extension",
+        "sauce_for_meal",
+        "wrath_charged_shard_insert",
+        "gluttony_charged_shard_insert",
+        "souls_builddesk::sloth_healing_extension",
+        "souls_builddesk::lust_healing_extension",
+        "souls_builddesk::envy_healing_extension"
+      ],
+      "completedOneTimeCrafts": [
+        "souls_builddesk::soul_healing_for_human",
+        "sauce_for_meal"
+      ],
+      "wgoParamMinimums": [],
+      "personalItemGrants": []
+    },
+    {
+      "milestoneId": "better_save_soul_lust_lead_opened",
+      "npcId": "npc_actress",
+      "taskId": "dlc_souls_s29_2",
+      "activeStates": [
+        "Visible"
+      ],
+      "playerParamRepairs": [],
+      "playerParamMinimums": [
+        {
+          "key": "soul_min",
+          "value": 3
+        },
+        {
+          "key": "soul_max",
+          "value": 4
+        },
+        {
+          "key": "is_s_s15_done",
+          "value": 1
+        },
+        {
+          "key": "ev_s_s17_ready_start",
+          "value": 1
+        },
+        {
+          "key": "ev_s_s27_ready_start",
+          "value": 1
+        },
+        {
+          "key": "done_sauce_for_meal",
+          "value": 1
+        }
+      ],
+      "taskStateMinimums": [
+        {
+          "npcId": "npc_euric",
+          "taskId": "dlc_souls_s19_2",
+          "state": "Complete"
+        },
+        {
+          "npcId": "npc_euric",
+          "taskId": "dlc_souls_s25",
+          "state": "Complete"
+        },
+        {
+          "npcId": "npc_inquisitor",
+          "taskId": "dlc_souls_s21_2",
+          "state": "Complete"
+        },
+        {
+          "npcId": "npc_merchant",
+          "taskId": "dlc_souls_s23_2",
+          "state": "Complete"
+        },
+        {
+          "npcId": "npc_euric",
+          "taskId": "dlc_souls_s28_1",
+          "state": "Complete"
+        },
+        {
+          "npcId": "npc_euric",
+          "taskId": "dlc_souls_s28_2",
+          "state": "Visible"
+        }
+      ],
+      "unlockedTechs": [
+        "soul_sins_1",
+        "soul_sins_2",
+        "soul_buildings",
+        "soul_sins_3",
+        "soul_sins_4"
+      ],
+      "unlockedPhrases": [
+        "@souls_s_s20_1_ask",
+        "@souls_s_s28_ask",
+        "@souls_s_s29_1_1_ask",
+        "@souls_s_s29_1_2_ask",
+        "@souls_s_s29_1_3_ask",
+        "@souls_s_s31_ask"
+      ],
+      "blacklistedPhrases": [
+        "@souls_s_s15_ask",
+        "@souls_s_s16_1_ask",
+        "@souls_s_s19_ask",
+        "@souls_s_s20_2_ask",
+        "@souls_s_s23_ask",
+        "@souls_s_s24_ask",
+        "@souls_s_s28_ask",
+        "@souls_s_s29_1_2_ask"
+      ],
+      "unlockedCrafts": [
+        "souls_builddesk:p:soul_container_place",
+        "souls_builddesk::soul_workbench",
+        "souls_builddesk::pride_healing_extension",
+        "fake_global_craft",
+        "souls_builddesk::soul_healing_for_human",
+        "pride_charged_shard_insert",
+        "souls_builddesk:p:soul_container_2_place",
+        "souls_builddesk::soul_extractor_upgrd_to_2",
+        "souls_builddesk::wrath_healing_extension",
+        "souls_builddesk::gluttony_healing_extension",
+        "sauce_for_meal",
+        "wrath_charged_shard_insert",
+        "gluttony_charged_shard_insert",
+        "souls_builddesk::sloth_healing_extension",
+        "souls_builddesk::lust_healing_extension",
+        "souls_builddesk::envy_healing_extension"
+      ],
+      "completedOneTimeCrafts": [
+        "souls_builddesk::soul_healing_for_human",
+        "sauce_for_meal"
+      ],
+      "wgoParamMinimums": [],
+      "personalItemGrants": []
+    },
+    {
+      "milestoneId": "better_save_soul_lust_charge_task_advanced",
+      "npcId": "npc_actress",
+      "taskId": "dlc_souls_s29_2",
+      "activeStates": [
+        "Complete"
+      ],
+      "playerParamRepairs": [],
+      "playerParamMinimums": [
+        {
+          "key": "soul_min",
+          "value": 3
+        },
+        {
+          "key": "soul_max",
+          "value": 4
+        },
+        {
+          "key": "is_s_s15_done",
+          "value": 1
+        },
+        {
+          "key": "ev_s_s17_ready_start",
+          "value": 1
+        },
+        {
+          "key": "ev_s_s27_ready_start",
+          "value": 1
+        },
+        {
+          "key": "done_sauce_for_meal",
+          "value": 1
+        }
+      ],
+      "taskStateMinimums": [
+        {
+          "npcId": "npc_euric",
+          "taskId": "dlc_souls_s19_2",
+          "state": "Complete"
+        },
+        {
+          "npcId": "npc_euric",
+          "taskId": "dlc_souls_s25",
+          "state": "Complete"
+        },
+        {
+          "npcId": "npc_inquisitor",
+          "taskId": "dlc_souls_s21_2",
+          "state": "Complete"
+        },
+        {
+          "npcId": "npc_merchant",
+          "taskId": "dlc_souls_s23_2",
+          "state": "Complete"
+        },
+        {
+          "npcId": "npc_euric",
+          "taskId": "dlc_souls_s28_1",
+          "state": "Complete"
+        },
+        {
+          "npcId": "npc_euric",
+          "taskId": "dlc_souls_s28_2",
+          "state": "Visible"
+        }
+      ],
+      "unlockedTechs": [
+        "soul_sins_1",
+        "soul_sins_2",
+        "soul_buildings",
+        "soul_sins_3",
+        "soul_sins_4"
+      ],
+      "unlockedPhrases": [
+        "@souls_s_s20_1_ask",
+        "@souls_s_s28_ask",
+        "@souls_s_s29_1_1_ask",
+        "@souls_s_s29_1_2_ask",
+        "@souls_s_s29_1_3_ask",
+        "@souls_s_s31_ask"
+      ],
+      "blacklistedPhrases": [
+        "@souls_s_s15_ask",
+        "@souls_s_s16_1_ask",
+        "@souls_s_s19_ask",
+        "@souls_s_s20_2_ask",
+        "@souls_s_s23_ask",
+        "@souls_s_s24_ask",
+        "@souls_s_s28_ask",
+        "@souls_s_s29_1_2_ask",
+        "@souls_s_s31_ask"
+      ],
+      "unlockedCrafts": [
+        "souls_builddesk:p:soul_container_place",
+        "souls_builddesk::soul_workbench",
+        "souls_builddesk::pride_healing_extension",
+        "fake_global_craft",
+        "souls_builddesk::soul_healing_for_human",
+        "pride_charged_shard_insert",
+        "souls_builddesk:p:soul_container_2_place",
+        "souls_builddesk::soul_extractor_upgrd_to_2",
+        "souls_builddesk::wrath_healing_extension",
+        "souls_builddesk::gluttony_healing_extension",
+        "sauce_for_meal",
+        "wrath_charged_shard_insert",
+        "gluttony_charged_shard_insert",
+        "souls_builddesk::sloth_healing_extension",
+        "souls_builddesk::lust_healing_extension",
+        "souls_builddesk::envy_healing_extension"
+      ],
+      "completedOneTimeCrafts": [
+        "souls_builddesk::soul_healing_for_human",
+        "sauce_for_meal"
+      ],
+      "wgoParamMinimums": [],
+      "personalItemGrants": []
+    },
+    {
+      "milestoneId": "better_save_soul_envy_lead_opened",
+      "npcId": "npc_cultist",
+      "taskId": "dlc_souls_s29_3",
+      "activeStates": [
+        "Visible"
+      ],
+      "playerParamRepairs": [],
+      "playerParamMinimums": [
+        {
+          "key": "soul_min",
+          "value": 3
+        },
+        {
+          "key": "soul_max",
+          "value": 4
+        },
+        {
+          "key": "is_s_s15_done",
+          "value": 1
+        },
+        {
+          "key": "ev_s_s17_ready_start",
+          "value": 1
+        },
+        {
+          "key": "ev_s_s27_ready_start",
+          "value": 1
+        },
+        {
+          "key": "done_sauce_for_meal",
+          "value": 1
+        }
+      ],
+      "taskStateMinimums": [
+        {
+          "npcId": "npc_euric",
+          "taskId": "dlc_souls_s19_2",
+          "state": "Complete"
+        },
+        {
+          "npcId": "npc_euric",
+          "taskId": "dlc_souls_s25",
+          "state": "Complete"
+        },
+        {
+          "npcId": "npc_inquisitor",
+          "taskId": "dlc_souls_s21_2",
+          "state": "Complete"
+        },
+        {
+          "npcId": "npc_merchant",
+          "taskId": "dlc_souls_s23_2",
+          "state": "Complete"
+        },
+        {
+          "npcId": "npc_euric",
+          "taskId": "dlc_souls_s28_1",
+          "state": "Complete"
+        },
+        {
+          "npcId": "npc_euric",
+          "taskId": "dlc_souls_s28_2",
+          "state": "Visible"
+        }
+      ],
+      "unlockedTechs": [
+        "soul_sins_1",
+        "soul_sins_2",
+        "soul_buildings",
+        "soul_sins_3",
+        "soul_sins_4"
+      ],
+      "unlockedPhrases": [
+        "@souls_s_s20_1_ask",
+        "@souls_s_s28_ask",
+        "@souls_s_s29_1_1_ask",
+        "@souls_s_s29_1_2_ask",
+        "@souls_s_s29_1_3_ask",
+        "@souls_s_s33_ask"
+      ],
+      "blacklistedPhrases": [
+        "@souls_s_s15_ask",
+        "@souls_s_s16_1_ask",
+        "@souls_s_s19_ask",
+        "@souls_s_s20_2_ask",
+        "@souls_s_s23_ask",
+        "@souls_s_s24_ask",
+        "@souls_s_s28_ask",
+        "@souls_s_s29_1_3_ask"
+      ],
+      "unlockedCrafts": [
+        "souls_builddesk:p:soul_container_place",
+        "souls_builddesk::soul_workbench",
+        "souls_builddesk::pride_healing_extension",
+        "fake_global_craft",
+        "souls_builddesk::soul_healing_for_human",
+        "pride_charged_shard_insert",
+        "souls_builddesk:p:soul_container_2_place",
+        "souls_builddesk::soul_extractor_upgrd_to_2",
+        "souls_builddesk::wrath_healing_extension",
+        "souls_builddesk::gluttony_healing_extension",
+        "sauce_for_meal",
+        "wrath_charged_shard_insert",
+        "gluttony_charged_shard_insert",
+        "souls_builddesk::sloth_healing_extension",
+        "souls_builddesk::lust_healing_extension",
+        "souls_builddesk::envy_healing_extension"
+      ],
+      "completedOneTimeCrafts": [
+        "souls_builddesk::soul_healing_for_human",
+        "sauce_for_meal"
+      ],
+      "wgoParamMinimums": [],
+      "personalItemGrants": []
+    },
+    {
+      "milestoneId": "better_save_soul_envy_charge_task_advanced",
+      "npcId": "npc_cultist",
+      "taskId": "dlc_souls_s29_3",
+      "activeStates": [
+        "Complete"
+      ],
+      "playerParamRepairs": [],
+      "playerParamMinimums": [
+        {
+          "key": "soul_min",
+          "value": 3
+        },
+        {
+          "key": "soul_max",
+          "value": 4
+        },
+        {
+          "key": "is_s_s15_done",
+          "value": 1
+        },
+        {
+          "key": "ev_s_s17_ready_start",
+          "value": 1
+        },
+        {
+          "key": "ev_s_s27_ready_start",
+          "value": 1
+        },
+        {
+          "key": "done_sauce_for_meal",
+          "value": 1
+        }
+      ],
+      "taskStateMinimums": [
+        {
+          "npcId": "npc_euric",
+          "taskId": "dlc_souls_s19_2",
+          "state": "Complete"
+        },
+        {
+          "npcId": "npc_euric",
+          "taskId": "dlc_souls_s25",
+          "state": "Complete"
+        },
+        {
+          "npcId": "npc_inquisitor",
+          "taskId": "dlc_souls_s21_2",
+          "state": "Complete"
+        },
+        {
+          "npcId": "npc_merchant",
+          "taskId": "dlc_souls_s23_2",
+          "state": "Complete"
+        },
+        {
+          "npcId": "npc_euric",
+          "taskId": "dlc_souls_s28_1",
+          "state": "Complete"
+        },
+        {
+          "npcId": "npc_euric",
+          "taskId": "dlc_souls_s28_2",
+          "state": "Visible"
+        }
+      ],
+      "unlockedTechs": [
+        "soul_sins_1",
+        "soul_sins_2",
+        "soul_buildings",
+        "soul_sins_3",
+        "soul_sins_4"
+      ],
+      "unlockedPhrases": [
+        "@souls_s_s20_1_ask",
+        "@souls_s_s28_ask",
+        "@souls_s_s29_1_1_ask",
+        "@souls_s_s29_1_2_ask",
+        "@souls_s_s29_1_3_ask",
+        "@souls_s_s33_ask"
+      ],
+      "blacklistedPhrases": [
+        "@souls_s_s15_ask",
+        "@souls_s_s16_1_ask",
+        "@souls_s_s19_ask",
+        "@souls_s_s20_2_ask",
+        "@souls_s_s23_ask",
+        "@souls_s_s24_ask",
+        "@souls_s_s28_ask",
+        "@souls_s_s29_1_3_ask",
+        "@souls_s_s33_ask"
+      ],
+      "unlockedCrafts": [
+        "souls_builddesk:p:soul_container_place",
+        "souls_builddesk::soul_workbench",
+        "souls_builddesk::pride_healing_extension",
+        "fake_global_craft",
+        "souls_builddesk::soul_healing_for_human",
+        "pride_charged_shard_insert",
+        "souls_builddesk:p:soul_container_2_place",
+        "souls_builddesk::soul_extractor_upgrd_to_2",
+        "souls_builddesk::wrath_healing_extension",
+        "souls_builddesk::gluttony_healing_extension",
+        "sauce_for_meal",
+        "wrath_charged_shard_insert",
+        "gluttony_charged_shard_insert",
+        "souls_builddesk::sloth_healing_extension",
+        "souls_builddesk::lust_healing_extension",
+        "souls_builddesk::envy_healing_extension"
+      ],
+      "completedOneTimeCrafts": [
+        "souls_builddesk::soul_healing_for_human",
+        "sauce_for_meal"
+      ],
+      "wgoParamMinimums": [],
+      "personalItemGrants": []
+    },
+    {
+      "milestoneId": "better_save_soul_third_healing_entered",
+      "npcId": "npc_euric",
+      "taskId": "dlc_souls_s28_2",
+      "activeStates": [
+        "Complete"
+      ],
+      "playerParamRepairs": [],
+      "playerParamMinimums": [
+        {
+          "key": "soul_min",
+          "value": 3
+        },
+        {
+          "key": "soul_max",
+          "value": 4
+        },
+        {
+          "key": "is_s_s15_done",
+          "value": 1
+        },
+        {
+          "key": "ev_s_s17_ready_start",
+          "value": 1
+        },
+        {
+          "key": "ev_s_s27_ready_start",
+          "value": 1
+        },
+        {
+          "key": "done_sauce_for_meal",
+          "value": 1
+        }
+      ],
+      "taskStateMinimums": [
+        {
+          "npcId": "npc_euric",
+          "taskId": "dlc_souls_s19_2",
+          "state": "Complete"
+        },
+        {
+          "npcId": "npc_euric",
+          "taskId": "dlc_souls_s25",
+          "state": "Complete"
+        },
+        {
+          "npcId": "npc_inquisitor",
+          "taskId": "dlc_souls_s21_2",
+          "state": "Complete"
+        },
+        {
+          "npcId": "npc_merchant",
+          "taskId": "dlc_souls_s23_2",
+          "state": "Complete"
+        },
+        {
+          "npcId": "npc_euric",
+          "taskId": "dlc_souls_s28_1",
+          "state": "Complete"
+        },
+        {
+          "npcId": "npc_astrologer",
+          "taskId": "dlc_souls_s29_1",
+          "state": "Complete"
+        },
+        {
+          "npcId": "npc_actress",
+          "taskId": "dlc_souls_s29_2",
+          "state": "Complete"
+        },
+        {
+          "npcId": "npc_cultist",
+          "taskId": "dlc_souls_s29_3",
+          "state": "Complete"
+        }
+      ],
+      "unlockedTechs": [
+        "soul_sins_1",
+        "soul_sins_2",
+        "soul_buildings",
+        "soul_sins_3",
+        "soul_sins_4"
+      ],
+      "unlockedPhrases": [
+        "@souls_s_s20_1_ask",
+        "@souls_s_s28_ask",
+        "@souls_s_s29_1_1_ask",
+        "@souls_s_s29_1_2_ask",
+        "@souls_s_s29_1_3_ask",
+        "@souls_s_s30_ask",
+        "@souls_s_s31_ask",
+        "@souls_s_s33_ask"
+      ],
+      "blacklistedPhrases": [
+        "@souls_s_s15_ask",
+        "@souls_s_s16_1_ask",
+        "@souls_s_s19_ask",
+        "@souls_s_s20_2_ask",
+        "@souls_s_s23_ask",
+        "@souls_s_s24_ask",
+        "@souls_s_s28_ask",
+        "@souls_s_s29_1_1_ask",
+        "@souls_s_s29_1_2_ask",
+        "@souls_s_s29_1_3_ask",
+        "@souls_s_s30_ask",
+        "@souls_s_s31_ask",
+        "@souls_s_s33_ask"
+      ],
+      "unlockedCrafts": [
+        "souls_builddesk:p:soul_container_place",
+        "souls_builddesk::soul_workbench",
+        "souls_builddesk::pride_healing_extension",
+        "fake_global_craft",
+        "souls_builddesk::soul_healing_for_human",
+        "pride_charged_shard_insert",
+        "souls_builddesk:p:soul_container_2_place",
+        "souls_builddesk::soul_extractor_upgrd_to_2",
+        "souls_builddesk::wrath_healing_extension",
+        "souls_builddesk::gluttony_healing_extension",
+        "sauce_for_meal",
+        "wrath_charged_shard_insert",
+        "gluttony_charged_shard_insert",
+        "souls_builddesk::sloth_healing_extension",
+        "souls_builddesk::lust_healing_extension",
+        "souls_builddesk::envy_healing_extension"
+      ],
+      "completedOneTimeCrafts": [
+        "souls_builddesk::soul_healing_for_human",
+        "sauce_for_meal"
+      ],
+      "wgoParamMinimums": [],
+      "personalItemGrants": []
+    },
+    {
+      "milestoneId": "better_save_soul_third_healing_wait_started",
+      "npcId": "npc_euric",
+      "taskId": "dlc_souls_s34_w8_day",
+      "activeStates": [
+        "Visible"
+      ],
+      "playerParamRepairs": [],
+      "playerParamMinimums": [
+        {
+          "key": "soul_min",
+          "value": 3
+        },
+        {
+          "key": "soul_max",
+          "value": 4
+        },
+        {
+          "key": "is_s_s15_done",
+          "value": 1
+        },
+        {
+          "key": "ev_s_s17_ready_start",
+          "value": 1
+        },
+        {
+          "key": "ev_s_s27_ready_start",
+          "value": 1
+        },
+        {
+          "key": "done_sauce_for_meal",
+          "value": 1
+        }
+      ],
+      "taskStateMinimums": [
+        {
+          "npcId": "npc_euric",
+          "taskId": "dlc_souls_s19_2",
+          "state": "Complete"
+        },
+        {
+          "npcId": "npc_euric",
+          "taskId": "dlc_souls_s25",
+          "state": "Complete"
+        },
+        {
+          "npcId": "npc_inquisitor",
+          "taskId": "dlc_souls_s21_2",
+          "state": "Complete"
+        },
+        {
+          "npcId": "npc_merchant",
+          "taskId": "dlc_souls_s23_2",
+          "state": "Complete"
+        },
+        {
+          "npcId": "npc_euric",
+          "taskId": "dlc_souls_s28_1",
+          "state": "Complete"
+        },
+        {
+          "npcId": "npc_euric",
+          "taskId": "dlc_souls_s28_2",
+          "state": "Complete"
+        },
+        {
+          "npcId": "npc_astrologer",
+          "taskId": "dlc_souls_s29_1",
+          "state": "Complete"
+        },
+        {
+          "npcId": "npc_actress",
+          "taskId": "dlc_souls_s29_2",
+          "state": "Complete"
+        },
+        {
+          "npcId": "npc_cultist",
+          "taskId": "dlc_souls_s29_3",
+          "state": "Complete"
+        }
+      ],
+      "unlockedTechs": [
+        "soul_sins_1",
+        "soul_sins_2",
+        "soul_buildings",
+        "soul_sins_3",
+        "soul_sins_4"
+      ],
+      "unlockedPhrases": [
+        "@souls_s_s20_1_ask",
+        "@souls_s_s28_ask",
+        "@souls_s_s29_1_1_ask",
+        "@souls_s_s29_1_2_ask",
+        "@souls_s_s29_1_3_ask",
+        "@souls_s_s30_ask",
+        "@souls_s_s31_ask",
+        "@souls_s_s33_ask"
+      ],
+      "blacklistedPhrases": [
+        "@souls_s_s15_ask",
+        "@souls_s_s16_1_ask",
+        "@souls_s_s19_ask",
+        "@souls_s_s20_2_ask",
+        "@souls_s_s23_ask",
+        "@souls_s_s24_ask",
+        "@souls_s_s28_ask",
+        "@souls_s_s29_1_1_ask",
+        "@souls_s_s29_1_2_ask",
+        "@souls_s_s29_1_3_ask",
+        "@souls_s_s30_ask",
+        "@souls_s_s31_ask",
+        "@souls_s_s33_ask"
+      ],
+      "unlockedCrafts": [
+        "souls_builddesk:p:soul_container_place",
+        "souls_builddesk::soul_workbench",
+        "souls_builddesk::pride_healing_extension",
+        "fake_global_craft",
+        "souls_builddesk::soul_healing_for_human",
+        "pride_charged_shard_insert",
+        "souls_builddesk:p:soul_container_2_place",
+        "souls_builddesk::soul_extractor_upgrd_to_2",
+        "souls_builddesk::wrath_healing_extension",
+        "souls_builddesk::gluttony_healing_extension",
+        "sauce_for_meal",
+        "wrath_charged_shard_insert",
+        "gluttony_charged_shard_insert",
+        "souls_builddesk::sloth_healing_extension",
+        "souls_builddesk::lust_healing_extension",
+        "souls_builddesk::envy_healing_extension",
+        "sloth_charged_shard_insert",
+        "envy_charged_shard_insert",
+        "lust_charged_shard_insert"
+      ],
+      "completedOneTimeCrafts": [
+        "souls_builddesk::soul_healing_for_human",
+        "sauce_for_meal"
+      ],
+      "wgoParamMinimums": [],
+      "personalItemGrants": []
+    }
+  ],
+  "cutscenes": [
+    {
+      "cutsceneId": "better_save_soul_open_three_rumor_routes",
+      "linkedQuestIds": [],
+      "triggerScripts": [
+        "gykmp_story_dispatch_better_save_soul_s28",
+        "npc_euric:@souls_s_s28_ask"
+      ],
+      "actors": [
+        "initiating_player",
+        "npc_euric",
+        "ev_s_s34_gd_zone_container"
+      ],
+      "observerPolicy": "all_loaded_party_members",
+      "lateJoinPolicy": "join_live_checkpoint_or_observe",
+      "remoteExecutionPolicy": "live_observation",
+      "executionOwnerPolicy": "lobby_host",
+      "dialogueOwnerPolicy": "initiating_player",
+      "formationPolicy": "preserve_positions",
+      "cleanupRequirements": [
+        "inherit-Eurics-generic-menu-lease_bind-the-actual-selector-disable-only-that-player-and-revalidate-the-topic-before-blacklisting-it",
+        "set-S28_1-Complete-from-souls_s_s28_3-OnFinished-after-line-three-and-before-line-four_as-an-early-prefix-not-proof-that-lines-four-through-nine-or-route-publication-finished",
+        "present-souls_s_s28_3-through-9-with-source-speakers-and-order_then-set-S28_2-Visible-and-unlock-Sloth-Lust-Envy-lead-topics-in-that-exact-order",
+        "resolve-ev_s_s34_gd_zone_container-before-consuming-the-topic_and-enable-that-zone-once-without-moving-any-player",
+        "return-through-Eurics-start_talk-to-the-same-bound-selector-menu_never-enable-control-between-handler-and-menu"
+      ]
+    },
+    {
+      "cutsceneId": "better_save_soul_open_sloth_lead",
+      "linkedQuestIds": [],
+      "triggerScripts": [
+        "gykmp_story_dispatch_better_save_soul_s29_sloth",
+        "npc_euric:@souls_s_s29_1_1_ask"
+      ],
+      "actors": [
+        "initiating_player",
+        "npc_euric",
+        "npc_astrologer"
+      ],
+      "observerPolicy": "all_loaded_party_members",
+      "lateJoinPolicy": "join_live_checkpoint_or_observe",
+      "remoteExecutionPolicy": "live_observation",
+      "executionOwnerPolicy": "lobby_host",
+      "dialogueOwnerPolicy": "initiating_player",
+      "formationPolicy": "preserve_positions",
+      "cleanupRequirements": [
+        "serialize-this-topic-with-the-other-Euric-menu-handlers_but-allow-the-three downstream-NPC-routes-to-run-independently-after-publication",
+        "blacklist-only-the-Sloth-lead-topic_then-face-Euric-Left-start_read_book_down-and-preserve-the-two-point-five-plus-one-point-six-second-animation-branch",
+        "join-that-animation-branch-with-line-one-finish_before-presenting-lines-two-through-ten",
+        "set-Astrologer-S29_1-Visible_then-unlock-S30-and-return-to-Eurics-menu-without-awarding-or-moving-items"
+      ]
+    },
+    {
+      "cutsceneId": "better_save_soul_open_lust_lead",
+      "linkedQuestIds": [],
+      "triggerScripts": [
+        "gykmp_story_dispatch_better_save_soul_s29_lust",
+        "npc_euric:@souls_s_s29_1_2_ask"
+      ],
+      "actors": [
+        "initiating_player",
+        "npc_euric",
+        "npc_actress"
+      ],
+      "observerPolicy": "all_loaded_party_members",
+      "lateJoinPolicy": "join_live_checkpoint_or_observe",
+      "remoteExecutionPolicy": "live_observation",
+      "executionOwnerPolicy": "lobby_host",
+      "dialogueOwnerPolicy": "initiating_player",
+      "formationPolicy": "preserve_positions",
+      "cleanupRequirements": [
+        "claim-the-Euric-topic-under-the-shared-menu-lease_and-blacklist-only-the-Lust-lead-topic",
+        "present-all-twelve-souls_s_s29_1_2-lines-with-speakers-Euric-Euric-player-Euric-player-player-Euric-player-Euric-Euric-Euric-player",
+        "set-Actress-S29_2-Visible_then-unlock-S31-and-return-to-Eurics-menu",
+        "do-not-create-items-relation-achievements-currency-or-personal rewards"
+      ]
+    },
+    {
+      "cutsceneId": "better_save_soul_open_envy_lead",
+      "linkedQuestIds": [],
+      "triggerScripts": [
+        "gykmp_story_dispatch_better_save_soul_s29_envy",
+        "npc_euric:@souls_s_s29_1_3_ask"
+      ],
+      "actors": [
+        "initiating_player",
+        "npc_euric",
+        "npc_cultist",
+        "note_with_rumors"
+      ],
+      "observerPolicy": "all_loaded_party_members",
+      "lateJoinPolicy": "join_live_checkpoint_or_observe",
+      "remoteExecutionPolicy": "live_observation",
+      "executionOwnerPolicy": "lobby_host",
+      "dialogueOwnerPolicy": "initiating_player",
+      "formationPolicy": "preserve_positions",
+      "cleanupRequirements": [
+        "claim-and-blacklist-the-Envy-lead-topic_under-Eurics-menu-lease",
+        "preserve-the-read-book-down-and-write_notes-animation waits_and-face-Euric-ToPlayer-on-line-threes-immediate-Out",
+        "after-the-four-second-writing-wait_stage-one-output-intent-and-drop-exactly-one-unowned-note_with_rumors-at-Eurics-position-from-line-nines-immediate-Out",
+        "treat-the-note-as-one-transferable-shared-world-token_not-a-per-player-reward_and-reconcile-ground-main-bags-offline-transfer-and-downstream-S33-custody-before-any recovery drop",
+        "set-Cultist-S29_3-Visible_unlock-S33-and-return-to-Eurics-menu_after-lines-ten-through-thirteen"
+      ]
+    },
+    {
+      "cutsceneId": "better_save_soul_charge_sloth_shard",
+      "linkedQuestIds": [
+        "dlc_souls_s_s_30"
+      ],
+      "triggerScripts": [
+        "gykmp_story_dispatch_better_save_soul_s30",
+        "npc_astrologer:@souls_s_s30_ask"
+      ],
+      "actors": [
+        "initiating_player",
+        "npc_astrologer",
+        "sin_shard",
+        "sloth_charged_shard"
+      ],
+      "observerPolicy": "all_loaded_party_members",
+      "lateJoinPolicy": "join_live_checkpoint_or_observe",
+      "remoteExecutionPolicy": "live_observation",
+      "executionOwnerPolicy": "lobby_host",
+      "dialogueOwnerPolicy": "initiating_player",
+      "formationPolicy": "preserve_positions",
+      "cleanupRequirements": [
+        "bind-the-real-Astrologer-selector-and-treat-the-one-sin_shard-answer-lock-as-availability-only_with-empty-GUI-price-and-reward",
+        "reserve-and-revalidate-one-sin_shard-from-that-selectors-own-main-or-direct-bag-MultiInventory_never-combine-party-inventories",
+        "after-lines-one-and-two_disable-only-the-selectors-animation_run-Astrologer-charge-and-wait-five-seconds_then-require-a-successful-explicit-debit-before-one-world drop",
+        "drop-exactly-one-sloth_charged_shard-at-the-Astrologer-default-owner_restore-animation_then-present-player-Think-three-and-check-S30-achievement-on-its-immediate-Out",
+        "preserve-the-astrologer_afterall_event-zero-versus-at-least-one-read-only-dialogue branch_then-complete-Astrologer-S29_1-and-return",
+        "a-task-achievement-or-blacklist-prefix-never-authorizes-remint_only-output-intent-plus-exact-debit-receipt-and-global-custody-scan-may-resume-a-missing-drop"
+      ]
+    },
+    {
+      "cutsceneId": "better_save_soul_charge_lust_shard",
+      "linkedQuestIds": [
+        "dlc_souls_s_s_31"
+      ],
+      "triggerScripts": [
+        "gykmp_story_dispatch_better_save_soul_s31",
+        "npc_actress:@souls_s_s31_ask"
+      ],
+      "actors": [
+        "initiating_player",
+        "npc_actress",
+        "npc_euric",
+        "npc_actor",
+        "sharmel_with_euric_dancing",
+        "sin_shard",
+        "lust_charged_shard"
+      ],
+      "observerPolicy": "all_loaded_party_members",
+      "lateJoinPolicy": "join_live_checkpoint_or_observe",
+      "remoteExecutionPolicy": "live_observation",
+      "executionOwnerPolicy": "lobby_host",
+      "dialogueOwnerPolicy": "initiating_player",
+      "formationPolicy": "initiator_with_observer_follow",
+      "cleanupRequirements": [
+        "acquire-the-Actress-Euric-combined-dance-pair-tavern-point-and-selector-lease_and-use-the-one-sin_shard-lock-only-as-an-availability-check",
+        "preserve-both-npc_actor-in-stock-dialogue-tests_and-join-Eurics-route-to-tavern_25-with-player-line-thirteen-finishing",
+        "on-the-first-one-second-fade replace-Actress-plus-Euric-with-one-sharmel_with_euric_dancing-pair_at-ev_s_s31_dance-and-place-only-the-selector-at-the-watch-point",
+        "from-the-first-fades-OnFinished-preserve-the-two-second-delay-to-line-seventeen-and-the-separate-five-second-dance-timer_then-launch-the-charge-branch-from-line-seventeens-immediate-Out-while-OnFinished-continues-lines-eighteen-and-nineteen",
+        "require-the-successful-selector-bound-sin_shard-debit-before-dropping-one-lust_charged_shard-at-the-combined-pair_and-never-trust-the-early-task-prefix",
+        "join-only-line-nineteens-OnFinished-with-the-original-independent-five-second-dance-timer_at-the-vanilla-WaitForFlow-and-separately-converge-the-charge-debit-output-animation branch before terminal teardown",
+        "use-the-final-fade to register one occurrence-scoped Euric try_send_to_room event and restore only the selectors acquired control-camera-animation state"
+      ]
+    },
+    {
+      "cutsceneId": "better_save_soul_charge_envy_shard",
+      "linkedQuestIds": [
+        "dlc_souls_s_s_33"
+      ],
+      "triggerScripts": [
+        "gykmp_story_dispatch_better_save_soul_s33",
+        "npc_cultist:@souls_s_s33_ask"
+      ],
+      "actors": [
+        "initiating_player",
+        "npc_cultist",
+        "note_with_rumors",
+        "sin_shard",
+        "envy_charged_shard"
+      ],
+      "observerPolicy": "all_loaded_party_members",
+      "lateJoinPolicy": "join_live_checkpoint_or_observe",
+      "remoteExecutionPolicy": "live_observation",
+      "executionOwnerPolicy": "lobby_host",
+      "dialogueOwnerPolicy": "initiating_player",
+      "formationPolicy": "preserve_positions",
+      "cleanupRequirements": [
+        "bind-one-real-Snake-selector-and-require-the-AND-lock-of-note_with_rumors-one-plus-sin_shard-one_from-that-same players MultiInventory",
+        "reserve-note-and-sin-shard-as-two-separate-transferable-token transactions_never-combine-party-custody-or-display-either-as-a-GUI-price",
+        "after-lines-one-through-five explicitly-debit-the-note_then-run-Snakes-read animation for four-point-four seconds",
+        "set-Cultist-S29_3-Complete-from-player-line-sixes-immediate-Out_as-an-early-prefix and continue dialogue through Snake-line-eleven-annoying",
+        "disable-selector-animation_run-Snake-charge_and-preserve-the-three-point-five and independent-five-second branches",
+        "the-S33-achievement-check-starts-from-the-independent-waits-immediate-Out_before-the-sin-shard-debit_and-neither-that-check-nor-task-state-proves-output",
+        "require-a-successful-sin-shard-debit before one envy_charged_shard world drop at Snake_then restore animation and finish lines twelve-thirteen plus knife animation",
+        "once-S33-or-Envy-downstream evidence exists never recreate the consumed rumor note"
+      ]
+    },
+    {
+      "cutsceneId": "better_save_soul_heal_euric_with_sloth_lust_and_envy",
+      "linkedQuestIds": [
+        "dlc_souls_s_s_34"
+      ],
+      "triggerScripts": [
+        "gykmp_story_dispatch_better_save_soul_s34_healing",
+        "on_enter_ev_s_s34_gd_zone"
+      ],
+      "actors": [
+        "initiating_player",
+        "npc_euric",
+        "soul_healer",
+        "soul_healing_for_human",
+        "ev_s_s34_gd_zone_container",
+        "sloth_charged_shard",
+        "lust_charged_shard",
+        "envy_charged_shard"
+      ],
+      "observerPolicy": "all_loaded_party_members",
+      "lateJoinPolicy": "join_live_checkpoint_or_observe",
+      "remoteExecutionPolicy": "live_observation",
+      "executionOwnerPolicy": "lobby_host",
+      "dialogueOwnerPolicy": "initiating_player",
+      "formationPolicy": "initiator_with_observer_follow",
+      "cleanupRequirements": [
+        "test-Envy-then-Lust-then-Sloth-on-the-same-real-entrant-main-or-direct-bag-inventory_and-end-with-zone-still-enabled-on-any miss",
+        "treat-all-three-charged-shards-as-entry-locks_not-prices-S34-does-not reserve remove insert duplicate or grant them",
+        "acquire-one-campaign-wide-zone-Euric-healer-stool lease_then-disable only the entrant play dlc_souls_zone_theme and set-Euric-S28_2-Complete as an early prefix",
+        "preserve entrant and Euric routes_dialogue fades stool animation waits and exact source joins through the healing scene",
+        "snapshot-the-soul_healers-full-GameRes_then-temporarily-set-envy-one-sloth-one-lust-one-in-that-order_and-restore-the-exact-snapshot before line five or on every abort",
+        "check-S34 from line nines immediate-Out_set-S34_w8_day-Visible_then after Think-ten route Euric and unlock Sloth-Envy-Lust insertion crafts in exact source order",
+        "on-Eurics-final-route-Out set do_not_disturb-one add-plus-fifty-Euric-relation exactly once to the real entrant and set-on_the_way-one",
+        "disable-the-S34-zone-and-return-only-the-entrants-control_then-on-real-arrival-register after_third_healing-450 and a distinct try_send_to_room-zero occurrence before resetting on_the_way-zero",
+        "restore-recorded-control-camera-animation-music and complete healer snapshot on success abort timeout disconnect or host migration_even-though-vanilla lacks an explicit music cleanup"
+      ]
+    },
+    {
+      "cutsceneId": "better_save_soul_wait_after_third_healing",
+      "linkedQuestIds": [],
+      "triggerScripts": [
+        "gykmp_story_dispatch_better_save_soul_after_third_healing",
+        "npc_euric:after_third_healing",
+        "npc_euric:try_send_to_room"
+      ],
+      "actors": [
+        "npc_euric"
+      ],
+      "observerPolicy": "all_loaded_party_members",
+      "lateJoinPolicy": "join_live_checkpoint_or_observe",
+      "remoteExecutionPolicy": "live_observation",
+      "executionOwnerPolicy": "lobby_host",
+      "dialogueOwnerPolicy": "initiating_player",
+      "formationPolicy": "preserve_positions",
+      "cleanupRequirements": [
+        "start-the-450-second-deadline-only-after-Euric-reaches-ev_s_s4_2_and-preserve-the-earliest-deadline across save-load-host migration and reconnect",
+        "keep-registration-pending registered and delivered receipts occurrence-scoped_and-distinct from every earlier Euric timer or try_send event",
+        "on-after_third_healing delivery unlock-exactly-one @souls_s_s34_ask and set Euric do_not_disturb zero",
+        "do-not-complete-S34_w8_day_set-euric_ready_to_destroy_or-enter-the-next handler in this chapter"
+      ]
+    },
+    {
+      "cutsceneId": "better_save_soul_insert_sloth_shard",
+      "linkedQuestIds": [],
+      "triggerScripts": [
+        "gykmp_story_dispatch_better_save_soul_sloth_insert",
+        "sloth_charged_shard_insert",
+        "unlock_illustration_sloth_charged_shard"
+      ],
+      "actors": [
+        "initiating_player",
+        "tile_church_semicircle_2floors",
+        "sloth_charged_shard"
+      ],
+      "observerPolicy": "all_loaded_party_members",
+      "lateJoinPolicy": "join_live_checkpoint_or_observe",
+      "remoteExecutionPolicy": "live_observation",
+      "executionOwnerPolicy": "lobby_host",
+      "dialogueOwnerPolicy": "initiating_player",
+      "formationPolicy": "preserve_positions",
+      "cleanupRequirements": [
+        "keep-this-auto-zero-time-zero-energy-one-time-tab-shard_insert craft optional and non-gating",
+        "lease-the-canonical-church-tile reserve-and-debit-one-real-sloth_charged_shard from the bound finisher",
+        "unlock-sloth_charged_shard_show_illustration_then-place-the-same token inside the tile as a custody replacement not a grant",
+        "journal-debit craft completion show-unlock and tile-add separately_and recover only after a global custody scan"
+      ]
+    },
+    {
+      "cutsceneId": "better_save_soul_view_sloth_illustration",
+      "linkedQuestIds": [],
+      "triggerScripts": [
+        "gykmp_story_dispatch_better_save_soul_sloth_illustration",
+        "sloth_charged_shard_show_illustration",
+        "show_illustration_sloth"
+      ],
+      "actors": [
+        "initiating_player",
+        "tile_church_semicircle_2floors",
+        "illustration_gui"
+      ],
+      "observerPolicy": "all_loaded_party_members",
+      "lateJoinPolicy": "join_live_checkpoint_or_observe",
+      "remoteExecutionPolicy": "live_observation",
+      "executionOwnerPolicy": "any_player",
+      "dialogueOwnerPolicy": "initiating_player",
+      "formationPolicy": "preserve_positions",
+      "cleanupRequirements": [
+        "leave-the-zero-cost-zero-time-show craft repeatable_even-if-GameSave-keeps-a-non-gating history marker",
+        "disable-only-the-viewers-control-and-HUD_show illustration_sin_astrologer for five seconds_close wait point-five and restore only acquired local locks",
+        "never project the local GUI or control overlay to observers"
+      ]
+    },
+    {
+      "cutsceneId": "better_save_soul_insert_lust_shard",
+      "linkedQuestIds": [],
+      "triggerScripts": [
+        "gykmp_story_dispatch_better_save_soul_lust_insert",
+        "lust_charged_shard_insert",
+        "unlock_illustration_lust_charged_shard"
+      ],
+      "actors": [
+        "initiating_player",
+        "tile_church_semicircle_2floors",
+        "lust_charged_shard"
+      ],
+      "observerPolicy": "all_loaded_party_members",
+      "lateJoinPolicy": "join_live_checkpoint_or_observe",
+      "remoteExecutionPolicy": "live_observation",
+      "executionOwnerPolicy": "lobby_host",
+      "dialogueOwnerPolicy": "initiating_player",
+      "formationPolicy": "preserve_positions",
+      "cleanupRequirements": [
+        "keep-this-auto-zero-time-zero-energy-one-time-tab-shard_insert craft optional and non-gating",
+        "lease-the-canonical-church-tile reserve-and-debit-one-real-lust_charged_shard from the bound finisher",
+        "unlock-lust_charged_shard_show_illustration_then-place-the-same token inside the tile as a custody replacement not a grant",
+        "journal-debit craft completion show-unlock and tile-add separately_and recover only after a global custody scan"
+      ]
+    },
+    {
+      "cutsceneId": "better_save_soul_view_lust_illustration",
+      "linkedQuestIds": [],
+      "triggerScripts": [
+        "gykmp_story_dispatch_better_save_soul_lust_illustration",
+        "lust_charged_shard_show_illustration",
+        "show_illustration_lust"
+      ],
+      "actors": [
+        "initiating_player",
+        "tile_church_semicircle_2floors",
+        "illustration_gui"
+      ],
+      "observerPolicy": "all_loaded_party_members",
+      "lateJoinPolicy": "join_live_checkpoint_or_observe",
+      "remoteExecutionPolicy": "live_observation",
+      "executionOwnerPolicy": "any_player",
+      "dialogueOwnerPolicy": "initiating_player",
+      "formationPolicy": "preserve_positions",
+      "cleanupRequirements": [
+        "leave-the-zero-cost-zero-time-show craft repeatable_even-if-GameSave-keeps-a-non-gating history marker",
+        "disable-only-the-viewers-control-and-HUD_show illustration_sin_charmel for five seconds_close wait point-five and restore only acquired local locks",
+        "never project the local GUI or control overlay to observers"
+      ]
+    },
+    {
+      "cutsceneId": "better_save_soul_insert_envy_shard",
+      "linkedQuestIds": [],
+      "triggerScripts": [
+        "gykmp_story_dispatch_better_save_soul_envy_insert",
+        "envy_charged_shard_insert",
+        "unlock_illustration_envy_charged_shard"
+      ],
+      "actors": [
+        "initiating_player",
+        "tile_church_semicircle_2floors",
+        "envy_charged_shard"
+      ],
+      "observerPolicy": "all_loaded_party_members",
+      "lateJoinPolicy": "join_live_checkpoint_or_observe",
+      "remoteExecutionPolicy": "live_observation",
+      "executionOwnerPolicy": "lobby_host",
+      "dialogueOwnerPolicy": "initiating_player",
+      "formationPolicy": "preserve_positions",
+      "cleanupRequirements": [
+        "keep-this-auto-zero-time-zero-energy-one-time-tab-shard_insert craft optional and non-gating",
+        "lease-the-canonical-church-tile reserve-and-debit-one-real-envy_charged_shard from the bound finisher",
+        "unlock-envy_charged_shard_show_illustration_then-place-the-same token inside the tile as a custody replacement not a grant",
+        "journal-debit craft completion show-unlock and tile-add separately_and recover only after a global custody scan"
+      ]
+    },
+    {
+      "cutsceneId": "better_save_soul_view_envy_illustration",
+      "linkedQuestIds": [],
+      "triggerScripts": [
+        "gykmp_story_dispatch_better_save_soul_envy_illustration",
+        "envy_charged_shard_show_illustration",
+        "show_illustration_envy"
+      ],
+      "actors": [
+        "initiating_player",
+        "tile_church_semicircle_2floors",
+        "illustration_gui"
+      ],
+      "observerPolicy": "all_loaded_party_members",
+      "lateJoinPolicy": "join_live_checkpoint_or_observe",
+      "remoteExecutionPolicy": "live_observation",
+      "executionOwnerPolicy": "any_player",
+      "dialogueOwnerPolicy": "initiating_player",
+      "formationPolicy": "preserve_positions",
+      "cleanupRequirements": [
+        "leave-the-zero-cost-zero-time-show craft repeatable_even-if-GameSave-keeps-a-non-gating history marker",
+        "disable-only-the-viewers-control-and-HUD_show illustration_sin_snake for five seconds_close wait point-five and restore only acquired local locks",
+        "never project the local GUI or control overlay to observers"
+      ]
+    }
+  ],
+  "storySteps": [
+    {
+      "stepId": "better_save_soul_open_three_rumor_routes",
+      "title": "Ask Euric about the three remaining sins",
+      "linkedQuestIds": [],
+      "linkedTaskMilestoneIds": [
+        "better_save_soul_three_rumor_investigation_opened",
+        "better_save_soul_three_rumor_briefing_entered",
+        "better_save_soul_three_rumor_routes_opened"
+      ],
+      "triggerScripts": [
+        "gykmp_story_dispatch_better_save_soul_s28",
+        "npc_euric:@souls_s_s28_ask"
+      ],
+      "triggerKeys": [
+        "@souls_s_s28_ask",
+        "souls_s_s28_3",
+        "souls_s_s28_9",
+        "npc_euric:dlc_souls_s28_1",
+        "npc_euric:dlc_souls_s28_2",
+        "@souls_s_s29_1_1_ask",
+        "@souls_s_s29_1_2_ask",
+        "@souls_s_s29_1_3_ask",
+        "ev_s_s34_gd_zone_container",
+        "gykmp_story_phase_better_save_soul_s28_entered",
+        "gykmp_story_phase_better_save_soul_s28_routes_open"
+      ],
+      "expectedEffects": [
+        {
+          "kind": "story_phase",
+          "id": "gykmp_story_phase_better_save_soul_s28_entered",
+          "operation": "commit-after-menu-selector-bind-and-topic-blacklist-before-the-early-S28_1-Complete-prefix",
+          "amount": 1,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "npc_task",
+          "id": "npc_euric:dlc_souls_s28_1",
+          "operation": "set-Complete-from-line-threes-OnFinished-after-line-three-and-before-line-four_as-a-prefix-not-a-terminal",
+          "amount": 1,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "dialogue_sequence",
+          "id": "souls_s_s28_3_through_9",
+          "operation": "present-seven-source-dialogue-lines-in-order-to-the-bound selector",
+          "amount": 7,
+          "ownership": "live_presentation"
+        },
+        {
+          "kind": "npc_task",
+          "id": "npc_euric:dlc_souls_s28_2",
+          "operation": "set-Visible-after-line-nine",
+          "amount": 1,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "dialogue_phrase_group",
+          "id": "better_save_soul_s28_three_rumor_topics",
+          "operation": "unlock-Sloth-Lust-Envy-lead-topics-in-exact-source-order",
+          "amount": 3,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "world_object_state",
+          "id": "ev_s_s34_gd_zone_container",
+          "operation": "resolve-before-topic-consumption-and-enable-the-third-healing-zone",
+          "amount": 1,
+          "ownership": "shared_world"
+        },
+        {
+          "kind": "story_phase",
+          "id": "gykmp_story_phase_better_save_soul_s28_routes_open",
+          "operation": "commit-after-task three-topic publication zone enable and menu handoff converge",
+          "amount": 1,
+          "ownership": "shared_campaign"
+        }
+      ],
+      "safeguards": [
+        "all-four-Euric-handlers-share-one-actor-menu-selector lease",
+        "S28_1-Complete alone cannot prove downstream topics or zone enable",
+        "do-not-enable-control because start_talk reopens the bound selectors menu"
+      ]
+    },
+    {
+      "stepId": "better_save_soul_open_sloth_lead",
+      "title": "Follow Euric's Sloth rumor to the Astrologer",
+      "linkedQuestIds": [],
+      "linkedTaskMilestoneIds": [
+        "better_save_soul_three_rumor_routes_opened",
+        "better_save_soul_sloth_lead_opened"
+      ],
+      "triggerScripts": [
+        "gykmp_story_dispatch_better_save_soul_s29_sloth",
+        "npc_euric:@souls_s_s29_1_1_ask"
+      ],
+      "triggerKeys": [
+        "@souls_s_s29_1_1_ask",
+        "souls_s_s29_1_1_1",
+        "souls_s_s29_1_1_10",
+        "npc_astrologer:dlc_souls_s29_1",
+        "@souls_s_s30_ask",
+        "gykmp_story_phase_better_save_soul_s29_sloth_entered",
+        "gykmp_story_barrier_better_save_soul_s29_sloth_book",
+        "gykmp_story_phase_better_save_soul_s29_sloth_complete"
+      ],
+      "expectedEffects": [
+        {
+          "kind": "story_phase",
+          "id": "gykmp_story_phase_better_save_soul_s29_sloth_entered",
+          "operation": "commit-after-topic claim and blacklist",
+          "amount": 1,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "animation_dialogue_barrier",
+          "id": "gykmp_story_barrier_better_save_soul_s29_sloth_book",
+          "operation": "join-line-one-finish-with-read-book wait stop and one-point-six-second tail",
+          "amount": 1,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "dialogue_sequence",
+          "id": "souls_s_s29_1_1_1_through_10",
+          "operation": "present-all-ten source lines around the book-animation barrier",
+          "amount": 10,
+          "ownership": "live_presentation"
+        },
+        {
+          "kind": "npc_task",
+          "id": "npc_astrologer:dlc_souls_s29_1",
+          "operation": "set-Visible",
+          "amount": 1,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "dialogue_phrase",
+          "id": "@souls_s_s30_ask",
+          "operation": "unlock-the-Astrologer-charge-topic",
+          "amount": 1,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "story_phase",
+          "id": "gykmp_story_phase_better_save_soul_s29_sloth_complete",
+          "operation": "commit-after-task topic and Euric-menu handoff",
+          "amount": 1,
+          "ownership": "shared_campaign"
+        }
+      ],
+      "safeguards": [
+        "the-three-rumor-leads-are-order-independent",
+        "blacklist-only-this-lead-topic",
+        "do-not-mint-a-shard-or-debit-any-item-here"
+      ]
+    },
+    {
+      "stepId": "better_save_soul_open_lust_lead",
+      "title": "Follow Euric's Lust rumor to Charmel",
+      "linkedQuestIds": [],
+      "linkedTaskMilestoneIds": [
+        "better_save_soul_three_rumor_routes_opened",
+        "better_save_soul_lust_lead_opened"
+      ],
+      "triggerScripts": [
+        "gykmp_story_dispatch_better_save_soul_s29_lust",
+        "npc_euric:@souls_s_s29_1_2_ask"
+      ],
+      "triggerKeys": [
+        "@souls_s_s29_1_2_ask",
+        "souls_s_s29_1_2_1",
+        "souls_s_s29_1_2_12",
+        "npc_actress:dlc_souls_s29_2",
+        "@souls_s_s31_ask",
+        "gykmp_story_phase_better_save_soul_s29_lust_entered",
+        "gykmp_story_phase_better_save_soul_s29_lust_complete"
+      ],
+      "expectedEffects": [
+        {
+          "kind": "story_phase",
+          "id": "gykmp_story_phase_better_save_soul_s29_lust_entered",
+          "operation": "commit-after-topic claim and blacklist",
+          "amount": 1,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "dialogue_sequence",
+          "id": "souls_s_s29_1_2_1_through_12",
+          "operation": "present-all-twelve source lines",
+          "amount": 12,
+          "ownership": "live_presentation"
+        },
+        {
+          "kind": "npc_task",
+          "id": "npc_actress:dlc_souls_s29_2",
+          "operation": "set-Visible",
+          "amount": 1,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "dialogue_phrase",
+          "id": "@souls_s_s31_ask",
+          "operation": "unlock-the-Actress-charge-topic",
+          "amount": 1,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "story_phase",
+          "id": "gykmp_story_phase_better_save_soul_s29_lust_complete",
+          "operation": "commit-after-task topic and Euric-menu handoff",
+          "amount": 1,
+          "ownership": "shared_campaign"
+        }
+      ],
+      "safeguards": [
+        "the-three-rumor-leads-are-order-independent",
+        "blacklist-only-this-lead-topic",
+        "do-not-move-Actress-or-Euric-during-this-briefing"
+      ]
+    },
+    {
+      "stepId": "better_save_soul_open_envy_lead",
+      "title": "Receive Euric's written Envy rumor",
+      "linkedQuestIds": [],
+      "linkedTaskMilestoneIds": [
+        "better_save_soul_three_rumor_routes_opened",
+        "better_save_soul_envy_lead_opened"
+      ],
+      "triggerScripts": [
+        "gykmp_story_dispatch_better_save_soul_s29_envy",
+        "npc_euric:@souls_s_s29_1_3_ask"
+      ],
+      "triggerKeys": [
+        "@souls_s_s29_1_3_ask",
+        "souls_s_s29_1_3_1",
+        "souls_s_s29_1_3_13",
+        "note_with_rumors",
+        "npc_cultist:dlc_souls_s29_3",
+        "@souls_s_s33_ask",
+        "gykmp_story_phase_better_save_soul_s29_envy_entered",
+        "gykmp_story_output_intent_better_save_soul_note_with_rumors",
+        "gykmp_story_output_better_save_soul_note_with_rumors",
+        "gykmp_story_phase_better_save_soul_s29_envy_complete"
+      ],
+      "expectedEffects": [
+        {
+          "kind": "story_phase",
+          "id": "gykmp_story_phase_better_save_soul_s29_envy_entered",
+          "operation": "commit-after-topic claim and blacklist",
+          "amount": 1,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "dialogue_animation_sequence",
+          "id": "souls_s_s29_1_3_1_through_13",
+          "operation": "preserve-all-thirteen lines read-book face and write-notes waits",
+          "amount": 13,
+          "ownership": "live_presentation"
+        },
+        {
+          "kind": "shared_item_output_intent",
+          "id": "gykmp_story_output_intent_better_save_soul_note_with_rumors",
+          "operation": "persist-before-line-nines-immediate-Out world drop",
+          "amount": 1,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "shared_item_output",
+          "id": "gykmp_story_output_better_save_soul_note_with_rumors",
+          "operation": "drop-one-transferable-unowned-note_with_rumors-at-Euric",
+          "amount": 1,
+          "ownership": "shared_world"
+        },
+        {
+          "kind": "npc_task",
+          "id": "npc_cultist:dlc_souls_s29_3",
+          "operation": "set-Visible",
+          "amount": 1,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "dialogue_phrase",
+          "id": "@souls_s_s33_ask",
+          "operation": "unlock-the-Snake-charge-topic",
+          "amount": 1,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "story_phase",
+          "id": "gykmp_story_phase_better_save_soul_s29_envy_complete",
+          "operation": "commit-after-dialogue item-output task topic and menu handoff converge",
+          "amount": 1,
+          "ownership": "shared_campaign"
+        }
+      ],
+      "safeguards": [
+        "the-rumor-note-is-one-shared-transferable-token_never-one-copy-per-player",
+        "scan-ground-main-bags-offline-transfer-and-S33-downstream evidence before recovering the output",
+        "never-recreate-the-note-once-S33-or-Envy-charge evidence exists"
+      ]
+    },
+    {
+      "stepId": "better_save_soul_charge_sloth_shard",
+      "title": "Charge a shard with Sloth at the Astrologer",
+      "linkedQuestIds": [
+        "dlc_souls_s_s_30"
+      ],
+      "linkedTaskMilestoneIds": [
+        "better_save_soul_sloth_lead_opened",
+        "better_save_soul_sloth_charge_task_completed"
+      ],
+      "triggerScripts": [
+        "gykmp_story_dispatch_better_save_soul_s30",
+        "npc_astrologer:@souls_s_s30_ask"
+      ],
+      "triggerKeys": [
+        "@souls_s_s30_ask",
+        "sin_shard",
+        "sloth_charged_shard",
+        "astrologer_afterall_event",
+        "npc_astrologer:dlc_souls_s29_1",
+        "dlc_souls_s_s_30",
+        "gykmp_story_transaction_better_save_soul_s30_sin_shard",
+        "gykmp_story_debit_better_save_soul_s30_sin_shard",
+        "gykmp_story_output_better_save_soul_sloth_charged_shard",
+        "gykmp_story_phase_better_save_soul_s30_complete"
+      ],
+      "expectedEffects": [
+        {
+          "kind": "initiator_item_transaction",
+          "id": "gykmp_story_transaction_better_save_soul_s30_sin_shard",
+          "operation": "bind reserve and revalidate one sin_shard from the actual selector",
+          "amount": 1,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "initiator_item_debit_receipt",
+          "id": "gykmp_story_debit_better_save_soul_s30_sin_shard",
+          "operation": "record-only-after-explicit selector-bound removal succeeds",
+          "amount": 1,
+          "ownership": "initiating_player_transaction"
+        },
+        {
+          "kind": "shared_item_output",
+          "id": "gykmp_story_output_better_save_soul_sloth_charged_shard",
+          "operation": "drop-exactly-one sloth_charged_shard at Astrologer after the debit",
+          "amount": 1,
+          "ownership": "shared_world"
+        },
+        {
+          "kind": "achievement_check",
+          "id": "dlc_souls_s_s_30",
+          "operation": "check-from-player-Think-three immediate-Out after output",
+          "amount": 1,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "conditional_dialogue_sequence",
+          "id": "better_save_soul_s30_afterall_branch",
+          "operation": "branch-on-read-only astrologer_afterall_event then reconverge",
+          "amount": 1,
+          "ownership": "live_presentation"
+        },
+        {
+          "kind": "npc_task",
+          "id": "npc_astrologer:dlc_souls_s29_1",
+          "operation": "set-Complete after the full dialogue suffix",
+          "amount": 1,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "story_phase",
+          "id": "gykmp_story_phase_better_save_soul_s30_complete",
+          "operation": "commit-after-debit output animation restore achievement dialogue task and Return",
+          "amount": 1,
+          "ownership": "shared_campaign"
+        }
+      ],
+      "safeguards": [
+        "the-answer-lock-is-not-a-price_and-only-the-explicit-remove debits",
+        "no-debit-receipt-means-no-output_even-though-RemoveItem-Out-is-unconditional",
+        "recover-a-debit-before-drop crash only from durable output intent exact debit receipt and global custody absence"
+      ]
+    },
+    {
+      "stepId": "better_save_soul_charge_lust_shard",
+      "title": "Stage Charmel and Euric's dance and charge a Lust shard",
+      "linkedQuestIds": [
+        "dlc_souls_s_s_31"
+      ],
+      "linkedTaskMilestoneIds": [
+        "better_save_soul_lust_lead_opened",
+        "better_save_soul_lust_charge_task_advanced"
+      ],
+      "triggerScripts": [
+        "gykmp_story_dispatch_better_save_soul_s31",
+        "npc_actress:@souls_s_s31_ask"
+      ],
+      "triggerKeys": [
+        "@souls_s_s31_ask",
+        "npc_actor",
+        "ev_s_s31_euric_tp",
+        "tavern_25",
+        "ev_s_s31_dance",
+        "ev_s_s31_dance_player_watch",
+        "sharmel_with_euric_dancing",
+        "sin_shard",
+        "lust_charged_shard",
+        "npc_actress:dlc_souls_s29_2",
+        "dlc_souls_s_s_31",
+        "gykmp_story_transaction_better_save_soul_s31_sin_shard",
+        "gykmp_story_debit_better_save_soul_s31_sin_shard",
+        "gykmp_story_output_better_save_soul_lust_charged_shard",
+        "gykmp_story_barrier_better_save_soul_s31_dance",
+        "gykmp_story_event_better_save_soul_s31_try_send_registered",
+        "gykmp_story_phase_better_save_soul_s31_complete"
+      ],
+      "expectedEffects": [
+        {
+          "kind": "initiator_item_transaction",
+          "id": "gykmp_story_transaction_better_save_soul_s31_sin_shard",
+          "operation": "bind reserve and revalidate one sin_shard from the actual selector",
+          "amount": 1,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "world_scene_transition",
+          "id": "better_save_soul_s31_dance_pair_swap",
+          "operation": "fade out Actress and Euric_spawn one combined dancing pair_and move only the selector to the watch point",
+          "amount": 1,
+          "ownership": "shared_world"
+        },
+        {
+          "kind": "parallel_scene_barrier",
+          "id": "gykmp_story_barrier_better_save_soul_s31_dance",
+          "operation": "join-only-line-nineteen-OnFinished-with-the-independent-five-second-dance-timer_at-the-vanilla-WaitForFlow-before-teardown",
+          "amount": 1,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "parallel_charge_branch",
+          "id": "gykmp_story_branch_better_save_soul_s31_charge",
+          "operation": "track-line-seventeens-immediate-Out charge-wait-task-debit-drop-animation branch separately because it does not feed the vanilla WaitForFlow join",
+          "amount": 1,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "npc_task",
+          "id": "npc_actress:dlc_souls_s29_2",
+          "operation": "set-Complete from the charge waits immediate-Out before debit",
+          "amount": 1,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "initiator_item_debit_receipt",
+          "id": "gykmp_story_debit_better_save_soul_s31_sin_shard",
+          "operation": "record-only-after-explicit selector-bound removal succeeds",
+          "amount": 1,
+          "ownership": "initiating_player_transaction"
+        },
+        {
+          "kind": "shared_item_output",
+          "id": "gykmp_story_output_better_save_soul_lust_charged_shard",
+          "operation": "drop-exactly-one lust_charged_shard at the combined dancing pair",
+          "amount": 1,
+          "ownership": "shared_world"
+        },
+        {
+          "kind": "achievement_check",
+          "id": "dlc_souls_s_s_31",
+          "operation": "check-after-pair teardown and actor restoration before final line",
+          "amount": 1,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "durable_event",
+          "id": "gykmp_story_event_better_save_soul_s31_try_send_registered",
+          "operation": "register-one-occurrence-scoped Euric try_send_to_room at the final fade",
+          "amount": 0,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "story_phase",
+          "id": "gykmp_story_phase_better_save_soul_s31_complete",
+          "operation": "commit-after-output pair teardown actor restore final fade event registration and selector control return",
+          "amount": 1,
+          "ownership": "shared_campaign"
+        }
+      ],
+      "safeguards": [
+        "task-Complete-is-an-unsafe-pre-debit-prefix_and-never-authorizes-remint",
+        "the-vanilla-line-nineteen-plus-dance-timer-barrier-does-not-prove-the-separate-charge-branch-complete_require-its-debit-output-animation receipts before the robust terminal",
+        "a-second-player-may-progress-another-NPC-route but cannot enter this leased dance scene",
+        "restore Actress Euric selector camera control animation and destroy-or-adopt-the-pair on every recovery path"
+      ]
+    },
+    {
+      "stepId": "better_save_soul_charge_envy_shard",
+      "title": "Give Snake Euric's note and charge an Envy shard",
+      "linkedQuestIds": [
+        "dlc_souls_s_s_33"
+      ],
+      "linkedTaskMilestoneIds": [
+        "better_save_soul_envy_lead_opened",
+        "better_save_soul_envy_charge_task_advanced"
+      ],
+      "triggerScripts": [
+        "gykmp_story_dispatch_better_save_soul_s33",
+        "npc_cultist:@souls_s_s33_ask"
+      ],
+      "triggerKeys": [
+        "@souls_s_s33_ask",
+        "note_with_rumors",
+        "sin_shard",
+        "envy_charged_shard",
+        "npc_cultist:dlc_souls_s29_3",
+        "dlc_souls_s_s_33",
+        "gykmp_story_transaction_better_save_soul_s33_note",
+        "gykmp_story_debit_better_save_soul_s33_note",
+        "gykmp_story_transaction_better_save_soul_s33_sin_shard",
+        "gykmp_story_debit_better_save_soul_s33_sin_shard",
+        "gykmp_story_output_better_save_soul_envy_charged_shard",
+        "gykmp_story_barrier_better_save_soul_s33_charge",
+        "gykmp_story_phase_better_save_soul_s33_complete"
+      ],
+      "expectedEffects": [
+        {
+          "kind": "initiator_item_transaction",
+          "id": "gykmp_story_transaction_better_save_soul_s33_note",
+          "operation": "reserve the one rumor note from the same selector who supplies the shard",
+          "amount": 1,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "initiator_item_debit_receipt",
+          "id": "gykmp_story_debit_better_save_soul_s33_note",
+          "operation": "record the explicit note removal before Snakes read animation",
+          "amount": 1,
+          "ownership": "initiating_player_transaction"
+        },
+        {
+          "kind": "initiator_item_transaction",
+          "id": "gykmp_story_transaction_better_save_soul_s33_sin_shard",
+          "operation": "separately reserve and revalidate one sin_shard from that selector",
+          "amount": 1,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "npc_task",
+          "id": "npc_cultist:dlc_souls_s29_3",
+          "operation": "set-Complete from player-line-sixes immediate-Out before charge",
+          "amount": 1,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "parallel_scene_barrier",
+          "id": "gykmp_story_barrier_better_save_soul_s33_charge",
+          "operation": "preserve-three-point-five debit branch and independent-five-second achievement-animation branch",
+          "amount": 1,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "achievement_check",
+          "id": "dlc_souls_s_s_33",
+          "operation": "check-from-the-independent-waits-immediate-Out before sin debit",
+          "amount": 1,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "initiator_item_debit_receipt",
+          "id": "gykmp_story_debit_better_save_soul_s33_sin_shard",
+          "operation": "record-only-after-explicit selector-bound removal succeeds",
+          "amount": 1,
+          "ownership": "initiating_player_transaction"
+        },
+        {
+          "kind": "shared_item_output",
+          "id": "gykmp_story_output_better_save_soul_envy_charged_shard",
+          "operation": "drop-exactly-one envy_charged_shard at Snake after the shard debit",
+          "amount": 1,
+          "ownership": "shared_world"
+        },
+        {
+          "kind": "story_phase",
+          "id": "gykmp_story_phase_better_save_soul_s33_complete",
+          "operation": "commit-after-both debits output animation restore final dialogue knife and Return",
+          "amount": 1,
+          "ownership": "shared_campaign"
+        }
+      ],
+      "safeguards": [
+        "both-answer-lock-items-must-belong-to-the-same-selector_and-party-inventory aggregation is forbidden",
+        "task-and-achievement-are-both-unsafe-pre-output-prefixes",
+        "never-recreate-the-consumed-note-once-note-debit or downstream Envy evidence exists"
+      ]
+    },
+    {
+      "stepId": "better_save_soul_heal_euric_with_sloth_lust_and_envy",
+      "title": "Perform Euric's third soul healing",
+      "linkedQuestIds": [
+        "dlc_souls_s_s_34"
+      ],
+      "linkedTaskMilestoneIds": [
+        "better_save_soul_third_healing_entered",
+        "better_save_soul_third_healing_wait_started"
+      ],
+      "triggerScripts": [
+        "gykmp_story_dispatch_better_save_soul_s34_healing",
+        "on_enter_ev_s_s34_gd_zone"
+      ],
+      "triggerKeys": [
+        "envy_charged_shard",
+        "lust_charged_shard",
+        "sloth_charged_shard",
+        "ev_s_s34_gd_zone_container",
+        "ev_s_s25_1",
+        "ev_s_s34_1",
+        "ev_s_s16_1_1",
+        "ev_s_s16_1_2",
+        "ev_s_s16_1_3",
+        "ev_s_s16_1_4",
+        "ev_s_s16_1_6",
+        "soul_healer",
+        "soul_healing_for_human",
+        "dlc_souls_s_s_34",
+        "npc_euric:dlc_souls_s34_w8_day",
+        "sloth_charged_shard_insert",
+        "envy_charged_shard_insert",
+        "lust_charged_shard_insert",
+        "npc_euric:after_third_healing",
+        "try_send_to_room",
+        "npc_euric:on_the_way",
+        "npc_euric:do_not_disturb",
+        "gykmp_story_claim_better_save_soul_s34_entrant",
+        "gykmp_story_snapshot_better_save_soul_s34_healer",
+        "gykmp_story_relation_better_save_soul_s34_euric",
+        "gykmp_story_timer_better_save_soul_s34_followup_registration_pending",
+        "gykmp_story_timer_better_save_soul_s34_followup_registered",
+        "gykmp_story_event_better_save_soul_s34_try_send_registration_pending",
+        "gykmp_story_event_better_save_soul_s34_try_send_registered",
+        "gykmp_story_event_better_save_soul_s34_try_send_delivered",
+        "gykmp_story_phase_better_save_soul_s34_complete"
+      ],
+      "expectedEffects": [
+        {
+          "kind": "world_interaction_claim",
+          "id": "gykmp_story_claim_better_save_soul_s34_entrant",
+          "operation": "bind-one-real-zone entrant whose own inventory passes Envy then Lust then Sloth checks",
+          "amount": 1,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "npc_task",
+          "id": "npc_euric:dlc_souls_s28_2",
+          "operation": "set-Complete immediately after control music and scene lease",
+          "amount": 1,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "world_resource_snapshot",
+          "id": "gykmp_story_snapshot_better_save_soul_s34_healer",
+          "operation": "persist-the-full soul_healer GameRes before temporary Envy Sloth Lust flags",
+          "amount": 1,
+          "ownership": "shared_world"
+        },
+        {
+          "kind": "dialogue_healing_sequence",
+          "id": "souls_s_s34_1_through_10",
+          "operation": "preserve-dialogue movement fades stool animation and all source waits and joins",
+          "amount": 10,
+          "ownership": "live_presentation"
+        },
+        {
+          "kind": "world_resource_restore",
+          "id": "gykmp_story_restore_better_save_soul_s34_healer",
+          "operation": "restore-the-exact pre-scene healer snapshot before line five and on abort",
+          "amount": 1,
+          "ownership": "shared_world"
+        },
+        {
+          "kind": "achievement_check",
+          "id": "dlc_souls_s_s_34",
+          "operation": "check-from-line-nines immediate-Out",
+          "amount": 1,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "npc_task",
+          "id": "npc_euric:dlc_souls_s34_w8_day",
+          "operation": "set-Visible immediately after the achievement check",
+          "amount": 1,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "craft_group",
+          "id": "better_save_soul_s34_new_shard_insertions",
+          "operation": "unlock-Sloth-Envy-Lust insertion crafts in exact source order",
+          "amount": 3,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "npc_relation",
+          "id": "gykmp_story_relation_better_save_soul_s34_euric",
+          "operation": "add-plus-fifty exactly once to the bound entrant",
+          "amount": 50,
+          "ownership": "initiating_player_transaction"
+        },
+        {
+          "kind": "world_param_sequence",
+          "id": "npc_euric:on_the_way",
+          "operation": "set-one-on-Eurics-final-GoTo-immediate-Out_then-set-zero-only-after-both-arrival-event-registration-calls-return",
+          "amount": 0,
+          "ownership": "shared_world"
+        },
+        {
+          "kind": "wgo_param",
+          "id": "npc_euric:do_not_disturb",
+          "operation": "set-one-on-the-final-GoTo-immediate-Out_and-leave-after_third_healing-delivery-to-clear-it",
+          "amount": 1,
+          "ownership": "shared_world"
+        },
+        {
+          "kind": "world_object_state",
+          "id": "ev_s_s34_gd_zone_container",
+          "operation": "disable-the-third-healing-zone after route-tail mutation",
+          "amount": 1,
+          "ownership": "shared_world"
+        },
+        {
+          "kind": "durable_timer_registration",
+          "id": "gykmp_story_timer_better_save_soul_s34_followup_registration_pending",
+          "operation": "persist-at-Eurics-real-arrival-before-the-after_third_healing-nonblocking-event-wrapper",
+          "amount": 0.03,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "durable_timer",
+          "id": "gykmp_story_timer_better_save_soul_s34_followup_registered",
+          "operation": "register-one occurrence-scoped after_third_healing event with 450-second deadline after Eurics arrival",
+          "amount": 450,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "durable_event_registration",
+          "id": "gykmp_story_event_better_save_soul_s34_try_send_registration_pending",
+          "operation": "persist-before-the-adjacent-zero-delay-try_send_to_room-wrapper_as-a-distinct-S34-arrival-occurrence",
+          "amount": 0.03,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "durable_event",
+          "id": "gykmp_story_event_better_save_soul_s34_try_send_registered",
+          "operation": "register-a-distinct zero-delay try_send_to_room occurrence",
+          "amount": 0,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "world_route_receipt",
+          "id": "gykmp_story_event_better_save_soul_s34_try_send_delivered",
+          "operation": "deliver-the-S34-arrival-room-opened-teleport-and-Down-facing-or-room-closed-Right-facing-route-once",
+          "amount": 1,
+          "ownership": "shared_world"
+        },
+        {
+          "kind": "story_phase",
+          "id": "gykmp_story_phase_better_save_soul_s34_complete",
+          "operation": "commit-after-healer restore crafts relation zone control music route registrations and on_the_way reset converge",
+          "amount": 1,
+          "ownership": "shared_campaign"
+        }
+      ],
+      "safeguards": [
+        "S34-only-locks-the-three-charged-shards_and-does-not-consume-or-reserve-them",
+        "S28_2-Complete-and-S34_w8_day-Visible-are-early-prefixes_not-proof-of-healer restore relation route or timer registration",
+        "only-the-bound entrant moves receives relation and has control restored_observers remain live observers",
+        "persist-timer-registration intent before the wrapper and preserve the earliest deadline"
+      ]
+    },
+    {
+      "stepId": "better_save_soul_wait_after_third_healing",
+      "title": "Wait for Euric's post-healing follow-up",
+      "linkedQuestIds": [],
+      "linkedTaskMilestoneIds": [
+        "better_save_soul_third_healing_wait_started"
+      ],
+      "triggerScripts": [
+        "gykmp_story_dispatch_better_save_soul_after_third_healing",
+        "npc_euric:after_third_healing",
+        "npc_euric:try_send_to_room"
+      ],
+      "triggerKeys": [
+        "after_third_healing",
+        "try_send_to_room",
+        "@souls_s_s34_ask",
+        "npc_euric:do_not_disturb",
+        "gykmp_story_timer_better_save_soul_s34_followup_registration_pending",
+        "gykmp_story_timer_better_save_soul_s34_followup_registered",
+        "gykmp_story_event_better_save_soul_s34_try_send_registered",
+        "gykmp_story_event_better_save_soul_s34_try_send_delivered",
+        "gykmp_story_timer_better_save_soul_s34_followup_delivered",
+        "gykmp_story_phase_better_save_soul_s34_followup_ready"
+      ],
+      "expectedEffects": [
+        {
+          "kind": "durable_timer_registration",
+          "id": "gykmp_story_timer_better_save_soul_s34_followup_registration_pending",
+          "operation": "persist-before-the-nonblocking vanilla event wrapper",
+          "amount": 0.03,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "durable_timer",
+          "id": "gykmp_story_timer_better_save_soul_s34_followup_registered",
+          "operation": "adopt-or-register-the-occurrence with its earliest 450-second deadline",
+          "amount": 450,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "durable_event",
+          "id": "gykmp_story_event_better_save_soul_s34_try_send_registered",
+          "operation": "adopt-or-finish-the-distinct-zero-delay-room-route-registered-next-to-the-third-healing timer",
+          "amount": 0,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "world_route_receipt",
+          "id": "gykmp_story_event_better_save_soul_s34_try_send_delivered",
+          "operation": "commit-after-that-S34-arrival occurrence runs Eurics open-room teleport-and-facing or closed-room-facing tail once",
+          "amount": 1,
+          "ownership": "shared_world"
+        },
+        {
+          "kind": "dialogue_phrase",
+          "id": "@souls_s_s34_ask",
+          "operation": "unlock-only-when-the-after_third_healing event is actually delivered",
+          "amount": 1,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "world_actor_state",
+          "id": "npc_euric:do_not_disturb",
+          "operation": "set-zero on callback delivery",
+          "amount": 0,
+          "ownership": "shared_world"
+        },
+        {
+          "kind": "story_phase",
+          "id": "gykmp_story_timer_better_save_soul_s34_followup_delivered",
+          "operation": "commit-the-occurrence-specific timer delivery",
+          "amount": 1,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "story_phase",
+          "id": "gykmp_story_phase_better_save_soul_s34_followup_ready",
+          "operation": "commit-after-topic unlock and do_not_disturb clear_without entering S34 ask",
+          "amount": 1,
+          "ownership": "shared_campaign"
+        }
+      ],
+      "safeguards": [
+        "do-not-repair-the-topic-from-S34_w8_day-Visible because that would bypass the real 450-second wait",
+        "registered-is-not-delivered_and-loading-never-restarts-the-deadline",
+        "this-file-boundary-stops-before-S34-ask task completion and the next sleep trigger"
+      ]
+    },
+    {
+      "stepId": "better_save_soul_insert_sloth_shard",
+      "title": "Optionally install the charged Sloth shard",
+      "linkedQuestIds": [],
+      "linkedTaskMilestoneIds": [
+        "better_save_soul_third_healing_wait_started"
+      ],
+      "triggerScripts": [
+        "gykmp_story_dispatch_better_save_soul_sloth_insert",
+        "sloth_charged_shard_insert",
+        "unlock_illustration_sloth_charged_shard"
+      ],
+      "triggerKeys": [
+        "tile_church_semicircle_2floors",
+        "sloth_charged_shard",
+        "sloth_charged_shard_insert",
+        "sloth_charged_shard_show_illustration",
+        "gykmp_story_transaction_better_save_soul_sloth_insert",
+        "gykmp_story_payment_better_save_soul_sloth_insert",
+        "gykmp_story_phase_better_save_soul_sloth_insert_entered",
+        "gykmp_story_tile_custody_better_save_soul_sloth",
+        "gykmp_story_phase_better_save_soul_sloth_insert_complete"
+      ],
+      "expectedEffects": [
+        {
+          "kind": "initiator_item_transaction",
+          "id": "gykmp_story_transaction_better_save_soul_sloth_insert",
+          "operation": "resolve-and-lease-the-canonical-church-tile_then-bind-and-reserve-one-real-sloth_charged_shard-from-the-finisher",
+          "amount": 1,
+          "ownership": "initiating_player_transaction"
+        },
+        {
+          "kind": "story_item_consumption_receipt",
+          "id": "gykmp_story_payment_better_save_soul_sloth_insert",
+          "operation": "consume-one-sloth_charged_shard-from-the-bound-finisher-for-the-auto-zero-time-zero-energy-craft",
+          "amount": 1,
+          "ownership": "initiating_player_transaction"
+        },
+        {
+          "kind": "story_phase",
+          "id": "gykmp_story_phase_better_save_soul_sloth_insert_entered",
+          "operation": "commit-after-input-debit-before-completion-history-end-script-unlock-or-tile-add",
+          "amount": 1,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "completed_one_time_craft",
+          "id": "sloth_charged_shard_insert",
+          "operation": "complete-once-at-tile_church_semicircle_2floors-in-tab-shard_insert",
+          "amount": 1,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "craft",
+          "id": "sloth_charged_shard_show_illustration",
+          "operation": "unlock from the insertion end script",
+          "amount": 1,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "shared_item_custody",
+          "id": "gykmp_story_tile_custody_better_save_soul_sloth",
+          "operation": "place-the-same consumed token in the church tile",
+          "amount": 1,
+          "ownership": "shared_world"
+        },
+        {
+          "kind": "story_phase",
+          "id": "gykmp_story_phase_better_save_soul_sloth_insert_complete",
+          "operation": "commit-only-after-debit-one-time-completion-show-unlock-and-confirmed-tile-custody-converge",
+          "amount": 1,
+          "ownership": "shared_campaign"
+        }
+      ],
+      "safeguards": [
+        "optional-and-non-gating",
+        "tile-placement-is-custody replacement not item minting",
+        "repair-only-the-missing suffix after global custody reconciliation"
+      ]
+    },
+    {
+      "stepId": "better_save_soul_view_sloth_illustration",
+      "title": "View the Sloth shard illustration",
+      "linkedQuestIds": [],
+      "linkedTaskMilestoneIds": [
+        "better_save_soul_third_healing_wait_started"
+      ],
+      "triggerScripts": [
+        "gykmp_story_dispatch_better_save_soul_sloth_illustration",
+        "sloth_charged_shard_show_illustration",
+        "show_illustration_sloth"
+      ],
+      "triggerKeys": [
+        "sloth_charged_shard_show_illustration",
+        "illustration_sin_astrologer",
+        "gykmp_story_invocation_better_save_soul_sloth_illustration",
+        "gykmp_story_local_better_save_soul_sloth_illustration"
+      ],
+      "expectedEffects": [
+        {
+          "kind": "local_invocation",
+          "id": "gykmp_story_invocation_better_save_soul_sloth_illustration",
+          "operation": "bind-each-legitimate-repeatable-show-craft-invocation-to-its-real-viewer_without-a-shared-story-terminal",
+          "amount": 1,
+          "ownership": "local_presentation"
+        },
+        {
+          "kind": "local_ui",
+          "id": "gykmp_story_local_better_save_soul_sloth_illustration",
+          "operation": "show illustration_sin_astrologer for five seconds then restore only the viewers acquired locks",
+          "amount": 5,
+          "ownership": "local_presentation"
+        },
+        {
+          "kind": "non_gating_craft_history",
+          "id": "sloth_charged_shard_show_illustration",
+          "operation": "allow-GameSave-to-record-first-completion-while-oneTimeCraft-false-keeps-the-recipe-repeatable_and-never-use-that-history-as-story-proof",
+          "amount": 1,
+          "ownership": "shared_campaign"
+        }
+      ],
+      "safeguards": [
+        "repeatable-local-viewer-only",
+        "never-use-view-history-as-shared-progress"
+      ]
+    },
+    {
+      "stepId": "better_save_soul_insert_lust_shard",
+      "title": "Optionally install the charged Lust shard",
+      "linkedQuestIds": [],
+      "linkedTaskMilestoneIds": [
+        "better_save_soul_third_healing_wait_started"
+      ],
+      "triggerScripts": [
+        "gykmp_story_dispatch_better_save_soul_lust_insert",
+        "lust_charged_shard_insert",
+        "unlock_illustration_lust_charged_shard"
+      ],
+      "triggerKeys": [
+        "tile_church_semicircle_2floors",
+        "lust_charged_shard",
+        "lust_charged_shard_insert",
+        "lust_charged_shard_show_illustration",
+        "gykmp_story_transaction_better_save_soul_lust_insert",
+        "gykmp_story_payment_better_save_soul_lust_insert",
+        "gykmp_story_phase_better_save_soul_lust_insert_entered",
+        "gykmp_story_tile_custody_better_save_soul_lust",
+        "gykmp_story_phase_better_save_soul_lust_insert_complete"
+      ],
+      "expectedEffects": [
+        {
+          "kind": "initiator_item_transaction",
+          "id": "gykmp_story_transaction_better_save_soul_lust_insert",
+          "operation": "resolve-and-lease-the-canonical-church-tile_then-bind-and-reserve-one-real-lust_charged_shard-from-the-finisher",
+          "amount": 1,
+          "ownership": "initiating_player_transaction"
+        },
+        {
+          "kind": "story_item_consumption_receipt",
+          "id": "gykmp_story_payment_better_save_soul_lust_insert",
+          "operation": "consume-one-lust_charged_shard-from-the-bound-finisher-for-the-auto-zero-time-zero-energy-craft",
+          "amount": 1,
+          "ownership": "initiating_player_transaction"
+        },
+        {
+          "kind": "story_phase",
+          "id": "gykmp_story_phase_better_save_soul_lust_insert_entered",
+          "operation": "commit-after-input-debit-before-completion-history-end-script-unlock-or-tile-add",
+          "amount": 1,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "completed_one_time_craft",
+          "id": "lust_charged_shard_insert",
+          "operation": "complete-once-at-tile_church_semicircle_2floors-in-tab-shard_insert",
+          "amount": 1,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "craft",
+          "id": "lust_charged_shard_show_illustration",
+          "operation": "unlock from the insertion end script",
+          "amount": 1,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "shared_item_custody",
+          "id": "gykmp_story_tile_custody_better_save_soul_lust",
+          "operation": "place-the-same consumed token in the church tile",
+          "amount": 1,
+          "ownership": "shared_world"
+        },
+        {
+          "kind": "story_phase",
+          "id": "gykmp_story_phase_better_save_soul_lust_insert_complete",
+          "operation": "commit-only-after-debit-one-time-completion-show-unlock-and-confirmed-tile-custody-converge",
+          "amount": 1,
+          "ownership": "shared_campaign"
+        }
+      ],
+      "safeguards": [
+        "optional-and-non-gating",
+        "tile-placement-is-custody replacement not item minting",
+        "repair-only-the-missing suffix after global custody reconciliation"
+      ]
+    },
+    {
+      "stepId": "better_save_soul_view_lust_illustration",
+      "title": "View the Lust shard illustration",
+      "linkedQuestIds": [],
+      "linkedTaskMilestoneIds": [
+        "better_save_soul_third_healing_wait_started"
+      ],
+      "triggerScripts": [
+        "gykmp_story_dispatch_better_save_soul_lust_illustration",
+        "lust_charged_shard_show_illustration",
+        "show_illustration_lust"
+      ],
+      "triggerKeys": [
+        "lust_charged_shard_show_illustration",
+        "illustration_sin_charmel",
+        "gykmp_story_invocation_better_save_soul_lust_illustration",
+        "gykmp_story_local_better_save_soul_lust_illustration"
+      ],
+      "expectedEffects": [
+        {
+          "kind": "local_invocation",
+          "id": "gykmp_story_invocation_better_save_soul_lust_illustration",
+          "operation": "bind-each-legitimate-repeatable-show-craft-invocation-to-its-real-viewer_without-a-shared-story-terminal",
+          "amount": 1,
+          "ownership": "local_presentation"
+        },
+        {
+          "kind": "local_ui",
+          "id": "gykmp_story_local_better_save_soul_lust_illustration",
+          "operation": "show illustration_sin_charmel for five seconds then restore only the viewers acquired locks",
+          "amount": 5,
+          "ownership": "local_presentation"
+        },
+        {
+          "kind": "non_gating_craft_history",
+          "id": "lust_charged_shard_show_illustration",
+          "operation": "allow-GameSave-to-record-first-completion-while-oneTimeCraft-false-keeps-the-recipe-repeatable_and-never-use-that-history-as-story-proof",
+          "amount": 1,
+          "ownership": "shared_campaign"
+        }
+      ],
+      "safeguards": [
+        "repeatable-local-viewer-only",
+        "never-use-view-history-as-shared-progress"
+      ]
+    },
+    {
+      "stepId": "better_save_soul_insert_envy_shard",
+      "title": "Optionally install the charged Envy shard",
+      "linkedQuestIds": [],
+      "linkedTaskMilestoneIds": [
+        "better_save_soul_third_healing_wait_started"
+      ],
+      "triggerScripts": [
+        "gykmp_story_dispatch_better_save_soul_envy_insert",
+        "envy_charged_shard_insert",
+        "unlock_illustration_envy_charged_shard"
+      ],
+      "triggerKeys": [
+        "tile_church_semicircle_2floors",
+        "envy_charged_shard",
+        "envy_charged_shard_insert",
+        "envy_charged_shard_show_illustration",
+        "gykmp_story_transaction_better_save_soul_envy_insert",
+        "gykmp_story_payment_better_save_soul_envy_insert",
+        "gykmp_story_phase_better_save_soul_envy_insert_entered",
+        "gykmp_story_tile_custody_better_save_soul_envy",
+        "gykmp_story_phase_better_save_soul_envy_insert_complete"
+      ],
+      "expectedEffects": [
+        {
+          "kind": "initiator_item_transaction",
+          "id": "gykmp_story_transaction_better_save_soul_envy_insert",
+          "operation": "resolve-and-lease-the-canonical-church-tile_then-bind-and-reserve-one-real-envy_charged_shard-from-the-finisher",
+          "amount": 1,
+          "ownership": "initiating_player_transaction"
+        },
+        {
+          "kind": "story_item_consumption_receipt",
+          "id": "gykmp_story_payment_better_save_soul_envy_insert",
+          "operation": "consume-one-envy_charged_shard-from-the-bound-finisher-for-the-auto-zero-time-zero-energy-craft",
+          "amount": 1,
+          "ownership": "initiating_player_transaction"
+        },
+        {
+          "kind": "story_phase",
+          "id": "gykmp_story_phase_better_save_soul_envy_insert_entered",
+          "operation": "commit-after-input-debit-before-completion-history-end-script-unlock-or-tile-add",
+          "amount": 1,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "completed_one_time_craft",
+          "id": "envy_charged_shard_insert",
+          "operation": "complete-once-at-tile_church_semicircle_2floors-in-tab-shard_insert",
+          "amount": 1,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "craft",
+          "id": "envy_charged_shard_show_illustration",
+          "operation": "unlock from the insertion end script",
+          "amount": 1,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "shared_item_custody",
+          "id": "gykmp_story_tile_custody_better_save_soul_envy",
+          "operation": "place-the-same consumed token in the church tile",
+          "amount": 1,
+          "ownership": "shared_world"
+        },
+        {
+          "kind": "story_phase",
+          "id": "gykmp_story_phase_better_save_soul_envy_insert_complete",
+          "operation": "commit-only-after-debit-one-time-completion-show-unlock-and-confirmed-tile-custody-converge",
+          "amount": 1,
+          "ownership": "shared_campaign"
+        }
+      ],
+      "safeguards": [
+        "optional-and-non-gating",
+        "tile-placement-is-custody replacement not item minting",
+        "repair-only-the-missing suffix after global custody reconciliation"
+      ]
+    },
+    {
+      "stepId": "better_save_soul_view_envy_illustration",
+      "title": "View the Envy shard illustration",
+      "linkedQuestIds": [],
+      "linkedTaskMilestoneIds": [
+        "better_save_soul_third_healing_wait_started"
+      ],
+      "triggerScripts": [
+        "gykmp_story_dispatch_better_save_soul_envy_illustration",
+        "envy_charged_shard_show_illustration",
+        "show_illustration_envy"
+      ],
+      "triggerKeys": [
+        "envy_charged_shard_show_illustration",
+        "illustration_sin_snake",
+        "gykmp_story_invocation_better_save_soul_envy_illustration",
+        "gykmp_story_local_better_save_soul_envy_illustration"
+      ],
+      "expectedEffects": [
+        {
+          "kind": "local_invocation",
+          "id": "gykmp_story_invocation_better_save_soul_envy_illustration",
+          "operation": "bind-each-legitimate-repeatable-show-craft-invocation-to-its-real-viewer_without-a-shared-story-terminal",
+          "amount": 1,
+          "ownership": "local_presentation"
+        },
+        {
+          "kind": "local_ui",
+          "id": "gykmp_story_local_better_save_soul_envy_illustration",
+          "operation": "show illustration_sin_snake for five seconds then restore only the viewers acquired locks",
+          "amount": 5,
+          "ownership": "local_presentation"
+        },
+        {
+          "kind": "non_gating_craft_history",
+          "id": "envy_charged_shard_show_illustration",
+          "operation": "allow-GameSave-to-record-first-completion-while-oneTimeCraft-false-keeps-the-recipe-repeatable_and-never-use-that-history-as-story-proof",
+          "amount": 1,
+          "ownership": "shared_campaign"
+        }
+      ],
+      "safeguards": [
+        "repeatable-local-viewer-only",
+        "never-use-view-history-as-shared-progress"
+      ]
+    }
+  ]
+}

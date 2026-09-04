@@ -1,0 +1,682 @@
+{
+  "schemaVersion": 5,
+  "catalogId": "dlc.game-of-crone.blood-and-beatrice",
+  "campaign": "GameOfCrone",
+  "chapter": "AlarichBloodDeliveryThroughBeatriceArrival",
+  "quests": [
+    {
+      "questId": "dlc_refugees_s15_1",
+      "title": "Serialized Beatrice arrival checkpoint",
+      "definitionKind": "AchievementDefinition",
+      "counter": 1,
+      "vanilla": {
+        "startTrigger": "",
+        "successTrigger": "1",
+        "failTrigger": "",
+        "startKeys": ["dlc_refugees_s15_1"],
+        "questVisible": false,
+        "oneTimeQuest": false,
+        "startScript": "",
+        "successScript": "",
+        "failScript": "",
+        "arrowWgoCustomTag": "",
+        "arrowWgoObjectId": "",
+        "successRewards": [],
+        "failureRewards": []
+      },
+      "policy": {
+        "stateOwnership": "shared_campaign",
+        "eligibleInitiator": "any_player",
+        "livePresentationOwner": "initiating_player",
+        "observerQuestApplication": "durable_state_only",
+        "personalRewardDelivery": "party_exactly_once",
+        "observerSuccess": {
+          "globalScripts": [],
+          "playerParamRepairs": [],
+          "playerParamMinimums": [],
+          "taskStateMinimums": [],
+          "unlockedTechs": [],
+          "unlockedPhrases": [],
+          "blacklistedPhrases": [],
+          "unlockedCrafts": [],
+          "completedOneTimeCrafts": [],
+          "personalItemGrants": []
+        }
+      },
+      "completionChecks": []
+    },
+    {
+      "questId": "dlc_refugees_s15_2",
+      "title": "Serialized Alarich revival checkpoint",
+      "definitionKind": "AchievementDefinition",
+      "counter": 1,
+      "vanilla": {
+        "startTrigger": "",
+        "successTrigger": "1",
+        "failTrigger": "",
+        "startKeys": ["dlc_refugees_s15_2"],
+        "questVisible": false,
+        "oneTimeQuest": false,
+        "startScript": "",
+        "successScript": "",
+        "failScript": "",
+        "arrowWgoCustomTag": "",
+        "arrowWgoObjectId": "",
+        "successRewards": [],
+        "failureRewards": []
+      },
+      "policy": {
+        "stateOwnership": "shared_campaign",
+        "eligibleInitiator": "any_player",
+        "livePresentationOwner": "initiating_player",
+        "observerQuestApplication": "durable_state_only",
+        "personalRewardDelivery": "party_exactly_once",
+        "observerSuccess": {
+          "globalScripts": [],
+          "playerParamRepairs": [],
+          "playerParamMinimums": [],
+          "taskStateMinimums": [],
+          "unlockedTechs": [],
+          "unlockedPhrases": [],
+          "blacklistedPhrases": [],
+          "unlockedCrafts": [],
+          "completedOneTimeCrafts": [],
+          "personalItemGrants": []
+        }
+      },
+      "completionChecks": []
+    },
+    {
+      "questId": "dlc_refugees_s15_3",
+      "title": "Serialized Horadric cover-story checkpoint",
+      "definitionKind": "AchievementDefinition",
+      "counter": 1,
+      "vanilla": {
+        "startTrigger": "",
+        "successTrigger": "1",
+        "failTrigger": "",
+        "startKeys": ["dlc_refugees_s15_3"],
+        "questVisible": false,
+        "oneTimeQuest": false,
+        "startScript": "",
+        "successScript": "",
+        "failScript": "",
+        "arrowWgoCustomTag": "",
+        "arrowWgoObjectId": "",
+        "successRewards": [],
+        "failureRewards": []
+      },
+      "policy": {
+        "stateOwnership": "shared_campaign",
+        "eligibleInitiator": "any_player",
+        "livePresentationOwner": "initiating_player",
+        "observerQuestApplication": "durable_state_only",
+        "personalRewardDelivery": "party_exactly_once",
+        "observerSuccess": {
+          "globalScripts": [],
+          "playerParamRepairs": [],
+          "playerParamMinimums": [],
+          "taskStateMinimums": [],
+          "unlockedTechs": [],
+          "unlockedPhrases": [],
+          "blacklistedPhrases": [],
+          "unlockedCrafts": [],
+          "completedOneTimeCrafts": [],
+          "personalItemGrants": []
+        }
+      },
+      "completionChecks": []
+    }
+  ],
+  "taskMilestones": [
+    {
+      "milestoneId": "game_of_crone_alarich_blood_delivery_completed",
+      "npcId": "npc_master_alarich",
+      "taskId": "s_ev_12_bring_blood",
+      "activeStates": ["Complete"],
+      "playerParamRepairs": [],
+      "playerParamMinimums": [],
+      "taskStateMinimums": [],
+      "unlockedTechs": [],
+      "unlockedPhrases": [],
+      "blacklistedPhrases": [],
+      "unlockedCrafts": [],
+      "completedOneTimeCrafts": [],
+      "wgoParamMinimums": [],
+      "personalItemGrants": []
+    },
+    {
+      "milestoneId": "game_of_crone_horadric_cover_story_opened",
+      "npcId": "npc_tavern owner",
+      "taskId": "s_ev_13_lie",
+      "activeStates": ["Visible"],
+      "playerParamRepairs": [],
+      "playerParamMinimums": [],
+      "taskStateMinimums": [
+        { "npcId": "npc_master_alarich", "taskId": "s_ev_12_bring_blood", "state": "Complete" },
+        { "npcId": "npc_master_alarich", "taskId": "s_ev_13_blood", "state": "Visible" }
+      ],
+      "unlockedTechs": [],
+      "unlockedPhrases": ["@refugees_s15_3"],
+      "blacklistedPhrases": [],
+      "unlockedCrafts": [],
+      "completedOneTimeCrafts": [],
+      "wgoParamMinimums": [],
+      "personalItemGrants": []
+    },
+    {
+      "milestoneId": "game_of_crone_horadric_cover_story_completed",
+      "npcId": "npc_tavern owner",
+      "taskId": "s_ev_13_lie",
+      "activeStates": ["Complete"],
+      "playerParamRepairs": [],
+      "playerParamMinimums": [
+        { "key": "is_s_ev_14_triggered", "value": 1.0 }
+      ],
+      "taskStateMinimums": [
+        { "npcId": "npc_tavern owner", "taskId": "s_ev_5_find_the_vampire", "state": "Complete" },
+        { "npcId": "npc_master_alarich", "taskId": "s_ev_12_bring_blood", "state": "Complete" }
+      ],
+      "unlockedTechs": [],
+      "unlockedPhrases": [],
+      "blacklistedPhrases": ["@refugees_s15_3"],
+      "unlockedCrafts": [],
+      "completedOneTimeCrafts": [],
+      "wgoParamMinimums": [
+        { "objectId": "npc_master_alarich", "key": "is_after_disclosure", "value": 1.0 }
+      ],
+      "personalItemGrants": []
+    },
+    {
+      "milestoneId": "game_of_crone_witchers_eye_requested",
+      "npcId": "npc_marquis_teodoro_jr",
+      "taskId": "s_ev_14_take_eye",
+      "activeStates": ["Visible"],
+      "playerParamRepairs": [],
+      "playerParamMinimums": [
+        { "key": "is_s_ev_14_triggered", "value": 1.0 },
+        { "key": "is_requested_withcer_eye", "value": 1.0 }
+      ],
+      "taskStateMinimums": [
+        { "npcId": "npc_master_alarich", "taskId": "s_ev_12_bring_blood", "state": "Complete" },
+        { "npcId": "npc_master_alarich", "taskId": "s_ev_13_blood", "state": "Visible" },
+        { "npcId": "npc_tavern owner", "taskId": "s_ev_13_lie", "state": "Visible" }
+      ],
+      "unlockedTechs": [],
+      "unlockedPhrases": [],
+      "blacklistedPhrases": [],
+      "unlockedCrafts": [],
+      "completedOneTimeCrafts": [],
+      "wgoParamMinimums": [
+        { "objectId": "npc_master_alarich", "key": "is_after_disclosure", "value": 1.0 }
+      ],
+      "personalItemGrants": []
+    },
+    {
+      "milestoneId": "game_of_crone_witchers_eye_route_completed",
+      "npcId": "npc_marquis_teodoro_jr",
+      "taskId": "s_ev_14_take_eye",
+      "activeStates": ["Complete"],
+      "playerParamRepairs": [],
+      "playerParamMinimums": [
+        { "key": "has_witchers_eye", "value": 1.0 },
+        { "key": "is_s_ev_14_triggered", "value": 1.0 },
+        { "key": "is_requested_withcer_eye", "value": 1.0 }
+      ],
+      "taskStateMinimums": [
+        { "npcId": "npc_master_alarich", "taskId": "s_ev_12_bring_blood", "state": "Complete" },
+        { "npcId": "npc_master_alarich", "taskId": "s_ev_13_blood", "state": "Visible" },
+        { "npcId": "npc_tavern owner", "taskId": "s_ev_13_lie", "state": "Visible" }
+      ],
+      "unlockedTechs": [],
+      "unlockedPhrases": [],
+      "blacklistedPhrases": ["@refugees_s15_4"],
+      "unlockedCrafts": [],
+      "completedOneTimeCrafts": [],
+      "wgoParamMinimums": [
+        { "objectId": "npc_master_alarich", "key": "is_after_disclosure", "value": 1.0 }
+      ],
+      "personalItemGrants": []
+    },
+    {
+      "milestoneId": "game_of_crone_refugee_cloud_survey_opened",
+      "npcId": "player",
+      "taskId": "s_ev_14_survey_area",
+      "activeStates": ["Visible"],
+      "playerParamRepairs": [],
+      "playerParamMinimums": [
+        { "key": "has_witchers_eye", "value": 1.0 },
+        { "key": "is_s_ev_14_triggered", "value": 1.0 }
+      ],
+      "taskStateMinimums": [
+        { "npcId": "npc_master_alarich", "taskId": "s_ev_12_bring_blood", "state": "Complete" },
+        { "npcId": "npc_master_alarich", "taskId": "s_ev_13_blood", "state": "Visible" },
+        { "npcId": "npc_tavern owner", "taskId": "s_ev_13_lie", "state": "Visible" }
+      ],
+      "unlockedTechs": [],
+      "unlockedPhrases": [],
+      "blacklistedPhrases": [],
+      "unlockedCrafts": [],
+      "completedOneTimeCrafts": [],
+      "wgoParamMinimums": [
+        { "objectId": "npc_master_alarich", "key": "is_after_disclosure", "value": 1.0 }
+      ],
+      "personalItemGrants": []
+    },
+    {
+      "milestoneId": "game_of_crone_beatrice_arrival_completed",
+      "npcId": "npc_inquisitor",
+      "taskId": "s_ev_15_1_inq_beatrice",
+      "activeStates": ["Visible", "Complete"],
+      "playerParamRepairs": [
+        { "key": "is_start_ev_s15_1", "value": 0.0 },
+        { "key": "beatrice_should_come_count", "value": 0.0 }
+      ],
+      "playerParamMinimums": [
+        { "key": "has_witchers_eye", "value": 1.0 },
+        { "key": "is_s_ev_14_triggered", "value": 1.0 }
+      ],
+      "taskStateMinimums": [
+        { "npcId": "npc_marquis_teodoro_jr", "taskId": "s_ev_15_1_teodoro_inform", "state": "Visible" },
+        { "npcId": "npc_master_alarich", "taskId": "s_ev_15_1_alar_beatrice", "state": "Visible" }
+      ],
+      "unlockedTechs": [],
+      "unlockedPhrases": [],
+      "blacklistedPhrases": [],
+      "unlockedCrafts": [],
+      "completedOneTimeCrafts": [],
+      "wgoParamMinimums": [
+        { "objectId": "npc_master_alarich", "key": "is_after_disclosure", "value": 1.0 }
+      ],
+      "personalItemGrants": []
+    },
+    {
+      "milestoneId": "game_of_crone_teodoro_beatrice_report_opened",
+      "npcId": "npc_marquis_teodoro_jr",
+      "taskId": "s_ev_15_1_teodoro_inform",
+      "activeStates": ["Visible"],
+      "playerParamRepairs": [],
+      "playerParamMinimums": [],
+      "taskStateMinimums": [],
+      "unlockedTechs": [],
+      "unlockedPhrases": ["@refugees_city_2_1"],
+      "blacklistedPhrases": [],
+      "unlockedCrafts": [],
+      "completedOneTimeCrafts": [],
+      "wgoParamMinimums": [],
+      "personalItemGrants": []
+    },
+    {
+      "milestoneId": "game_of_crone_alarich_beatrice_report_opened",
+      "npcId": "npc_master_alarich",
+      "taskId": "s_ev_15_1_alar_beatrice",
+      "activeStates": ["Visible"],
+      "playerParamRepairs": [],
+      "playerParamMinimums": [],
+      "taskStateMinimums": [],
+      "unlockedTechs": [],
+      "unlockedPhrases": ["@refugees_s15_1_1"],
+      "blacklistedPhrases": [],
+      "unlockedCrafts": [],
+      "completedOneTimeCrafts": [],
+      "wgoParamMinimums": [],
+      "personalItemGrants": []
+    },
+    {
+      "milestoneId": "game_of_crone_inquisitor_beatrice_report_opened",
+      "npcId": "npc_inquisitor",
+      "taskId": "s_ev_15_1_inq_beatrice",
+      "activeStates": ["Visible"],
+      "playerParamRepairs": [],
+      "playerParamMinimums": [],
+      "taskStateMinimums": [],
+      "unlockedTechs": [],
+      "unlockedPhrases": ["@refugees_s15_1_2"],
+      "blacklistedPhrases": [],
+      "unlockedCrafts": [],
+      "completedOneTimeCrafts": [],
+      "wgoParamMinimums": [],
+      "personalItemGrants": []
+    }
+  ],
+  "cutscenes": [
+    {
+      "cutsceneId": "game_of_crone_revive_alarich_and_hear_disclosure",
+      "linkedQuestIds": ["dlc_refugees_s15_2"],
+      "triggerScripts": [
+        "alarich_fainted:interaction",
+        "npc_master_alarich:refugee_event_s13"
+      ],
+      "actors": [
+        "initiating_player",
+        "alarich_fainted",
+        "npc_master_alarich"
+      ],
+      "observerPolicy": "all_loaded_party_members",
+      "lateJoinPolicy": "join_live_checkpoint_or_observe",
+      "remoteExecutionPolicy": "live_observation",
+      "executionOwnerPolicy": "any_player",
+      "dialogueOwnerPolicy": "initiating_player",
+      "formationPolicy": "initiator_with_observer_follow",
+      "completionChecks": [
+        { "source": "player_param", "key": "is_s_ev_14_triggered", "comparison": ">=", "value": 1.0 }
+      ],
+      "cleanupRequirements": [
+        "offer_blood_x1_pail_blood_x1_or_leave_and_consume_only_the_live_initiators_selected_paid_answer",
+        "keep_both_paid_answers_convergent_and_do_not_record_them_as_durable_story_choices",
+        "check_dlc_refugees_s15_2_once_during_the_paid_wake_sequence",
+        "return_the_stock_npc_master_alarich_to_refugee_ev_s12_4_before_running_refugee_event_s13",
+        "remove_and_destroy_only_the_alarich_fainted_proxy_after_the_canonical_actor_takes_over",
+        "complete_s_ev_12_bring_blood_and_apply_Alarich_relation_plus_twenty_once",
+        "drop_exactly_one_vampire_sunscreen_to_the_live_initiator_as_the_single_shared_Horadric_turn_in_token",
+        "run_s13_and_s14_as_one_uninterrupted_authoritative_scene_for_all_observers",
+        "increment_beatrice_should_come_count_once_without_repairing_its_later_consumed_value",
+        "set_is_s_ev_14_triggered_and_is_after_disclosure_once_but_never_restore_multianswer_type_or_is_alarich_supply_enabled_after_later_shutdown",
+        "prepare_s16_immediately_when_has_witchers_eye_is_already_set_otherwise_open_the_Teodoro_eye_route",
+        "restore_camera_music_and_player_control_after_either_paid_answer_on_Leave_and_on_interrupted_exits"
+      ]
+    },
+    {
+      "cutsceneId": "game_of_crone_horadric_vampire_cover_story",
+      "linkedQuestIds": ["dlc_refugees_s15_3"],
+      "triggerScripts": ["npc_tavern owner:@refugees_s15_3"],
+      "actors": [
+        "initiating_player",
+        "npc_tavern owner"
+      ],
+      "observerPolicy": "all_loaded_party_members",
+      "lateJoinPolicy": "join_live_checkpoint_or_observe",
+      "remoteExecutionPolicy": "live_observation",
+      "executionOwnerPolicy": "any_player",
+      "dialogueOwnerPolicy": "initiating_player",
+      "formationPolicy": "initiator_with_observer_follow",
+      "cleanupRequirements": [
+        "consume_exactly_one_vampire_sunscreen_from_the_live_initiator_as_the_answer_price",
+        "blacklist_refugees_s15_3_before_the_cover_story_dialogue",
+        "complete_s_ev_5_find_the_vampire_before_the_dialogue_and_s_ev_13_lie_at_its_end",
+        "check_dlc_refugees_s15_3_once_from_the_refugees_s15_3_3_talk_out_wait",
+        "award_fifty_money_to_the_live_initiator_once_from_the_refugees_s15_3_11_talk_out_wait",
+        "never_duplicate_the_shared_sunscreen_handoff_or_the_money_for_observers_reconnects_or_late_joiners",
+        "keep_this_optional_report_independent_of_the_Beatrice_arrival_and_cloud_memory_branches",
+        "restore_the_initiator_to_normal_Horadric_interaction"
+      ]
+    },
+    {
+      "cutsceneId": "game_of_crone_teodoro_witchers_eye_lead",
+      "linkedQuestIds": ["dlc_refugees_s15_2"],
+      "triggerScripts": ["npc_teodoro:@refugees_s15_4"],
+      "actors": [
+        "initiating_player",
+        "npc_marquis_teodoro_jr"
+      ],
+      "observerPolicy": "all_loaded_party_members",
+      "lateJoinPolicy": "join_live_checkpoint_or_observe",
+      "remoteExecutionPolicy": "live_observation",
+      "executionOwnerPolicy": "any_player",
+      "dialogueOwnerPolicy": "initiating_player",
+      "formationPolicy": "initiator_with_observer_follow",
+      "cleanupRequirements": [
+        "blacklist_refugees_s15_4_before_the_eight_line_Teodoro_dialogue",
+        "do_not_complete_s_ev_14_take_eye_from_this_optional_conversation",
+        "let_event_city_1_fin_complete_the_task_only_when_the_eye_was_requested",
+        "never_reunlock_refugees_s15_4_from_the_still_visible_task_after_the_player_has_already_asked",
+        "keep_the_city_finale_valid_before_or_after_Alarichs_s14_disclosure",
+        "return_the_initiator_to_normal_Teodoro_interaction"
+      ]
+    },
+    {
+      "cutsceneId": "game_of_crone_prepare_refugee_cloud_survey",
+      "linkedQuestIds": ["dlc_refugees_s15_2"],
+      "triggerScripts": ["refugee_prepare_for_s16"],
+      "actors": [
+        "initiating_player",
+        "refugee_s16_trigger_zone"
+      ],
+      "observerPolicy": "all_loaded_party_members",
+      "lateJoinPolicy": "join_live_checkpoint_or_observe",
+      "remoteExecutionPolicy": "live_observation",
+      "executionOwnerPolicy": "any_player",
+      "dialogueOwnerPolicy": "initiating_player",
+      "formationPolicy": "initiator_with_observer_follow",
+      "cleanupRequirements": [
+        "run_only_after_both_is_s_ev_14_triggered_and_has_witchers_eye_are_true_in_either_prerequisite_order",
+        "show_player_s_ev_14_survey_area_once",
+        "arm_s16_need_actiavate_event_once_and_spawn_exactly_one_refugee_s16_trigger_zone",
+        "treat_s16_need_actiavate_event_as_a_consumed_zone_latch_and_never_restore_it_from_the_visible_survey_task",
+        "keep_the_cloud_survey_parallel_with_and_independent_of_refugee_ev_s15_1",
+        "leave_the_zone_entry_cloud_memory_and_jaw_chain_to_the_following_catalogue_chapter"
+      ]
+    },
+    {
+      "cutsceneId": "game_of_crone_beatrice_sleep_arrival",
+      "linkedQuestIds": ["dlc_refugees_s15_1"],
+      "triggerScripts": [
+        "sleep",
+        "refugee_ev_s15_1"
+      ],
+      "actors": [
+        "initiating_player",
+        "npc_beatrice_s15_1"
+      ],
+      "observerPolicy": "all_loaded_party_members",
+      "lateJoinPolicy": "join_live_checkpoint_or_observe",
+      "remoteExecutionPolicy": "live_observation",
+      "executionOwnerPolicy": "any_player",
+      "dialogueOwnerPolicy": "initiating_player",
+      "formationPolicy": "initiator_with_observer_follow",
+      "completionChecks": [
+        { "source": "player_param", "key": "ev_s15_1_completed", "comparison": ">=", "value": 1.0 }
+      ],
+      "cleanupRequirements": [
+        "require_beatrice_should_come_count_at_least_two_on_the_authoritative_post_save_sleep_chain",
+        "reset_the_readiness_counter_set_is_start_ev_s15_1_and_spawn_exactly_one_npc_beatrice_s15_1_at_teodoro_spawn_point",
+        "preserve_beatrice_should_come_count_without_a_latch_or_spawn_when_an_earlier_post_save_sleep_hook_owns_that_cycle",
+        "after_the_threshold_arms_the_scene_preserve_is_start_ev_s15_1_and_the_spawned_Beatrice_when_an_earlier_wake_hook_owns_that_cycle",
+        "clear_is_start_ev_s15_1_only_immediately_before_refugee_ev_s15_1_actually_launches",
+        "when_multiple_party_members_are_asleep_keep_their_wake_release_coordinated_while_non_sleeping_members_join_the_live_cutscene_normally",
+        "run_one_authoritative_Beatrice_scene_with_dialogue_owned_by_the_initiating_player_and_visible_to_all_loaded_party_members",
+        "preserve_Beatrices_exact_route_spray_cast_and_teleport_choreography",
+        "check_dlc_refugees_s15_1_once_from_the_refugees_s15_6_talk_out_branch",
+        "remove_to_stock_and_destroy_only_npc_beatrice_s15_1_before_opening_the_three_independent_reports",
+        "unlock_each_report_topic_once_and_set_ev_s15_1_completed_after_all_three_tasks_exist",
+        "restore_camera_music_cinematic_state_facing_and_player_control_for_every_participant_on_all_exits"
+      ]
+    }
+  ],
+  "storySteps": [
+    {
+      "stepId": "game_of_crone_revive_alarich_with_blood",
+      "title": "Revive Alarich with blood and hear his full disclosure",
+      "linkedQuestIds": ["dlc_refugees_s15_2"],
+      "linkedTaskMilestoneIds": [
+        "game_of_crone_alarich_blood_delivery_completed",
+        "game_of_crone_horadric_cover_story_opened"
+      ],
+      "triggerScripts": [
+        "alarich_fainted:interaction",
+        "npc_master_alarich:refugee_event_s13"
+      ],
+      "triggerKeys": [
+        "blood",
+        "pail_blood",
+        "dlc_refugees_s15_2",
+        "s_ev_12_bring_blood",
+        "s_ev_13_blood",
+        "vampire_sunscreen",
+        "@refugees_s15_3",
+        "s_ev_13_lie",
+        "beatrice_should_come_count",
+        "is_s_ev_14_triggered",
+        "is_alarich_supply_enabled",
+        "npc_master_alarich:is_after_disclosure"
+      ],
+      "expectedEffects": [
+        { "kind": "inventory_choice", "id": "blood_or_pail_blood", "operation": "consume_one_selected_item_from_initiator", "amount": 1.0, "ownership": "personal_character" },
+        { "kind": "serialized_quest_key", "id": "dlc_refugees_s15_2", "operation": "check_once_during_the_paid_wake_sequence", "amount": 1.0, "ownership": "shared_campaign" },
+        { "kind": "world_actor", "id": "alarich_fainted", "operation": "remove_and_destroy_after_canonical_Alarich_returns", "amount": 1.0, "ownership": "shared_world" },
+        { "kind": "npc_task", "id": "npc_master_alarich:s_ev_12_bring_blood", "operation": "complete", "amount": 1.0, "ownership": "shared_campaign" },
+        { "kind": "npc_relation", "id": "npc_master_alarich", "operation": "add_once", "amount": 20.0, "ownership": "shared_campaign" },
+        { "kind": "npc_task", "id": "npc_master_alarich:s_ev_13_blood", "operation": "show_as_repeatable_supply", "amount": 1.0, "ownership": "shared_campaign" },
+        { "kind": "inventory_item", "id": "vampire_sunscreen", "operation": "drop_one_shared_Horadric_turn_in_token_to_live_initiator", "amount": 1.0, "ownership": "shared_story_token" },
+        { "kind": "dialogue_phrase", "id": "@refugees_s15_3", "operation": "unlock", "amount": 1.0, "ownership": "shared_campaign" },
+        { "kind": "npc_task", "id": "npc_tavern owner:s_ev_13_lie", "operation": "show", "amount": 1.0, "ownership": "shared_campaign" },
+        { "kind": "player_param", "id": "beatrice_should_come_count", "operation": "increment_once_for_Alarich_prerequisite", "amount": 1.0, "ownership": "shared_campaign" },
+        { "kind": "player_param", "id": "is_s_ev_14_triggered", "operation": "set", "amount": 1.0, "ownership": "shared_campaign" },
+        { "kind": "world_param", "id": "npc_master_alarich:multianswer_type", "operation": "clear_for_post_disclosure_supply_interaction", "amount": 0.0, "ownership": "shared_world" },
+        { "kind": "player_param", "id": "is_alarich_supply_enabled", "operation": "set_until_the_later_supply_shutdown", "amount": 1.0, "ownership": "shared_campaign" },
+        { "kind": "world_param", "id": "npc_master_alarich:is_after_disclosure", "operation": "set", "amount": 1.0, "ownership": "shared_world" }
+      ],
+      "safeguards": [
+        "consume_only_the_initiators_selected_answer_price_and_never_charge_observers",
+        "do_not_grant_one_sunscreen_per_observer_or_recreate_the_token_after_Horadric_consumes_it",
+        "do_not_treat_s_ev_13_blood_as_a_completable_story_task",
+        "do_not_reconcile_the_repeatable_blood_topics_or_is_alarich_supply_enabled_after_close_15_2_event",
+        "never_repair_or_reincrement_beatrice_should_come_count",
+        "preserve_the_conditional_eye_already_owned_or_eye_requested_branch"
+      ]
+    },
+    {
+      "stepId": "game_of_crone_tell_horadric_the_cover_story",
+      "title": "Give Horadric the sunscreen and close the village vampire search",
+      "linkedQuestIds": ["dlc_refugees_s15_3"],
+      "linkedTaskMilestoneIds": [
+        "game_of_crone_horadric_cover_story_opened",
+        "game_of_crone_horadric_cover_story_completed"
+      ],
+      "triggerScripts": ["npc_tavern owner:@refugees_s15_3"],
+      "triggerKeys": [
+        "vampire_sunscreen",
+        "@refugees_s15_3",
+        "dlc_refugees_s15_3",
+        "s_ev_5_find_the_vampire",
+        "s_ev_13_lie",
+        "money"
+      ],
+      "expectedEffects": [
+        { "kind": "inventory_item", "id": "vampire_sunscreen", "operation": "consume_one_from_live_initiator_as_answer_price", "amount": 1.0, "ownership": "shared_story_token" },
+        { "kind": "dialogue_phrase", "id": "@refugees_s15_3", "operation": "blacklist", "amount": 1.0, "ownership": "shared_campaign" },
+        { "kind": "npc_task", "id": "npc_tavern owner:s_ev_5_find_the_vampire", "operation": "complete", "amount": 1.0, "ownership": "shared_campaign" },
+        { "kind": "serialized_quest_key", "id": "dlc_refugees_s15_3", "operation": "check_once_mid_dialogue", "amount": 1.0, "ownership": "shared_campaign" },
+        { "kind": "currency", "id": "money", "operation": "add_to_live_initiator_once", "amount": 50.0, "ownership": "personal_character" },
+        { "kind": "npc_task", "id": "npc_tavern owner:s_ev_13_lie", "operation": "complete", "amount": 1.0, "ownership": "shared_campaign" }
+      ],
+      "safeguards": [
+        "keep_this_report_optional_and_order_independent_from_Beatrice_and_the_cloud_survey",
+        "never_consume_sunscreen_or_award_money_for_observers",
+        "never_replay_the_mid_dialogue_quest_check_or_money_wait",
+        "do_not_reunlock_refugees_s15_3_after_s_ev_13_lie_is_complete"
+      ]
+    },
+    {
+      "stepId": "game_of_crone_converge_the_witchers_eye_dependency",
+      "title": "Converge Alarich's disclosure with the Witcher's Eye and prepare the cloud survey",
+      "linkedQuestIds": ["dlc_refugees_s15_2", "dlc_refugees_city_1_fin"],
+      "linkedTaskMilestoneIds": [
+        "game_of_crone_witchers_eye_requested",
+        "game_of_crone_witchers_eye_route_completed",
+        "game_of_crone_refugee_cloud_survey_opened"
+      ],
+      "triggerScripts": [
+        "npc_teodoro:@refugees_s15_4",
+        "npc_teodoro:event_city_1_fin",
+        "refugee_prepare_for_s16"
+      ],
+      "triggerKeys": [
+        "has_witchers_eye",
+        "is_requested_withcer_eye",
+        "@refugees_s15_4",
+        "s_ev_14_take_eye",
+        "beatrice_should_come_count",
+        "s_ev_14_survey_area",
+        "s16_need_actiavate_event",
+        "refugee_s16_trigger_zone"
+      ],
+      "expectedEffects": [
+        { "kind": "dialogue_phrase", "id": "@refugees_s15_4", "operation": "unlock_when_the_eye_is_missing_then_blacklist_after_the_optional_lead_or_city_finale", "amount": 1.0, "ownership": "shared_campaign" },
+        { "kind": "npc_task", "id": "npc_marquis_teodoro_jr:s_ev_14_take_eye", "operation": "show_when_requested_then_complete_from_event_city_1_fin", "amount": 1.0, "ownership": "shared_campaign" },
+        { "kind": "player_param", "id": "has_witchers_eye", "operation": "set_by_event_city_1_fin", "amount": 1.0, "ownership": "shared_campaign" },
+        { "kind": "player_param", "id": "beatrice_should_come_count", "operation": "increment_once_for_city_1_prerequisite", "amount": 1.0, "ownership": "shared_campaign" },
+        { "kind": "npc_task", "id": "player:s_ev_14_survey_area", "operation": "show_once_after_both_prerequisites", "amount": 1.0, "ownership": "shared_campaign" },
+        { "kind": "player_param", "id": "s16_need_actiavate_event", "operation": "arm_until_the_zone_consumes_it", "amount": 1.0, "ownership": "shared_campaign" },
+        { "kind": "world_object", "id": "refugee_s16_trigger_zone", "operation": "spawn_unique", "amount": 1.0, "ownership": "shared_world" }
+      ],
+      "safeguards": [
+        "accept_event_city_1_fin_before_or_after_Alarichs_disclosure_without_requiring_the_Teodoro_task_in_both_orders",
+        "catalogue_only_the_dependency_effects_here_and_leave_the_city_1_item_currency_and_camp_rewards_to_their_own_chapter",
+        "never_reunlock_refugees_s15_4_from_the_still_visible_task_after_the_optional_lead_was_heard",
+        "never_repair_or_reincrement_beatrice_should_come_count",
+        "never_restore_s16_need_actiavate_event_after_zone_entry",
+        "do_not_make_refugee_ev_s15_1_a_prerequisite_for_the_parallel_cloud_survey"
+      ]
+    },
+    {
+      "stepId": "game_of_crone_arm_beatrice_arrival_during_sleep",
+      "title": "Arm Beatrice's arrival after both independent prerequisites",
+      "linkedQuestIds": ["dlc_refugees_s15_1"],
+      "linkedTaskMilestoneIds": [],
+      "triggerScripts": ["sleep"],
+      "triggerKeys": [
+        "beatrice_should_come_count",
+        "is_start_ev_s15_1",
+        "npc_beatrice_s15_1"
+      ],
+      "expectedEffects": [
+        { "kind": "player_param", "id": "beatrice_should_come_count", "operation": "require_at_least_two_then_reset", "amount": 0.0, "ownership": "shared_campaign" },
+        { "kind": "player_param", "id": "is_start_ev_s15_1", "operation": "arm_until_the_wake_branch_launches_the_scene", "amount": 1.0, "ownership": "shared_campaign" },
+        { "kind": "world_actor", "id": "npc_beatrice:npc_beatrice_s15_1", "operation": "spawn_exactly_once_at_teodoro_spawn_point", "amount": 1.0, "ownership": "shared_world" }
+      ],
+      "safeguards": [
+        "apply_the_post_save_sleep_gate_on_campaign_authority_once",
+        "preserve_the_two_count_without_arming_or_spawning_when_an_earlier_post_save_sleep_hook_wins",
+        "keep_an_armed_latch_and_spawned_Beatrice_for_a_later_wake_when_an_earlier_wake_hook_wins",
+        "coordinate_wake_release_only_for_the_players_who_are_already_asleep_and_allow_other_players_to_join_the_live_scene",
+        "never_spawn_one_Beatrice_per_sleeper_or_per_observer",
+        "do_not_clear_is_start_ev_s15_1_until_refugee_ev_s15_1_is_about_to_run"
+      ]
+    },
+    {
+      "stepId": "game_of_crone_meet_beatrice_and_open_the_reports",
+      "title": "Meet Beatrice and open the three independent reports",
+      "linkedQuestIds": ["dlc_refugees_s15_1"],
+      "linkedTaskMilestoneIds": [
+        "game_of_crone_beatrice_arrival_completed",
+        "game_of_crone_teodoro_beatrice_report_opened",
+        "game_of_crone_alarich_beatrice_report_opened",
+        "game_of_crone_inquisitor_beatrice_report_opened"
+      ],
+      "triggerScripts": ["refugee_ev_s15_1"],
+      "triggerKeys": [
+        "dlc_refugees_s15_1",
+        "npc_beatrice_s15_1",
+        "s_ev_15_1_teodoro_inform",
+        "s_ev_15_1_alar_beatrice",
+        "s_ev_15_1_inq_beatrice",
+        "@refugees_city_2_1",
+        "@refugees_s15_1_1",
+        "@refugees_s15_1_2",
+        "ev_s15_1_completed"
+      ],
+      "expectedEffects": [
+        { "kind": "serialized_quest_key", "id": "dlc_refugees_s15_1", "operation": "check_once_from_refugees_s15_6_talk_out", "amount": 1.0, "ownership": "shared_campaign" },
+        { "kind": "world_actor", "id": "npc_beatrice_s15_1", "operation": "remove_to_stock_and_destroy_after_teleport", "amount": 1.0, "ownership": "shared_world" },
+        { "kind": "npc_task", "id": "npc_marquis_teodoro_jr:s_ev_15_1_teodoro_inform", "operation": "show", "amount": 1.0, "ownership": "shared_campaign" },
+        { "kind": "npc_task", "id": "npc_master_alarich:s_ev_15_1_alar_beatrice", "operation": "show", "amount": 1.0, "ownership": "shared_campaign" },
+        { "kind": "npc_task", "id": "npc_inquisitor:s_ev_15_1_inq_beatrice", "operation": "show", "amount": 1.0, "ownership": "shared_campaign" },
+        { "kind": "dialogue_phrase", "id": "@refugees_city_2_1", "operation": "unlock", "amount": 1.0, "ownership": "shared_campaign" },
+        { "kind": "dialogue_phrase", "id": "@refugees_s15_1_1", "operation": "unlock", "amount": 1.0, "ownership": "shared_campaign" },
+        { "kind": "dialogue_phrase", "id": "@refugees_s15_1_2", "operation": "unlock", "amount": 1.0, "ownership": "shared_campaign" },
+        { "kind": "player_param", "id": "ev_s15_1_completed", "operation": "set_after_all_report_tasks_and_topics_exist", "amount": 1.0, "ownership": "shared_campaign" }
+      ],
+      "safeguards": [
+        "consume_is_start_ev_s15_1_before_running_the_scene",
+        "keep_all_loaded_players_in_one_live_cutscene_without_replaying_world_mutations_per_observer",
+        "never_check_dlc_refugees_s15_1_or_remove_Beatrice_more_than_once",
+        "let_the_Alarich_Inquisitor_and_Teodoro_reports_complete_independently_in_any_order",
+        "let_visible_only_report_milestones_repair_topics_during_the_locked_cleanup_tail_without_reopening_them_after_task_completion",
+        "do_not_reunlock_a_report_topic_after_its_corresponding_task_is_complete",
+        "leave_Teodoros_city_2_construction_branch_to_the_following_catalogue_chapter",
+        "restore_every_participants_camera_music_facing_and_control"
+      ]
+    }
+  ]
+}

@@ -5,13 +5,14 @@
     <RootNamespace>GraveyardKeeperCoop</RootNamespace>
     <ModGuid>com.zlord.graveyardkeeper.coop</ModGuid>
     <ModName>GYK Back From The Grave</ModName>
-    <ModVersion>1.1.0</ModVersion>
+    <ModVersion Condition="'$(ModVersion)' == ''">1.2.0</ModVersion>
+    <BepInExPluginVersion Condition="'$(BepInExPluginVersion)' == ''">$(ModVersion)</BepInExPluginVersion>
     <ModReleaseStage>Beta</ModReleaseStage>
     <ModDisplayVersion>$(ModVersion) $(ModReleaseStage)</ModDisplayVersion>
     <ModAuthor>Your Name</ModAuthor>
     <ModDescription>A cooperative multiplayer mod for Graveyard Keeper, enabling players to work together in managing their graveyard and resources.</ModDescription>
     <Version>$(ModVersion)</Version>
-    <InformationalVersion>$(ModDisplayVersion)</InformationalVersion>
+    <InformationalVersion>$(ModVersion)</InformationalVersion>
     <Product>$(ModName)</Product>
     <Description>$(ModDescription)</Description>
     <GeneratedMetadataDir>$(BaseIntermediateOutputPath)Generated/</GeneratedMetadataDir>
@@ -20,6 +21,7 @@
     <LangVersion>latest</LangVersion>
     <!-- Avoid scanning the large asset extraction tree during every build. -->
     <EnableDefaultItems>false</EnableDefaultItems>
+    <CoopBuildTestVariant>public</CoopBuildTestVariant>
   </PropertyGroup>
 
   <!-- Windows-specific game path -->
@@ -46,7 +48,9 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Include="src/**/*.cs" />
+    <!-- Compile the categorized source layout; legacy flat copies are still present. -->
+    <Compile Include="src/**/*.cs"
+             Exclude="src/*.cs;src/Features/*.cs;src/Multiplayer/*.cs;src/Network/*.cs;src/Patches/*.cs;src/UI/*.cs;src/Utils/*.cs" />
   </ItemGroup>
 
   <ItemGroup>
@@ -101,6 +105,10 @@
       <HintPath>$(GamePath)/Graveyard Keeper_Data/Managed/UnityEngine.ImageConversionModule.dll</HintPath>
       <Private>False</Private>
     </Reference>
+    <Reference Include="UnityEngine.AssetBundleModule">
+      <HintPath>$(GamePath)/Graveyard Keeper_Data/Managed/UnityEngine.AssetBundleModule.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
     <Reference Include="UnityEngine.PhysicsModule">
       <HintPath>$(GamePath)/Graveyard Keeper_Data/Managed/UnityEngine.PhysicsModule.dll</HintPath>
       <Private>False</Private>
@@ -127,6 +135,14 @@
       <HintPath>$(GamePath)/Graveyard Keeper_Data/Managed/Assembly-CSharp-firstpass.dll</HintPath>
       <Private>False</Private>
     </Reference>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>$(GamePath)/Graveyard Keeper_Data/Managed/Newtonsoft.Json.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="netstandard">
+      <HintPath>$(GamePath)/Graveyard Keeper_Data/Managed/netstandard.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
   </ItemGroup>
 
   <ItemGroup Condition="'$(TargetFramework.TrimEnd(`0123456789`))' == 'net'">
@@ -136,6 +152,12 @@
   <ItemGroup>
     <EmbeddedResource Include="Assets/back_from_the_grave_caption.png" LogicalName="GraveyardKeeperCoop.Assets.back_from_the_grave_caption.png" />
     <EmbeddedResource Include="Assets/Avatar Frame.png" LogicalName="GraveyardKeeperCoop.Assets.avatar_frame.png" />
+    <EmbeddedResource Include="Assets/CharacterCustomization/gykmp.assetbundle" LogicalName="GraveyardKeeperCoop.Assets.CharacterCustomization.gykmp.assetbundle" />
+    <EmbeddedResource Include="Assets/CharacterCustomization/gykmp-windows-gl.assetbundle" LogicalName="GraveyardKeeperCoop.Assets.CharacterCustomization.gykmp-windows-gl.assetbundle" />
+    <EmbeddedResource Include="Assets/CharacterCustomization/gykmp-linux.assetbundle" LogicalName="GraveyardKeeperCoop.Assets.CharacterCustomization.gykmp-linux.assetbundle" />
+    <EmbeddedResource Include="Assets/CharacterCustomization/playercolors.png" LogicalName="GraveyardKeeperCoop.Assets.CharacterCustomization.playercolors.png" />
+    <EmbeddedResource Include="Assets/keeper_customization_frame.png" LogicalName="GraveyardKeeperCoop.Assets.CharacterCustomization.wardrobe_camera_frame.png" />
+    <EmbeddedResource Include="StoryCatalog/**/*.json" />
   </ItemGroup>
 
   <Target Name="GeneratePluginMetadata" BeforeTargets="CoreCompile">
@@ -149,12 +171,13 @@
       <PluginInfoLines Include="        public const string PLUGIN_GUID = &quot;$(ModGuid)&quot;%3B" />
       <PluginInfoLines Include="        public const string PLUGIN_NAME = &quot;$(ModName)&quot;%3B" />
       <PluginInfoLines Include="        public const string PLUGIN_VERSION = &quot;$(ModVersion)&quot;%3B" />
+      <PluginInfoLines Include="        public const string PLUGIN_LOADER_VERSION = &quot;$(BepInExPluginVersion)&quot;%3B" />
       <PluginInfoLines Include="        public const string PLUGIN_DISPLAY_VERSION = &quot;$(ModDisplayVersion)&quot;%3B" />
       <PluginInfoLines Include="        public const string PLUGIN_DISPLAY_NAME = PLUGIN_NAME + &quot; &quot; + PLUGIN_DISPLAY_VERSION%3B" />
       <PluginInfoLines Include="    }" />
       <PluginInfoLines Include="}" />
       <ModInfoLines Include="name: $(ModName)" />
-      <ModInfoLines Include="version: $(ModDisplayVersion)" />
+      <ModInfoLines Include="version: $(ModVersion)" />
       <ModInfoLines Include="author: $(ModAuthor)" />
       <ModInfoLines Include="description: $(ModDescription)" />
     </ItemGroup>

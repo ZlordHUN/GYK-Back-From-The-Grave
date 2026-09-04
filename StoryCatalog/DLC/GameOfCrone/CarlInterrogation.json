@@ -1,0 +1,598 @@
+{
+  "schemaVersion": 5,
+  "catalogId": "dlc.game-of-crone.carl-interrogation",
+  "campaign": "GameOfCrone",
+  "chapter": "EvidenceMemoriesThroughShepherdRevelation",
+  "quests": [
+    {
+      "questId": "dlc_refugees_s33",
+      "title": "Serialized Shepherd revelation achievement checkpoint",
+      "definitionKind": "AchievementDefinition",
+      "counter": 1,
+      "vanilla": {
+        "startTrigger": "",
+        "successTrigger": "1",
+        "failTrigger": "",
+        "startKeys": ["dlc_refugees_s33"],
+        "questVisible": false,
+        "oneTimeQuest": false,
+        "startScript": "",
+        "successScript": "",
+        "failScript": "",
+        "arrowWgoCustomTag": "",
+        "arrowWgoObjectId": "",
+        "successRewards": [],
+        "failureRewards": []
+      },
+      "policy": {
+        "stateOwnership": "shared_campaign",
+        "eligibleInitiator": "any_player",
+        "livePresentationOwner": "initiating_player",
+        "observerQuestApplication": "durable_state_only",
+        "personalRewardDelivery": "party_exactly_once",
+        "observerSuccess": {
+          "globalScripts": [],
+          "playerParamRepairs": [],
+          "playerParamMinimums": [],
+          "taskStateMinimums": [],
+          "unlockedTechs": [],
+          "unlockedPhrases": [],
+          "blacklistedPhrases": [],
+          "unlockedCrafts": [],
+          "completedOneTimeCrafts": [],
+          "personalItemGrants": []
+        }
+      },
+      "completionChecks": []
+    }
+  ],
+  "taskMilestones": [
+    {
+      "milestoneId": "game_of_crone_blackened_boot_memory_completed",
+      "npcId": "player",
+      "taskId": "s_ev_28_shoe",
+      "activeStates": ["Complete"],
+      "playerParamRepairs": [],
+      "playerParamMinimums": [],
+      "taskStateMinimums": [
+        { "npcId": "donkey", "taskId": "s_ev_s29_1_donkey", "state": "Visible" }
+      ],
+      "unlockedTechs": [],
+      "unlockedPhrases": [],
+      "blacklistedPhrases": [],
+      "unlockedCrafts": [],
+      "completedOneTimeCrafts": [],
+      "wgoParamMinimums": [],
+      "personalItemGrants": []
+    },
+    {
+      "milestoneId": "game_of_crone_skeleton_leg_return_scene_started",
+      "npcId": "npc_ghost_priest",
+      "taskId": "s_ev_28_leg_return",
+      "activeStates": ["Complete"],
+      "playerParamRepairs": [],
+      "playerParamMinimums": [],
+      "taskStateMinimums": [],
+      "unlockedTechs": [],
+      "unlockedPhrases": [],
+      "blacklistedPhrases": [],
+      "unlockedCrafts": [],
+      "completedOneTimeCrafts": [],
+      "wgoParamMinimums": [],
+      "personalItemGrants": []
+    },
+    {
+      "milestoneId": "game_of_crone_donkey_warning_opened",
+      "npcId": "donkey",
+      "taskId": "s_ev_s29_1_donkey",
+      "activeStates": ["Visible"],
+      "playerParamRepairs": [],
+      "playerParamMinimums": [],
+      "taskStateMinimums": [
+        { "npcId": "player", "taskId": "s_ev_28_shoe", "state": "Complete" }
+      ],
+      "unlockedTechs": [],
+      "unlockedPhrases": [],
+      "blacklistedPhrases": [],
+      "unlockedCrafts": [],
+      "completedOneTimeCrafts": [],
+      "wgoParamMinimums": [],
+      "personalItemGrants": []
+    },
+    {
+      "milestoneId": "game_of_crone_donkey_warning_completed",
+      "npcId": "donkey",
+      "taskId": "s_ev_s29_1_donkey",
+      "activeStates": ["Complete"],
+      "playerParamRepairs": [],
+      "playerParamMinimums": [],
+      "taskStateMinimums": [
+        { "npcId": "player", "taskId": "s_ev_28_shoe", "state": "Complete" }
+      ],
+      "unlockedTechs": [],
+      "unlockedPhrases": [],
+      "blacklistedPhrases": [],
+      "unlockedCrafts": [],
+      "completedOneTimeCrafts": [],
+      "wgoParamMinimums": [],
+      "personalItemGrants": []
+    },
+    {
+      "milestoneId": "game_of_crone_carl_interrogation_opened",
+      "npcId": "player",
+      "taskId": "s_ev_s30_carl_interrogation",
+      "activeStates": ["Visible"],
+      "playerParamRepairs": [],
+      "playerParamMinimums": [],
+      "taskStateMinimums": [
+        { "npcId": "donkey", "taskId": "s_ev_s29_1_donkey", "state": "Complete" }
+      ],
+      "unlockedTechs": [],
+      "unlockedPhrases": [],
+      "blacklistedPhrases": [],
+      "unlockedCrafts": [],
+      "completedOneTimeCrafts": [],
+      "wgoParamMinimums": [],
+      "personalItemGrants": []
+    },
+    {
+      "milestoneId": "game_of_crone_carl_interrogation_completed",
+      "npcId": "player",
+      "taskId": "s_ev_s30_carl_interrogation",
+      "activeStates": ["Complete"],
+      "playerParamRepairs": [],
+      "playerParamMinimums": [],
+      "taskStateMinimums": [
+        { "npcId": "donkey", "taskId": "s_ev_s29_1_donkey", "state": "Complete" },
+        { "npcId": "npc_shepherd", "taskId": "s_ev31_shepherd_help", "state": "Visible" }
+      ],
+      "unlockedTechs": [],
+      "unlockedPhrases": ["@refugee_s32"],
+      "blacklistedPhrases": [],
+      "unlockedCrafts": [],
+      "completedOneTimeCrafts": [],
+      "wgoParamMinimums": [],
+      "personalItemGrants": []
+    },
+    {
+      "milestoneId": "game_of_crone_shepherd_carl_lead_opened",
+      "npcId": "npc_shepherd",
+      "taskId": "s_ev31_shepherd_help",
+      "activeStates": ["Visible"],
+      "playerParamRepairs": [],
+      "playerParamMinimums": [],
+      "taskStateMinimums": [
+        { "npcId": "player", "taskId": "s_ev_s30_carl_interrogation", "state": "Complete" }
+      ],
+      "unlockedTechs": [],
+      "unlockedPhrases": ["@refugee_s32"],
+      "blacklistedPhrases": [],
+      "unlockedCrafts": [],
+      "completedOneTimeCrafts": [],
+      "wgoParamMinimums": [],
+      "personalItemGrants": []
+    },
+    {
+      "milestoneId": "game_of_crone_shepherd_carl_lead_completed",
+      "npcId": "npc_shepherd",
+      "taskId": "s_ev31_shepherd_help",
+      "activeStates": ["Complete"],
+      "playerParamRepairs": [],
+      "playerParamMinimums": [],
+      "taskStateMinimums": [
+        { "npcId": "player", "taskId": "s_ev_s30_carl_interrogation", "state": "Complete" }
+      ],
+      "unlockedTechs": [],
+      "unlockedPhrases": [],
+      "blacklistedPhrases": ["@refugee_s32"],
+      "unlockedCrafts": [],
+      "completedOneTimeCrafts": [],
+      "wgoParamMinimums": [],
+      "personalItemGrants": []
+    },
+    {
+      "milestoneId": "game_of_crone_chain_followup_opened",
+      "npcId": "npc_mrs chain",
+      "taskId": "s_ev_33_ask_chain",
+      "activeStates": ["Visible"],
+      "playerParamRepairs": [],
+      "playerParamMinimums": [],
+      "taskStateMinimums": [
+        { "npcId": "npc_shepherd", "taskId": "s_ev31_shepherd_help", "state": "Complete" }
+      ],
+      "unlockedTechs": [],
+      "unlockedPhrases": ["@refugee_s33_q3_1"],
+      "blacklistedPhrases": [
+        "@refugee_s32",
+        "refugee_s33_q1_1",
+        "refugee_s33_q2_1"
+      ],
+      "unlockedCrafts": [],
+      "completedOneTimeCrafts": [],
+      "wgoParamMinimums": [
+        { "objectId": "npc_shepherd", "key": "has_special_greeting", "value": 1.0 }
+      ],
+      "personalItemGrants": []
+    }
+  ],
+  "cutscenes": [
+    {
+      "cutsceneId": "game_of_crone_reconstruct_blackened_boot_memory",
+      "linkedQuestIds": ["dlc_refugees_s33"],
+      "triggerScripts": [
+        "OnMemoryPotionUse",
+        "OnMemoryPotionUse:Use spray",
+        "refugee_ev_s29_1_flashback"
+      ],
+      "actors": [
+        "initiating_player",
+        "npc_vampire_carl_ev_29_1",
+        "npc_vampire_common_ev_29_1_1",
+        "npc_vampire_common_ev_29_1_2",
+        "npc_vampire_common_ev_29_1_3",
+        "unfade_circle"
+      ],
+      "observerPolicy": "all_loaded_party_members",
+      "lateJoinPolicy": "join_live_checkpoint_or_observe",
+      "remoteExecutionPolicy": "live_observation",
+      "executionOwnerPolicy": "any_player",
+      "dialogueOwnerPolicy": "initiating_player",
+      "formationPolicy": "initiator_with_observer_follow",
+      "cleanupRequirements": [
+        "enter_the_boot_branch_only_when_memory_potion_mode_is_two_and_the_live_initiator_retains_vampires_blackened_boot",
+        "consume_one_memory_potion_only_from_the_live_initiator_for_each_valid_use_and_never_from_observers",
+        "advance_one_authoritative_shared_boot_memory_counter_through_the_live_initiators_vanilla_memory_potion_boot_use_count_write_and_never_sum_profile_counters_or_repair_observers_to_three",
+        "preserve_mode_one_as_the_jaw_memory_dispatch_and_never_refund_or_mutate_the_jaw_routes_progress_from_the_boot_policy",
+        "refund_one_memory_potion_only_when_the_source_routes_this_use_to_refund_including_no_selected_story_item_mode_zero_mode_two_without_the_boot_dungeon_or_out_of_range_boot_count_paths",
+        "present_refugee_s29_1_1_after_use_one_refugee_s29_1_2_after_use_two_and_refugee_s29_1_3_before_the_third_use_flashback",
+        "load_DLC_scene_ev_29_1_bathhouse_store_and_replace_the_environment_apply_the_past_filter_and_preserve_refugee_s29_1_4_through_17",
+        "restore_the_subscene_filter_weather_environment_music_sound_camera_and_all_actor_movement_before_returning_to_lines_eighteen_and_nineteen",
+        "complete_player_s_ev_28_shoe_then_show_donkey_s_ev_s29_1_donkey_before_staging_the_s30_trigger_transaction",
+        "commit_a_party_wide_third_use_entered_phase_before_the_count_three_flashback_so_interruption_resumes_instead_of_incrementing_to_four",
+        "reset_the_authoritative_shared_memory_potion_mode_to_zero_before_spawning_the_s30_trigger_without_repairing_observer_profile_params",
+        "spawn_one_refugee_s22_trigger_zone_then_set_donkey_is_zone_s30_triggered_one_and_donkey_should_stop_in_s30_one_only_after_recording_distinct_spawn_and_armed_states",
+        "treat_s_ev_28_shoe_Complete_as_proof_of_the_finished_memory_but_not_proof_that_the_later_trigger_spawn_and_two_consumable_latches_finished",
+        "never_rearm_is_zone_s30_triggered_or_donkey_should_stop_in_s30_from_the_persistent_completed_task_after_s30_consumes_them",
+        "retain_the_blackened_boot_and_restore_animation_and_control_on_every_exit"
+      ]
+    },
+    {
+      "cutsceneId": "game_of_crone_return_skeleton_leg_to_yorick",
+      "linkedQuestIds": ["dlc_refugees_s33"],
+      "triggerScripts": [
+        "on_enter_gd_zone_s23",
+        "refugee_ev_s29_2"
+      ],
+      "actors": ["initiating_player", "npc_ghost_priest"],
+      "observerPolicy": "all_loaded_party_members",
+      "lateJoinPolicy": "join_live_checkpoint_or_observe",
+      "remoteExecutionPolicy": "live_observation",
+      "executionOwnerPolicy": "any_player",
+      "dialogueOwnerPolicy": "initiating_player",
+      "formationPolicy": "initiator_with_observer_follow",
+      "cleanupRequirements": [
+        "require_gd_zone_s29_2_is_active_one_and_the_authoritative_secured_skeleton_leg_before_one_player_enters_the_shared_zone",
+        "journal_prepared_and_entered_phases_before_vanilla_clears_gd_zone_s29_2_is_active_and_launches_refugee_ev_s29_2",
+        "spawn_one_non_copy_ghost_play_refugee_s29_2_1_through_9_and_complete_npc_ghost_priest_s_ev_28_leg_return_after_line_two",
+        "treat_the_early_task_completion_as_a_scene_prefix_and_resume_the_remaining_dialogue_disappearance_camera_return_and_item_debit_after_interruption",
+        "remove_exactly_one_skeleton_leg_from_the_recorded_authoritative_custodian_only_after_line_nine_then_atomically_mark_the_shared_token_consumed",
+        "never_remove_a_leg_from_an_observer_never_party_grant_a_replacement_and_never_reconstruct_the_token_after_consumed",
+        "destroy_only_the_transient_ghost_and_restore_invulnerability_camera_facing_and_control_on_every_exit"
+      ]
+    },
+    {
+      "cutsceneId": "game_of_crone_receive_donkeys_carl_warning",
+      "linkedQuestIds": ["dlc_refugees_s33"],
+      "triggerScripts": [
+        "npc_donkey:drop_body",
+        "on_enter_gd_zone_s22_E",
+        "on_enter_gd_zone_s22_N",
+        "on_enter_gd_zone_s22_W",
+        "ev_s30_check_start",
+        "ev_s30_set_flags",
+        "refugee_ev_s30_E",
+        "refugee_ev_s30_N",
+        "refugee_ev_s30_W",
+        "refugee_ev_s30"
+      ],
+      "actors": [
+        "initiating_player",
+        "donkey",
+        "refugee_s22_trigger_zone"
+      ],
+      "observerPolicy": "all_loaded_party_members",
+      "lateJoinPolicy": "join_live_checkpoint_or_observe",
+      "remoteExecutionPolicy": "live_observation",
+      "executionOwnerPolicy": "any_player",
+      "dialogueOwnerPolicy": "initiating_player",
+      "formationPolicy": "initiator_with_observer_follow",
+      "cleanupRequirements": [
+        "on_Donkeys_arrival_convert_donkey_should_stop_in_s30_one_into_donkey_ready_for_s30_one_exactly_once",
+        "launch_once_from_the_directional_zone_only_when_is_zone_s30_triggered_and_donkey_ready_for_s30_are_both_one",
+        "journal_the_direction_entered_phase_before_clearing_is_zone_s30_triggered_donkey_ready_for_s30_and_donkey_should_stop_in_s30",
+        "disable_only_the_live_initiator_send_Donkey_to_the_event_and_preserve_the_direction_specific_approach_before_refugee_s30_1",
+        "complete_donkey_s_ev_s29_1_donkey_at_core_scene_entry_but_resume_refugee_s30_2_through_10_after_interruption",
+        "after_line_ten_record_is_d16_completed_exactly_once_before_applying_the_selected_branch",
+        "when_is_d16_completed_is_one_play_line_eleven_arm_ev_s31_spawn_carl_next_coming_and_schedule_the_next_Donkey_coming",
+        "when_is_d16_completed_is_zero_play_line_twelve_and_set_the_source_stale_historical_is_need_bring_carl_for_ev_31_latch_whose_later_d16_tail_arms_the_same_next_coming",
+        "show_player_s_ev_s30_carl_interrogation_after_either_branch_then_send_Donkey_home_destroy_only_the_shared_trigger_zone_and_restore_control",
+        "resume_the_recorded_branch_after_interruption_and_never_re_evaluate_mutable_is_d16_completed_or_set_both_branch_flags",
+        "preserve_the_uncleared_historical_is_need_bring_carl_for_ev_31_latch_for_the_d16_tail_but_ignore_it_for_respawn_after_ev_s31_spawn_carl_next_coming_or_the_Carl_setup_phase_is_committed",
+        "do_not_recreate_the_trigger_or_rearm_any_consumed_Donkey_latch_from_the_persistent_completed_or_visible_tasks"
+      ]
+    },
+    {
+      "cutsceneId": "game_of_crone_interrogate_carl_with_gerry",
+      "linkedQuestIds": ["dlc_refugees_s33"],
+      "triggerScripts": [
+        "npc_donkey:setup_ev_s31",
+        "npc_vampire_carl_bounded:event_s31",
+        "on_enter_mortuary_gd_zone",
+        "refugee_ev_s31"
+      ],
+      "actors": [
+        "initiating_player",
+        "npc_vampire_carl_bounded",
+        "crafting_skull_3"
+      ],
+      "observerPolicy": "all_loaded_party_members",
+      "lateJoinPolicy": "join_live_checkpoint_or_observe",
+      "remoteExecutionPolicy": "live_observation",
+      "executionOwnerPolicy": "any_player",
+      "dialogueOwnerPolicy": "initiating_player",
+      "formationPolicy": "initiator_with_observer_follow",
+      "cleanupRequirements": [
+        "consume_ev_s31_spawn_carl_next_coming_once_on_Donkeys_next_arrival_then_spawn_one_non_copy_npc_vampire_carl_bounded_with_event_s31",
+        "if_the_spawn_latch_was_cleared_finish_the_committed_setup_or_repair_the_existing_Carl_event_and_Gerry_param_without_spawning_a_duplicate",
+        "set_crafting_skull_3_s31_intorrogate_carl_one_after_the_spawn_and_let_either_Carl_interaction_or_mortuary_entry_claim_it",
+        "journal_the_entered_phase_before_clearing_s31_intorrogate_carl_or_removing_event_s31_so_a_crash_cannot_lose_the_only_launch",
+        "preserve_refugee_s31_1_through_18_and_the_Carl_Gerry_camera_and_movement_choreography",
+        "complete_player_s_ev_s30_carl_interrogation_show_npc_shepherd_s_ev31_shepherd_help_and_unlock_refugee_s32_in_that_order",
+        "treat_the_player_task_completion_as_a_late_prefix_and_finish_the_Shepherd_task_phrase_and_control_restore_tail_without_replaying_the_interrogation",
+        "leave_the_single_bounded_Carl_for_s33_and_never_spawn_or_remove_one_per_observer",
+        "restore_animation_camera_cinematic_state_and_control_on_every_exit"
+      ]
+    },
+    {
+      "cutsceneId": "game_of_crone_hear_shepherds_carl_revelation",
+      "linkedQuestIds": ["dlc_refugees_s33"],
+      "triggerScripts": [
+        "npc_shepherd:@refugee_s32",
+        "refugee_ev_s33",
+        "refugee_ev_s33:eat_garlic",
+        "refugee_ev_s33:start_multianswer"
+      ],
+      "actors": [
+        "initiating_player",
+        "npc_shepherd",
+        "npc_shepherd_s33",
+        "npc_vampire_carl_bounded",
+        "npc_vampire_carl_usual",
+        "crafting_skull_3"
+      ],
+      "observerPolicy": "all_loaded_party_members",
+      "lateJoinPolicy": "join_live_checkpoint_or_observe",
+      "remoteExecutionPolicy": "live_observation",
+      "executionOwnerPolicy": "any_player",
+      "dialogueOwnerPolicy": "initiating_player",
+      "formationPolicy": "initiator_with_observer_follow",
+      "cleanupRequirements": [
+        "blacklist_refugee_s32_and_complete_npc_shepherd_s_ev31_shepherd_help_at_entry_before_refugee_s32_1_through_11",
+        "set_the_live_Shepherd_has_special_greeting_one_then_stage_the_mortuary_scene_and_continue_directly_into_refugee_ev_s33",
+        "commit_the_fade_middle_scene_setup_before_allowing_the_fade_finished_path_to_launch_s33_and_deduplicate_npc_shepherd_s33",
+        "treat_the_entry_task_and_greeting_as_prefixes_and_resume_the_joined_s32_s33_transaction_rather_than_skipping_the_revelation",
+        "temporarily_raise_only_the_live_initiators_inventory_size_from_twenty_to_twenty_one_drop_one_scene_garlic_bunch_and_consume_that_same_ephemeral_item_through_eat_garlic",
+        "reserve_the_single_garlic_drop_for_the_initiator_prevent_observer_pickup_or_atomically_transfer_it_back_before_eat_garlic_and_never_grant_or_consume_one_per_observer",
+        "after_committed_garlic_consumption_remove_only_an_orphaned_scene_drop_and_never_spawn_a_replacement",
+        "preserve_refugee_s33_1_through_22_and_check_the_shared_dlc_refugees_s33_key_once_when_line_twenty_two_begins_without_treating_that_early_achievement_as_scene_completion",
+        "resolve_dlc_refugees_s33_as_an_AchievementDefinition_with_counter_one_from_achievements_data_instead_of_ordinary_quests_data",
+        "remove_npc_shepherd_s33_to_stock_then_destroy_that_transient_duplicate_while_preserving_the_original_scheduled_Shepherd_before_opening_the_question_tree",
+        "serialize_the_initiators_multianswer_choices_blacklist_q1_and_q2_individually_and_unlock_q3_only_after_both_unique_branches_finish",
+        "resume_with_only_unanswered_questions_and_never_open_an_observer_multianswer_menu",
+        "run_refugee_s33_q3_2_through_17_swap_bounded_Carl_for_usual_Carl_show_npc_mrs_chain_s_ev_33_ask_chain_and_preserve_refugee_s33_23_through_28",
+        "remove_and_destroy_both_transient_Carl_variants_unlock_refugee_s34_restore_the_captured_inventory_capacity_animation_music_camera_and_control_while_preserving_Gerry_and_the_mortuary_Inside_terminal_environment",
+        "use_the_final_refugee_s34_unlock_as_the_durable_story_tail_and_never_infer_it_from_the_earlier_achievement_check_or_Chain_task"
+      ]
+    }
+  ],
+  "storySteps": [
+    {
+      "stepId": "game_of_crone_complete_the_blackened_boot_memory",
+      "title": "Use three memory potions to reconstruct the blackened boot memory",
+      "linkedQuestIds": ["dlc_refugees_s33"],
+      "linkedTaskMilestoneIds": [
+        "game_of_crone_blackened_boot_memory_completed",
+        "game_of_crone_donkey_warning_opened"
+      ],
+      "triggerScripts": ["OnMemoryPotionUse", "refugee_ev_s29_1_flashback"],
+      "triggerKeys": [
+        "memory_potion_mode",
+        "memory_potion_boot_use_count",
+        "gykmp_story_phase_game_of_crone_boot_memory_third_use_entered",
+        "vampires_blackened_boot",
+        "memory_potion",
+        "s_ev_28_shoe",
+        "s_ev_s29_1_donkey",
+        "is_zone_s30_triggered",
+        "donkey_should_stop_in_s30"
+      ],
+      "expectedEffects": [
+        { "kind": "inventory_item", "id": "vampires_blackened_boot", "operation": "require_and_retain_for_each_valid_use", "amount": 1.0, "ownership": "personal_character" },
+        { "kind": "inventory_item", "id": "memory_potion", "operation": "consume_one_from_the_live_initiator_per_valid_use", "amount": 3.0, "ownership": "initiating_player_transaction" },
+        { "kind": "player_param", "id": "memory_potion_boot_use_count", "operation": "advance_one_authoritative_shared_counter_once_per_valid_use_through_the_live_initiators_vanilla_write_without_observer_repair", "amount": 3.0, "ownership": "shared_campaign" },
+        { "kind": "story_phase", "id": "gykmp_story_phase_game_of_crone_boot_memory_third_use_entered", "operation": "commit_party_wide_when_the_authoritative_counter_reaches_three_before_launching_the_shared_flashback", "amount": 1.0, "ownership": "shared_campaign" },
+        { "kind": "npc_task", "id": "player:s_ev_28_shoe", "operation": "complete_after_the_third_flashback_returns", "amount": 1.0, "ownership": "shared_campaign" },
+        { "kind": "npc_task", "id": "donkey:s_ev_s29_1_donkey", "operation": "show_immediately_after_the_boot_task_completes", "amount": 1.0, "ownership": "shared_campaign" },
+        { "kind": "player_param", "id": "memory_potion_mode", "operation": "set_the_authoritative_shared_mode_zero_in_the_committed_third_use_tail_without_observer_param_repair", "amount": 0.0, "ownership": "shared_campaign" },
+        { "kind": "world_object", "id": "refugee_s22_trigger_zone", "operation": "spawn_exactly_once_for_s30", "amount": 1.0, "ownership": "shared_world" },
+        { "kind": "wgo_param", "id": "donkey:is_zone_s30_triggered", "operation": "arm_once_after_the_single_trigger_spawn", "amount": 1.0, "ownership": "shared_world" },
+        { "kind": "wgo_param", "id": "donkey:donkey_should_stop_in_s30", "operation": "arm_once_until_Donkeys_arrival", "amount": 1.0, "ownership": "shared_world" }
+      ],
+      "safeguards": [
+        "serialize_one_authoritative_shared_counter_owner_write_it_only_through_the_live_initiator_and_never_sum_profile_counters_increment_observers_or_repair_every_profile_to_three",
+        "retain_the_per_profile_boot_without_regranting_it_from_the_use_counter",
+        "refund_only_the_live_initiators_potion_on_the_sources_actual_refund_paths_and_leave_mode_one_to_the_jaw_memory_route",
+        "resume_the_committed_count_three_phase_without_incrementing_to_four",
+        "journal_trigger_spawned_and_armed_separately_from_the_completed_boot_task",
+        "never_rearm_consumed_world_latches_from_persistent_task_states",
+        "keep_this_mainline_s30_arm_independent_of_the_parallel_skeleton_leg_return"
+      ]
+    },
+    {
+      "stepId": "game_of_crone_return_the_shared_skeleton_leg",
+      "title": "Return the single recovered skeleton leg to Yorick",
+      "linkedQuestIds": ["dlc_refugees_s33"],
+      "linkedTaskMilestoneIds": ["game_of_crone_skeleton_leg_return_scene_started"],
+      "triggerScripts": ["on_enter_gd_zone_s23", "refugee_ev_s29_2"],
+      "triggerKeys": [
+        "gd_zone_s29_2_is_active",
+        "skeleton_leg",
+        "s_ev_28_leg_return",
+        "gykmp_story_token_game_of_crone_skeleton_leg_spawned",
+        "gykmp_story_token_game_of_crone_skeleton_leg_secured",
+        "gykmp_story_token_game_of_crone_skeleton_leg_consumed"
+      ],
+      "expectedEffects": [
+        { "kind": "player_param", "id": "gd_zone_s29_2_is_active", "operation": "clear_once_after_the_entered_phase_is_journaled", "amount": 0.0, "ownership": "shared_campaign" },
+        { "kind": "npc_task", "id": "npc_ghost_priest:s_ev_28_leg_return", "operation": "complete_after_dialogue_line_two_as_an_early_scene_prefix", "amount": 1.0, "ownership": "shared_campaign" },
+        { "kind": "inventory_item", "id": "skeleton_leg", "operation": "consume_exactly_once_from_the_recorded_custodian_after_line_nine", "amount": 1.0, "ownership": "shared_story_token" },
+        { "kind": "shared_story_token_state", "id": "gykmp_story_token_game_of_crone_skeleton_leg_consumed", "operation": "commit_atomically_with_the_single_item_debit", "amount": 1.0, "ownership": "shared_campaign" }
+      ],
+      "safeguards": [
+        "resume_after_the_consumed_zone_latch_until_the_scene_and_item_transaction_are_terminal",
+        "never_accept_the_early_task_completion_as_proof_of_leg_consumption",
+        "never_debit_or_grant_one_leg_per_party_member",
+        "never_reconstruct_a_leg_after_the_consumed_state",
+        "keep_this_parallel_return_independently_recoverable_even_after_the_boot_route_advances_through_s33"
+      ]
+    },
+    {
+      "stepId": "game_of_crone_receive_the_donkey_warning",
+      "title": "Meet Donkey at the cemetery and open Carl's interrogation",
+      "linkedQuestIds": ["dlc_refugees_s33"],
+      "linkedTaskMilestoneIds": [
+        "game_of_crone_donkey_warning_completed",
+        "game_of_crone_carl_interrogation_opened"
+      ],
+      "triggerScripts": [
+        "npc_donkey:drop_body",
+        "on_enter_gd_zone_s22_E",
+        "on_enter_gd_zone_s22_N",
+        "on_enter_gd_zone_s22_W",
+        "ev_s30_check_start",
+        "ev_s30_set_flags",
+        "refugee_ev_s30_E",
+        "refugee_ev_s30_N",
+        "refugee_ev_s30_W",
+        "refugee_ev_s30"
+      ],
+      "triggerKeys": [
+        "is_zone_s30_triggered",
+        "donkey_should_stop_in_s30",
+        "donkey_ready_for_s30",
+        "is_d16_completed",
+        "gykmp_story_branch_game_of_crone_s30_d16_state_at_decision",
+        "is_need_bring_carl_for_ev_31",
+        "ev_s31_spawn_carl_next_coming",
+        "s_ev_s29_1_donkey",
+        "s_ev_s30_carl_interrogation"
+      ],
+      "expectedEffects": [
+        { "kind": "wgo_param", "id": "donkey:donkey_ready_for_s30", "operation": "set_one_on_Donkeys_arrival_when_donkey_should_stop_in_s30_is_one", "amount": 1.0, "ownership": "shared_world" },
+        { "kind": "wgo_param", "id": "donkey:is_zone_s30_triggered", "operation": "consume_one_to_zero_before_the_directional_scene", "amount": 0.0, "ownership": "shared_world" },
+        { "kind": "wgo_param", "id": "donkey:donkey_ready_for_s30", "operation": "consume_one_to_zero_before_the_directional_scene", "amount": 0.0, "ownership": "shared_world" },
+        { "kind": "wgo_param", "id": "donkey:donkey_should_stop_in_s30", "operation": "consume_one_to_zero_before_the_directional_scene", "amount": 0.0, "ownership": "shared_world" },
+        { "kind": "npc_task", "id": "donkey:s_ev_s29_1_donkey", "operation": "complete_at_core_scene_entry", "amount": 1.0, "ownership": "shared_campaign" },
+        { "kind": "branch_receipt", "id": "gykmp_story_branch_game_of_crone_s30_d16_state_at_decision", "operation": "record_the_authoritative_is_d16_completed_result_after_line_ten_before_applying_either_branch", "amount": 1.0, "ownership": "shared_campaign" },
+        { "kind": "conditional_wgo_param", "id": "donkey:ev_s31_spawn_carl_next_coming", "operation": "set_one_when_d16_is_already_complete_or_later_from_the_d16_tail", "amount": 1.0, "ownership": "shared_world" },
+        { "kind": "conditional_wgo_param", "id": "donkey:is_need_bring_carl_for_ev_31", "operation": "set_the_source_stale_historical_deferred_route_latch_on_the_incomplete_d16_branch_without_inventing_a_clear", "amount": 1.0, "ownership": "shared_world" },
+        { "kind": "npc_task", "id": "player:s_ev_s30_carl_interrogation", "operation": "show_after_either_d16_branch", "amount": 1.0, "ownership": "shared_campaign" }
+      ],
+      "safeguards": [
+        "preserve_the_recorded_real_d16_branch_and_never_force_both_branch_flags",
+        "journal_before_clearing_the_three_consumable_world_latches",
+        "never_use_the_uncleared_historical_is_need_bring_carl_for_ev_31_latch_alone_to_respawn_Carl",
+        "resume_from_the_early_Donkey_task_completion_until_the_Carl_task_and_cleanup_tail_exist",
+        "never_recreate_the_destroyed_trigger_from_later_tasks",
+        "never_gate_this_mainline_on_the_parallel_skeleton_leg_scene_or_auto_consume_an_outstanding_leg"
+      ]
+    },
+    {
+      "stepId": "game_of_crone_interrogate_carl",
+      "title": "Interrogate the bound Carl with Gerry and take the answer to the Shepherd",
+      "linkedQuestIds": ["dlc_refugees_s33"],
+      "linkedTaskMilestoneIds": [
+        "game_of_crone_carl_interrogation_completed",
+        "game_of_crone_shepherd_carl_lead_opened"
+      ],
+      "triggerScripts": [
+        "npc_donkey:setup_ev_s31",
+        "npc_vampire_carl_bounded:event_s31",
+        "on_enter_mortuary_gd_zone",
+        "refugee_ev_s31"
+      ],
+      "triggerKeys": [
+        "ev_s31_spawn_carl_next_coming",
+        "s31_intorrogate_carl",
+        "s_ev_s30_carl_interrogation",
+        "s_ev31_shepherd_help",
+        "@refugee_s32"
+      ],
+      "expectedEffects": [
+        { "kind": "world_actor", "id": "npc_vampire_carl_bounded", "operation": "spawn_exactly_once_with_event_s31", "amount": 1.0, "ownership": "shared_world" },
+        { "kind": "wgo_param", "id": "crafting_skull_3:s31_intorrogate_carl", "operation": "set_for_Carl_interaction_or_mortuary_entry_then_clear_once", "amount": 1.0, "ownership": "shared_world" },
+        { "kind": "npc_task", "id": "player:s_ev_s30_carl_interrogation", "operation": "complete_near_the_scene_tail", "amount": 1.0, "ownership": "shared_campaign" },
+        { "kind": "npc_task", "id": "npc_shepherd:s_ev31_shepherd_help", "operation": "show_after_Carl_interrogation_completes", "amount": 1.0, "ownership": "shared_campaign" },
+        { "kind": "dialogue_phrase", "id": "@refugee_s32", "operation": "unlock_after_the_Shepherd_task_is_shown", "amount": 1.0, "ownership": "shared_campaign" }
+      ],
+      "safeguards": [
+        "serialize_Carl_spawn_and_both_launch_paths",
+        "journal_before_clearing_s31_intorrogate_carl_or_removing_event_s31",
+        "repair_only_the_unconditional_task_and_phrase_tail_from_Carl_task_completion",
+        "never_duplicate_the_bound_Carl_for_observers"
+      ]
+    },
+    {
+      "stepId": "game_of_crone_hear_the_shepherd_revelation",
+      "title": "Hear the Shepherd's account, confront Carl, and open the Chain lead",
+      "linkedQuestIds": ["dlc_refugees_s33"],
+      "linkedTaskMilestoneIds": [
+        "game_of_crone_shepherd_carl_lead_completed",
+        "game_of_crone_chain_followup_opened"
+      ],
+      "triggerScripts": ["npc_shepherd:@refugee_s32", "refugee_ev_s33"],
+      "triggerKeys": [
+        "@refugee_s32",
+        "has_special_greeting",
+        "garlic_bunch",
+        "refugee_s33_q1_1",
+        "refugee_s33_q2_1",
+        "@refugee_s33_q3_1",
+        "dlc_refugees_s33",
+        "s_ev_33_ask_chain",
+        "gykmp_story_phase_game_of_crone_s33_complete",
+        "@refugee_s34"
+      ],
+      "expectedEffects": [
+        { "kind": "dialogue_phrase", "id": "@refugee_s32", "operation": "blacklist_at_the_joined_scene_entry", "amount": 1.0, "ownership": "shared_campaign" },
+        { "kind": "npc_task", "id": "npc_shepherd:s_ev31_shepherd_help", "operation": "complete_at_the_joined_scene_entry", "amount": 1.0, "ownership": "shared_campaign" },
+        { "kind": "wgo_param", "id": "npc_shepherd:has_special_greeting", "operation": "set_one_before_staging_the_mortuary_revelation", "amount": 1.0, "ownership": "shared_world" },
+        { "kind": "inventory_item", "id": "garlic_bunch", "operation": "create_then_consume_one_ephemeral_scene_token_for_the_live_initiator", "amount": 1.0, "ownership": "initiating_player_transaction" },
+        { "kind": "serialized_achievement_key", "id": "dlc_refugees_s33", "operation": "check_the_shared_campaign_key_once_when_line_twenty_two_begins", "amount": 1.0, "ownership": "shared_campaign" },
+        { "kind": "dialogue_phrase", "id": "refugee_s33_q1_1_and_q2_1", "operation": "blacklist_each_unique_question_before_unlocking_q3", "amount": 2.0, "ownership": "shared_campaign" },
+        { "kind": "dialogue_phrase", "id": "@refugee_s33_q3_1", "operation": "unlock_only_after_both_questions_finish", "amount": 1.0, "ownership": "shared_campaign" },
+        { "kind": "npc_task", "id": "npc_mrs chain:s_ev_33_ask_chain", "operation": "show_during_the_q3_aftermath", "amount": 1.0, "ownership": "shared_campaign" },
+        { "kind": "dialogue_phrase", "id": "@refugee_s34", "operation": "unlock_at_the_cleaned_terminal_tail", "amount": 1.0, "ownership": "shared_campaign" },
+        { "kind": "story_phase", "id": "gykmp_story_phase_game_of_crone_s33_complete", "operation": "commit_only_after_s34_unlock_actor_cleanup_garlic_consumption_capacity_restore_and_player_enable", "amount": 1.0, "ownership": "shared_campaign" }
+      ],
+      "safeguards": [
+        "treat_the_s32_task_completion_greeting_achievement_and_Chain_task_as_non_terminal_prefixes",
+        "use_an_explicit_joined_scene_phase_until_refugee_s34_is_unlocked_and_all_temporary_state_is_restored",
+        "serialize_multianswer_choices_and_never_select_or_blacklist_answers_for_observers",
+        "keep_the_ephemeral_garlic_and_temporary_inventory_slot_out_of_durable_personal_grants",
+        "treat_dlc_refugees_s33_as_an_AchievementDefinition_with_counter_one_and_not_as_ordinary_QuestSystem_state",
+        "keep_optional_per_profile_platform_achievement_delivery_separate_from_the_single_shared_key_check_and_reconcile_it_outside_QuestSync_with_an_explicit_receipt"
+      ]
+    }
+  ]
+}

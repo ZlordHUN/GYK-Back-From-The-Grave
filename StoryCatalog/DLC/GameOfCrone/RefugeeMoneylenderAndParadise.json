@@ -1,0 +1,725 @@
+{
+  "schemaVersion": 5,
+  "catalogId": "dlc.game-of-crone.refugee-moneylender-and-paradise",
+  "campaign": "GameOfCrone",
+  "chapter": "RefugeeMoneylenderDebtAndCampParadise",
+  "quests": [
+    {
+      "questId": "dlc_refugees_paradise",
+      "title": "Serialized refugee-camp paradise achievement checkpoint",
+      "definitionKind": "AchievementDefinition",
+      "counter": 1,
+      "vanilla": {
+        "startTrigger": "",
+        "successTrigger": "1",
+        "failTrigger": "",
+        "startKeys": ["dlc_refugees_paradise"],
+        "questVisible": false,
+        "oneTimeQuest": false,
+        "startScript": "",
+        "successScript": "",
+        "failScript": "",
+        "arrowWgoCustomTag": "",
+        "arrowWgoObjectId": "",
+        "successRewards": [],
+        "failureRewards": []
+      },
+      "policy": {
+        "stateOwnership": "shared_campaign",
+        "eligibleInitiator": "any_player",
+        "livePresentationOwner": "initiating_player",
+        "observerQuestApplication": "durable_state_only",
+        "personalRewardDelivery": "party_exactly_once",
+        "observerSuccess": {
+          "globalScripts": [],
+          "playerParamRepairs": [],
+          "playerParamMinimums": [],
+          "taskStateMinimums": [],
+          "unlockedTechs": [],
+          "unlockedPhrases": [],
+          "blacklistedPhrases": [],
+          "unlockedCrafts": [],
+          "completedOneTimeCrafts": [],
+          "personalItemGrants": []
+        }
+      },
+      "completionChecks": []
+    }
+  ],
+  "taskMilestones": [
+    {
+      "milestoneId": "game_of_crone_moneylender_departure_debt_deferred",
+      "npcId": "npc_refugee_moneylender",
+      "taskId": "dlc_refugees_city_lender_4",
+      "activeStates": ["Visible"],
+      "playerParamRepairs": [],
+      "playerParamMinimums": [],
+      "taskStateMinimums": [],
+      "unlockedTechs": [],
+      "unlockedPhrases": [],
+      "blacklistedPhrases": [],
+      "unlockedCrafts": [],
+      "completedOneTimeCrafts": [],
+      "wgoParamMinimums": [],
+      "personalItemGrants": []
+    }
+  ],
+  "cutscenes": [
+    {
+      "cutsceneId": "game_of_crone_initialize_refugee_moneylender",
+      "linkedQuestIds": [],
+      "triggerScripts": [
+        "gykmp_story_dispatch_game_of_crone_refugee_moneylender_initialize",
+        "npc_refugee_moneylender:initialize"
+      ],
+      "actors": ["npc_refugee_moneylender"],
+      "observerPolicy": "all_loaded_party_members",
+      "lateJoinPolicy": "join_live_checkpoint_or_observe",
+      "remoteExecutionPolicy": "live_observation",
+      "executionOwnerPolicy": "lobby_host",
+      "dialogueOwnerPolicy": "lobby_host",
+      "formationPolicy": "preserve_positions",
+      "cleanupRequirements": [
+        "apply-the-source-RefugeeParams-on_the_way_now-one_refugee_unrollable-zero_first_roll-zero-and-roll_percent-point-seven-only-at-genuine-first-initialization",
+        "persist-one-durable-four-hundred-fifty-second-event_lender_1_unlock-arm-and-never-create-one-timer-per-peer",
+        "when-the-delay-expires-add-event_lender_1-to-the-exact-npc_refugee_6-world-object-once-and-do-not-rearm-after-entered-or-downstream-debt-evidence",
+        "when-the-Moneylender-script-is-registered-or-loaded-collapse-the-doubled-generic-interaction-Received-to-on_the_way_now-ParamFlag-edge-even-on-mature-saves-where-initialize-does-not-rerun",
+        "keep-routine-Roll-home-idle-work-and-on_came_home-support-edges-outside-story-phase-accounting",
+        "if-the-camp-deactivation-or-S54-terminal-is-durable-keep-prior-debt-receipts-historical-and-never-reinitialize-rearm-or-respawn-the-Moneylender"
+      ]
+    },
+    {
+      "cutsceneId": "game_of_crone_refugee_moneylender_first_offer",
+      "linkedQuestIds": [],
+      "triggerScripts": [
+        "gykmp_story_dispatch_game_of_crone_refugee_moneylender_first_offer",
+        "npc_refugee_moneylender:event_lender_1"
+      ],
+      "actors": ["initiating_player", "npc_refugee_moneylender"],
+      "observerPolicy": "all_loaded_party_members",
+      "lateJoinPolicy": "join_live_checkpoint_or_observe",
+      "remoteExecutionPolicy": "live_observation",
+      "executionOwnerPolicy": "lobby_host",
+      "dialogueOwnerPolicy": "initiating_player",
+      "formationPolicy": "initiator_with_observer_follow",
+      "cleanupRequirements": [
+        "claim-and-consume-event_lender_1-once-before-lock-facing-or-dialogue",
+        "collapse-the-fourfold-facing-bindings-and-duplicate-control-edges-without-dropping-any-of-refugee_lender_1_1-through-refugee_lender_1_10",
+        "present-refugee_lender_1_5-and-refugee_lender_1_7-as-the-actual-initiating-players-lines",
+        "serialize-refugee_lender_1_11a-accept-and-refugee_lender_1_11b-decline-against-every-other-loan-or-repayment-choice",
+        "on-acceptance-finish-the-money-grant-and-SetDebd-state-journal-before-restoring-control",
+        "on-decline-leave-debt-state-untouched-and-keep-the-later-borrow-topic-available",
+        "restore-control-fire-on_talk_end-once-and-never-replay-the-offer-for-observers-or-late-joiners"
+      ]
+    },
+    {
+      "cutsceneId": "game_of_crone_refugee_moneylender_interaction",
+      "linkedQuestIds": [],
+      "triggerScripts": [
+        "gykmp_story_dispatch_game_of_crone_refugee_moneylender_interaction",
+        "npc_refugee_moneylender:interaction"
+      ],
+      "actors": ["initiating_player", "npc_refugee_moneylender"],
+      "observerPolicy": "all_loaded_party_members",
+      "lateJoinPolicy": "join_live_checkpoint_or_observe",
+      "remoteExecutionPolicy": "live_observation",
+      "executionOwnerPolicy": "lobby_host",
+      "dialogueOwnerPolicy": "initiating_player",
+      "formationPolicy": "initiator_with_observer_follow",
+      "cleanupRequirements": [
+        "collapse-the-exact-doubled-interaction-Received-to-on_the_way_now-ParamFlag-edge-before-evaluating-the-menu",
+        "when-on_the_way_now-is-at-least-one-present-only-npc_on_the_way-and-do-not-open-borrow-repay-or-trade-state",
+        "when-is_player_took_money-is-at-least-one-present-refugee_lender_3-with-refugee_lender_3_1a-repay-and-refugee_lender_3_1b-not-now",
+        "when-no-loan-was-taken-and-is_debd_closed-is-zero-present-refugee_lender_2-with-refugee_lender_2_1a-borrow_refugee_lender_2_1b-trade_and-refugee_lender_2_1c-leave",
+        "when-is_debd_closed-is-at-least-one-expose-only-the-source-Trade-and-Leave-support-menu-and-never-reopen-the-loan",
+        "serialize-the-shared-loan-or-repayment-mutation-but-route-every-money-grant-or-debit-to-the-profile-that-selected-the-option",
+        "keep-repeatable-vendor-opening-not-now-leave-and-on-the-way-dialogue-outside-durable-story-progress",
+        "restore-control-and-fire-on_talk_end-once-for-the-initiator"
+      ]
+    },
+    {
+      "cutsceneId": "game_of_crone_refugee_moneylender_daily_interest",
+      "linkedQuestIds": [],
+      "triggerScripts": [
+        "gykmp_story_dispatch_game_of_crone_refugee_moneylender_interest",
+        "npc_refugee_moneylender:CalculateInterestForNewDay"
+      ],
+      "actors": ["npc_refugee_moneylender"],
+      "observerPolicy": "all_loaded_party_members",
+      "lateJoinPolicy": "observe_current_shared_state",
+      "remoteExecutionPolicy": "live_observation",
+      "executionOwnerPolicy": "lobby_host",
+      "dialogueOwnerPolicy": "lobby_host",
+      "formationPolicy": "preserve_positions",
+      "cleanupRequirements": [
+        "run-once-for-each-genuine-host-owned-on_spawned-morning-invocation-only-when-is_player_took_money-is-at-least-one-never-once-per-peer",
+        "read-the-current-money_debd_amount-multiply-it-by-the-exact-InterestRate-point-zero-one-and-add-that-unrounded-value",
+        "preserve-the-source-malformed-cap-tail_whose-post-add-GetWGOParam-has-no-WGO-binding-returns-zero-and-leaves-the-intended-one-hundred-million-cap-unreachable",
+        "preserve-floating-point-source-semantics-and-never-round-to-a-currency-display-value",
+        "do-not-use-a-minimum-or-monotonic-repair-because-CloseDebt-canonically-resets-the-amount-to-zero",
+        "journal-the-canonical-morning-source-invocation-so-reconnect-replay-and-observers-cannot-compound-interest-again",
+        "serialize-the-interest-read-add-write-with-loan-repayment-S53-debt-inspection-and-S54-retention-inspection_under-one-host-owned-debt-ledger",
+        "after-camp-deactivation-do-not-run-new-morning-interest_but-do-not-block-a-retained-outstanding-debt-from-explicit-repayment"
+      ]
+    },
+    {
+      "cutsceneId": "game_of_crone_refugee_moneylender_departure_demand",
+      "linkedQuestIds": [],
+      "triggerScripts": [
+        "gykmp_story_dispatch_game_of_crone_refugee_moneylender_departure_demand",
+        "npc_refugee_moneylender:event_lender_4"
+      ],
+      "actors": ["initiating_player", "npc_refugee_moneylender"],
+      "observerPolicy": "all_loaded_party_members",
+      "lateJoinPolicy": "join_live_checkpoint_or_observe",
+      "remoteExecutionPolicy": "live_observation",
+      "executionOwnerPolicy": "lobby_host",
+      "dialogueOwnerPolicy": "initiating_player",
+      "formationPolicy": "initiator_with_observer_follow",
+      "cleanupRequirements": [
+        "consume-only-the-event_lender_4-that-the-S53-departure-unit-added-to-exact-npc_refugee_6-for-an-active-loan",
+        "collapse-the-doubled-lock-fivefold-facing-and-doubled-dynamic-price-bindings-without-removing-refugee_lender_4_1-through-refugee_lender_4_4",
+        "serialize-refugee_lender_4_5a-pay-now-and-refugee_lender_4_5b-defer-against-every-other-debt-choice",
+        "for-pay-now-debit-the-exact-current-money_debd_amount-then-blacklist-refugee_lender_2_1a-and-run-CloseDebt-once",
+        "for-defer-present-refugee_lender_4_6-refugee_lender_4_7-and-refugee_lender_4_8-with-the-two-source-one-second-waits-then-set-dlc_refugees_city_lender_4-Visible",
+        "restore-control-and-fire-on_talk_end-once-without-claiming-the-S53-ceremony-or-S54-camp-deactivation-owned-by-BeatriceEvidence"
+      ]
+    },
+    {
+      "cutsceneId": "game_of_crone_refugee_camp_paradise_quality",
+      "linkedQuestIds": ["dlc_refugees_paradise"],
+      "triggerScripts": [
+        "gykmp_story_dispatch_game_of_crone_refugee_camp_paradise",
+        "RefugeesCampEngine:WorldZoneComputed:refugees_camp"
+      ],
+      "actors": ["refugees_camp", "refugee_camp_progress_obj"],
+      "observerPolicy": "all_loaded_party_members",
+      "lateJoinPolicy": "observe_current_shared_state",
+      "remoteExecutionPolicy": "live_observation",
+      "executionOwnerPolicy": "lobby_host",
+      "dialogueOwnerPolicy": "lobby_host",
+      "formationPolicy": "preserve_positions",
+      "cleanupRequirements": [
+        "accept-only-WorldZoneComputed-for-exact-world_zone_id-refugees_camp-while-Data-is_camp_living-is-true",
+        "set-the-runtime-camp_zone_quality-from-the-computed-float-before-running-UpdateRefugeeCampValues-zero-with-ItemUpdatesGameRes",
+        "update-rounded-available-slots_clamp-happiness_reconcile-physical-happiness-items_and-update-the-fractional-progress-bar-in-source-order",
+        "check-dlc_refugees_paradise-only-when-the-original-computed-float-is-exactly-sixteen-never-greater-than-or-rounded-to-sixteen",
+        "record-shared-eligibility-and-run-the-serialized-key-check-once-then-settle-the-platform-achievement-once-per-personal-profile",
+        "never-run-the-physical-item-reconciliation-on-observers-or-after-the-durable-camp-deactivation-terminal",
+        "restore-no-actors-or-dialogue-because-the-source-callback-is-a-state-only-achievement-check"
+      ]
+    }
+  ],
+  "storySteps": [
+    {
+      "stepId": "game_of_crone_initialize_refugee_moneylender_and_receive_offer",
+      "title": "Initialize the refugee moneylender and receive the first loan offer",
+      "linkedQuestIds": [],
+      "linkedTaskMilestoneIds": ["game_of_crone_moneylender_departure_debt_deferred"],
+      "triggerScripts": [
+        "gykmp_story_dispatch_game_of_crone_refugee_moneylender_initialize",
+        "gykmp_story_dispatch_game_of_crone_refugee_moneylender_first_offer"
+      ],
+      "triggerKeys": [
+        "npc_refugee_moneylender",
+        "npc_refugee_6",
+        "initialize",
+        "on_the_way_now",
+        "refugee_unrollable",
+        "first_roll",
+        "roll_percent",
+        "event_lender_1_unlock",
+        "event_lender_1",
+        "npc_refugee_moneylender:VendorDefinition",
+        "refugee_moneylender",
+        "powder_gold",
+        "powder_silver",
+        "nugget_silver",
+        "nugget_gold",
+        "ingot_silver",
+        "ingot_gold",
+        "jewelry_detail_gold",
+        "bijouterie_gold",
+        "faceted_diamond",
+        "refugee_morning_spawn",
+        "refugee_evening_despawn",
+        "refugee_roll",
+        ":refugee_activities",
+        "refugee_lender_1_1",
+        "refugee_lender_1_10",
+        "refugee_lender_1_11a",
+        "refugee_lender_1_11b",
+        "gykmp_story_timer_game_of_crone_refugee_moneylender_first_offer",
+        "gykmp_story_phase_game_of_crone_refugee_moneylender_first_offer_entered",
+        "gykmp_story_phase_game_of_crone_refugee_moneylender_first_offer_complete"
+      ],
+      "expectedEffects": [
+        {
+          "kind": "wgo_param_bundle",
+          "id": "npc_refugee_6:RefugeeParams",
+          "operation": "on-genuine-first-initialization-set-on_the_way_now-one_refugee_unrollable-zero_first_roll-zero-and-roll_percent-point-seven",
+          "amount": 4,
+          "ownership": "shared_world"
+        },
+        {
+          "kind": "world_vendor_definition",
+          "id": "npc_refugee_moneylender:refugee_moneylender",
+          "operation": "adopt-the-source-static-vendor-with-product-type-refugee_moneylender_start-tier-one_money-one-hundred-sixteen_daily-income-point-twelve_levelup-costs-zero-zero_empty-modifiers-restrictions-additional-types-not-buying-and-not-selling_and-products-powder_gold-30-6-tier1-price10_powder_silver-30-4-tier1-price4_nugget_silver-10-6-tier1-price7_nugget_gold-10-4-tier1-price22_ingot_silver-30-2-tier1-price20_ingot_gold-30-2-tier1-price50_jewelry_detail_gold-30-5-tier1-price50_bijouterie_gold-30-5-tier1-price100_and-faceted_diamond-10-2-tier3-price30",
+          "amount": 9,
+          "ownership": "shared_world"
+        },
+        {
+          "kind": "logic_schedule_definition",
+          "id": "refugee_morning_spawn",
+          "operation": "while-Ppar-camp_is_live-start-at-one-point-two-repeat-every-one-day_set-do_spawn_refugees-one-and-dispatch-qualified-refugee_activities-once",
+          "amount": 1,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "logic_schedule_definition",
+          "id": "refugee_evening_despawn",
+          "operation": "while-Ppar-camp_is_live-start-at-one-point-seven-five-repeat-every-one-day_set-do_despawn_refugees-one-and-dispatch-qualified-refugee_activities-once",
+          "amount": 1,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "logic_schedule_definition",
+          "id": "refugee_roll",
+          "operation": "while-Ppar-camp_is_live-start-at-one-point-three-repeat-every-point-zero-seven-day_with-no-execute-expression_and-dispatch-qualified-refugee_activities-once",
+          "amount": 1,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "world_event_timer",
+          "id": "gykmp_story_timer_game_of_crone_refugee_moneylender_first_offer",
+          "operation": "arm-one-durable-four-hundred-fifty-second-event_lender_1_unlock-delay-on-the-authoritative-world",
+          "amount": 450,
+          "ownership": "shared_world"
+        },
+        {
+          "kind": "world_event",
+          "id": "npc_refugee_6:event_lender_1",
+          "operation": "add-once-when-the-authoritative-event_lender_1_unlock-delay-expires",
+          "amount": 1,
+          "ownership": "shared_world"
+        },
+        {
+          "kind": "story_phase",
+          "id": "gykmp_story_phase_game_of_crone_refugee_moneylender_first_offer_entered",
+          "operation": "claim-and-consume-the-first-offer-event-before-lock-facing-and-dialogue",
+          "amount": 1,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "dialogue_sequence",
+          "id": "refugee_lender_1_1_through_1_10",
+          "operation": "present-ten-lines-once-with-refugee_lender_1_5-and-refugee_lender_1_7-owned-by-the-actual-initiator",
+          "amount": 10,
+          "ownership": "live_presentation"
+        },
+        {
+          "kind": "story_branch",
+          "id": "gykmp_story_branch_game_of_crone_refugee_moneylender_first_offer",
+          "operation": "record-refugee_lender_1_11a-accept-or-refugee_lender_1_11b-decline-before-running-the-selected-branch",
+          "amount": 1,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "story_phase",
+          "id": "gykmp_story_phase_game_of_crone_refugee_moneylender_first_offer_complete",
+          "operation": "commit-after-the-selected-branch-control-restore-and-on_talk_end-have-converged",
+          "amount": 1,
+          "ownership": "shared_campaign"
+        }
+      ],
+      "safeguards": [
+        "the-Moneylender-is-the-seventh-ordered-refugee-but-recruitment-and-spawn-ownership-remain-in-RefugeeCampCityProgression",
+        "the-static-vendor-definition-and-shared-refugee-schedules-are-source-support-boundaries_not-story-rewards-and-must-not-be-spawned-registered-or-multiplied-once-per-peer",
+        "normalize-refugee_activities-duplicate-iterator-and-FireEvent-edges-to-one-logical-morning-evening-or-roll-pass_so-each-present-refugee-receives-at-most-one-corresponding-event-per-schedule-tick",
+        "do-not-reset-WGO-state-or-rearm-the-offer-timer-when-a-peer-connects-or-the-flow-is-registered-again",
+        "a-consumed-event-without-an-entered-receipt-may-be-rearmed-only-when-no-offer-dialogue-branch-loan-or-downstream-debt-evidence-exists",
+        "declining-the-first-offer-is-not-a-terminal-rejection-and-must-leave-the-later-borrow-topic-available",
+        "do-not-treat-the-visible-departure-debt-task-as-a-prerequisite-for-initialization-or-first-offer",
+        "after-S54-deactivation-keep-any-existing-receipts-historical-and-never-use-them-to-respawn-or-rearm-the-Moneylender"
+      ]
+    },
+    {
+      "stepId": "game_of_crone_take_optional_refugee_moneylender_loan",
+      "title": "Take the refugee moneylender's optional shared loan",
+      "linkedQuestIds": [],
+      "linkedTaskMilestoneIds": ["game_of_crone_moneylender_departure_debt_deferred"],
+      "triggerScripts": [
+        "gykmp_story_dispatch_game_of_crone_refugee_moneylender_loan",
+        "npc_refugee_moneylender:refugee_lender_1_11a",
+        "npc_refugee_moneylender:refugee_lender_2_1a"
+      ],
+      "triggerKeys": [
+        "refugee_lender_1_11a",
+        "refugee_lender_2",
+        "refugee_lender_2_1a",
+        "money100",
+        "SetDebd",
+        "money_debd_amount",
+        "is_player_took_money",
+        "is_debd_closed",
+        "gykmp_story_transaction_game_of_crone_refugee_moneylender_loan",
+        "gykmp_story_phase_game_of_crone_refugee_moneylender_loan_active"
+      ],
+      "expectedEffects": [
+        {
+          "kind": "story_transaction",
+          "id": "gykmp_story_transaction_game_of_crone_refugee_moneylender_loan",
+          "operation": "journal-prepared_granted_and-debt-committed-phases-with-the-actual-selecting-profile-as-grantee",
+          "amount": 100,
+          "ownership": "initiating_player_transaction"
+        },
+        {
+          "kind": "currency",
+          "id": "money",
+          "operation": "grant-one-hundred-to-the-actual-profile-that-selected-the-initial-or-later-borrow-answer",
+          "amount": 100,
+          "ownership": "initiating_player_transaction"
+        },
+        {
+          "kind": "conditional_dialogue_phrase",
+          "id": "refugee_lender_2_1a",
+          "operation": "blacklist-the-exact-no-at-prefix-phrase-only-for-the-later-borrow-branch-after-the-money-grant-and-before-SetDebd",
+          "amount": 1,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "wgo_param_bundle",
+          "id": "npc_refugee_6:SetDebd",
+          "operation": "set-money_debd_amount-to-exactly-one-hundred-then-set-is_player_took_money-to-one-preserving-the-source-Debd-typo",
+          "amount": 2,
+          "ownership": "shared_world"
+        },
+        {
+          "kind": "story_phase",
+          "id": "gykmp_story_phase_game_of_crone_refugee_moneylender_loan_active",
+          "operation": "commit-after-the-profile-grant-and-both-shared-debt-fields-are-durable",
+          "amount": 1,
+          "ownership": "shared_campaign"
+        }
+      ],
+      "safeguards": [
+        "the-loan-is-optional-side-content-and-never-proves-camp-city-profession-finale-or-paradise-progress",
+        "claim-the-shared-loan-before-MultiAnswerOptionGUI-grants-money-and-serialize-concurrent-accept-or-borrow-choices",
+        "only-one-shared-loan-may-ever-open-and-the-grantee-is-the-actual-selecting-profile-not-implicitly-the-host",
+        "the-initial-acceptance-does-not-blacklist-refugee_lender_2_1a_only-the-later-borrow-branch-does",
+        "an-active-is_player_took_money-with-positive-money_debd_amount-proves-that-some-payout-occurred-but-never-identifies-the-legacy-recipient_and-must-never-regrant",
+        "on-the-later-branch-an-exact-refugee_lender_2_1a-blacklist-with-is_debd_closed-zero-and-no-active-fields-is-a-post-grant-prefix_adopt-the-recipient-as-unknown-and-finish-only-the-missing-debt-state-without-another-grant",
+        "the-initial-acceptance-has-no-durable-vanilla-witness-before-SetDebd_so-a-crash-before-any-synthetic-grant-receipt-must-not-guess-or-regrant",
+        "never-reopen-a-loan-after-is_debd_closed-reaches-one-even-if-the-amount-is-zero-or-a-stale-menu-call-arrives"
+      ]
+    },
+    {
+      "stepId": "game_of_crone_accrue_refugee_moneylender_interest",
+      "title": "Accrue the refugee moneylender's daily interest",
+      "linkedQuestIds": [],
+      "linkedTaskMilestoneIds": ["game_of_crone_moneylender_departure_debt_deferred"],
+      "triggerScripts": [
+        "gykmp_story_dispatch_game_of_crone_refugee_moneylender_interest",
+        "npc_refugee_moneylender:CalculateInterestForNewDay"
+      ],
+      "triggerKeys": [
+        "CalculateInterestForNewDay",
+        "InterestRate",
+        "0.01",
+        "money_debd_amount",
+        "100000000",
+        "gykmp_story_interest_game_of_crone_refugee_moneylender_day"
+      ],
+      "expectedEffects": [
+        {
+          "kind": "story_interest_receipt",
+          "id": "gykmp_story_interest_game_of_crone_refugee_moneylender_day",
+          "operation": "record-one-receipt-per-authoritative-source-new-day-invocation-before-mutating-the-debt",
+          "amount": 1,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "interest_rate",
+          "id": "npc_refugee_6:InterestRate",
+          "operation": "multiply-the-current-money_debd_amount-by-exactly-point-zero-one-without-rounding",
+          "amount": 0.01,
+          "ownership": "shared_world"
+        },
+        {
+          "kind": "conditional_wgo_param",
+          "id": "npc_refugee_6:money_debd_amount",
+          "operation": "add-current-debt-times-point-zero-one-once-with-no-rounding-and-preserve-the-raw-uncapped-result",
+          "amount": 0,
+          "ownership": "shared_world"
+        },
+        {
+          "kind": "source_anomaly_receipt",
+          "id": "gykmp_story_anomaly_game_of_crone_refugee_moneylender_unbound_debt_cap",
+          "operation": "record-that-the-post-add-money_debd_amount-read-has-no-WGO-binding_returns-zero_and-makes-the-intended-strictly-greater-than-one-hundred-million-cap-unreachable_without-silently-inventing-a-fix",
+          "amount": 1,
+          "ownership": "shared_campaign"
+        }
+      ],
+      "safeguards": [
+        "never-run-one-interest-copy-per-connected-profile-peer-or-rendered-Moneylender",
+        "preserve-the-source-floating-point-result-and-do-not-round-to-whole-copper-or-the-HUD-display",
+        "the-serialized-cap-intent-is-strictly-greater-than-but-its-unbound-read-makes-the-whole-cap-branch-dead_treat-capping-as-a-separate-explicit-bugfix-not-source-fidelity",
+        "zero-debt-remains-zero-and-is-not-evidence-that-CloseDebt-or-the-visible-departure-task-completed",
+        "do-not-minimum-repair-debt-from-a-stale-previous-day-receipt-because-repayment-canonically-resets-it",
+        "missing-or-unloaded-npc_refugee_6-and-a-zero-HUD-value-are-not-proof-that-the-loan-closed",
+        "serialize-each-interest-tick-with-loan-and-repayment-so-a-repayment-that-wins-order-cannot-accrue-after-close-and-a-stale-payment-cannot-close-a-newer-debt"
+      ]
+    },
+    {
+      "stepId": "game_of_crone_repay_refugee_moneylender_debt",
+      "title": "Repay the refugee moneylender's shared debt",
+      "linkedQuestIds": [],
+      "linkedTaskMilestoneIds": ["game_of_crone_moneylender_departure_debt_deferred"],
+      "triggerScripts": [
+        "gykmp_story_dispatch_game_of_crone_refugee_moneylender_repayment",
+        "npc_refugee_moneylender:refugee_lender_3_1a",
+        "npc_refugee_moneylender:refugee_lender_4_5a"
+      ],
+      "triggerKeys": [
+        "refugee_lender_3",
+        "refugee_lender_3_1a",
+        "refugee_lender_4_5a",
+        "money_debd_amount",
+        "CloseDebt",
+        "is_player_took_money",
+        "is_debd_closed",
+        "refugee_lender_2_1a",
+        "gykmp_story_transaction_game_of_crone_refugee_moneylender_repayment",
+        "gykmp_story_phase_game_of_crone_refugee_moneylender_debt_closed"
+      ],
+      "expectedEffects": [
+        {
+          "kind": "story_transaction",
+          "id": "gykmp_story_transaction_game_of_crone_refugee_moneylender_repayment",
+          "operation": "journal-prepared_debited_and-closed-phases-with-the-exact-current-debt-and-the-actual-selecting-profile-as-payer",
+          "amount": 0,
+          "ownership": "initiating_player_transaction"
+        },
+        {
+          "kind": "currency",
+          "id": "money",
+          "operation": "consume-the-exact-current-money_debd_amount-from-the-profile-that-selected-repay-never-from-the-host-or-original-borrower-by-assumption",
+          "amount": 0,
+          "ownership": "initiating_player_transaction"
+        },
+        {
+          "kind": "conditional_dialogue_phrase",
+          "id": "refugee_lender_2_1a",
+          "operation": "blacklist-on-the-S53-pay-now-branch-before-CloseDebt_preserve-an-existing-blacklist-on-normal-repayment",
+          "amount": 1,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "wgo_param_bundle",
+          "id": "npc_refugee_6:CloseDebt",
+          "operation": "set-money_debd_amount-zero_then-collapse-the-doubled-write-and-set-is_player_took_money-zero_then-set-is_debd_closed-one",
+          "amount": 3,
+          "ownership": "shared_world"
+        },
+        {
+          "kind": "story_phase",
+          "id": "gykmp_story_phase_game_of_crone_refugee_moneylender_debt_closed",
+          "operation": "commit-after-the-debit-and-all-three-CloseDebt-fields-are-durable",
+          "amount": 1,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "source_anomaly_receipt",
+          "id": "gykmp_story_anomaly_game_of_crone_refugee_moneylender_task_never_completes",
+          "operation": "record-that-the-source-has-no-Flow_SetTask-Complete-or-later-cleanup-for-dlc_refugees_city_lender_4-and-leave-any-visible-task-unchanged",
+          "amount": 1,
+          "ownership": "shared_campaign"
+        }
+      ],
+      "safeguards": [
+        "bind-the-price-to-the-exact-current-authoritative-debt-at-confirmation-time_and-reject-or-requote-if-another-transaction-changes-it",
+        "MultiAnswerOptionGUI-debits-before-CloseDebt_so-recovery-must-adopt-a-durable-debited-prefix-and-finish-the-close-without-charging-again",
+        "a-different-player-may-intentionally-repay-the-shared-loan_record-that-actual-payer-and-never-redirect-the-charge-to-the-original-grantee",
+        "a-canonical-already-closed-triple-without-a-synthetic-receipt-may-be-adopted-as-payer-unknown-historical-repayment_never-retroactively-debit-or-refund-a-guessed-profile",
+        "CloseDebt-is-irreversible-in-the-source_and-never-reopen-from-a-stale-borrow-answer-or-task",
+        "dlc_refugees_city_lender_4-is-only-ever-set-Visible-and-no-raw-flow-completes-it_after-later-repayment-preserve-that-source-anomaly",
+        "never-use-the-stale-visible-task-to-recreate-debt-recharge-any-profile-complete-the-task-or-remove-the-known-NPC",
+        "known-NPC-removal-at-S54-is-owned-by-BeatriceEvidence_and-a-later-repayment-has-no-source-tail-that-removes-it"
+      ]
+    },
+    {
+      "stepId": "game_of_crone_answer_refugee_moneylender_departure_demand",
+      "title": "Answer the moneylender's final demand during the refugee departure",
+      "linkedQuestIds": [],
+      "linkedTaskMilestoneIds": ["game_of_crone_moneylender_departure_debt_deferred"],
+      "triggerScripts": [
+        "gykmp_story_dispatch_game_of_crone_refugee_moneylender_departure_demand"
+      ],
+      "triggerKeys": [
+        "npc_refugee_6:event_lender_4",
+        "refugee_lender_4_1",
+        "refugee_lender_4_4",
+        "refugee_lender_4_5a",
+        "refugee_lender_4_5b",
+        "refugee_lender_4_6",
+        "refugee_lender_4_7",
+        "refugee_lender_4_8",
+        "dlc_refugees_city_lender_4",
+        "gykmp_story_branch_game_of_crone_refugee_moneylender_departure_debt",
+        "gykmp_story_phase_game_of_crone_refugee_moneylender_departure_demand_complete"
+      ],
+      "expectedEffects": [
+        {
+          "kind": "dialogue_sequence",
+          "id": "refugee_lender_4_1_through_4_4",
+          "operation": "present-the-four-common-demand-lines-once-to-the-actual-event-initiator",
+          "amount": 4,
+          "ownership": "live_presentation"
+        },
+        {
+          "kind": "story_branch",
+          "id": "gykmp_story_branch_game_of_crone_refugee_moneylender_departure_debt",
+          "operation": "record-refugee_lender_4_5a-pay-now-or-refugee_lender_4_5b-defer-before-the-selected-branch",
+          "amount": 1,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "conditional_story_transaction",
+          "id": "gykmp_story_transaction_game_of_crone_refugee_moneylender_repayment",
+          "operation": "on-pay-now-use-the-shared-repayment-transaction-with-the-current-debt-and-this-actual-initiator-as-payer",
+          "amount": 0,
+          "ownership": "initiating_player_transaction"
+        },
+        {
+          "kind": "conditional_dialogue_sequence",
+          "id": "refugee_lender_4_6_through_4_8",
+          "operation": "on-defer-present-three-lines-with-one-second-waits-between-six-and-seven-and-between-seven-and-eight",
+          "amount": 3,
+          "ownership": "live_presentation"
+        },
+        {
+          "kind": "npc_task",
+          "id": "npc_refugee_moneylender:dlc_refugees_city_lender_4",
+          "operation": "set-Visible-only-after-the-defer-dialogue-tail-with-no-rewards-or-repair-to-Complete",
+          "amount": 1,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "story_phase",
+          "id": "gykmp_story_phase_game_of_crone_refugee_moneylender_departure_demand_complete",
+          "operation": "commit-after-the-selected-payment-or-defer-tail-control-restore-and-on_talk_end-have-converged",
+          "amount": 1,
+          "ownership": "shared_campaign"
+        }
+      ],
+      "safeguards": [
+        "BeatriceEvidence-exclusively-owns-the-S53-condition-and-event_lender_4-enqueue_this-step-only-consumes-the-event",
+        "do-not-run-the-demand-when-S53-found-no-active-is_player_took_money-on-exact-npc_refugee_6",
+        "the-pay-now-path-uses-the-same-exact-dynamic-debit-and-CloseDebt-receipts-as-normal-repayment_never-a-second-transaction",
+        "the-defer-task-is-a-reminder-not-a-debt-state-source_and-must-not-recreate-or-minimum-repair-money_debd_amount",
+        "the-task-has-no-source-Complete-write-even-when-the-player-later-repays_do-not-invent-one",
+        "S54-may-remove-the-known-Moneylender-only-when-no-active-loan-or-the-debt-is-already-closed_that-condition-and-the-full-camp-deactivation-remain-owned-by-BeatriceEvidence",
+        "if-active-debt-keeps-the-Moneylender-known-after-S54_later-repayment-still-has-no-raw-known-NPC-removal-tail_do-not-invent-one"
+      ]
+    },
+    {
+      "stepId": "game_of_crone_reach_refugee_camp_paradise",
+      "title": "Reach exactly sixteen quality in the living refugee camp",
+      "linkedQuestIds": ["dlc_refugees_paradise"],
+      "linkedTaskMilestoneIds": [],
+      "triggerScripts": [
+        "gykmp_story_dispatch_game_of_crone_refugee_camp_paradise",
+        "RefugeesCampEngine:WorldZoneComputed:refugees_camp"
+      ],
+      "triggerKeys": [
+        "refugees_camp",
+        "is_camp_living",
+        "camp_zone_quality",
+        "refugee_available_slots",
+        "cur_refugee_happiness",
+        "refugee_happiness_item",
+        "refugee_current_progress_bar",
+        "dlc_refugees_paradise",
+        "gykmp_story_achievement_eligibility_game_of_crone_refugees_paradise",
+        "gykmp_story_achievement_game_of_crone_refugees_paradise",
+        "gykmp_story_phase_game_of_crone_refugee_camp_paradise_complete"
+      ],
+      "expectedEffects": [
+        {
+          "kind": "runtime_camp_state",
+          "id": "RefugeesCampEngine:camp_zone_quality",
+          "operation": "set-from-the-exact-refugees_camp-WorldZoneComputed-float-before-any-progress-object-update",
+          "amount": 16,
+          "ownership": "shared_world"
+        },
+        {
+          "kind": "wgo_param",
+          "id": "refugee_camp_progress_obj:refugee_available_slots",
+          "operation": "set-to-RoundToInt-of-camp_zone_quality-as-the-first-UpdateRefugeeCampValues-effect",
+          "amount": 16,
+          "ownership": "shared_world"
+        },
+        {
+          "kind": "conditional_player_param",
+          "id": "cur_refugee_happiness",
+          "operation": "clamp-the-host-canonical-value-between-zero-and-refugee_available_slots-before-reconciling-items",
+          "amount": 0,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "world_inventory_reconciliation",
+          "id": "refugee_camp_progress_obj:refugee_happiness_item",
+          "operation": "remove-only-count-above-available-slots_then-add-items-count-minus-floor-current-happiness-to-cur_refugee_happiness-preserving-fractional-progress",
+          "amount": 0,
+          "ownership": "shared_world"
+        },
+        {
+          "kind": "wgo_param",
+          "id": "refugee_camp_progress_obj:refugee_current_progress_bar",
+          "operation": "set-to-cur_refugee_happiness-minus-floor-cur_refugee_happiness-then-redraw-the-progress-object",
+          "amount": 0,
+          "ownership": "shared_world"
+        },
+        {
+          "kind": "story_eligibility_receipt",
+          "id": "gykmp_story_achievement_eligibility_game_of_crone_refugees_paradise",
+          "operation": "record-once-only-after-a-living-refugees_camp-callback-reports-the-original-computed-quality-exactly-sixteen-and-progress-reconciliation-finishes",
+          "amount": 1,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "serialized_achievement_key",
+          "id": "dlc_refugees_paradise",
+          "operation": "call-QuestSystem-CheckKeyQuests-once-at-the-source-checkpoint-which-forwards-to-AchievementsSystem-before-quest-evaluation",
+          "amount": 1,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "platform_achievement_receipt",
+          "id": "gykmp_story_achievement_game_of_crone_refugees_paradise",
+          "operation": "settle-once-per-personal-profile-as-unlocked-already-unlocked-or-unsupported-outside-ordinary-QuestSync",
+          "amount": 1,
+          "ownership": "personal_profile"
+        },
+        {
+          "kind": "story_phase",
+          "id": "gykmp_story_phase_game_of_crone_refugee_camp_paradise_complete",
+          "operation": "commit-after-progress-state-shared-eligibility-and-the-serialized-key-check-without-waiting-for-platform-delivery",
+          "amount": 1,
+          "ownership": "shared_campaign"
+        }
+      ],
+      "safeguards": [
+        "the-source-gate-is-original-world_zone_quality-equal-to-exactly-sixteen_not-greater-than-or-equal-and-not-RoundToInt-equal-to-sixteen",
+        "require-exact-world_zone_id-refugees_camp-and-Data-is_camp_living-before-mutating-progress-or-recording-eligibility",
+        "run-UpdateRefugeeCampValues-zero-with-ItemUpdatesGameRes-before-the-achievement-check-in-the-exact-source-order",
+        "only-the-host-reconciles-or-removes-physical-refugee_happiness_item-inventory_observers-consume-the-resulting-synced-state",
+        "preserve-the-fractional-part-of-cur_refugee_happiness-and-never-replace-the-source-floor-with-rounding",
+        "a-repeated-quality-computation-is-idempotent-for-shared-eligibility-and-each-personal-platform-receipt",
+        "paradise-is-independent-of-loan-debt-task-profession-achievements-and-S53-departure-state_none-may-prove-or-repair-another",
+        "after-the-durable-S54-camp-deactivation-no-new-living-camp-quality-callback-may-create-eligibility_but-an-existing-paradise-receipt-remains-historical",
+        "LateSaveFixer-through-version-1301-does-not-migrate-dlc_refugees_paradise_so-never-infer-it-from-old-version-alone-stale-slots-progress-items-or-deactivated-camp-layout"
+      ]
+    }
+  ]
+}

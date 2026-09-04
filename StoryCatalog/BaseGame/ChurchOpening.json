@@ -1,0 +1,3196 @@
+{
+  "schemaVersion": 5,
+  "catalogId": "base-game.church-opening",
+  "campaign": "BaseGame",
+  "chapter": "FiveQualityGraveyardThroughFinalCeremonyAndGerryMortuaryFollowups",
+  "quests": [
+    {
+      "questId": "ghost_come_after_1st_burial",
+      "title": "Prepare Yorick's visit after the first burial",
+      "vanilla": {
+        "startTrigger": "1",
+        "successTrigger": "1",
+        "failTrigger": "",
+        "startKeys": ["item_scroll_2"],
+        "questVisible": false,
+        "oneTimeQuest": true,
+        "startScript": "",
+        "successScript": "",
+        "failScript": "",
+        "arrowWgoCustomTag": "",
+        "arrowWgoObjectId": "",
+        "successRewards": [
+          { "type": "ghost_comes_2_home_after_1st_burial", "amount": 1.0 }
+        ],
+        "failureRewards": []
+      },
+      "policy": {
+        "stateOwnership": "shared_campaign",
+        "eligibleInitiator": "any_player",
+        "livePresentationOwner": "initiating_player",
+        "observerQuestApplication": "durable_state_only",
+        "personalRewardDelivery": "party_exactly_once"
+      },
+      "completionChecks": []
+    }
+  ],
+  "taskMilestones": [
+    {
+      "milestoneId": "bishop_church_opened",
+      "npcId": "npc_bishop",
+      "taskId": "bishop_5_qual",
+      "activeStates": ["Complete"],
+      "playerParamRepairs": [],
+      "playerParamMinimums": [
+        { "key": "_rel_npc_bishop", "value": 10.0 },
+        { "key": "met_bishop", "value": 1.0 },
+        { "key": "church_level", "value": 1.0 },
+        { "key": "cup_20_reached", "value": 1.0 },
+        { "key": "body_min", "value": 1.0 },
+        { "key": "body_max", "value": 1.0 }
+      ],
+      "unlockedTechs": ["Faith"],
+      "blacklistedPhrases": ["bishop_2_1b", "bishop_2_1e", "bishop_2_1c"],
+      "wgoParamMinimums": [
+        {
+          "objectId": "donkey",
+          "key": "donkey_must_wait_at_cemetery",
+          "value": 1.0
+        }
+      ],
+      "personalItemGrants": []
+    },
+    {
+      "milestoneId": "bishop_bowls_requested",
+      "npcId": "npc_bishop",
+      "taskId": "bishop_bowls",
+      "activeStates": ["Visible"],
+      "playerParamRepairs": [],
+      "playerParamMinimums": [
+        { "key": "_rel_npc_bishop", "value": 10.0 },
+        { "key": "church_level", "value": 1.0 },
+        { "key": "cup_20_reached", "value": 1.0 }
+      ],
+      "taskStateMinimums": [
+        { "npcId": "npc_bishop", "taskId": "bishop_5_qual", "state": "Complete" }
+      ],
+      "unlockedTechs": ["Faith", "Research", "The idea of the earth"],
+      "unlockedPhrases": ["@bishop_5_1", "@bishop_trade"],
+      "blacklistedPhrases": ["@bishop_4_0"],
+      "unlockedCrafts": [],
+      "completedOneTimeCrafts": [],
+      "wgoParamMinimums": [],
+      "personalItemGrants": []
+    },
+    {
+      "milestoneId": "bishop_bowls_delivered",
+      "npcId": "npc_bishop",
+      "taskId": "bishop_bowls",
+      "activeStates": ["Complete"],
+      "playerParamRepairs": [],
+      "playerParamMinimums": [
+        { "key": "_rel_npc_bishop", "value": 20.0 },
+        { "key": "church_level", "value": 1.0 },
+        { "key": "cup_20_reached", "value": 1.0 }
+      ],
+      "taskStateMinimums": [
+        { "npcId": "npc_bishop", "taskId": "bishop_5_qual", "state": "Complete" },
+        { "npcId": "npc_bishop", "taskId": "bishop_30_qual", "state": "Visible" },
+        { "npcId": "npc_bishop", "taskId": "bishop_20_qual", "state": "Visible" },
+        { "npcId": "npc_bishop", "taskId": "bishop_fish", "state": "Visible" }
+      ],
+      "unlockedTechs": ["Faith", "Research", "The idea of the earth"],
+      "unlockedPhrases": ["@bishop_trade"],
+      "blacklistedPhrases": ["@bishop_4_0", "@bishop_5_1"],
+      "unlockedCrafts": [],
+      "completedOneTimeCrafts": [],
+      "wgoParamMinimums": [
+        { "objectId": "npc_bishop", "key": "cur_multianswer", "value": 1.0 }
+      ],
+      "personalItemGrants": [
+        {
+          "itemId": "scroll_blue",
+          "count": 1,
+          "receiptId": "gykmp_story_grant_church_bishop_bowls_guide"
+        }
+      ]
+    },
+    {
+      "milestoneId": "bishop_graveyard_quality_30_requested",
+      "npcId": "npc_bishop",
+      "taskId": "bishop_30_qual",
+      "activeStates": ["Visible"],
+      "playerParamRepairs": [],
+      "playerParamMinimums": [
+        { "key": "_rel_npc_bishop", "value": 20.0 },
+        { "key": "church_level", "value": 1.0 },
+        { "key": "cup_20_reached", "value": 1.0 }
+      ],
+      "taskStateMinimums": [
+        { "npcId": "npc_bishop", "taskId": "bishop_bowls", "state": "Complete" }
+      ],
+      "unlockedTechs": ["Faith", "Research", "The idea of the earth"],
+      "unlockedPhrases": ["@bishop_6b", "@bishop_trade"],
+      "blacklistedPhrases": ["@bishop_4_0", "@bishop_5_1"],
+      "unlockedCrafts": [],
+      "completedOneTimeCrafts": [],
+      "wgoParamMinimums": [
+        { "objectId": "npc_bishop", "key": "cur_multianswer", "value": 1.0 }
+      ],
+      "personalItemGrants": []
+    },
+    {
+      "milestoneId": "bishop_church_quality_20_requested",
+      "npcId": "npc_bishop",
+      "taskId": "bishop_20_qual",
+      "activeStates": ["Visible"],
+      "playerParamRepairs": [],
+      "playerParamMinimums": [
+        { "key": "_rel_npc_bishop", "value": 20.0 },
+        { "key": "church_level", "value": 1.0 },
+        { "key": "cup_20_reached", "value": 1.0 }
+      ],
+      "taskStateMinimums": [
+        { "npcId": "npc_bishop", "taskId": "bishop_bowls", "state": "Complete" }
+      ],
+      "unlockedTechs": ["Faith", "Research", "The idea of the earth"],
+      "unlockedPhrases": ["@bishop_6c", "@bishop_trade"],
+      "blacklistedPhrases": ["@bishop_4_0", "@bishop_5_1"],
+      "unlockedCrafts": [],
+      "completedOneTimeCrafts": [],
+      "wgoParamMinimums": [
+        { "objectId": "npc_bishop", "key": "cur_multianswer", "value": 1.0 }
+      ],
+      "personalItemGrants": []
+    },
+    {
+      "milestoneId": "bishop_quality_fish_requested",
+      "npcId": "npc_bishop",
+      "taskId": "bishop_fish",
+      "activeStates": ["Visible"],
+      "playerParamRepairs": [],
+      "playerParamMinimums": [
+        { "key": "_rel_npc_bishop", "value": 20.0 },
+        { "key": "church_level", "value": 1.0 },
+        { "key": "cup_20_reached", "value": 1.0 }
+      ],
+      "taskStateMinimums": [
+        { "npcId": "npc_bishop", "taskId": "bishop_bowls", "state": "Complete" }
+      ],
+      "unlockedTechs": ["Faith", "Research", "The idea of the earth"],
+      "unlockedPhrases": ["@bishop_6a", "@bishop_trade"],
+      "blacklistedPhrases": ["@bishop_4_0", "@bishop_5_1"],
+      "unlockedCrafts": [],
+      "completedOneTimeCrafts": [],
+      "wgoParamMinimums": [
+        { "objectId": "npc_bishop", "key": "cur_multianswer", "value": 1.0 }
+      ],
+      "personalItemGrants": []
+    },
+    {
+      "milestoneId": "bishop_graveyard_quality_30_reached",
+      "npcId": "npc_bishop",
+      "taskId": "bishop_30_qual",
+      "activeStates": ["Complete"],
+      "playerParamRepairs": [],
+      "playerParamMinimums": [
+        { "key": "_rel_npc_bishop", "value": 25.0 },
+        { "key": "church_level", "value": 1.0 },
+        { "key": "cup_20_reached", "value": 1.0 }
+      ],
+      "taskStateMinimums": [
+        { "npcId": "npc_bishop", "taskId": "bishop_5_qual", "state": "Complete" },
+        { "npcId": "npc_bishop", "taskId": "bishop_bowls", "state": "Complete" },
+        { "npcId": "npc_bishop", "taskId": "bishop_20_qual", "state": "Visible" },
+        { "npcId": "npc_bishop", "taskId": "bishop_fish", "state": "Visible" }
+      ],
+      "unlockedTechs": ["Faith", "Research", "The idea of the earth"],
+      "unlockedPhrases": ["@bishop_trade"],
+      "blacklistedPhrases": ["@bishop_4_0", "@bishop_5_1", "@bishop_6b"],
+      "unlockedCrafts": [],
+      "completedOneTimeCrafts": [],
+      "wgoParamMinimums": [
+        { "objectId": "npc_bishop", "key": "cur_multianswer", "value": 1.0 },
+        { "objectId": "npc_bishop", "key": "conditional_par_1", "value": 1.0 }
+      ],
+      "personalItemGrants": []
+    },
+    {
+      "milestoneId": "bishop_church_quality_20_reached",
+      "npcId": "npc_bishop",
+      "taskId": "bishop_20_qual",
+      "activeStates": ["Complete"],
+      "playerParamRepairs": [],
+      "playerParamMinimums": [
+        { "key": "_rel_npc_bishop", "value": 25.0 },
+        { "key": "church_level", "value": 1.0 },
+        { "key": "cup_20_reached", "value": 1.0 }
+      ],
+      "taskStateMinimums": [
+        { "npcId": "npc_bishop", "taskId": "bishop_5_qual", "state": "Complete" },
+        { "npcId": "npc_bishop", "taskId": "bishop_bowls", "state": "Complete" },
+        { "npcId": "npc_bishop", "taskId": "bishop_30_qual", "state": "Visible" },
+        { "npcId": "npc_bishop", "taskId": "bishop_fish", "state": "Visible" }
+      ],
+      "unlockedTechs": ["Faith", "Research", "The idea of the earth"],
+      "unlockedPhrases": ["@bishop_trade"],
+      "blacklistedPhrases": ["@bishop_4_0", "@bishop_5_1", "@bishop_6c"],
+      "unlockedCrafts": [],
+      "completedOneTimeCrafts": [],
+      "wgoParamMinimums": [
+        { "objectId": "npc_bishop", "key": "cur_multianswer", "value": 1.0 },
+        { "objectId": "npc_bishop", "key": "conditional_par_1", "value": 1.0 }
+      ],
+      "personalItemGrants": []
+    },
+    {
+      "milestoneId": "bishop_quality_fish_delivered",
+      "npcId": "npc_bishop",
+      "taskId": "bishop_fish",
+      "activeStates": ["Complete"],
+      "playerParamRepairs": [],
+      "playerParamMinimums": [
+        { "key": "_rel_npc_bishop", "value": 30.0 },
+        { "key": "church_level", "value": 1.0 },
+        { "key": "cup_20_reached", "value": 1.0 }
+      ],
+      "taskStateMinimums": [
+        { "npcId": "npc_bishop", "taskId": "bishop_5_qual", "state": "Complete" },
+        { "npcId": "npc_bishop", "taskId": "bishop_bowls", "state": "Complete" },
+        { "npcId": "npc_bishop", "taskId": "bishop_30_qual", "state": "Visible" },
+        { "npcId": "npc_bishop", "taskId": "bishop_20_qual", "state": "Visible" }
+      ],
+      "unlockedTechs": ["Faith", "Research", "The idea of the earth"],
+      "unlockedPhrases": ["@bishop_trade"],
+      "blacklistedPhrases": ["@bishop_4_0", "@bishop_5_1", "@bishop_6a"],
+      "unlockedCrafts": [],
+      "completedOneTimeCrafts": [],
+      "wgoParamMinimums": [
+        { "objectId": "npc_bishop", "key": "cur_multianswer", "value": 1.0 },
+        { "objectId": "npc_bishop", "key": "conditional_par_1", "value": 1.0 }
+      ],
+      "personalItemGrants": []
+    },
+    {
+      "milestoneId": "bishop_first_church_upgraded",
+      "npcId": "npc_bishop",
+      "taskId": "bishop_rcitezen",
+      "activeStates": ["Visible"],
+      "playerParamRepairs": [],
+      "playerParamMinimums": [
+        { "key": "_rel_npc_bishop", "value": 50.0 },
+        { "key": "church_level", "value": 2.0 },
+        { "key": "cup_20_reached", "value": 1.0 },
+        { "key": "preaching_is_locked", "value": 1.0 }
+      ],
+      "taskStateMinimums": [
+        { "npcId": "npc_bishop", "taskId": "bishop_5_qual", "state": "Complete" },
+        { "npcId": "npc_bishop", "taskId": "bishop_bowls", "state": "Complete" },
+        { "npcId": "npc_bishop", "taskId": "bishop_30_qual", "state": "Complete" },
+        { "npcId": "npc_bishop", "taskId": "bishop_20_qual", "state": "Complete" },
+        { "npcId": "npc_bishop", "taskId": "bishop_fish", "state": "Complete" }
+      ],
+      "unlockedTechs": ["Faith", "Research", "The idea of the earth"],
+      "unlockedPhrases": ["@bishop_get_citezen", "@bishop_trade"],
+      "blacklistedPhrases": [
+        "@bishop_4_0",
+        "@bishop_5_1",
+        "@bishop_6a",
+        "@bishop_6b",
+        "@bishop_6c",
+        "@bishop_6d"
+      ],
+      "unlockedCrafts": ["graveyard_builddesk::graveyard_fence_2_upgr"],
+      "completedOneTimeCrafts": [],
+      "wgoParamMinimums": [
+        { "objectId": "npc_bishop", "key": "cur_multianswer", "value": 2.0 },
+        { "objectId": "npc_bishop", "key": "conditional_par_1", "value": 3.0 }
+      ],
+      "personalItemGrants": []
+    },
+    {
+      "milestoneId": "bishop_rightful_citizen_papers_delivered",
+      "npcId": "npc_bishop",
+      "taskId": "bishop_rcitezen",
+      "activeStates": ["Complete"],
+      "playerParamRepairs": [
+        { "key": "preaching_is_locked", "value": 0.0 }
+      ],
+      "playerParamMinimums": [
+        { "key": "_rel_npc_bishop", "value": 50.0 },
+        { "key": "church_level", "value": 2.0 },
+        { "key": "cup_20_reached", "value": 1.0 }
+      ],
+      "taskStateMinimums": [],
+      "unlockedTechs": ["Faith", "Research", "The idea of the earth"],
+      "unlockedPhrases": ["@bishop_trade"],
+      "blacklistedPhrases": ["@bishop_get_citezen"],
+      "unlockedCrafts": ["graveyard_builddesk::graveyard_fence_2_upgr"],
+      "completedOneTimeCrafts": [],
+      "wgoParamMinimums": [
+        { "objectId": "npc_bishop", "key": "cur_multianswer", "value": 2.0 },
+        { "objectId": "npc_bishop", "key": "conditional_par_1", "value": 3.0 }
+      ],
+      "personalItemGrants": []
+    },
+    {
+      "milestoneId": "bishop_cathedral_church_quality_requested",
+      "npcId": "npc_bishop",
+      "taskId": "bishop_last_cross",
+      "activeStates": ["Visible"],
+      "playerParamRepairs": [],
+      "playerParamMinimums": [
+        { "key": "_rel_npc_bishop", "value": 50.0 },
+        { "key": "church_level", "value": 2.0 },
+        { "key": "cup_20_reached", "value": 1.0 }
+      ],
+      "taskStateMinimums": [
+        { "npcId": "npc_bishop", "taskId": "bishop_rcitezen", "state": "Complete" },
+        { "npcId": "npc_bishop", "taskId": "bishop_last_skull", "state": "Visible" }
+      ],
+      "unlockedTechs": ["Faith", "Research", "The idea of the earth"],
+      "unlockedPhrases": ["@bishop_cathidral_cross", "@bishop_trade"],
+      "blacklistedPhrases": ["@bishop_cathidral"],
+      "unlockedCrafts": ["graveyard_builddesk::graveyard_fence_2_upgr"],
+      "completedOneTimeCrafts": [],
+      "wgoParamMinimums": [],
+      "personalItemGrants": []
+    },
+    {
+      "milestoneId": "bishop_cathedral_graveyard_quality_requested",
+      "npcId": "npc_bishop",
+      "taskId": "bishop_last_skull",
+      "activeStates": ["Visible"],
+      "playerParamRepairs": [],
+      "playerParamMinimums": [
+        { "key": "_rel_npc_bishop", "value": 50.0 },
+        { "key": "church_level", "value": 2.0 },
+        { "key": "cup_20_reached", "value": 1.0 }
+      ],
+      "taskStateMinimums": [
+        { "npcId": "npc_bishop", "taskId": "bishop_rcitezen", "state": "Complete" },
+        { "npcId": "npc_bishop", "taskId": "bishop_last_cross", "state": "Visible" }
+      ],
+      "unlockedTechs": ["Faith", "Research", "The idea of the earth"],
+      "unlockedPhrases": ["@bishop_cathidral_skull", "@bishop_trade"],
+      "blacklistedPhrases": ["@bishop_cathidral"],
+      "unlockedCrafts": ["graveyard_builddesk::graveyard_fence_2_upgr"],
+      "completedOneTimeCrafts": [],
+      "wgoParamMinimums": [],
+      "personalItemGrants": []
+    },
+    {
+      "milestoneId": "bishop_cathedral_church_quality_reached",
+      "npcId": "npc_bishop",
+      "taskId": "bishop_last_cross",
+      "activeStates": ["Complete"],
+      "playerParamRepairs": [],
+      "playerParamMinimums": [
+        { "key": "_rel_npc_bishop", "value": 55.0 },
+        { "key": "church_level", "value": 2.0 },
+        { "key": "cup_20_reached", "value": 1.0 }
+      ],
+      "taskStateMinimums": [
+        { "npcId": "npc_bishop", "taskId": "bishop_rcitezen", "state": "Complete" },
+        { "npcId": "npc_bishop", "taskId": "bishop_last_skull", "state": "Visible" }
+      ],
+      "unlockedTechs": ["Faith", "Research", "The idea of the earth"],
+      "unlockedPhrases": ["@bishop_trade"],
+      "blacklistedPhrases": ["@bishop_cathidral_cross"],
+      "unlockedCrafts": ["graveyard_builddesk::graveyard_fence_2_upgr"],
+      "completedOneTimeCrafts": [],
+      "wgoParamMinimums": [],
+      "personalItemGrants": []
+    },
+    {
+      "milestoneId": "bishop_cathedral_graveyard_quality_reached",
+      "npcId": "npc_bishop",
+      "taskId": "bishop_last_skull",
+      "activeStates": ["Complete"],
+      "playerParamRepairs": [],
+      "playerParamMinimums": [
+        { "key": "_rel_npc_bishop", "value": 55.0 },
+        { "key": "church_level", "value": 2.0 },
+        { "key": "cup_20_reached", "value": 1.0 }
+      ],
+      "taskStateMinimums": [
+        { "npcId": "npc_bishop", "taskId": "bishop_rcitezen", "state": "Complete" },
+        { "npcId": "npc_bishop", "taskId": "bishop_last_cross", "state": "Visible" }
+      ],
+      "unlockedTechs": ["Faith", "Research", "The idea of the earth"],
+      "unlockedPhrases": ["@bishop_trade"],
+      "blacklistedPhrases": ["@bishop_cathidral_skull"],
+      "unlockedCrafts": ["graveyard_builddesk::graveyard_fence_2_upgr"],
+      "completedOneTimeCrafts": [],
+      "wgoParamMinimums": [],
+      "personalItemGrants": []
+    },
+    {
+      "milestoneId": "bishop_statue_requested",
+      "npcId": "npc_bishop",
+      "taskId": "bishop_statue",
+      "activeStates": ["Visible"],
+      "playerParamRepairs": [],
+      "playerParamMinimums": [
+        { "key": "_rel_npc_bishop", "value": 50.0 },
+        { "key": "church_level", "value": 2.0 },
+        { "key": "cup_20_reached", "value": 1.0 }
+      ],
+      "taskStateMinimums": [],
+      "unlockedTechs": ["Faith", "Research", "The idea of the earth"],
+      "unlockedPhrases": ["@bishop_statue_ready", "@bishop_trade"],
+      "blacklistedPhrases": [],
+      "unlockedCrafts": ["graveyard_builddesk::graveyard_fence_2_upgr"],
+      "completedOneTimeCrafts": [],
+      "wgoParamMinimums": [],
+      "personalItemGrants": []
+    },
+    {
+      "milestoneId": "bishop_statue_erected",
+      "npcId": "npc_bishop",
+      "taskId": "bishop_statue",
+      "activeStates": ["Complete"],
+      "playerParamRepairs": [],
+      "playerParamMinimums": [
+        { "key": "_rel_npc_bishop", "value": 60.0 },
+        { "key": "church_level", "value": 2.0 },
+        { "key": "cup_20_reached", "value": 1.0 }
+      ],
+      "taskStateMinimums": [],
+      "unlockedTechs": ["Faith", "Research", "The idea of the earth"],
+      "unlockedPhrases": ["@bishop_trade"],
+      "blacklistedPhrases": ["@bishop_statue_ready"],
+      "unlockedCrafts": ["graveyard_builddesk::graveyard_fence_2_upgr"],
+      "completedOneTimeCrafts": [],
+      "wgoParamMinimums": [
+        { "objectId": "npc_bishop", "key": "player_took_statue_quest", "value": 1.0 }
+      ],
+      "personalItemGrants": []
+    },
+    {
+      "milestoneId": "bishop_cathedral_aristocrat_branch_opened",
+      "npcId": "npc_bishop",
+      "taskId": "bishop_aristocrat ",
+      "activeStates": ["Visible"],
+      "playerParamRepairs": [
+        { "key": "preaching_is_locked", "value": 0.0 }
+      ],
+      "playerParamMinimums": [
+        { "key": "_rel_npc_bishop", "value": 70.0 },
+        { "key": "church_level", "value": 3.0 },
+        { "key": "cup_20_reached", "value": 1.0 }
+      ],
+      "taskStateMinimums": [
+        { "npcId": "npc_bishop", "taskId": "bishop_rcitezen", "state": "Complete" },
+        { "npcId": "npc_bishop", "taskId": "bishop_last_cross", "state": "Complete" },
+        { "npcId": "npc_bishop", "taskId": "bishop_last_skull", "state": "Complete" },
+        { "npcId": "npc_bishop", "taskId": "bishop_statue", "state": "Complete" },
+        { "npcId": "npc_bishop", "taskId": "bishop_invitation_1", "state": "Visible" }
+      ],
+      "unlockedTechs": ["Faith", "Research", "The idea of the earth"],
+      "unlockedPhrases": ["@bishop_aristocrat", "@bishop_trade"],
+      "blacklistedPhrases": ["@bishop_cathidral_80"],
+      "unlockedCrafts": ["graveyard_builddesk::graveyard_fence_2_upgr"],
+      "completedOneTimeCrafts": [],
+      "wgoParamMinimums": [
+        { "objectId": "npc_merchant", "key": "need_merchant_in_sermon", "value": 1.0 }
+      ],
+      "personalItemGrants": []
+    },
+    {
+      "milestoneId": "bishop_cathedral_invitation_branch_opened",
+      "npcId": "npc_bishop",
+      "taskId": "bishop_invitation_1",
+      "activeStates": ["Visible"],
+      "playerParamRepairs": [
+        { "key": "preaching_is_locked", "value": 0.0 }
+      ],
+      "playerParamMinimums": [
+        { "key": "_rel_npc_bishop", "value": 70.0 },
+        { "key": "church_level", "value": 3.0 },
+        { "key": "cup_20_reached", "value": 1.0 }
+      ],
+      "taskStateMinimums": [
+        { "npcId": "npc_bishop", "taskId": "bishop_aristocrat ", "state": "Visible" }
+      ],
+      "unlockedTechs": ["Faith", "Research", "The idea of the earth"],
+      "unlockedPhrases": [
+        "@bishop_invitation",
+        "@inquisitor_ceremony",
+        "@bishop_trade"
+      ],
+      "blacklistedPhrases": ["@bishop_cathidral_80"],
+      "unlockedCrafts": ["graveyard_builddesk::graveyard_fence_2_upgr"],
+      "completedOneTimeCrafts": [],
+      "wgoParamMinimums": [
+        { "objectId": "npc_merchant", "key": "need_merchant_in_sermon", "value": 1.0 }
+      ],
+      "personalItemGrants": []
+    },
+    {
+      "milestoneId": "bishop_aristocrat_papers_presented",
+      "npcId": "npc_bishop",
+      "taskId": "bishop_aristocrat ",
+      "activeStates": ["Complete"],
+      "playerParamRepairs": [
+        { "key": "preaching_is_locked", "value": 0.0 }
+      ],
+      "playerParamMinimums": [
+        { "key": "_rel_npc_bishop", "value": 80.0 },
+        { "key": "church_level", "value": 3.0 },
+        { "key": "cup_20_reached", "value": 1.0 }
+      ],
+      "taskStateMinimums": [
+        { "npcId": "npc_bishop", "taskId": "bishop_rcitezen", "state": "Complete" },
+        { "npcId": "npc_bishop", "taskId": "bishop_last_cross", "state": "Complete" },
+        { "npcId": "npc_bishop", "taskId": "bishop_last_skull", "state": "Complete" },
+        { "npcId": "npc_bishop", "taskId": "bishop_statue", "state": "Complete" },
+        { "npcId": "npc_bishop", "taskId": "bishop_invitation_1", "state": "Visible" }
+      ],
+      "unlockedTechs": ["Faith", "Research", "The idea of the earth"],
+      "unlockedPhrases": ["@bishop_trade"],
+      "blacklistedPhrases": ["@bishop_cathidral_80", "@bishop_aristocrat"],
+      "unlockedCrafts": ["graveyard_builddesk::graveyard_fence_2_upgr"],
+      "completedOneTimeCrafts": [],
+      "wgoParamMinimums": [
+        { "objectId": "npc_merchant", "key": "need_merchant_in_sermon", "value": 1.0 }
+      ],
+      "personalItemGrants": []
+    },
+    {
+      "milestoneId": "bishop_inquisitor_ceremony_agreed",
+      "npcId": "npc_bishop",
+      "taskId": "bishop_invitation_2",
+      "activeStates": ["Visible"],
+      "playerParamRepairs": [
+        { "key": "preaching_is_locked", "value": 0.0 }
+      ],
+      "playerParamMinimums": [
+        { "key": "_rel_npc_bishop", "value": 70.0 },
+        { "key": "_rel_npc_inquisitor", "value": 60.0 },
+        { "key": "church_level", "value": 3.0 },
+        { "key": "cup_20_reached", "value": 1.0 }
+      ],
+      "taskStateMinimums": [
+        { "npcId": "npc_bishop", "taskId": "bishop_rcitezen", "state": "Complete" },
+        { "npcId": "npc_bishop", "taskId": "bishop_last_cross", "state": "Complete" },
+        { "npcId": "npc_bishop", "taskId": "bishop_last_skull", "state": "Complete" },
+        { "npcId": "npc_bishop", "taskId": "bishop_statue", "state": "Complete" },
+        { "npcId": "npc_bishop", "taskId": "bishop_aristocrat ", "state": "Visible" },
+        { "npcId": "npc_bishop", "taskId": "bishop_invitation_1", "state": "Complete" }
+      ],
+      "unlockedTechs": ["Faith", "Research", "The idea of the earth"],
+      "unlockedPhrases": ["@bishop_invitation", "@bishop_trade"],
+      "blacklistedPhrases": ["@bishop_cathidral_80", "@inquisitor_ceremony"],
+      "unlockedCrafts": ["graveyard_builddesk::graveyard_fence_2_upgr"],
+      "completedOneTimeCrafts": [],
+      "wgoParamMinimums": [
+        { "objectId": "npc_merchant", "key": "need_merchant_in_sermon", "value": 1.0 }
+      ],
+      "personalItemGrants": []
+    },
+    {
+      "milestoneId": "merchant_cathedral_invitation_accepted",
+      "npcId": "npc_merchant",
+      "taskId": "merchant_show",
+      "activeStates": ["Complete"],
+      "playerParamRepairs": [
+        { "key": "preaching_is_locked", "value": 0.0 }
+      ],
+      "playerParamMinimums": [
+        { "key": "_rel_npc_bishop", "value": 70.0 },
+        { "key": "_rel_npc_merchant", "value": 90.0 },
+        { "key": "church_level", "value": 3.0 },
+        { "key": "cup_20_reached", "value": 1.0 }
+      ],
+      "taskStateMinimums": [
+        { "npcId": "npc_bishop", "taskId": "bishop_aristocrat ", "state": "Visible" },
+        { "npcId": "npc_bishop", "taskId": "bishop_invitation_1", "state": "Visible" }
+      ],
+      "unlockedTechs": ["Faith", "Research", "The idea of the earth"],
+      "unlockedPhrases": [],
+      "blacklistedPhrases": ["@bishop_cathidral_80", "@merchant_ceremony"],
+      "unlockedCrafts": ["graveyard_builddesk::graveyard_fence_2_upgr"],
+      "completedOneTimeCrafts": [],
+      "wgoParamMinimums": [
+        { "objectId": "npc_merchant", "key": "need_merchant_in_sermon", "value": 1.0 },
+        { "objectId": "npc_merchant", "key": "player_knows_about_dream", "value": 1.0 }
+      ],
+      "personalItemGrants": []
+    },
+    {
+      "milestoneId": "bishop_accepted_invitation_delivered",
+      "npcId": "npc_bishop",
+      "taskId": "bishop_invitation_2",
+      "activeStates": ["Complete"],
+      "playerParamRepairs": [
+        { "key": "preaching_is_locked", "value": 0.0 }
+      ],
+      "playerParamMinimums": [
+        { "key": "_rel_npc_bishop", "value": 80.0 },
+        { "key": "_rel_npc_inquisitor", "value": 60.0 },
+        { "key": "_rel_npc_merchant", "value": 90.0 },
+        { "key": "church_level", "value": 3.0 },
+        { "key": "cup_20_reached", "value": 1.0 }
+      ],
+      "taskStateMinimums": [
+        { "npcId": "npc_bishop", "taskId": "bishop_aristocrat ", "state": "Visible" },
+        { "npcId": "npc_bishop", "taskId": "bishop_invitation_1", "state": "Complete" },
+        { "npcId": "npc_merchant", "taskId": "merchant_show", "state": "Complete" }
+      ],
+      "unlockedTechs": ["Faith", "Research", "The idea of the earth"],
+      "unlockedPhrases": ["@bishop_trade"],
+      "blacklistedPhrases": [
+        "@bishop_cathidral_80",
+        "@inquisitor_ceremony",
+        "@merchant_ceremony",
+        "@bishop_invitation"
+      ],
+      "unlockedCrafts": ["graveyard_builddesk::graveyard_fence_2_upgr"],
+      "completedOneTimeCrafts": [],
+      "wgoParamMinimums": [
+        { "objectId": "npc_merchant", "key": "need_merchant_in_sermon", "value": 1.0 },
+        { "objectId": "npc_merchant", "key": "player_knows_about_dream", "value": 1.0 }
+      ],
+      "personalItemGrants": []
+    }
+  ],
+  "cutscenes": [
+    {
+      "cutsceneId": "bishop_opens_church",
+      "linkedQuestIds": [],
+      "triggerScripts": ["npc_bishop:on_cup_20_reached"],
+      "actors": [
+        "initiating_player",
+        "npc_bishop",
+        "church_closed_door",
+        "church_big_quality_obj",
+        "donat_box"
+      ],
+      "observerPolicy": "all_loaded_party_members",
+      "lateJoinPolicy": "join_live_checkpoint_or_observe",
+      "remoteExecutionPolicy": "live_observation",
+      "executionOwnerPolicy": "any_player",
+      "dialogueOwnerPolicy": "initiating_player",
+      "formationPolicy": "initiator_with_observer_follow",
+      "completionChecks": [
+        {
+          "source": "player_param",
+          "key": "cup_20_reached",
+          "comparison": ">=",
+          "value": 1.0
+        }
+      ],
+      "cleanupRequirements": [
+        "preserve_first_sermon_gate",
+        "preserve_locked_time_and_teleports_until_sermon",
+        "finalize_open_church_world_state",
+        "close_letterbox"
+      ]
+    },
+    {
+      "cutsceneId": "bishop_first_sermon",
+      "linkedQuestIds": [],
+      "triggerScripts": ["npc_bishop:on_after_first_time_preaching"],
+      "actors": ["initiating_player", "npc_bishop", "church_pulpit", "donat_box"],
+      "observerPolicy": "all_loaded_party_members",
+      "lateJoinPolicy": "join_live_checkpoint_or_observe",
+      "remoteExecutionPolicy": "live_observation",
+      "executionOwnerPolicy": "any_player",
+      "dialogueOwnerPolicy": "initiating_player",
+      "formationPolicy": "initiator_with_observer_follow",
+      "completionChecks": [
+        {
+          "source": "player_param",
+          "key": "cup_20_reached",
+          "comparison": ">=",
+          "value": 1.0
+        },
+        {
+          "source": "player_param",
+          "key": "first_time_preaching",
+          "comparison": "==",
+          "value": 0.0
+        },
+        {
+          "source": "player_param",
+          "key": "first_sermon",
+          "comparison": "==",
+          "value": 0.0
+        }
+      ],
+      "cleanupRequirements": [
+        "restore_player_control",
+        "restore_camera",
+        "restore_time",
+        "restore_teleports",
+        "remove_tutorial_church_quality_object",
+        "finalize_donation_box_access",
+        "finalize_bishop_stock_position",
+        "close_letterbox"
+      ]
+    },
+    {
+      "cutsceneId": "donkey_after_church_open",
+      "linkedQuestIds": [],
+      "triggerScripts": ["npc_donkey:donkey_talk_after_church_open"],
+      "actors": ["initiating_player", "npc_donkey", "donkey_cart"],
+      "observerPolicy": "all_loaded_party_members",
+      "lateJoinPolicy": "join_live_checkpoint_or_observe",
+      "remoteExecutionPolicy": "live_observation",
+      "executionOwnerPolicy": "any_player",
+      "dialogueOwnerPolicy": "initiating_player",
+      "formationPolicy": "initiator_with_observer_follow",
+      "cleanupRequirements": [
+        "restore_player_control",
+        "preserve_single_donkey_shit_spawn",
+        "finalize_donkey_position",
+        "close_letterbox"
+      ]
+    },
+    {
+      "cutsceneId": "gerry_after_first_church_open",
+      "linkedQuestIds": [],
+      "triggerScripts": ["crafting_skull_3:skull_talk_after_1st_church_upgr"],
+      "actors": ["initiating_player", "crafting_skull_3"],
+      "observerPolicy": "all_loaded_party_members",
+      "lateJoinPolicy": "join_live_checkpoint_or_observe",
+      "remoteExecutionPolicy": "live_observation",
+      "executionOwnerPolicy": "any_player",
+      "dialogueOwnerPolicy": "initiating_player",
+      "formationPolicy": "initiator_with_observer_follow",
+      "completionChecks": [
+        {
+          "source": "player_param",
+          "key": "cup_20_reached",
+          "comparison": ">=",
+          "value": 1.0
+        },
+        {
+          "source": "player_param",
+          "key": "skull_talk_after_1st_church_upgr",
+          "comparison": "==",
+          "value": 0.0
+        }
+      ],
+      "cleanupRequirements": [
+        "restore_player_control",
+        "restore_camera",
+        "consume_first_church_gerry_event",
+        "close_letterbox"
+      ]
+    },
+    {
+      "cutsceneId": "bishop_church_upgrade_world_transition",
+      "linkedQuestIds": [],
+      "triggerScripts": ["npc_bishop:on_upgrade_church"],
+      "actors": [
+        "initiating_player",
+        "npc_bishop",
+        "church",
+        "church_inside_1",
+        "church_inside_2",
+        "church_inside_3",
+        "gd_church_lvl_1",
+        "gd_church_lvl_2",
+        "gd_church_lvl_3",
+        "donat_box_inside"
+      ],
+      "observerPolicy": "all_loaded_party_members",
+      "lateJoinPolicy": "join_live_checkpoint_or_observe",
+      "remoteExecutionPolicy": "live_observation",
+      "executionOwnerPolicy": "any_player",
+      "dialogueOwnerPolicy": "initiating_player",
+      "formationPolicy": "initiator_with_observer_follow",
+      "completionChecks": [],
+      "cleanupRequirements": [
+        "consume_building_permission_only_for_level_1_to_2",
+        "upgrade_church_world_state_once_for_current_level",
+        "move_donation_box_once_for_current_level",
+        "restore_player_control",
+        "restore_camera",
+        "close_letterbox"
+      ]
+    },
+    {
+      "cutsceneId": "bishop_first_big_church_briefing",
+      "linkedQuestIds": [],
+      "triggerScripts": ["npc_bishop:after_upgrade_1_to_2"],
+      "actors": [
+        "initiating_player",
+        "npc_bishop",
+        "gd_player_upgrade_church",
+        "gd_bishop_upgrade_church",
+        "church_tp_in_left",
+        "gd_finish_bishop"
+      ],
+      "observerPolicy": "all_loaded_party_members",
+      "lateJoinPolicy": "join_live_checkpoint_or_observe",
+      "remoteExecutionPolicy": "live_observation",
+      "executionOwnerPolicy": "any_player",
+      "dialogueOwnerPolicy": "initiating_player",
+      "formationPolicy": "initiator_with_observer_follow",
+      "participantFacing": "Up",
+      "completionChecks": [
+        {
+          "source": "player_param",
+          "key": "church_level",
+          "comparison": ">=",
+          "value": 2.0
+        }
+      ],
+      "cleanupRequirements": [
+        "restore_player_control",
+        "restore_camera",
+        "preserve_preaching_lock_until_rightful_citizen_papers",
+        "finalize_bishop_rcitezen_task_state",
+        "preserve_participant_facing_up",
+        "close_letterbox"
+      ]
+    },
+    {
+      "cutsceneId": "horadric_after_first_church_upgrade",
+      "linkedQuestIds": [],
+      "triggerScripts": ["npc_tavern owner:horadric_after_church_upgrade"],
+      "actors": ["initiating_player", "npc_tavern owner"],
+      "observerPolicy": "all_loaded_party_members",
+      "lateJoinPolicy": "join_live_checkpoint_or_observe",
+      "remoteExecutionPolicy": "live_observation",
+      "executionOwnerPolicy": "any_player",
+      "dialogueOwnerPolicy": "initiating_player",
+      "formationPolicy": "initiator_with_observer_follow",
+      "cleanupRequirements": [
+        "restore_player_control",
+        "restore_camera",
+        "consume_first_church_upgrade_horadric_event",
+        "do_not_requeue_completed_horadric_followup",
+        "close_letterbox"
+      ]
+    },
+    {
+      "cutsceneId": "bishop_cathedral_church_quality_reached",
+      "linkedQuestIds": [],
+      "triggerScripts": ["npc_bishop:bishop_cathidral_cross"],
+      "actors": [
+        "initiating_player",
+        "npc_bishop",
+        "gd_bishop_upgrade_church",
+        "gd_player_upgrade_church",
+        "church_tp_in_left",
+        "gd_finish_bishop"
+      ],
+      "observerPolicy": "all_loaded_party_members",
+      "lateJoinPolicy": "join_live_checkpoint_or_observe",
+      "remoteExecutionPolicy": "live_observation",
+      "executionOwnerPolicy": "any_player",
+      "dialogueOwnerPolicy": "initiating_player",
+      "formationPolicy": "initiator_with_observer_follow",
+      "completionChecks": [],
+      "cleanupRequirements": [
+        "restore_player_control",
+        "restore_camera",
+        "restore_time",
+        "restore_environment",
+        "finalize_bishop_departure_once",
+        "close_letterbox"
+      ]
+    },
+    {
+      "cutsceneId": "bishop_cathedral_graveyard_quality_reached",
+      "linkedQuestIds": [],
+      "triggerScripts": ["npc_bishop:bishop_cathidral_skull"],
+      "actors": ["initiating_player", "npc_bishop"],
+      "observerPolicy": "all_loaded_party_members",
+      "lateJoinPolicy": "join_live_checkpoint_or_observe",
+      "remoteExecutionPolicy": "live_observation",
+      "executionOwnerPolicy": "any_player",
+      "dialogueOwnerPolicy": "initiating_player",
+      "formationPolicy": "initiator_with_observer_follow",
+      "completionChecks": [],
+      "cleanupRequirements": [
+        "restore_player_control",
+        "check_existing_bishop_graveyard_walk_latch_once",
+        "do_not_restore_consumed_graveyard_walk_latches",
+        "close_letterbox"
+      ]
+    },
+    {
+      "cutsceneId": "bishop_statue_placement",
+      "linkedQuestIds": [],
+      "triggerScripts": ["npc_bishop:bishop_statue_ready"],
+      "actors": [
+        "initiating_player",
+        "npc_bishop",
+        "bishop_statue",
+        "bishop_statue_place",
+        "gd_player_statue_1",
+        "gd_player_statue_2",
+        "gd_bishop_statue_1"
+      ],
+      "observerPolicy": "all_loaded_party_members",
+      "lateJoinPolicy": "join_live_checkpoint_or_observe",
+      "remoteExecutionPolicy": "live_observation",
+      "executionOwnerPolicy": "any_player",
+      "dialogueOwnerPolicy": "initiating_player",
+      "formationPolicy": "initiator_with_observer_follow",
+      "completionChecks": [],
+      "cleanupRequirements": [
+        "consume_three_marble_plates_from_initiator_only",
+        "spawn_single_bishop_statue",
+        "restore_player_control",
+        "restore_camera",
+        "finalize_bishop_position",
+        "close_letterbox"
+      ]
+    },
+    {
+      "cutsceneId": "bishop_cathedral_upgrade",
+      "linkedQuestIds": [],
+      "triggerScripts": ["npc_bishop:bishop_cathidral_80"],
+      "actors": [
+        "initiating_player",
+        "npc_bishop",
+        "church",
+        "church_inside_2",
+        "church_inside_3",
+        "gd_church_lvl_2",
+        "gd_church_lvl_3",
+        "donat_box_inside",
+        "npc_merchant"
+      ],
+      "observerPolicy": "all_loaded_party_members",
+      "lateJoinPolicy": "join_live_checkpoint_or_observe",
+      "remoteExecutionPolicy": "live_observation",
+      "executionOwnerPolicy": "any_player",
+      "dialogueOwnerPolicy": "initiating_player",
+      "formationPolicy": "initiator_with_observer_follow",
+      "completionChecks": [
+        {
+          "source": "player_param",
+          "key": "church_level",
+          "comparison": ">=",
+          "value": 3.0
+        }
+      ],
+      "cleanupRequirements": [
+        "upgrade_church_world_state_once_to_level_3",
+        "move_donation_box_once",
+        "finalize_cathedral_branch_tasks",
+        "restore_player_control",
+        "restore_camera",
+        "do_not_replay_consumable_followup_flags",
+        "close_letterbox"
+      ]
+    },
+    {
+      "cutsceneId": "gerry_after_second_church_upgrade",
+      "linkedQuestIds": [],
+      "triggerScripts": ["crafting_skull_3:skull_talk_after_2nd_church_upgr"],
+      "actors": ["initiating_player", "crafting_skull_3"],
+      "observerPolicy": "all_loaded_party_members",
+      "lateJoinPolicy": "join_live_checkpoint_or_observe",
+      "remoteExecutionPolicy": "live_observation",
+      "executionOwnerPolicy": "any_player",
+      "dialogueOwnerPolicy": "initiating_player",
+      "formationPolicy": "initiator_with_observer_follow",
+      "completionChecks": [
+        {
+          "source": "player_param",
+          "key": "skull_talk_after_2nd_church_upgr",
+          "comparison": "==",
+          "value": 0.0
+        }
+      ],
+      "cleanupRequirements": [
+        "run_only_when_on_enter_mortuary_gd_zone_dispatches_this_event_for_a_set_skull_talk_after_2nd_church_upgr_flag",
+        "run_one_authoritative_skull_4_1_event_through_skull_4_7_event_dialogue_for_all_observers",
+        "clear_skull_talk_after_2nd_church_upgr_only_after_the_live_dialogue_and_camera_return_finish",
+        "do_not_change_tasks_relations_story_points_inventory_or_world_state",
+        "never_rearm_the_consumed_flag_from_cathedral_tasks_or_later_story_state",
+        "do_not_register_or_nest_the_generic_on_enter_mortuary_gd_zone_wrapper",
+        "restore_player_control_and_camera"
+      ]
+    },
+    {
+      "cutsceneId": "gerry_after_aristocrat_papers",
+      "linkedQuestIds": [],
+      "triggerScripts": ["crafting_skull_3:skull_talk_after_aristocrat"],
+      "actors": ["initiating_player", "crafting_skull_3"],
+      "observerPolicy": "all_loaded_party_members",
+      "lateJoinPolicy": "join_live_checkpoint_or_observe",
+      "remoteExecutionPolicy": "live_observation",
+      "executionOwnerPolicy": "any_player",
+      "dialogueOwnerPolicy": "initiating_player",
+      "formationPolicy": "initiator_with_observer_follow",
+      "completionChecks": [
+        {
+          "source": "player_param",
+          "key": "skull_talk_after_aristocrat",
+          "comparison": "==",
+          "value": 0.0
+        }
+      ],
+      "cleanupRequirements": [
+        "run_only_when_on_enter_mortuary_gd_zone_dispatches_this_event_for_a_set_skull_talk_after_aristocrat_flag",
+        "run_one_authoritative_skull_5_1_event_through_skull_5_6_event_dialogue_for_all_observers",
+        "clear_skull_talk_after_aristocrat_only_after_the_live_dialogue_and_camera_return_finish",
+        "do_not_change_tasks_relations_story_points_inventory_or_world_state",
+        "never_rearm_the_consumed_flag_from_aristocrat_papers_or_later_story_state",
+        "do_not_replay_the_royal_box_purchase_or_its_inventory_and_payment_effects",
+        "do_not_register_or_nest_the_generic_on_enter_mortuary_gd_zone_wrapper",
+        "restore_player_control_and_camera"
+      ]
+    },
+    {
+      "cutsceneId": "bishop_aristocrat_papers_handoff",
+      "linkedQuestIds": [],
+      "triggerScripts": ["npc_bishop:@bishop_aristocrat"],
+      "actors": ["initiating_player", "npc_bishop"],
+      "observerPolicy": "all_loaded_party_members",
+      "lateJoinPolicy": "join_live_checkpoint_or_observe",
+      "remoteExecutionPolicy": "live_observation",
+      "executionOwnerPolicy": "any_player",
+      "dialogueOwnerPolicy": "initiating_player",
+      "formationPolicy": "initiator_with_observer_follow",
+      "completionChecks": [],
+      "cleanupRequirements": [
+        "consume_then_return_one_aristocrat_paper_to_initiator_only",
+        "apply_bishop_relation_plus_10_once",
+        "apply_five_silver_and_five_gold_story_points_once",
+        "finalize_bishop_aristocrat_trailing_space_task_once",
+        "restore_observer_control_and_camera",
+        "return_only_the_initiator_to_bishop_dialogue",
+        "close_letterbox"
+      ]
+    },
+    {
+      "cutsceneId": "inquisitor_cathedral_ceremony_agreement",
+      "linkedQuestIds": [],
+      "triggerScripts": ["npc_inquisitor:@inquisitor_ceremony"],
+      "actors": ["initiating_player", "npc_inquisitor"],
+      "observerPolicy": "all_loaded_party_members",
+      "lateJoinPolicy": "join_live_checkpoint_or_observe",
+      "remoteExecutionPolicy": "live_observation",
+      "executionOwnerPolicy": "any_player",
+      "dialogueOwnerPolicy": "initiating_player",
+      "formationPolicy": "initiator_with_observer_follow",
+      "completionChecks": [],
+      "cleanupRequirements": [
+        "finalize_bishop_invitation_1_complete_once",
+        "finalize_bishop_invitation_2_visible_once",
+        "unlock_merchant_ceremony_only_if_dream_is_already_known",
+        "do_not_fabricate_merchant_relation_or_story_progress",
+        "restore_observer_control_and_camera",
+        "return_only_the_initiator_to_inquisitor_dialogue",
+        "close_letterbox"
+      ]
+    },
+    {
+      "cutsceneId": "merchant_cathedral_invitation_acceptance",
+      "linkedQuestIds": [],
+      "triggerScripts": ["npc_merchant:@merchant_ceremony"],
+      "actors": ["initiating_player", "npc_merchant"],
+      "observerPolicy": "all_loaded_party_members",
+      "lateJoinPolicy": "join_live_checkpoint_or_observe",
+      "remoteExecutionPolicy": "live_observation",
+      "executionOwnerPolicy": "any_player",
+      "dialogueOwnerPolicy": "initiating_player",
+      "formationPolicy": "initiator_with_observer_follow",
+      "completionChecks": [],
+      "cleanupRequirements": [
+        "finalize_merchant_show_complete_once",
+        "apply_five_silver_and_two_gold_story_points_once",
+        "grant_one_accepted_invitation_to_initiator_only",
+        "unlock_bishop_invitation_and_final_ceremony_once",
+        "restore_observer_control_and_camera",
+        "return_only_the_initiator_to_merchant_dialogue",
+        "close_letterbox"
+      ]
+    },
+    {
+      "cutsceneId": "bishop_accepted_invitation_handoff",
+      "linkedQuestIds": [],
+      "triggerScripts": ["npc_bishop:@bishop_invitation"],
+      "actors": ["initiating_player", "npc_bishop"],
+      "observerPolicy": "all_loaded_party_members",
+      "lateJoinPolicy": "join_live_checkpoint_or_observe",
+      "remoteExecutionPolicy": "live_observation",
+      "executionOwnerPolicy": "any_player",
+      "dialogueOwnerPolicy": "initiating_player",
+      "formationPolicy": "initiator_with_observer_follow",
+      "completionChecks": [],
+      "cleanupRequirements": [
+        "consume_one_accepted_invitation_from_initiator_only",
+        "apply_bishop_relation_plus_10_once",
+        "apply_five_silver_and_five_gold_story_points_once",
+        "finalize_bishop_invitation_2_complete_once",
+        "do_not_fake_aggregate_bishop_relation_90",
+        "restore_observer_control_and_camera",
+        "return_only_the_initiator_to_bishop_dialogue",
+        "close_letterbox"
+      ]
+    },
+    {
+      "cutsceneId": "bishop_merchant_final_ceremony",
+      "linkedQuestIds": [],
+      "triggerScripts": ["final_ceremony"],
+      "actors": [
+        "initiating_player",
+        "npc_bishop",
+        "npc_merchant",
+        "npc_church_visitor",
+        "merchant_bishop_hug",
+        "church"
+      ],
+      "observerPolicy": "all_loaded_party_members",
+      "lateJoinPolicy": "join_live_checkpoint_or_observe",
+      "remoteExecutionPolicy": "live_observation",
+      "executionOwnerPolicy": "any_player",
+      "dialogueOwnerPolicy": "initiating_player",
+      "formationPolicy": "initiator_with_observer_follow",
+      "completionChecks": [
+        {
+          "source": "player_param",
+          "key": "_rel_npc_bishop",
+          "comparison": ">=",
+          "value": 100.0
+        },
+        {
+          "source": "player_param",
+          "key": "_rel_npc_merchant",
+          "comparison": ">=",
+          "value": 100.0
+        }
+      ],
+      "cleanupRequirements": [
+        "blacklist_bishop_final_ceremony_once",
+        "spawn_route_and_remove_eleven_church_visitors_on_the_canonical_world_once",
+        "spawn_then_destroy_merchant_bishop_hug_once",
+        "check_bish_merch_together_for_the_initiator_once",
+        "apply_bishop_and_merchant_relation_plus_10_once_each",
+        "grant_one_mirror_of_pride_and_one_fork_salty_to_the_initiator_only",
+        "set_prayed_this_week_and_both_afterall_event_latches_once",
+        "blacklist_bishop_and_merchant_magic_100_once",
+        "return_bishop_and_merchant_to_their_world_routes_once",
+        "do_not_replay_rewards_or_spawn_actors_for_late_joiners",
+        "restore_observer_control_camera_music_and_environment",
+        "close_letterbox"
+      ]
+    },
+    {
+      "cutsceneId": "royal_services_civic_acquisition_menu",
+      "linkedQuestIds": [],
+      "triggerScripts": [
+        "npc_royal_box:intro",
+        "npc_royal_box:interaction"
+      ],
+      "actors": ["initiating_player", "npc_royal_box"],
+      "observerPolicy": "all_loaded_party_members",
+      "lateJoinPolicy": "join_live_checkpoint_or_observe",
+      "remoteExecutionPolicy": "live_observation",
+      "executionOwnerPolicy": "any_player",
+      "dialogueOwnerPolicy": "initiating_player",
+      "formationPolicy": "initiator_with_observer_follow",
+      "completionChecks": [],
+      "cleanupRequirements": [
+        "show_mailbox_intro_1_through_4_only_for_the_live_intro_alias",
+        "let_only_the_initiator_navigate_the_royal_services_answers_and_pay_live_prices",
+        "apply_only_the_single_live_selected_answer_reward_blacklist_and_flag_sequence",
+        "do_not_register_start_buy_mailbox_1a_1_mailbox_1a_2_or_mailbox_1a_3_as_independent_story_triggers",
+        "exclude_repeatable_mailbox_permission_and_all_souls_dlc_answers",
+        "do_not_apply_the_unconnected_mailbox_aristocrat_paper_blacklist_node",
+        "restore_party_control_without_replaying_the_menu_or_any_purchase"
+      ]
+    }
+  ],
+  "storySteps": [
+    {
+      "stepId": "prime_yorick_after_first_burial",
+      "title": "Prime Yorick's visit after the first burial",
+      "linkedQuestIds": ["ghost_come_after_1st_burial"],
+      "triggerScripts": [],
+      "triggerKeys": ["item_scroll_2"],
+      "expectedEffects": [
+        {
+          "kind": "player_param",
+          "id": "ghost_comes_2_home_after_1st_burial",
+          "operation": "set_then_consume_during_yorick_visit",
+          "amount": 1.0,
+          "ownership": "shared_campaign"
+        }
+      ],
+      "safeguards": [
+        "do_not_restore_consumed_yorick_trigger",
+        "do_not_replay_completed_first_sleep_visit"
+      ]
+    },
+    {
+      "stepId": "reach_five_graveyard_quality_and_open_church",
+      "title": "Reach five Graveyard quality and open the Church",
+      "linkedQuestIds": [],
+      "linkedTaskMilestoneIds": ["bishop_church_opened"],
+      "triggerScripts": ["npc_bishop:on_cup_20_reached"],
+      "triggerKeys": ["bishop_2_1c", "on_cup_20_reached"],
+      "expectedEffects": [
+        {
+          "kind": "npc_task",
+          "id": "npc_bishop:bishop_5_qual",
+          "operation": "complete",
+          "amount": 1.0,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "story_point",
+          "id": "bronze",
+          "operation": "grant_to_initiator",
+          "amount": 1.0,
+          "ownership": "personal_character"
+        },
+        {
+          "kind": "player_param",
+          "id": "_rel_npc_bishop",
+          "operation": "minimum",
+          "amount": 10.0,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "player_param",
+          "id": "cup_20_reached",
+          "operation": "minimum",
+          "amount": 1.0,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "player_param",
+          "id": "body_min",
+          "operation": "minimum",
+          "amount": 1.0,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "player_param",
+          "id": "body_max",
+          "operation": "minimum",
+          "amount": 1.0,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "technology",
+          "id": "Faith",
+          "operation": "unlock",
+          "amount": 1.0,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "world_object",
+          "id": "church_closed_door",
+          "operation": "remove_once",
+          "amount": 1.0,
+          "ownership": "shared_world"
+        },
+        {
+          "kind": "world_object",
+          "id": "church_big_quality_obj",
+          "operation": "spawn_until_first_sermon",
+          "amount": 1.0,
+          "ownership": "shared_world"
+        },
+        {
+          "kind": "inventory_item",
+          "id": "b_empty",
+          "operation": "drop_once",
+          "amount": 1.0,
+          "ownership": "shared_world"
+        },
+        {
+          "kind": "player_param",
+          "id": "first_time_preaching",
+          "operation": "set_until_first_sermon",
+          "amount": 1.0,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "npc_event",
+          "id": "npc_donkey:donkey_talk_after_church_open",
+          "operation": "enqueue_once",
+          "amount": 1.0,
+          "ownership": "shared_world"
+        },
+        {
+          "kind": "world_param",
+          "id": "npc_donkey:donkey_must_wait_at_cemetery",
+          "operation": "set",
+          "amount": 1.0,
+          "ownership": "shared_world"
+        },
+        {
+          "kind": "player_param",
+          "id": "skull_talk_after_1st_church_upgr",
+          "operation": "set_until_consumed",
+          "amount": 1.0,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "player_param",
+          "id": "first_sermon",
+          "operation": "set_until_first_sermon",
+          "amount": 1.0,
+          "ownership": "shared_campaign"
+        }
+      ],
+      "safeguards": [
+        "single_authoritative_church_transition",
+        "do_not_replay_consumable_npc_event_queues",
+        "do_not_duplicate_vanilla_prayer_drop",
+        "preserve_first_sermon_time_and_teleport_gate"
+      ]
+    },
+    {
+      "stepId": "deliver_first_sermon_and_finish_bishop_tutorial",
+      "title": "Deliver the first sermon and finish Bishop's tutorial",
+      "linkedQuestIds": [],
+      "linkedTaskMilestoneIds": ["bishop_church_opened"],
+      "triggerScripts": [
+        "on_start_preaching",
+        "pray",
+        "npc_bishop:on_after_first_time_preaching"
+      ],
+      "triggerKeys": ["first_time_preaching", "first_sermon"],
+      "expectedEffects": [
+        {
+          "kind": "player_param",
+          "id": "prayed_this_week",
+          "operation": "set_until_next_bishop_week",
+          "amount": 1.0,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "player_param",
+          "id": "first_time_preaching",
+          "operation": "consume",
+          "amount": 0.0,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "player_param",
+          "id": "first_sermon",
+          "operation": "consume",
+          "amount": 0.0,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "inventory_item",
+          "id": "faith",
+          "operation": "drop_once",
+          "amount": 3.0,
+          "ownership": "shared_world"
+        },
+        {
+          "kind": "technology",
+          "id": "Research",
+          "operation": "unlock",
+          "amount": 1.0,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "dialogue_phrase",
+          "id": "@bishop_4_0",
+          "operation": "unlock_until_consumed",
+          "amount": 1.0,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "dialogue_phrase",
+          "id": "@bishop_trade",
+          "operation": "unlock",
+          "amount": 1.0,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "world_param",
+          "id": "donat_box:box_accesible",
+          "operation": "set",
+          "amount": 1.0,
+          "ownership": "shared_world"
+        },
+        {
+          "kind": "npc_event",
+          "id": "donat_box:intro",
+          "operation": "enqueue_once",
+          "amount": 1.0,
+          "ownership": "shared_world"
+        },
+        {
+          "kind": "world_object",
+          "id": "church_big_quality_obj",
+          "operation": "remove_once",
+          "amount": 1.0,
+          "ownership": "shared_world"
+        },
+        {
+          "kind": "npc_position",
+          "id": "npc_bishop:gd_stock_bishop",
+          "operation": "finalize",
+          "amount": 1.0,
+          "ownership": "shared_world"
+        }
+      ],
+      "safeguards": [
+        "three_first_sermon_faith_drops_total",
+        "do_not_repair_consumed_first_sermon_flags",
+        "do_not_unlock_consumed_bishop_bowls_phrase",
+        "restore_time_teleports_camera_and_control"
+      ]
+    },
+    {
+      "stepId": "meet_donkey_after_church_opening",
+      "title": "Meet Donkey after the Church opens",
+      "linkedQuestIds": [],
+      "linkedTaskMilestoneIds": ["bishop_church_opened"],
+      "triggerScripts": ["npc_donkey:donkey_talk_after_church_open"],
+      "triggerKeys": ["donkey_talk_after_church_open"],
+      "expectedEffects": [
+        {
+          "kind": "world_object",
+          "id": "donkey_shit",
+          "operation": "spawn_once",
+          "amount": 1.0,
+          "ownership": "shared_world"
+        }
+      ],
+      "safeguards": ["single_donkey_followup", "single_donkey_shit_spawn"]
+    },
+    {
+      "stepId": "hear_gerry_after_church_opening",
+      "title": "Hear Gerry after the Church opens",
+      "linkedQuestIds": [],
+      "linkedTaskMilestoneIds": ["bishop_church_opened"],
+      "triggerScripts": ["crafting_skull_3:skull_talk_after_1st_church_upgr"],
+      "triggerKeys": ["skull_talk_after_1st_church_upgr"],
+      "expectedEffects": [
+        {
+          "kind": "player_param",
+          "id": "skull_talk_after_1st_church_upgr",
+          "operation": "consume",
+          "amount": 0.0,
+          "ownership": "shared_campaign"
+        }
+      ],
+      "safeguards": [
+        "single_gerry_followup",
+        "do_not_restore_consumed_gerry_event"
+      ]
+    },
+    {
+      "stepId": "receive_bishops_bowl_request",
+      "title": "Receive the Bishop's bowl request",
+      "linkedQuestIds": [],
+      "linkedTaskMilestoneIds": ["bishop_bowls_requested"],
+      "triggerScripts": ["npc_bishop:interaction"],
+      "triggerKeys": ["@bishop_4_0", "bishop_bowls"],
+      "expectedEffects": [
+        {
+          "kind": "npc_task",
+          "id": "npc_bishop:bishop_bowls",
+          "operation": "show",
+          "amount": 1.0,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "technology",
+          "id": "The idea of the earth",
+          "operation": "unlock",
+          "amount": 1.0,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "dialogue_phrase",
+          "id": "@bishop_5_1",
+          "operation": "unlock",
+          "amount": 1.0,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "dialogue_phrase",
+          "id": "@bishop_4_0",
+          "operation": "blacklist",
+          "amount": 1.0,
+          "ownership": "shared_campaign"
+        }
+      ],
+      "safeguards": [
+        "single_bishop_dialogue_owner",
+        "bowl_request_shared",
+        "do_not_reopen_consumed_bowl_request"
+      ]
+    },
+    {
+      "stepId": "deliver_bowls_and_receive_church_upgrade_requirements",
+      "title": "Bring twenty ceramic bowls to the Bishop",
+      "linkedQuestIds": [],
+      "linkedTaskMilestoneIds": ["bishop_bowls_delivered"],
+      "triggerScripts": ["npc_bishop:interaction"],
+      "triggerKeys": ["@bishop_5_1", "ceramic_1", "bishop_bowls"],
+      "expectedEffects": [
+        {
+          "kind": "inventory_item",
+          "id": "ceramic_1",
+          "operation": "consume_from_initiator",
+          "amount": 20.0,
+          "ownership": "personal_character"
+        },
+        {
+          "kind": "inventory_item",
+          "id": "scroll_blue",
+          "operation": "grant_exactly_once",
+          "amount": 1.0,
+          "ownership": "party_personal"
+        },
+        {
+          "kind": "npc_task",
+          "id": "npc_bishop:bishop_bowls",
+          "operation": "complete",
+          "amount": 1.0,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "story_point",
+          "id": "bronze",
+          "operation": "grant_to_initiator",
+          "amount": 2.0,
+          "ownership": "personal_character"
+        },
+        {
+          "kind": "player_param",
+          "id": "_rel_npc_bishop",
+          "operation": "minimum",
+          "amount": 20.0,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "npc_task",
+          "id": "npc_bishop:bishop_30_qual",
+          "operation": "show",
+          "amount": 1.0,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "npc_task",
+          "id": "npc_bishop:bishop_20_qual",
+          "operation": "show",
+          "amount": 1.0,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "npc_task",
+          "id": "npc_bishop:bishop_fish",
+          "operation": "show",
+          "amount": 1.0,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "dialogue_phrase",
+          "id": "@bishop_6a",
+          "operation": "unlock",
+          "amount": 1.0,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "dialogue_phrase",
+          "id": "@bishop_6b",
+          "operation": "unlock",
+          "amount": 1.0,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "dialogue_phrase",
+          "id": "@bishop_6c",
+          "operation": "unlock",
+          "amount": 1.0,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "world_param",
+          "id": "npc_bishop:cur_multianswer",
+          "operation": "minimum",
+          "amount": 1.0,
+          "ownership": "shared_world"
+        }
+      ],
+      "safeguards": [
+        "consume_twenty_bowls_from_initiator_only",
+        "never_consume_observer_inventory",
+        "clerics_guide_exactly_once_per_player",
+        "bowl_relation_reward_once",
+        "three_upgrade_tasks_shared"
+      ]
+    },
+    {
+      "stepId": "satisfy_first_church_upgrade_requirements",
+      "title": "Raise the Graveyard and Church quality and bring the Bishop fish",
+      "linkedQuestIds": [],
+      "linkedTaskMilestoneIds": [
+        "bishop_graveyard_quality_30_requested",
+        "bishop_church_quality_20_requested",
+        "bishop_quality_fish_requested",
+        "bishop_graveyard_quality_30_reached",
+        "bishop_church_quality_20_reached",
+        "bishop_quality_fish_delivered"
+      ],
+      "triggerScripts": ["npc_bishop:interaction"],
+      "triggerKeys": [
+        "@bishop_6a",
+        "@bishop_6b",
+        "@bishop_6c",
+        "fillet_fish:fillet_fish_red:1"
+      ],
+      "expectedEffects": [
+        {
+          "kind": "npc_task",
+          "id": "npc_bishop:bishop_30_qual",
+          "operation": "complete",
+          "amount": 1.0,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "npc_task",
+          "id": "npc_bishop:bishop_20_qual",
+          "operation": "complete",
+          "amount": 1.0,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "inventory_item",
+          "id": "fillet_fish:fillet_fish_red:1",
+          "operation": "consume_from_initiator",
+          "amount": 4.0,
+          "ownership": "personal_character"
+        },
+        {
+          "kind": "npc_task",
+          "id": "npc_bishop:bishop_fish",
+          "operation": "complete",
+          "amount": 1.0,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "story_point",
+          "id": "silver",
+          "operation": "grant_to_initiator_across_requirements",
+          "amount": 6.0,
+          "ownership": "personal_character"
+        },
+        {
+          "kind": "story_point",
+          "id": "gold",
+          "operation": "grant_to_initiator_across_requirements",
+          "amount": 4.0,
+          "ownership": "personal_character"
+        },
+        {
+          "kind": "player_param",
+          "id": "_rel_npc_bishop",
+          "operation": "minimum_after_all_three",
+          "amount": 40.0,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "world_param",
+          "id": "npc_bishop:conditional_par_1",
+          "operation": "minimum_after_all_three",
+          "amount": 3.0,
+          "ownership": "shared_world"
+        },
+        {
+          "kind": "dialogue_phrase",
+          "id": "@bishop_6d",
+          "operation": "unlock_after_all_three",
+          "amount": 1.0,
+          "ownership": "shared_campaign"
+        }
+      ],
+      "safeguards": [
+        "allow_any_requirement_order",
+        "consume_four_red_fillet_from_initiator_only",
+        "do_not_reopen_completed_requirement_phrases",
+        "do_not_infer_aggregate_counter_from_one_task",
+        "unlock_upgrade_phrase_only_after_all_three"
+      ]
+    },
+    {
+      "stepId": "upgrade_the_church_for_the_first_time",
+      "title": "Give the Bishop the building permission and upgrade the Church",
+      "linkedQuestIds": [],
+      "linkedTaskMilestoneIds": ["bishop_first_church_upgraded"],
+      "triggerScripts": ["npc_bishop:on_upgrade_church"],
+      "triggerKeys": ["@bishop_6d", "building_permission", "church_1lvl_to_2lvl"],
+      "expectedEffects": [
+        {
+          "kind": "inventory_item",
+          "id": "building_permission",
+          "operation": "consume_from_initiator",
+          "amount": 1.0,
+          "ownership": "shared_story_token"
+        },
+        {
+          "kind": "player_param",
+          "id": "_rel_npc_bishop",
+          "operation": "minimum",
+          "amount": 50.0,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "player_param",
+          "id": "church_level",
+          "operation": "minimum",
+          "amount": 2.0,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "world_object",
+          "id": "church",
+          "operation": "change_once_to_church_1",
+          "amount": 1.0,
+          "ownership": "shared_world"
+        },
+        {
+          "kind": "world_group",
+          "id": "church_inside_2",
+          "operation": "enable_after_disabling_church_inside_1",
+          "amount": 1.0,
+          "ownership": "shared_world"
+        },
+        {
+          "kind": "world_group",
+          "id": "gd_church_lvl_2",
+          "operation": "enable_after_disabling_gd_church_lvl_1",
+          "amount": 1.0,
+          "ownership": "shared_world"
+        },
+        {
+          "kind": "world_object",
+          "id": "donat_box_inside",
+          "operation": "teleport_once_to_donat_box_inside_gd",
+          "amount": 1.0,
+          "ownership": "shared_world"
+        },
+        {
+          "kind": "npc_event",
+          "id": "npc_tavern owner:horadric_after_church_upgrade",
+          "operation": "enqueue_once",
+          "amount": 1.0,
+          "ownership": "shared_world"
+        },
+        {
+          "kind": "player_param",
+          "id": "ghost_talk_after_2nd_church_upgr",
+          "operation": "set_until_consumed_by_night_graveyard_visit",
+          "amount": 1.0,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "world_param",
+          "id": "npc_bishop:cur_multianswer",
+          "operation": "minimum",
+          "amount": 2.0,
+          "ownership": "shared_world"
+        },
+        {
+          "kind": "world_param",
+          "id": "npc_bishop:implement_graveyard_walking",
+          "operation": "set_once_until_consumed_by_graveyard_entry",
+          "amount": 1.0,
+          "ownership": "shared_world"
+        }
+      ],
+      "safeguards": [
+        "consume_single_shared_building_permission",
+        "single_authoritative_church_upgrade",
+        "do_not_requeue_consumed_horadric_followup",
+        "do_not_restore_consumed_yorick_night_flag",
+        "do_not_catalog_generic_graveyard_entry_as_cutscene"
+      ]
+    },
+    {
+      "stepId": "receive_first_big_church_briefing",
+      "title": "Receive the Bishop's first Big Church briefing",
+      "linkedQuestIds": [],
+      "linkedTaskMilestoneIds": ["bishop_first_church_upgraded"],
+      "triggerScripts": ["npc_bishop:after_upgrade_1_to_2"],
+      "triggerKeys": ["after_upgrade_1_to_2", "bishop_rcitezen"],
+      "expectedEffects": [
+        {
+          "kind": "player_facing",
+          "id": "initiating_player",
+          "operation": "set_up",
+          "amount": 1.0,
+          "ownership": "personal_character"
+        },
+        {
+          "kind": "player_param",
+          "id": "preaching_is_locked",
+          "operation": "minimum_until_rightful_citizen_papers",
+          "amount": 1.0,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "npc_task",
+          "id": "npc_bishop:bishop_rcitezen",
+          "operation": "show",
+          "amount": 1.0,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "dialogue_phrase",
+          "id": "@bishop_get_citezen",
+          "operation": "unlock",
+          "amount": 1.0,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "craft",
+          "id": "graveyard_builddesk::graveyard_fence_2_upgr",
+          "operation": "unlock",
+          "amount": 1.0,
+          "ownership": "shared_campaign"
+        }
+      ],
+      "safeguards": [
+        "participant_faces_up_at_briefing_start",
+        "keep_preaching_locked_until_papers_are_delivered",
+        "do_not_complete_bishop_rcitezen_in_this_batch",
+        "restore_camera_and_party_control"
+      ]
+    },
+    {
+      "stepId": "deliver_rightful_citizen_papers",
+      "title": "Deliver the rightful-citizen papers and reopen preaching",
+      "linkedQuestIds": [],
+      "linkedTaskMilestoneIds": ["bishop_rightful_citizen_papers_delivered"],
+      "triggerScripts": ["npc_bishop:bishop_get_citizen"],
+      "triggerKeys": [
+        "@bishop_get_citezen",
+        "rightful_citizen_paper",
+        "bishop_rcitezen"
+      ],
+      "expectedEffects": [
+        {
+          "kind": "inventory_item",
+          "id": "rightful_citizen_paper",
+          "operation": "consume_from_initiator",
+          "amount": 1.0,
+          "ownership": "personal_character"
+        },
+        {
+          "kind": "npc_task",
+          "id": "npc_bishop:bishop_rcitezen",
+          "operation": "complete",
+          "amount": 1.0,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "story_point",
+          "id": "bronze",
+          "operation": "grant_to_initiator",
+          "amount": 5.0,
+          "ownership": "personal_character"
+        },
+        {
+          "kind": "story_point",
+          "id": "silver",
+          "operation": "grant_to_initiator",
+          "amount": 5.0,
+          "ownership": "personal_character"
+        },
+        {
+          "kind": "player_param",
+          "id": "preaching_is_locked",
+          "operation": "set",
+          "amount": 0.0,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "dialogue_phrase",
+          "id": "@bishop_get_citezen",
+          "operation": "blacklist",
+          "amount": 1.0,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "dialogue_phrase",
+          "id": "@bishop_town_cathidral",
+          "operation": "unlock_once",
+          "amount": 1.0,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "dialogue_phrase",
+          "id": "@bishop_cathidral",
+          "operation": "unlock_once",
+          "amount": 1.0,
+          "ownership": "shared_campaign"
+        }
+      ],
+      "safeguards": [
+        "consume_papers_from_initiator_only",
+        "grant_story_points_once",
+        "keep_preaching_unlocked_after_completion",
+        "do_not_periodically_reunlock_consumable_cathedral_topics"
+      ]
+    },
+    {
+      "stepId": "hear_optional_town_cathedral_lore",
+      "title": "Hear the Bishop's optional town-cathedral lore",
+      "linkedQuestIds": [],
+      "linkedTaskMilestoneIds": ["bishop_rightful_citizen_papers_delivered"],
+      "triggerScripts": ["npc_bishop:@bishop_town_cathidral"],
+      "triggerKeys": ["@bishop_town_cathidral"],
+      "expectedEffects": [
+        {
+          "kind": "dialogue_phrase",
+          "id": "@bishop_town_cathidral",
+          "operation": "blacklist_after_optional_lore",
+          "amount": 1.0,
+          "ownership": "shared_campaign"
+        }
+      ],
+      "safeguards": [
+        "optional_lore_does_not_gate_progression",
+        "do_not_reunlock_consumed_optional_lore"
+      ]
+    },
+    {
+      "stepId": "receive_cathedral_requirements",
+      "title": "Receive the Church and Graveyard requirements for the Cathedral",
+      "linkedQuestIds": [],
+      "linkedTaskMilestoneIds": [
+        "bishop_cathedral_church_quality_requested",
+        "bishop_cathedral_graveyard_quality_requested"
+      ],
+      "triggerScripts": ["npc_bishop:bishop_cathedral"],
+      "triggerKeys": [
+        "@bishop_cathidral",
+        "bishop_last_cross",
+        "bishop_last_skull"
+      ],
+      "expectedEffects": [
+        {
+          "kind": "dialogue_phrase",
+          "id": "@bishop_cathidral",
+          "operation": "blacklist",
+          "amount": 1.0,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "npc_task",
+          "id": "npc_bishop:bishop_last_cross",
+          "operation": "show",
+          "amount": 1.0,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "npc_task",
+          "id": "npc_bishop:bishop_last_skull",
+          "operation": "show",
+          "amount": 1.0,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "dialogue_phrase",
+          "id": "@bishop_cathidral_cross",
+          "operation": "unlock",
+          "amount": 1.0,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "dialogue_phrase",
+          "id": "@bishop_cathidral_skull",
+          "operation": "unlock",
+          "amount": 1.0,
+          "ownership": "shared_campaign"
+        }
+      ],
+      "safeguards": [
+        "show_both_requirements_together",
+        "quality_requirements_may_be_completed_in_either_order",
+        "do_not_reunlock_consumed_briefing_topic"
+      ]
+    },
+    {
+      "stepId": "reach_fifty_church_quality_for_cathedral",
+      "title": "Reach fifty Church quality for the Cathedral",
+      "linkedQuestIds": [],
+      "linkedTaskMilestoneIds": ["bishop_cathedral_church_quality_reached"],
+      "triggerScripts": ["npc_bishop:bishop_cathidral_cross"],
+      "triggerKeys": [
+        "@bishop_cathidral_cross",
+        "church_quality",
+        "bishop_last_cross"
+      ],
+      "expectedEffects": [
+        {
+          "kind": "quality_threshold",
+          "id": "church_quality",
+          "operation": "require_minimum",
+          "amount": 50.0,
+          "ownership": "shared_world"
+        },
+        {
+          "kind": "player_param",
+          "id": "_rel_npc_bishop",
+          "operation": "add_once",
+          "amount": 5.0,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "npc_task",
+          "id": "npc_bishop:bishop_last_cross",
+          "operation": "complete",
+          "amount": 1.0,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "story_point",
+          "id": "gold",
+          "operation": "grant_to_initiator",
+          "amount": 5.0,
+          "ownership": "personal_character"
+        }
+      ],
+      "safeguards": [
+        "church_quality_is_checked_not_consumed",
+        "relation_reward_once",
+        "gold_story_points_once",
+        "finalize_bishop_departure_once"
+      ]
+    },
+    {
+      "stepId": "reach_two_hundred_graveyard_quality_for_cathedral",
+      "title": "Reach two hundred Graveyard quality for the Cathedral",
+      "linkedQuestIds": [],
+      "linkedTaskMilestoneIds": ["bishop_cathedral_graveyard_quality_reached"],
+      "triggerScripts": ["npc_bishop:bishop_cathidral_skull"],
+      "triggerKeys": [
+        "@bishop_cathidral_skull",
+        "graveyard_quality",
+        "bishop_last_skull"
+      ],
+      "expectedEffects": [
+        {
+          "kind": "quality_threshold",
+          "id": "graveyard_quality",
+          "operation": "require_minimum",
+          "amount": 200.0,
+          "ownership": "shared_world"
+        },
+        {
+          "kind": "player_param",
+          "id": "_rel_npc_bishop",
+          "operation": "add_once",
+          "amount": 5.0,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "npc_task",
+          "id": "npc_bishop:bishop_last_skull",
+          "operation": "complete",
+          "amount": 1.0,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "story_point",
+          "id": "gold",
+          "operation": "grant_to_initiator",
+          "amount": 5.0,
+          "ownership": "personal_character"
+        },
+        {
+          "kind": "world_param",
+          "id": "npc_bishop:implement_graveyard_walking",
+          "operation": "check_then_consume_if_armed",
+          "amount": 1.0,
+          "ownership": "shared_world"
+        }
+      ],
+      "safeguards": [
+        "graveyard_quality_is_checked_not_consumed",
+        "relation_reward_once",
+        "gold_story_points_once",
+        "do_not_restore_consumed_graveyard_walk_latches"
+      ]
+    },
+    {
+      "stepId": "receive_bishop_statue_request",
+      "title": "Receive the Bishop's statue request in the Graveyard",
+      "linkedQuestIds": [],
+      "linkedTaskMilestoneIds": ["bishop_statue_requested"],
+      "triggerScripts": [],
+      "triggerKeys": [
+        "player_took_statue_quest",
+        "bishop_statue",
+        "@bishop_statue_ready"
+      ],
+      "expectedEffects": [
+        {
+          "kind": "world_param",
+          "id": "npc_bishop:player_took_statue_quest",
+          "operation": "minimum",
+          "amount": 1.0,
+          "ownership": "shared_world"
+        },
+        {
+          "kind": "npc_task",
+          "id": "npc_bishop:bishop_statue",
+          "operation": "show",
+          "amount": 1.0,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "dialogue_phrase",
+          "id": "@bishop_statue_ready",
+          "operation": "unlock",
+          "amount": 1.0,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "world_param",
+          "id": "npc_bishop:on_enter_graveyard_zone_enable",
+          "operation": "set",
+          "amount": 0.0,
+          "ownership": "shared_world"
+        },
+        {
+          "kind": "world_param",
+          "id": "npc_bishop:implement_graveyard_walking",
+          "operation": "set",
+          "amount": 0.0,
+          "ownership": "shared_world"
+        },
+        {
+          "kind": "world_param",
+          "id": "npc_bishop:do_roll_walking",
+          "operation": "set",
+          "amount": 0.0,
+          "ownership": "shared_world"
+        },
+        {
+          "kind": "world_param",
+          "id": "npc_bishop:locked",
+          "operation": "set",
+          "amount": 0.0,
+          "ownership": "shared_world"
+        }
+      ],
+      "safeguards": [
+        "do_not_bind_generic_graveyard_entry_script",
+        "do_not_restore_implement_graveyard_walking",
+        "do_not_restore_on_enter_graveyard_zone_enable",
+        "do_not_restore_do_roll_walking_or_locked"
+      ]
+    },
+    {
+      "stepId": "erect_bishop_statue",
+      "title": "Erect the Bishop's marble statue",
+      "linkedQuestIds": [],
+      "linkedTaskMilestoneIds": ["bishop_statue_erected"],
+      "triggerScripts": ["npc_bishop:bishop_statue_ready"],
+      "triggerKeys": [
+        "@bishop_statue_ready",
+        "marble_plate_3:3",
+        "bishop_statue"
+      ],
+      "expectedEffects": [
+        {
+          "kind": "inventory_item",
+          "id": "marble_plate_3:3",
+          "operation": "consume_from_initiator",
+          "amount": 3.0,
+          "ownership": "personal_character"
+        },
+        {
+          "kind": "player_param",
+          "id": "_rel_npc_bishop",
+          "operation": "add_once",
+          "amount": 10.0,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "world_object",
+          "id": "bishop_statue",
+          "operation": "spawn_once_at_bishop_statue_place",
+          "amount": 1.0,
+          "ownership": "shared_world"
+        },
+        {
+          "kind": "npc_task",
+          "id": "npc_bishop:bishop_statue",
+          "operation": "complete",
+          "amount": 1.0,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "story_point",
+          "id": "silver",
+          "operation": "grant_to_initiator",
+          "amount": 5.0,
+          "ownership": "personal_character"
+        },
+        {
+          "kind": "dialogue_phrase",
+          "id": "@bishop_cathidral_80",
+          "operation": "unlock_at_relation_70",
+          "amount": 1.0,
+          "ownership": "shared_campaign"
+        }
+      ],
+      "safeguards": [
+        "consume_marble_plates_from_initiator_only",
+        "spawn_exactly_one_statue",
+        "relation_and_story_rewards_once",
+        "do_not_fake_aggregate_relation_70_from_one_requirement"
+      ]
+    },
+    {
+      "stepId": "upgrade_big_church_to_cathedral",
+      "title": "Upgrade the Big Church to the Cathedral",
+      "linkedQuestIds": [],
+      "linkedTaskMilestoneIds": [
+        "bishop_cathedral_aristocrat_branch_opened",
+        "bishop_cathedral_invitation_branch_opened"
+      ],
+      "triggerScripts": ["npc_bishop:bishop_cathidral_80"],
+      "triggerKeys": [
+        "@bishop_cathidral_80",
+        "church_2lvl_to_3lvl",
+        "bishop_aristocrat ",
+        "bishop_invitation_1"
+      ],
+      "expectedEffects": [
+        {
+          "kind": "player_param",
+          "id": "_rel_npc_bishop",
+          "operation": "require_minimum",
+          "amount": 70.0,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "player_param",
+          "id": "church_level",
+          "operation": "minimum",
+          "amount": 3.0,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "world_group_swap",
+          "id": "church_inside_2_to_church_inside_3",
+          "operation": "apply_once",
+          "amount": 1.0,
+          "ownership": "shared_world"
+        },
+        {
+          "kind": "world_group_swap",
+          "id": "gd_church_lvl_2_to_gd_church_lvl_3",
+          "operation": "apply_once",
+          "amount": 1.0,
+          "ownership": "shared_world"
+        },
+        {
+          "kind": "world_object",
+          "id": "church",
+          "operation": "change_to_church_2",
+          "amount": 1.0,
+          "ownership": "shared_world"
+        },
+        {
+          "kind": "world_object",
+          "id": "donat_box_inside",
+          "operation": "move_to_donat_box_inside_gd",
+          "amount": 1.0,
+          "ownership": "shared_world"
+        },
+        {
+          "kind": "npc_task",
+          "id": "npc_bishop:bishop_aristocrat ",
+          "operation": "show",
+          "amount": 1.0,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "npc_task",
+          "id": "npc_bishop:bishop_invitation_1",
+          "operation": "show",
+          "amount": 1.0,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "world_param",
+          "id": "npc_merchant:need_merchant_in_sermon",
+          "operation": "minimum",
+          "amount": 1.0,
+          "ownership": "shared_world"
+        },
+        {
+          "kind": "dialogue_phrase",
+          "id": "@bishop_aristocrat",
+          "operation": "unlock_once",
+          "amount": 1.0,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "dialogue_phrase",
+          "id": "@bishop_invitation",
+          "operation": "unlock_once",
+          "amount": 1.0,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "dialogue_phrase",
+          "id": "@inquisitor_ceremony",
+          "operation": "unlock_once",
+          "amount": 1.0,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "player_param",
+          "id": "skull_talk_after_2nd_church_upgr",
+          "operation": "set_then_consume_during_followup",
+          "amount": 1.0,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "player_param",
+          "id": "cup_20_reached",
+          "operation": "minimum",
+          "amount": 1.0,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "key_quest_check",
+          "id": "church_2lvl_to_3lvl",
+          "operation": "check_once",
+          "amount": 1.0,
+          "ownership": "shared_campaign"
+        }
+      ],
+      "safeguards": [
+        "require_all_three_cathedral_requirements_complete",
+        "single_authoritative_level_3_world_swap",
+        "do_not_bind_generic_on_upgrade_church_script_twice",
+        "do_not_periodically_reunlock_new_arc_topics",
+        "do_not_restore_consumed_skull_followup_latch"
+      ]
+    },
+    {
+      "stepId": "hear_gerry_after_second_church_upgrade",
+      "title": "Hear Gerry after the Cathedral upgrade",
+      "linkedQuestIds": [],
+      "linkedTaskMilestoneIds": [
+        "bishop_cathedral_aristocrat_branch_opened",
+        "bishop_cathedral_invitation_branch_opened"
+      ],
+      "triggerScripts": ["crafting_skull_3:skull_talk_after_2nd_church_upgr"],
+      "triggerKeys": [
+        "skull_talk_after_2nd_church_upgr",
+        "skull_4_1_event..7"
+      ],
+      "expectedEffects": [
+        {
+          "kind": "player_param",
+          "id": "skull_talk_after_2nd_church_upgr",
+          "operation": "clear_only_after_live_dialogue",
+          "amount": 0.0,
+          "ownership": "shared_campaign"
+        }
+      ],
+      "safeguards": [
+        "the_mortuary_entry_wrapper_dispatches_this_existing_crafting_skull_event_only_while_the_flag_is_set",
+        "do_not_register_on_enter_mortuary_gd_zone_as_a_cutscene_trigger",
+        "the_cathedral_branch_milestones_are_only_the_exact_upstream_route_anchor_and_must_not_replay_the_dialogue",
+        "never_rearm_the_flag_from_bishop_tasks_church_level_or_later_story_state",
+        "do_not_replay_npc_bishop_bishop_cathidral_80_or_any_of_its_world_task_and_phrase_effects",
+        "clear_only_the_events_own_flag_after_all_seven_live_dialogue_lines"
+      ]
+    },
+    {
+      "stepId": "hear_gerry_after_obtaining_aristocrat_papers",
+      "title": "Hear Gerry after obtaining the Aristocrat Papers",
+      "linkedQuestIds": [],
+      "linkedTaskMilestoneIds": ["bishop_aristocrat_papers_presented"],
+      "triggerScripts": ["crafting_skull_3:skull_talk_after_aristocrat"],
+      "triggerKeys": [
+        "mailbox_aristocrat_paper",
+        "skull_talk_after_aristocrat",
+        "skull_5_1_event..6"
+      ],
+      "expectedEffects": [
+        {
+          "kind": "player_param",
+          "id": "skull_talk_after_aristocrat",
+          "operation": "clear_only_after_live_dialogue",
+          "amount": 0.0,
+          "ownership": "shared_campaign"
+        }
+      ],
+      "safeguards": [
+        "the_mortuary_entry_wrapper_dispatches_this_existing_crafting_skull_event_only_while_the_flag_is_set",
+        "do_not_register_on_enter_mortuary_gd_zone_as_a_cutscene_trigger",
+        "bishop_aristocrat_papers_presented_is_only_a_later_durable_anchor_and_must_not_replay_or_infer_this_dialogue",
+        "never_rearm_the_flag_from_the_papers_bishop_tasks_or_later_story_state",
+        "do_not_replay_npc_royal_box_interaction_start_buy_or_mailbox_aristocrat_paper_inventory_and_payment_effects",
+        "clear_only_the_events_own_flag_after_all_six_live_dialogue_lines"
+      ]
+    },
+    {
+      "stepId": "present_aristocrat_papers_to_bishop",
+      "title": "Present the aristocrat papers to the Bishop",
+      "linkedQuestIds": [],
+      "linkedTaskMilestoneIds": ["bishop_aristocrat_papers_presented"],
+      "triggerScripts": ["npc_bishop:@bishop_aristocrat"],
+      "triggerKeys": ["@bishop_aristocrat", "aristocrat_paper", "bishop_aristocrat "],
+      "expectedEffects": [
+        {
+          "kind": "inventory_item",
+          "id": "aristocrat_paper",
+          "operation": "consume_from_initiator",
+          "amount": 1.0,
+          "ownership": "shared_story_token"
+        },
+        {
+          "kind": "player_param",
+          "id": "_rel_npc_bishop",
+          "operation": "add_once",
+          "amount": 10.0,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "dialogue_phrase",
+          "id": "@bishop_aristocrat",
+          "operation": "blacklist",
+          "amount": 1.0,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "npc_task",
+          "id": "npc_bishop:bishop_aristocrat ",
+          "operation": "complete",
+          "amount": 1.0,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "story_point",
+          "id": "silver",
+          "operation": "grant_to_initiator",
+          "amount": 5.0,
+          "ownership": "personal_character"
+        },
+        {
+          "kind": "story_point",
+          "id": "gold",
+          "operation": "grant_to_initiator",
+          "amount": 5.0,
+          "ownership": "personal_character"
+        },
+        {
+          "kind": "inventory_item",
+          "id": "aristocrat_paper",
+          "operation": "return_to_initiator",
+          "amount": 1.0,
+          "ownership": "shared_story_token"
+        }
+      ],
+      "safeguards": [
+        "preserve_exact_trailing_space_in_bishop_aristocrat_task_id",
+        "consume_and_return_the_same_single_paper_only_for_the_initiator",
+        "relation_and_story_rewards_once",
+        "do_not_grant_observer_copies_of_aristocrat_paper"
+      ]
+    },
+    {
+      "stepId": "secure_inquisitor_ceremony_agreement",
+      "title": "Secure the Inquisitor's agreement to attend the ceremony",
+      "linkedQuestIds": [],
+      "linkedTaskMilestoneIds": ["bishop_inquisitor_ceremony_agreed"],
+      "triggerScripts": ["npc_inquisitor:@inquisitor_ceremony"],
+      "triggerKeys": [
+        "@inquisitor_ceremony",
+        "player_knows_about_dream",
+        "bishop_invitation_1",
+        "bishop_invitation_2"
+      ],
+      "expectedEffects": [
+        {
+          "kind": "player_param",
+          "id": "_rel_npc_inquisitor",
+          "operation": "require_minimum",
+          "amount": 60.0,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "dialogue_phrase",
+          "id": "@inquisitor_ceremony",
+          "operation": "blacklist",
+          "amount": 1.0,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "npc_task",
+          "id": "npc_bishop:bishop_invitation_1",
+          "operation": "complete",
+          "amount": 1.0,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "npc_task",
+          "id": "npc_bishop:bishop_invitation_2",
+          "operation": "show",
+          "amount": 1.0,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "world_param",
+          "id": "npc_merchant:player_knows_about_dream",
+          "operation": "check",
+          "amount": 1.0,
+          "ownership": "shared_world"
+        },
+        {
+          "kind": "dialogue_phrase",
+          "id": "@merchant_ceremony",
+          "operation": "unlock_if_player_knows_about_dream_is_one",
+          "amount": 1.0,
+          "ownership": "shared_campaign"
+        }
+      ],
+      "safeguards": [
+        "merchant_ceremony_unlock_is_conditional_not_unconditional",
+        "do_not_set_player_knows_about_dream_from_the_inquisitor_branch",
+        "do_not_fabricate_merchant_relation_or_merchant_show_state",
+        "zero_story_point_or_relation_reward_from_this_conversation"
+      ]
+    },
+    {
+      "stepId": "conditionally_unlock_merchant_cathedral_topic",
+      "title": "Unlock the Merchant's Cathedral topic once he has revealed his dream",
+      "linkedQuestIds": [],
+      "linkedTaskMilestoneIds": [
+        "bishop_inquisitor_ceremony_agreed",
+        "merchant_cathedral_invitation_accepted"
+      ],
+      "triggerScripts": ["npc_merchant:merchant_common_part"],
+      "triggerKeys": [
+        "merchant_common_part_called",
+        "player_knows_about_dream",
+        "need_merchant_in_sermon",
+        "@merchant_ceremony"
+      ],
+      "expectedEffects": [
+        {
+          "kind": "world_param",
+          "id": "npc_merchant:merchant_common_part_called",
+          "operation": "set",
+          "amount": 1.0,
+          "ownership": "shared_world"
+        },
+        {
+          "kind": "world_param",
+          "id": "npc_merchant:player_knows_about_dream",
+          "operation": "set",
+          "amount": 1.0,
+          "ownership": "shared_world"
+        },
+        {
+          "kind": "world_param",
+          "id": "npc_merchant:need_merchant_in_sermon",
+          "operation": "check",
+          "amount": 1.0,
+          "ownership": "shared_world"
+        },
+        {
+          "kind": "dialogue_phrase",
+          "id": "@merchant_ceremony",
+          "operation": "unlock_if_need_merchant_in_sermon_is_one",
+          "amount": 1.0,
+          "ownership": "shared_campaign"
+        }
+      ],
+      "safeguards": [
+        "this_bridge_may_have_run_before_the_cathedral_upgrade",
+        "do_not_bind_the_broad_merchant_common_part_as_a_bishop_cutscene",
+        "do_not_infer_merchant_show_or_merchant_relation_from_dream_knowledge"
+      ]
+    },
+    {
+      "stepId": "obtain_merchants_accepted_invitation",
+      "title": "Obtain the Merchant's accepted invitation for the Cathedral ceremony",
+      "linkedQuestIds": [],
+      "linkedTaskMilestoneIds": ["merchant_cathedral_invitation_accepted"],
+      "triggerScripts": ["npc_merchant:@merchant_ceremony"],
+      "triggerKeys": [
+        "@merchant_ceremony",
+        "merchant_show",
+        "accepted_invitation",
+        "@bishop_final_ceremony",
+        "@bishop_invitation"
+      ],
+      "expectedEffects": [
+        {
+          "kind": "player_param",
+          "id": "_rel_npc_merchant",
+          "operation": "require_minimum",
+          "amount": 90.0,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "dialogue_phrase",
+          "id": "@merchant_ceremony",
+          "operation": "blacklist",
+          "amount": 1.0,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "npc_task",
+          "id": "npc_merchant:merchant_show",
+          "operation": "complete",
+          "amount": 1.0,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "story_point",
+          "id": "silver",
+          "operation": "grant_to_initiator",
+          "amount": 5.0,
+          "ownership": "personal_character"
+        },
+        {
+          "kind": "story_point",
+          "id": "gold",
+          "operation": "grant_to_initiator",
+          "amount": 2.0,
+          "ownership": "personal_character"
+        },
+        {
+          "kind": "inventory_item",
+          "id": "accepted_invitation",
+          "operation": "grant_once_to_initiator",
+          "amount": 1.0,
+          "ownership": "shared_story_token"
+        },
+        {
+          "kind": "dialogue_phrase",
+          "id": "@bishop_final_ceremony",
+          "operation": "unlock_once",
+          "amount": 1.0,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "dialogue_phrase",
+          "id": "@bishop_invitation",
+          "operation": "unlock_once",
+          "amount": 1.0,
+          "ownership": "shared_campaign"
+        }
+      ],
+      "safeguards": [
+        "merchant_relation_90_and_merchant_show_are_external_story_prerequisites",
+        "one_accepted_invitation_for_the_campaign",
+        "never_grant_accepted_invitation_from_persistent_merchant_show_complete",
+        "story_points_once"
+      ]
+    },
+    {
+      "stepId": "deliver_accepted_invitation_to_bishop",
+      "title": "Deliver the Merchant's accepted invitation to the Bishop",
+      "linkedQuestIds": [],
+      "linkedTaskMilestoneIds": ["bishop_accepted_invitation_delivered"],
+      "triggerScripts": ["npc_bishop:@bishop_invitation"],
+      "triggerKeys": [
+        "@bishop_invitation",
+        "accepted_invitation",
+        "bishop_invitation_2",
+        "@bishop_final_ceremony"
+      ],
+      "expectedEffects": [
+        {
+          "kind": "inventory_item",
+          "id": "accepted_invitation",
+          "operation": "consume_from_initiator",
+          "amount": 1.0,
+          "ownership": "shared_story_token"
+        },
+        {
+          "kind": "player_param",
+          "id": "_rel_npc_bishop",
+          "operation": "add_once",
+          "amount": 10.0,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "npc_task",
+          "id": "npc_bishop:bishop_invitation_2",
+          "operation": "complete",
+          "amount": 1.0,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "story_point",
+          "id": "silver",
+          "operation": "grant_to_initiator",
+          "amount": 5.0,
+          "ownership": "personal_character"
+        },
+        {
+          "kind": "story_point",
+          "id": "gold",
+          "operation": "grant_to_initiator",
+          "amount": 5.0,
+          "ownership": "personal_character"
+        },
+        {
+          "kind": "dialogue_phrase",
+          "id": "@bishop_invitation",
+          "operation": "blacklist",
+          "amount": 1.0,
+          "ownership": "shared_campaign"
+        }
+      ],
+      "safeguards": [
+        "consume_the_single_shared_invitation_from_the_initiator_only",
+        "relation_and_story_rewards_once",
+        "do_not_fake_relation_90_from_this_branch_alone",
+        "final_ceremony_remains_locked_until_the_bishop_reaches_relation_90"
+      ]
+    },
+    {
+      "stepId": "hold_bishop_and_merchant_final_ceremony",
+      "title": "Hold the final Cathedral ceremony for the Bishop and Merchant",
+      "linkedQuestIds": [],
+      "linkedTaskMilestoneIds": [
+        "bishop_aristocrat_papers_presented",
+        "merchant_cathedral_invitation_accepted",
+        "bishop_accepted_invitation_delivered"
+      ],
+      "triggerScripts": [
+        "npc_bishop:@bishop_final_ceremony",
+        "final_ceremony"
+      ],
+      "triggerKeys": [
+        "@bishop_final_ceremony",
+        "final_ceremony",
+        "bishop_final_ceremony_1..33",
+        "church_visitor_1..11",
+        "merchant_bishop_hug",
+        "bish_merch_together",
+        "mirror_of_pride",
+        "fork_salty",
+        "on_back_to_start",
+        "prayed_this_week",
+        "merchant_afterall_event",
+        "bishop_afterall_event",
+        "@merchant_magic_100",
+        "@bishop_magic_100"
+      ],
+      "expectedEffects": [
+        {
+          "kind": "dialogue_phrase",
+          "id": "@bishop_final_ceremony",
+          "operation": "blacklist",
+          "amount": 1.0,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "player_param",
+          "id": "_rel_npc_bishop",
+          "operation": "require_minimum",
+          "amount": 90.0,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "player_param",
+          "id": "_rel_npc_bishop",
+          "operation": "add_once",
+          "amount": 10.0,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "player_param",
+          "id": "_rel_npc_merchant",
+          "operation": "require_minimum",
+          "amount": 90.0,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "player_param",
+          "id": "_rel_npc_merchant",
+          "operation": "add_once",
+          "amount": 10.0,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "world_actor_group",
+          "id": "church_visitor_1..11",
+          "operation": "spawn_route_and_remove_once",
+          "amount": 11.0,
+          "ownership": "shared_world"
+        },
+        {
+          "kind": "world_actor",
+          "id": "merchant_bishop_hug",
+          "operation": "spawn_then_destroy_once",
+          "amount": 1.0,
+          "ownership": "shared_world"
+        },
+        {
+          "kind": "achievement_key",
+          "id": "bish_merch_together",
+          "operation": "check_for_initiator",
+          "amount": 1.0,
+          "ownership": "personal_platform"
+        },
+        {
+          "kind": "inventory_item",
+          "id": "mirror_of_pride",
+          "operation": "grant_once_to_initiator",
+          "amount": 1.0,
+          "ownership": "shared_story_token"
+        },
+        {
+          "kind": "inventory_item",
+          "id": "fork_salty",
+          "operation": "grant_once_to_initiator",
+          "amount": 1.0,
+          "ownership": "shared_story_token"
+        },
+        {
+          "kind": "world_event",
+          "id": "npc_bishop:on_back_to_start",
+          "operation": "fire_once",
+          "amount": 1.0,
+          "ownership": "shared_world"
+        },
+        {
+          "kind": "world_param",
+          "id": "npc_bishop:bishop_in_graveyard",
+          "operation": "clear",
+          "amount": 0.0,
+          "ownership": "shared_world"
+        },
+        {
+          "kind": "player_param",
+          "id": "prayed_this_week",
+          "operation": "set_until_next_bishop_week",
+          "amount": 1.0,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "world_param",
+          "id": "npc_merchant:merchant_afterall_event",
+          "operation": "set_one_shot_latch",
+          "amount": 1.0,
+          "ownership": "shared_world"
+        },
+        {
+          "kind": "world_param",
+          "id": "npc_bishop:bishop_afterall_event",
+          "operation": "set_one_shot_latch",
+          "amount": 1.0,
+          "ownership": "shared_world"
+        },
+        {
+          "kind": "dialogue_phrase",
+          "id": "@merchant_magic_100",
+          "operation": "blacklist",
+          "amount": 1.0,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "dialogue_phrase",
+          "id": "@bishop_magic_100",
+          "operation": "blacklist",
+          "amount": 1.0,
+          "ownership": "shared_campaign"
+        }
+      ],
+      "safeguards": [
+        "require_both_bishop_cathedral_branches_and_relation_90_without_repairing_either_branch",
+        "the_long_final_ceremony_uses_one_live_presentation_with_join_checkpoint_observation",
+        "spawn_and_move_visitors_bishop_merchant_and_the_hug_actor_on_the_canonical_world_once",
+        "grant_only_one_shared_campaign_copy_each_of_mirror_of_pride_and_fork_salty",
+        "never_grant_mirror_or_fork_to_every_observer",
+        "relations_and_bish_merch_together_are_applied_once_by_the_initiating_flow",
+        "never_repair_prayed_this_week_bishop_in_graveyard_or_either_afterall_event_from_persistent_task_state",
+        "late_joiners_observe_or_join_the_live_checkpoint_without_replaying_rewards",
+        "restore_all_party_controls_camera_music_environment_and_actor_routes"
+      ]
+    },
+    {
+      "stepId": "buy_one_time_royal_services_civic_progression",
+      "title": "Buy the one-time civic tiers, documents, and route-exclusive story tokens from Royal Services",
+      "linkedQuestIds": [],
+      "linkedTaskMilestoneIds": [
+        "bishop_first_church_upgraded",
+        "bishop_rightful_citizen_papers_delivered",
+        "bishop_aristocrat_papers_presented",
+        "merchant_trade_license_requested"
+      ],
+      "triggerScripts": [
+        "npc_royal_box:intro",
+        "npc_royal_box:interaction"
+      ],
+      "triggerKeys": [
+        "mailbox_1a_1_al",
+        "mailbox_stamp",
+        "mailbox_building_permission",
+        "mailbox_1a_2_al",
+        "mailbox_citizen_paper",
+        "mailbox_townpass",
+        "mailbox_merchant_traide_license",
+        "mailbox_1a_3_al",
+        "mailbox_aristocrat_paper",
+        "_rel_npc_royal_box",
+        "stamp",
+        "building_permission",
+        "rightful_citizen_paper",
+        "town_pass",
+        "merchant_traide_license",
+        "aristocrat_paper",
+        "@snake_meat_1",
+        "@snake_pass_1",
+        "got_stamp",
+        "got_town_pass",
+        "skull_talk_after_aristocrat"
+      ],
+      "expectedEffects": [
+        {
+          "kind": "currency",
+          "id": "money",
+          "operation": "consume_from_initiator_if_mailbox_1a_1_al_is_selected",
+          "amount": 0.1,
+          "ownership": "personal_character"
+        },
+        {
+          "kind": "player_param",
+          "id": "_rel_npc_royal_box",
+          "operation": "add_once_if_mailbox_1a_1_al_is_selected",
+          "amount": 30.0,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "dialogue_gate",
+          "id": "_rel_npc_royal_box",
+          "operation": "require_minimum_for_stamp_building_permission_and_mailbox_1a_2_al",
+          "amount": 30.0,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "currency",
+          "id": "money",
+          "operation": "consume_from_initiator_if_mailbox_stamp_is_bought",
+          "amount": 50.0,
+          "ownership": "personal_character"
+        },
+        {
+          "kind": "inventory_item",
+          "id": "stamp",
+          "operation": "grant_to_initiator_if_mailbox_stamp_is_bought",
+          "amount": 1.0,
+          "ownership": "personal_character"
+        },
+        {
+          "kind": "dialogue_phrase",
+          "id": "mailbox_stamp",
+          "operation": "blacklist_if_stamp_is_bought",
+          "amount": 1.0,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "dialogue_phrase",
+          "id": "@snake_meat_1",
+          "operation": "blacklist_if_stamp_is_bought_from_royal_services",
+          "amount": 1.0,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "player_param",
+          "id": "got_stamp",
+          "operation": "set_if_stamp_is_bought_from_royal_services",
+          "amount": 1.0,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "currency",
+          "id": "money",
+          "operation": "consume_from_initiator_if_building_permission_is_bought",
+          "amount": 20.0,
+          "ownership": "personal_character"
+        },
+        {
+          "kind": "inventory_item",
+          "id": "building_permission",
+          "operation": "grant_to_initiator_if_bought",
+          "amount": 1.0,
+          "ownership": "personal_character"
+        },
+        {
+          "kind": "dialogue_phrase",
+          "id": "mailbox_building_permission",
+          "operation": "blacklist_if_bought",
+          "amount": 1.0,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "dialogue_phrase",
+          "id": "mailbox_1a_1_al",
+          "operation": "blacklist_after_the_first_relation_purchase",
+          "amount": 1.0,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "currency",
+          "id": "money",
+          "operation": "consume_from_initiator_if_mailbox_1a_2_al_is_selected",
+          "amount": 3.0,
+          "ownership": "personal_character"
+        },
+        {
+          "kind": "player_param",
+          "id": "_rel_npc_royal_box",
+          "operation": "add_once_if_mailbox_1a_2_al_is_selected",
+          "amount": 35.0,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "dialogue_gate",
+          "id": "_rel_npc_royal_box",
+          "operation": "require_minimum_for_citizen_paper_town_pass_trade_license_and_mailbox_1a_3_al",
+          "amount": 65.0,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "inventory_item",
+          "id": "rightful_citizen_paper",
+          "operation": "grant_to_initiator_if_mailbox_citizen_paper_is_selected",
+          "amount": 1.0,
+          "ownership": "personal_character"
+        },
+        {
+          "kind": "dialogue_phrase",
+          "id": "mailbox_citizen_paper",
+          "operation": "blacklist_if_selected",
+          "amount": 1.0,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "inventory_item",
+          "id": "town_pass",
+          "operation": "grant_to_initiator_if_mailbox_townpass_is_selected",
+          "amount": 1.0,
+          "ownership": "personal_character"
+        },
+        {
+          "kind": "dialogue_phrase",
+          "id": "mailbox_townpass",
+          "operation": "blacklist_if_town_pass_is_selected",
+          "amount": 1.0,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "dialogue_phrase",
+          "id": "@snake_pass_1",
+          "operation": "blacklist_if_town_pass_is_bought_from_royal_services",
+          "amount": 1.0,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "player_param",
+          "id": "got_town_pass",
+          "operation": "set_if_town_pass_is_bought_from_royal_services",
+          "amount": 1.0,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "currency",
+          "id": "money",
+          "operation": "consume_from_initiator_if_merchant_traide_license_is_bought",
+          "amount": 50.0,
+          "ownership": "personal_character"
+        },
+        {
+          "kind": "inventory_item",
+          "id": "merchant_traide_license",
+          "operation": "grant_to_initiator_if_bought",
+          "amount": 1.0,
+          "ownership": "personal_character"
+        },
+        {
+          "kind": "dialogue_phrase",
+          "id": "mailbox_merchant_traide_license",
+          "operation": "blacklist_if_bought",
+          "amount": 1.0,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "dialogue_phrase",
+          "id": "mailbox_1a_2_al",
+          "operation": "blacklist_after_the_second_relation_purchase",
+          "amount": 1.0,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "currency",
+          "id": "money",
+          "operation": "consume_from_initiator_if_mailbox_1a_3_al_is_selected",
+          "amount": 1200.0,
+          "ownership": "personal_character"
+        },
+        {
+          "kind": "player_param",
+          "id": "_rel_npc_royal_box",
+          "operation": "add_once_if_mailbox_1a_3_al_is_selected",
+          "amount": 35.0,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "dialogue_gate",
+          "id": "_rel_npc_royal_box",
+          "operation": "require_minimum_for_aristocrat_paper",
+          "amount": 100.0,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "inventory_item",
+          "id": "aristocrat_paper",
+          "operation": "grant_to_initiator_if_mailbox_aristocrat_paper_is_selected",
+          "amount": 1.0,
+          "ownership": "personal_character"
+        },
+        {
+          "kind": "player_param",
+          "id": "skull_talk_after_aristocrat",
+          "operation": "set_if_aristocrat_paper_is_selected",
+          "amount": 1.0,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "dialogue_phrase",
+          "id": "mailbox_1a_3_al",
+          "operation": "blacklist_after_the_third_relation_purchase",
+          "amount": 1.0,
+          "ownership": "shared_campaign"
+        }
+      ],
+      "safeguards": [
+        "apply_only_the_live_selected_answer_and_never_replay_all_conditional_effects_from_the_generic_interaction_trigger",
+        "linked_milestones_are_downstream_consumer_anchors_and_must_never_replay_or_infer_any_purchase",
+        "money_prices_and_item_rewards_belong_only_to_the_initiating_character",
+        "royal_services_relation_phrase_blacklists_and_route_exclusion_flags_are_shared_campaign_state",
+        "mailbox_stamp_and_mailbox_townpass_are_mutually_exclusive_with_snakes_matching_acquisition_answers",
+        "do_not_regrant_stamp_or_town_pass_from_snake_cellar_after_the_royal_services_route_blacklists_them",
+        "merchant_traide_license_is_only_acquired_here_and_is_consumed_later_by_the_horadric_garden_merchant_flow",
+        "rightful_citizen_paper_building_permission_and_aristocrat_paper_remain_live_inventory_tokens_until_their_vanilla_consumers",
+        "skull_talk_after_aristocrat_only_arms_the_separate_live_mortuary_followup_and_must_not_clear_here",
+        "the_unconnected_mailbox_aristocrat_paper_blacklist_node_is_an_editor_orphan_and_must_not_be_applied",
+        "exclude_repeatable_mailbox_permission_internal_submenu_helpers_and_all_souls_dlc_answers"
+      ]
+    }
+  ]
+}

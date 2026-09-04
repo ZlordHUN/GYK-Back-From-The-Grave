@@ -1,0 +1,549 @@
+{
+  "schemaVersion": 5,
+  "catalogId": "dlc.stranger-sins.opening-land",
+  "campaign": "StrangerSins",
+  "chapter": "WineFollowupThroughTavernLandPurchase",
+  "quests": [
+    {
+      "questId": "dlc_stories_buy_land",
+      "title": "Purchase the tavern land",
+      "vanilla": {
+        "startTrigger": "",
+        "successTrigger": "1",
+        "failTrigger": "",
+        "startKeys": ["dlc_stories_buy_land"],
+        "questVisible": false,
+        "oneTimeQuest": false,
+        "startScript": "",
+        "successScript": "",
+        "failScript": "",
+        "arrowWgoCustomTag": "",
+        "arrowWgoObjectId": "",
+        "successRewards": [],
+        "failureRewards": []
+      },
+      "policy": {
+        "stateOwnership": "shared_campaign",
+        "eligibleInitiator": "any_player",
+        "livePresentationOwner": "initiating_player",
+        "observerQuestApplication": "durable_state_only",
+        "personalRewardDelivery": "party_exactly_once",
+        "observerSuccess": {
+          "globalScripts": [],
+          "playerParamRepairs": [],
+          "playerParamMinimums": [],
+          "taskStateMinimums": [],
+          "unlockedTechs": [],
+          "unlockedPhrases": [],
+          "blacklistedPhrases": [],
+          "unlockedCrafts": [],
+          "completedOneTimeCrafts": [],
+          "personalItemGrants": []
+        }
+      },
+      "completionChecks": []
+    }
+  ],
+  "taskMilestones": [
+    {
+      "milestoneId": "stranger_sins_cognac_lead_received",
+      "npcId": "crafting_skull_3",
+      "taskId": "dlc_stories_goal_after_wine",
+      "activeStates": ["Visible"],
+      "playerParamRepairs": [],
+      "playerParamMinimums": [],
+      "taskStateMinimums": [],
+      "unlockedTechs": [],
+      "unlockedPhrases": ["@cognac_about_1"],
+      "blacklistedPhrases": [],
+      "unlockedCrafts": [],
+      "completedOneTimeCrafts": [],
+      "wgoParamMinimums": [
+        { "objectId": "crafting_skull_3", "key": "introduced_dlc_stories", "value": 1.0 }
+      ],
+      "personalItemGrants": []
+    },
+    {
+      "milestoneId": "stranger_sins_soil_pile_search_started",
+      "npcId": "crafting_skull_3",
+      "taskId": "dlc_stories_goal_soil_piles",
+      "activeStates": ["Visible"],
+      "playerParamRepairs": [],
+      "playerParamMinimums": [],
+      "taskStateMinimums": [
+        { "npcId": "crafting_skull_3", "taskId": "dlc_stories_goal_after_wine", "state": "Complete" }
+      ],
+      "unlockedTechs": [],
+      "unlockedPhrases": [],
+      "blacklistedPhrases": ["@cognac_about_1"],
+      "unlockedCrafts": [],
+      "completedOneTimeCrafts": [],
+      "wgoParamMinimums": [],
+      "personalItemGrants": []
+    },
+    {
+      "milestoneId": "stranger_sins_machine_discovered",
+      "npcId": "crafting_skull_3",
+      "taskId": "dlc_stories_goal_about_machine",
+      "activeStates": ["Visible"],
+      "playerParamRepairs": [],
+      "playerParamMinimums": [],
+      "taskStateMinimums": [
+        { "npcId": "crafting_skull_3", "taskId": "dlc_stories_goal_soil_piles", "state": "Complete" }
+      ],
+      "unlockedTechs": [],
+      "unlockedPhrases": ["@gerry_about_machine_1"],
+      "blacklistedPhrases": [],
+      "unlockedCrafts": [],
+      "completedOneTimeCrafts": [],
+      "wgoParamMinimums": [],
+      "personalItemGrants": []
+    },
+    {
+      "milestoneId": "stranger_sins_horadric_land_lead_opened",
+      "npcId": "npc_tavern owner",
+      "taskId": "dlc_stories_goal_land_horadric",
+      "activeStates": ["Visible"],
+      "playerParamRepairs": [],
+      "playerParamMinimums": [],
+      "taskStateMinimums": [
+        { "npcId": "crafting_skull_3", "taskId": "dlc_stories_goal_about_machine", "state": "Complete" }
+      ],
+      "unlockedTechs": [],
+      "unlockedPhrases": ["@horadric_land_deal_1"],
+      "blacklistedPhrases": ["@gerry_about_machine_1"],
+      "unlockedCrafts": [],
+      "completedOneTimeCrafts": [],
+      "wgoParamMinimums": [],
+      "personalItemGrants": []
+    },
+    {
+      "milestoneId": "stranger_sins_dig_land_lead_opened",
+      "npcId": "npc_dig",
+      "taskId": "dlc_stories_goal_dig_land",
+      "activeStates": ["Visible"],
+      "playerParamRepairs": [],
+      "playerParamMinimums": [],
+      "taskStateMinimums": [
+        { "npcId": "npc_tavern owner", "taskId": "dlc_stories_goal_land_horadric", "state": "Complete" }
+      ],
+      "unlockedTechs": [],
+      "unlockedPhrases": ["@dig_land_purchase_1"],
+      "blacklistedPhrases": ["@horadric_land_deal_1"],
+      "unlockedCrafts": [],
+      "completedOneTimeCrafts": [],
+      "wgoParamMinimums": [],
+      "personalItemGrants": []
+    },
+    {
+      "milestoneId": "stranger_sins_horadric_purchase_opened",
+      "npcId": "npc_tavern owner",
+      "taskId": "dlc_stories_goal_buy_land",
+      "activeStates": ["Visible"],
+      "playerParamRepairs": [],
+      "playerParamMinimums": [],
+      "taskStateMinimums": [
+        { "npcId": "npc_dig", "taskId": "dlc_stories_goal_dig_land", "state": "Complete" }
+      ],
+      "unlockedTechs": [],
+      "unlockedPhrases": ["@horadric_land_buy_1"],
+      "blacklistedPhrases": ["@dig_land_purchase_1"],
+      "unlockedCrafts": [],
+      "completedOneTimeCrafts": [],
+      "wgoParamMinimums": [],
+      "personalItemGrants": []
+    },
+    {
+      "milestoneId": "stranger_sins_land_purchase_discussed",
+      "npcId": "npc_tavern owner",
+      "taskId": "dlc_stories_goal_buy_land",
+      "activeStates": ["Complete"],
+      "playerParamRepairs": [],
+      "playerParamMinimums": [],
+      "taskStateMinimums": [],
+      "unlockedTechs": [],
+      "unlockedPhrases": [],
+      "blacklistedPhrases": ["@horadric_land_buy_1"],
+      "unlockedCrafts": [],
+      "completedOneTimeCrafts": [],
+      "wgoParamMinimums": [],
+      "personalItemGrants": []
+    },
+    {
+      "milestoneId": "stranger_sins_land_purchased_cory_hire_opened",
+      "npcId": "npc_engineer",
+      "taskId": "dlc_stories_goal_hite_cory",
+      "activeStates": ["Visible"],
+      "playerParamRepairs": [],
+      "playerParamMinimums": [],
+      "taskStateMinimums": [
+        { "npcId": "npc_tavern owner", "taskId": "dlc_stories_goal_buy_land", "state": "Complete" }
+      ],
+      "unlockedTechs": [],
+      "unlockedPhrases": ["@cory_tavern_building_1"],
+      "blacklistedPhrases": ["@horadric_land_buy_1", "@horadric_land_buy_1_1"],
+      "unlockedCrafts": [],
+      "completedOneTimeCrafts": [],
+      "wgoParamMinimums": [],
+      "personalItemGrants": []
+    }
+  ],
+  "cutscenes": [
+    {
+      "cutsceneId": "stranger_sins_wine_followup",
+      "linkedQuestIds": ["dlc_stories_buy_land"],
+      "triggerScripts": ["crafting_skull_3:@skull_8_2a_wine"],
+      "actors": ["initiating_player", "crafting_skull_3"],
+      "observerPolicy": "all_loaded_party_members",
+      "lateJoinPolicy": "join_live_checkpoint_or_observe",
+      "remoteExecutionPolicy": "live_observation",
+      "executionOwnerPolicy": "any_player",
+      "dialogueOwnerPolicy": "initiating_player",
+      "formationPolicy": "initiator_with_observer_follow",
+      "cleanupRequirements": [
+        "run_the_stranger_sins_tail_only_when_the_Stories_DLC_is_available",
+        "leave_the_base_game_wine_cost_relation_and_story_point_effects_to_the_existing_wine_step",
+        "preserve_the_cognac_lead_task_phrase_and_introduced_dlc_stories_world_flag",
+        "restore_player_control_and_camera"
+      ]
+    },
+    {
+      "cutsceneId": "stranger_sins_wine_followup_recovery",
+      "linkedQuestIds": ["dlc_stories_buy_land"],
+      "triggerScripts": ["crafting_skull_3:introduced_dlc_stories"],
+      "actors": ["initiating_player", "crafting_skull_3"],
+      "observerPolicy": "all_loaded_party_members",
+      "lateJoinPolicy": "join_live_checkpoint_or_observe",
+      "remoteExecutionPolicy": "live_observation",
+      "executionOwnerPolicy": "any_player",
+      "dialogueOwnerPolicy": "initiating_player",
+      "formationPolicy": "initiator_with_observer_follow",
+      "cleanupRequirements": [
+        "run_only_from_on_enter_mortuary_gd_zone",
+        "require_crafting_skull_3_introduced_dlc_stories_equals_zero",
+        "require_@skull_8_2a_wine_to_be_blacklisted",
+        "require_DLCEngine_Stories_availability",
+        "preserve_on_enter_mortuary_gd_zone_event_priority_without_preempting_pending_skull_talk_body_church_upgrade_second_witch_aristocrat_light_storm_or_applicable_Breaking_Dead_zombie_intro_branches",
+        "preserve_the_unique_skull_wine_2_1_new_and_skull_wine_2_2_new_opening_before_joining_skull_wine_3_through_skull_wine_8",
+        "preserve_the_cognac_lead_task_phrase_and_introduced_dlc_stories_world_flag",
+        "restore_player_control_and_camera"
+      ]
+    },
+    {
+      "cutsceneId": "stranger_sins_cognac_pile_story",
+      "linkedQuestIds": ["dlc_stories_buy_land"],
+      "triggerScripts": ["crafting_skull_3:@cognac_about_1"],
+      "actors": ["initiating_player", "crafting_skull_3"],
+      "observerPolicy": "all_loaded_party_members",
+      "lateJoinPolicy": "join_live_checkpoint_or_observe",
+      "remoteExecutionPolicy": "live_observation",
+      "executionOwnerPolicy": "any_player",
+      "dialogueOwnerPolicy": "initiating_player",
+      "formationPolicy": "initiator_with_observer_follow",
+      "cleanupRequirements": [
+        "spawn_one_custom_story_pile_and_four_numbered_loot_piles_on_campaign_authority",
+        "never_duplicate_the_pile_contents_for_observers_or_late_joiners",
+        "preserve_the_exact_numbered_pile_to_loot_mapping",
+        "restore_player_control_and_camera"
+      ]
+    },
+    {
+      "cutsceneId": "stranger_sins_machine_discovery",
+      "linkedQuestIds": ["dlc_stories_buy_land"],
+      "triggerScripts": ["on_pile_digged"],
+      "actors": ["initiating_player", "talking_skull", "npc_blacksmith_fake"],
+      "observerPolicy": "all_loaded_party_members",
+      "lateJoinPolicy": "join_live_checkpoint_or_observe",
+      "remoteExecutionPolicy": "live_observation",
+      "executionOwnerPolicy": "any_player",
+      "dialogueOwnerPolicy": "initiating_player",
+      "formationPolicy": "initiator_with_observer_follow",
+      "participantFacing": "Down",
+      "cleanupRequirements": [
+        "run_the_custom_pile_interaction_once",
+        "preserve_the_talking_skull_and_fake_blacksmith_staging_and_movement",
+        "destroy_both_temporary_story_actors_at_their_vanilla_boundaries",
+        "restore_player_control_and_camera_while_leaving_the_initiator_facing_Down"
+      ]
+    },
+    {
+      "cutsceneId": "stranger_sins_gerry_machine_explanation",
+      "linkedQuestIds": ["dlc_stories_buy_land"],
+      "triggerScripts": ["crafting_skull_3:@gerry_about_machine_1"],
+      "actors": ["initiating_player", "crafting_skull_3"],
+      "observerPolicy": "all_loaded_party_members",
+      "lateJoinPolicy": "join_live_checkpoint_or_observe",
+      "remoteExecutionPolicy": "live_observation",
+      "executionOwnerPolicy": "any_player",
+      "dialogueOwnerPolicy": "initiating_player",
+      "formationPolicy": "initiator_with_observer_follow",
+      "cleanupRequirements": [
+        "finish_the_machine_task_before_opening_the_Horadric_land_lead",
+        "do_not_open_the_land_lead_from_the_earlier_visible_machine_task",
+        "preserve_one_dialogue_owner",
+        "restore_player_control_and_camera"
+      ]
+    },
+    {
+      "cutsceneId": "stranger_sins_horadric_land_referral",
+      "linkedQuestIds": ["dlc_stories_buy_land"],
+      "triggerScripts": ["npc_tavern owner:@horadric_land_deal_1"],
+      "actors": ["initiating_player", "npc_tavern owner"],
+      "observerPolicy": "all_loaded_party_members",
+      "lateJoinPolicy": "join_live_checkpoint_or_observe",
+      "remoteExecutionPolicy": "live_observation",
+      "executionOwnerPolicy": "any_player",
+      "dialogueOwnerPolicy": "initiating_player",
+      "formationPolicy": "initiator_with_observer_follow",
+      "cleanupRequirements": [
+        "complete_only_Horadrics_land_referral_before_opening_Digs_lead",
+        "do_not_charge_for_the_land_during_this_conversation",
+        "preserve_one_dialogue_owner",
+        "restore_player_control_and_camera"
+      ]
+    },
+    {
+      "cutsceneId": "stranger_sins_dig_land_referral",
+      "linkedQuestIds": ["dlc_stories_buy_land"],
+      "triggerScripts": ["npc_dig:@dig_land_purchase_1"],
+      "actors": ["initiating_player", "npc_dig"],
+      "observerPolicy": "all_loaded_party_members",
+      "lateJoinPolicy": "join_live_checkpoint_or_observe",
+      "remoteExecutionPolicy": "live_observation",
+      "executionOwnerPolicy": "any_player",
+      "dialogueOwnerPolicy": "initiating_player",
+      "formationPolicy": "initiator_with_observer_follow",
+      "cleanupRequirements": [
+        "complete_only_Digs_land_referral_before_reopening_Horadric",
+        "do_not_start_or_complete_the_buy_land_key_quest_here",
+        "preserve_one_dialogue_owner",
+        "restore_player_control_and_camera"
+      ]
+    },
+    {
+      "cutsceneId": "stranger_sins_horadric_land_purchase",
+      "linkedQuestIds": ["dlc_stories_buy_land"],
+      "triggerScripts": [
+        "npc_tavern owner:@horadric_land_buy_1",
+        "npc_tavern owner:@horadric_land_buy_1_1"
+      ],
+      "actors": ["initiating_player", "npc_tavern owner"],
+      "observerPolicy": "all_loaded_party_members",
+      "lateJoinPolicy": "join_live_checkpoint_or_observe",
+      "remoteExecutionPolicy": "live_observation",
+      "executionOwnerPolicy": "any_player",
+      "dialogueOwnerPolicy": "initiating_player",
+      "formationPolicy": "initiator_with_observer_follow",
+      "cleanupRequirements": [
+        "show_the_pay_or_decline_choice_to_the_initiating_player_only",
+        "consume_thirty_money_and_credit_Horadric_only_after_horadric_land_buy_6_1_is_selected",
+        "never_infer_payment_quest_completion_or_Cory_visibility_from_goal_buy_land_Complete",
+        "preserve_the_deferred_retry_phrase_when_payment_is_declined",
+        "restore_player_control_and_camera"
+      ]
+    }
+  ],
+  "storySteps": [
+    {
+      "stepId": "stranger_sins_receive_cognac_lead_after_wine",
+      "title": "Receive Gerry's cognac lead after delivering wine",
+      "linkedQuestIds": ["dlc_stories_buy_land"],
+      "linkedTaskMilestoneIds": ["stranger_sins_cognac_lead_received"],
+      "triggerScripts": [
+        "crafting_skull_3:@skull_8_2a_wine",
+        "crafting_skull_3:introduced_dlc_stories"
+      ],
+      "triggerKeys": [
+        "Stories",
+        "dlc_stories_goal_after_wine",
+        "introduced_dlc_stories",
+        "@cognac_about_1"
+      ],
+      "expectedEffects": [
+        { "kind": "npc_task", "id": "crafting_skull_3:dlc_stories_goal_after_wine", "operation": "show", "amount": 1.0, "ownership": "shared_campaign" },
+        { "kind": "world_param", "id": "crafting_skull_3:introduced_dlc_stories", "operation": "set", "amount": 1.0, "ownership": "shared_world" },
+        { "kind": "dialogue_phrase", "id": "@cognac_about_1", "operation": "unlock", "amount": 1.0, "ownership": "shared_campaign" }
+      ],
+      "safeguards": [
+        "apply_only_the_DLC_tail_of_the_existing_wine_handoff",
+        "require_DLCEngine_Stories_availability",
+        "allow_on_enter_mortuary_gd_zone_recovery_only_when_introduced_dlc_stories_equals_zero_@skull_8_2a_wine_is_blacklisted_and_Stories_is_available",
+        "preserve_on_enter_mortuary_gd_zone_event_priority_without_preempting_pending_skull_talk_body_church_upgrade_second_witch_aristocrat_light_storm_or_applicable_Breaking_Dead_zombie_intro_branches",
+        "do_not_consume_another_wine_or_repeat_Gerrys_base_game_rewards",
+        "do_not_infer_this_lead_from_skull_wine_Complete_when_Stories_is_unavailable"
+      ]
+    },
+    {
+      "stepId": "stranger_sins_spawn_cognac_soil_piles",
+      "title": "Ask Gerry about cognac and uncover the soil-pile lead",
+      "linkedQuestIds": ["dlc_stories_buy_land"],
+      "linkedTaskMilestoneIds": ["stranger_sins_soil_pile_search_started"],
+      "triggerScripts": ["crafting_skull_3:@cognac_about_1"],
+      "triggerKeys": [
+        "dlc_stories_goal_after_wine",
+        "dlc_stories_goal_soil_piles",
+        "pile_on_ground_custom",
+        "pile_on_ground_1..4"
+      ],
+      "expectedEffects": [
+        { "kind": "dialogue_phrase", "id": "@cognac_about_1", "operation": "blacklist", "amount": 1.0, "ownership": "shared_campaign" },
+        { "kind": "npc_task", "id": "crafting_skull_3:dlc_stories_goal_after_wine", "operation": "complete", "amount": 1.0, "ownership": "shared_campaign" },
+        { "kind": "npc_task", "id": "crafting_skull_3:dlc_stories_goal_soil_piles", "operation": "show", "amount": 1.0, "ownership": "shared_campaign" },
+        { "kind": "world_object", "id": "pile_on_ground_custom@gd_custom_pile_spawn_point", "operation": "spawn_once", "amount": 1.0, "ownership": "shared_world" },
+        { "kind": "world_object", "id": "pile_on_ground_1@gd_pile_on_ground_spawn_point_1", "operation": "spawn_once", "amount": 1.0, "ownership": "shared_world" },
+        { "kind": "world_object", "id": "pile_on_ground_2@gd_pile_on_ground_spawn_point_2", "operation": "spawn_once", "amount": 1.0, "ownership": "shared_world" },
+        { "kind": "world_object", "id": "pile_on_ground_3@gd_pile_on_ground_spawn_point_3", "operation": "spawn_once", "amount": 1.0, "ownership": "shared_world" },
+        { "kind": "world_object", "id": "pile_on_ground_4@gd_pile_on_ground_spawn_point_4", "operation": "spawn_once", "amount": 1.0, "ownership": "shared_world" },
+        { "kind": "inventory_item", "id": "pile_on_ground_1:axe_0", "operation": "seed_world_container_once", "amount": 1.0, "ownership": "shared_world" },
+        { "kind": "inventory_item", "id": "pile_on_ground_2:skull", "operation": "seed_world_container_once", "amount": 1.0, "ownership": "shared_world" },
+        { "kind": "inventory_item", "id": "pile_on_ground_3:nugget_silver", "operation": "seed_world_container_once", "amount": 5.0, "ownership": "shared_world" },
+        { "kind": "inventory_item", "id": "pile_on_ground_4:sulfur", "operation": "seed_world_container_once", "amount": 5.0, "ownership": "shared_world" }
+      ],
+      "safeguards": [
+        "spawn_every_pile_on_campaign_authority_exactly_once",
+        "preserve_the_one_based_custom_tags_and_GDPoint_tags",
+        "keep_pile_contents_in_their_world_containers_until_normal_pickup",
+        "never_deliver_pile_loot_as_party_personal_story_grants"
+      ]
+    },
+    {
+      "stepId": "stranger_sins_dig_story_pile_and_discover_machine",
+      "title": "Dig the custom soil pile and discover the ancient machine",
+      "linkedQuestIds": ["dlc_stories_buy_land"],
+      "linkedTaskMilestoneIds": ["stranger_sins_machine_discovered"],
+      "triggerScripts": ["on_pile_digged"],
+      "triggerKeys": [
+        "pile_on_ground_custom",
+        "dlc_stories_goal_soil_piles",
+        "dlc_stories_goal_about_machine",
+        "@gerry_about_machine_1"
+      ],
+      "expectedEffects": [
+        { "kind": "npc_task", "id": "crafting_skull_3:dlc_stories_goal_soil_piles", "operation": "complete", "amount": 1.0, "ownership": "shared_campaign" },
+        { "kind": "npc_task", "id": "crafting_skull_3:dlc_stories_goal_about_machine", "operation": "show", "amount": 1.0, "ownership": "shared_campaign" },
+        { "kind": "dialogue_phrase", "id": "@gerry_about_machine_1", "operation": "unlock", "amount": 1.0, "ownership": "shared_campaign" },
+        { "kind": "world_actor", "id": "talking_skull", "operation": "spawn_stage_and_destroy_once", "amount": 1.0, "ownership": "shared_world" },
+        { "kind": "world_actor", "id": "npc_blacksmith_fake", "operation": "spawn_stage_and_destroy_once", "amount": 1.0, "ownership": "shared_world" }
+      ],
+      "safeguards": [
+        "only_the_custom_story_pile_starts_on_pile_digged",
+        "ordinary_numbered_loot_piles_do_not_start_the_scene",
+        "do_not_destroy_pile_on_ground_custom_here_tavern_build_destroys_it_later",
+        "do_not_spawn_one_talking_skull_or_fake_blacksmith_per_observer",
+        "finish_all_live_dialogue_and_actor_cleanup_before_restoring_control"
+      ]
+    },
+    {
+      "stepId": "stranger_sins_ask_gerry_about_machine",
+      "title": "Ask Gerry what the ancient machine was",
+      "linkedQuestIds": ["dlc_stories_buy_land"],
+      "linkedTaskMilestoneIds": ["stranger_sins_horadric_land_lead_opened"],
+      "triggerScripts": ["crafting_skull_3:@gerry_about_machine_1"],
+      "triggerKeys": [
+        "dlc_stories_goal_about_machine",
+        "dlc_stories_goal_land_horadric",
+        "@horadric_land_deal_1"
+      ],
+      "expectedEffects": [
+        { "kind": "dialogue_phrase", "id": "@gerry_about_machine_1", "operation": "blacklist", "amount": 1.0, "ownership": "shared_campaign" },
+        { "kind": "npc_task", "id": "crafting_skull_3:dlc_stories_goal_about_machine", "operation": "complete", "amount": 1.0, "ownership": "shared_campaign" },
+        { "kind": "dialogue_phrase", "id": "@horadric_land_deal_1", "operation": "unlock_after_dialogue", "amount": 1.0, "ownership": "shared_campaign" },
+        { "kind": "npc_task", "id": "npc_tavern owner:dlc_stories_goal_land_horadric", "operation": "show_after_dialogue", "amount": 1.0, "ownership": "shared_campaign" }
+      ],
+      "safeguards": [
+        "do_not_open_Horadrics_lead_from_goal_about_machine_Visible",
+        "preserve_all_nine_dialogue_lines_before_the_land_lead",
+        "do_not_replay_the_machine_discovery_scene",
+        "one_dialogue_owner"
+      ]
+    },
+    {
+      "stepId": "stranger_sins_ask_horadric_about_land",
+      "title": "Ask Horadric who owns the land",
+      "linkedQuestIds": ["dlc_stories_buy_land"],
+      "linkedTaskMilestoneIds": ["stranger_sins_dig_land_lead_opened"],
+      "triggerScripts": ["npc_tavern owner:@horadric_land_deal_1"],
+      "triggerKeys": [
+        "dlc_stories_goal_land_horadric",
+        "dlc_stories_goal_dig_land",
+        "@dig_land_purchase_1"
+      ],
+      "expectedEffects": [
+        { "kind": "dialogue_phrase", "id": "@horadric_land_deal_1", "operation": "blacklist", "amount": 1.0, "ownership": "shared_campaign" },
+        { "kind": "npc_task", "id": "npc_tavern owner:dlc_stories_goal_land_horadric", "operation": "complete", "amount": 1.0, "ownership": "shared_campaign" },
+        { "kind": "npc_task", "id": "npc_dig:dlc_stories_goal_dig_land", "operation": "show_after_dialogue", "amount": 1.0, "ownership": "shared_campaign" },
+        { "kind": "dialogue_phrase", "id": "@dig_land_purchase_1", "operation": "unlock_after_dialogue", "amount": 1.0, "ownership": "shared_campaign" }
+      ],
+      "safeguards": [
+        "this_is_a_referral_only_and_has_no_currency_cost",
+        "open_Digs_task_only_after_Horadrics_eight_dialogue_lines",
+        "do_not_start_dlc_stories_buy_land_here",
+        "one_dialogue_owner"
+      ]
+    },
+    {
+      "stepId": "stranger_sins_ask_dig_about_land",
+      "title": "Ask Dig about purchasing the tavern land",
+      "linkedQuestIds": ["dlc_stories_buy_land"],
+      "linkedTaskMilestoneIds": ["stranger_sins_horadric_purchase_opened"],
+      "triggerScripts": ["npc_dig:@dig_land_purchase_1"],
+      "triggerKeys": [
+        "dlc_stories_goal_dig_land",
+        "dlc_stories_goal_buy_land",
+        "@horadric_land_buy_1"
+      ],
+      "expectedEffects": [
+        { "kind": "dialogue_phrase", "id": "@dig_land_purchase_1", "operation": "blacklist", "amount": 1.0, "ownership": "shared_campaign" },
+        { "kind": "npc_task", "id": "npc_dig:dlc_stories_goal_dig_land", "operation": "complete", "amount": 1.0, "ownership": "shared_campaign" },
+        { "kind": "npc_task", "id": "npc_tavern owner:dlc_stories_goal_buy_land", "operation": "show_after_dialogue", "amount": 1.0, "ownership": "shared_campaign" },
+        { "kind": "dialogue_phrase", "id": "@horadric_land_buy_1", "operation": "unlock_after_dialogue", "amount": 1.0, "ownership": "shared_campaign" }
+      ],
+      "safeguards": [
+        "this_is_a_referral_only_and_has_no_currency_cost",
+        "open_Horadrics_purchase_task_only_after_Digs_seven_dialogue_lines",
+        "do_not_start_dlc_stories_buy_land_here",
+        "one_dialogue_owner"
+      ]
+    },
+    {
+      "stepId": "stranger_sins_purchase_tavern_land",
+      "title": "Purchase the tavern land from Horadric",
+      "linkedQuestIds": ["dlc_stories_buy_land"],
+      "linkedTaskMilestoneIds": [
+        "stranger_sins_land_purchase_discussed",
+        "stranger_sins_land_purchased_cory_hire_opened"
+      ],
+      "triggerScripts": [
+        "npc_tavern owner:@horadric_land_buy_1",
+        "npc_tavern owner:@horadric_land_buy_1_1"
+      ],
+      "triggerKeys": [
+        "horadric_land_buy_6_1",
+        "horadric_land_buy_6_2",
+        "money:30",
+        "dlc_stories_buy_land",
+        "dlc_stories_goal_hite_cory",
+        "@cory_tavern_building_1"
+      ],
+      "expectedEffects": [
+        { "kind": "dialogue_phrase", "id": "@horadric_land_buy_1", "operation": "blacklist_on_initial_entry_before_choice", "amount": 1.0, "ownership": "shared_campaign" },
+        { "kind": "npc_task", "id": "npc_tavern owner:dlc_stories_goal_buy_land", "operation": "complete_on_initial_entry_before_choice", "amount": 1.0, "ownership": "shared_campaign" },
+        { "kind": "dialogue_phrase", "id": "@horadric_land_buy_1_1", "operation": "unlock_on_declined_choice", "amount": 1.0, "ownership": "shared_campaign" },
+        { "kind": "currency", "id": "money", "operation": "consume_from_initiator_on_paid_choice", "amount": 30.0, "ownership": "personal_character" },
+        { "kind": "world_param", "id": "npc_tavern owner:money", "operation": "add_on_paid_choice", "amount": 30.0, "ownership": "shared_world" },
+        { "kind": "dialogue_phrase", "id": "@horadric_land_buy_1_1", "operation": "blacklist_on_paid_choice", "amount": 1.0, "ownership": "shared_campaign" },
+        { "kind": "quest_key", "id": "dlc_stories_buy_land", "operation": "check_once_on_paid_choice", "amount": 1.0, "ownership": "shared_campaign" },
+        { "kind": "npc_task", "id": "npc_engineer:dlc_stories_goal_hite_cory", "operation": "show_after_paid_dialogue", "amount": 1.0, "ownership": "shared_campaign" },
+        { "kind": "dialogue_phrase", "id": "@cory_tavern_building_1", "operation": "unlock_after_paid_dialogue", "amount": 1.0, "ownership": "shared_campaign" }
+      ],
+      "safeguards": [
+        "goal_buy_land_Complete_records_that_the_purchase_dialogue_was_opened_not_that_payment_succeeded",
+        "apply_currency_quest_Cory_task_and_Cory_phrase_effects_only_for_nested_answer_horadric_land_buy_6_1",
+        "declining_unlocks_@horadric_land_buy_1_1_and_must_not_start_the_quest_or_show_Cory",
+        "consume_money_from_the_initiating_character_only",
+        "Flow_CheckKeyQuest_runs_before_the_final_dialogue_lines_so_quest_success_must_not_infer_the_later_Cory_effects",
+        "do_not_replay_the_purchase_from_dlc_stories_buy_land_or_goal_hite_cory"
+      ]
+    }
+  ]
+}

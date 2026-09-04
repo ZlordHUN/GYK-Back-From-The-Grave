@@ -1,0 +1,4604 @@
+{
+  "schemaVersion": 5,
+  "catalogId": "base-game.keeper-key-and-first-dungeon",
+  "campaign": "BaseGame",
+  "chapter": "CellarDiscoveryKeepersKeySnakeBusinessZombieWorkerLightningPortalContactsFinalRitualAndPortalEnding",
+  "quests": [
+    {
+      "questId": "player_ressurection",
+      "title": "Serialized generic player-respawn dispatcher",
+      "vanilla": {
+        "startTrigger": "1",
+        "successTrigger": "1",
+        "failTrigger": "",
+        "startKeys": ["player_respawn"],
+        "questVisible": false,
+        "oneTimeQuest": false,
+        "startScript": "player_ressurection",
+        "successScript": "",
+        "failScript": "",
+        "arrowWgoCustomTag": "",
+        "arrowWgoObjectId": "",
+        "successRewards": [],
+        "failureRewards": []
+      },
+      "policy": {
+        "stateOwnership": "shared_campaign",
+        "eligibleInitiator": "any_player",
+        "livePresentationOwner": "initiating_player",
+        "observerQuestApplication": "durable_state_only",
+        "personalRewardDelivery": "party_exactly_once"
+      },
+      "completionChecks": []
+    },
+    {
+      "questId": "player_die_after_in_cultist_quest",
+      "title": "Prepare the Snake gate-cutscene resurrection point",
+      "vanilla": {
+        "startTrigger": "Ppar(\"cultist_quest_enabled\")",
+        "successTrigger": "",
+        "failTrigger": "",
+        "startKeys": ["player_dead"],
+        "questVisible": false,
+        "oneTimeQuest": true,
+        "startScript": "player_dead_in_cultist_quest",
+        "successScript": "",
+        "failScript": "",
+        "arrowWgoCustomTag": "",
+        "arrowWgoObjectId": "",
+        "successRewards": [],
+        "failureRewards": []
+      },
+      "policy": {
+        "stateOwnership": "shared_campaign",
+        "eligibleInitiator": "any_player",
+        "livePresentationOwner": "initiating_player",
+        "observerQuestApplication": "durable_state_only",
+        "personalRewardDelivery": "party_exactly_once"
+      },
+      "completionChecks": []
+    },
+    {
+      "questId": "unlock_nails_wash_craft",
+      "title": "Unlock washing bloody nails",
+      "vanilla": {
+        "startTrigger": "1",
+        "successTrigger": "1",
+        "failTrigger": "",
+        "startKeys": ["item_nails_bloody"],
+        "questVisible": false,
+        "oneTimeQuest": true,
+        "startScript": "",
+        "successScript": "",
+        "failScript": "",
+        "arrowWgoCustomTag": "",
+        "arrowWgoObjectId": "",
+        "successRewards": [],
+        "failureRewards": []
+      },
+      "policy": {
+        "stateOwnership": "shared_campaign",
+        "eligibleInitiator": "any_player",
+        "livePresentationOwner": "initiating_player",
+        "observerQuestApplication": "durable_state_only",
+        "personalRewardDelivery": "party_exactly_once",
+        "observerSuccess": {
+          "globalScripts": [],
+          "playerParamRepairs": [],
+          "unlockedCrafts": ["bloody_nails_wash"],
+          "personalItemGrants": []
+        }
+      },
+      "completionChecks": []
+    },
+    {
+      "questId": "hidden_imyourfather",
+      "title": "Record Snake and the Inquisitor together during the final ritual",
+      "vanilla": {
+        "startTrigger": "",
+        "successTrigger": "1",
+        "failTrigger": "",
+        "startKeys": ["snk_inqstr_together"],
+        "questVisible": false,
+        "oneTimeQuest": false,
+        "startScript": "",
+        "successScript": "",
+        "failScript": "",
+        "arrowWgoCustomTag": "",
+        "arrowWgoObjectId": "",
+        "successRewards": [],
+        "failureRewards": []
+      },
+      "policy": {
+        "stateOwnership": "shared_campaign",
+        "eligibleInitiator": "any_player",
+        "livePresentationOwner": "initiating_player",
+        "observerQuestApplication": "durable_state_only",
+        "personalRewardDelivery": "party_exactly_once"
+      },
+      "completionChecks": []
+    }
+  ],
+  "taskMilestones": [
+    {
+      "milestoneId": "snake_key_instructions_received",
+      "npcId": "npc_cultist",
+      "taskId": "snake_key",
+      "activeStates": ["Visible"],
+      "playerParamRepairs": [],
+      "playerParamMinimums": [
+        { "key": "met_cultist", "value": 1.0 }
+      ],
+      "taskStateMinimums": [],
+      "unlockedPhrases": ["@snake_give_key"],
+      "blacklistedPhrases": ["snake_1a", "snake_1b"],
+      "unlockedCrafts": [],
+      "completedOneTimeCrafts": [],
+      "wgoParamMinimums": [
+        {
+          "objectId": "npc_cultist",
+          "key": "break_everyday_cultist_come",
+          "value": 1.0
+        }
+      ],
+      "personalItemGrants": []
+    },
+    {
+      "milestoneId": "snake_active_key_delivered",
+      "npcId": "npc_cultist",
+      "taskId": "snake_key",
+      "activeStates": ["Complete"],
+      "playerParamRepairs": [],
+      "playerParamMinimums": [
+        { "key": "met_cultist", "value": 1.0 },
+        { "key": "_rel_npc_cultist", "value": 10.0 }
+      ],
+      "taskStateMinimums": [],
+      "unlockedPhrases": [],
+      "blacklistedPhrases": ["snake_1a", "snake_1b", "@snake_give_key"],
+      "unlockedCrafts": [],
+      "completedOneTimeCrafts": ["surv:quest_key_astrologer"],
+      "wgoParamMinimums": [],
+      "personalItemGrants": []
+    },
+    {
+      "milestoneId": "snake_blood_and_nails_requested",
+      "npcId": "npc_cultist",
+      "taskId": "snake_blood",
+      "activeStates": ["Visible"],
+      "playerParamRepairs": [],
+      "playerParamMinimums": [
+        { "key": "met_cultist", "value": 1.0 },
+        { "key": "_rel_npc_cultist", "value": 10.0 },
+        { "key": "gate_in_morgue_is_open", "value": 1.0 }
+      ],
+      "taskStateMinimums": [
+        {
+          "npcId": "npc_cultist",
+          "taskId": "snake_key",
+          "state": "Complete"
+        }
+      ],
+      "unlockedPhrases": [],
+      "blacklistedPhrases": [],
+      "unlockedCrafts": ["pail_blood"],
+      "completedOneTimeCrafts": ["surv:quest_key_astrologer"],
+      "wgoParamMinimums": [],
+      "personalItemGrants": []
+    },
+    {
+      "milestoneId": "snake_blood_and_nails_delivered",
+      "npcId": "npc_cultist",
+      "taskId": "snake_blood",
+      "activeStates": ["Complete"],
+      "playerParamRepairs": [],
+      "playerParamMinimums": [
+        { "key": "met_cultist", "value": 1.0 },
+        { "key": "_rel_npc_cultist", "value": 30.0 },
+        { "key": "gate_in_morgue_is_open", "value": 1.0 }
+      ],
+      "taskStateMinimums": [
+        {
+          "npcId": "npc_cultist",
+          "taskId": "snake_key",
+          "state": "Complete"
+        }
+      ],
+      "unlockedPhrases": [],
+      "blacklistedPhrases": [
+        "@snake_give_key",
+        "@give_blod_bucket",
+        "@give_blod_nails"
+      ],
+      "unlockedCrafts": ["pail_blood", "bloody_nails_wash"],
+      "completedOneTimeCrafts": ["surv:quest_key_astrologer"],
+      "wgoParamMinimums": [
+        { "objectId": "npc_cultist", "key": "got_bucket", "value": 1.0 },
+        { "objectId": "npc_cultist", "key": "got_nails", "value": 1.0 }
+      ],
+      "personalItemGrants": []
+    },
+    {
+      "milestoneId": "snake_necronomicon_requested",
+      "npcId": "npc_cultist",
+      "taskId": "snake_necronomicon",
+      "activeStates": ["Visible"],
+      "playerParamRepairs": [],
+      "playerParamMinimums": [
+        { "key": "_rel_npc_cultist", "value": 30.0 },
+        { "key": "gate_in_morgue_is_open", "value": 1.0 }
+      ],
+      "taskStateMinimums": [
+        {
+          "npcId": "npc_cultist",
+          "taskId": "snake_key",
+          "state": "Complete"
+        },
+        {
+          "npcId": "npc_cultist",
+          "taskId": "snake_blood",
+          "state": "Complete"
+        }
+      ],
+      "unlockedPhrases": [],
+      "blacklistedPhrases": [
+        "@give_blod_bucket",
+        "@give_blod_nails"
+      ],
+      "unlockedCrafts": ["pail_blood", "bloody_nails_wash"],
+      "completedOneTimeCrafts": ["surv:quest_key_astrologer"],
+      "wgoParamMinimums": [
+        { "objectId": "npc_cultist", "key": "got_bucket", "value": 1.0 },
+        { "objectId": "npc_cultist", "key": "got_nails", "value": 1.0 }
+      ],
+      "personalItemGrants": []
+    },
+    {
+      "milestoneId": "astrologer_diary_delivered",
+      "npcId": "npc_astrologer",
+      "taskId": "astrologer_diary",
+      "activeStates": ["Complete"],
+      "playerParamRepairs": [],
+      "playerParamMinimums": [
+        { "key": "_rel_npc_astrologer", "value": 20.0 }
+      ],
+      "taskStateMinimums": [
+        { "npcId": "player", "taskId": "player_laser", "state": "Visible" },
+        {
+          "npcId": "npc_astrologer",
+          "taskId": "astrologer_skull",
+          "state": "Complete"
+        }
+      ],
+      "unlockedPhrases": [],
+      "blacklistedPhrases": [],
+      "unlockedCrafts": [],
+      "completedOneTimeCrafts": [],
+      "wgoParamMinimums": [],
+      "personalItemGrants": []
+    },
+    {
+      "milestoneId": "portal_laser_goal_revealed",
+      "npcId": "player",
+      "taskId": "player_laser",
+      "activeStates": ["Visible"],
+      "playerParamRepairs": [],
+      "playerParamMinimums": [
+        { "key": "_rel_npc_astrologer", "value": 20.0 }
+      ],
+      "taskStateMinimums": [
+        {
+          "npcId": "npc_astrologer",
+          "taskId": "astrologer_diary",
+          "state": "Complete"
+        }
+      ],
+      "unlockedPhrases": [],
+      "blacklistedPhrases": [],
+      "unlockedCrafts": [],
+      "completedOneTimeCrafts": [],
+      "wgoParamMinimums": [],
+      "personalItemGrants": []
+    },
+    {
+      "milestoneId": "astrologer_acid_requested",
+      "npcId": "npc_astrologer",
+      "taskId": "astrologer_acid",
+      "activeStates": ["Visible"],
+      "playerParamRepairs": [],
+      "playerParamMinimums": [
+        { "key": "_rel_npc_astrologer", "value": 20.0 },
+        { "key": "player_knows_about_witch", "value": 1.0 }
+      ],
+      "taskStateMinimums": [
+        {
+          "npcId": "npc_astrologer",
+          "taskId": "astrologer_diary",
+          "state": "Complete"
+        },
+        {
+          "npcId": "npc_astrologer",
+          "taskId": "astrologer_tools",
+          "state": "Visible"
+        },
+        { "npcId": "player", "taskId": "player_laser", "state": "Visible" }
+      ],
+      "unlockedPhrases": [],
+      "blacklistedPhrases": ["astrologer_diary_9a"],
+      "unlockedCrafts": [],
+      "completedOneTimeCrafts": [],
+      "wgoParamMinimums": [],
+      "personalItemGrants": []
+    },
+    {
+      "milestoneId": "astrologer_restoration_tools_requested",
+      "npcId": "npc_astrologer",
+      "taskId": "astrologer_tools",
+      "activeStates": ["Visible"],
+      "playerParamRepairs": [],
+      "playerParamMinimums": [
+        { "key": "_rel_npc_astrologer", "value": 20.0 },
+        { "key": "player_knows_about_witch", "value": 1.0 }
+      ],
+      "taskStateMinimums": [
+        {
+          "npcId": "npc_astrologer",
+          "taskId": "astrologer_diary",
+          "state": "Complete"
+        },
+        {
+          "npcId": "npc_astrologer",
+          "taskId": "astrologer_acid",
+          "state": "Visible"
+        },
+        { "npcId": "player", "taskId": "player_laser", "state": "Visible" }
+      ],
+      "unlockedPhrases": [],
+      "blacklistedPhrases": ["astrologer_diary_9a"],
+      "unlockedCrafts": [],
+      "completedOneTimeCrafts": [],
+      "wgoParamMinimums": [],
+      "personalItemGrants": []
+    },
+    {
+      "milestoneId": "actress_fake_coin_errand_started",
+      "npcId": "npc_actress",
+      "taskId": "actress_money",
+      "activeStates": ["Visible"],
+      "playerParamRepairs": [],
+      "playerParamMinimums": [
+        { "key": "meet_actress", "value": 1.0 },
+        { "key": "met_cultist", "value": 1.0 },
+        { "key": "_rel_npc_actress", "value": 10.0 }
+      ],
+      "taskStateMinimums": [],
+      "unlockedTechs": [],
+      "unlockedPhrases": [],
+      "blacklistedPhrases": [],
+      "unlockedCrafts": [],
+      "completedOneTimeCrafts": [],
+      "wgoParamMinimums": [],
+      "personalItemGrants": []
+    },
+    {
+      "milestoneId": "actress_necklace_search_started",
+      "npcId": "npc_actress",
+      "taskId": "actress_necklace",
+      "activeStates": ["Visible"],
+      "playerParamRepairs": [],
+      "playerParamMinimums": [
+        { "key": "meet_actress", "value": 1.0 },
+        { "key": "met_cultist", "value": 1.0 },
+        { "key": "_rel_npc_actress", "value": 20.0 }
+      ],
+      "taskStateMinimums": [
+        { "npcId": "npc_actress", "taskId": "actress_money", "state": "Complete" }
+      ],
+      "unlockedTechs": [],
+      "unlockedPhrases": ["@snake_about_nacklase"],
+      "blacklistedPhrases": ["@snake_1с", "@actress_snake_back"],
+      "unlockedCrafts": [],
+      "completedOneTimeCrafts": [],
+      "wgoParamMinimums": [],
+      "personalItemGrants": []
+    },
+    {
+      "milestoneId": "astrologer_acid_delivered",
+      "npcId": "npc_astrologer",
+      "taskId": "astrologer_acid",
+      "activeStates": ["Complete"],
+      "playerParamRepairs": [],
+      "playerParamMinimums": [
+        { "key": "_rel_npc_astrologer", "value": 30.0 },
+        { "key": "player_knows_about_witch", "value": 1.0 }
+      ],
+      "taskStateMinimums": [
+        { "npcId": "npc_astrologer", "taskId": "astrologer_diary", "state": "Complete" },
+        { "npcId": "npc_astrologer", "taskId": "astrologer_tools", "state": "Visible" },
+        { "npcId": "player", "taskId": "player_laser", "state": "Visible" }
+      ],
+      "unlockedTechs": [],
+      "unlockedPhrases": [],
+      "blacklistedPhrases": ["@astrologer_acid"],
+      "unlockedCrafts": [],
+      "completedOneTimeCrafts": [],
+      "wgoParamMinimums": [],
+      "personalItemGrants": []
+    },
+    {
+      "milestoneId": "astrologer_restoration_tools_delivered",
+      "npcId": "npc_astrologer",
+      "taskId": "astrologer_tools",
+      "activeStates": ["Complete"],
+      "playerParamRepairs": [],
+      "playerParamMinimums": [
+        { "key": "_rel_npc_astrologer", "value": 30.0 },
+        { "key": "_rel_npc_cultist", "value": 40.0 },
+        { "key": "player_knows_about_witch", "value": 1.0 }
+      ],
+      "taskStateMinimums": [
+        { "npcId": "npc_astrologer", "taskId": "astrologer_diary", "state": "Complete" },
+        { "npcId": "npc_astrologer", "taskId": "astrologer_acid", "state": "Visible" },
+        { "npcId": "npc_actress", "taskId": "actress_money", "state": "Complete" },
+        { "npcId": "npc_actress", "taskId": "actress_necklace", "state": "Visible" },
+        { "npcId": "player", "taskId": "player_laser", "state": "Visible" }
+      ],
+      "unlockedTechs": [],
+      "unlockedPhrases": [],
+      "blacklistedPhrases": [
+        "@astrologer_tools",
+        "@astrologer_about_tools",
+        "@snake_instrument",
+        "@snake_instrument_ready",
+        "@snake_nacklase_0",
+        "@snake_nacklase_again",
+        "@snake_nacklase_again_10a",
+        "@snake_nacklase_again_10b",
+        "@snake_nacklase_again_10c"
+      ],
+      "unlockedCrafts": [],
+      "completedOneTimeCrafts": [],
+      "wgoParamMinimums": [],
+      "personalItemGrants": []
+    },
+    {
+      "milestoneId": "astrologer_second_diary_decoded",
+      "npcId": "npc_astrologer",
+      "taskId": "astrologer_baron",
+      "activeStates": ["Visible"],
+      "playerParamRepairs": [],
+      "playerParamMinimums": [
+        { "key": "_rel_npc_astrologer", "value": 40.0 },
+        { "key": "_rel_npc_cultist", "value": 40.0 },
+        { "key": "player_knows_about_witch", "value": 1.0 }
+      ],
+      "taskStateMinimums": [
+        { "npcId": "npc_astrologer", "taskId": "astrologer_diary", "state": "Complete" },
+        { "npcId": "npc_astrologer", "taskId": "astrologer_acid", "state": "Complete" },
+        { "npcId": "npc_astrologer", "taskId": "astrologer_tools", "state": "Complete" },
+        { "npcId": "player", "taskId": "player_laser", "state": "Visible" }
+      ],
+      "unlockedTechs": [],
+      "unlockedPhrases": [],
+      "blacklistedPhrases": ["@astrologer_acid", "@astrologer_tools"],
+      "unlockedCrafts": [],
+      "completedOneTimeCrafts": [],
+      "wgoParamMinimums": [],
+      "personalItemGrants": []
+    },
+    {
+      "milestoneId": "snake_necronomicon_delivered",
+      "npcId": "npc_cultist",
+      "taskId": "snake_necronomicon",
+      "activeStates": ["Complete"],
+      "playerParamRepairs": [],
+      "playerParamMinimums": [
+        { "key": "_rel_npc_cultist", "value": 50.0 },
+        { "key": "_rel_npc_astrologer", "value": 40.0 }
+      ],
+      "taskStateMinimums": [
+        { "npcId": "npc_cultist", "taskId": "snake_blood", "state": "Complete" },
+        { "npcId": "npc_cultist", "taskId": "snake_help", "state": "Visible" },
+        { "npcId": "npc_astrologer", "taskId": "astrologer_acid", "state": "Complete" },
+        { "npcId": "npc_astrologer", "taskId": "astrologer_tools", "state": "Complete" },
+        { "npcId": "npc_astrologer", "taskId": "astrologer_baron", "state": "Visible" },
+        { "npcId": "player", "taskId": "player_laser", "state": "Visible" }
+      ],
+      "unlockedTechs": [],
+      "unlockedPhrases": ["@snake_ritual_help"],
+      "blacklistedPhrases": [
+        "@astrologer_necronamicon",
+        "@light_keeper_book",
+        "@light_keeper_book_ready",
+        "@snake_necronomicon"
+      ],
+      "unlockedCrafts": [],
+      "completedOneTimeCrafts": [],
+      "wgoParamMinimums": [],
+      "personalItemGrants": []
+    },
+    {
+      "milestoneId": "snake_dark_church_goal_revealed",
+      "npcId": "npc_cultist",
+      "taskId": "snake_stars",
+      "activeStates": ["Visible"],
+      "playerParamRepairs": [],
+      "playerParamMinimums": [
+        { "key": "_rel_npc_cultist", "value": 50.0 },
+        { "key": "_rel_npc_astrologer", "value": 40.0 }
+      ],
+      "taskStateMinimums": [
+        { "npcId": "npc_cultist", "taskId": "snake_necronomicon", "state": "Complete" },
+        { "npcId": "npc_cultist", "taskId": "snake_help", "state": "Visible" },
+        { "npcId": "npc_astrologer", "taskId": "astrologer_baron", "state": "Visible" },
+        { "npcId": "player", "taskId": "player_laser", "state": "Visible" }
+      ],
+      "unlockedTechs": [],
+      "unlockedPhrases": ["@snake_ritual_help"],
+      "blacklistedPhrases": ["@snake_necronomicon", "@snake_help"],
+      "unlockedCrafts": [
+        "sacrifice_builddesk:p:blood_fountain",
+        "sacrifice_builddesk:p:skeleton_crucified_on_wall",
+        "sacrifice_builddesk:p:skeleton_crucified"
+      ],
+      "completedOneTimeCrafts": [],
+      "wgoParamMinimums": [],
+      "personalItemGrants": []
+    },
+    {
+      "milestoneId": "snake_dark_church_completed",
+      "npcId": "npc_cultist",
+      "taskId": "snake_stars",
+      "activeStates": ["Complete"],
+      "playerParamRepairs": [],
+      "playerParamMinimums": [
+        { "key": "_rel_npc_cultist", "value": 60.0 },
+        { "key": "_rel_npc_astrologer", "value": 40.0 }
+      ],
+      "taskStateMinimums": [
+        { "npcId": "npc_cultist", "taskId": "snake_necronomicon", "state": "Complete" },
+        { "npcId": "npc_cultist", "taskId": "snake_help", "state": "Visible" },
+        { "npcId": "npc_cultist", "taskId": "snake_sword", "state": "Visible" },
+        { "npcId": "npc_astrologer", "taskId": "astrologer_baron", "state": "Visible" },
+        { "npcId": "player", "taskId": "player_laser", "state": "Visible" }
+      ],
+      "unlockedTechs": [],
+      "unlockedPhrases": ["@snake_ritual_help"],
+      "blacklistedPhrases": ["@snake_necronomicon", "@snake_help", "@snake_help_done"],
+      "unlockedCrafts": [
+        "sacrifice_builddesk:p:blood_fountain",
+        "sacrifice_builddesk:p:skeleton_crucified_on_wall",
+        "sacrifice_builddesk:p:skeleton_crucified"
+      ],
+      "completedOneTimeCrafts": [],
+      "wgoParamMinimums": [],
+      "personalItemGrants": []
+    },
+    {
+      "milestoneId": "snake_damask_sword_delivered",
+      "npcId": "npc_cultist",
+      "taskId": "snake_sword",
+      "activeStates": ["Complete"],
+      "playerParamRepairs": [],
+      "playerParamMinimums": [
+        { "key": "_rel_npc_cultist", "value": 70.0 },
+        { "key": "_rel_npc_astrologer", "value": 40.0 }
+      ],
+      "taskStateMinimums": [
+        { "npcId": "npc_cultist", "taskId": "snake_necronomicon", "state": "Complete" },
+        { "npcId": "npc_cultist", "taskId": "snake_help", "state": "Visible" },
+        { "npcId": "npc_cultist", "taskId": "snake_stars", "state": "Complete" },
+        { "npcId": "npc_cultist", "taskId": "snake_back", "state": "Visible" },
+        { "npcId": "npc_astrologer", "taskId": "astrologer_baron", "state": "Visible" },
+        { "npcId": "player", "taskId": "player_laser", "state": "Visible" }
+      ],
+      "unlockedTechs": [],
+      "unlockedPhrases": ["@snake_ritual_help"],
+      "blacklistedPhrases": [
+        "@snake_necronomicon",
+        "@snake_help",
+        "@snake_help_done",
+        "@snake_sword"
+      ],
+      "unlockedCrafts": [
+        "sacrifice_builddesk:p:blood_fountain",
+        "sacrifice_builddesk:p:skeleton_crucified_on_wall",
+        "sacrifice_builddesk:p:skeleton_crucified"
+      ],
+      "completedOneTimeCrafts": [],
+      "wgoParamMinimums": [],
+      "personalItemGrants": []
+    },
+    {
+      "milestoneId": "snake_return_after_immortality_demo_completed",
+      "npcId": "npc_cultist",
+      "taskId": "snake_back",
+      "activeStates": ["Complete"],
+      "playerParamRepairs": [],
+      "playerParamMinimums": [
+        { "key": "_rel_npc_cultist", "value": 70.0 },
+        { "key": "_rel_npc_astrologer", "value": 40.0 }
+      ],
+      "taskStateMinimums": [
+        { "npcId": "npc_cultist", "taskId": "snake_necronomicon", "state": "Complete" },
+        { "npcId": "npc_cultist", "taskId": "snake_help", "state": "Visible" },
+        { "npcId": "npc_cultist", "taskId": "snake_stars", "state": "Complete" },
+        { "npcId": "npc_cultist", "taskId": "snake_sword", "state": "Complete" },
+        { "npcId": "npc_astrologer", "taskId": "astrologer_baron", "state": "Visible" },
+        { "npcId": "player", "taskId": "player_laser", "state": "Visible" }
+      ],
+      "unlockedTechs": [],
+      "unlockedPhrases": ["@snake_ritual_help"],
+      "blacklistedPhrases": [
+        "@snake_necronomicon",
+        "@snake_help",
+        "@snake_help_done",
+        "@snake_sword"
+      ],
+      "unlockedCrafts": [
+        "sacrifice_builddesk:p:blood_fountain",
+        "sacrifice_builddesk:p:skeleton_crucified_on_wall",
+        "sacrifice_builddesk:p:skeleton_crucified"
+      ],
+      "completedOneTimeCrafts": [],
+      "wgoParamMinimums": [],
+      "personalItemGrants": []
+    },
+    {
+      "milestoneId": "snake_witch_hill_trap_requested",
+      "npcId": "npc_cultist",
+      "taskId": "snake_trap",
+      "activeStates": ["Visible"],
+      "playerParamRepairs": [],
+      "playerParamMinimums": [
+        { "key": "_rel_npc_cultist", "value": 70.0 },
+        { "key": "_rel_npc_astrologer", "value": 40.0 }
+      ],
+      "taskStateMinimums": [
+        { "npcId": "npc_cultist", "taskId": "snake_necronomicon", "state": "Complete" },
+        { "npcId": "npc_cultist", "taskId": "snake_help", "state": "Visible" },
+        { "npcId": "npc_cultist", "taskId": "snake_stars", "state": "Complete" },
+        { "npcId": "npc_cultist", "taskId": "snake_sword", "state": "Complete" },
+        { "npcId": "npc_cultist", "taskId": "snake_back", "state": "Complete" },
+        { "npcId": "npc_astrologer", "taskId": "astrologer_baron", "state": "Visible" },
+        { "npcId": "player", "taskId": "player_laser", "state": "Visible" }
+      ],
+      "unlockedTechs": [],
+      "unlockedPhrases": ["@snake_ritual_help"],
+      "blacklistedPhrases": [
+        "@snake_necronomicon",
+        "@snake_help",
+        "@snake_help_done",
+        "@snake_sword"
+      ],
+      "unlockedCrafts": [
+        "sacrifice_builddesk:p:blood_fountain",
+        "sacrifice_builddesk:p:skeleton_crucified_on_wall",
+        "sacrifice_builddesk:p:skeleton_crucified"
+      ],
+      "completedOneTimeCrafts": [],
+      "wgoParamMinimums": [],
+      "personalItemGrants": []
+    },
+    {
+      "milestoneId": "snake_witch_hill_trap_completed",
+      "npcId": "npc_cultist",
+      "taskId": "snake_trap",
+      "activeStates": ["Complete"],
+      "playerParamRepairs": [],
+      "playerParamMinimums": [
+        { "key": "_rel_npc_cultist", "value": 80.0 },
+        { "key": "_rel_npc_astrologer", "value": 40.0 }
+      ],
+      "taskStateMinimums": [
+        { "npcId": "npc_cultist", "taskId": "snake_necronomicon", "state": "Complete" },
+        { "npcId": "npc_cultist", "taskId": "snake_help", "state": "Visible" },
+        { "npcId": "npc_cultist", "taskId": "snake_stars", "state": "Complete" },
+        { "npcId": "npc_cultist", "taskId": "snake_sword", "state": "Complete" },
+        { "npcId": "npc_cultist", "taskId": "snake_back", "state": "Complete" },
+        { "npcId": "npc_astrologer", "taskId": "astrologer_baron", "state": "Visible" },
+        { "npcId": "player", "taskId": "player_laser", "state": "Visible" }
+      ],
+      "unlockedTechs": [],
+      "unlockedPhrases": ["@snake_ritual_help"],
+      "blacklistedPhrases": [
+        "@snake_necronomicon",
+        "@snake_help",
+        "@snake_help_done",
+        "@snake_sword"
+      ],
+      "unlockedCrafts": [
+        "sacrifice_builddesk:p:blood_fountain",
+        "sacrifice_builddesk:p:skeleton_crucified_on_wall",
+        "sacrifice_builddesk:p:skeleton_crucified"
+      ],
+      "completedOneTimeCrafts": [],
+      "wgoParamMinimums": [],
+      "personalItemGrants": []
+    },
+    {
+      "milestoneId": "snake_golden_apple_requested",
+      "npcId": "npc_cultist",
+      "taskId": "snake_aple",
+      "activeStates": ["Visible"],
+      "playerParamRepairs": [],
+      "playerParamMinimums": [
+        { "key": "_rel_npc_cultist", "value": 80.0 },
+        { "key": "_rel_npc_astrologer", "value": 40.0 }
+      ],
+      "taskStateMinimums": [
+        { "npcId": "npc_cultist", "taskId": "snake_necronomicon", "state": "Complete" },
+        { "npcId": "npc_cultist", "taskId": "snake_help", "state": "Visible" },
+        { "npcId": "npc_cultist", "taskId": "snake_stars", "state": "Complete" },
+        { "npcId": "npc_cultist", "taskId": "snake_sword", "state": "Complete" },
+        { "npcId": "npc_cultist", "taskId": "snake_back", "state": "Complete" },
+        { "npcId": "npc_cultist", "taskId": "snake_trap", "state": "Complete" },
+        { "npcId": "npc_astrologer", "taskId": "astrologer_baron", "state": "Visible" },
+        { "npcId": "player", "taskId": "player_laser", "state": "Visible" }
+      ],
+      "unlockedTechs": [],
+      "unlockedPhrases": ["@snake_ritual_help"],
+      "blacklistedPhrases": [
+        "@snake_necronomicon",
+        "@snake_help",
+        "@snake_help_done",
+        "@snake_sword",
+        "@snake_aple"
+      ],
+      "unlockedCrafts": [
+        "sacrifice_builddesk:p:blood_fountain",
+        "sacrifice_builddesk:p:skeleton_crucified_on_wall",
+        "sacrifice_builddesk:p:skeleton_crucified"
+      ],
+      "completedOneTimeCrafts": [],
+      "wgoParamMinimums": [],
+      "personalItemGrants": []
+    },
+    {
+      "milestoneId": "snake_golden_apple_delivered",
+      "npcId": "npc_cultist",
+      "taskId": "snake_aple",
+      "activeStates": ["Complete"],
+      "playerParamRepairs": [],
+      "playerParamMinimums": [
+        { "key": "_rel_npc_cultist", "value": 90.0 },
+        { "key": "_rel_npc_astrologer", "value": 40.0 }
+      ],
+      "taskStateMinimums": [
+        { "npcId": "npc_cultist", "taskId": "snake_necronomicon", "state": "Complete" },
+        { "npcId": "npc_cultist", "taskId": "snake_help", "state": "Visible" },
+        { "npcId": "npc_cultist", "taskId": "snake_stars", "state": "Complete" },
+        { "npcId": "npc_cultist", "taskId": "snake_sword", "state": "Complete" },
+        { "npcId": "npc_cultist", "taskId": "snake_back", "state": "Complete" },
+        { "npcId": "npc_cultist", "taskId": "snake_trap", "state": "Complete" },
+        { "npcId": "npc_cultist", "taskId": "snake_dark", "state": "Visible" },
+        { "npcId": "npc_astrologer", "taskId": "astrologer_baron", "state": "Visible" },
+        { "npcId": "player", "taskId": "player_laser", "state": "Visible" }
+      ],
+      "unlockedTechs": [],
+      "unlockedPhrases": ["@snake_ritual_help"],
+      "blacklistedPhrases": [
+        "@snake_necronomicon",
+        "@snake_help",
+        "@snake_help_done",
+        "@snake_sword",
+        "@snake_aple",
+        "@snake_aple_get"
+      ],
+      "unlockedCrafts": [
+        "sacrifice_builddesk:p:blood_fountain",
+        "sacrifice_builddesk:p:skeleton_crucified_on_wall",
+        "sacrifice_builddesk:p:skeleton_crucified"
+      ],
+      "completedOneTimeCrafts": [],
+      "wgoParamMinimums": [],
+      "personalItemGrants": []
+    },
+    {
+      "milestoneId": "snake_final_ritual_ready",
+      "npcId": "npc_cultist",
+      "taskId": "snake_dark",
+      "activeStates": ["Visible"],
+      "playerParamRepairs": [],
+      "playerParamMinimums": [
+        { "key": "_rel_npc_cultist", "value": 90.0 },
+        { "key": "_rel_npc_astrologer", "value": 40.0 }
+      ],
+      "taskStateMinimums": [
+        { "npcId": "npc_cultist", "taskId": "snake_necronomicon", "state": "Complete" },
+        { "npcId": "npc_cultist", "taskId": "snake_help", "state": "Visible" },
+        { "npcId": "npc_cultist", "taskId": "snake_stars", "state": "Complete" },
+        { "npcId": "npc_cultist", "taskId": "snake_sword", "state": "Complete" },
+        { "npcId": "npc_cultist", "taskId": "snake_back", "state": "Complete" },
+        { "npcId": "npc_cultist", "taskId": "snake_trap", "state": "Complete" },
+        { "npcId": "npc_cultist", "taskId": "snake_aple", "state": "Complete" },
+        { "npcId": "npc_astrologer", "taskId": "astrologer_baron", "state": "Visible" },
+        { "npcId": "player", "taskId": "player_laser", "state": "Visible" }
+      ],
+      "unlockedTechs": [],
+      "unlockedPhrases": ["@snake_ritual_help"],
+      "blacklistedPhrases": [
+        "@snake_necronomicon",
+        "@snake_help",
+        "@snake_help_done",
+        "@snake_sword",
+        "@snake_aple",
+        "@snake_aple_get"
+      ],
+      "unlockedCrafts": [
+        "sacrifice_builddesk:p:blood_fountain",
+        "sacrifice_builddesk:p:skeleton_crucified_on_wall",
+        "sacrifice_builddesk:p:skeleton_crucified"
+      ],
+      "completedOneTimeCrafts": [],
+      "wgoParamMinimums": [],
+      "personalItemGrants": []
+    },
+    {
+      "milestoneId": "snake_final_ritual_completed",
+      "npcId": "npc_cultist",
+      "taskId": "snake_dark",
+      "activeStates": ["Complete"],
+      "playerParamRepairs": [],
+      "playerParamMinimums": [
+        { "key": "_rel_npc_cultist", "value": 100.0 },
+        { "key": "_rel_npc_astrologer", "value": 40.0 }
+      ],
+      "taskStateMinimums": [
+        { "npcId": "npc_cultist", "taskId": "snake_necronomicon", "state": "Complete" },
+        { "npcId": "npc_cultist", "taskId": "snake_stars", "state": "Complete" },
+        { "npcId": "npc_cultist", "taskId": "snake_sword", "state": "Complete" },
+        { "npcId": "npc_cultist", "taskId": "snake_back", "state": "Complete" },
+        { "npcId": "npc_cultist", "taskId": "snake_trap", "state": "Complete" },
+        { "npcId": "npc_cultist", "taskId": "snake_aple", "state": "Complete" },
+        { "npcId": "npc_astrologer", "taskId": "astrologer_baron", "state": "Visible" },
+        { "npcId": "player", "taskId": "player_laser", "state": "Visible" }
+      ],
+      "unlockedTechs": [],
+      "unlockedPhrases": [],
+      "blacklistedPhrases": [
+        "@snake_necronomicon",
+        "@snake_help",
+        "@snake_help_done",
+        "@snake_sword",
+        "@snake_aple",
+        "@snake_aple_get"
+      ],
+      "unlockedCrafts": [
+        "sacrifice_builddesk:p:blood_fountain",
+        "sacrifice_builddesk:p:skeleton_crucified_on_wall",
+        "sacrifice_builddesk:p:skeleton_crucified"
+      ],
+      "completedOneTimeCrafts": [],
+      "wgoParamMinimums": [],
+      "personalItemGrants": []
+    },
+    {
+      "milestoneId": "breaking_dead_zombie_hit_requested",
+      "npcId": "zombie_in_mortuary",
+      "taskId": "zombie_hit",
+      "activeStates": ["Visible"],
+      "playerParamRepairs": [],
+      "playerParamMinimums": [],
+      "taskStateMinimums": [
+        { "npcId": "npc_cultist", "taskId": "snake_key", "state": "Complete" },
+        { "npcId": "npc_cultist", "taskId": "snake_blood", "state": "Visible" }
+      ],
+      "unlockedTechs": [],
+      "unlockedPhrases": [],
+      "blacklistedPhrases": [],
+      "unlockedCrafts": [],
+      "completedOneTimeCrafts": [],
+      "wgoParamMinimums": [
+        { "objectId": "crafting_skull_3", "key": "introduced_zombie_in_mortuary", "value": 1.0 },
+        { "objectId": "npc_cultist", "key": "introduce_zombie_from_snake", "value": 1.0 }
+      ],
+      "personalItemGrants": []
+    },
+    {
+      "milestoneId": "zombie_worker_introduction_completed",
+      "npcId": "zombie_in_mortuary",
+      "taskId": "zombie_hit",
+      "activeStates": ["Complete"],
+      "playerParamRepairs": [],
+      "playerParamMinimums": [],
+      "taskStateMinimums": [
+        { "npcId": "player", "taskId": "zombie_blueprints", "state": "Visible" }
+      ],
+      "unlockedTechs": [],
+      "unlockedPhrases": [
+        "@zombie_help_1_1",
+        "@zombie_help_2_1"
+      ],
+      "blacklistedPhrases": [],
+      "unlockedCrafts": [],
+      "completedOneTimeCrafts": [],
+      "wgoParamMinimums": [],
+      "personalItemGrants": []
+    },
+    {
+      "milestoneId": "zombie_blueprints_discovered",
+      "npcId": "player",
+      "taskId": "zombie_blueprints",
+      "activeStates": ["Complete"],
+      "playerParamRepairs": [],
+      "playerParamMinimums": [],
+      "taskStateMinimums": [
+        { "npcId": "zombie_in_mortuary", "taskId": "zombie_hit", "state": "Complete" }
+      ],
+      "unlockedTechs": [],
+      "unlockedPhrases": ["@zombie_help_1_1"],
+      "blacklistedPhrases": ["@zombie_help_2_1"],
+      "unlockedCrafts": [],
+      "completedOneTimeCrafts": [],
+      "wgoParamMinimums": [],
+      "personalItemGrants": []
+    },
+    {
+      "milestoneId": "portal_items_lead_received",
+      "npcId": "player",
+      "taskId": "player_items",
+      "activeStates": ["Visible"],
+      "playerParamRepairs": [],
+      "playerParamMinimums": [],
+      "taskStateMinimums": [],
+      "unlockedTechs": [],
+      "unlockedPhrases": ["@snake_items"],
+      "blacklistedPhrases": [],
+      "unlockedCrafts": [],
+      "completedOneTimeCrafts": [],
+      "wgoParamMinimums": [],
+      "personalItemGrants": []
+    },
+    {
+      "milestoneId": "portal_items_question_answered",
+      "npcId": "player",
+      "taskId": "player_items",
+      "activeStates": ["Complete"],
+      "playerParamRepairs": [],
+      "playerParamMinimums": [],
+      "taskStateMinimums": [],
+      "unlockedTechs": [],
+      "unlockedPhrases": [],
+      "blacklistedPhrases": ["@snake_items"],
+      "unlockedCrafts": [],
+      "completedOneTimeCrafts": [],
+      "wgoParamMinimums": [],
+      "personalItemGrants": []
+    }
+  ],
+  "cutscenes": [
+    {
+      "cutsceneId": "snake_first_cellar_meeting",
+      "linkedQuestIds": [],
+      "triggerScripts": ["npc_cultist:intro"],
+      "actors": ["initiating_player", "npc_cultist"],
+      "observerPolicy": "all_loaded_party_members",
+      "lateJoinPolicy": "join_live_checkpoint_or_observe",
+      "remoteExecutionPolicy": "live_observation",
+      "executionOwnerPolicy": "any_player",
+      "dialogueOwnerPolicy": "initiating_player",
+      "formationPolicy": "initiator_with_observer_follow",
+      "cleanupRequirements": [
+        "restore_player_control",
+        "preserve_snake_schedule",
+        "finalize_met_cultist",
+        "close_letterbox"
+      ]
+    },
+    {
+      "cutsceneId": "snake_opens_dungeon_gate",
+      "linkedQuestIds": ["player_die_after_in_cultist_quest"],
+      "triggerScripts": [
+        "npc_cultist:morgue_quest",
+        "npc_cultist:open_gate"
+      ],
+      "actors": [
+        "initiating_player",
+        "npc_cultist",
+        "grille_closed_quest",
+        "table_cultist_quest",
+        "floor_grid_fire"
+      ],
+      "observerPolicy": "all_loaded_party_members",
+      "lateJoinPolicy": "join_live_checkpoint_or_observe",
+      "remoteExecutionPolicy": "live_observation",
+      "executionOwnerPolicy": "any_player",
+      "dialogueOwnerPolicy": "initiating_player",
+      "formationPolicy": "initiator_with_observer_follow",
+      "completionChecks": [
+        {
+          "source": "player_param",
+          "key": "gate_in_morgue_is_open",
+          "comparison": ">=",
+          "value": 1.0
+        }
+      ],
+      "cleanupRequirements": [
+        "change_dungeon_grille_once",
+        "enable_diary_table_interaction_once",
+        "preserve_gate_in_morgue_is_open",
+        "hand_off_to_first_ritual_death",
+        "do_not_restore_initiator_control_before_death_sequence",
+        "close_letterbox"
+      ]
+    },
+    {
+      "cutsceneId": "snake_first_ritual_death",
+      "linkedQuestIds": ["player_die_after_in_cultist_quest"],
+      "triggerScripts": ["npc_cultist:player_cutscene_death"],
+      "actors": ["initiating_player", "npc_cultist", "floor_grid_fire"],
+      "observerPolicy": "all_loaded_party_members",
+      "lateJoinPolicy": "join_live_checkpoint_or_observe",
+      "remoteExecutionPolicy": "live_observation",
+      "executionOwnerPolicy": "any_player",
+      "dialogueOwnerPolicy": "initiating_player",
+      "formationPolicy": "initiator_with_observer_follow",
+      "cleanupRequirements": [
+        "apply_forced_death_to_initiator_only",
+        "enable_cultist_respawn_point_for_initiator_only",
+        "never_apply_lethal_or_respawn_effects_to_observers",
+        "restore_observer_control_and_camera",
+        "preserve_cultist_quest_enabled_until_return_checkpoint",
+        "allow_initiating_player_respawn",
+        "close_letterbox"
+      ]
+    },
+    {
+      "cutsceneId": "snake_return_after_forced_death",
+      "linkedQuestIds": ["player_die_after_in_cultist_quest"],
+      "triggerScripts": ["npc_cultist:player_back_to_cultist"],
+      "actors": ["initiating_player", "npc_cultist"],
+      "observerPolicy": "all_loaded_party_members",
+      "lateJoinPolicy": "join_live_checkpoint_or_observe",
+      "remoteExecutionPolicy": "live_observation",
+      "executionOwnerPolicy": "any_player",
+      "dialogueOwnerPolicy": "initiating_player",
+      "formationPolicy": "initiator_with_observer_follow",
+      "cleanupRequirements": [
+        "clear_cultist_quest_enabled",
+        "restore_player_control",
+        "restore_camera",
+        "finalize_snake_blood_task_state",
+        "close_letterbox"
+      ]
+    },
+    {
+      "cutsceneId": "snake_first_dungeon_errand_complete",
+      "linkedQuestIds": [],
+      "triggerScripts": ["npc_cultist:snake_all_tasks"],
+      "actors": ["initiating_player", "npc_cultist"],
+      "observerPolicy": "all_loaded_party_members",
+      "lateJoinPolicy": "join_live_checkpoint_or_observe",
+      "remoteExecutionPolicy": "live_observation",
+      "executionOwnerPolicy": "any_player",
+      "dialogueOwnerPolicy": "initiating_player",
+      "formationPolicy": "initiator_with_observer_follow",
+      "cleanupRequirements": [
+        "restore_player_control",
+        "restore_camera",
+        "restore_temporary_gd_points",
+        "finalize_snake_necronomicon_task_state",
+        "close_letterbox"
+      ]
+    },
+    {
+      "cutsceneId": "astrologer_second_diary_revelation",
+      "linkedQuestIds": [],
+      "triggerScripts": ["npc_astrologer:astrologer_second_diary"],
+      "actors": ["initiating_player", "npc_astrologer"],
+      "observerPolicy": "all_loaded_party_members",
+      "lateJoinPolicy": "join_live_checkpoint_or_observe",
+      "remoteExecutionPolicy": "live_observation",
+      "executionOwnerPolicy": "any_player",
+      "dialogueOwnerPolicy": "initiating_player",
+      "formationPolicy": "initiator_with_observer_follow",
+      "cleanupRequirements": [
+        "run_only_after_the_second_distinct_acid_or_tools_handin",
+        "never_increment_player_both_acid_and_tools_for_observers",
+        "never_replay_acid_or_tools_inventory_consumption",
+        "finalize_astrologer_baron_visible_once",
+        "return_only_the_initiator_to_astrologer_dialogue",
+        "restore_observer_control_and_camera",
+        "close_letterbox"
+      ]
+    },
+    {
+      "cutsceneId": "snake_necronomicon_handoff",
+      "linkedQuestIds": [],
+      "triggerScripts": ["npc_cultist:@snake_necronomicon"],
+      "actors": ["initiating_player", "npc_cultist"],
+      "observerPolicy": "all_loaded_party_members",
+      "lateJoinPolicy": "join_live_checkpoint_or_observe",
+      "remoteExecutionPolicy": "live_observation",
+      "executionOwnerPolicy": "any_player",
+      "dialogueOwnerPolicy": "initiating_player",
+      "formationPolicy": "initiator_with_observer_follow",
+      "cleanupRequirements": [
+        "consume_necronomicon_from_initiator_only",
+        "apply_snake_relation_reward_once",
+        "apply_five_silver_story_points_once",
+        "check_necronomicon_key_for_initiator_once",
+        "finalize_snake_necronomicon_complete_once",
+        "finalize_snake_help_visible_once",
+        "return_only_the_initiator_to_snake_dialogue",
+        "restore_observer_control_and_camera",
+        "close_letterbox"
+      ]
+    },
+    {
+      "cutsceneId": "snake_first_ritual_help_briefing",
+      "linkedQuestIds": [],
+      "triggerScripts": ["npc_cultist:@snake_help"],
+      "actors": ["initiating_player", "npc_cultist"],
+      "observerPolicy": "all_loaded_party_members",
+      "lateJoinPolicy": "join_live_checkpoint_or_observe",
+      "remoteExecutionPolicy": "live_observation",
+      "executionOwnerPolicy": "any_player",
+      "dialogueOwnerPolicy": "initiating_player",
+      "formationPolicy": "initiator_with_observer_follow",
+      "cleanupRequirements": [
+        "finalize_snake_stars_visible_once",
+        "unlock_three_ritual_room_crafts_once",
+        "never_complete_snake_help",
+        "never_replay_briefing_for_observers",
+        "return_only_the_initiator_to_snake_dialogue",
+        "restore_observer_control_and_camera",
+        "close_letterbox"
+      ]
+    },
+    {
+      "cutsceneId": "snake_dark_church_quality_handoff",
+      "linkedQuestIds": [],
+      "triggerScripts": ["npc_cultist:@snake_help_done"],
+      "actors": ["initiating_player", "npc_cultist"],
+      "observerPolicy": "all_loaded_party_members",
+      "lateJoinPolicy": "join_live_checkpoint_or_observe",
+      "remoteExecutionPolicy": "live_observation",
+      "executionOwnerPolicy": "any_player",
+      "dialogueOwnerPolicy": "initiating_player",
+      "formationPolicy": "initiator_with_observer_follow",
+      "cleanupRequirements": [
+        "require_sacrifice_quality_at_least_20",
+        "apply_snake_relation_reward_once",
+        "apply_five_gold_story_points_once",
+        "check_satans_will_for_initiator_once",
+        "finalize_snake_stars_complete_once",
+        "finalize_snake_sword_visible_once",
+        "never_restore_sacrifice_quality_from_completed_task",
+        "never_durably_reunlock_snake_sword_from_its_visible_task",
+        "restore_observer_control_and_camera",
+        "close_letterbox"
+      ]
+    },
+    {
+      "cutsceneId": "snake_damask_sword_immortality_demo",
+      "linkedQuestIds": [],
+      "triggerScripts": ["npc_cultist:@snake_sword"],
+      "actors": ["initiating_player", "npc_cultist", "npc_cultist_follower"],
+      "observerPolicy": "all_loaded_party_members",
+      "lateJoinPolicy": "join_live_checkpoint_or_observe",
+      "remoteExecutionPolicy": "live_observation",
+      "executionOwnerPolicy": "any_player",
+      "dialogueOwnerPolicy": "initiating_player",
+      "formationPolicy": "initiator_with_observer_follow",
+      "cleanupRequirements": [
+        "consume_one_sword_damask_gem_from_initiator_only",
+        "apply_snake_relation_reward_once",
+        "apply_five_bronze_and_five_silver_story_points_once",
+        "spawn_four_cultist_followers_once_with_tags_1_through_4",
+        "finalize_snake_sword_complete_once",
+        "finalize_snake_back_visible_once",
+        "apply_500_damage_to_initiator_only",
+        "set_player_death_after_cultist_ritual_for_initiator_only",
+        "never_apply_lethal_or_resurrection_state_to_observers",
+        "do_not_register_generic_player_ressurection_as_a_catalog_cutscene",
+        "restore_observer_control_and_camera",
+        "close_letterbox"
+      ]
+    },
+    {
+      "cutsceneId": "snake_return_after_ritual_death",
+      "linkedQuestIds": [],
+      "triggerScripts": ["npc_cultist:on_back_to_snake_after_ritual"],
+      "actors": ["initiating_player", "npc_cultist", "npc_cultist_follower"],
+      "observerPolicy": "all_loaded_party_members",
+      "lateJoinPolicy": "join_live_checkpoint_or_observe",
+      "remoteExecutionPolicy": "live_observation",
+      "executionOwnerPolicy": "any_player",
+      "dialogueOwnerPolicy": "initiating_player",
+      "formationPolicy": "initiator_with_observer_follow",
+      "cleanupRequirements": [
+        "finalize_snake_back_complete_once",
+        "apply_five_bronze_story_points_once",
+        "despawn_four_cultist_followers_once",
+        "clear_player_death_after_cultist_ritual_for_initiator",
+        "clear_on_back_to_snake_after_ritual_for_initiator",
+        "schedule_one_post_ritual_sleep_visit",
+        "never_repair_came_cultist_to_players_home_from_completed_task",
+        "restore_every_loaded_player_control_and_camera",
+        "close_letterbox"
+      ]
+    },
+    {
+      "cutsceneId": "snake_post_ritual_sleep_visit",
+      "linkedQuestIds": [],
+      "triggerScripts": ["snake_come_after_player_sleep"],
+      "actors": ["initiating_player", "npc_cultist"],
+      "observerPolicy": "all_loaded_party_members",
+      "lateJoinPolicy": "join_live_checkpoint_or_observe",
+      "remoteExecutionPolicy": "live_observation",
+      "executionOwnerPolicy": "any_player",
+      "dialogueOwnerPolicy": "initiating_player",
+      "formationPolicy": "initiator_with_observer_follow",
+      "cleanupRequirements": [
+        "start_only_after_the_shared_sleep_commit",
+        "keep_other_sleeping_party_members_gated_until_the_visit_finishes",
+        "clear_came_cultist_to_players_home_once",
+        "finalize_snake_trap_visible_once",
+        "move_snake_to_witch_hill_once",
+        "never_repair_cur_multianswer_state_or_on_the_way_now",
+        "restore_every_loaded_player_control_and_camera",
+        "close_letterbox"
+      ]
+    },
+    {
+      "cutsceneId": "snake_witch_hill_hunter_trap",
+      "linkedQuestIds": [],
+      "triggerScripts": ["npc_cultist:snake_stone_ready"],
+      "actors": ["initiating_player", "npc_cultist", "npc_herald", "falling_rock"],
+      "observerPolicy": "all_loaded_party_members",
+      "lateJoinPolicy": "join_live_checkpoint_or_observe",
+      "remoteExecutionPolicy": "live_observation",
+      "executionOwnerPolicy": "any_player",
+      "dialogueOwnerPolicy": "initiating_player",
+      "formationPolicy": "initiator_with_observer_follow",
+      "cleanupRequirements": [
+        "consume_one_wooden_plank_from_initiator_only",
+        "apply_snake_relation_reward_once",
+        "run_four_vanilla_wait_day_phases_on_the_canonical_world_only",
+        "run_lock_donkey_coming_once",
+        "spawn_and_destroy_npc_herald_once",
+        "spawn_falling_rock_once",
+        "replace_lying_rock_once",
+        "check_witchers_death_for_initiator_once",
+        "finalize_snake_trap_complete_once",
+        "apply_five_silver_and_five_gold_story_points_once",
+        "never_grant_hunters_medallion_from_task_completion",
+        "never_repair_plank_done_or_donkey_coming_locked",
+        "restore_every_loaded_player_control_and_camera",
+        "close_letterbox"
+      ]
+    },
+    {
+      "cutsceneId": "snake_golden_apple_briefing",
+      "linkedQuestIds": [],
+      "triggerScripts": ["npc_cultist:@snake_aple"],
+      "actors": ["initiating_player", "npc_cultist"],
+      "observerPolicy": "all_loaded_party_members",
+      "lateJoinPolicy": "join_live_checkpoint_or_observe",
+      "remoteExecutionPolicy": "live_observation",
+      "executionOwnerPolicy": "any_player",
+      "dialogueOwnerPolicy": "initiating_player",
+      "formationPolicy": "initiator_with_observer_follow",
+      "cleanupRequirements": [
+        "finalize_snake_aple_visible_once",
+        "never_durably_reunlock_snake_aple_get_from_visible_task",
+        "return_only_the_initiator_to_snake_dialogue",
+        "restore_observer_control_and_camera",
+        "close_letterbox"
+      ]
+    },
+    {
+      "cutsceneId": "snake_golden_apple_handoff",
+      "linkedQuestIds": [],
+      "triggerScripts": ["npc_cultist:@snake_aple_get"],
+      "actors": ["initiating_player", "npc_cultist"],
+      "observerPolicy": "all_loaded_party_members",
+      "lateJoinPolicy": "join_live_checkpoint_or_observe",
+      "remoteExecutionPolicy": "live_observation",
+      "executionOwnerPolicy": "any_player",
+      "dialogueOwnerPolicy": "initiating_player",
+      "formationPolicy": "initiator_with_observer_follow",
+      "cleanupRequirements": [
+        "consume_one_golden_apple_from_initiator_only",
+        "apply_snake_relation_plus_10_once",
+        "finalize_snake_aple_complete_once",
+        "apply_five_gold_story_points_once",
+        "drop_107_bronze_to_initiator_only_when_snake_aple_get_3a_is_selected",
+        "finalize_snake_dark_visible_once",
+        "unlock_snake_final_ritual_once",
+        "never_grant_a_dark_heart_from_task_state",
+        "return_only_the_initiator_to_snake_dialogue",
+        "restore_observer_control_and_camera",
+        "close_letterbox"
+      ]
+    },
+    {
+      "cutsceneId": "snake_and_inquisitor_final_ritual",
+      "linkedQuestIds": ["hidden_imyourfather"],
+      "triggerScripts": ["final_ritual"],
+      "actors": [
+        "initiating_player",
+        "npc_cultist",
+        "talking_skull",
+        "npc_cultist_follower",
+        "npc_inquisitor",
+        "npc_guard_3",
+        "npc_guard_4"
+      ],
+      "observerPolicy": "all_loaded_party_members",
+      "lateJoinPolicy": "join_live_checkpoint_or_observe",
+      "remoteExecutionPolicy": "live_observation",
+      "executionOwnerPolicy": "any_player",
+      "dialogueOwnerPolicy": "initiating_player",
+      "formationPolicy": "initiator_with_observer_follow",
+      "cleanupRequirements": [
+        "consume_one_dark_heart_from_initiator_only",
+        "apply_snake_relation_plus_10_once",
+        "blacklist_snake_final_ritual_once_after_the_script_returns",
+        "finalize_snake_dark_complete_once_with_five_gold_story_points",
+        "finalize_snake_help_complete_once_with_five_silver_and_five_gold_story_points",
+        "spawn_and_remove_one_talking_skull_and_four_cultist_followers",
+        "stage_and_return_the_inquisitor_and_two_guards_once",
+        "check_snk_inqstr_together_once",
+        "drop_one_endless_book_to_the_initiator_only",
+        "apply_inquisitor_relation_plus_10_once",
+        "drop_one_eternal_burning_coil_to_the_initiator_only",
+        "never_drop_ritual_artifact_copies_for_observers_or_reconnects",
+        "set_final_snake_spawn_lock_only_at_vanilla_cleanup",
+        "blacklist_snake_and_inquisitor_magic_100_topics_once",
+        "restore_every_loaded_player_control_camera_weather_music_and_location",
+        "close_letterbox"
+      ]
+    },
+    {
+      "cutsceneId": "breaking_dead_gerry_zombie_notice",
+      "linkedQuestIds": [],
+      "triggerScripts": ["crafting_skull_3:introduce_the_zombie"],
+      "actors": ["initiating_player", "crafting_skull_3"],
+      "observerPolicy": "all_loaded_party_members",
+      "lateJoinPolicy": "join_live_checkpoint_or_observe",
+      "remoteExecutionPolicy": "live_observation",
+      "executionOwnerPolicy": "any_player",
+      "dialogueOwnerPolicy": "initiating_player",
+      "formationPolicy": "initiator_with_observer_follow",
+      "cleanupRequirements": [
+        "require_BreakingDead_day_greater_than_20_and_all_earlier_mortuary_Gerry_branches_to_be_clear",
+        "present_skull_zombie_1_through_skull_zombie_7_in_serialized_order",
+        "set_crafting_skull_3_introduced_zombie_in_mortuary_once",
+        "arm_need_to_introduce_zombie_in_mortuary_only_for_the_live_Snake_handoff",
+        "never_repair_the_consumed_need_to_introduce_zombie_in_mortuary_latch",
+        "restore_player_control_and_return_to_normal_Gerry_interaction"
+      ]
+    },
+    {
+      "cutsceneId": "breaking_dead_gunter_reveal",
+      "linkedQuestIds": ["player_die_after_in_cultist_quest"],
+      "triggerScripts": ["zombie_in_mortuary"],
+      "actors": [
+        "initiating_player",
+        "npc_cultist",
+        "zombie_in_mortuary",
+        "dungeon_grille_236"
+      ],
+      "observerPolicy": "all_loaded_party_members",
+      "lateJoinPolicy": "join_live_checkpoint_or_observe",
+      "remoteExecutionPolicy": "live_observation",
+      "executionOwnerPolicy": "any_player",
+      "dialogueOwnerPolicy": "initiating_player",
+      "formationPolicy": "initiator_with_observer_follow",
+      "cleanupRequirements": [
+        "bind_cutscene_ownership_only_to_the_nested_zombie_in_mortuary_script",
+        "preserve_the_Snake_handoff_dialogue_then_the_zombie_intro_dialogue_order",
+        "replace_dungeon_grille_236_with_dungeon_grille_opened_once",
+        "show_zombie_in_mortuary_zombie_hit_before_setting_zombie_asked_to_hit_him",
+        "never_register_npc_cultist_start_talk_2_or_zombie_in_mortuary_on_damage_zombie_as_duplicate_cutscene_owners",
+        "never_repair_need_to_introduce_zombie_in_mortuary_or_zombie_asked_to_hit_him_from_later_task_state",
+        "restore_player_control_on_every_exit"
+      ]
+    },
+    {
+      "cutsceneId": "zombie_worker_first_interview",
+      "linkedQuestIds": [],
+      "triggerScripts": ["zombie_after_hit_sword_cutscene"],
+      "actors": ["initiating_player", "zombie_in_mortuary"],
+      "observerPolicy": "all_loaded_party_members",
+      "lateJoinPolicy": "join_live_checkpoint_or_observe",
+      "remoteExecutionPolicy": "live_observation",
+      "executionOwnerPolicy": "any_player",
+      "dialogueOwnerPolicy": "initiating_player",
+      "formationPolicy": "initiator_with_observer_follow",
+      "cleanupRequirements": [
+        "run_one_authoritative_six_topic_zombie_interview_for_all_observers",
+        "unlock_zombie_help_1_1_and_zombie_help_2_1_once",
+        "arm_the_bookcase_show_tech_and_blockage_info_interactions_only_in_the_live_script",
+        "show_player_zombie_blueprints_once",
+        "never_register_zombie_in_mortuary_on_damage_zombie_as_a_second_cutscene_owner",
+        "never_repair_the_first_hit_or_interview_counter_latches",
+        "delegate_the_optional_DLC_zombie_greeter_branch_to_the_Stranger_Sins_tavern_operations_catalog",
+        "restore_player_control",
+        "close_letterbox"
+      ]
+    },
+    {
+      "cutsceneId": "zombie_blockage_discovery",
+      "linkedQuestIds": [],
+      "triggerScripts": ["steep_yellow_blockage_R_o:found_steep"],
+      "actors": ["initiating_player", "steep_yellow_blockage_R_o"],
+      "observerPolicy": "all_loaded_party_members",
+      "lateJoinPolicy": "join_live_checkpoint_or_observe",
+      "remoteExecutionPolicy": "live_observation",
+      "executionOwnerPolicy": "any_player",
+      "dialogueOwnerPolicy": "initiating_player",
+      "formationPolicy": "initiator_with_observer_follow",
+      "cleanupRequirements": [
+        "start_find_zombie_in_steep_once_only_during_the_live_discovery",
+        "complete_player_zombie_blueprints_once",
+        "blacklist_zombie_help_2_1_once",
+        "never_replay_the_one_time_world_craft_from_completed_task_state",
+        "never_repair_zombie_was_found_or_the_registered_interaction_event",
+        "restore_player_control",
+        "close_letterbox"
+      ]
+    },
+    {
+      "cutsceneId": "breaking_dead_second_chance_reveal",
+      "linkedQuestIds": [],
+      "triggerScripts": ["bookcase_F_broken_custom_zombie:show_tech"],
+      "actors": ["initiating_player", "bookcase_F_broken_custom_zombie"],
+      "observerPolicy": "all_loaded_party_members",
+      "lateJoinPolicy": "join_live_checkpoint_or_observe",
+      "remoteExecutionPolicy": "live_observation",
+      "executionOwnerPolicy": "any_player",
+      "dialogueOwnerPolicy": "initiating_player",
+      "formationPolicy": "initiator_with_observer_follow",
+      "cleanupRequirements": [
+        "run_only_from_the_bookcase_interaction_armed_by_Gunters_first_interview",
+        "reveal_Second_chance_once_without_forcing_a_technology_unlock",
+        "show_the_non_silent_reveal_popup_to_the_initiator",
+        "treat_repeat_interaction_and_late_join_reconciliation_as_idempotent",
+        "do_not_replay_Gunters_interview_to_restore_the_bookcase_event"
+      ]
+    },
+    {
+      "cutsceneId": "breaking_dead_first_worker_recovery",
+      "linkedQuestIds": [],
+      "triggerScripts": ["on_craft_finished_steep_yellow_bl_R"],
+      "actors": [
+        "initiating_player",
+        "steep_yellow_blockage_R_o",
+        "worker_zombie_1"
+      ],
+      "observerPolicy": "all_loaded_party_members",
+      "lateJoinPolicy": "join_live_checkpoint_or_observe",
+      "remoteExecutionPolicy": "live_observation",
+      "executionOwnerPolicy": "any_player",
+      "dialogueOwnerPolicy": "initiating_player",
+      "formationPolicy": "initiator_with_observer_follow",
+      "cleanupRequirements": [
+        "spawn_one_worker_zombie_1_at_default_destroy_point_and_set_is_disabled_before_transforming_it",
+        "transform_the_same_worker_identity_to_working_zombie_on_ground_1",
+        "drop_the_returned_worker_item_once_at_steep_yellow_blockage_R_o_toward_the_initiator",
+        "reveal_the_ten_serialized_zombie_technologies_without_forcing_any_unlock",
+        "on_transform_failure_log_the_fatal_error_without_dropping_a_worker_or_revealing_technologies",
+        "never_fan_out_duplicate_workers_items_or_technology_popups_for_observers"
+      ]
+    },
+    {
+      "cutsceneId": "gerry_post_lightning_portal_items_lead",
+      "linkedQuestIds": [],
+      "triggerScripts": ["gerry_comes_after_lightning_strike"],
+      "actors": ["initiating_player", "talking_skull"],
+      "observerPolicy": "all_loaded_party_members",
+      "lateJoinPolicy": "join_live_checkpoint_or_observe",
+      "remoteExecutionPolicy": "live_observation",
+      "executionOwnerPolicy": "any_player",
+      "dialogueOwnerPolicy": "initiating_player",
+      "formationPolicy": "initiator_with_observer_follow",
+      "cleanupRequirements": [
+        "stage_and_return_one_talking_skull_during_the_live_script",
+        "show_player_items_once",
+        "unlock_snake_items_once",
+        "clear_dead_after_lightning_only_when_the_live_script_reaches_vanilla_cleanup",
+        "close_the_village_turnpike_only_during_the_live_script",
+        "do_not_register_generic_player_ressurection_as_a_catalog_cutscene",
+        "never_repair_the_death_or_world_event_latches_from_player_items_state",
+        "restore_player_control",
+        "close_letterbox"
+      ]
+    },
+    {
+      "cutsceneId": "snake_portal_items_question",
+      "linkedQuestIds": [],
+      "triggerScripts": ["npc_cultist:@snake_items"],
+      "actors": ["initiating_player", "npc_cultist"],
+      "observerPolicy": "all_loaded_party_members",
+      "lateJoinPolicy": "join_live_checkpoint_or_observe",
+      "remoteExecutionPolicy": "live_observation",
+      "executionOwnerPolicy": "any_player",
+      "dialogueOwnerPolicy": "initiating_player",
+      "formationPolicy": "initiator_with_observer_follow",
+      "cleanupRequirements": [
+        "blacklist_snake_items_once",
+        "complete_player_items_with_five_bronze_story_points_for_the_initiator_once",
+        "unlock_snake_items_give_once",
+        "never_regrant_story_points_from_completed_task_state",
+        "restore_player_control",
+        "close_letterbox"
+      ]
+    },
+    {
+      "cutsceneId": "snake_magic_item_contacts_revealed",
+      "linkedQuestIds": [],
+      "triggerScripts": ["npc_cultist:@snake_items_give"],
+      "actors": ["initiating_player", "npc_cultist"],
+      "observerPolicy": "all_loaded_party_members",
+      "lateJoinPolicy": "join_live_checkpoint_or_observe",
+      "remoteExecutionPolicy": "live_observation",
+      "executionOwnerPolicy": "any_player",
+      "dialogueOwnerPolicy": "initiating_player",
+      "formationPolicy": "initiator_with_observer_follow",
+      "cleanupRequirements": [
+        "blacklist_snake_items_give_once",
+        "unlock_merchant_magic_item_once",
+        "unlock_inquisitor_magic_item_once",
+        "unlock_bishop_magic_item_once",
+        "never_infer_this_second_dialogue_from_player_items_complete_alone",
+        "do_not_unlock_any_magic_100_topic_at_this_stage",
+        "restore_player_control",
+        "close_letterbox"
+      ]
+    },
+    {
+      "cutsceneId": "astrologer_portal_artifact_origins",
+      "linkedQuestIds": [],
+      "triggerScripts": ["npc_astrologer:@astrologer_items"],
+      "actors": ["initiating_player", "npc_astrologer"],
+      "observerPolicy": "all_loaded_party_members",
+      "lateJoinPolicy": "join_live_checkpoint_or_observe",
+      "remoteExecutionPolicy": "live_observation",
+      "executionOwnerPolicy": "any_player",
+      "dialogueOwnerPolicy": "initiating_player",
+      "formationPolicy": "initiator_with_observer_follow",
+      "cleanupRequirements": [
+        "require_astrologer_relation_60_before_the_topic_is_selectable",
+        "blacklist_astrologer_items_once",
+        "do_not_change_tasks_relations_story_points_or_inventory",
+        "leave_necklace_and_sextant_allocation_to_archaeological_excavations",
+        "restore_player_control",
+        "close_letterbox"
+      ]
+    },
+    {
+      "cutsceneId": "snake_endless_notebook_promise",
+      "linkedQuestIds": [],
+      "triggerScripts": ["npc_cultist:@snake_magic_item"],
+      "actors": ["initiating_player", "npc_cultist"],
+      "observerPolicy": "all_loaded_party_members",
+      "lateJoinPolicy": "join_live_checkpoint_or_observe",
+      "remoteExecutionPolicy": "live_observation",
+      "executionOwnerPolicy": "any_player",
+      "dialogueOwnerPolicy": "initiating_player",
+      "formationPolicy": "initiator_with_observer_follow",
+      "cleanupRequirements": [
+        "blacklist_snake_magic_item_once",
+        "unlock_snake_magic_100_once",
+        "do_not_change_tasks_relations_story_points_or_inventory",
+        "leave_endless_book_allocation_and_snake_magic_100_blacklisting_to_final_ritual",
+        "restore_player_control",
+        "close_letterbox"
+      ]
+    },
+    {
+      "cutsceneId": "merchant_salty_fork_promise",
+      "linkedQuestIds": [],
+      "triggerScripts": ["npc_merchant:@merchant_magic_item"],
+      "actors": ["initiating_player", "npc_merchant"],
+      "observerPolicy": "all_loaded_party_members",
+      "lateJoinPolicy": "join_live_checkpoint_or_observe",
+      "remoteExecutionPolicy": "live_observation",
+      "executionOwnerPolicy": "any_player",
+      "dialogueOwnerPolicy": "initiating_player",
+      "formationPolicy": "initiator_with_observer_follow",
+      "cleanupRequirements": [
+        "blacklist_merchant_magic_item_once",
+        "unlock_merchant_magic_100_once",
+        "do_not_change_tasks_relations_story_points_or_inventory",
+        "leave_fork_salty_allocation_and_merchant_magic_100_blacklisting_to_final_ceremony",
+        "restore_player_control",
+        "close_letterbox"
+      ]
+    },
+    {
+      "cutsceneId": "inquisitor_eternal_burning_coal_promise",
+      "linkedQuestIds": [],
+      "triggerScripts": ["npc_inquisitor:@inquisitor_magic_item"],
+      "actors": ["initiating_player", "npc_inquisitor"],
+      "observerPolicy": "all_loaded_party_members",
+      "lateJoinPolicy": "join_live_checkpoint_or_observe",
+      "remoteExecutionPolicy": "live_observation",
+      "executionOwnerPolicy": "any_player",
+      "dialogueOwnerPolicy": "initiating_player",
+      "formationPolicy": "initiator_with_observer_follow",
+      "cleanupRequirements": [
+        "blacklist_inquisitor_magic_item_once",
+        "unlock_inquisitor_magic_100_once",
+        "do_not_change_tasks_relations_story_points_or_inventory",
+        "leave_eternal_burning_coil_allocation_and_inquisitor_magic_100_blacklisting_to_final_ritual",
+        "restore_player_control",
+        "close_letterbox"
+      ]
+    },
+    {
+      "cutsceneId": "bishop_mirror_of_pride_promise",
+      "linkedQuestIds": [],
+      "triggerScripts": ["npc_bishop:@bishop_magic_item"],
+      "actors": ["initiating_player", "npc_bishop"],
+      "observerPolicy": "all_loaded_party_members",
+      "lateJoinPolicy": "join_live_checkpoint_or_observe",
+      "remoteExecutionPolicy": "live_observation",
+      "executionOwnerPolicy": "any_player",
+      "dialogueOwnerPolicy": "initiating_player",
+      "formationPolicy": "initiator_with_observer_follow",
+      "cleanupRequirements": [
+        "blacklist_bishop_magic_item_once",
+        "unlock_bishop_magic_100_once",
+        "do_not_change_tasks_relations_story_points_or_inventory",
+        "leave_mirror_of_pride_allocation_and_bishop_magic_100_blacklisting_to_final_ceremony",
+        "restore_player_control",
+        "close_letterbox"
+      ]
+    },
+    {
+      "cutsceneId": "snake_illicit_business_offer",
+      "linkedQuestIds": [],
+      "triggerScripts": ["npc_cultist:@snake_buisnes"],
+      "actors": ["initiating_player", "npc_cultist"],
+      "observerPolicy": "all_loaded_party_members",
+      "lateJoinPolicy": "join_live_checkpoint_or_observe",
+      "remoteExecutionPolicy": "live_observation",
+      "executionOwnerPolicy": "any_player",
+      "dialogueOwnerPolicy": "initiating_player",
+      "formationPolicy": "initiator_with_observer_follow",
+      "cleanupRequirements": [
+        "unlock_snake_meat_1_only_if_got_stamp_is_zero",
+        "unlock_snake_pass_1_only_if_got_town_pass_is_zero",
+        "blacklist_snake_buisnes_once_after_both_flag_checks",
+        "do_not_grant_stamp_or_town_pass_from_the_business_conversation",
+        "never_repair_either_conditional_offer_from_a_later_task_state",
+        "restore_player_control",
+        "close_letterbox"
+      ]
+    },
+    {
+      "cutsceneId": "snake_deep_dungeon_warning",
+      "linkedQuestIds": [],
+      "triggerScripts": ["npc_cultist:@snake_10th"],
+      "actors": ["initiating_player", "npc_cultist"],
+      "observerPolicy": "all_loaded_party_members",
+      "lateJoinPolicy": "join_live_checkpoint_or_observe",
+      "remoteExecutionPolicy": "live_observation",
+      "executionOwnerPolicy": "any_player",
+      "dialogueOwnerPolicy": "initiating_player",
+      "formationPolicy": "initiator_with_observer_follow",
+      "cleanupRequirements": [
+        "blacklist_snake_10th_once",
+        "include_snake_10th_1_only_when_snake_relation_is_at_least_80",
+        "always_finish_with_snake_10th_2_and_snake_10th_3",
+        "do_not_change_tasks_relations_story_points_or_inventory",
+        "never_rearm_the_topic_from_dungeon_access_or_relation_state",
+        "restore_player_control",
+        "close_letterbox"
+      ]
+    },
+    {
+      "cutsceneId": "snake_first_cellar_visit",
+      "linkedQuestIds": [],
+      "triggerScripts": ["player_first_visiting_cellar"],
+      "actors": ["initiating_player", "npc_cultist"],
+      "observerPolicy": "all_loaded_party_members",
+      "lateJoinPolicy": "join_live_checkpoint_or_observe",
+      "remoteExecutionPolicy": "live_observation",
+      "executionOwnerPolicy": "any_player",
+      "dialogueOwnerPolicy": "initiating_player",
+      "formationPolicy": "initiator_with_observer_follow",
+      "cleanupRequirements": [
+        "run_only_while_not_first_cellar_visit_is_zero",
+        "set_not_first_cellar_visit_and_everyday_cultist_come_only_in_the_live_script",
+        "arm_npc_cultist_intro_without_executing_or_claiming_that_separate_cutscene",
+        "stage_snake_and_finish_his_going_home_route_once",
+        "never_repair_schedule_interaction_or_on_the_way_latches_from_later_story_state",
+        "restore_player_control_and_camera",
+        "close_letterbox"
+      ]
+    },
+    {
+      "cutsceneId": "dungeon_level_ten_grille_encounter",
+      "linkedQuestIds": [],
+      "triggerScripts": ["dungeon_lvl10_grille"],
+      "actors": ["initiating_player", "dungeon_lvl10_grille"],
+      "observerPolicy": "all_loaded_party_members",
+      "lateJoinPolicy": "join_live_checkpoint_or_observe",
+      "remoteExecutionPolicy": "live_observation",
+      "executionOwnerPolicy": "any_player",
+      "dialogueOwnerPolicy": "initiating_player",
+      "formationPolicy": "initiator_with_observer_follow",
+      "cleanupRequirements": [
+        "evaluate_hunters_medallion_once_at_the_live_grille_encounter",
+        "with_the_medallion_set_dungeon_unlocked_11_and_open_the_grille_without_unlocking_snake_10th",
+        "without_the_medallion_show_10th_level_and_unlock_snake_10th_without_opening_the_grille",
+        "never_infer_dungeon_state_from_snake_10th_or_snake_relation",
+        "never_replay_either_branch_from_later_dungeon_progress",
+        "preserve_player_control_and_camera",
+        "close_letterbox"
+      ]
+    },
+    {
+      "cutsceneId": "ghost_graveyard_lightning_storm",
+      "linkedQuestIds": [],
+      "triggerScripts": ["lightning_storm_on_graveyard"],
+      "actors": [
+        "initiating_player",
+        "npc_ghost",
+        "grave_ground",
+        "lightning_strike_wout_fade"
+      ],
+      "observerPolicy": "all_loaded_party_members",
+      "lateJoinPolicy": "join_live_checkpoint_or_observe",
+      "remoteExecutionPolicy": "live_observation",
+      "executionOwnerPolicy": "any_player",
+      "dialogueOwnerPolicy": "initiating_player",
+      "formationPolicy": "initiator_with_observer_follow",
+      "cleanupRequirements": [
+        "run_one_authoritative_thirteen_line_ghost_ruin_scene_for_all_observers",
+        "damage_floor_of_the_current_grave_ground_count_divided_by_nine_random_graves_once_on_the_canonical_world",
+        "spawn_and_destroy_one_lightning_strike_per_selected_grave",
+        "spawn_stage_and_return_one_npc_ghost",
+        "set_talk_skull_after_light_storm_only_after_the_live_ghost_scene_finishes",
+        "use_exit_lightstorm_script_only_as_the_live_grave_and_dialogue_branch_convergence_counter",
+        "never_repair_exit_lightstorm_script_or_talk_skull_after_light_storm_from_later_tasks",
+        "restore_player_control_and_camera",
+        "close_letterbox"
+      ]
+    },
+    {
+      "cutsceneId": "gerry_graveyard_lightning_followup",
+      "linkedQuestIds": [],
+      "triggerScripts": ["crafting_skull_3:talk_skull_after_light_storm"],
+      "actors": ["initiating_player", "crafting_skull_3"],
+      "observerPolicy": "all_loaded_party_members",
+      "lateJoinPolicy": "join_live_checkpoint_or_observe",
+      "remoteExecutionPolicy": "live_observation",
+      "executionOwnerPolicy": "any_player",
+      "dialogueOwnerPolicy": "initiating_player",
+      "formationPolicy": "initiator_with_observer_follow",
+      "cleanupRequirements": [
+        "run_only_when_on_enter_mortuary_fires_talk_skull_after_light_storm",
+        "run_one_authoritative_four_line_skull_followup_for_all_observers",
+        "clear_talk_skull_after_light_storm_only_after_the_live_dialogue_finishes",
+        "do_not_change_tasks_relations_story_points_or_inventory",
+        "do_not_claim_or_nest_gerry_comes_after_lightning_strike",
+        "never_rearm_the_consumed_flag_from_player_items_or_later_story_state",
+        "restore_player_control_and_camera",
+        "close_letterbox"
+      ]
+    },
+    {
+      "cutsceneId": "portal_activation_and_reunion",
+      "linkedQuestIds": [],
+      "triggerScripts": ["portal_activate_cutscene"],
+      "actors": [
+        "initiating_player",
+        "talking_skull",
+        "npc_bishop",
+        "npc_merchant",
+        "npc_actress",
+        "npc_astrologer",
+        "npc_cultist",
+        "npc_inquisitor",
+        "portal_marble",
+        "marble_stand",
+        "npc_lilya",
+        "kiss_ending_fade"
+      ],
+      "observerPolicy": "all_loaded_party_members",
+      "lateJoinPolicy": "join_live_checkpoint_or_observe",
+      "remoteExecutionPolicy": "live_observation",
+      "executionOwnerPolicy": "any_player",
+      "dialogueOwnerPolicy": "initiating_player",
+      "formationPolicy": "initiator_with_observer_follow",
+      "cleanupRequirements": [
+        "begin_only_after_a_live_check_portal_call_observes_marble_stand_craft_count_not_less_than_two",
+        "run_one_authoritative_portal_cast_reunion_and_activation_choreography_for_all_observers",
+        "set_the_seven_cast_done_flags_beam_on_and_activate_portal_only_when_the_live_scene_reaches_each_serialized_node",
+        "check_launch_the_portal_for_the_initiator_once_after_portal_activation_without_adding_a_hidden_portal_catalog_quest",
+        "spawn_route_and_present_npc_lilya_and_kiss_ending_fade_only_in_the_live_scene",
+        "dispatch_skull_final_when_Stories_is_unavailable_or_when_Stories_is_available_and_player_saw_9cs_is_zero",
+        "never_repair_or_replay_device_crafts_artifact_consumption_craft_count_wait_on_cast_done_flags_beam_on_or_activate_portal_from_prerequisite_milestones",
+        "exclude_the_Stories_continuation_from_this_base_game_catalog",
+        "leave_final_camera_weather_titles_and_cinematic_cleanup_to_the_selected_nested_epilogue"
+      ]
+    },
+    {
+      "cutsceneId": "base_game_skull_epilogue",
+      "linkedQuestIds": [],
+      "triggerScripts": ["skull_final"],
+      "actors": ["player_party", "talking_skull", "donkey"],
+      "observerPolicy": "all_loaded_party_members",
+      "lateJoinPolicy": "presentation_checkpoint_required",
+      "remoteExecutionPolicy": "local_mirror_required",
+      "executionOwnerPolicy": "any_player",
+      "dialogueOwnerPolicy": "initiating_player",
+      "formationPolicy": "initiator_with_observer_follow",
+      "cleanupRequirements": [
+        "run_as_the_nested_base_game_epilogue_after_portal_activation_when_Stories_is_unavailable_or_player_saw_9cs_is_zero",
+        "mirror_the_camera_weather_dialogue_and_ending_title_presentation_on_each_loaded_peer",
+        "let_only_the_canonical_world_owner_teleport_route_and_return_talking_skull_and_donkey_to_stock",
+        "never_repeat_parent_portal_artifact_consumption_device_crafts_craft_count_wait_on_beam_on_or_activate_portal",
+        "do_not_dispatch_or_catalog_the_Stories_continuation",
+        "restore_weather_camera_party_control_and_cinematic_presentation",
+        "close_letterbox"
+      ]
+    }
+  ],
+  "storySteps": [
+    {
+      "stepId": "persuade_snake_and_receive_key_instructions",
+      "title": "Persuade Snake and receive the active-key instructions",
+      "linkedQuestIds": [],
+      "linkedTaskMilestoneIds": ["snake_key_instructions_received"],
+      "triggerScripts": ["npc_cultist:interaction"],
+      "triggerKeys": [
+        "snake_1a",
+        "faith",
+        "snake_key",
+        "quest_instruction_snake"
+      ],
+      "expectedEffects": [
+        {
+          "kind": "inventory_item",
+          "id": "faith",
+          "operation": "consume_from_initiator",
+          "amount": 5.0,
+          "ownership": "personal_character"
+        },
+        {
+          "kind": "npc_task",
+          "id": "npc_cultist:snake_key",
+          "operation": "show",
+          "amount": 1.0,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "inventory_item",
+          "id": "quest_instruction_snake",
+          "operation": "drop_once",
+          "amount": 1.0,
+          "ownership": "shared_story_token"
+        },
+        {
+          "kind": "dialogue_phrase",
+          "id": "snake_1a",
+          "operation": "blacklist",
+          "amount": 1.0,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "dialogue_phrase",
+          "id": "snake_1b",
+          "operation": "blacklist",
+          "amount": 1.0,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "dialogue_phrase",
+          "id": "@snake_give_key",
+          "operation": "unlock",
+          "amount": 1.0,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "world_param",
+          "id": "npc_cultist:break_everyday_cultist_come",
+          "operation": "minimum",
+          "amount": 1.0,
+          "ownership": "shared_world"
+        }
+      ],
+      "safeguards": [
+        "consume_five_faith_from_initiator_only",
+        "never_consume_observer_inventory",
+        "drop_one_instruction_for_the_campaign",
+        "do_not_reunlock_consumed_astrologer_parent_topic"
+      ]
+    },
+    {
+      "stepId": "study_old_keepers_key",
+      "title": "Study the old Keeper's key with Snake's instructions",
+      "linkedQuestIds": [],
+      "linkedTaskMilestoneIds": [
+        "astrologer_keeper_key_received",
+        "snake_key_instructions_received"
+      ],
+      "triggerScripts": [],
+      "triggerKeys": [
+        "surv:quest_key_astrologer",
+        "quest_key_astrologer",
+        "quest_instruction_snake",
+        "ques_key_cultist"
+      ],
+      "expectedEffects": [
+        {
+          "kind": "inventory_item",
+          "id": "quest_key_astrologer",
+          "operation": "consume_from_initiator",
+          "amount": 1.0,
+          "ownership": "shared_story_token"
+        },
+        {
+          "kind": "inventory_item",
+          "id": "quest_instruction_snake",
+          "operation": "consume_from_initiator",
+          "amount": 1.0,
+          "ownership": "shared_story_token"
+        },
+        {
+          "kind": "inventory_item",
+          "id": "faith",
+          "operation": "consume_from_initiator",
+          "amount": 2.0,
+          "ownership": "personal_character"
+        },
+        {
+          "kind": "game_resource",
+          "id": "science",
+          "operation": "consume_from_initiator",
+          "amount": 2.0,
+          "ownership": "personal_character"
+        },
+        {
+          "kind": "inventory_item",
+          "id": "ques_key_cultist",
+          "operation": "craft_once",
+          "amount": 1.0,
+          "ownership": "shared_story_token"
+        },
+        {
+          "kind": "tech_point",
+          "id": "b",
+          "operation": "grant_to_initiator",
+          "amount": 10.0,
+          "ownership": "personal_character"
+        },
+        {
+          "kind": "one_time_craft",
+          "id": "surv:quest_key_astrologer",
+          "operation": "complete",
+          "amount": 1.0,
+          "ownership": "shared_campaign"
+        }
+      ],
+      "safeguards": [
+        "one_active_key_for_the_campaign",
+        "story_inputs_consumed_once",
+        "faith_and_science_paid_by_initiator_only",
+        "never_grant_active_key_to_observers"
+      ]
+    },
+    {
+      "stepId": "give_active_key_and_open_dungeon",
+      "title": "Give Snake the active key and open the dungeon gate",
+      "linkedQuestIds": ["player_die_after_in_cultist_quest"],
+      "linkedTaskMilestoneIds": ["snake_active_key_delivered"],
+      "triggerScripts": ["npc_cultist:morgue_quest"],
+      "triggerKeys": [
+        "@snake_give_key",
+        "ques_key_cultist",
+        "open_gate",
+        "player_cutscene_death"
+      ],
+      "expectedEffects": [
+        {
+          "kind": "inventory_item",
+          "id": "ques_key_cultist",
+          "operation": "consume_from_initiator",
+          "amount": 1.0,
+          "ownership": "shared_story_token"
+        },
+        {
+          "kind": "player_param",
+          "id": "_rel_npc_cultist",
+          "operation": "minimum",
+          "amount": 10.0,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "npc_task",
+          "id": "npc_cultist:snake_key",
+          "operation": "complete",
+          "amount": 1.0,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "story_point",
+          "id": "bronze",
+          "operation": "grant_to_initiator",
+          "amount": 2.0,
+          "ownership": "personal_character"
+        },
+        {
+          "kind": "world_object",
+          "id": "grille_closed_quest:dungeon_grille_opened",
+          "operation": "replace_once",
+          "amount": 1.0,
+          "ownership": "shared_world"
+        },
+        {
+          "kind": "world_event",
+          "id": "table_cultist_quest:intro",
+          "operation": "add_once",
+          "amount": 1.0,
+          "ownership": "shared_world"
+        },
+        {
+          "kind": "player_param",
+          "id": "gate_in_morgue_is_open",
+          "operation": "minimum",
+          "amount": 1.0,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "player_param",
+          "id": "cultist_quest_enabled",
+          "operation": "set_transient_for_initiator",
+          "amount": 1.0,
+          "ownership": "initiating_player_cutscene"
+        }
+      ],
+      "safeguards": [
+        "consume_active_key_once",
+        "gate_and_diary_table_are_host_authoritative",
+        "forced_death_applies_to_initiator_only",
+        "never_repair_cultist_quest_enabled",
+        "do_not_replay_personal_respawn_script_for_observers"
+      ]
+    },
+    {
+      "stepId": "return_to_snake_after_resurrection",
+      "title": "Return to Snake after the forced resurrection",
+      "linkedQuestIds": ["player_die_after_in_cultist_quest"],
+      "linkedTaskMilestoneIds": ["snake_blood_and_nails_requested"],
+      "triggerScripts": ["npc_cultist:player_back_to_cultist"],
+      "triggerKeys": [
+        "snake_back_12a",
+        "snake_back_12b",
+        "snake_blood"
+      ],
+      "expectedEffects": [
+        {
+          "kind": "player_param",
+          "id": "cultist_quest_enabled",
+          "operation": "clear_transient_for_initiator",
+          "amount": 0.0,
+          "ownership": "initiating_player_cutscene"
+        },
+        {
+          "kind": "npc_task",
+          "id": "npc_cultist:snake_blood",
+          "operation": "show",
+          "amount": 1.0,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "crafting_recipe",
+          "id": "pail_blood",
+          "operation": "unlock",
+          "amount": 1.0,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "dialogue_phrase",
+          "id": "@give_blod_bucket",
+          "operation": "unlock",
+          "amount": 1.0,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "dialogue_phrase",
+          "id": "@give_blod_nails",
+          "operation": "unlock",
+          "amount": 1.0,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "dialogue_phrase",
+          "id": "@snake_buisnes",
+          "operation": "unlock",
+          "amount": 1.0,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "dialogue_phrase",
+          "id": "snake_back_12a",
+          "operation": "blacklist",
+          "amount": 1.0,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "dialogue_phrase",
+          "id": "snake_back_12b",
+          "operation": "blacklist",
+          "amount": 1.0,
+          "ownership": "shared_campaign"
+        }
+      ],
+      "safeguards": [
+        "both_return_topics_complete_before_task_visibility",
+        "do_not_repair_transient_multianswer_counter",
+        "do_not_unlock_item_handoff_phrases_from_visible_task_state",
+        "restore_control_and_camera_for_every_loaded_player"
+      ]
+    },
+    {
+      "stepId": "recover_old_keeper_diary",
+      "title": "Recover the old Keeper's diary from the dungeon table",
+      "linkedQuestIds": [],
+      "linkedTaskMilestoneIds": [
+        "snake_blood_and_nails_requested"
+      ],
+      "triggerScripts": ["table_cultist_quest:intro"],
+      "triggerKeys": ["quest_cultit_book", "dungeon_obj_table02"],
+      "expectedEffects": [
+        {
+          "kind": "inventory_item",
+          "id": "quest_cultit_book",
+          "operation": "drop_once",
+          "amount": 1.0,
+          "ownership": "shared_story_token"
+        },
+        {
+          "kind": "world_object",
+          "id": "table_cultist_quest:dungeon_obj_table02",
+          "operation": "replace_once",
+          "amount": 1.0,
+          "ownership": "shared_world"
+        }
+      ],
+      "safeguards": [
+        "one_diary_drop_for_the_campaign",
+        "never_grant_diary_per_player",
+        "table_conversion_is_host_authoritative"
+      ]
+    },
+    {
+      "stepId": "deliver_old_keeper_diary",
+      "title": "Give the old Keeper's diary to the Astrologer",
+      "linkedQuestIds": [],
+      "linkedTaskMilestoneIds": [
+        "astrologer_diary_delivered",
+        "portal_laser_goal_revealed"
+      ],
+      "triggerScripts": ["npc_astrologer:interaction"],
+      "triggerKeys": ["@astrologer_diary", "quest_cultit_book", "player_laser"],
+      "expectedEffects": [
+        {
+          "kind": "inventory_item",
+          "id": "quest_cultit_book",
+          "operation": "consume_from_initiator",
+          "amount": 1.0,
+          "ownership": "shared_story_token"
+        },
+        {
+          "kind": "player_param",
+          "id": "_rel_npc_astrologer",
+          "operation": "minimum",
+          "amount": 20.0,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "npc_task",
+          "id": "npc_astrologer:astrologer_diary",
+          "operation": "complete",
+          "amount": 1.0,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "story_point",
+          "id": "silver",
+          "operation": "grant_to_initiator",
+          "amount": 2.0,
+          "ownership": "personal_character"
+        },
+        {
+          "kind": "npc_task",
+          "id": "player:player_laser",
+          "operation": "show",
+          "amount": 1.0,
+          "ownership": "shared_campaign"
+        }
+      ],
+      "safeguards": [
+        "consume_diary_from_initiator_only",
+        "never_consume_observer_inventory",
+        "diary_relation_reward_once",
+        "diary_story_points_once",
+        "do_not_blacklist_diary_topic_before_both_followups"
+      ]
+    },
+    {
+      "stepId": "learn_astrologer_second_page_requirements",
+      "title": "Learn that the diary needs acid and restoration tools",
+      "linkedQuestIds": [],
+      "linkedTaskMilestoneIds": [
+        "astrologer_acid_requested",
+        "astrologer_restoration_tools_requested"
+      ],
+      "triggerScripts": ["npc_astrologer:interaction"],
+      "triggerKeys": [
+        "astrologer_diary_9a",
+        "astrologer_diary_9b",
+        "astrologer_acid",
+        "astrologer_tools"
+      ],
+      "expectedEffects": [
+        {
+          "kind": "npc_task",
+          "id": "npc_astrologer:astrologer_acid",
+          "operation": "show",
+          "amount": 1.0,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "npc_task",
+          "id": "npc_astrologer:astrologer_tools",
+          "operation": "show",
+          "amount": 1.0,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "player_param",
+          "id": "player_knows_about_witch",
+          "operation": "minimum",
+          "amount": 1.0,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "dialogue_phrase",
+          "id": "@astrologer_acid",
+          "operation": "unlock",
+          "amount": 1.0,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "dialogue_phrase",
+          "id": "@astrologer_diary",
+          "operation": "blacklist_after_both_followups",
+          "amount": 1.0,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "world_script",
+          "id": "bonfire_enable_near_portal",
+          "operation": "run_after_both_followups",
+          "amount": 1.0,
+          "ownership": "shared_world"
+        },
+        {
+          "kind": "crafting_recipe",
+          "id": "mix:mf_alchemy_craft_03:alchemy_1_red:alchemy_2_violet:alchemy_3_red:",
+          "operation": "reveal_after_both_followups",
+          "amount": 1.0,
+          "ownership": "shared_campaign"
+        }
+      ],
+      "safeguards": [
+        "diary_followup_answers_may_be_taken_in_either_order",
+        "do_not_repair_transient_multianswer_counter",
+        "do_not_unlock_tools_handoff_before_asking_about_tools",
+        "do_not_reunlock_acid_handoff_from_tools_visible_state"
+      ]
+    },
+    {
+      "stepId": "unlock_bloody_nail_washing",
+      "title": "Discover bloody nails and unlock washing them",
+      "linkedQuestIds": ["unlock_nails_wash_craft"],
+      "linkedTaskMilestoneIds": ["snake_blood_and_nails_requested"],
+      "triggerScripts": [],
+      "triggerKeys": ["item_nails_bloody", "bloody_nails_wash"],
+      "expectedEffects": [
+        {
+          "kind": "crafting_recipe",
+          "id": "bloody_nails_wash",
+          "operation": "unlock",
+          "amount": 1.0,
+          "ownership": "shared_campaign"
+        }
+      ],
+      "safeguards": [
+        "craft_unlock_is_idempotent",
+        "bloody_nails_remain_with_the_player_who_found_them",
+        "never_duplicate_bloody_nails_for_observers"
+      ]
+    },
+    {
+      "stepId": "deliver_blood_and_bloody_nails",
+      "title": "Bring Snake a bucket of blood and five bloody nails",
+      "linkedQuestIds": ["unlock_nails_wash_craft"],
+      "linkedTaskMilestoneIds": [
+        "snake_blood_and_nails_delivered",
+        "snake_necronomicon_requested"
+      ],
+      "triggerScripts": [
+        "npc_cultist:@give_blod_bucket",
+        "npc_cultist:@give_blod_nails",
+        "npc_cultist:snake_all_tasks"
+      ],
+      "triggerKeys": [
+        "@give_blod_bucket",
+        "@give_blod_nails",
+        "pail_blood",
+        "nails_bloody",
+        "snake_all_tasks"
+      ],
+      "expectedEffects": [
+        {
+          "kind": "inventory_item",
+          "id": "pail_blood",
+          "operation": "consume_from_initiator",
+          "amount": 1.0,
+          "ownership": "personal_character"
+        },
+        {
+          "kind": "inventory_item",
+          "id": "nails_bloody",
+          "operation": "consume_from_initiator",
+          "amount": 5.0,
+          "ownership": "personal_character"
+        },
+        {
+          "kind": "world_param",
+          "id": "npc_cultist:got_bucket",
+          "operation": "minimum",
+          "amount": 1.0,
+          "ownership": "shared_world"
+        },
+        {
+          "kind": "world_param",
+          "id": "npc_cultist:got_nails",
+          "operation": "minimum",
+          "amount": 1.0,
+          "ownership": "shared_world"
+        },
+        {
+          "kind": "player_param",
+          "id": "_rel_npc_cultist",
+          "operation": "minimum",
+          "amount": 30.0,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "npc_task",
+          "id": "npc_cultist:snake_blood",
+          "operation": "complete_after_both_handins",
+          "amount": 1.0,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "story_point",
+          "id": "gold",
+          "operation": "grant_to_final_initiator",
+          "amount": 2.0,
+          "ownership": "personal_character"
+        },
+        {
+          "kind": "npc_task",
+          "id": "npc_cultist:snake_necronomicon",
+          "operation": "show",
+          "amount": 1.0,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "dialogue_phrase",
+          "id": "@astrologer_necronamicon",
+          "operation": "unlock",
+          "amount": 1.0,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "dialogue_phrase",
+          "id": "@snake_necronomicon",
+          "operation": "unlock",
+          "amount": 1.0,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "achievement_key",
+          "id": "chicken_summoning",
+          "operation": "check_for_final_initiator",
+          "amount": 1.0,
+          "ownership": "personal_platform"
+        }
+      ],
+      "safeguards": [
+        "blood_and_nails_may_be_delivered_in_either_order",
+        "each_item_is_consumed_from_its_initiator_only",
+        "never_consume_observer_inventory",
+        "visible_task_milestone_must_not_reunlock_handoff_phrases",
+        "relation_rewards_apply_once_per_handoff",
+        "gold_story_points_apply_once_on_final_handoff"
+      ]
+    },
+    {
+      "stepId": "receive_charm_fake_coin_errand",
+      "title": "Receive Ms. Charm's fake coins for Snake",
+      "linkedQuestIds": [],
+      "linkedTaskMilestoneIds": ["actress_fake_coin_errand_started"],
+      "triggerScripts": ["npc_actress:interaction"],
+      "triggerKeys": [
+        "actress_2b",
+        "@actress_2b_1a",
+        "quest_fake_coins",
+        "@snake_1с",
+        "actress_money"
+      ],
+      "expectedEffects": [
+        {
+          "kind": "npc_task",
+          "id": "npc_actress:actress_money",
+          "operation": "show",
+          "amount": 1.0,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "inventory_item",
+          "id": "quest_fake_coins",
+          "operation": "drop_once_to_initiator",
+          "amount": 1.0,
+          "ownership": "shared_story_token"
+        },
+        {
+          "kind": "dialogue_phrase",
+          "id": "@snake_1с",
+          "operation": "unlock",
+          "amount": 1.0,
+          "ownership": "shared_campaign"
+        }
+      ],
+      "safeguards": [
+        "one_fake_coin_token_for_the_campaign",
+        "never_grant_fake_coins_from_actress_money_visible",
+        "the_exact_phrase_uses_cyrillic_u0441_not_latin_c"
+      ]
+    },
+    {
+      "stepId": "give_fake_coins_to_snake",
+      "title": "Give Snake Ms. Charm's fake coins",
+      "linkedQuestIds": [],
+      "linkedTaskMilestoneIds": ["actress_fake_coin_errand_started"],
+      "triggerScripts": ["npc_cultist:@snake_1с"],
+      "triggerKeys": ["@snake_1с", "quest_fake_coins", "@actress_snake_back"],
+      "expectedEffects": [
+        {
+          "kind": "inventory_item",
+          "id": "quest_fake_coins",
+          "operation": "consume_from_initiator",
+          "amount": 1.0,
+          "ownership": "shared_story_token"
+        },
+        {
+          "kind": "dialogue_phrase",
+          "id": "@snake_1с",
+          "operation": "blacklist",
+          "amount": 1.0,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "dialogue_phrase",
+          "id": "@actress_snake_back",
+          "operation": "unlock_once",
+          "amount": 1.0,
+          "ownership": "shared_campaign"
+        }
+      ],
+      "safeguards": [
+        "consume_fake_coins_from_initiator_only",
+        "never_replay_the_handoff_for_observers",
+        "do_not_reunlock_actress_snake_back_from_the_visible_errand"
+      ]
+    },
+    {
+      "stepId": "return_to_charm_after_fake_coins",
+      "title": "Return to Ms. Charm and begin the necklace search",
+      "linkedQuestIds": [],
+      "linkedTaskMilestoneIds": ["actress_necklace_search_started"],
+      "triggerScripts": ["npc_actress:interaction"],
+      "triggerKeys": [
+        "@actress_snake_back",
+        "actress_money",
+        "actress_necklace",
+        "@snake_nacklase_0",
+        "@snake_about_nacklase"
+      ],
+      "expectedEffects": [
+        {
+          "kind": "dialogue_phrase",
+          "id": "@actress_snake_back",
+          "operation": "blacklist",
+          "amount": 1.0,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "player_param",
+          "id": "_rel_npc_actress",
+          "operation": "increase_to_at_least_20",
+          "amount": 10.0,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "npc_task",
+          "id": "npc_actress:actress_money",
+          "operation": "complete",
+          "amount": 1.0,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "story_point",
+          "id": "silver",
+          "operation": "grant_to_initiator",
+          "amount": 2.0,
+          "ownership": "personal_character"
+        },
+        {
+          "kind": "npc_task",
+          "id": "npc_actress:actress_necklace",
+          "operation": "show",
+          "amount": 1.0,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "dialogue_phrase",
+          "id": "@snake_nacklase_0",
+          "operation": "unlock_once",
+          "amount": 1.0,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "dialogue_phrase",
+          "id": "@snake_about_nacklase",
+          "operation": "unlock",
+          "amount": 1.0,
+          "ownership": "shared_campaign"
+        }
+      ],
+      "safeguards": [
+        "two_silver_story_points_once",
+        "charm_relation_reward_once",
+        "do_not_reunlock_consumed_necklace_subtopics_from_actress_necklace_visible"
+      ]
+    },
+    {
+      "stepId": "learn_snake_necklace_truth",
+      "title": "Question Snake about the necklace and offer to help",
+      "linkedQuestIds": [],
+      "linkedTaskMilestoneIds": ["actress_necklace_search_started"],
+      "triggerScripts": [
+        "npc_cultist:@snake_nacklase_0",
+        "npc_cultist:@snake_nacklase_again",
+        "npc_cultist:snake_nacklase_again_10"
+      ],
+      "triggerKeys": [
+        "@snake_about_nacklase",
+        "@snake_nacklase_0",
+        "@snake_nacklase_again",
+        "@snake_nacklase_again_10a",
+        "@snake_nacklase_again_10b",
+        "@snake_nacklase_again_10c",
+        "PARsnake_nacklase_again"
+      ],
+      "expectedEffects": [
+        {
+          "kind": "world_param",
+          "id": "npc_cultist:PARsnake_nacklase_again",
+          "operation": "increment_transient_once_for_each_of_10a_and_10b",
+          "amount": 2.0,
+          "ownership": "shared_world"
+        },
+        {
+          "kind": "player_param",
+          "id": "_rel_npc_cultist",
+          "operation": "minimum_after_10c",
+          "amount": 40.0,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "dialogue_phrase",
+          "id": "@actress_money_back",
+          "operation": "unlock_once_after_10c",
+          "amount": 1.0,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "dialogue_phrase",
+          "id": "@guard_6_letin",
+          "operation": "unlock_once_after_10c",
+          "amount": 1.0,
+          "ownership": "shared_campaign"
+        }
+      ],
+      "safeguards": [
+        "10a_and_10b_may_be_selected_in_either_order",
+        "apply_the_final_ten_relation_once",
+        "never_repair_PARsnake_nacklase_again",
+        "never_replay_any_necklace_answer_for_observers",
+        "there_is_no_safe_task_milestone_at_the_relation_40_moment",
+        "astrologer_tools_complete_is_the_first_later_durable_proof_of_snake_relation_40"
+      ]
+    },
+    {
+      "stepId": "obtain_restoration_tools_from_snake",
+      "title": "Ask Snake for the Restoration Tools",
+      "linkedQuestIds": [],
+      "linkedTaskMilestoneIds": ["astrologer_restoration_tools_delivered"],
+      "triggerScripts": [
+        "npc_astrologer:ask_about_acid_and_tools",
+        "npc_cultist:@snake_instrument",
+        "npc_cultist:@snake_instrument_ready"
+      ],
+      "triggerKeys": [
+        "@astrologer_about_tools",
+        "@snake_instrument",
+        "@snake_instrument_ready",
+        "restoration_instrument"
+      ],
+      "expectedEffects": [
+        {
+          "kind": "dialogue_phrase",
+          "id": "@snake_instrument",
+          "operation": "unlock_then_blacklist",
+          "amount": 1.0,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "dialogue_phrase",
+          "id": "@snake_instrument_ready",
+          "operation": "unlock_then_blacklist_at_relation_40",
+          "amount": 1.0,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "inventory_item",
+          "id": "restoration_instrument",
+          "operation": "grant_once_to_initiator",
+          "amount": 1.0,
+          "ownership": "shared_story_token"
+        }
+      ],
+      "safeguards": [
+        "snake_instrument_ready_has_an_exact_relation_lock_of_40",
+        "the_restoration_tools_have_no_item_price",
+        "one_restoration_instrument_for_the_campaign",
+        "never_grant_the_tool_from_astrologer_tools_visible"
+      ]
+    },
+    {
+      "stepId": "deliver_acid_to_astrologer",
+      "title": "Give the Astrologer one Acid",
+      "linkedQuestIds": [],
+      "linkedTaskMilestoneIds": ["astrologer_acid_delivered"],
+      "triggerScripts": ["npc_astrologer:interaction"],
+      "triggerKeys": [
+        "@astrologer_acid",
+        "acid",
+        "astrologer_acid",
+        "player_both_acid_and_tools"
+      ],
+      "expectedEffects": [
+        {
+          "kind": "inventory_item",
+          "id": "acid",
+          "operation": "consume_from_initiator",
+          "amount": 1.0,
+          "ownership": "personal_character"
+        },
+        {
+          "kind": "player_param",
+          "id": "_rel_npc_astrologer",
+          "operation": "increase",
+          "amount": 10.0,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "npc_task",
+          "id": "npc_astrologer:astrologer_acid",
+          "operation": "complete",
+          "amount": 1.0,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "story_point",
+          "id": "bronze",
+          "operation": "grant_to_initiator",
+          "amount": 5.0,
+          "ownership": "personal_character"
+        },
+        {
+          "kind": "story_point",
+          "id": "silver",
+          "operation": "grant_to_initiator",
+          "amount": 5.0,
+          "ownership": "personal_character"
+        },
+        {
+          "kind": "world_param",
+          "id": "npc_astrologer:player_both_acid_and_tools",
+          "operation": "increment_transient",
+          "amount": 1.0,
+          "ownership": "shared_world"
+        }
+      ],
+      "safeguards": [
+        "acid_and_tools_may_be_delivered_in_either_order",
+        "consume_acid_from_initiator_only",
+        "relation_and_story_rewards_once",
+        "never_increment_the_delivery_counter_for_observers",
+        "never_repair_player_both_acid_and_tools"
+      ]
+    },
+    {
+      "stepId": "deliver_restoration_tools_to_astrologer",
+      "title": "Give the Astrologer the Restoration Tools",
+      "linkedQuestIds": [],
+      "linkedTaskMilestoneIds": ["astrologer_restoration_tools_delivered"],
+      "triggerScripts": ["npc_astrologer:interaction"],
+      "triggerKeys": [
+        "@astrologer_tools",
+        "restoration_instrument",
+        "astrologer_tools",
+        "player_both_acid_and_tools"
+      ],
+      "expectedEffects": [
+        {
+          "kind": "inventory_item",
+          "id": "restoration_instrument",
+          "operation": "consume_from_initiator",
+          "amount": 1.0,
+          "ownership": "shared_story_token"
+        },
+        {
+          "kind": "player_param",
+          "id": "_rel_npc_astrologer",
+          "operation": "increase",
+          "amount": 10.0,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "npc_task",
+          "id": "npc_astrologer:astrologer_tools",
+          "operation": "complete",
+          "amount": 1.0,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "story_point",
+          "id": "bronze",
+          "operation": "grant_to_initiator",
+          "amount": 5.0,
+          "ownership": "personal_character"
+        },
+        {
+          "kind": "story_point",
+          "id": "silver",
+          "operation": "grant_to_initiator",
+          "amount": 5.0,
+          "ownership": "personal_character"
+        },
+        {
+          "kind": "world_param",
+          "id": "npc_astrologer:player_both_acid_and_tools",
+          "operation": "increment_transient",
+          "amount": 1.0,
+          "ownership": "shared_world"
+        }
+      ],
+      "safeguards": [
+        "acid_and_tools_may_be_delivered_in_either_order",
+        "consume_the_single_restoration_tool_from_initiator_only",
+        "relation_and_story_rewards_once",
+        "never_increment_the_delivery_counter_for_observers",
+        "never_repair_player_both_acid_and_tools"
+      ]
+    },
+    {
+      "stepId": "decode_second_diary_page",
+      "title": "Decode the diary's second page and learn about Esmeralda",
+      "linkedQuestIds": [],
+      "linkedTaskMilestoneIds": ["astrologer_second_diary_decoded"],
+      "triggerScripts": ["npc_astrologer:astrologer_second_diary"],
+      "triggerKeys": [
+        "player_both_acid_and_tools",
+        "astrologer_baron",
+        "@gypsy_esmeralda",
+        "@snake_magic_item",
+        "@astrologer_items"
+      ],
+      "expectedEffects": [
+        {
+          "kind": "npc_task",
+          "id": "npc_astrologer:astrologer_baron",
+          "operation": "show",
+          "amount": 1.0,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "dialogue_phrase",
+          "id": "@gypsy_esmeralda",
+          "operation": "unlock_once",
+          "amount": 1.0,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "dialogue_phrase",
+          "id": "@snake_magic_item",
+          "operation": "unlock_once",
+          "amount": 1.0,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "dialogue_phrase",
+          "id": "@astrologer_items",
+          "operation": "unlock_once",
+          "amount": 1.0,
+          "ownership": "shared_campaign"
+        }
+      ],
+      "safeguards": [
+        "run_once_after_both_distinct_handins",
+        "do_not_reunlock_any_followup_phrase_from_astrologer_baron_visible",
+        "player_laser_remains_visible"
+      ]
+    },
+    {
+      "stepId": "learn_necronomicon_location",
+      "title": "Learn that the Lighthouse Keeper has the Necronomicon",
+      "linkedQuestIds": [],
+      "linkedTaskMilestoneIds": ["astrologer_second_diary_decoded"],
+      "triggerScripts": ["npc_astrologer:@astrologer_necronamicon"],
+      "triggerKeys": ["@astrologer_necronamicon", "@light_keeper_book"],
+      "expectedEffects": [
+        {
+          "kind": "dialogue_lock",
+          "id": "_rel_npc_astrologer",
+          "operation": "require_minimum",
+          "amount": 40.0,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "dialogue_phrase",
+          "id": "@astrologer_necronamicon",
+          "operation": "blacklist",
+          "amount": 1.0,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "dialogue_phrase",
+          "id": "@light_keeper_book",
+          "operation": "unlock_once",
+          "amount": 1.0,
+          "ownership": "shared_campaign"
+        }
+      ],
+      "safeguards": [
+        "the_astrologer_necronomicon_topic_has_an_exact_relation_lock_of_40",
+        "do_not_reunlock_lighthouse_topics_from_snake_necronomicon_visible"
+      ]
+    },
+    {
+      "stepId": "trade_maggots_for_necronomicon",
+      "title": "Trade five Maggots to the Lighthouse Keeper",
+      "linkedQuestIds": [],
+      "linkedTaskMilestoneIds": ["snake_necronomicon_delivered"],
+      "triggerScripts": [
+        "npc_light_keeper:@light_keeper_book",
+        "npc_light_keeper:interaction"
+      ],
+      "triggerKeys": [
+        "@light_keeper_book",
+        "@light_keeper_book_ready",
+        "maggot",
+        "necronomicon"
+      ],
+      "expectedEffects": [
+        {
+          "kind": "dialogue_phrase",
+          "id": "@light_keeper_book",
+          "operation": "blacklist",
+          "amount": 1.0,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "dialogue_phrase",
+          "id": "@light_keeper_book_ready",
+          "operation": "unlock_then_blacklist",
+          "amount": 1.0,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "inventory_item",
+          "id": "maggot",
+          "operation": "consume_from_initiator",
+          "amount": 5.0,
+          "ownership": "personal_character"
+        },
+        {
+          "kind": "inventory_item",
+          "id": "necronomicon",
+          "operation": "grant_once_to_initiator",
+          "amount": 1.0,
+          "ownership": "shared_story_token"
+        }
+      ],
+      "safeguards": [
+        "consume_five_maggots_from_initiator_only",
+        "one_necronomicon_for_the_campaign",
+        "never_grant_necronomicon_from_the_visible_snake_task"
+      ]
+    },
+    {
+      "stepId": "deliver_necronomicon_to_snake",
+      "title": "Give the Necronomicon to Snake",
+      "linkedQuestIds": [],
+      "linkedTaskMilestoneIds": ["snake_necronomicon_delivered"],
+      "triggerScripts": ["npc_cultist:@snake_necronomicon"],
+      "triggerKeys": [
+        "@snake_necronomicon",
+        "necronomicon",
+        "snake_necronomicon",
+        "snake_help"
+      ],
+      "expectedEffects": [
+        {
+          "kind": "inventory_item",
+          "id": "necronomicon",
+          "operation": "consume_from_initiator",
+          "amount": 1.0,
+          "ownership": "shared_story_token"
+        },
+        {
+          "kind": "player_param",
+          "id": "_rel_npc_cultist",
+          "operation": "increase_to_at_least_50",
+          "amount": 10.0,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "npc_task",
+          "id": "npc_cultist:snake_necronomicon",
+          "operation": "complete",
+          "amount": 1.0,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "story_point",
+          "id": "silver",
+          "operation": "grant_to_initiator",
+          "amount": 5.0,
+          "ownership": "personal_character"
+        },
+        {
+          "kind": "achievement_key",
+          "id": "necronomicon",
+          "operation": "check_for_initiator",
+          "amount": 1.0,
+          "ownership": "personal_platform"
+        },
+        {
+          "kind": "npc_task",
+          "id": "npc_cultist:snake_help",
+          "operation": "show",
+          "amount": 1.0,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "dialogue_phrase",
+          "id": "@snake_ritual_help",
+          "operation": "unlock",
+          "amount": 1.0,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "dialogue_phrase",
+          "id": "@snake_help",
+          "operation": "unlock_once",
+          "amount": 1.0,
+          "ownership": "shared_campaign"
+        }
+      ],
+      "safeguards": [
+        "consume_the_single_necronomicon_from_initiator_only",
+        "five_silver_story_points_once",
+        "snake_help_never_completes",
+        "never_durably_unlock_snake_help_from_snake_help_visible"
+      ]
+    },
+    {
+      "stepId": "accept_snake_dark_church_work",
+      "title": "Agree to improve the Dark Church for Snake's ritual",
+      "linkedQuestIds": [],
+      "linkedTaskMilestoneIds": ["snake_dark_church_goal_revealed"],
+      "triggerScripts": ["npc_cultist:@snake_help"],
+      "triggerKeys": [
+        "@snake_ritual_help",
+        "@snake_help",
+        "snake_stars",
+        "@snake_help_done",
+        "sacrifice_quality"
+      ],
+      "expectedEffects": [
+        {
+          "kind": "dialogue_phrase",
+          "id": "@snake_help",
+          "operation": "blacklist",
+          "amount": 1.0,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "npc_task",
+          "id": "npc_cultist:snake_stars",
+          "operation": "show",
+          "amount": 1.0,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "dialogue_phrase",
+          "id": "@snake_help_done",
+          "operation": "unlock_once",
+          "amount": 1.0,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "crafting_recipe",
+          "id": "sacrifice_builddesk:p:blood_fountain",
+          "operation": "unlock",
+          "amount": 1.0,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "crafting_recipe",
+          "id": "sacrifice_builddesk:p:skeleton_crucified_on_wall",
+          "operation": "unlock",
+          "amount": 1.0,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "crafting_recipe",
+          "id": "sacrifice_builddesk:p:skeleton_crucified",
+          "operation": "unlock",
+          "amount": 1.0,
+          "ownership": "shared_campaign"
+        }
+      ],
+      "safeguards": [
+        "snake_stars_is_the_durable_next_task",
+        "snake_help_remains_visible",
+        "snake_help_done_requires_at_least_20_sacrifice_quality",
+        "treat_snake_help_done_as_expected_only_until_snake_stars_completes"
+      ]
+    },
+    {
+      "stepId": "complete_snake_dark_church_quality",
+      "title": "Complete the Dark Church and receive Snake's sword request",
+      "linkedQuestIds": [],
+      "linkedTaskMilestoneIds": ["snake_dark_church_completed"],
+      "triggerScripts": ["npc_cultist:@snake_help_done"],
+      "triggerKeys": [
+        "@snake_help_done",
+        "sacrifice_quality",
+        "satans_will",
+        "snake_stars",
+        "snake_sword",
+        "@snake_sword"
+      ],
+      "expectedEffects": [
+        {
+          "kind": "dialogue_lock",
+          "id": "sacrifice_quality",
+          "operation": "require_minimum",
+          "amount": 20.0,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "dialogue_phrase",
+          "id": "@snake_help_done",
+          "operation": "blacklist",
+          "amount": 1.0,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "player_param",
+          "id": "_rel_npc_cultist",
+          "operation": "increase_to_at_least_60",
+          "amount": 10.0,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "achievement_key",
+          "id": "satans_will",
+          "operation": "check_for_initiator",
+          "amount": 1.0,
+          "ownership": "personal_platform"
+        },
+        {
+          "kind": "npc_task",
+          "id": "npc_cultist:snake_stars",
+          "operation": "complete",
+          "amount": 1.0,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "story_point",
+          "id": "gold",
+          "operation": "grant_to_initiator",
+          "amount": 5.0,
+          "ownership": "personal_character"
+        },
+        {
+          "kind": "npc_task",
+          "id": "npc_cultist:snake_sword",
+          "operation": "show",
+          "amount": 1.0,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "dialogue_phrase",
+          "id": "@snake_sword",
+          "operation": "unlock_once",
+          "amount": 1.0,
+          "ownership": "shared_campaign"
+        }
+      ],
+      "safeguards": [
+        "the_lock_is_at_least_20_not_exactly_20",
+        "snake_help_remains_visible",
+        "sacrifice_quality_is_refreshed_from_live_sacrifice_zone_quality_and_must_never_be_repaired_from_snake_stars_complete",
+        "treat_snake_sword_as_expected_only_until_snake_sword_completes"
+      ]
+    },
+    {
+      "stepId": "obtain_damask_sword_via_normal_gameplay",
+      "title": "Forge or buy a Damask Sword",
+      "linkedQuestIds": [],
+      "linkedTaskMilestoneIds": ["snake_dark_church_completed"],
+      "triggerScripts": [],
+      "triggerKeys": ["sword_damask_gem"],
+      "expectedEffects": [
+        {
+          "kind": "inventory_item",
+          "id": "sword_damask_gem",
+          "operation": "acquire_via_normal_gameplay",
+          "amount": 1.0,
+          "ownership": "personal_character"
+        }
+      ],
+      "safeguards": [
+        "the_snake_flow_only_prices_the_handoff_at_one_sword_damask_gem",
+        "the_snake_flow_does_not_grant_the_sword_or_unlock_its_recipe",
+        "do_not_use_krezvold_come_with_sword_as_a_base_game_repair_source",
+        "never_grant_a_sword_from_snake_sword_visible"
+      ]
+    },
+    {
+      "stepId": "deliver_damask_sword_and_begin_immortality_demo",
+      "title": "Give Snake the Damask Sword and undergo the staged death",
+      "linkedQuestIds": [],
+      "linkedTaskMilestoneIds": ["snake_damask_sword_delivered"],
+      "triggerScripts": ["npc_cultist:@snake_sword"],
+      "triggerKeys": [
+        "@snake_sword",
+        "sword_damask_gem",
+        "snake_sword",
+        "snake_back",
+        "player_death_after_cultist_ritual",
+        "on_back_to_snake_after_ritual",
+        "cultist_followers_spawn_and_introduce"
+      ],
+      "expectedEffects": [
+        {
+          "kind": "inventory_item",
+          "id": "sword_damask_gem",
+          "operation": "consume_from_initiator",
+          "amount": 1.0,
+          "ownership": "personal_character"
+        },
+        {
+          "kind": "dialogue_phrase",
+          "id": "@snake_sword",
+          "operation": "blacklist",
+          "amount": 1.0,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "player_param",
+          "id": "_rel_npc_cultist",
+          "operation": "increase_to_at_least_70",
+          "amount": 10.0,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "npc_task",
+          "id": "npc_cultist:snake_sword",
+          "operation": "complete",
+          "amount": 1.0,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "story_point",
+          "id": "bronze",
+          "operation": "grant_to_initiator",
+          "amount": 5.0,
+          "ownership": "personal_character"
+        },
+        {
+          "kind": "story_point",
+          "id": "silver",
+          "operation": "grant_to_initiator",
+          "amount": 5.0,
+          "ownership": "personal_character"
+        },
+        {
+          "kind": "npc_task",
+          "id": "npc_cultist:snake_back",
+          "operation": "show",
+          "amount": 1.0,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "world_actor_group",
+          "id": "npc_cultist_follower_1..4",
+          "operation": "spawn_once",
+          "amount": 4.0,
+          "ownership": "shared_world"
+        },
+        {
+          "kind": "world_param",
+          "id": "npc_cultist:lock_spawn_and_despawn",
+          "operation": "set_transient",
+          "amount": 1.0,
+          "ownership": "shared_world"
+        },
+        {
+          "kind": "player_damage",
+          "id": "initiating_player",
+          "operation": "apply_once",
+          "amount": 500.0,
+          "ownership": "initiating_player_cutscene"
+        },
+        {
+          "kind": "player_param",
+          "id": "player_death_after_cultist_ritual",
+          "operation": "set_transient_for_initiator",
+          "amount": 1.0,
+          "ownership": "initiating_player_cutscene"
+        },
+        {
+          "kind": "world_event",
+          "id": "npc_cultist:on_back_to_snake_after_ritual",
+          "operation": "add_once",
+          "amount": 1.0,
+          "ownership": "shared_world"
+        }
+      ],
+      "safeguards": [
+        "consume_exactly_one_sword_from_the_initiator_only",
+        "never_damage_kill_or_mark_observers_for_resurrection",
+        "follower_spawn_is_canonical_world_state_once",
+        "never_repair_player_death_after_cultist_ritual_or_lock_spawn_and_despawn_from_task_state",
+        "generic_player_ressurection_is_not_a_catalog_cutscene_trigger"
+      ]
+    },
+    {
+      "stepId": "resurrect_after_snake_immortality_demo",
+      "title": "Respawn at home after Snake's staged death",
+      "linkedQuestIds": [],
+      "linkedTaskMilestoneIds": ["snake_damask_sword_delivered"],
+      "triggerScripts": [],
+      "triggerKeys": [
+        "player_ressurection",
+        "player_death_after_cultist_ritual",
+        "tp_house_b",
+        "snake_teleports"
+      ],
+      "expectedEffects": [
+        {
+          "kind": "player_teleport",
+          "id": "tp_house_b",
+          "operation": "apply_to_initiator",
+          "amount": 1.0,
+          "ownership": "initiating_player_cutscene"
+        },
+        {
+          "kind": "environment",
+          "id": "Inside",
+          "operation": "apply_to_initiator",
+          "amount": 1.0,
+          "ownership": "initiating_player_cutscene"
+        },
+        {
+          "kind": "dialogue",
+          "id": "snake_teleports",
+          "operation": "show_to_initiator",
+          "amount": 1.0,
+          "ownership": "initiating_player_cutscene"
+        },
+        {
+          "kind": "player_control",
+          "id": "initiating_player",
+          "operation": "restore",
+          "amount": 1.0,
+          "ownership": "initiating_player_cutscene"
+        }
+      ],
+      "safeguards": [
+        "player_ressurection_is_a_generic_all_deaths_flow_and_must_not_be_registered_as_a_cutscene",
+        "only_the_player_with_player_death_after_cultist_ritual_takes_the_snake_teleports_branch",
+        "never_replay_the_personal_respawn_branch_for_observers"
+      ]
+    },
+    {
+      "stepId": "return_to_snake_after_immortality_demo",
+      "title": "Return to Snake after the immortality demonstration",
+      "linkedQuestIds": [],
+      "linkedTaskMilestoneIds": ["snake_return_after_immortality_demo_completed"],
+      "triggerScripts": ["npc_cultist:on_back_to_snake_after_ritual"],
+      "triggerKeys": [
+        "on_back_to_snake_after_ritual",
+        "cultist_followers_despawn",
+        "came_cultist_to_players_home",
+        "snake_back"
+      ],
+      "expectedEffects": [
+        {
+          "kind": "player_param",
+          "id": "on_back_to_snake_after_ritual",
+          "operation": "clear_transient_for_initiator",
+          "amount": 0.0,
+          "ownership": "initiating_player_cutscene"
+        },
+        {
+          "kind": "npc_task",
+          "id": "npc_cultist:snake_back",
+          "operation": "complete",
+          "amount": 1.0,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "story_point",
+          "id": "bronze",
+          "operation": "grant_to_initiator",
+          "amount": 5.0,
+          "ownership": "personal_character"
+        },
+        {
+          "kind": "world_param",
+          "id": "npc_cultist:lock_spawn_and_despawn",
+          "operation": "clear_transient",
+          "amount": 0.0,
+          "ownership": "shared_world"
+        },
+        {
+          "kind": "player_param",
+          "id": "came_cultist_to_players_home",
+          "operation": "set_one_sleep_latch",
+          "amount": 1.0,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "player_param",
+          "id": "player_death_after_cultist_ritual",
+          "operation": "clear_transient_for_initiator",
+          "amount": 0.0,
+          "ownership": "initiating_player_cutscene"
+        },
+        {
+          "kind": "world_actor_group",
+          "id": "npc_cultist_follower_1..4",
+          "operation": "despawn_once",
+          "amount": 4.0,
+          "ownership": "shared_world"
+        }
+      ],
+      "safeguards": [
+        "there_is_no_relation_reward_here",
+        "five_bronze_story_points_once",
+        "came_cultist_to_players_home_is_consumed_by_the_next_sleep_and_must_never_be_repaired_from_snake_back_complete",
+        "never_repair_any_return_event_or_spawn_lock"
+      ]
+    },
+    {
+      "stepId": "sleep_and_receive_snake_witch_hill_warning",
+      "title": "Sleep and receive Snake's Witch Hill warning",
+      "linkedQuestIds": [],
+      "linkedTaskMilestoneIds": ["snake_witch_hill_trap_requested"],
+      "triggerScripts": ["snake_come_after_player_sleep"],
+      "triggerKeys": [
+        "came_cultist_to_players_home",
+        "snake_sleep",
+        "snake_trap",
+        "place_cultist_near_stone",
+        "waiting_near_stone"
+      ],
+      "expectedEffects": [
+        {
+          "kind": "player_param",
+          "id": "came_cultist_to_players_home",
+          "operation": "clear_one_sleep_latch",
+          "amount": 0.0,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "world_param",
+          "id": "npc_cultist:cur_multianswer_state",
+          "operation": "set_transient",
+          "amount": 1.0,
+          "ownership": "shared_world"
+        },
+        {
+          "kind": "npc_task",
+          "id": "npc_cultist:snake_trap",
+          "operation": "show",
+          "amount": 1.0,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "world_actor",
+          "id": "npc_cultist",
+          "operation": "move_once_to_witch_hill",
+          "amount": 1.0,
+          "ownership": "shared_world"
+        },
+        {
+          "kind": "world_param",
+          "id": "npc_cultist:on_the_way_now",
+          "operation": "set_transient",
+          "amount": 1.0,
+          "ownership": "shared_world"
+        }
+      ],
+      "safeguards": [
+        "run_only_after_the_shared_sleep_commit",
+        "a_single_sleeping_player_can_trigger_it_when_no_other_player_is_asleep",
+        "when_multiple_players_are_asleep_keep_them_gated_until_the_shared_visit_finishes",
+        "never_repair_came_cultist_to_players_home_cur_multianswer_state_or_on_the_way_now",
+        "place_cultist_near_stone_and_waiting_near_stone_are_internal_events_not_cutscene_aliases"
+      ]
+    },
+    {
+      "stepId": "build_snake_witch_hill_trap",
+      "title": "Give Snake one Wooden Plank and complete the Witch Hill trap",
+      "linkedQuestIds": [],
+      "linkedTaskMilestoneIds": ["snake_witch_hill_trap_completed"],
+      "triggerScripts": ["npc_cultist:snake_stone_ready"],
+      "triggerKeys": [
+        "snake_stone_ma",
+        "snake_stone_ready",
+        "wooden_plank",
+        "plank_done",
+        "lock_donkey_coming",
+        "donkey_coming_locked",
+        "npc_herald",
+        "falling_rock",
+        "lying_rock",
+        "witchers_death",
+        "snake_trap",
+        "@snake_aple"
+      ],
+      "expectedEffects": [
+        {
+          "kind": "inventory_item",
+          "id": "wooden_plank",
+          "operation": "consume_from_initiator",
+          "amount": 1.0,
+          "ownership": "personal_character"
+        },
+        {
+          "kind": "world_param",
+          "id": "npc_cultist:cur_multianswer_state",
+          "operation": "clear_transient",
+          "amount": 0.0,
+          "ownership": "shared_world"
+        },
+        {
+          "kind": "world_param",
+          "id": "npc_cultist:lock_spawn_and_despawn",
+          "operation": "clear_transient",
+          "amount": 0.0,
+          "ownership": "shared_world"
+        },
+        {
+          "kind": "player_param",
+          "id": "_rel_npc_cultist",
+          "operation": "increase_to_at_least_80",
+          "amount": 10.0,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "world_param",
+          "id": "npc_cultist:plank_done",
+          "operation": "set_transient",
+          "amount": 1.0,
+          "ownership": "shared_world"
+        },
+        {
+          "kind": "world_time",
+          "id": "Flow_WaitDay",
+          "operation": "run_canonical_sequence",
+          "amount": 4.0,
+          "ownership": "shared_world"
+        },
+        {
+          "kind": "world_script",
+          "id": "lock_donkey_coming",
+          "operation": "run_once",
+          "amount": 1.0,
+          "ownership": "shared_world"
+        },
+        {
+          "kind": "world_actor",
+          "id": "npc_herald",
+          "operation": "spawn_then_destroy_once",
+          "amount": 1.0,
+          "ownership": "shared_world"
+        },
+        {
+          "kind": "world_object",
+          "id": "falling_rock",
+          "operation": "spawn_once_with_custom_tag_falling_rock_and_animation_fall",
+          "amount": 1.0,
+          "ownership": "shared_world"
+        },
+        {
+          "kind": "world_object",
+          "id": "lying_rock",
+          "operation": "destroy_once",
+          "amount": 1.0,
+          "ownership": "shared_world"
+        },
+        {
+          "kind": "achievement_key",
+          "id": "witchers_death",
+          "operation": "check_for_initiator",
+          "amount": 1.0,
+          "ownership": "personal_platform"
+        },
+        {
+          "kind": "npc_task",
+          "id": "npc_cultist:snake_trap",
+          "operation": "complete",
+          "amount": 1.0,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "story_point",
+          "id": "silver",
+          "operation": "grant_to_initiator",
+          "amount": 5.0,
+          "ownership": "personal_character"
+        },
+        {
+          "kind": "story_point",
+          "id": "gold",
+          "operation": "grant_to_initiator",
+          "amount": 5.0,
+          "ownership": "personal_character"
+        },
+        {
+          "kind": "dialogue_phrase",
+          "id": "@snake_aple",
+          "operation": "unlock_once",
+          "amount": 1.0,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "world_event",
+          "id": "npc_cultist:on_back_to_start",
+          "operation": "run_once",
+          "amount": 1.0,
+          "ownership": "shared_world"
+        }
+      ],
+      "safeguards": [
+        "snake_stone_ready_is_a_cur_multianswer_state_answer_not_a_durable_dialogue_phrase",
+        "consume_exactly_one_wooden_plank_from_the_initiator_only",
+        "the_four_wait_day_nodes_and_all_world_spawns_run_on_the_canonical_world_once",
+        "treat_snake_aple_as_expected_only_until_snake_aple_becomes_visible",
+        "never_repair_plank_done_donkey_coming_locked_or_falling_rock_existence_from_snake_trap_complete",
+        "never_grant_hunters_medallion_from_snake_trap_complete"
+      ]
+    },
+    {
+      "stepId": "receive_snake_golden_apple_request",
+      "title": "Learn that Snake needs a Golden Apple from dungeon level 15",
+      "linkedQuestIds": [],
+      "linkedTaskMilestoneIds": ["snake_golden_apple_requested"],
+      "triggerScripts": ["npc_cultist:@snake_aple"],
+      "triggerKeys": ["@snake_aple", "snake_aple", "@snake_aple_get"],
+      "expectedEffects": [
+        {
+          "kind": "dialogue_phrase",
+          "id": "@snake_aple",
+          "operation": "blacklist",
+          "amount": 1.0,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "npc_task",
+          "id": "npc_cultist:snake_aple",
+          "operation": "show",
+          "amount": 1.0,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "dialogue_phrase",
+          "id": "@snake_aple_get",
+          "operation": "unlock_once",
+          "amount": 1.0,
+          "ownership": "shared_campaign"
+        }
+      ],
+      "safeguards": [
+        "there_is_no_item_price_relation_reward_or_story_point_reward_in_this_briefing",
+        "snake_help_and_player_laser_remain_visible",
+        "treat_snake_aple_get_as_expected_only_while_snake_aple_is_visible"
+      ]
+    },
+    {
+      "stepId": "deliver_golden_apple_to_snake",
+      "title": "Give Snake the Golden Apple and receive the final ritual task",
+      "linkedQuestIds": [],
+      "linkedTaskMilestoneIds": [
+        "snake_golden_apple_delivered",
+        "snake_final_ritual_ready"
+      ],
+      "triggerScripts": ["npc_cultist:@snake_aple_get"],
+      "triggerKeys": [
+        "@snake_aple_get",
+        "golden_apple",
+        "snake_aple_get_3a",
+        "snake_aple_get_4b",
+        "snake_aple",
+        "snake_dark",
+        "@snake_final_ritual"
+      ],
+      "expectedEffects": [
+        {
+          "kind": "inventory_item",
+          "id": "golden_apple",
+          "operation": "consume_from_initiator",
+          "amount": 1.0,
+          "ownership": "personal_character"
+        },
+        {
+          "kind": "player_param",
+          "id": "_rel_npc_cultist",
+          "operation": "add_once",
+          "amount": 10.0,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "dialogue_phrase",
+          "id": "@snake_aple_get",
+          "operation": "blacklist",
+          "amount": 1.0,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "npc_task",
+          "id": "npc_cultist:snake_aple",
+          "operation": "complete",
+          "amount": 1.0,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "story_point",
+          "id": "gold",
+          "operation": "grant_to_initiator",
+          "amount": 5.0,
+          "ownership": "personal_character"
+        },
+        {
+          "kind": "inventory_item",
+          "id": "b",
+          "operation": "drop_to_initiator_only_if_snake_aple_get_3a_selected",
+          "amount": 107.0,
+          "ownership": "personal_character"
+        },
+        {
+          "kind": "npc_task",
+          "id": "npc_cultist:snake_dark",
+          "operation": "show",
+          "amount": 1.0,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "dialogue_phrase",
+          "id": "@snake_final_ritual",
+          "operation": "unlock_once",
+          "amount": 1.0,
+          "ownership": "shared_campaign"
+        }
+      ],
+      "safeguards": [
+        "consume_the_golden_apple_from_the_dialogue_initiator_only",
+        "the_107_bronze_drop_is_choice_dependent_and_never_goes_to_observers",
+        "relation_and_story_points_once",
+        "player_knows_about_dark_organs_changes_dialogue_only",
+        "treat_snake_final_ritual_as_expected_only_while_snake_dark_is_visible",
+        "never_grant_a_dark_heart_from_snake_dark_visible"
+      ]
+    },
+    {
+      "stepId": "obtain_dark_heart_via_normal_gameplay",
+      "title": "Obtain a Dark Heart after learning about dark organs",
+      "linkedQuestIds": [],
+      "linkedTaskMilestoneIds": ["snake_final_ritual_ready"],
+      "triggerScripts": [],
+      "triggerKeys": ["heart_dark", "player_knows_about_dark_organs"],
+      "expectedEffects": [
+        {
+          "kind": "inventory_item",
+          "id": "heart_dark",
+          "operation": "acquire_via_normal_gameplay",
+          "amount": 1.0,
+          "ownership": "personal_character"
+        }
+      ],
+      "safeguards": [
+        "the_snake_flow_only_prices_the_final_ritual_at_one_dark_heart",
+        "the_snake_flow_does_not_grant_a_dark_heart",
+        "never_grant_dark_organs_from_snake_dark_visible"
+      ]
+    },
+    {
+      "stepId": "perform_snake_and_inquisitor_final_ritual",
+      "title": "Perform Snake's final ritual and receive the two portal artifacts",
+      "linkedQuestIds": ["hidden_imyourfather"],
+      "linkedTaskMilestoneIds": ["snake_final_ritual_completed"],
+      "triggerScripts": ["final_ritual"],
+      "triggerKeys": [
+        "@snake_final_ritual",
+        "heart_dark",
+        "snake_dark",
+        "snake_help",
+        "snk_inqstr_together",
+        "endless_book",
+        "eternal_burning_coil"
+      ],
+      "expectedEffects": [
+        {
+          "kind": "inventory_item",
+          "id": "heart_dark",
+          "operation": "consume_from_initiator",
+          "amount": 1.0,
+          "ownership": "personal_character"
+        },
+        {
+          "kind": "player_param",
+          "id": "_rel_npc_cultist",
+          "operation": "add_once",
+          "amount": 10.0,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "dialogue_phrase",
+          "id": "@snake_final_ritual",
+          "operation": "blacklist_after_script_returns",
+          "amount": 1.0,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "npc_task",
+          "id": "npc_cultist:snake_dark",
+          "operation": "complete",
+          "amount": 1.0,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "story_point",
+          "id": "gold",
+          "operation": "grant_to_initiator_from_snake_dark",
+          "amount": 5.0,
+          "ownership": "personal_character"
+        },
+        {
+          "kind": "npc_task",
+          "id": "npc_cultist:snake_help",
+          "operation": "complete",
+          "amount": 1.0,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "story_point",
+          "id": "silver",
+          "operation": "grant_to_initiator_from_snake_help",
+          "amount": 5.0,
+          "ownership": "personal_character"
+        },
+        {
+          "kind": "story_point",
+          "id": "gold",
+          "operation": "grant_to_initiator_from_snake_help",
+          "amount": 5.0,
+          "ownership": "personal_character"
+        },
+        {
+          "kind": "world_actor_group",
+          "id": "npc_cultist_follower",
+          "operation": "spawn_stage_and_remove_four_once",
+          "amount": 4.0,
+          "ownership": "shared_world"
+        },
+        {
+          "kind": "key_quest_check",
+          "id": "snk_inqstr_together",
+          "operation": "check_once",
+          "amount": 1.0,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "quest",
+          "id": "hidden_imyourfather",
+          "operation": "trigger_and_complete_from_key",
+          "amount": 1.0,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "inventory_item",
+          "id": "endless_book",
+          "operation": "drop_once_to_initiator",
+          "amount": 1.0,
+          "ownership": "shared_story_token"
+        },
+        {
+          "kind": "player_param",
+          "id": "_rel_npc_inquisitor",
+          "operation": "add_once",
+          "amount": 10.0,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "inventory_item",
+          "id": "eternal_burning_coil",
+          "operation": "drop_once_to_initiator",
+          "amount": 1.0,
+          "ownership": "shared_story_token"
+        },
+        {
+          "kind": "world_param",
+          "id": "npc_cultist:lock_spawn_and_despawn",
+          "operation": "set_during_vanilla_cleanup",
+          "amount": 1.0,
+          "ownership": "shared_world"
+        },
+        {
+          "kind": "world_param",
+          "id": "npc_cultist:cultist_in_morgue",
+          "operation": "set_during_vanilla_cleanup",
+          "amount": 0.0,
+          "ownership": "shared_world"
+        },
+        {
+          "kind": "dialogue_phrase",
+          "id": "@snake_magic_100",
+          "operation": "blacklist",
+          "amount": 1.0,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "dialogue_phrase",
+          "id": "@inquisitor_magic_100",
+          "operation": "blacklist",
+          "amount": 1.0,
+          "ownership": "shared_campaign"
+        }
+      ],
+      "safeguards": [
+        "consume_the_dark_heart_from_the_ritual_initiator_only",
+        "all_relation_and_story_point_rewards_apply_once",
+        "run_one_authoritative_world_staging_sequence_for_all_observers",
+        "check_snk_inqstr_together_once_without_replaying_it_on_observers",
+        "drop_exactly_one_endless_book_and_one_eternal_burning_coil_for_the_campaign",
+        "drop_both_artifacts_to_the_initiator_only_and_never_from_completed_task_state",
+        "do_not_repair_lock_spawn_and_despawn_before_vanilla_cleanup_reaches_it",
+        "blacklist_snake_final_ritual_only_after_the_final_ritual_script_returns",
+        "restore_weather_music_camera_location_and_control_for_every_loaded_player"
+      ]
+    },
+    {
+      "stepId": "hear_gerrys_breaking_dead_zombie_notice",
+      "title": "Hear Gerry's report about the chained corpse after day twenty",
+      "linkedQuestIds": [],
+      "linkedTaskMilestoneIds": ["breaking_dead_zombie_hit_requested"],
+      "triggerScripts": [
+        "on_enter_mortuary_gd_zone",
+        "crafting_skull_3:introduce_the_zombie"
+      ],
+      "triggerKeys": [
+        "BreakingDead",
+        "day>20",
+        "introduced_zombie_in_mortuary",
+        "need_to_introduce_zombie_in_mortuary",
+        "skull_zombie_1..skull_zombie_7"
+      ],
+      "expectedEffects": [
+        { "kind": "dialogue_sequence", "id": "skull_zombie_1..skull_zombie_7", "operation": "present_in_serialized_order", "amount": 7.0, "ownership": "live_presentation" },
+        { "kind": "world_param", "id": "crafting_skull_3:introduced_zombie_in_mortuary", "operation": "set_after_the_notice", "amount": 1.0, "ownership": "shared_world" },
+        { "kind": "player_param", "id": "need_to_introduce_zombie_in_mortuary", "operation": "arm_for_the_live_Snake_handoff", "amount": 1.0, "ownership": "shared_campaign" }
+      ],
+      "safeguards": [
+        "run_only_after_all_higher_priority_mortuary_Gerry_branches_are_clear",
+        "require_BreakingDead_introduced_zombie_in_mortuary_equals_zero_and_current_day_greater_than_twenty",
+        "never_replay_Gerrys_notice_for_an_observer_reconnect_or_late_join",
+        "treat_need_to_introduce_zombie_in_mortuary_as_an_ephemeral_latch_that_Snake_consumes_to_zero",
+        "do_not_infer_Gunters_reveal_from_introduced_zombie_in_mortuary_alone"
+      ]
+    },
+    {
+      "stepId": "meet_gunter_and_accept_the_hit_request",
+      "title": "Follow Snake through the opened gate and meet Gunter",
+      "linkedQuestIds": ["player_die_after_in_cultist_quest"],
+      "linkedTaskMilestoneIds": ["breaking_dead_zombie_hit_requested"],
+      "triggerScripts": [
+        "npc_cultist:@snake_give_key",
+        "npc_cultist:start_talk_2",
+        "zombie_in_mortuary"
+      ],
+      "triggerKeys": [
+        "need_to_introduce_zombie_in_mortuary",
+        "npc_cultist:introduce_zombie_from_snake",
+        "dungeon_grille_236",
+        "dungeon_grille_opened",
+        "zombie_hit",
+        "zombie_asked_to_hit_him"
+      ],
+      "expectedEffects": [
+        { "kind": "player_param", "id": "need_to_introduce_zombie_in_mortuary", "operation": "consume_before_arming_Snake", "amount": 0.0, "ownership": "shared_campaign" },
+        { "kind": "world_param", "id": "npc_cultist:introduce_zombie_from_snake", "operation": "set_for_the_durable_handoff", "amount": 1.0, "ownership": "shared_world" },
+        { "kind": "world_object", "id": "dungeon_grille_236", "operation": "replace_with_dungeon_grille_opened_once", "amount": 1.0, "ownership": "shared_world" },
+        { "kind": "npc_task", "id": "zombie_in_mortuary:zombie_hit", "operation": "show_after_the_intro_dialogue", "amount": 1.0, "ownership": "shared_campaign" },
+        { "kind": "world_param", "id": "zombie_in_mortuary:zombie_asked_to_hit_him", "operation": "set_after_restoring_player_control", "amount": 1.0, "ownership": "shared_world" }
+      ],
+      "safeguards": [
+        "consume_the_ephemeral_player_latch_only_in_the_live_Snake_handoff",
+        "preserve_snake_key_completion_snake_blood_visibility_and_pail_blood_unlock_from_the_parent_Snake_route",
+        "run_one_nested_zombie_in_mortuary_sequence_for_all_observers",
+        "never_repair_need_to_introduce_zombie_in_mortuary_or_zombie_asked_to_hit_him_from_later_task_state",
+        "do_not_strike_Gunter_or_start_the_followup_interview_during_his_reveal"
+      ]
+    },
+    {
+      "stepId": "strike_zombie_worker_and_begin_blueprint_search",
+      "title": "Strike the trapped zombie worker and learn where to find his blueprints",
+      "linkedQuestIds": [],
+      "linkedTaskMilestoneIds": ["zombie_worker_introduction_completed"],
+      "triggerScripts": [
+        "zombie_in_mortuary:on_damage_zombie",
+        "zombie_after_hit_sword_cutscene"
+      ],
+      "triggerKeys": [
+        "zombie_asked_to_hit_him",
+        "is_first_hit",
+        "zombie_hit",
+        "zombie_after_hit_sword_cutscene",
+        "multianswer_1_check_param",
+        "@zombie_help_1_1",
+        "@zombie_help_2_1",
+        "zombie_blueprints",
+        "bookcase_F_broken_custom_zombie:show_tech",
+        "steep_yellow_blockage_R_o:info"
+      ],
+      "expectedEffects": [
+        { "kind": "npc_task", "id": "zombie_in_mortuary:zombie_hit", "operation": "complete_before_the_cutscene", "amount": 1.0, "ownership": "shared_campaign" },
+        { "kind": "cutscene_script", "id": "zombie_after_hit_sword_cutscene", "operation": "run_once_for_the_first_authorized_hit", "amount": 1.0, "ownership": "shared_world" },
+        { "kind": "dialogue_phrase", "id": "@zombie_help_1_1", "operation": "unlock_once", "amount": 1.0, "ownership": "shared_campaign" },
+        { "kind": "dialogue_phrase", "id": "@zombie_help_2_1", "operation": "unlock_once", "amount": 1.0, "ownership": "shared_campaign" },
+        { "kind": "world_interaction", "id": "bookcase_F_broken_custom_zombie:show_tech", "operation": "arm_only_during_live_cutscene", "amount": 1.0, "ownership": "shared_world" },
+        { "kind": "world_interaction", "id": "steep_yellow_blockage_R_o:info", "operation": "arm_only_during_live_cutscene", "amount": 1.0, "ownership": "shared_world" },
+        { "kind": "npc_task", "id": "player:zombie_blueprints", "operation": "show", "amount": 1.0, "ownership": "shared_campaign" }
+      ],
+      "safeguards": [
+        "the_outer_damage_event_runs_only_when_zombie_asked_to_hit_him_is_set_and_is_first_hit_is_clear",
+        "zombie_after_hit_sword_cutscene_is_the_only_catalog_cutscene_owner",
+        "never_repair_zombie_asked_to_hit_him_is_first_hit_or_multianswer_1_check_param",
+        "never_rearm_world_interactions_from_task_state",
+        "delegate_the_optional_DLC_zombie_greeter_effect_to_the_Stranger_Sins_tavern_operations_catalog"
+      ]
+    },
+    {
+      "stepId": "discover_zombie_blueprints_at_the_blockage",
+      "title": "Discover the zombie blueprints at the blocked tunnel",
+      "linkedQuestIds": [],
+      "linkedTaskMilestoneIds": [
+        "zombie_worker_introduction_completed",
+        "zombie_blueprints_discovered"
+      ],
+      "triggerScripts": ["steep_yellow_blockage_R_o:found_steep"],
+      "triggerKeys": [
+        "found_steep",
+        "find_zombie_in_steep",
+        "zombie_was_found",
+        "zombie_blueprints",
+        "@zombie_help_2_1"
+      ],
+      "expectedEffects": [
+        { "kind": "one_time_craft", "id": "find_zombie_in_steep", "operation": "start_only_during_live_discovery", "amount": 1.0, "ownership": "shared_world" },
+        { "kind": "world_param", "id": "steep_yellow_blockage_R_o:zombie_was_found", "operation": "set_only_during_live_discovery", "amount": 1.0, "ownership": "shared_world" },
+        { "kind": "npc_task", "id": "player:zombie_blueprints", "operation": "complete", "amount": 1.0, "ownership": "shared_campaign" },
+        { "kind": "dialogue_phrase", "id": "@zombie_help_2_1", "operation": "blacklist", "amount": 1.0, "ownership": "shared_campaign" }
+      ],
+      "safeguards": [
+        "run_the_discovery_once_for_all_observers",
+        "never_replay_find_zombie_in_steep_from_completed_task_state",
+        "never_repair_zombie_was_found_or_the_found_steep_registration",
+        "complete_only_the_shared_task_and_phrase_lifecycle_on_reconnect"
+      ]
+    },
+    {
+      "stepId": "reveal_second_chance_at_gunters_bookcase",
+      "title": "Inspect Gunter's bookcase and reveal Second chance",
+      "linkedQuestIds": [],
+      "linkedTaskMilestoneIds": ["zombie_worker_introduction_completed"],
+      "triggerScripts": ["bookcase_F_broken_custom_zombie:show_tech"],
+      "triggerKeys": [
+        "bookcase_F_broken_custom_zombie:show_tech",
+        "Second chance"
+      ],
+      "expectedEffects": [
+        { "kind": "technology", "id": "Second chance", "operation": "reveal_hidden_technology", "amount": 1.0, "ownership": "shared_campaign" },
+        { "kind": "technology_popup", "id": "Second chance", "operation": "show_non_silent_reveal_to_initiator", "amount": 1.0, "ownership": "live_presentation" }
+      ],
+      "safeguards": [
+        "require_the_bookcase_event_armed_by_the_live_Gunter_interview",
+        "reveal_the_hidden_tree_entry_without_unlocking_or_purchasing_it",
+        "do_not_add_Second_chance_to_unlockedTechs",
+        "keep_repeated_interaction_and_observer_reconciliation_idempotent"
+      ]
+    },
+    {
+      "stepId": "recover_the_first_zombie_worker",
+      "title": "Excavate the blockage and recover the first zombie worker",
+      "linkedQuestIds": [],
+      "linkedTaskMilestoneIds": ["zombie_blueprints_discovered"],
+      "triggerScripts": ["on_craft_finished_steep_yellow_bl_R"],
+      "triggerKeys": [
+        "find_zombie_in_steep",
+        "worker_zombie_1",
+        "working_zombie_on_ground_1",
+        "steep_yellow_blockage_R_o"
+      ],
+      "expectedEffects": [
+        { "kind": "worker", "id": "worker_zombie_1", "operation": "spawn_once_at_default_destroy_point_then_set_is_disabled", "amount": 1.0, "ownership": "shared_world" },
+        { "kind": "worker_item", "id": "working_zombie_on_ground_1", "operation": "transform_the_same_worker_then_drop_once_at_steep_yellow_blockage_R_o", "amount": 1.0, "ownership": "shared_world" },
+        { "kind": "technology", "id": "Zombie mining", "operation": "reveal_hidden_technology", "amount": 1.0, "ownership": "shared_campaign" },
+        { "kind": "technology", "id": "Zombie woodcuttering", "operation": "reveal_hidden_technology", "amount": 1.0, "ownership": "shared_campaign" },
+        { "kind": "technology", "id": "Zombie quarrying I", "operation": "reveal_hidden_technology", "amount": 1.0, "ownership": "shared_campaign" },
+        { "kind": "technology", "id": "Zombie quarrying II", "operation": "reveal_hidden_technology", "amount": 1.0, "ownership": "shared_campaign" },
+        { "kind": "technology", "id": "Zombie gardening", "operation": "reveal_hidden_technology", "amount": 1.0, "ownership": "shared_campaign" },
+        { "kind": "technology", "id": "Random text generator", "operation": "reveal_hidden_technology", "amount": 1.0, "ownership": "shared_campaign" },
+        { "kind": "technology", "id": "Zombie alchemy", "operation": "reveal_hidden_technology", "amount": 1.0, "ownership": "shared_campaign" },
+        { "kind": "technology", "id": "Zombie vineyard", "operation": "reveal_hidden_technology", "amount": 1.0, "ownership": "shared_campaign" },
+        { "kind": "technology", "id": "Zombie brewing", "operation": "reveal_hidden_technology", "amount": 1.0, "ownership": "shared_campaign" },
+        { "kind": "technology", "id": "Zombie winemaking", "operation": "reveal_hidden_technology", "amount": 1.0, "ownership": "shared_campaign" }
+      ],
+      "safeguards": [
+        "run_only_after_the_one_time_find_zombie_in_steep_craft_finishes_successfully",
+        "preserve_worker_zombie_1_as_one_identity_across_WGO_transformation_and_ground_item_serialization",
+        "never_mint_a_personal_item_grant_or_observer_copy_of_the_worker",
+        "reveal_hidden_technology_entries_without_unlocking_or_purchasing_them",
+        "do_not_add_any_of_the_ten_reveals_to_unlockedTechs",
+        "on_transform_failure_drop_nothing_reveal_nothing_and_end_after_the_fatal_log"
+      ]
+    },
+    {
+      "stepId": "receive_portal_item_lead_from_gerry",
+      "title": "Hear Gerry's portal-item lead after the lightning strike",
+      "linkedQuestIds": [],
+      "linkedTaskMilestoneIds": ["portal_items_lead_received"],
+      "triggerScripts": ["gerry_comes_after_lightning_strike"],
+      "triggerKeys": [
+        "dead_after_lightning",
+        "gd_gerry_in_player_house",
+        "player_items",
+        "@snake_items",
+        "turnpike_close"
+      ],
+      "expectedEffects": [
+        { "kind": "world_actor", "id": "talking_skull", "operation": "stage_and_return_during_live_script", "amount": 1.0, "ownership": "shared_world" },
+        { "kind": "npc_task", "id": "player:player_items", "operation": "show", "amount": 1.0, "ownership": "shared_campaign" },
+        { "kind": "player_param", "id": "dead_after_lightning", "operation": "clear_only_during_live_script", "amount": 0.0, "ownership": "shared_campaign" },
+        { "kind": "dialogue_phrase", "id": "@snake_items", "operation": "unlock_once", "amount": 1.0, "ownership": "shared_campaign" },
+        { "kind": "world_event", "id": "turnpike_close", "operation": "run_only_during_live_script", "amount": 1.0, "ownership": "shared_world" }
+      ],
+      "safeguards": [
+        "gerry_comes_after_lightning_strike_is_the_only_catalog_cutscene_owner",
+        "generic_player_ressurection_is_catalogued_only_as_a_serialized_quest_definition_and_remains_unregistered_as_a_cutscene",
+        "never_repair_dead_after_lightning_or_turnpike_state_from_player_items",
+        "stage_and_return_gerry_once_for_all_observers"
+      ]
+    },
+    {
+      "stepId": "ask_snake_about_portal_items",
+      "title": "Ask Snake about the portal's missing items",
+      "linkedQuestIds": [],
+      "linkedTaskMilestoneIds": [
+        "portal_items_lead_received",
+        "portal_items_question_answered"
+      ],
+      "triggerScripts": ["npc_cultist:@snake_items"],
+      "triggerKeys": ["@snake_items", "player_items", "@snake_items_give"],
+      "expectedEffects": [
+        { "kind": "dialogue_phrase", "id": "@snake_items", "operation": "blacklist", "amount": 1.0, "ownership": "shared_campaign" },
+        { "kind": "npc_task", "id": "player:player_items", "operation": "complete", "amount": 1.0, "ownership": "shared_campaign" },
+        { "kind": "story_point", "id": "bronze", "operation": "grant_to_initiator", "amount": 5.0, "ownership": "personal_character" },
+        { "kind": "dialogue_phrase", "id": "@snake_items_give", "operation": "unlock_once", "amount": 1.0, "ownership": "shared_campaign" }
+      ],
+      "safeguards": [
+        "complete_player_items_and_grant_five_bronze_story_points_once",
+        "story_points_go_to_the_dialogue_initiator_only",
+        "never_regrant_story_points_from_completed_task_state",
+        "never_rearm_snake_items_give_from_player_items_complete_after_it_is_consumed",
+        "do_not_skip_the_followup_snake_items_give_dialogue"
+      ]
+    },
+    {
+      "stepId": "hear_snakes_magic_item_contacts",
+      "title": "Hear which townspeople may know about the portal's missing items",
+      "linkedQuestIds": [],
+      "linkedTaskMilestoneIds": ["portal_items_question_answered"],
+      "triggerScripts": ["npc_cultist:@snake_items_give"],
+      "triggerKeys": [
+        "@snake_items_give",
+        "@merchant_magic_item",
+        "@inquisitor_magic_item",
+        "@bishop_magic_item"
+      ],
+      "expectedEffects": [
+        { "kind": "dialogue_phrase", "id": "@snake_items_give", "operation": "blacklist", "amount": 1.0, "ownership": "shared_campaign" },
+        { "kind": "dialogue_phrase", "id": "@merchant_magic_item", "operation": "unlock_once", "amount": 1.0, "ownership": "shared_campaign" },
+        { "kind": "dialogue_phrase", "id": "@inquisitor_magic_item", "operation": "unlock_once", "amount": 1.0, "ownership": "shared_campaign" },
+        { "kind": "dialogue_phrase", "id": "@bishop_magic_item", "operation": "unlock_once", "amount": 1.0, "ownership": "shared_campaign" }
+      ],
+      "safeguards": [
+        "run_this_second_snake_dialogue_once_for_all_observers",
+        "never_infer_its_phrase_effects_from_player_items_complete_alone",
+        "each_unlocked_contact_topic_remains_a_separate_live_conversation",
+        "do_not_unlock_merchant_inquisitor_or_bishop_magic_100_topics_early"
+      ]
+    },
+    {
+      "stepId": "learn_the_astrologers_portal_artifact_leads",
+      "title": "Ask the Astrologer about the Necklace and Golden Angle",
+      "linkedQuestIds": [],
+      "linkedTaskMilestoneIds": ["astrologer_second_diary_decoded"],
+      "triggerScripts": ["npc_astrologer:@astrologer_items"],
+      "triggerKeys": ["@astrologer_items", "necklace", "sextant"],
+      "expectedEffects": [
+        { "kind": "dialogue_gate", "id": "_rel_npc_astrologer", "operation": "require_minimum", "amount": 60.0, "ownership": "shared_campaign" },
+        { "kind": "dialogue_phrase", "id": "@astrologer_items", "operation": "blacklist", "amount": 1.0, "ownership": "shared_campaign" }
+      ],
+      "safeguards": [
+        "this_topic_was_unlocked_by_astrologer_second_diary_but_is_a_separate_live_conversation",
+        "the_topic_only_reveals_where_the_two_artifacts_came_from",
+        "never_grant_necklace_or_sextant_from_this_dialogue_or_its_blacklisted_phrase",
+        "archaeological_excavations_remains_the_only_catalog_cutscene_owner_for_both_artifacts"
+      ]
+    },
+    {
+      "stepId": "ask_snake_for_the_endless_notebook",
+      "title": "Ask Snake to promise the Endless Notebook after his ritual",
+      "linkedQuestIds": [],
+      "linkedTaskMilestoneIds": ["astrologer_second_diary_decoded"],
+      "triggerScripts": ["npc_cultist:@snake_magic_item"],
+      "triggerKeys": ["@snake_magic_item", "@snake_magic_100"],
+      "expectedEffects": [
+        { "kind": "dialogue_phrase", "id": "@snake_magic_item", "operation": "blacklist", "amount": 1.0, "ownership": "shared_campaign" },
+        { "kind": "dialogue_phrase", "id": "@snake_magic_100", "operation": "unlock_once", "amount": 1.0, "ownership": "shared_campaign" }
+      ],
+      "safeguards": [
+        "snake_magic_item_was_unlocked_by_astrologer_second_diary_but_is_a_separate_live_conversation",
+        "snake_magic_100_is_a_relation_100_answer_with_no_dialogue_function_body",
+        "never_run_or_mirror_its_endless_book_answer_reward_as_part_of_this_promise",
+        "final_ritual_remains_the_only_catalog_cutscene_owner_and_artifact_allocator"
+      ]
+    },
+    {
+      "stepId": "ask_merchant_for_the_salty_fork",
+      "title": "Ask the Merchant to promise the Salty Fork when you are worthy",
+      "linkedQuestIds": [],
+      "linkedTaskMilestoneIds": ["portal_items_question_answered"],
+      "triggerScripts": ["npc_merchant:@merchant_magic_item"],
+      "triggerKeys": ["@merchant_magic_item", "@merchant_magic_100"],
+      "expectedEffects": [
+        { "kind": "dialogue_phrase", "id": "@merchant_magic_item", "operation": "blacklist", "amount": 1.0, "ownership": "shared_campaign" },
+        { "kind": "dialogue_phrase", "id": "@merchant_magic_100", "operation": "unlock_once", "amount": 1.0, "ownership": "shared_campaign" }
+      ],
+      "safeguards": [
+        "merchant_magic_item_is_unlocked_only_by_the_separate_snake_items_give_dialogue",
+        "merchant_magic_100_is_a_relation_100_answer_with_no_dialogue_function_body",
+        "never_run_or_mirror_its_fork_salty_answer_reward_as_part_of_this_promise",
+        "final_ceremony_remains_the_only_catalog_cutscene_owner_and_artifact_allocator"
+      ]
+    },
+    {
+      "stepId": "ask_inquisitor_for_the_eternal_burning_coal",
+      "title": "Ask the Inquisitor to promise the Eternal Burning Coal after his campaign",
+      "linkedQuestIds": [],
+      "linkedTaskMilestoneIds": ["portal_items_question_answered"],
+      "triggerScripts": ["npc_inquisitor:@inquisitor_magic_item"],
+      "triggerKeys": ["@inquisitor_magic_item", "@inquisitor_magic_100"],
+      "expectedEffects": [
+        { "kind": "dialogue_phrase", "id": "@inquisitor_magic_item", "operation": "blacklist", "amount": 1.0, "ownership": "shared_campaign" },
+        { "kind": "dialogue_phrase", "id": "@inquisitor_magic_100", "operation": "unlock_once", "amount": 1.0, "ownership": "shared_campaign" }
+      ],
+      "safeguards": [
+        "inquisitor_magic_item_is_unlocked_only_by_the_separate_snake_items_give_dialogue",
+        "inquisitor_magic_100_is_a_relation_100_answer_with_no_dialogue_function_body",
+        "never_run_or_mirror_its_eternal_burning_coil_answer_reward_as_part_of_this_promise",
+        "final_ritual_remains_the_only_catalog_cutscene_owner_and_artifact_allocator"
+      ]
+    },
+    {
+      "stepId": "ask_bishop_for_the_mirror_of_pride",
+      "title": "Ask the Bishop to promise the Mirror of Pride at the height of his career",
+      "linkedQuestIds": [],
+      "linkedTaskMilestoneIds": ["portal_items_question_answered"],
+      "triggerScripts": ["npc_bishop:@bishop_magic_item"],
+      "triggerKeys": ["@bishop_magic_item", "@bishop_magic_100"],
+      "expectedEffects": [
+        { "kind": "dialogue_phrase", "id": "@bishop_magic_item", "operation": "blacklist", "amount": 1.0, "ownership": "shared_campaign" },
+        { "kind": "dialogue_phrase", "id": "@bishop_magic_100", "operation": "unlock_once", "amount": 1.0, "ownership": "shared_campaign" }
+      ],
+      "safeguards": [
+        "bishop_magic_item_is_unlocked_only_by_the_separate_snake_items_give_dialogue",
+        "bishop_magic_100_is_a_relation_100_answer_with_no_dialogue_function_body",
+        "never_run_or_mirror_its_mirror_of_pride_answer_reward_as_part_of_this_promise",
+        "final_ceremony_remains_the_only_catalog_cutscene_owner_and_artifact_allocator"
+      ]
+    },
+    {
+      "stepId": "learn_snakes_illicit_business_options",
+      "title": "Ask Snake whether he can obtain restricted papers",
+      "linkedQuestIds": [],
+      "linkedTaskMilestoneIds": ["snake_blood_and_nails_requested"],
+      "triggerScripts": ["npc_cultist:@snake_buisnes"],
+      "triggerKeys": [
+        "@snake_buisnes",
+        "got_stamp",
+        "@snake_meat_1",
+        "got_town_pass",
+        "@snake_pass_1"
+      ],
+      "expectedEffects": [
+        { "kind": "dialogue_phrase", "id": "@snake_meat_1", "operation": "unlock_only_if_got_stamp_is_zero", "amount": 1.0, "ownership": "shared_campaign" },
+        { "kind": "dialogue_phrase", "id": "@snake_pass_1", "operation": "unlock_only_if_got_town_pass_is_zero", "amount": 1.0, "ownership": "shared_campaign" },
+        { "kind": "dialogue_phrase", "id": "@snake_buisnes", "operation": "blacklist_after_both_flag_checks", "amount": 1.0, "ownership": "shared_campaign" }
+      ],
+      "safeguards": [
+        "snake_buisnes_is_unlocked_during_player_back_to_cultist_after_snake_blood_becomes_visible",
+        "evaluate_both_existing_document_flags_in_vanilla_order",
+        "do_not_unlock_an_offer_for_a_document_the_campaign_already_obtained",
+        "never_grant_either_document_from_this_conversation"
+      ]
+    },
+    {
+      "stepId": "obtain_royal_stamp_from_snake",
+      "title": "Receive the Royal Stamp from Snake at relation 30",
+      "linkedQuestIds": [],
+      "linkedTaskMilestoneIds": ["snake_blood_and_nails_requested"],
+      "triggerScripts": ["npc_cultist:@snake_meat_1"],
+      "triggerKeys": ["@snake_meat_1", "_rel_npc_cultist", "stamp", "mailbox_stamp"],
+      "expectedEffects": [
+        { "kind": "dialogue_gate", "id": "_rel_npc_cultist", "operation": "require_minimum", "amount": 30.0, "ownership": "shared_campaign" },
+        { "kind": "inventory_item", "id": "stamp", "operation": "grant_once_to_initiator_from_answer_reward", "amount": 1.0, "ownership": "shared_story_token" },
+        { "kind": "dialogue_phrase", "id": "@snake_meat_1", "operation": "blacklist", "amount": 1.0, "ownership": "shared_campaign" },
+        { "kind": "dialogue_phrase", "id": "mailbox_stamp", "operation": "blacklist", "amount": 1.0, "ownership": "shared_campaign" }
+      ],
+      "safeguards": [
+        "the_stamp_is_granted_by_the_live_multianswer_reward_before_the_dialogue_function_applies_its_phrase_blacklists_and_returns",
+        "grant_exactly_one_stamp_to_the_dialogue_initiator",
+        "never_grant_a_stamp_to_observers_or_from_either_blacklisted_phrase",
+        "never_regrant_the_stamp_from_snake_blood_or_any_later_task_state"
+      ]
+    },
+    {
+      "stepId": "obtain_town_pass_from_snake",
+      "title": "Receive the Town Pass from Snake at relation 20",
+      "linkedQuestIds": [],
+      "linkedTaskMilestoneIds": ["snake_blood_and_nails_requested"],
+      "triggerScripts": ["npc_cultist:@snake_pass_1"],
+      "triggerKeys": ["@snake_pass_1", "_rel_npc_cultist", "town_pass", "mailbox_townpass"],
+      "expectedEffects": [
+        { "kind": "dialogue_gate", "id": "_rel_npc_cultist", "operation": "require_minimum", "amount": 20.0, "ownership": "shared_campaign" },
+        { "kind": "inventory_item", "id": "town_pass", "operation": "grant_once_to_initiator_from_answer_reward", "amount": 1.0, "ownership": "shared_story_token" },
+        { "kind": "dialogue_phrase", "id": "@snake_pass_1", "operation": "blacklist", "amount": 1.0, "ownership": "shared_campaign" },
+        { "kind": "dialogue_phrase", "id": "mailbox_townpass", "operation": "blacklist", "amount": 1.0, "ownership": "shared_campaign" }
+      ],
+      "safeguards": [
+        "the_town_pass_is_granted_by_the_live_multianswer_reward_before_the_dialogue_function_applies_its_phrase_blacklists_and_returns",
+        "grant_exactly_one_town_pass_to_the_dialogue_initiator",
+        "never_grant_a_town_pass_to_observers_or_from_either_blacklisted_phrase",
+        "never_regrant_the_town_pass_from_snake_blood_or_any_later_task_state"
+      ]
+    },
+    {
+      "stepId": "ask_snake_about_dungeon_level_eleven",
+      "title": "Ask Snake about the sealed passage below dungeon level 10",
+      "linkedQuestIds": [],
+      "linkedTaskMilestoneIds": ["snake_active_key_delivered"],
+      "triggerScripts": ["npc_cultist:@snake_10th"],
+      "triggerKeys": ["dungeon_lvl10_grille", "@snake_10th", "_rel_npc_cultist"],
+      "expectedEffects": [
+        { "kind": "dialogue_phrase", "id": "@snake_10th", "operation": "blacklist", "amount": 1.0, "ownership": "shared_campaign" },
+        { "kind": "dialogue_branch", "id": "_rel_npc_cultist", "operation": "include_opening_player_line_if_minimum", "amount": 80.0, "ownership": "shared_campaign" }
+      ],
+      "safeguards": [
+        "dungeon_lvl10_grille_unlocks_this_topic_only_when_the_player_lacks_the_hunters_medallion",
+        "relation_80_does_not_gate_the_topic_and_only_controls_the_opening_player_line",
+        "both_snake_reply_lines_run_on_either_relation_branch",
+        "never_rearm_the_consumed_topic_from_relation_or_dungeon_progress"
+      ]
+    },
+    {
+      "stepId": "witness_snake_in_the_cellar_before_meeting_him",
+      "title": "Discover Snake moving through the cellar for the first time",
+      "linkedQuestIds": [],
+      "linkedTaskMilestoneIds": ["snake_key_instructions_received"],
+      "triggerScripts": ["player_first_visiting_cellar"],
+      "triggerKeys": [
+        "not_first_cellar_visit",
+        "everyday_cultist_come",
+        "npc_cultist:intro",
+        "gd_cultist_4",
+        "going_home",
+        "on_the_way_now"
+      ],
+      "expectedEffects": [
+        { "kind": "player_param", "id": "not_first_cellar_visit", "operation": "set_only_during_first_live_visit", "amount": 1.0, "ownership": "shared_campaign" },
+        { "kind": "player_param", "id": "everyday_cultist_come", "operation": "set_only_during_first_live_visit", "amount": 1.0, "ownership": "shared_campaign" },
+        { "kind": "npc_interaction", "id": "npc_cultist:intro", "operation": "arm_only_during_first_live_visit", "amount": 1.0, "ownership": "shared_world" },
+        { "kind": "world_actor", "id": "npc_cultist", "operation": "stage_and_send_home_only_during_live_script", "amount": 1.0, "ownership": "shared_world" },
+        { "kind": "world_param", "id": "npc_cultist:on_the_way_now", "operation": "set_only_during_live_route", "amount": 1.0, "ownership": "shared_world" }
+      ],
+      "safeguards": [
+        "player_first_visiting_cellar_is_the_outer_discovery_scene",
+        "it_arms_but_does_not_execute_the_existing_npc_cultist_intro_cutscene",
+        "snake_key_instructions_received_is_only_the_nearest_durable_downstream_anchor",
+        "never_repair_any_discovery_or_schedule_latch_from_that_later_milestone"
+      ]
+    },
+    {
+      "stepId": "inspect_the_level_ten_dungeon_grille",
+      "title": "Reach the level-10 grille and either open it or seek Snake's advice",
+      "linkedQuestIds": [],
+      "linkedTaskMilestoneIds": ["snake_active_key_delivered"],
+      "triggerScripts": ["dungeon_lvl10_grille"],
+      "triggerKeys": [
+        "hunters_medallion",
+        "dungeon_unlocked_11",
+        "dungeon_lvl10_grille_opened",
+        "10th_level",
+        "@snake_10th"
+      ],
+      "expectedEffects": [
+        { "kind": "inventory_gate", "id": "hunters_medallion", "operation": "branch_on_live_inventory_presence", "amount": 1.0, "ownership": "personal_character" },
+        { "kind": "player_param", "id": "dungeon_unlocked_11", "operation": "set_only_if_medallion_is_present", "amount": 1.0, "ownership": "shared_campaign" },
+        { "kind": "world_object", "id": "dungeon_lvl10_grille_opened", "operation": "change_only_if_medallion_is_present", "amount": 1.0, "ownership": "shared_world" },
+        { "kind": "dialogue_phrase", "id": "@snake_10th", "operation": "unlock_only_if_medallion_is_absent", "amount": 1.0, "ownership": "shared_campaign" }
+      ],
+      "safeguards": [
+        "the_medallion_and_snake_topic_paths_are_mutually_exclusive",
+        "never_consume_or_grant_a_hunters_medallion",
+        "never_open_the_grille_because_snake_10th_was_later_blacklisted",
+        "never_unlock_snake_10th_from_dungeon_unlocked_11_or_relation_state"
+      ]
+    },
+    {
+      "stepId": "survive_the_graveyard_lightning_storm",
+      "title": "Witness the ghost's warning during the graveyard lightning storm",
+      "linkedQuestIds": [],
+      "linkedTaskMilestoneIds": ["portal_items_lead_received"],
+      "triggerScripts": ["lightning_storm_on_graveyard"],
+      "triggerKeys": [
+        "grave_ground",
+        "lightning_strike_wout_fade",
+        "npc_ghost",
+        "ghost_ruin_1..13",
+        "talk_skull_after_light_storm",
+        "exit_lightstorm_script"
+      ],
+      "expectedEffects": [
+        { "kind": "world_object_group", "id": "grave_ground", "operation": "select_floor_of_current_group_count_divided_by_nine_random_members_and_set_each_durability_between_0_2_and_0_6_once", "amount": 9.0, "ownership": "shared_world" },
+        { "kind": "world_actor_group", "id": "lightning_strike_wout_fade", "operation": "spawn_animate_and_destroy_once_per_selected_grave_from_the_count_divided_by_nine_loop", "amount": 9.0, "ownership": "shared_world" },
+        { "kind": "world_actor", "id": "npc_ghost", "operation": "spawn_stage_and_return_during_live_script", "amount": 1.0, "ownership": "shared_world" },
+        { "kind": "player_param", "id": "talk_skull_after_light_storm", "operation": "set_only_at_live_dialogue_cleanup", "amount": 1.0, "ownership": "shared_campaign" }
+      ],
+      "safeguards": [
+        "the_conditional_ghost_psyco_1..9_scene_inside_on_enter_graveyard_zone_is_the_precursor_but_not_part_of_this_trigger",
+        "do_not_register_or_nest_the_generic_on_enter_graveyard_zone_wrapper_here",
+        "the_amount_nine_is_the_integer_divisor_for_the_current_grave_count_not_a_fixed_strike_count_or_cap",
+        "the_live_random_float_data_wire_overrides_the_durability_nodes_zero_default_with_a_value_from_0_2_through_0_6",
+        "run_the_random_grave_damage_loop_only_on_the_authoritative_world",
+        "the_grave_loop_and_ghost_dialogue_converge_through_two_live_exit_lightstorm_script_increments",
+        "never_persist_or_repair_that_transient_convergence_counter",
+        "portal_items_lead_received_is_only_a_later_anchor_and_must_never_replay_the_storm"
+      ]
+    },
+    {
+      "stepId": "hear_gerrys_immediate_lightning_storm_followup",
+      "title": "Hear Gerry's warning after returning to the mortuary",
+      "linkedQuestIds": [],
+      "linkedTaskMilestoneIds": ["portal_items_lead_received"],
+      "triggerScripts": ["crafting_skull_3:talk_skull_after_light_storm"],
+      "triggerKeys": [
+        "on_enter_mortuary_gd_zone",
+        "talk_skull_after_light_storm",
+        "skull_3_1_event..4"
+      ],
+      "expectedEffects": [
+        { "kind": "player_param", "id": "talk_skull_after_light_storm", "operation": "clear_only_after_live_dialogue", "amount": 0.0, "ownership": "shared_campaign" }
+      ],
+      "safeguards": [
+        "the_mortuary_entry_event_fires_this_existing_crafting_skull_event_only_while_the_flag_is_set",
+        "this_four_line_followup_is_not_gerry_comes_after_lightning_strike",
+        "do_not_show_player_items_or_unlock_snake_items_here",
+        "never_rearm_the_flag_or_replay_the_dialogue_from_player_items_state"
+      ]
+    },
+    {
+      "stepId": "construct_both_portal_key_devices",
+      "title": "Construct both portal key devices in either order",
+      "linkedQuestIds": [],
+      "linkedTaskMilestoneIds": [
+        "portal_items_question_answered",
+        "snake_final_ritual_completed",
+        "bishop_accepted_invitation_delivered",
+        "charm_vagner_rescued"
+      ],
+      "triggerScripts": ["check_portal"],
+      "triggerKeys": [
+        "craft_emitter",
+        "craft_barrel",
+        "marble_stand_active",
+        "fork_salty",
+        "mirror_of_pride",
+        "eternal_burning_coil",
+        "sextant",
+        "endless_book",
+        "necklace",
+        "emitter_on",
+        "barrel_on",
+        "craft_count",
+        "wait_on",
+        "portal_activate_cutscene"
+      ],
+      "expectedEffects": [
+        { "kind": "world_craft", "id": "craft_emitter", "operation": "complete_once_in_either_order", "amount": 1.0, "ownership": "shared_world" },
+        { "kind": "inventory_item", "id": "fork_salty", "operation": "consume_from_live_crafter", "amount": 1.0, "ownership": "shared_story_token" },
+        { "kind": "inventory_item", "id": "mirror_of_pride", "operation": "consume_from_live_crafter", "amount": 1.0, "ownership": "shared_story_token" },
+        { "kind": "inventory_item", "id": "eternal_burning_coil", "operation": "consume_from_live_crafter", "amount": 1.0, "ownership": "shared_story_token" },
+        { "kind": "world_param", "id": "marble_stand:emitter_on", "operation": "set_by_live_emitter_craft", "amount": 1.0, "ownership": "shared_world" },
+        { "kind": "world_craft", "id": "craft_barrel", "operation": "complete_once_in_either_order", "amount": 1.0, "ownership": "shared_world" },
+        { "kind": "inventory_item", "id": "sextant", "operation": "consume_from_live_crafter", "amount": 1.0, "ownership": "shared_story_token" },
+        { "kind": "inventory_item", "id": "endless_book", "operation": "consume_from_live_crafter", "amount": 1.0, "ownership": "shared_story_token" },
+        { "kind": "inventory_item", "id": "necklace", "operation": "consume_from_live_crafter", "amount": 1.0, "ownership": "shared_story_token" },
+        { "kind": "world_param", "id": "marble_stand:barrel_on", "operation": "set_by_live_barrel_craft", "amount": 1.0, "ownership": "shared_world" },
+        { "kind": "world_param", "id": "marble_stand:craft_count", "operation": "increment_once_after_each_live_device_craft", "amount": 1.0, "ownership": "shared_world" },
+        { "kind": "world_param", "id": "marble_stand:wait_on", "operation": "set_only_when_live_craft_count_is_not_less_than_two", "amount": 1.0, "ownership": "shared_world" },
+        { "kind": "cutscene_script", "id": "portal_activate_cutscene", "operation": "dispatch_only_when_live_craft_count_is_not_less_than_two", "amount": 1.0, "ownership": "shared_world" }
+      ],
+      "safeguards": [
+        "craft_emitter_and_craft_barrel_are_two_independent_one_time_device_crafts_and_may_finish_in_either_order",
+        "each_device_consumes_its_exact_three_artifacts_from_the_player_performing_that_live_craft_only",
+        "the_first_check_portal_call_only_increments_craft_count_to_one_and_ends_without_starting_a_cutscene",
+        "check_portal_is_a_story_step_trigger_only_and_must_never_be_registered_as_a_cutscene",
+        "only_a_live_craft_count_not_less_than_two_sets_wait_on_and_dispatches_portal_activate_cutscene",
+        "linked_milestones_are_prerequisite_anchors_and_never_imply_that_any_artifact_is_still_present",
+        "never_repair_regrant_or_reconsume_artifacts_or_repair_device_crafts_emitter_on_barrel_on_craft_count_or_wait_on_from_story_state"
+      ]
+    },
+    {
+      "stepId": "activate_the_portal_and_reunite_with_love",
+      "title": "Activate the Portal and reunite with the Keeper's love",
+      "linkedQuestIds": [],
+      "linkedTaskMilestoneIds": [
+        "portal_items_question_answered",
+        "snake_final_ritual_completed",
+        "bishop_accepted_invitation_delivered",
+        "charm_vagner_rescued"
+      ],
+      "triggerScripts": ["portal_activate_cutscene"],
+      "triggerKeys": [
+        "portal_marble:bishop_done",
+        "portal_marble:merchant_done",
+        "portal_marble:astrologer_done",
+        "portal_marble:actress_done",
+        "portal_marble:snake_done",
+        "portal_marble:inquisitor_done",
+        "portal_marble:player_done",
+        "marble_stand:beam_on",
+        "portal_marble:activate_portal",
+        "launch_the_portal",
+        "hidden_portal",
+        "DLCEngine:Stories",
+        "player_saw_9cs",
+        "npc_lilya",
+        "kiss_ending_fade",
+        "skull_final"
+      ],
+      "expectedEffects": [
+        { "kind": "world_actor_group", "id": "portal_finale_cast", "operation": "stage_route_and_present_once_in_the_live_scene", "amount": 8.0, "ownership": "shared_world" },
+        { "kind": "world_param", "id": "portal_marble:bishop_done", "operation": "set_at_live_cast_checkpoint", "amount": 1.0, "ownership": "shared_world" },
+        { "kind": "world_param", "id": "portal_marble:merchant_done", "operation": "set_at_live_cast_checkpoint", "amount": 1.0, "ownership": "shared_world" },
+        { "kind": "world_param", "id": "portal_marble:astrologer_done", "operation": "set_at_live_cast_checkpoint", "amount": 1.0, "ownership": "shared_world" },
+        { "kind": "world_param", "id": "portal_marble:actress_done", "operation": "set_at_live_cast_checkpoint", "amount": 1.0, "ownership": "shared_world" },
+        { "kind": "world_param", "id": "portal_marble:snake_done", "operation": "set_at_live_cast_checkpoint", "amount": 1.0, "ownership": "shared_world" },
+        { "kind": "world_param", "id": "portal_marble:inquisitor_done", "operation": "set_at_live_cast_checkpoint", "amount": 1.0, "ownership": "shared_world" },
+        { "kind": "world_param", "id": "portal_marble:player_done", "operation": "set_at_live_cast_checkpoint", "amount": 1.0, "ownership": "shared_world" },
+        { "kind": "world_param", "id": "marble_stand:beam_on", "operation": "set_during_live_activation", "amount": 1.0, "ownership": "shared_world" },
+        { "kind": "world_param", "id": "portal_marble:activate_portal", "operation": "set_after_portal_activate_animation", "amount": 1.0, "ownership": "shared_world" },
+        { "kind": "achievement_key", "id": "launch_the_portal", "operation": "check_for_initiator", "amount": 1.0, "ownership": "personal_platform" },
+        { "kind": "world_actor", "id": "npc_lilya", "operation": "spawn_and_route_during_live_reunion", "amount": 1.0, "ownership": "shared_world" },
+        { "kind": "world_actor", "id": "kiss_ending_fade", "operation": "spawn_animate_and_destroy_during_live_reunion", "amount": 1.0, "ownership": "shared_world" },
+        { "kind": "cutscene_script", "id": "skull_final", "operation": "dispatch_when_Stories_is_unavailable_or_player_saw_9cs_is_zero", "amount": 1.0, "ownership": "shared_world" }
+      ],
+      "safeguards": [
+        "portal_activate_cutscene_starts_only_from_the_second_live_portal_device_completion",
+        "all_cast_done_and_portal_animation_params_are_transient_live_scene_checkpoints_not_repair_targets",
+        "the_portal_scene_does_not_consume_or_reconstruct_any_of_the_six_already_spent_artifacts",
+        "launch_the_portal_checks_the_personal_hidden_portal_achievement_for_the_live_initiator_only",
+        "do_not_add_or_repair_hidden_portal_as_a_shared_catalog_quest",
+        "never_infer_or_replay_the_finale_from_portal_contact_or_npc_finale_milestones",
+        "the_base_skull_epilogue_is_a_nested_child_with_separate_per_peer_presentation_policy",
+        "when_Stories_is_available_player_saw_9cs_zero_still_selects_skull_final_and_at_least_one_selects_the_excluded_before_20cs_continuation",
+        "exclude_the_Stories_continuation_and_do_not_bind_it_as_base_game_content"
+      ]
+    },
+    {
+      "stepId": "watch_the_base_game_skull_epilogue",
+      "title": "Watch Gerry and Donkey's base-game epilogue",
+      "linkedQuestIds": [],
+      "linkedTaskMilestoneIds": [
+        "portal_items_question_answered",
+        "snake_final_ritual_completed",
+        "bishop_accepted_invitation_delivered",
+        "charm_vagner_rescued"
+      ],
+      "triggerScripts": ["skull_final"],
+      "triggerKeys": [
+        "skull_final_1..8",
+        "gd_skull_final_0",
+        "gd_skull_final_1",
+        "gd_skull_final_donkey_0",
+        "gd_skull_final_donkey_1",
+        "gd_skull_final_camera",
+        "Flow_ShowEndingTitles",
+        "StopPlayingGame",
+        "credits.OpenScrolling"
+      ],
+      "expectedEffects": [
+        { "kind": "environment", "id": "skull_final_weather", "operation": "force_clear_for_the_epilogue_then_restore", "amount": 1.0, "ownership": "local_presentation" },
+        { "kind": "world_actor", "id": "donkey", "operation": "teleport_route_and_return_to_stock_once_on_the_canonical_world", "amount": 1.0, "ownership": "shared_world" },
+        { "kind": "world_actor", "id": "talking_skull", "operation": "teleport_route_and_return_to_stock_once_on_the_canonical_world", "amount": 1.0, "ownership": "shared_world" },
+        { "kind": "script", "id": "Flow_ShowEndingTitles", "operation": "run_on_each_local_mirror_to_stop_playing_and_open_scrolling_credits", "amount": 1.0, "ownership": "local_presentation" },
+        { "kind": "player_control", "id": "cinematic", "operation": "restore_after_epilogue", "amount": 1.0, "ownership": "local_presentation" }
+      ],
+      "safeguards": [
+        "skull_final_is_the_nested_base_game_epilogue_selected_when_Stories_is_unavailable_or_player_saw_9cs_is_zero",
+        "local_mirroring_exists_for_per_peer_camera_weather_dialogue_and_ending_title_UI",
+        "only_the_canonical_world_owner_applies_actor_stock_mutations",
+        "never_replay_parent_portal_device_artifact_counter_or_animation_mutations",
+        "do_not_dispatch_or_catalog_the_Stories_continuation",
+        "restore_weather_camera_party_control_and_cinematic_state_on_every_loaded_peer"
+      ]
+    }
+  ]
+}

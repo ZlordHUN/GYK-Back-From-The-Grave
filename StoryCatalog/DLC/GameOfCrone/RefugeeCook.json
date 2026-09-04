@@ -1,0 +1,1219 @@
+{
+  "schemaVersion": 5,
+  "catalogId": "dlc.game-of-crone.refugee-cook",
+  "campaign": "GameOfCrone",
+  "chapter": "RefugeeCookKitchenHivesAndFinalVendor",
+  "quests": [
+    {
+      "questId": "dlc_refugees_cook",
+      "title": "Serialized refugee-cook achievement checkpoint",
+      "definitionKind": "AchievementDefinition",
+      "counter": 1,
+      "vanilla": {
+        "startTrigger": "",
+        "successTrigger": "1",
+        "failTrigger": "",
+        "startKeys": ["dlc_refugees_cook"],
+        "questVisible": false,
+        "oneTimeQuest": false,
+        "startScript": "",
+        "successScript": "",
+        "failScript": "",
+        "arrowWgoCustomTag": "",
+        "arrowWgoObjectId": "",
+        "successRewards": [],
+        "failureRewards": []
+      },
+      "policy": {
+        "stateOwnership": "shared_campaign",
+        "eligibleInitiator": "any_player",
+        "livePresentationOwner": "initiating_player",
+        "observerQuestApplication": "durable_state_only",
+        "personalRewardDelivery": "party_exactly_once",
+        "observerSuccess": {
+          "globalScripts": [],
+          "playerParamRepairs": [],
+          "playerParamMinimums": [],
+          "taskStateMinimums": [],
+          "unlockedTechs": [],
+          "unlockedPhrases": [],
+          "blacklistedPhrases": [],
+          "unlockedCrafts": [],
+          "completedOneTimeCrafts": [],
+          "personalItemGrants": []
+        }
+      },
+      "completionChecks": []
+    }
+  ],
+  "taskMilestones": [
+    {
+      "milestoneId": "game_of_crone_cook_first_kitchen_requested",
+      "npcId": "npc_refugee_cook",
+      "taskId": "dlc_refugees_city_cook_1_1",
+      "activeStates": ["Visible"],
+      "playerParamRepairs": [],
+      "playerParamMinimums": [
+        { "key": "is_cook_asks_for_build_kitchen", "value": 1.0 }
+      ],
+      "taskStateMinimums": [],
+      "unlockedTechs": [],
+      "unlockedPhrases": [],
+      "blacklistedPhrases": [],
+      "unlockedCrafts": [
+        "refugee_builddesk::refugee_camp_cooking_table"
+      ],
+      "completedOneTimeCrafts": [],
+      "wgoParamMinimums": [],
+      "personalItemGrants": []
+    },
+    {
+      "milestoneId": "game_of_crone_cook_second_topic_entered",
+      "npcId": "npc_refugee_cook",
+      "taskId": "dlc_refugees_city_cook_1_1",
+      "activeStates": ["Complete"],
+      "playerParamRepairs": [],
+      "playerParamMinimums": [
+        { "key": "has_refugee_cooking_table", "value": 1.0 }
+      ],
+      "taskStateMinimums": [],
+      "unlockedTechs": [],
+      "unlockedPhrases": [],
+      "blacklistedPhrases": ["@refugee_cook_2"],
+      "unlockedCrafts": [],
+      "completedOneTimeCrafts": [],
+      "wgoParamMinimums": [],
+      "personalItemGrants": []
+    },
+    {
+      "milestoneId": "game_of_crone_cook_second_kitchen_requested",
+      "npcId": "npc_refugee_cook",
+      "taskId": "dlc_refugees_city_cook_1_2",
+      "activeStates": ["Visible"],
+      "playerParamRepairs": [],
+      "playerParamMinimums": [
+        { "key": "has_refugee_cooking_table", "value": 1.0 }
+      ],
+      "taskStateMinimums": [],
+      "unlockedTechs": [],
+      "unlockedPhrases": ["@cook_vendor_inventory_1"],
+      "blacklistedPhrases": [],
+      "unlockedCrafts": [
+        "refugee_builddesk::refugee_camp_cooking_table_2"
+      ],
+      "completedOneTimeCrafts": [],
+      "wgoParamMinimums": [],
+      "personalItemGrants": []
+    },
+    {
+      "milestoneId": "game_of_crone_cook_third_topic_entered",
+      "npcId": "npc_refugee_cook",
+      "taskId": "dlc_refugees_city_cook_1_2",
+      "activeStates": ["Complete"],
+      "playerParamRepairs": [],
+      "playerParamMinimums": [],
+      "taskStateMinimums": [],
+      "unlockedTechs": [],
+      "unlockedPhrases": [],
+      "blacklistedPhrases": ["@refugee_cook_3"],
+      "unlockedCrafts": [],
+      "completedOneTimeCrafts": [],
+      "wgoParamMinimums": [],
+      "personalItemGrants": []
+    },
+    {
+      "milestoneId": "game_of_crone_cook_hives_requested",
+      "npcId": "npc_refugee_cook",
+      "taskId": "dlc_refugees_city_cook_3",
+      "activeStates": ["Visible"],
+      "playerParamRepairs": [],
+      "playerParamMinimums": [],
+      "taskStateMinimums": [],
+      "unlockedTechs": [],
+      "unlockedPhrases": [],
+      "blacklistedPhrases": [],
+      "unlockedCrafts": [
+        "refugee_builddesk:p:refugee_camp_hive_place"
+      ],
+      "completedOneTimeCrafts": [],
+      "wgoParamMinimums": [],
+      "personalItemGrants": []
+    },
+    {
+      "milestoneId": "game_of_crone_cook_two_hives_completed",
+      "npcId": "npc_refugee_cook",
+      "taskId": "dlc_refugees_city_cook_3",
+      "activeStates": ["Complete"],
+      "playerParamRepairs": [],
+      "playerParamMinimums": [],
+      "taskStateMinimums": [],
+      "unlockedTechs": [],
+      "unlockedPhrases": ["@refugee_cook_4"],
+      "blacklistedPhrases": [],
+      "unlockedCrafts": [],
+      "completedOneTimeCrafts": [],
+      "wgoParamMinimums": [],
+      "personalItemGrants": []
+    }
+  ],
+  "cutscenes": [
+    {
+      "cutsceneId": "game_of_crone_initialize_refugee_cook",
+      "linkedQuestIds": ["dlc_refugees_cook"],
+      "triggerScripts": [
+        "gykmp_story_dispatch_game_of_crone_refugee_cook_initialize",
+        "npc_refugee_cook:initialize"
+      ],
+      "actors": ["npc_refugee_cook"],
+      "observerPolicy": "all_loaded_party_members",
+      "lateJoinPolicy": "join_live_checkpoint_or_observe",
+      "remoteExecutionPolicy": "live_observation",
+      "executionOwnerPolicy": "lobby_host",
+      "dialogueOwnerPolicy": "lobby_host",
+      "formationPolicy": "preserve_positions",
+      "cleanupRequirements": [
+        "apply-the-canonical-RefugeeParams-personal_cook-initialization-once-for-the-shared-cook-WGO",
+        "persist-one-durable-four-hundred-fifty-second-event_cook_1_unlock-arm-and-never-create-one-timer-per-peer",
+        "when-a-first-cooking-table-already-exists_set-the-cooks-personal_cook-WGO-param-to-zero-without-changing-the-opening-route",
+        "add-event_cook_1-exactly-once-when-the-authoritative-delay-expires_and-adopt-an-already-present-interaction-on-recovery"
+      ]
+    },
+    {
+      "cutsceneId": "game_of_crone_meet_refugee_cook",
+      "linkedQuestIds": ["dlc_refugees_cook"],
+      "triggerScripts": [
+        "gykmp_story_dispatch_game_of_crone_refugee_cook_1",
+        "npc_refugee_cook:event_cook_1"
+      ],
+      "actors": ["initiating_player", "npc_refugee_cook"],
+      "observerPolicy": "all_loaded_party_members",
+      "lateJoinPolicy": "join_live_checkpoint_or_observe",
+      "remoteExecutionPolicy": "live_observation",
+      "executionOwnerPolicy": "lobby_host",
+      "dialogueOwnerPolicy": "initiating_player",
+      "formationPolicy": "initiator_with_observer_follow",
+      "cleanupRequirements": [
+        "claim-and-consume-the-single-event_cook_1-interaction-before-locking-control-or-presenting-dialogue",
+        "collapse-node-234-to-node-236s-three-identical-control-edges-and-three-identical-owner-direction-bindings-to-one-facing-chain",
+        "present-refugee_cook_1_1-through-1_3-once_then-commit-a-durable-route-receipt-from-authoritative-has_refugee_cooking_table",
+        "on-the-no-table-route_set-is_cook_asks_for_build_kitchen-one_present-1_4a_1-through-1_4a_4_unlock-only-the-first-table-and-show-only-task-1_1",
+        "on-the-prebuilt-route_do-not-show-or-complete-task-1_1_parallel-unlock-recipe-tier-one-and-run-1_4b_1-through-1_4b_3_table-two_vendor-one_relation-and-task-1_2-effects",
+        "present-common-lines-1_5-through-1_6-only-after-the-selected-route-is-durable_and-restore-the-initiators-control-facing-and-interaction-lock"
+      ]
+    },
+    {
+      "cutsceneId": "game_of_crone_build_refugee_cooking_table_one",
+      "linkedQuestIds": ["dlc_refugees_cook"],
+      "triggerScripts": [
+        "gykmp_story_dispatch_game_of_crone_refugee_cooking_table_one",
+        "place_refugee_cooking_table",
+        "on_refugee_cooking_table_placed"
+      ],
+      "actors": ["initiating_player", "npc_refugee_cook", "npc_refugee_8", "refugee_camp_cooking_table_place"],
+      "observerPolicy": "all_loaded_party_members",
+      "lateJoinPolicy": "join_live_checkpoint_or_observe",
+      "remoteExecutionPolicy": "live_observation",
+      "executionOwnerPolicy": "lobby_host",
+      "dialogueOwnerPolicy": "initiating_player",
+      "formationPolicy": "preserve_positions",
+      "cleanupRequirements": [
+        "claim-the-first-table-build-for-the-initiator_then-atomically-reserve-six-flitch-twelve-nails-and-six-shared-happiness-before-world-mutation",
+        "distinguish-the-BuildMode-placement-receipt-from-the-completed-object-callback-receipt",
+        "spawn-or-adopt-one-refugee_camp_cooking_table_place-at-gd_refugee_camp_cooking_table_place_with-custom-tag-refugee_camp_cooking_table-and-always-enable-its-chunk",
+        "enable-gd_refugees_road_kitchen_1-then-gd_refugee_wc-in-source-order_and-restore-camera-and-control",
+        "on-the-completion-callback_set-has_refugee_cooking_table-one_and-only-for-the-requested-route-unlock-refugee_cook_2",
+        "if-strict-npc_refugee_8-exists_set-personal_cook-zero_but-do-not-block-completion-when-that-WGO-is-unloaded-or-absent"
+      ]
+    },
+    {
+      "cutsceneId": "game_of_crone_advance_refugee_cook_two",
+      "linkedQuestIds": ["dlc_refugees_cook"],
+      "triggerScripts": [
+        "gykmp_story_dispatch_game_of_crone_refugee_cook_2",
+        "npc_refugee_cook:@refugee_cook_2"
+      ],
+      "actors": ["initiating_player", "npc_refugee_cook", "vendor_refugee_cook"],
+      "observerPolicy": "all_loaded_party_members",
+      "lateJoinPolicy": "join_live_checkpoint_or_observe",
+      "remoteExecutionPolicy": "live_observation",
+      "executionOwnerPolicy": "lobby_host",
+      "dialogueOwnerPolicy": "initiating_player",
+      "formationPolicy": "initiator_with_observer_follow",
+      "cleanupRequirements": [
+        "claim-the-refugee_cook_2-choice-before-blacklisting-its-topic_or-applying-the-pre-dialogue-relation-and-task-effects",
+        "journal-one-plus-thirty-cook-relation-delta_and-complete-task-1_1-before-line-2_1-exactly-as-the-source-does",
+        "present-refugee_cook_2_1-through-2_5-once-on-the-initiating-profile",
+        "converge-the-independent-story-and-tier-one-recipe-split-branches_before-terminal",
+        "spawn-or-adopt-exactly-one-vendor_refugee_cook_1-with-tag-vendor_refugee_cook_at-default_destroy_point_and-set-the-cook-personal_cook-param-zero",
+        "unlock-table-two_vendor-inventory-one_and-show-task-1_2-once_then-restore-every-participant-state"
+      ]
+    },
+    {
+      "cutsceneId": "game_of_crone_build_refugee_cooking_table_two",
+      "linkedQuestIds": ["dlc_refugees_cook"],
+      "triggerScripts": [
+        "gykmp_story_dispatch_game_of_crone_refugee_cooking_table_two",
+        "place_refugee_cooking_table_2"
+      ],
+      "actors": ["initiating_player", "npc_refugee_cook", "refugee_camp_cooking_table"],
+      "observerPolicy": "all_loaded_party_members",
+      "lateJoinPolicy": "join_live_checkpoint_or_observe",
+      "remoteExecutionPolicy": "live_observation",
+      "executionOwnerPolicy": "lobby_host",
+      "dialogueOwnerPolicy": "initiating_player",
+      "formationPolicy": "preserve_positions",
+      "cleanupRequirements": [
+        "claim-the-table-two-build-for-the-initiator_then-atomically-reserve-twelve-wooden-planks-eighteen-nails-and-eight-shared-happiness",
+        "unlock-refugee_cook_3-at-the-source-opening-checkpoint-before-the-camera-flight_and-journal-it-separately-from-the-world-upgrade",
+        "find-the-single-refugee_camp_cooking_table-tag_and-change-it-once-to-refugee_camp_cooking_table_2_without-spawning-a-second-table",
+        "always-enable-the-upgraded-tables-chunk_disable-gd_refugees_road_kitchen_1_then-enable-gd_refugees_road_kitchen_2",
+        "restore-the-initiators-camera-control-facing-and-build-state_after-the-shared-upgrade-receipt-is-durable"
+      ]
+    },
+    {
+      "cutsceneId": "game_of_crone_advance_refugee_cook_three",
+      "linkedQuestIds": ["dlc_refugees_cook"],
+      "triggerScripts": [
+        "gykmp_story_dispatch_game_of_crone_refugee_cook_3",
+        "npc_refugee_cook:@refugee_cook_3"
+      ],
+      "actors": ["initiating_player", "npc_refugee_cook", "vendor_refugee_cook"],
+      "observerPolicy": "all_loaded_party_members",
+      "lateJoinPolicy": "join_live_checkpoint_or_observe",
+      "remoteExecutionPolicy": "live_observation",
+      "executionOwnerPolicy": "lobby_host",
+      "dialogueOwnerPolicy": "initiating_player",
+      "formationPolicy": "initiator_with_observer_follow",
+      "cleanupRequirements": [
+        "claim-the-refugee_cook_3-choice-before-blacklisting-its-topic_or-applying-the-pre-dialogue-relation-and-task-effects",
+        "journal-one-plus-forty-cook-relation-delta_and-complete-task-1_2-before-line-3_1",
+        "present-refugee_cook_3_1-through-3_9-once-on-the-initiating-profile",
+        "converge-the-independent-story-and-tier-two-recipe-split-branches_before-terminal",
+        "unlock-the-hive-craft_show-task-cook-3_and-replace-the-tagged-level-one-vendor-with-exactly-one-vendor_refugee_cook_2",
+        "collapse-the-duplicated-vendor-two-spawn-point-value-binding_without-omitting-the-single-source-replacement",
+        "restore-control-facing-camera-and-interaction-state_only-after-dialogue-task-recipes-hives-and-vendor-branches-are-durable"
+      ]
+    },
+    {
+      "cutsceneId": "game_of_crone_build_refugee_cook_hives",
+      "linkedQuestIds": ["dlc_refugees_cook"],
+      "triggerScripts": [
+        "gykmp_story_dispatch_game_of_crone_refugee_cook_hive",
+        "place_refugee_camp_hive_place",
+        "place_refugee_hive"
+      ],
+      "actors": ["initiating_player", "npc_refugee_cook", "refugee_camp_hive", "Camp"],
+      "observerPolicy": "all_loaded_party_members",
+      "lateJoinPolicy": "join_live_checkpoint_or_observe",
+      "remoteExecutionPolicy": "live_observation",
+      "executionOwnerPolicy": "lobby_host",
+      "dialogueOwnerPolicy": "initiating_player",
+      "formationPolicy": "preserve_positions",
+      "cleanupRequirements": [
+        "serialize-each-hive-build-claim-and-reserve-four-flitch-ten-bees-and-two-shared-happiness-from-the-correct-initiator-before-placement",
+        "record-one-distinct-completed-object-receipt-per-unique-physical-hive_before-any-hives_build_count-delta",
+        "for-each-uninitialized-refugee_camp_hive_set-initialized-one-and-start-one-refugee_honey_production-craft",
+        "select-and-reset-exactly-one-Camp-idle-slot-per-hive_by-source-x-thresholds-greater-than-4120-to-28_greater-than-4000-to-27_else-26",
+        "collapse-each-duplicated-Found-control-and-Stock-WGO-value-edge_to-one-semantic-idle-reset",
+        "derive-the-two-hive-gate-from-two-unique-completed-hive-receipts_not-a-blind-replay-of-the-additive-hives_build_count-param",
+        "when-two-or-more-real-receipts-exist_unlock-refugee_cook_4-before-completing-task-cook-3_once"
+      ]
+    },
+    {
+      "cutsceneId": "game_of_crone_complete_refugee_cook",
+      "linkedQuestIds": ["dlc_refugees_cook"],
+      "triggerScripts": [
+        "gykmp_story_dispatch_game_of_crone_refugee_cook_4",
+        "npc_refugee_cook:@refugee_cook_4"
+      ],
+      "actors": ["initiating_player", "npc_refugee_cook", "vendor_refugee_cook"],
+      "observerPolicy": "all_loaded_party_members",
+      "lateJoinPolicy": "join_live_checkpoint_or_observe",
+      "remoteExecutionPolicy": "live_observation",
+      "executionOwnerPolicy": "lobby_host",
+      "dialogueOwnerPolicy": "initiating_player",
+      "formationPolicy": "initiator_with_observer_follow",
+      "cleanupRequirements": [
+        "claim-the-refugee_cook_4-multi-answer-before-its-plus-thirty-relation-reward-and-function-dispatch",
+        "journal-the-choice-reward-before-blacklisting-the-topic_and-before-presenting-refugee_cook_4_1-through-4_5",
+        "preserve-the-source-story-branch-key-check-before-function-return_while-converging-the-independent-tier-three-recipe-and-story-vendor-topic-branches-before-the-overall-story-terminal",
+        "collapse-the-two-Destroy-to-Spawn-control-edges_three-GD-point-bindings_and-two-FindWGO-bindings_to-one-tagged-vendor-replacement",
+        "replace-or-adopt-exactly-one-vendor_refugee_cook_3_then-unlock-the-five-literal-source-topics-in-order",
+        "invoke-Flow_CheckKeyQuest-dlc_refugees_cook-after-the-story-branch-vendor-and-five-topic-tail_before-function-return_without-waiting-for-the-independent-recipe-branch",
+        "after-function-return_let-the-caller-schedule-on_talk_end-at-zero-delay_then-immediately-unlock-the-player-and-clear-refugee_unrollable",
+        "treat-the-later-asynchronous-on_talk_end-event-as-NPC-despawn-or-idle-point-cleanup-only_not-participant-control-cleanup",
+        "keep-shared-achievement-eligibility-separate-from-per-profile-platform-delivery_and-never-block-the-shared-terminal-on-an-offline-platform-result",
+        "only-for-LateSaveFixer-saves-with-rounded-game-version-at-most-1301_reproduce-the-overbroad-cook_vendor_inventory_1-platform-repair-heuristic_per-profile_never-as-proof-of-vendor-three-recipes-technologies-or-shared-finale-completion"
+      ]
+    },
+    {
+      "cutsceneId": "game_of_crone_unlock_refugee_cook_technologies",
+      "linkedQuestIds": ["dlc_refugees_cook"],
+      "triggerScripts": [
+        "gykmp_story_dispatch_game_of_crone_refugee_cook_tech",
+        "tech_vegetables_set",
+        "tech_milk_processing",
+        "tech_in_lentils_we_trust",
+        "tech_honey_cake",
+        "npc_refugee_cook:@vegetable_set",
+        "npc_refugee_cook:@milk_processing",
+        "npc_refugee_cook:@in_lentils_we_trust",
+        "npc_refugee_cook:@honey_cake"
+      ],
+      "actors": ["initiating_player", "npc_refugee_cook"],
+      "observerPolicy": "all_loaded_party_members",
+      "lateJoinPolicy": "join_live_checkpoint_or_observe",
+      "remoteExecutionPolicy": "live_observation",
+      "executionOwnerPolicy": "lobby_host",
+      "dialogueOwnerPolicy": "initiating_player",
+      "formationPolicy": "preserve_positions",
+      "cleanupRequirements": [
+        "claim-each-optional-topic-independently-so-simultaneous-players-cannot-duplicate-its-function",
+        "map-vegetable_set-to-tech-Vegetable-set_milk_processing-to-Milk-processing_in_lentils_we_trust-to-In-Lentil-We-Trust_and-honey_cake-to-Honey-cake-exactly",
+        "preserve-the-source-topic-availability-and-do-not-infer-that-one-selected-technology-means-the-other-three-were-selected",
+        "for-each-selected-topic-open-the-forced-unlock_non-silent_show-tech-false-tech_dialog-on-the-initiating-player_and-wait-for-its-close-callback-before-returning",
+        "journal-the-tech-receipt-only-after-the-dialog-OK-has-called-UnlockTech_and-the-close-callback-confirms-the-exact-tech-is-present",
+        "on-disconnect-programmatic-dismiss-or-recovery_release-the-function-callback_without-replaying-shared-tech-state_and-leave-the-topic-retryable-when-the-exact-tech-is-absent",
+        "apply-each-technology-as-shared-durable-state_then-restore-only-the-selecting-players-interaction-state",
+        "preserve-the-zero-price-hidden-TechDefinitions_and-use-forced-UnlockTech-never-BuyTech-or-any-gratitude-resource-debit"
+      ]
+    }
+  ],
+  "storySteps": [
+    {
+      "stepId": "game_of_crone_settle_and_meet_refugee_cook",
+      "title": "Let the camp cook settle and choose the first-kitchen route",
+      "linkedQuestIds": ["dlc_refugees_cook"],
+      "linkedTaskMilestoneIds": ["game_of_crone_cook_first_kitchen_requested", "game_of_crone_cook_second_kitchen_requested"],
+      "triggerScripts": [
+        "gykmp_story_dispatch_game_of_crone_refugee_cook_initialize",
+        "gykmp_story_dispatch_game_of_crone_refugee_cook_1"
+      ],
+      "triggerKeys": [
+        "npc_refugee_cook:initialize",
+        "personal_cook",
+        "event_cook_1_unlock:450",
+        "event_cook_1",
+        "refugee_cook_1_1",
+        "refugee_cook_1_3",
+        "has_refugee_cooking_table",
+        "is_cook_asks_for_build_kitchen",
+        "refugee_cook_1_4a_1",
+        "refugee_cook_1_4a_4",
+        "refugee_cook_1_4b_1",
+        "refugee_cook_1_4b_3",
+        "refugee_cook_1_5",
+        "refugee_cook_1_6",
+        "dlc_refugees_city_cook_1_1",
+        "dlc_refugees_city_cook_1_2",
+        "refugee_builddesk::refugee_camp_cooking_table",
+        "refugee_builddesk::refugee_camp_cooking_table_2",
+        "vendor_refugee_cook_1",
+        "@cook_vendor_inventory_1",
+        "gykmp_story_phase_game_of_crone_refugee_cook_invite_armed",
+        "gykmp_story_phase_game_of_crone_refugee_cook_1_entered",
+        "gykmp_story_choice_game_of_crone_refugee_cook_first_kitchen_route",
+        "gykmp_story_relation_game_of_crone_refugee_cook_opening_prebuilt",
+        "gykmp_story_phase_game_of_crone_refugee_cook_1_complete"
+      ],
+      "expectedEffects": [
+        {
+          "kind": "world_event_timer",
+          "id": "gykmp_story_phase_game_of_crone_refugee_cook_invite_armed",
+          "operation": "schedule-one-authoritative-event_cook_1_unlock-for-four-hundred-fifty-seconds-after-cook-initialization_then-add-one-event_cook_1-interaction",
+          "amount": 450,
+          "ownership": "shared_world"
+        },
+        {
+          "kind": "story_phase",
+          "id": "gykmp_story_phase_game_of_crone_refugee_cook_1_entered",
+          "operation": "consume-the-single-opening-interaction-and-commit-before-player-lock-facing-or-dialogue",
+          "amount": 1,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "dialogue_sequence",
+          "id": "refugee_cook_1_1_through_1_3",
+          "operation": "present-the-three-common-opening-lines-once-after-normalizing-the-tripled-facing-chain",
+          "amount": 3,
+          "ownership": "live_presentation"
+        },
+        {
+          "kind": "story_choice_receipt",
+          "id": "gykmp_story_choice_game_of_crone_refugee_cook_first_kitchen_route",
+          "operation": "persist-requested-or-prebuilt-from-the-authoritative-table-state_before-running-either-route",
+          "amount": 1,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "conditional_player_param",
+          "id": "is_cook_asks_for_build_kitchen",
+          "operation": "set-one-only-on-the-requested-route_before-lines-1_4a_1-through-1_4a_4",
+          "amount": 1,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "conditional_craft",
+          "id": "refugee_builddesk::refugee_camp_cooking_table",
+          "operation": "unlock-and-show-task-1_1-only-on-the-requested-route",
+          "amount": 1,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "conditional_recipe_bundle",
+          "id": "game_of_crone_refugee_cook_recipe_tier_1",
+          "operation": "on-the-prebuilt-route-unlock-the-five-tier-one-recipes-in-the-independent-split-branch",
+          "amount": 5,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "conditional_relationship_delta_receipt",
+          "id": "gykmp_story_relation_game_of_crone_refugee_cook_opening_prebuilt",
+          "operation": "on-the-prebuilt-route-apply-cook-plus-thirty-once-after-table-two-unlock-and-before-vendor-one",
+          "amount": 30,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "conditional_world_vendor",
+          "id": "vendor_refugee_cook_1@default_destroy_point",
+          "operation": "on-the-prebuilt-route-spawn-or-adopt-one-tagged-level-one-vendor_unlock-vendor-inventory-one_and-show-task-1_2",
+          "amount": 1,
+          "ownership": "shared_world"
+        },
+        {
+          "kind": "story_phase",
+          "id": "gykmp_story_phase_game_of_crone_refugee_cook_1_complete",
+          "operation": "commit-after-the-selected-route_common-lines-1_5-through-1_6_and-participant-cleanup-are-durable",
+          "amount": 1,
+          "ownership": "shared_campaign"
+        }
+      ],
+      "safeguards": [
+        "the-delayed-WGO-event-is-shared-world-state_not-a-per-player-timer",
+        "normalize-the-tripled-opening-direction-control-and-value-bindings-before-any-dialogue",
+        "do-not-force-task-1_1-visible-or-complete-on-the-legitimate-prebuilt-table-route",
+        "do-not-use-has_refugee_cooking_table-alone-as-proof-that-the-opening-prebuilt-route-finished",
+        "resume-only-the-missing-side-of-the-prebuilt-recipes-and-story-vendor-split"
+      ]
+    },
+    {
+      "stepId": "game_of_crone_build_refugee_cook_first_kitchen",
+      "title": "Build the requested first kitchen and open the cook's second topic",
+      "linkedQuestIds": ["dlc_refugees_cook"],
+      "linkedTaskMilestoneIds": ["game_of_crone_cook_first_kitchen_requested"],
+      "triggerScripts": ["gykmp_story_dispatch_game_of_crone_refugee_cooking_table_one"],
+      "triggerKeys": [
+        "flitch:6",
+        "nails:12",
+        "refugee_happiness_item:6",
+        "refugee_camp_cooking_table_place",
+        "refugee_camp_cooking_table",
+        "gd_refugee_camp_cooking_table_place",
+        "gd_refugees_road_kitchen_1",
+        "gd_refugee_wc",
+        "has_refugee_cooking_table",
+        "is_cook_asks_for_build_kitchen",
+        "@refugee_cook_2",
+        "npc_refugee_8:personal_cook:0",
+        "gykmp_story_build_game_of_crone_refugee_cooking_table_one",
+        "gykmp_story_object_game_of_crone_refugee_cooking_table_one_completed"
+      ],
+      "expectedEffects": [
+        {
+          "kind": "build_transaction",
+          "id": "gykmp_story_build_game_of_crone_refugee_cooking_table_one",
+          "operation": "claim-for-the-initiator_then-reserve-and-consume-six-flitch-twelve-nails-from-the-authoritative-BuildMode-player-plus-zone-MultiInventory_and-six-happiness-from-shared-camp-state",
+          "amount": 1,
+          "ownership": "initiating_player_transaction"
+        },
+        {
+          "kind": "world_object",
+          "id": "refugee_camp_cooking_table_place@gd_refugee_camp_cooking_table_place",
+          "operation": "spawn-or-adopt-one-with-tag-refugee_camp_cooking_table_always-enable-its-chunk_then-enable-road-kitchen-one-and-refugee-WC",
+          "amount": 1,
+          "ownership": "shared_world"
+        },
+        {
+          "kind": "story_object_receipt",
+          "id": "gykmp_story_object_game_of_crone_refugee_cooking_table_one_completed",
+          "operation": "record-from-the-completed-object-callback_separately-from-the-placement-receipt_before-setting-table-state",
+          "amount": 1,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "player_param",
+          "id": "has_refugee_cooking_table",
+          "operation": "set-one-from-the-completed-table-receipt",
+          "amount": 1,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "conditional_dialogue_phrase",
+          "id": "@refugee_cook_2",
+          "operation": "unlock-only-when-the-durable-opening-route-is-requested-and-is_cook_asks_for_build_kitchen-is-at-least-one",
+          "amount": 1,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "conditional_wgo_param",
+          "id": "npc_refugee_8:personal_cook",
+          "operation": "set-zero-when-the-strict-WGO-is-found_without-blocking-the-build-terminal-when-it-is-absent",
+          "amount": 0,
+          "ownership": "shared_world"
+        }
+      ],
+      "safeguards": [
+        "serialize-same-table-build-claims-before-consuming-any-personal-or-shared-resource",
+        "never-create-table-one-on-the-prebuilt-route-or-after-an-adoptable-tagged-table-exists",
+        "do-not-unlock-refugee_cook_2-for-the-prebuilt-route_that-route-already-opened-task-1_2",
+        "the-optional-npc_refugee_8-cleanup-is-not-terminal-evidence"
+      ]
+    },
+    {
+      "stepId": "game_of_crone_advance_refugee_cook_to_vendor_one",
+      "title": "Complete the first-kitchen route and establish the level-one cook vendor",
+      "linkedQuestIds": ["dlc_refugees_cook"],
+      "linkedTaskMilestoneIds": ["game_of_crone_cook_second_topic_entered", "game_of_crone_cook_second_kitchen_requested"],
+      "triggerScripts": ["gykmp_story_dispatch_game_of_crone_refugee_cook_2"],
+      "triggerKeys": [
+        "@refugee_cook_2",
+        "refugee_cook_2_1",
+        "refugee_cook_2_5",
+        "dlc_refugees_city_cook_1_1",
+        "dlc_refugees_city_cook_1_2",
+        "vendor_refugee_cook_1",
+        "vendor_refugee_cook",
+        "default_destroy_point",
+        "personal_cook:0",
+        "@cook_vendor_inventory_1",
+        "refugee_builddesk::refugee_camp_cooking_table_2",
+        "game_of_crone_refugee_cook_recipe_tier_1",
+        "camp_kitchen_vegetable_salad_2",
+        "camp_kitchen_creamy_vegetable_soup_2",
+        "camp_kitchen_lentil_porridge_2",
+        "camp_kitchen_vegetable_stew_2",
+        "camp_kitchen_lentil_cutlets_2",
+        "gykmp_story_phase_game_of_crone_refugee_cook_2_entered",
+        "gykmp_story_relation_game_of_crone_refugee_cook_2",
+        "gykmp_story_phase_game_of_crone_refugee_cook_2_story_branch",
+        "gykmp_story_phase_game_of_crone_refugee_cook_2_recipe_branch",
+        "gykmp_story_phase_game_of_crone_refugee_cook_2_complete"
+      ],
+      "expectedEffects": [
+        {
+          "kind": "story_phase",
+          "id": "gykmp_story_phase_game_of_crone_refugee_cook_2_entered",
+          "operation": "commit-the-single-topic-claim-before-blacklisting-relation-task-or-dialogue",
+          "amount": 1,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "relationship_delta_receipt",
+          "id": "gykmp_story_relation_game_of_crone_refugee_cook_2",
+          "operation": "apply-cook-plus-thirty-once-before-task-1_1-completion-and-dialogue",
+          "amount": 30,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "npc_task",
+          "id": "npc_refugee_cook:dlc_refugees_city_cook_1_1",
+          "operation": "set-Complete-before-line-2_1-only-on-the-requested-route",
+          "amount": 1,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "dialogue_sequence",
+          "id": "refugee_cook_2_1_through_2_5",
+          "operation": "present-five-lines-once-with-the-actual-initiating-player",
+          "amount": 5,
+          "ownership": "live_presentation"
+        },
+        {
+          "kind": "recipe_bundle",
+          "id": "game_of_crone_refugee_cook_recipe_tier_1",
+          "operation": "unlock-vegetable-salad-two_creamy-vegetable-soup-two_lentil-porridge-two_vegetable-stew-two_and-lentil-cutlets-two",
+          "amount": 5,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "story_phase",
+          "id": "gykmp_story_phase_game_of_crone_refugee_cook_2_recipe_branch",
+          "operation": "commit-after-all-five-independent-tier-one-recipe-effects-are-durable",
+          "amount": 1,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "world_vendor",
+          "id": "vendor_refugee_cook_1:vendor_refugee_cook",
+          "operation": "spawn-or-adopt-one-level-one-vendor-at-default_destroy_point_and-deduplicate-by-custom-tag",
+          "amount": 1,
+          "ownership": "shared_world"
+        },
+        {
+          "kind": "story_phase",
+          "id": "gykmp_story_phase_game_of_crone_refugee_cook_2_story_branch",
+          "operation": "commit-after-personal_cook-zero_table-two_vendor-topic-and-task-1_2-visible-are-durable",
+          "amount": 1,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "story_phase",
+          "id": "gykmp_story_phase_game_of_crone_refugee_cook_2_complete",
+          "operation": "join-the-story-and-recipe-branch-receipts_then-restore-participant-state-without-replaying-either-branch",
+          "amount": 1,
+          "ownership": "shared_campaign"
+        }
+      ],
+      "safeguards": [
+        "blacklisted-refugee_cook_2-is-only-entry-prefix-evidence_not-proof-that-dialogue-or-either-split-branch-finished",
+        "do-not-backfill-task-1_1-on-the-prebuilt-route",
+        "do-not-apply-the-plus-thirty-relation-delta-from-a-complete-task-without-its-receipt",
+        "require-both-parallel-branch-receipts-before-terminal"
+      ]
+    },
+    {
+      "stepId": "game_of_crone_upgrade_refugee_cook_kitchen",
+      "title": "Upgrade the camp kitchen and unlock the cook's third topic",
+      "linkedQuestIds": ["dlc_refugees_cook"],
+      "linkedTaskMilestoneIds": ["game_of_crone_cook_second_kitchen_requested"],
+      "triggerScripts": ["gykmp_story_dispatch_game_of_crone_refugee_cooking_table_two"],
+      "triggerKeys": [
+        "wooden_plank:12",
+        "nails:18",
+        "refugee_happiness_item:8",
+        "@refugee_cook_3",
+        "refugee_camp_cooking_table",
+        "refugee_camp_cooking_table_2",
+        "gd_refugees_road_kitchen_1",
+        "gd_refugees_road_kitchen_2",
+        "gykmp_story_build_game_of_crone_refugee_cooking_table_two",
+        "gykmp_story_phase_game_of_crone_refugee_cook_3_armed"
+      ],
+      "expectedEffects": [
+        {
+          "kind": "build_transaction",
+          "id": "gykmp_story_build_game_of_crone_refugee_cooking_table_two",
+          "operation": "claim-for-the-initiator_then-reserve-and-consume-twelve-wooden-planks-eighteen-nails-and-eight-shared-happiness-before-upgrading-the-tagged-table",
+          "amount": 1,
+          "ownership": "initiating_player_transaction"
+        },
+        {
+          "kind": "dialogue_phrase",
+          "id": "@refugee_cook_3",
+          "operation": "unlock-once-at-the-source-opening-checkpoint-of-the-table-two-placement-flow",
+          "amount": 1,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "world_object_upgrade",
+          "id": "refugee_camp_cooking_table:refugee_camp_cooking_table_2",
+          "operation": "change-the-single-tagged-table-in-place_always-enable-its-chunk_and-switch-road-kitchen-one-to-road-kitchen-two",
+          "amount": 1,
+          "ownership": "shared_world"
+        },
+        {
+          "kind": "story_phase",
+          "id": "gykmp_story_phase_game_of_crone_refugee_cook_3_armed",
+          "operation": "commit-after-cost-table-topic-road-camera-and-control-state-are-durable",
+          "amount": 1,
+          "ownership": "shared_campaign"
+        }
+      ],
+      "safeguards": [
+        "never-debit-the-host-when-a-client-initiated-the-BuildMode-transaction",
+        "adopt-the-existing-tagged-table-and-never-spawn-a-second-level-two-table",
+        "topic-unlocked-without-the-world-upgrade-is-an-interrupted-prefix_and-must-resume-only-the-missing-suffix"
+      ]
+    },
+    {
+      "stepId": "game_of_crone_advance_refugee_cook_to_hives",
+      "title": "Establish the level-two cook vendor and unlock beekeeping",
+      "linkedQuestIds": ["dlc_refugees_cook"],
+      "linkedTaskMilestoneIds": ["game_of_crone_cook_third_topic_entered", "game_of_crone_cook_hives_requested"],
+      "triggerScripts": ["gykmp_story_dispatch_game_of_crone_refugee_cook_3"],
+      "triggerKeys": [
+        "@refugee_cook_3",
+        "refugee_cook_3_1",
+        "refugee_cook_3_9",
+        "dlc_refugees_city_cook_1_2",
+        "dlc_refugees_city_cook_3",
+        "refugee_builddesk:p:refugee_camp_hive_place",
+        "vendor_refugee_cook_2",
+        "game_of_crone_refugee_cook_recipe_tier_2",
+        "camp_kitchen_cheese",
+        "camp_kitchen_butter",
+        "camp_kitchen_boiled_egg",
+        "camp_kitchen_vegetable_salad_3",
+        "camp_kitchen_creamy_vegetable_soup_3",
+        "camp_kitchen_lentil_porridge_3",
+        "camp_kitchen_vegetable_stew_3",
+        "camp_kitchen_lentil_cutlets_3",
+        "gykmp_story_phase_game_of_crone_refugee_cook_3_entered",
+        "gykmp_story_relation_game_of_crone_refugee_cook_3",
+        "gykmp_story_phase_game_of_crone_refugee_cook_3_story_branch",
+        "gykmp_story_phase_game_of_crone_refugee_cook_3_recipe_branch",
+        "gykmp_story_phase_game_of_crone_refugee_cook_hives_armed"
+      ],
+      "expectedEffects": [
+        {
+          "kind": "story_phase",
+          "id": "gykmp_story_phase_game_of_crone_refugee_cook_3_entered",
+          "operation": "commit-the-single-topic-claim-before-blacklisting-relation-task-or-dialogue",
+          "amount": 1,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "relationship_delta_receipt",
+          "id": "gykmp_story_relation_game_of_crone_refugee_cook_3",
+          "operation": "apply-cook-plus-forty-once-before-task-1_2-completion-and-dialogue",
+          "amount": 40,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "npc_task",
+          "id": "npc_refugee_cook:dlc_refugees_city_cook_1_2",
+          "operation": "set-Complete-before-line-3_1",
+          "amount": 1,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "dialogue_sequence",
+          "id": "refugee_cook_3_1_through_3_9",
+          "operation": "present-nine-lines-once-with-the-actual-initiating-player",
+          "amount": 9,
+          "ownership": "live_presentation"
+        },
+        {
+          "kind": "recipe_bundle",
+          "id": "game_of_crone_refugee_cook_recipe_tier_2",
+          "operation": "unlock-cheese_butter_boiled-egg_and-the-five-tier-three-suffixed-camp-meals",
+          "amount": 8,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "story_phase",
+          "id": "gykmp_story_phase_game_of_crone_refugee_cook_3_recipe_branch",
+          "operation": "commit-after-all-eight-independent-tier-two-recipe-effects-are-durable",
+          "amount": 1,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "craft",
+          "id": "refugee_builddesk:p:refugee_camp_hive_place",
+          "operation": "unlock-before-showing-task-cook-3",
+          "amount": 1,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "npc_task",
+          "id": "npc_refugee_cook:dlc_refugees_city_cook_3",
+          "operation": "set-Visible-after-hive-unlock",
+          "amount": 1,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "world_vendor",
+          "id": "vendor_refugee_cook_2:vendor_refugee_cook",
+          "operation": "replace-or-adopt-the-tagged-level-one-vendor-with-exactly-one-level-two-vendor",
+          "amount": 1,
+          "ownership": "shared_world"
+        },
+        {
+          "kind": "story_phase",
+          "id": "gykmp_story_phase_game_of_crone_refugee_cook_3_story_branch",
+          "operation": "commit-after-dialogue-hive-task-and-vendor-two-are-durable",
+          "amount": 1,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "story_phase",
+          "id": "gykmp_story_phase_game_of_crone_refugee_cook_hives_armed",
+          "operation": "join-the-story-and-recipe-branch-receipts_then-restore-participant-state",
+          "amount": 1,
+          "ownership": "shared_campaign"
+        }
+      ],
+      "safeguards": [
+        "blacklisted-refugee_cook_3-is-only-entry-prefix-evidence_not-proof-that-dialogue-or-either-split-branch-finished",
+        "collapse-the-duplicated-vendor-two-spawn-point-binding",
+        "require-both-parallel-branch-receipts-before-the-hives-armed-phase",
+        "do-not-infer-relation-payment-or-dialogue-from-task-completion-alone"
+      ]
+    },
+    {
+      "stepId": "game_of_crone_build_two_refugee_cook_hives",
+      "title": "Build and initialize two camp hives",
+      "linkedQuestIds": ["dlc_refugees_cook"],
+      "linkedTaskMilestoneIds": ["game_of_crone_cook_hives_requested", "game_of_crone_cook_two_hives_completed"],
+      "triggerScripts": ["gykmp_story_dispatch_game_of_crone_refugee_cook_hive"],
+      "triggerKeys": [
+        "flitch:4",
+        "bee:10",
+        "refugee_happiness_item:2",
+        "refugee_camp_hive",
+        "initialized",
+        "refugee_honey_production",
+        "hives_build_count",
+        "Camp:camp_idle_26:0",
+        "Camp:camp_idle_27:0",
+        "Camp:camp_idle_28:0",
+        "@refugee_cook_4",
+        "dlc_refugees_city_cook_3",
+        "gykmp_story_build_game_of_crone_refugee_cook_hive",
+        "gykmp_story_object_game_of_crone_refugee_cook_hive",
+        "gykmp_story_phase_game_of_crone_refugee_cook_two_hives_complete"
+      ],
+      "expectedEffects": [
+        {
+          "kind": "build_transaction",
+          "id": "gykmp_story_build_game_of_crone_refugee_cook_hive",
+          "operation": "for-each-real-hive-claim-for-the-initiator_then-reserve-four-flitch-ten-bees-and-two-shared-happiness-before-placement",
+          "amount": 1,
+          "ownership": "initiating_player_transaction"
+        },
+        {
+          "kind": "story_object_receipt",
+          "id": "gykmp_story_object_game_of_crone_refugee_cook_hive",
+          "operation": "record-once-per-unique-completed-hive-instance_before-incrementing-the-source-counter",
+          "amount": 1,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "world_production",
+          "id": "refugee_camp_hive:refugee_honey_production",
+          "operation": "for-each-receipted-hive-with-initialized-zero_set-one-and-start-one-honey-production-cycle",
+          "amount": 1,
+          "ownership": "shared_world"
+        },
+        {
+          "kind": "conditional_wgo_param",
+          "id": "Camp:camp_idle_26_or_27_or_28",
+          "operation": "set-exactly-one-source-positional-idle-slot-to-zero-per-hive_after-normalizing-duplicate-control-and-value-edges",
+          "amount": 0,
+          "ownership": "shared_world"
+        },
+        {
+          "kind": "conditional_player_param_delta_receipt",
+          "id": "hives_build_count",
+          "operation": "increment-once-per-unique-completed-hive-receipt_without-minimum-repairing-the-additive-source-counter-from-task-state",
+          "amount": 1,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "dialogue_phrase",
+          "id": "@refugee_cook_4",
+          "operation": "unlock-once-when-two-or-more-unique-completed-hive-receipts-exist",
+          "amount": 1,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "npc_task",
+          "id": "npc_refugee_cook:dlc_refugees_city_cook_3",
+          "operation": "set-Complete-after-the-final-topic-unlock-at-the-two-hive-gate",
+          "amount": 1,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "story_phase",
+          "id": "gykmp_story_phase_game_of_crone_refugee_cook_two_hives_complete",
+          "operation": "commit-after-two-distinct-hive-receipts_production-idle-state_topic-and-task-are-durable",
+          "amount": 1,
+          "ownership": "shared_campaign"
+        }
+      ],
+      "safeguards": [
+        "two-simultaneous-players-must-not-spend-the-same-inventory-or-claim-the-same-hive-instance",
+        "use-unique-physical-hive-completion-receipts_not-raw-hives_build_count-as-authoritative-convergence",
+        "normalize-the-doubled-stock-and-found-bindings-before-idle-slot-mutation",
+        "an-already-initialized-hive-is-adopted-and-its-production-is-not-restarted"
+      ]
+    },
+    {
+      "stepId": "game_of_crone_complete_refugee_cook_profession",
+      "title": "Complete the cook's vendor and achievement progression",
+      "linkedQuestIds": ["dlc_refugees_cook"],
+      "linkedTaskMilestoneIds": ["game_of_crone_cook_two_hives_completed"],
+      "triggerScripts": ["gykmp_story_dispatch_game_of_crone_refugee_cook_4"],
+      "triggerKeys": [
+        "@refugee_cook_4",
+        "_rel:30",
+        "refugee_cook_4_1",
+        "refugee_cook_4_5",
+        "vendor_refugee_cook_3",
+        "@cook_vendor_inventory_1",
+        "@vegetable_set",
+        "@milk_processing",
+        "@in_lentils_we_trust",
+        "@honey_cake",
+        "game_of_crone_refugee_cook_recipe_tier_3",
+        "camp_kitchen_vegetable_patty_3",
+        "camp_kitchen_сheese_patty",
+        "camp_kitchen_cheesecake",
+        "camp_kitchen_panna_cotta",
+        "camp_kitchen_honey_pudding",
+        "camp_kitchen_berry_pudding",
+        "camp_kitchen_honey_cake",
+        "dlc_refugees_cook",
+        "gykmp_story_achievement_eligibility_game_of_crone_cook",
+        "gykmp_story_achievement_game_of_crone_cook",
+        "gykmp_story_phase_game_of_crone_refugee_cook_4_entered",
+        "gykmp_story_relation_game_of_crone_refugee_cook_4",
+        "gykmp_story_phase_game_of_crone_refugee_cook_4_story_branch",
+        "gykmp_story_phase_game_of_crone_refugee_cook_4_recipe_branch",
+        "gykmp_story_phase_game_of_crone_refugee_cook_complete"
+      ],
+      "expectedEffects": [
+        {
+          "kind": "story_phase",
+          "id": "gykmp_story_phase_game_of_crone_refugee_cook_4_entered",
+          "operation": "claim-the-final-multi-answer-before-its-reward-or-function-dispatch",
+          "amount": 1,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "relationship_delta_receipt",
+          "id": "gykmp_story_relation_game_of_crone_refugee_cook_4",
+          "operation": "apply-the-multi-answer-plus-thirty-cook-relation-reward-once_before-blacklisting-and-dialogue",
+          "amount": 30,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "dialogue_sequence",
+          "id": "refugee_cook_4_1_through_4_5",
+          "operation": "present-five-lines-once-with-the-actual-initiating-player",
+          "amount": 5,
+          "ownership": "live_presentation"
+        },
+        {
+          "kind": "recipe_bundle",
+          "id": "game_of_crone_refugee_cook_recipe_tier_3",
+          "operation": "unlock-vegetable-patty-three_literal-Cyrillic-c-heese-patty_cheesecake_panna-cotta_honey-pudding_berry-pudding_and-honey-cake",
+          "amount": 7,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "story_phase",
+          "id": "gykmp_story_phase_game_of_crone_refugee_cook_4_recipe_branch",
+          "operation": "commit-after-all-seven-independent-tier-three-recipe-effects-are-durable",
+          "amount": 1,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "world_vendor",
+          "id": "vendor_refugee_cook_3:vendor_refugee_cook",
+          "operation": "replace-or-adopt-the-tagged-level-two-vendor-with-exactly-one-level-three-vendor_after-normalizing-the-duplicated-source-edges",
+          "amount": 1,
+          "ownership": "shared_world"
+        },
+        {
+          "kind": "dialogue_phrase_bundle",
+          "id": "game_of_crone_refugee_cook_final_topics",
+          "operation": "unlock-cook-vendor-inventory-one_then-vegetable-set_milk-processing_in-lentils-we-trust_and-honey-cake-in-literal-source-order",
+          "amount": 5,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "story_phase",
+          "id": "gykmp_story_phase_game_of_crone_refugee_cook_4_story_branch",
+          "operation": "commit-after-dialogue-vendor-three-and-all-five-topic-effects-are-durable",
+          "amount": 1,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "story_eligibility_receipt",
+          "id": "gykmp_story_achievement_eligibility_game_of_crone_cook",
+          "operation": "invoke-the-serialized-Flow_CheckKeyQuest-after-vendor-three-and-the-five-topic-story-tail_before-function-return_without-waiting-for-the-independent-tier-three-recipe-branch",
+          "amount": 1,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "platform_achievement_receipt",
+          "id": "gykmp_story_achievement_game_of_crone_cook",
+          "operation": "settle-once-per-personal-profile-as-unlocked-already-unlocked-or-unsupported_outside-ordinary-QuestSync_using-cook_vendor_inventory_1-only-to-reproduce-the-version-at-most-1301-LateSaveFixer-platform-repair-heuristic",
+          "amount": 1,
+          "ownership": "personal_profile"
+        },
+        {
+          "kind": "story_phase",
+          "id": "gykmp_story_phase_game_of_crone_refugee_cook_complete",
+          "operation": "commit-after-both-story-and-recipe-branch-receipts_and-caller-participant-state-restoration_without-waiting-for-the-asynchronous-NPC-on_talk_end-event-or-every-profiles-platform-achievement-settlement",
+          "amount": 1,
+          "ownership": "shared_campaign"
+        }
+      ],
+      "safeguards": [
+        "the-plus-thirty-is-a-MultiAnswer-reward_not-a-price-and-must-never-debit-the-initiator",
+        "blacklisted-refugee_cook_4-is-entry-prefix-evidence_not-finale-completion",
+        "normalize-two-destroy-to-spawn_three-GD-point_and-two-old-vendor-value-bindings-before-replacement",
+        "the-source-achievement-check-precedes-function-return_then-the-caller-schedules-on_talk_end-before-restoring-participant-control_while-the-cooperative-terminal-still-requires-both-branch-receipts",
+        "on_talk_end-is-asynchronous-NPC-despawn-or-idle-point-cleanup_not-generic-participant-cleanup",
+        "legacy-cook-vendor-inventory-one-is-an-overbroad-version-bounded-platform-repair-heuristic-that-may-predate-the-finale_not-canonical-finale-state",
+        "ignore-the-disconnected-refugee_upgrade_cook_vendor_to_lvl_3-island"
+      ]
+    },
+    {
+      "stepId": "game_of_crone_learn_refugee_cook_technologies",
+      "title": "Learn the cook's optional post-finale technologies",
+      "linkedQuestIds": ["dlc_refugees_cook"],
+      "linkedTaskMilestoneIds": [],
+      "triggerScripts": [
+        "gykmp_story_dispatch_game_of_crone_refugee_cook_tech",
+        "tech_vegetables_set",
+        "tech_milk_processing",
+        "tech_in_lentils_we_trust",
+        "tech_honey_cake"
+      ],
+      "triggerKeys": [
+        "@vegetable_set",
+        "Vegetable set",
+        "tech_vegetables_set",
+        "vegetable_salad",
+        "vegetable_stew",
+        "creamy_vegetable_soup",
+        "@milk_processing",
+        "Milk processing",
+        "tech_milk_processing",
+        "cheese",
+        "butter",
+        "cream_of_mushroom_soup",
+        "@in_lentils_we_trust",
+        "In Lentil We Trust",
+        "tech_in_lentils_we_trust",
+        "lentil_porridge",
+        "greek_lentil_soup",
+        "lentil_cutlets",
+        "@honey_cake",
+        "Honey cake",
+        "tech_honey_cake",
+        "honey_cake",
+        "gykmp_story_tech_game_of_crone_refugee_cook_vegetable_set",
+        "gykmp_story_tech_game_of_crone_refugee_cook_milk_processing",
+        "gykmp_story_tech_game_of_crone_refugee_cook_lentils",
+        "gykmp_story_tech_game_of_crone_refugee_cook_honey_cake"
+      ],
+      "expectedEffects": [
+        {
+          "kind": "conditional_tech_dialogue",
+          "id": "tech_dialog:Vegetable set",
+          "operation": "show-the-source-forced-unlock_non-silent_show-tech-false-dialog-to-the-initiating-player_wait-for-its-non-cancelable-OK-to-call-UnlockTech_then-wait-for-close-callback-before-function-return",
+          "amount": 1,
+          "ownership": "live_presentation"
+        },
+        {
+          "kind": "technology",
+          "id": "Vegetable set",
+          "operation": "on-dialog-OK_reveal-the-hidden-zero-price-tech-and-grant-vegetable_salad_vegetable_stew-and-creamy_vegetable_soup",
+          "amount": 1,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "dialogue_phrase",
+          "id": "@vegetable_set",
+          "operation": "blacklist-through-the-tech_vegetables_set-ApplyTech-flow-before-the-dialog-close-callback",
+          "amount": 1,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "technology_unlock_receipt",
+          "id": "gykmp_story_tech_game_of_crone_refugee_cook_vegetable_set",
+          "operation": "after-the-close-callback_verify-Vegetable-set_all-three-crafts_and-the-topic-blacklist-are-durable-then-journal-once",
+          "amount": 1,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "conditional_tech_dialogue",
+          "id": "tech_dialog:Milk processing",
+          "operation": "show-the-source-forced-unlock_non-silent_show-tech-false-dialog-to-the-initiating-player_wait-for-its-non-cancelable-OK-to-call-UnlockTech_then-wait-for-close-callback-before-function-return",
+          "amount": 1,
+          "ownership": "live_presentation"
+        },
+        {
+          "kind": "technology",
+          "id": "Milk processing",
+          "operation": "on-dialog-OK_reveal-the-hidden-zero-price-tech-and-grant-cheese_butter-and-cream_of_mushroom_soup",
+          "amount": 1,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "dialogue_phrase",
+          "id": "@milk_processing",
+          "operation": "blacklist-through-the-tech_milk_processing-ApplyTech-flow-before-the-dialog-close-callback",
+          "amount": 1,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "technology_unlock_receipt",
+          "id": "gykmp_story_tech_game_of_crone_refugee_cook_milk_processing",
+          "operation": "after-the-close-callback_verify-Milk-processing_all-three-crafts_and-the-topic-blacklist-are-durable-then-journal-once",
+          "amount": 1,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "conditional_tech_dialogue",
+          "id": "tech_dialog:In Lentil We Trust",
+          "operation": "show-the-source-forced-unlock_non-silent_show-tech-false-dialog-to-the-initiating-player_wait-for-its-non-cancelable-OK-to-call-UnlockTech_then-wait-for-close-callback-before-function-return",
+          "amount": 1,
+          "ownership": "live_presentation"
+        },
+        {
+          "kind": "technology",
+          "id": "In Lentil We Trust",
+          "operation": "on-dialog-OK_reveal-the-hidden-zero-price-tech-and-grant-lentil_porridge_greek_lentil_soup-and-lentil_cutlets",
+          "amount": 1,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "dialogue_phrase",
+          "id": "@in_lentils_we_trust",
+          "operation": "blacklist-through-the-tech_in_lentils_we_trust-ApplyTech-flow-before-the-dialog-close-callback",
+          "amount": 1,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "technology_unlock_receipt",
+          "id": "gykmp_story_tech_game_of_crone_refugee_cook_lentils",
+          "operation": "after-the-close-callback_verify-In-Lentil-We-Trust_all-three-crafts_and-the-topic-blacklist-are-durable-then-journal-once",
+          "amount": 1,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "conditional_tech_dialogue",
+          "id": "tech_dialog:Honey cake",
+          "operation": "show-the-source-forced-unlock_non-silent_show-tech-false-dialog-to-the-initiating-player_wait-for-its-non-cancelable-OK-to-call-UnlockTech_then-wait-for-close-callback-before-function-return",
+          "amount": 1,
+          "ownership": "live_presentation"
+        },
+        {
+          "kind": "technology",
+          "id": "Honey cake",
+          "operation": "on-dialog-OK_reveal-the-hidden-zero-price-tech-and-grant-base-craft-honey_cake",
+          "amount": 1,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "dialogue_phrase",
+          "id": "@honey_cake",
+          "operation": "blacklist-through-the-tech_honey_cake-ApplyTech-flow-before-the-dialog-close-callback",
+          "amount": 1,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "technology_unlock_receipt",
+          "id": "gykmp_story_tech_game_of_crone_refugee_cook_honey_cake",
+          "operation": "after-the-close-callback_verify-Honey-cake_base-craft-honey_cake_and-the-topic-blacklist-are-durable-then-journal-once",
+          "amount": 1,
+          "ownership": "shared_campaign"
+        }
+      ],
+      "safeguards": [
+        "each-topic-is-optional-and-independent_do-not-auto-complete-unselected-topics-from-the-achievement-terminal",
+        "use-exact-case-and-spacing-for-all-four-technology-identifiers",
+        "route-the-choice-and-tech_dialog-through-the-initiating-player-while-keeping-the-confirmed-unlock-shared-and-idempotent",
+        "a-close-callback-without-the-exact-tech-present-must-release-presentation-state_without-writing-a-receipt_and-leave-the-topic-retryable",
+        "a-disconnect-after-UnlockTech-but-before-dialog-close-must-adopt-the-present-tech_complete-only-a-missing-exact-topic-blacklist-suffix_and-release-the-presentation-callback_without-replaying-shared-tech-state",
+        "all-four-TechDefinitions-are-hidden-and-zero-price_so-never-charge-tech-points-gratitude-or-any-other-resource",
+        "the-Honey-cake-technology-grants-base-craft-honey_cake_not-the-separate-finale-craft-camp_kitchen_honey_cake"
+      ]
+    }
+  ]
+}

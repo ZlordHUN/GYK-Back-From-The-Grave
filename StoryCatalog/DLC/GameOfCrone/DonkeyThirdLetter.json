@@ -1,0 +1,767 @@
+{
+  "schemaVersion": 5,
+  "catalogId": "dlc.game-of-crone.donkey-third-letter",
+  "campaign": "GameOfCrone",
+  "chapter": "ThirdContrabandLetterThroughD11D12D15SupplyRequests",
+  "quests": [
+    {
+      "questId": "dlc_refugees_d10",
+      "title": "Serialized third Donkey letter achievement checkpoint",
+      "definitionKind": "AchievementDefinition",
+      "counter": 1,
+      "vanilla": {
+        "startTrigger": "",
+        "successTrigger": "1",
+        "failTrigger": "",
+        "startKeys": [
+          "dlc_refugees_d10"
+        ],
+        "questVisible": false,
+        "oneTimeQuest": false,
+        "startScript": "",
+        "successScript": "",
+        "failScript": "",
+        "arrowWgoCustomTag": "",
+        "arrowWgoObjectId": "",
+        "successRewards": [],
+        "failureRewards": []
+      },
+      "policy": {
+        "stateOwnership": "shared_campaign",
+        "eligibleInitiator": "any_player",
+        "livePresentationOwner": "initiating_player",
+        "observerQuestApplication": "durable_state_only",
+        "personalRewardDelivery": "party_exactly_once",
+        "observerSuccess": {
+          "globalScripts": [],
+          "playerParamRepairs": [],
+          "playerParamMinimums": [],
+          "taskStateMinimums": [],
+          "unlockedTechs": [],
+          "unlockedPhrases": [],
+          "blacklistedPhrases": [],
+          "unlockedCrafts": [],
+          "completedOneTimeCrafts": [],
+          "personalItemGrants": []
+        }
+      },
+      "completionChecks": []
+    }
+  ],
+  "taskMilestones": [
+    {
+      "milestoneId": "game_of_crone_donkey_third_letter_delivery_opened",
+      "npcId": "donkey",
+      "taskId": "dlc_refugees_d10_note_receive",
+      "activeStates": [
+        "Visible"
+      ],
+      "playerParamRepairs": [],
+      "playerParamMinimums": [],
+      "taskStateMinimums": [],
+      "unlockedTechs": [],
+      "unlockedPhrases": [],
+      "blacklistedPhrases": [],
+      "unlockedCrafts": [],
+      "completedOneTimeCrafts": [],
+      "wgoParamMinimums": [],
+      "personalItemGrants": []
+    },
+    {
+      "milestoneId": "game_of_crone_donkey_third_letter_delivery_completed",
+      "npcId": "donkey",
+      "taskId": "dlc_refugees_d10_note_receive",
+      "activeStates": [
+        "Complete"
+      ],
+      "playerParamRepairs": [],
+      "playerParamMinimums": [],
+      "taskStateMinimums": [],
+      "unlockedTechs": [],
+      "unlockedPhrases": [],
+      "blacklistedPhrases": [],
+      "unlockedCrafts": [],
+      "completedOneTimeCrafts": [],
+      "wgoParamMinimums": [],
+      "personalItemGrants": []
+    },
+    {
+      "milestoneId": "game_of_crone_donkey_third_letter_pickup_opened",
+      "npcId": "donkey",
+      "taskId": "dlc_refugees_d10_take_note",
+      "activeStates": [
+        "Visible"
+      ],
+      "playerParamRepairs": [],
+      "playerParamMinimums": [],
+      "taskStateMinimums": [
+        {
+          "npcId": "donkey",
+          "taskId": "dlc_refugees_d10_note_receive",
+          "state": "Complete"
+        }
+      ],
+      "unlockedTechs": [],
+      "unlockedPhrases": [],
+      "blacklistedPhrases": [],
+      "unlockedCrafts": [],
+      "completedOneTimeCrafts": [],
+      "wgoParamMinimums": [],
+      "personalItemGrants": []
+    },
+    {
+      "milestoneId": "game_of_crone_donkey_third_letter_pickup_completed",
+      "npcId": "donkey",
+      "taskId": "dlc_refugees_d10_take_note",
+      "activeStates": [
+        "Complete"
+      ],
+      "playerParamRepairs": [],
+      "playerParamMinimums": [],
+      "taskStateMinimums": [
+        {
+          "npcId": "donkey",
+          "taskId": "dlc_refugees_d10_note_receive",
+          "state": "Complete"
+        }
+      ],
+      "unlockedTechs": [],
+      "unlockedPhrases": [],
+      "blacklistedPhrases": [],
+      "unlockedCrafts": [],
+      "completedOneTimeCrafts": [],
+      "wgoParamMinimums": [],
+      "personalItemGrants": []
+    },
+    {
+      "milestoneId": "game_of_crone_donkey_paint_requested",
+      "npcId": "donkey",
+      "taskId": "dlc_refugees_s_ev_d11_cans",
+      "activeStates": [
+        "Visible"
+      ],
+      "playerParamRepairs": [],
+      "playerParamMinimums": [],
+      "taskStateMinimums": [
+        {
+          "npcId": "donkey",
+          "taskId": "dlc_refugees_d10_take_note",
+          "state": "Complete"
+        }
+      ],
+      "unlockedTechs": [],
+      "unlockedPhrases": [],
+      "blacklistedPhrases": [],
+      "unlockedCrafts": [],
+      "completedOneTimeCrafts": [],
+      "wgoParamMinimums": [],
+      "personalItemGrants": []
+    },
+    {
+      "milestoneId": "game_of_crone_donkey_power_jelly_requested",
+      "npcId": "donkey",
+      "taskId": "dlc_refugees_s_ev_d12_jelly",
+      "activeStates": [
+        "Visible"
+      ],
+      "playerParamRepairs": [],
+      "playerParamMinimums": [],
+      "taskStateMinimums": [
+        {
+          "npcId": "donkey",
+          "taskId": "dlc_refugees_d10_take_note",
+          "state": "Complete"
+        },
+        {
+          "npcId": "donkey",
+          "taskId": "dlc_refugees_s_ev_d11_cans",
+          "state": "Visible"
+        }
+      ],
+      "unlockedTechs": [],
+      "unlockedPhrases": [],
+      "blacklistedPhrases": [],
+      "unlockedCrafts": [],
+      "completedOneTimeCrafts": [],
+      "wgoParamMinimums": [],
+      "personalItemGrants": []
+    },
+    {
+      "milestoneId": "game_of_crone_donkey_revolutionary_banner_requested",
+      "npcId": "donkey",
+      "taskId": "dlc_refugees_s_ev_d15_banner",
+      "activeStates": [
+        "Visible"
+      ],
+      "playerParamRepairs": [],
+      "playerParamMinimums": [],
+      "taskStateMinimums": [
+        {
+          "npcId": "donkey",
+          "taskId": "dlc_refugees_d10_take_note",
+          "state": "Complete"
+        },
+        {
+          "npcId": "donkey",
+          "taskId": "dlc_refugees_s_ev_d11_cans",
+          "state": "Visible"
+        },
+        {
+          "npcId": "donkey",
+          "taskId": "dlc_refugees_s_ev_d12_jelly",
+          "state": "Visible"
+        }
+      ],
+      "unlockedTechs": [],
+      "unlockedPhrases": [],
+      "blacklistedPhrases": [],
+      "unlockedCrafts": [],
+      "completedOneTimeCrafts": [],
+      "wgoParamMinimums": [],
+      "personalItemGrants": []
+    }
+  ],
+  "cutscenes": [
+    {
+      "cutsceneId": "game_of_crone_deliver_donkeys_third_letter",
+      "linkedQuestIds": [
+        "dlc_refugees_d10"
+      ],
+      "triggerScripts": [
+        "gykmp_story_dispatch_game_of_crone_d10_letter_arm",
+        "gykmp_story_dispatch_game_of_crone_d10_letter_delivery"
+      ],
+      "actors": [
+        "initiating_player",
+        "donkey",
+        "contraband_box"
+      ],
+      "observerPolicy": "all_loaded_party_members",
+      "lateJoinPolicy": "join_live_checkpoint_or_observe",
+      "remoteExecutionPolicy": "live_observation",
+      "executionOwnerPolicy": "lobby_host",
+      "dialogueOwnerPolicy": "initiating_player",
+      "formationPolicy": "initiator_with_observer_follow",
+      "cleanupRequirements": [
+        "begin_only_when_the_authoritative_ten-second_D10_unlock_timer_delivers_unlock_event_d10_to_the_canonical_Donkey_and_commit_the_delivery-arm_claim_before_the_source_flag_or_task_write",
+        "consume_only_the_due_D10_unlock_timer_receipt_here_and_preserve_the_independent_next-midnight_Donkey_visit_schedule_until_its_own_try_force_send_delivery_even_when_midnight_precedes_the_ten-second_unlock",
+        "set_Donkeys_is_bring_note_for_d10_to_one_then_show_donkey_dlc_refugees_d10_note_receive_Visible_with_zero_bronze_silver_and_gold_story_rewards_in_exact_source_order",
+        "treat_is_bring_note_for_d10_as_a_consumable_next-arrival_latch_and_the_Visible_receive-task_as_an_early_prefix_neither_is_terminal_or_safe_for_cross-repair",
+        "on_the_next_authoritative_Donkey_arrival_that_observes_the_latch_claim_only_the_D10_branch_of_the_shared_check_contraband_box_graph_without_suppressing_later_D11_D12_or_D15_collection_branches",
+        "journal_the_third-letter-delivery_claim_before_clearing_is_bring_note_for_d10_because_the_source_consumes_the_only_latch_before_its_strict_contraband_box_lookup_and_interaction-event_write",
+        "require_or_reconcile_the_single_canonical_contraband_box_then_clear_the_latch_enqueue_event_third_letter_delivered_complete_donkey_dlc_refugees_d10_note_receive_and_show_donkey_dlc_refugees_d10_take_note_in_that_order",
+        "collapse_the_tripled_serialized_contraband-box_WGO-to-D10-AddInteractionEvent_binding_to_one_semantic_target_without_queuing_three_events",
+        "resume_from_the_delivery_claim_if_the_box_was_missing_or_the_queue_write_or_either_task_transition_failed_and_never_rearm_the_consumed_latch_from_a_persistent_task_state",
+        "before_the_box_interaction_removes_event_third_letter_delivered_from_its_custom-event_queue_commit_an_ordered_drop_transaction_bound_to_the_actual_interacting_peer",
+        "collapse_the_tripled_serialized_third_letter-value-to-Flow-DropItem_binding_to_one_source_drop_of_exactly_one_third_letter",
+        "reserve_suppress_or_adopt_the_single_third_letter_source_drop_before_any_synthetic_per-profile_allocation_so_a_crash_neither_duplicates_nor_loses_the_delivery",
+        "preserve_the_exact_reachable_box-event_order_of_third_letter-one-ToPlayer_then_donkey_dlc_refugees_d10_take_note_Complete",
+        "allocate_one_retained_third_letter_entitlement_to_each_eligible_personal_profile_only_after_atomic_source-drop_accounting_and_bind_the_vanilla_ToPlayer_copy_to_at_most_one_matching_receipt",
+        "treat_Direction_ToPlayer_as_an_unowned_world_drop_aimed_relative_to_the_executing_process_player_and_never_as_inventory_ownership_or_proof_that_a_remote_interactor_received_the_letter",
+        "leave_all_milestone_personalItemGrants_empty_until_source-drop_suppression_reservation_collection-adoption_and_per-profile_receipts_are_atomic",
+        "commit_the_letter-available_phase_only_after_the_queue_claim_drop-transaction_all_personal_entitlements_take-note-completion_and_box-event-cleanup_are_durable"
+      ]
+    },
+    {
+      "cutsceneId": "game_of_crone_read_donkeys_third_letter",
+      "linkedQuestIds": [
+        "dlc_refugees_d10"
+      ],
+      "triggerScripts": [
+        "gykmp_story_dispatch_game_of_crone_d10_letter_read"
+      ],
+      "actors": [
+        "initiating_player",
+        "donkey"
+      ],
+      "observerPolicy": "all_loaded_party_members",
+      "lateJoinPolicy": "join_live_checkpoint_or_observe",
+      "remoteExecutionPolicy": "live_observation",
+      "executionOwnerPolicy": "lobby_host",
+      "dialogueOwnerPolicy": "initiating_player",
+      "formationPolicy": "initiator_with_observer_follow",
+      "cleanupRequirements": [
+        "scope_each_read_claim_to_the_profile_that_used_its_own_third_letter_entitlement_and_bind_every_PlayerFlag_SetPlayerParam_PlayerTalk_InfoBox_Think_and_control_operation_to_that_reader",
+        "pre-resolve_the_exact_canonical_Donkey_before_disabling_the_reader_because_the_strict_source_lookup_is_evaluated_only_after_three_task_writes_and_a_null-result-silently-skips-all-three-consumable-latches_while-still-continuing-through-five-crafts-achievement-and-enable",
+        "disable_only_the_reader_without_affecting_cinematic_then_present_InfoBox_lines_refugee_d_10_1_through_13_to_that_reader_in_strict_On-Finished_order",
+        "freeze_the_readers_exact_is_third_letter_red_once_zero-or-at-least-one_branch_before_line_one_and_reuse_that_branch_receipt_after_line_thirteen_so_reconnect_or_duplicate_dispatch_cannot_change_the_path",
+        "for_a_repeat_read_skip_thoughts_fourteen-and-fifteen_and_every_shared_D10_mutation_then_restore_only_the_reader",
+        "for_a_first_read_set_that_profiles_exact_typoed_is_third_letter_red_once_to_one_before_presenting_Player_thoughts_refugee_d_10_14_then_refugee_d_10_15",
+        "treat_is_third_letter_red_once_as_an_early_personal_branch_latch_and_never_as_terminal_read_or_shared-payload-evidence",
+        "after_the_first-read_thoughts_acquire_one_independent_shared-payload_claim_so_only_one_profile_can_open_the_three_tasks_three_Donkey_latches_five_crafts_and_D10_achievement",
+        "show_donkey_dlc_refugees_s_ev_d11_cans_then_dlc_refugees_s_ev_d12_jelly_then_dlc_refugees_s_ev_d15_banner_Visible_with_zero_story_rewards",
+        "set_get_items_d11_then_get_items_d12_then_get_items_d15_to_one_only_on_the_pre-resolved_canonical_Donkey_and_keep_all_three_consumable_collection_latches_out_of_milestone_minima",
+        "unlock_d11_send_items_d12_send_items_d15_send_items_jelly_splinter_then_revolutionary_banner_in_exact_source_order_without-executing-or-completing_any_recipe",
+        "record_D10_achievement_eligibility_then_check_the_exact_dlc_refugees_d10_AchievementDefinition_once_after_all_five_crafts_and_before_control_restore",
+        "deliver_the_optional_dlc_refugees_d10_platform_unlock_once_per_personal_profile_under_independent_receipts_outside_ordinary_QuestSync",
+        "commit_the_shared-payload-complete_phase_after_all_tasks_latches_crafts_and_achievement_receipts_then_restore_only_the_readers_control_and_commit_its_personal-read-complete_phase",
+        "if_another_profile_reads_after_the_shared_payload_finished_still_run_that_profiles_lines_one-through-fifteen_on_its_first_read_and_set_its_personal_typoed_flag_but_never_replay_shared_D10_mutations",
+        "if_is_third_letter_red_once_is_already_one_while_the_personal_or_shared_synthetic_terminal_phase_is_missing_resume_the_missing_suffix_without_trusting_the_early_source_flag_as_completion",
+        "do_not_consume_third_letter_on_use_because_its_ItemDefinition_has_stay_on_use_true_and_the_read_graph_contains_no_remove-item_node",
+        "restore_the_readers_control_GUI_camera_and_input_baseline_on_success_disconnect_cancellation_timeout_or_recovery_and_do_not_change_observers_personal_flags",
+        "do_not_add_topics_money_currency_relationship_item-consumption_timers_or_task-story-rewards_because_the_third-letter-read_source_has_none",
+        "stop_before_executing_d11_send_items_d12_send_items_d15_send_items_or_any_of_their_callbacks_box-collections_counters_relations_or_D16-convergence_events"
+      ]
+    }
+  ],
+  "storySteps": [
+    {
+      "stepId": "game_of_crone_arm_donkeys_third_letter_delivery",
+      "title": "Arm Donkey's third-letter delivery",
+      "linkedQuestIds": [
+        "dlc_refugees_d10"
+      ],
+      "linkedTaskMilestoneIds": [
+        "game_of_crone_donkey_third_letter_delivery_opened"
+      ],
+      "triggerScripts": [
+        "gykmp_story_dispatch_game_of_crone_d10_letter_arm"
+      ],
+      "triggerKeys": [
+        "gykmp_story_phase_game_of_crone_d10_supply_convergence_complete",
+        "gykmp_story_timer_game_of_crone_d10_unlock",
+        "gykmp_story_timer_game_of_crone_d10_midnight_visit",
+        "check_ev_d10_start",
+        "ev_d10_check_count",
+        "Flow_FireEvent",
+        "GJTimer:0.03",
+        "WorldGameObject.SerializableEvents.event_ids",
+        "WorldGameObject.SerializableEvents.event_delays",
+        "unlock_event_d10",
+        "npc_donkey:unlock_event_d10",
+        "is_bring_note_for_d10",
+        "dlc_refugees_d10_note_receive",
+        "gykmp_story_phase_game_of_crone_d10_letter_arm_claimed",
+        "gykmp_story_phase_game_of_crone_d10_letter_armed"
+      ],
+      "expectedEffects": [
+        {
+          "kind": "story_phase",
+          "id": "gykmp_story_phase_game_of_crone_d10_letter_arm_claimed",
+          "operation": "commit_when_the_single_persisted_unlock_event_d10_delivery_begins_before_the_Donkey_flag_or_task_write",
+          "amount": 1,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "wgo_param",
+          "id": "donkey:is_bring_note_for_d10",
+          "operation": "set_one_until_the_next_authoritative_Donkey_arrival_that_observes_it_claims_and_consumes_the_letter-delivery_branch",
+          "amount": 1,
+          "ownership": "shared_world"
+        },
+        {
+          "kind": "npc_task",
+          "id": "donkey:dlc_refugees_d10_note_receive",
+          "operation": "set_Visible_after_the_delivery_latch_with_zero_story_rewards",
+          "amount": 1,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "story_phase",
+          "id": "gykmp_story_phase_game_of_crone_d10_letter_armed",
+          "operation": "commit_after_the_consumable_latch_and_receive-task_opening_are_both_durable",
+          "amount": 1,
+          "ownership": "shared_campaign"
+        }
+      ],
+      "safeguards": [
+        "accept_only_delivery_of_the_single_persisted_ten-second_unlock_event_d10_schedule_from_the_completed_D10-supply-convergence_boundary",
+        "treat_the-source-check_ev_d10_start-equal-or-greater-than-two-branch_as-level-triggered_because-every-replay-above-two-registers-another-unlock_event_d10-and-next-midnight-try_force_send-pair_and-delayed-event-queues-do-not-deduplicate",
+        "cover_each-Flow-FireEvent-unpersisted-outer-0_03-real-second-window_with-a-durable-registration-intent_and-never-mark-either-inner-gameplay-time-event-registered-until-its-serialized-id-and-delay-pair-exists",
+        "preserve_the_source_independence_of_the_ten-second_unlock_and_next-midnight_visit_schedules_and_never_delay_or_replay_one_to_force_their_order",
+        "if_the_midnight_visit_occurs_before_the_latch_is_armed_allow_that_visit_to_finish_normally_and_leave_delivery_for_the_next_authoritative_Donkey_arrival",
+        "if_unlock_event_d10_delivery_repeats_after_the_armed_phase_do_not_rearm_a_consumed_is_bring_note_for_d10_or_regress_either_letter_task",
+        "never_put_is_bring_note_for_d10_in_wgoParamMinimums_because_Donkeys_later_visit_consumes_it_before_queuing_the_letter",
+        "do_not_open_the_take-note_task_or_create_any_drop_until_the_authoritative_Donkey-arrival_delivery_transaction"
+      ]
+    },
+    {
+      "stepId": "game_of_crone_receive_donkeys_third_letter",
+      "title": "Receive Donkey's third letter from the contraband box",
+      "linkedQuestIds": [
+        "dlc_refugees_d10"
+      ],
+      "linkedTaskMilestoneIds": [
+        "game_of_crone_donkey_third_letter_delivery_completed",
+        "game_of_crone_donkey_third_letter_pickup_opened",
+        "game_of_crone_donkey_third_letter_pickup_completed"
+      ],
+      "triggerScripts": [
+        "gykmp_story_dispatch_game_of_crone_d10_letter_delivery"
+      ],
+      "triggerKeys": [
+        "gykmp_story_timer_game_of_crone_d10_midnight_visit",
+        "try_force_send",
+        "npc_donkey_dlc",
+        "send_forced_donkey",
+        "force_send",
+        "on_returned_home",
+        "npc_donkey:on_returned_home",
+        "going_to_cemetery",
+        "donkey_stays_at_cemetery",
+        "on_the_way_now",
+        "donkey_on_scene",
+        "donkey_forced_came",
+        "donkey_village_point",
+        "donkey_cemetery_point",
+        "GoTo:1.2",
+        "GDGraph",
+        "on_came_to_cemetery",
+        "npc_donkey:on_came_to_cemetery",
+        "donkey_bell",
+        "check_d_1_to_unlock",
+        "check_contraband_box",
+        "donkey:check_contraband_box",
+        "get_item_d9",
+        "is_bring_note_for_d10",
+        "contraband_box",
+        "Flow_FindWGO:632",
+        "Flow_AddInteractionEvent:284",
+        "event_third_letter_delivered",
+        "interaction",
+        "contraband_box:interaction",
+        "third_letter",
+        "i_first_letter",
+        "third_letter:refugee_ev_d10",
+        "Flow_DropItem:125",
+        "Direction.ToPlayer",
+        "dlc_refugees_d10_note_receive",
+        "dlc_refugees_d10_take_note",
+        "gykmp_story_phase_game_of_crone_d10_letter_delivery_claimed",
+        "gykmp_story_phase_game_of_crone_d10_letter_event_queued",
+        "gykmp_story_transaction_game_of_crone_d10_third_letter_drop",
+        "gykmp_story_grant_game_of_crone_third_letter",
+        "gykmp_story_phase_game_of_crone_d10_letter_available"
+      ],
+      "expectedEffects": [
+        {
+          "kind": "world_event_state",
+          "id": "npc_donkey:on_came_to_cemetery",
+          "operation": "on-the-authoritative-arrival_conditionally-set-donkey_forced_came-one-for-a-forced-visit_then-set-send_forced_donkey-zero_play-donkey_bell_set-on_the_way_now-zero_going_to_cemetery-zero_and-donkey_stays_at_cemetery-one_before-dispatching-check_contraband_box-when-its-enabling-param-is-at-least-one",
+          "amount": 1,
+          "ownership": "shared_world"
+        },
+        {
+          "kind": "story_phase",
+          "id": "gykmp_story_phase_game_of_crone_d10_letter_delivery_claimed",
+          "operation": "commit_on_Donkeys_arrival_before_clearing_the_only_is_bring_note_for_d10_latch",
+          "amount": 1,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "wgo_param",
+          "id": "donkey:is_bring_note_for_d10",
+          "operation": "consume_from_one_to_zero_after_the_durable_delivery_claim",
+          "amount": 0,
+          "ownership": "shared_world"
+        },
+        {
+          "kind": "world_interaction_event",
+          "id": "contraband_box:event_third_letter_delivered",
+          "operation": "enqueue_exactly_once_on_the_single_shared_box_after_normalizing_the_tripled_WGO-binding_and_preserve_until_one_interacting_peer_claims_it",
+          "amount": 1,
+          "ownership": "shared_world"
+        },
+        {
+          "kind": "npc_task",
+          "id": "donkey:dlc_refugees_d10_note_receive",
+          "operation": "set_Complete_after_the_interaction-event-enqueue_through-Flow-SetTaskState-Immediate-Out_with-zero-story-rewards",
+          "amount": 1,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "npc_task",
+          "id": "donkey:dlc_refugees_d10_take_note",
+          "operation": "set_Visible_after_the_receive-task-completion_through-Flow-SetTaskState-Immediate-Out_with-zero-story-rewards",
+          "amount": 1,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "story_phase",
+          "id": "gykmp_story_phase_game_of_crone_d10_letter_event_queued",
+          "operation": "commit_after_the_box-queue_and_both_delivery-task-transitions_are_durable",
+          "amount": 1,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "source_drop_reservation",
+          "id": "gykmp_story_transaction_game_of_crone_d10_third_letter_drop",
+          "operation": "before_the_box_pops_its_custom-event_atomically_choose_suppressed-or-reserved_physical-state_for_one_drop_normalize_the_tripled_item-value-binding_and_adopt_at-most-one_actual-collector_receipt",
+          "amount": 1,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "inventory_item_entitlement",
+          "id": "third_letter",
+          "operation": "allocate_one_icon-i_first_letter_custom-icon-empty_not-used-true_type-zero_places-empty_stack-one_item-size-one_base-count-zero_product-tier-zero_base-price-zero_drop-script-empty_destroy-after-drop-false_on-use-script-refugee_ev_d10_on-use-sound-empty_player-cant-throw-out-true_stay-on-use-true_can-be-used-true_close-inventory-on-use-false_autouse-false_retained-readable-letter_to-each-eligible-personal-profile_under_gykmp_story_grant_game_of_crone_third_letter_after-accounting-for-the-single-source-world-drop",
+          "amount": 1,
+          "ownership": "personal_character"
+        },
+        {
+          "kind": "npc_task",
+          "id": "donkey:dlc_refugees_d10_take_note",
+          "operation": "set_Complete_after_the_single_Flow-DropItem-Out_callback_without_using_the_task_as_collection-allocation-or-read_proof",
+          "amount": 1,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "story_phase",
+          "id": "gykmp_story_phase_game_of_crone_d10_letter_available",
+          "operation": "commit_after_event-consumption_drop-transaction_all-personal-entitlements_take-note-completion_and_box-event-cleanup_are_reconciled",
+          "amount": 1,
+          "ownership": "shared_campaign"
+        }
+      ],
+      "safeguards": [
+        "preserve_the_shared_contraband-checker_and_claim_only_the_third-letter-branch_without_skipping_later_D11_D12_or_D15_collection-branches",
+        "normalize_the-inherited-doubled-node-140-get_item_d9-zero-to-Dummy-142_and-doubled-Dummy-142-Out-to-Dummy-144-edges_so-the-clean-paths-four-D10-node-146-evaluations-become-one-semantic-check_while-preserving-that-only-the-first-positive-evaluation-clears-and-delivers",
+        "normalize_the-doubled-node-140-get_item_d9-at-least-one-to-node-290_and-doubled-D9-macro-node-340-Out-to-Dummy-144-edges_to-one-semantic-D9-branch-and-D10-continuation_without-inventing-a-duplicate-D10-delivery-or-later-checker-tail",
+        "normalize_the-forced-visit-duplicates_node-672-zero-to-674-twice_node-682-Out-to-684-GoTo-twice_node-692-GD-point-to-684-target-twice_and-return-cleanup-node-320-at-least-one-to-322-twice_to-one-semantic-visit-movement-and-cleanup",
+        "preserve_send_forced_donkey-on-a-guarded-try_force_send-so-on_returned_home-can-fire-force_send_and-do-not-reproduce-duplicate-movement-starts",
+        "treat_on_came_to_cemetery-RunScript-check_contraband_box-Out_as-immediate-dispatch-not-an-On-Finished-join_and-track-the-delivery-transaction-independently-from-the-rest-of-the-arrival-flow",
+        "resolve-exactly-one-canonical-custom-tag-donkey-and-one-custom-tag-contraband_box_because-missing-targets-lose-mutations_and-duplicate-tags-warn-then-silently-select-the-first-match",
+        "repair-or-wait_for_the_single_canonical-box_before_consuming_the_latch_because_Flow-AddInteractionEvent_has_no-Out_when_its_target_is-null",
+        "journal_before_the_box-Interact_path_removes_the_custom-event_from_its_queue_before_FireEvent",
+        "bind_the_box-interacting-peer_before_host-execution_so_Direction-ToPlayer_never_targets_the_hosts-local-player_by_accident",
+        "normalize_the_tripled_contraband-box_WGO-binding_and_tripled_third-letter-value-binding_without_creating_three-events_or-three-items",
+        "ignore_the-un-IDd-unconnected-third_letter-times-one-CustomFunctionCall-editor-residue_instead-of-treating-it-as-a-second-delivery-or-drop",
+        "never_allow_the_single_unowned-source-drop_to_satisfy_multiple-receipts_or_leave_a_source-world-drop_beside_a_synthetic-duplicate",
+        "leave_every_milestone-personalItemGrants-array_empty_until_source-drop-reservation_and_physical-recipient-adoption_are_atomic",
+        "do_not_consume_third_letter_when_read_and_do_not_infer_read-completion_from_the_take-note-Complete-task"
+      ]
+    },
+    {
+      "stepId": "game_of_crone_read_donkeys_third_letter",
+      "title": "Read Donkey's third letter and open the paint, power-jelly, and banner requests",
+      "linkedQuestIds": [
+        "dlc_refugees_d10"
+      ],
+      "linkedTaskMilestoneIds": [
+        "game_of_crone_donkey_paint_requested",
+        "game_of_crone_donkey_power_jelly_requested",
+        "game_of_crone_donkey_revolutionary_banner_requested"
+      ],
+      "triggerScripts": [
+        "gykmp_story_dispatch_game_of_crone_d10_letter_read"
+      ],
+      "triggerKeys": [
+        "third_letter",
+        "refugee_ev_d10",
+        "third_letter:refugee_ev_d10",
+        "refugee_d_10_1",
+        "refugee_d_10_2",
+        "refugee_d_10_3",
+        "refugee_d_10_4",
+        "refugee_d_10_5",
+        "refugee_d_10_6",
+        "refugee_d_10_7",
+        "refugee_d_10_8",
+        "refugee_d_10_9",
+        "refugee_d_10_10",
+        "refugee_d_10_11",
+        "refugee_d_10_12",
+        "refugee_d_10_13",
+        "refugee_d_10_14",
+        "refugee_d_10_15",
+        "is_third_letter_red_once",
+        "dlc_refugees_s_ev_d11_cans",
+        "dlc_refugees_s_ev_d12_jelly",
+        "dlc_refugees_s_ev_d15_banner",
+        "get_items_d11",
+        "get_items_d12",
+        "get_items_d15",
+        "d11_send_items",
+        "on_event_d11_items_sent",
+        "black_paint",
+        "white_paint",
+        "d12_send_items",
+        "on_event_d12_items_sent",
+        "jelly_splinter",
+        "jelly_slug",
+        "flour",
+        "cooking_table",
+        "cooking_table_2",
+        "d15_send_items",
+        "on_event_d15_items_sent",
+        "revolutionary_banner",
+        "silk",
+        "table_book_constr",
+        "i_goc_revolution_event",
+        "i_jelly_splinter",
+        "i_revolutionary_banner",
+        "contraband_box",
+        "dlc_refugees_d10",
+        "gykmp_story_phase_game_of_crone_d10_third_letter_personal_read_claimed",
+        "gykmp_story_phase_game_of_crone_d10_third_letter_shared_payload_claimed",
+        "gykmp_story_achievement_eligibility_game_of_crone_d10",
+        "gykmp_story_achievement_game_of_crone_d10",
+        "gykmp_story_phase_game_of_crone_d10_third_letter_shared_payload_complete",
+        "gykmp_story_phase_game_of_crone_d10_third_letter_read_complete"
+      ],
+      "expectedEffects": [
+        {
+          "kind": "personal_story_phase",
+          "id": "gykmp_story_phase_game_of_crone_d10_third_letter_personal_read_claimed",
+          "operation": "freeze-and-commit_the-reading-profiles_exact_is_third_letter_red_once_branch_before-disabling-control_then-reuse-it_at-the-post-line-thirteen_check",
+          "amount": 1,
+          "ownership": "personal_profile"
+        },
+        {
+          "kind": "dialogue_sequence",
+          "id": "refugee_d_10_1_through_13",
+          "operation": "present-the-thirteen-source-InfoBox-lines-in-order-to-the-actual-reader-on-every-use_with-force-voice-id-Donkey_Player-talk-true_Anim-null_Anim-play-Before_Orientation-Auto_and-no-WGO-or-position-override",
+          "amount": 13,
+          "ownership": "personal_presentation"
+        },
+        {
+          "kind": "player_param",
+          "id": "is_third_letter_red_once",
+          "operation": "set-one-only-for-a-first-reading-profile_immediately-after-line-thirteen_and-before-first-read-thoughts_as-the-exact-source-typoed-early-latch",
+          "amount": 1,
+          "ownership": "personal_profile"
+        },
+        {
+          "kind": "first_read_dialogue",
+          "id": "refugee_d_10_14_through_15",
+          "operation": "present-the-two-Player-Think-lines-in-order-only-when-the-frozen-personal-read-branch-was-zero_with_Anim-null_Anim-play-Before_Orientation-Auto_and-no-WGO-or-position-override",
+          "amount": 2,
+          "ownership": "personal_profile"
+        },
+        {
+          "kind": "story_phase",
+          "id": "gykmp_story_phase_game_of_crone_d10_third_letter_shared_payload_claimed",
+          "operation": "acquire-once-after-one-profiles-first-read-thoughts_and-before-any-shared-D10-task-WGO-craft-or-achievement-mutation",
+          "amount": 1,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "npc_task",
+          "id": "donkey:dlc_refugees_s_ev_d11_cans",
+          "operation": "set-Visible-first-through-Flow-SetTaskState-On-Finished-with-zero-story-rewards",
+          "amount": 1,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "npc_task",
+          "id": "donkey:dlc_refugees_s_ev_d12_jelly",
+          "operation": "set-Visible-second-through-Flow-SetTaskState-On-Finished-with-zero-story-rewards",
+          "amount": 1,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "npc_task",
+          "id": "donkey:dlc_refugees_s_ev_d15_banner",
+          "operation": "set-Visible-third-through-Flow-SetTaskState-On-Finished-with-zero-story-rewards",
+          "amount": 1,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "wgo_param",
+          "id": "donkey:get_items_d11",
+          "operation": "set-one-first-on-the-pre-resolved-canonical-Donkey_until-the-later-contraband-checker-consumes-two-black-paint-and-two-white-paint",
+          "amount": 1,
+          "ownership": "shared_world"
+        },
+        {
+          "kind": "wgo_param",
+          "id": "donkey:get_items_d12",
+          "operation": "set-one-second-on-the-same-canonical-Donkey_until-the-later-contraband-checker-consumes-five-jelly_splinter",
+          "amount": 1,
+          "ownership": "shared_world"
+        },
+        {
+          "kind": "wgo_param",
+          "id": "donkey:get_items_d15",
+          "operation": "set-one-third-on-the-same-canonical-Donkey_until-the-later-contraband-checker-consumes-one-revolutionary_banner",
+          "amount": 1,
+          "ownership": "shared_world"
+        },
+        {
+          "kind": "craft",
+          "id": "d11_send_items",
+          "operation": "unlock-first-as-the-hidden-false_needs-unlock-true_icon-i_goc_revolution_event_type-zero_is-auto-true_one-time-craft-true_contraband-box-recipe_with-craft-time-zero_craft-time-is-zero-true_energy-zero_gratitude-zero_sanity-zero_exact-ordered-needs_black_paint-two_then-white_paint-two_empty-player-output_exact-ordered-output-to-WGO_black_paint-two_then-white_paint-two_empty-needs-from-WGO_and-output-to-WGO-on-start_transfer-needs-to-WGO-false_set-out-WGO-params-on-start-false_hide-quality-icon-true_no-multiquality_needs-quality-zero_no-tool-actions_end-script-on_event_d11_items_sent_and-empty-end-event",
+          "amount": 1,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "craft",
+          "id": "d12_send_items",
+          "operation": "unlock-second-as-the-hidden-false_needs-unlock-true_icon-i_goc_revolution_event_type-zero_is-auto-true_one-time-craft-true_contraband-box-recipe_with-craft-time-zero_craft-time-is-zero-true_energy-zero_gratitude-zero_sanity-zero_exact-need_jelly_splinter-five_empty-player-output_output-to-WGO_jelly_splinter-five_empty-needs-from-WGO_and-output-to-WGO-on-start_transfer-needs-to-WGO-false_set-out-WGO-params-on-start-false_hide-quality-icon-true_no-multiquality_needs-quality-zero_no-tool-actions_end-script-on_event_d12_items_sent_and-empty-end-event",
+          "amount": 1,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "craft",
+          "id": "d15_send_items",
+          "operation": "unlock-third-as-the-hidden-false_needs-unlock-true_icon-i_goc_revolution_event_type-zero_is-auto-true_one-time-craft-true_contraband-box-recipe_with-craft-time-zero_craft-time-is-zero-true_energy-zero_gratitude-zero_sanity-zero_exact-need_revolutionary_banner-one_empty-player-output_output-to-WGO_revolutionary_banner-one_empty-needs-from-WGO_and-output-to-WGO-on-start_transfer-needs-to-WGO-false_set-out-WGO-params-on-start-false_hide-quality-icon-true_no-multiquality_needs-quality-zero_no-tool-actions_end-script-on_event_d15_items_sent_and-empty-end-event",
+          "amount": 1,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "craft_recipe",
+          "id": "jelly_splinter",
+          "operation": "unlock-fourth-as-the-hidden-false_needs-unlock-true_icon-i_jelly_splinter_type-zero_is-auto-false_repeatable-craft_at-ordered-stations_cooking_table_then-cooking_table_2_with-craft-time-three_craft-time-is-zero-false_energy-five_gratitude-two_sanity-zero_exact-ordered-needs_jelly_slug-one_then-flour-one_output_jelly_splinter-one_empty-output-to-WGO_needs-from-WGO_and-output-to-WGO-on-start_transfer-needs-to-WGO-false_set-out-WGO-params-on-start-false_hide-quality-icon-false_no-multiquality_needs-quality-zero_no-tool-actions_empty-end-script-and-end-event",
+          "amount": 1,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "craft_recipe",
+          "id": "revolutionary_banner",
+          "operation": "unlock-fifth-as-the-hidden-false_needs-unlock-true_icon-i_revolutionary_banner_type-zero_is-auto-false_repeatable-craft_at-table_book_constr_with-craft-time-three_craft-time-is-zero-false_energy-five_gratitude-two_sanity-zero_exact-ordered-needs_silk-one_then-white_paint-one_output_revolutionary_banner-one_empty-output-to-WGO_needs-from-WGO_and-output-to-WGO-on-start_transfer-needs-to-WGO-false_set-out-WGO-params-on-start-false_hide-quality-icon-false_no-multiquality_needs-quality-zero_no-tool-actions_empty-end-script-and-end-event",
+          "amount": 1,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "story_eligibility_receipt",
+          "id": "gykmp_story_achievement_eligibility_game_of_crone_d10",
+          "operation": "record-once-after-all-five-craft-unlocks-and-before-the-source-key-check",
+          "amount": 1,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "serialized_achievement_key",
+          "id": "dlc_refugees_d10",
+          "operation": "check-once-in-the-authoritative-campaign-AchievementsSystem-at-the-exact-source-checkpoint",
+          "amount": 1,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "platform_achievement_receipt",
+          "id": "gykmp_story_achievement_game_of_crone_d10",
+          "operation": "deliver-the-optional-platform-unlock-once-per-personal-profile-outside-ordinary-QuestSync-from-the-global-eligibility-receipt",
+          "amount": 1,
+          "ownership": "personal_profile"
+        },
+        {
+          "kind": "story_phase",
+          "id": "gykmp_story_phase_game_of_crone_d10_third_letter_shared_payload_complete",
+          "operation": "commit-after-the-three-tasks_three-consumable-latches_five-craft-unlocks_and-achievement-receipts-are-durable",
+          "amount": 1,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "personal_story_phase",
+          "id": "gykmp_story_phase_game_of_crone_d10_third_letter_read_complete",
+          "operation": "commit-for-each-reading-profile-after-its-lines_exact-typoed-flag_first-read-thoughts-when-applicable_and-control-restoration-are-durable",
+          "amount": 1,
+          "ownership": "personal_profile"
+        }
+      ],
+      "safeguards": [
+        "use_is_third_letter_red_once_exactly-as-serialized_and-keep-it-personal-so-one-reader-does-not-suppress-another-profiles-first-read-thoughts",
+        "treat_the-personal-flag-as-an-early-prefix_because-it-is-set-before-thoughts-tasks-latches-crafts-achievement-and-control-restore",
+        "separate_the-personal-first-read-phase_from-the-single-shared-payload-claim_because-the-vanilla-personal-flag-gates-both",
+        "same-profile-repeat-reads_present-only-InfoBoxes-one-through-thirteen_and-skip-thoughts-fourteen-fifteen-and-every-shared-D10-mutation_while-another-profiles-first-read-still-gets-all-fifteen-personal-lines",
+        "never-put_get_items_d11_get_items_d12_or_get_items_d15_in-wgoParamMinimums_because-later-Donkey-collections-consume-them",
+        "never-put_d11_send_items_d12_send_items_d15_send_items_jelly_splinter_or-revolutionary_banner_in-task-milestone-unlockedCrafts_because-the-task-writes-precede-the-craft-tail_the-three-send-recipes-later-complete-as-one-time-crafts_D12-later-locks-jelly_splinter_D15-later-locks-revolutionary_banner_and-D11-has-no-production-recipe-lock",
+        "do-not-reopen-or-reset-any-consumed-get_items-latch_when-a-second-profile-performs-its-own-first-read-after-the-shared-payload-completed",
+        "the_dlc_refugees_d10-achievement-check-occurs-after-all-five-crafts_but-before-player-enable_so-it-is-not-terminal-read-evidence",
+        "treat_GameSave-platform-reconstruction-from-any-D10-request-task-Visible-or-Complete_only-as-input-to-each-profiles-idempotent-platform-receipt_and-never-as-shared-payload-or-terminal-read-evidence",
+        "resolve-the-canonical-Donkey-before-disabling-the-reader_and-restore-only-that-profile-on-success-disconnect-cancellation-timeout-or-recovery",
+        "do-not-consume-regrant-or-relocate_third_letter-on-read_and-do-not-mutate-an-observers-personal-flag-or-control",
+        "the_D10-read-schedules-no-new-timer_and-the-clean-boundary-is-before-d11_send_items_d12_send_items_d15_send_items_or-their-on_event-callbacks-check_contraband_box-collections-check_ev_d16_start-or-unlock_event_d16",
+        "finish-only-after-the-shared-payload-and-initiating-profiles-personal-flag-control-and-read-complete-receipt-have-converged"
+      ]
+    }
+  ]
+}

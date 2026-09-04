@@ -1,0 +1,677 @@
+{
+  "schemaVersion": 5,
+  "catalogId": "dlc.game-of-crone.clotho-memory-trial",
+  "campaign": "GameOfCrone",
+  "chapter": "ChainConfessionThroughClothoMemoryTrialAftermath",
+  "quests": [
+    {
+      "questId": "dlc_refugees_s37",
+      "title": "Serialized Clotho memory-trial achievement checkpoint",
+      "definitionKind": "AchievementDefinition",
+      "counter": 1,
+      "vanilla": {
+        "startTrigger": "",
+        "successTrigger": "1",
+        "failTrigger": "",
+        "startKeys": ["dlc_refugees_s37"],
+        "questVisible": false,
+        "oneTimeQuest": false,
+        "startScript": "",
+        "successScript": "",
+        "failScript": "",
+        "arrowWgoCustomTag": "",
+        "arrowWgoObjectId": "",
+        "successRewards": [],
+        "failureRewards": []
+      },
+      "policy": {
+        "stateOwnership": "shared_campaign",
+        "eligibleInitiator": "any_player",
+        "livePresentationOwner": "initiating_player",
+        "observerQuestApplication": "durable_state_only",
+        "personalRewardDelivery": "party_exactly_once",
+        "observerSuccess": {
+          "globalScripts": [],
+          "playerParamRepairs": [],
+          "playerParamMinimums": [],
+          "taskStateMinimums": [],
+          "unlockedTechs": [],
+          "unlockedPhrases": [],
+          "blacklistedPhrases": [],
+          "unlockedCrafts": [],
+          "completedOneTimeCrafts": [],
+          "personalItemGrants": []
+        }
+      },
+      "completionChecks": []
+    }
+  ],
+  "taskMilestones": [
+    {
+      "milestoneId": "game_of_crone_chain_confrontation_completed",
+      "npcId": "npc_mrs chain",
+      "taskId": "s_ev_33_ask_chain",
+      "activeStates": ["Complete"],
+      "playerParamRepairs": [],
+      "playerParamMinimums": [],
+      "taskStateMinimums": [
+        { "npcId": "npc_mrs chain", "taskId": "s_ev_34_find_chain", "state": "Complete" }
+      ],
+      "unlockedTechs": [],
+      "unlockedPhrases": [],
+      "blacklistedPhrases": [
+        "@refugee_s34",
+        "@refugee_s34_11"
+      ],
+      "unlockedCrafts": [],
+      "completedOneTimeCrafts": [],
+      "wgoParamMinimums": [],
+      "personalItemGrants": []
+    },
+    {
+      "milestoneId": "game_of_crone_horadric_chain_lead_opened",
+      "npcId": "npc_tavern owner",
+      "taskId": "s_ev_34_ask_horadric",
+      "activeStates": ["Visible"],
+      "playerParamRepairs": [],
+      "playerParamMinimums": [],
+      "taskStateMinimums": [],
+      "unlockedTechs": [],
+      "unlockedPhrases": ["@refugee_s34_horadric"],
+      "blacklistedPhrases": ["@refugee_s34", "@refugee_s34_11"],
+      "unlockedCrafts": [],
+      "completedOneTimeCrafts": [],
+      "wgoParamMinimums": [],
+      "personalItemGrants": []
+    },
+    {
+      "milestoneId": "game_of_crone_horadric_chain_lead_scene_started",
+      "npcId": "npc_tavern owner",
+      "taskId": "s_ev_34_ask_horadric",
+      "activeStates": ["Complete"],
+      "playerParamRepairs": [],
+      "playerParamMinimums": [],
+      "taskStateMinimums": [],
+      "unlockedTechs": [],
+      "unlockedPhrases": [],
+      "blacklistedPhrases": ["@refugee_s34_horadric"],
+      "unlockedCrafts": [],
+      "completedOneTimeCrafts": [],
+      "wgoParamMinimums": [],
+      "personalItemGrants": []
+    },
+    {
+      "milestoneId": "game_of_crone_chain_coast_search_opened",
+      "npcId": "npc_mrs chain",
+      "taskId": "s_ev_34_find_chain",
+      "activeStates": ["Visible"],
+      "playerParamRepairs": [],
+      "playerParamMinimums": [],
+      "taskStateMinimums": [],
+      "unlockedTechs": [],
+      "unlockedPhrases": [],
+      "blacklistedPhrases": ["@refugee_s34_horadric"],
+      "unlockedCrafts": [],
+      "completedOneTimeCrafts": [],
+      "wgoParamMinimums": [],
+      "personalItemGrants": []
+    },
+    {
+      "milestoneId": "game_of_crone_chain_coast_confession_scene_started",
+      "npcId": "npc_mrs chain",
+      "taskId": "s_ev_34_find_chain",
+      "activeStates": ["Complete"],
+      "playerParamRepairs": [],
+      "playerParamMinimums": [],
+      "taskStateMinimums": [],
+      "unlockedTechs": [],
+      "unlockedPhrases": [],
+      "blacklistedPhrases": [
+        "@refugee_s34",
+        "@refugee_s34_11"
+      ],
+      "unlockedCrafts": [],
+      "completedOneTimeCrafts": [],
+      "wgoParamMinimums": [],
+      "personalItemGrants": []
+    },
+    {
+      "milestoneId": "game_of_crone_alarich_chain_report_opened",
+      "npcId": "npc_master_alarich",
+      "taskId": "s_ev_34_alarich_tell",
+      "activeStates": ["Visible"],
+      "playerParamRepairs": [],
+      "playerParamMinimums": [],
+      "taskStateMinimums": [
+        { "npcId": "npc_mrs chain", "taskId": "s_ev_33_ask_chain", "state": "Complete" },
+        { "npcId": "npc_mrs chain", "taskId": "s_ev_34_find_chain", "state": "Complete" }
+      ],
+      "unlockedTechs": [],
+      "unlockedPhrases": ["@refugee_s35_11"],
+      "blacklistedPhrases": [
+        "@refugee_s34",
+        "@refugee_s34_11"
+      ],
+      "unlockedCrafts": [],
+      "completedOneTimeCrafts": [],
+      "wgoParamMinimums": [],
+      "personalItemGrants": []
+    },
+    {
+      "milestoneId": "game_of_crone_clotho_confrontation_scene_started",
+      "npcId": "npc_master_alarich",
+      "taskId": "s_ev_34_alarich_tell",
+      "activeStates": ["Complete"],
+      "playerParamRepairs": [],
+      "playerParamMinimums": [],
+      "taskStateMinimums": [
+        { "npcId": "npc_mrs chain", "taskId": "s_ev_33_ask_chain", "state": "Complete" },
+        { "npcId": "npc_mrs chain", "taskId": "s_ev_34_find_chain", "state": "Complete" }
+      ],
+      "unlockedTechs": [],
+      "unlockedPhrases": [],
+      "blacklistedPhrases": ["@refugee_s35_11"],
+      "unlockedCrafts": [],
+      "completedOneTimeCrafts": [],
+      "wgoParamMinimums": [],
+      "personalItemGrants": []
+    }
+  ],
+  "cutscenes": [
+    {
+      "cutsceneId": "game_of_crone_press_chain_and_stage_coast_search",
+      "linkedQuestIds": ["dlc_refugees_s37"],
+      "triggerScripts": ["gykmp_story_dispatch_game_of_crone_s34_chain_staging"],
+      "actors": [
+        "initiating_player",
+        "npc_mrs chain",
+        "refugee_s34_trigger_zone"
+      ],
+      "observerPolicy": "all_loaded_party_members",
+      "lateJoinPolicy": "join_live_checkpoint_or_observe",
+      "remoteExecutionPolicy": "live_observation",
+      "executionOwnerPolicy": "lobby_host",
+      "dialogueOwnerPolicy": "initiating_player",
+      "formationPolicy": "initiator_with_observer_follow",
+      "cleanupRequirements": [
+        "serialize_both_Chain_topics_to_one_dialogue_owner_blacklist_refugee_s34_at_entry_and_unlock_refugee_s34_11_only_after_lines_one_through_nine",
+        "treat_refugee_s34_11_unlock_and_blacklist_as_joined_scene_prefixes_until_the_second_topic_finishes_its_departure_setup",
+        "preserve_refugee_s34_1_through_31_and_Chain_walk_to_tp_tavern_enter_inside_before_teleporting_her_to_refugee_s34_chain_point_1_facing_Right",
+        "spawn_exactly_one_refugee_s34_trigger_zone_then_set_Chain_s34_gd_zone_active_one_and_is_busy_one_as_one_journaled_shared_world_transaction",
+        "show_npc_tavern_owner_s_ev_34_ask_horadric_and_unlock_refugee_s34_horadric_only_after_the_zone_and_both_Chain_flags_are_committed",
+        "never_rearm_the_consumed_s34_gd_zone_active_or_respawn_the_zone_from_the_persistent_Horadric_task_after_the_coast_scene_has_entered",
+        "restore_the_initiators_animation_camera_and_control_on_every_abort_while_leaving_Chain_busy_only_when_the_committed_coast_search_is_still_pending"
+      ]
+    },
+    {
+      "cutsceneId": "game_of_crone_ask_horadric_where_chain_went",
+      "linkedQuestIds": ["dlc_refugees_s37"],
+      "triggerScripts": ["gykmp_story_dispatch_game_of_crone_s34_horadric_lead"],
+      "actors": [
+        "initiating_player",
+        "npc_tavern owner"
+      ],
+      "observerPolicy": "all_loaded_party_members",
+      "lateJoinPolicy": "join_live_checkpoint_or_observe",
+      "remoteExecutionPolicy": "live_observation",
+      "executionOwnerPolicy": "lobby_host",
+      "dialogueOwnerPolicy": "initiating_player",
+      "formationPolicy": "initiator_with_observer_follow",
+      "cleanupRequirements": [
+        "blacklist_refugee_s34_horadric_and_complete_npc_tavern_owner_s_ev_34_ask_horadric_at_entry_as_unsafe_dialogue_prefixes",
+        "preserve_refugee_s34_horadric_1_through_3_before_showing_npc_mrs_chain_s_ev_34_find_chain",
+        "resume_the_three_line_dialogue_and_task_tail_after_interruption_instead_of_treating_the_early_completed_Horadric_task_as_terminal",
+        "never_spawn_or_consume_the_coast_zone_from_this_topic_and_never_add_a_non_vanilla_Horadric_requirement_to_the_zone_script",
+        "restore_the_initiators_animation_facing_and_control_on_every_exit"
+      ]
+    },
+    {
+      "cutsceneId": "game_of_crone_hear_chains_coast_confession",
+      "linkedQuestIds": ["dlc_refugees_s37"],
+      "triggerScripts": ["gykmp_story_dispatch_game_of_crone_s34_coast_confession"],
+      "actors": [
+        "initiating_player",
+        "npc_mrs chain",
+        "refugee_s34_trigger_zone"
+      ],
+      "observerPolicy": "all_loaded_party_members",
+      "lateJoinPolicy": "join_live_checkpoint_or_observe",
+      "remoteExecutionPolicy": "live_observation",
+      "executionOwnerPolicy": "lobby_host",
+      "dialogueOwnerPolicy": "initiating_player",
+      "formationPolicy": "initiator_with_observer_follow",
+      "cleanupRequirements": [
+        "let_one_player_claim_the_shared_zone_only_when_Chain_s34_gd_zone_active_is_one_and_journal_an_entered_phase_before_vanilla_clears_that_only_launch_latch",
+        "resume_refugee_ev_s34_near_sea_from_the_entered_phase_if_the_process_stops_after_s34_gd_zone_active_is_zero",
+        "complete_npc_mrs_chain_s_ev_34_find_chain_after_refugee_s34_31_2_as_an_early_scene_prefix_not_as_cleanup_proof",
+        "preserve_refugee_s34_32_through_61_and_complete_npc_mrs_chain_s_ev_33_ask_chain_only_after_line_fifty_nine_without_skipping_the_remaining_dialogue",
+        "return_Chain_to_tavern_mrs_chain_idle_3_facing_Down_stop_instrumental_sad_clear_Chain_is_busy_and_restore_the_camera_during_the_fade",
+        "show_npc_master_alarich_s_ev_34_alarich_tell_destroy_only_refugee_s34_trigger_zone_unlock_refugee_s35_11_and_restore_control_before_committing_the_terminal_coast_phase",
+        "do_not_infer_the_cleanup_tail_from_either_completed_Chain_task_and_do_not_recreate_the_zone_or_busy_flag_after_the_terminal_coast_phase"
+      ]
+    },
+    {
+      "cutsceneId": "game_of_crone_confront_clotho_and_begin_memory_spell",
+      "linkedQuestIds": ["dlc_refugees_s37"],
+      "triggerScripts": ["gykmp_story_dispatch_game_of_crone_s35_s36_clotho_confrontation"],
+      "actors": [
+        "initiating_player",
+        "npc_master_alarich",
+        "npc_master_alarich_s36",
+        "npc_witch",
+        "empty_char",
+        "alarich_bat_s36"
+      ],
+      "observerPolicy": "all_loaded_party_members",
+      "lateJoinPolicy": "join_live_checkpoint_or_observe",
+      "remoteExecutionPolicy": "live_observation",
+      "executionOwnerPolicy": "lobby_host",
+      "dialogueOwnerPolicy": "initiating_player",
+      "formationPolicy": "initiator_with_observer_follow",
+      "cleanupRequirements": [
+        "blacklist_refugee_s35_11_and_complete_npc_master_alarich_s_ev_34_alarich_tell_at_entry_as_unsafe_prefixes_to_the_continuous_s35_s36_scene",
+        "apply_the_s35_Alarich_relation_plus_twenty_once_through_its_own_shared_campaign_additive_receipt_after_refugee_s35_2_and_never_as_a_per_profile_or_minimum_value_repair",
+        "capture_the_arbitrary_pre_s35_TimeOfDay_value_and_durable_captured_plus_restored_receipts_before_the_host_applies_pseudo_time_one",
+        "in_the_s35_fade_middle_spawn_object_npc_master_alarich_tag_npc_master_alarich_s36_at_gd_witch_3_teleport_the_initiator_to_gd_witch_4_set_global_weather_RealTime_change_environment_via_tp_mining_hut_a_apply_pseudo_time_one_and_remove_canonical_npc_witch_to_stock_without_destroying_her",
+        "preserve_refugee_s35_1_through_10_and_refugee_s36_1_through_38_as_one_joined_recoverable_transaction",
+        "retain_the_exact_untagged_empty_char_instance_and_one_logical_alarich_bat_s36_across_stock_remove_respawn_and_destroy_operations_without_deduplicating_the_canonical_actors",
+        "commit_gykmp_story_phase_game_of_crone_s36_to_s37_handoff_after_s36s_destructive_actor_tail_and_immediately_before_launching_refugee_ev_s37_exactly_once_then_let_that_separate_catalogued_scene_own_the_cloak_and_trial_staging"
+      ]
+    },
+    {
+      "cutsceneId": "game_of_crone_stage_clothos_memory_trial",
+      "linkedQuestIds": ["dlc_refugees_s37"],
+      "triggerScripts": ["gykmp_story_dispatch_game_of_crone_s37_trial_staging"],
+      "actors": [
+        "initiating_player",
+        "npc_master_alarich_s36",
+        "npc_witch",
+        "ev_s37_clotho_1",
+        "ev_s37_clotho_2",
+        "ev_s37_clotho_3",
+        "ev_s37_clotho_4",
+        "ev_s37_clotho_5",
+        "s37_blue_magic_bonfire_1",
+        "s37_blue_magic_bonfire_2",
+        "s37_blue_magic_bonfire_3",
+        "s37_blue_magic_bonfire_4",
+        "s37_blue_magic_bonfire_5"
+      ],
+      "observerPolicy": "all_loaded_party_members",
+      "lateJoinPolicy": "join_live_checkpoint_or_observe",
+      "remoteExecutionPolicy": "live_observation",
+      "executionOwnerPolicy": "lobby_host",
+      "dialogueOwnerPolicy": "initiating_player",
+      "formationPolicy": "initiator_with_observer_follow",
+      "cleanupRequirements": [
+        "preserve_refugee_s37_1_through_24_and_resume_from_the_committed_s36_handoff_without_replaying_the_Alarich_Clotho_confrontation",
+        "reserve_or_adopt_the_recipient_of_the_single_physical_dark_gold_cloak_ground_drop_before_future_runtime_support_enables_one_personal_copy_with_an_independent_receipt_for_every_profile_and_never_leave_the_world_drop_pickable_after_synthetic_delivery",
+        "spawn_bonfire_tags_one_through_five_as_blue_magic_bonfire_at_gd_ev_s37_fire_2_blue_magic_bonfire_at_fire_3_blue_magic_bonfire_2_at_fire_5_blue_magic_bonfire_at_fire_4_and_blue_magic_bonfire_2_at_fire_1",
+        "spawn_npc_clotho_refugees_tags_ev_s37_clotho_1_through_5_at_gd_ev_s37_2_3_4_5_and_1_then_attach_one_interaction_only_to_ev_s37_clotho_1",
+        "stage_the_initiator_at_gd_ev_s37_6_and_npc_master_alarich_s36_at_gd_ev_s37_7_before_committing_the_trial_ready_phase",
+        "make_time_weather_music_and_actor_mutations_host_authoritative_while_applying_lock_tp_invulnerability_HUD_camera_and_past_filter_as_restorable_per_loaded_player_overlays",
+        "persist_the_exact_pre_scene_blacklist_states_of_refugees_s13_1_and_refugees_s13_1_bucket_before_temporarily_blacklisting_them",
+        "commit_a_trial_ready_phase_only_after_all_ten_transient_objects_the_audio_weather_filter_locks_and_first_interaction_are_converged",
+        "late_joiners_observe_the_current_checkpoint_and_never_spawn_another_Alarich_bat_Clotho_clone_bonfire_cloak_or_answer_menu"
+      ]
+    },
+    {
+      "cutsceneId": "game_of_crone_reconstruct_clothos_memories",
+      "linkedQuestIds": ["dlc_refugees_s37"],
+      "triggerScripts": ["gykmp_story_dispatch_game_of_crone_s37_memory_answers"],
+      "actors": [
+        "initiating_player",
+        "npc_master_alarich_s36",
+        "ev_s37_clotho_1",
+        "ev_s37_clotho_2",
+        "ev_s37_clotho_3",
+        "ev_s37_clotho_4",
+        "ev_s37_clotho_5"
+      ],
+      "observerPolicy": "all_loaded_party_members",
+      "lateJoinPolicy": "join_live_checkpoint_or_observe",
+      "remoteExecutionPolicy": "live_observation",
+      "executionOwnerPolicy": "lobby_host",
+      "dialogueOwnerPolicy": "initiating_player",
+      "formationPolicy": "initiator_with_observer_follow",
+      "cleanupRequirements": [
+        "serialize_all_nine_questions_to_one_authoritative_dialogue_owner_and_treat_ev_s37_initial_ev_s37_task_1_complete_through_9_complete_and_ev_s37_fails_as_one_shared_campaign_state",
+        "keep_ev_s37_repeating_and_interaction_after_dialog_as_ephemeral_per_clone_shared_world_presentation_flags_and_never_merge_them_across_profiles",
+        "use_correct_answers_refugee_s37_36_45_56_64_77_85_97_106_and_117_for_tasks_one_through_nine",
+        "treat_the_fifth_answer_in_each_group_38_48_58_68_78_88_98_108_and_118_as_a_replay_without_blacklist_task_completion_or_failure_increment",
+        "for_each_wrong_answer_journal_the_selected_answer_before_blacklisting_it_play_refugee_s37_121_and_increment_ev_s37_fails_exactly_once_before_rearming_the_same_question",
+        "for_each_correct_answer_journal_the_selection_play_refugee_s37_120_blacklist_it_set_only_the_matching_task_complete_param_and_finish_arming_the_next_clone_before_committing_that_answer",
+        "present_the_source_warning_dialogue_at_failure_counts_five_and_seven_and_atomically_commit_the_s38_route_when_incrementing_from_eight_to_nine",
+        "accept_either_task_nine_success_or_exactly_nine_failures_as_a_valid_trial_outcome_and_never_repair_unfinished_task_flags_on_the_failure_route",
+        "never_increment_to_ten_reopen_a_completed_question_sum_profile_failure_counts_or_present_an_answer_menu_to_observers",
+        "owner_handoff_resumes_only_from_a_journaled_question_selection_task_arm_or_terminal_outcome_checkpoint"
+      ]
+    },
+    {
+      "cutsceneId": "game_of_crone_finish_memory_trial_aftermath",
+      "linkedQuestIds": ["dlc_refugees_s37"],
+      "triggerScripts": ["gykmp_story_dispatch_game_of_crone_s38_aftermath"],
+      "actors": [
+        "initiating_player",
+        "npc_witch",
+        "npc_master_alarich_s36",
+        "alarich_bat_s37",
+        "ev_s37_clotho_1",
+        "ev_s37_clotho_2",
+        "ev_s37_clotho_3",
+        "ev_s37_clotho_4",
+        "ev_s37_clotho_5",
+        "s37_blue_magic_bonfire_1",
+        "s37_blue_magic_bonfire_2",
+        "s37_blue_magic_bonfire_3",
+        "s37_blue_magic_bonfire_4",
+        "s37_blue_magic_bonfire_5"
+      ],
+      "observerPolicy": "all_loaded_party_members",
+      "lateJoinPolicy": "join_live_checkpoint_or_observe",
+      "remoteExecutionPolicy": "live_observation",
+      "executionOwnerPolicy": "lobby_host",
+      "dialogueOwnerPolicy": "initiating_player",
+      "formationPolicy": "initiator_with_observer_follow",
+      "cleanupRequirements": [
+        "enter_s38_once_from_the_journaled_success_or_ninth_failure_outcome_and_tolerate_already_missing_trial_transients_on_retry",
+        "destroy_only_the_five_ev_s37_clotho_clones_and_five_s37_blue_magic_bonfires_restore_playlist_weather_HUD_time_filter_locks_and_each_loaded_players_captured_transient_baselines_then_place_the_source_initiator_at_gd_witch_24_facing_Up_and_npc_master_alarich_s36_at_gd_witch_20_facing_Down",
+        "restore_the_exact_pre_scene_blacklist_states_of_refugees_s13_1_and_refugees_s13_1_bucket_instead_of_forcing_both_topics_unblacklisted",
+        "derive_one_shared_campaign_eligibility_receipt_from_the_valid_s38_entry_then_check_the_exact_dlc_refugees_s37_AchievementDefinition_key_once_in_the_authoritative_campaign_AchievementsSystem_but_treat_that_early_live_check_as_nonterminal",
+        "keep_the_shared_campaign_achievement_key_separate_from_each_profiles_platform_unlock_receipt_keep_both_outside_ordinary_QuestSync_transitions_and_resolve_the_definition_through_achievements_data_not_quests_data",
+        "for_legacy_saves_at_or_below_version_1301_treat_event_s38_complete_as_custom_recovery_evidence_because_vanillas_literal_one_leading_tab_lookup_returns_null_and_awards_nothing",
+        "apply_the_s38_Alarich_relation_plus_twenty_once_through_a_second_independent_shared_campaign_additive_receipt_after_refugee_s38_1",
+        "reserve_or_adopt_the_recipient_of_the_single_physical_golden_apple_Direction_ToPlayer_drop_after_refugee_s38_32_before_future_runtime_support_enables_one_personal_copy_with_an_independent_receipt_for_every_eligible_profile_and_never_leave_an_unclaimed_physical_drop_after_synthetic_delivery",
+        "preserve_the_exact_s38_sequence_refugee_s38_1_through_8_then_9_twice_then_10_through_38_skip_39_and_finish_40_through_41_plus_the_staged_Alarich_to_alarich_bat_s37_transformation_before_destroying_only_the_staged_actor_and_final_bat",
+        "before_the_source_pseudo_time_minus_two_node_on_recovery_rehydrate_its_static_remembered_time_from_the_durable_pre_s35_baseline_or_suppress_the_node_and_apply_that_baseline_directly",
+        "after_the_shared_time_restored_receipt_exists_suppress_every_replay_of_the_vanilla_minus_two_node_so_its_reset_static_value_cannot_move_world_time_to_minus_one",
+        "set_event_s38_complete_one_only_after_the_reward_and_actor_tail_then_restore_control_and_invoke_the_separately_catalogued_refugee_ev_s39_prepare_without_attaching_personal_grants_to_that_reusable_helper",
+        "commit_the_terminal_s38_phase_only_after_reward_receipts_actor_and_presentation_cleanup_player_enable_and_the_first_s39_preparation_evaluation_are_durable"
+      ]
+    },
+    {
+      "cutsceneId": "game_of_crone_prepare_s39_guard_scene",
+      "linkedQuestIds": ["dlc_refugees_s37"],
+      "triggerScripts": ["gykmp_story_dispatch_game_of_crone_s39_prepare"],
+      "actors": [
+        "guard_event_s39_1",
+        "guard_event_s39_2",
+        "refugee_s39_trigger_zone"
+      ],
+      "observerPolicy": "all_loaded_party_members",
+      "lateJoinPolicy": "join_live_checkpoint_or_observe",
+      "remoteExecutionPolicy": "live_observation",
+      "executionOwnerPolicy": "lobby_host",
+      "dialogueOwnerPolicy": "lobby_host",
+      "formationPolicy": "initiator_with_observer_follow",
+      "cleanupRequirements": [
+        "never_attach_cloak_apple_or_other_personal_grants_to_this_reusable_helper_because_the_city_finale_can_call_it_before_s38",
+        "evaluate_event_s38_complete_and_event_city_3_3_complete_independently_without_deriving_or_setting_either_prerequisite",
+        "record_a_missing_prerequisite_as_a_monotonic_deferred_state_that_must_upgrade_to_prepared_when_both_flags_later_become_one",
+        "when_both_prerequisites_exist_converge_npc_guard_tag_guard_event_s39_1_at_gd_refugee_s39_1_npc_guard_2_tag_guard_event_s39_2_at_gd_refugee_s39_2_and_refugee_s39_trigger_zone_at_gd_refugee_s39_3_at_most_once_across_s38_city_finale_and_recovery_callers",
+        "do_not_set_event_s39_complete_or_launch_refugee_ev_s39_in_this_catalogue_batch_and_preserve_the_later_death_resurrection_entry_route"
+      ]
+    }
+  ],
+  "storySteps": [
+    {
+      "stepId": "game_of_crone_press_chain_and_find_her_at_the_coast",
+      "title": "Press Mrs. Chain, stage her coast departure, and optionally ask Horadric",
+      "linkedQuestIds": ["dlc_refugees_s37"],
+      "linkedTaskMilestoneIds": [
+        "game_of_crone_horadric_chain_lead_opened",
+        "game_of_crone_horadric_chain_lead_scene_started",
+        "game_of_crone_chain_coast_search_opened"
+      ],
+      "triggerScripts": [
+        "npc_mrs chain:@refugee_s34",
+        "npc_mrs chain:@refugee_s34_11",
+        "npc_tavern owner:@refugee_s34_horadric"
+      ],
+      "triggerKeys": [
+        "@refugee_s34",
+        "@refugee_s34_11",
+        "refugee_s34_trigger_zone",
+        "s34_gd_zone_active",
+        "is_busy",
+        "gykmp_story_phase_game_of_crone_s34_coast_zone_staged",
+        "s_ev_34_ask_horadric",
+        "@refugee_s34_horadric",
+        "s_ev_34_find_chain",
+        "gykmp_story_phase_game_of_crone_s34_chain_search_staged"
+      ],
+      "expectedEffects": [
+        { "kind": "dialogue_phrase", "id": "@refugee_s34", "operation": "blacklist_at_the_first_Chain_topic_entry", "amount": 1.0, "ownership": "shared_campaign" },
+        { "kind": "dialogue_phrase", "id": "@refugee_s34_11", "operation": "unlock_after_the_first_Chain_exchange_then_blacklist_at_the_second_topic_entry", "amount": 1.0, "ownership": "shared_campaign" },
+        { "kind": "world_object", "id": "refugee_s34_trigger_zone", "operation": "spawn_exactly_once_after_Chain_reaches_the_committed_coast_staging_point", "amount": 1.0, "ownership": "shared_world" },
+        { "kind": "wgo_param", "id": "npc_mrs chain:s34_gd_zone_active", "operation": "set_one_only_with_the_single_zone_spawn_until_one_player_claims_entry", "amount": 1.0, "ownership": "shared_world" },
+        { "kind": "wgo_param", "id": "npc_mrs chain:is_busy", "operation": "set_one_while_Chain_waits_at_the_coast", "amount": 1.0, "ownership": "shared_world" },
+        { "kind": "story_phase", "id": "gykmp_story_phase_game_of_crone_s34_coast_zone_staged", "operation": "commit_immediately_after_the_single_zone_active_latch_and_busy_flag_are_durable_before_the_zone_is_exposed_or_the_Horadric_tail_runs", "amount": 1.0, "ownership": "shared_campaign" },
+        { "kind": "npc_task", "id": "npc_tavern owner:s_ev_34_ask_horadric", "operation": "show_after_the_coast_search_is_staged_then_complete_as_an_early_Horadric_dialogue_prefix", "amount": 1.0, "ownership": "shared_campaign" },
+        { "kind": "dialogue_phrase", "id": "@refugee_s34_horadric", "operation": "unlock_after_staging_then_blacklist_when_one_dialogue_owner_asks", "amount": 1.0, "ownership": "shared_campaign" },
+        { "kind": "npc_task", "id": "npc_mrs chain:s_ev_34_find_chain", "operation": "show_only_after_refugee_s34_horadric_1_through_3", "amount": 1.0, "ownership": "shared_campaign" },
+        { "kind": "story_phase", "id": "gykmp_story_phase_game_of_crone_s34_chain_search_staged", "operation": "commit_after_the_zone_flags_and_Horadric_lead_task_plus_topic_are_available_without_requiring_that_optional_dialogue_to_finish", "amount": 1.0, "ownership": "shared_campaign" }
+      ],
+      "safeguards": [
+        "serialize_the_two_Chain_topics_Horadric_topic_and_shared_zone_claim",
+        "journal_the_zone_spawn_and_active_latch_before_exposing_either_to_players",
+        "allow_the_coast_zone_to_be_claimed_while_the_Horadric_task_is_still_visible_and_never_infer_Horadric_completion_or_topic_blacklist_from_later_Chain_tasks",
+        "do_not_rearm_consumed_world_state_from_persistent_tasks_or_dialogue_blacklists",
+        "do_not_skip_Horadrics_three_lines_from_the_early_completed_task"
+      ]
+    },
+    {
+      "stepId": "game_of_crone_hear_chains_confession_and_report_to_alarich",
+      "title": "Hear Mrs. Chain's confession and take it to Alarich",
+      "linkedQuestIds": ["dlc_refugees_s37"],
+      "linkedTaskMilestoneIds": [
+        "game_of_crone_chain_coast_confession_scene_started",
+        "game_of_crone_chain_confrontation_completed",
+        "game_of_crone_alarich_chain_report_opened"
+      ],
+      "triggerScripts": [
+        "on_enter_refugee_s34_gd_zone",
+        "refugee_ev_s34_near_sea"
+      ],
+      "triggerKeys": [
+        "s34_gd_zone_active",
+        "gykmp_story_phase_game_of_crone_s34_coast_entered",
+        "s_ev_34_find_chain",
+        "s_ev_33_ask_chain",
+        "is_busy",
+        "s_ev_34_alarich_tell",
+        "@refugee_s35_11",
+        "gykmp_story_phase_game_of_crone_s34_coast_complete"
+      ],
+      "expectedEffects": [
+        { "kind": "story_phase", "id": "gykmp_story_phase_game_of_crone_s34_coast_entered", "operation": "commit_before_consuming_Chain_s34_gd_zone_active_and_launching_the_coast_scene", "amount": 1.0, "ownership": "shared_campaign" },
+        { "kind": "wgo_param", "id": "npc_mrs chain:s34_gd_zone_active", "operation": "consume_once_to_zero_after_the_entered_phase", "amount": 0.0, "ownership": "shared_world" },
+        { "kind": "npc_task", "id": "npc_mrs chain:s_ev_34_find_chain", "operation": "complete_after_refugee_s34_31_2_as_an_early_scene_prefix", "amount": 1.0, "ownership": "shared_campaign" },
+        { "kind": "npc_task", "id": "npc_mrs chain:s_ev_33_ask_chain", "operation": "complete_after_refugee_s34_59_as_a_late_but_nonterminal_prefix", "amount": 1.0, "ownership": "shared_campaign" },
+        { "kind": "wgo_param", "id": "npc_mrs chain:is_busy", "operation": "clear_to_zero_when_Chain_is_restored_to_her_tavern_idle", "amount": 0.0, "ownership": "shared_world" },
+        { "kind": "world_object", "id": "refugee_s34_trigger_zone", "operation": "destroy_the_single_consumed_zone_in_the_scene_tail", "amount": 0.0, "ownership": "shared_world" },
+        { "kind": "npc_task", "id": "npc_master_alarich:s_ev_34_alarich_tell", "operation": "show_after_Chain_and_camera_cleanup", "amount": 1.0, "ownership": "shared_campaign" },
+        { "kind": "dialogue_phrase", "id": "@refugee_s35_11", "operation": "unlock_after_the_Alarich_task_and_zone_cleanup", "amount": 1.0, "ownership": "shared_campaign" },
+        { "kind": "story_phase", "id": "gykmp_story_phase_game_of_crone_s34_coast_complete", "operation": "commit_after_Chain_trigger_music_camera_and_control_cleanup_plus_the_Alarich_lead", "amount": 1.0, "ownership": "shared_campaign" }
+      ],
+      "safeguards": [
+        "resume_from_the_entered_phase_after_the_source_consumes_its_only_launch_latch",
+        "treat_both_Chain_task_completions_as_prefixes_and_never_as_full_scene_receipts",
+        "never_recreate_the_destroyed_zone_or_rebusy_Chain_from_the_durable_tasks",
+        "do_not_begin_s35_until_the_coast_tail_is_committed"
+      ]
+    },
+    {
+      "stepId": "game_of_crone_confront_clotho_and_begin_the_memory_trial",
+      "title": "Confront Clotho and enter her reconstructed memories",
+      "linkedQuestIds": ["dlc_refugees_s37"],
+      "linkedTaskMilestoneIds": ["game_of_crone_clotho_confrontation_scene_started"],
+      "triggerScripts": [
+        "npc_alarich:@refugee_s35_11",
+        "refugee_ev_s36",
+        "refugee_ev_s37"
+      ],
+      "triggerKeys": [
+        "s_ev_34_alarich_tell",
+        "gykmp_story_relation_game_of_crone_alarich_s35",
+        "gykmp_story_time_baseline_game_of_crone_s35",
+        "gykmp_story_phrase_baseline_game_of_crone_refugees_s13_1",
+        "gykmp_story_phrase_baseline_game_of_crone_refugees_s13_1_bucket",
+        "gykmp_story_phase_game_of_crone_s36_to_s37_handoff",
+        "npc_master_alarich_s36",
+        "alarich_bat_s36",
+        "gd_witch_3",
+        "gd_witch_4",
+        "tp_mining_hut_a",
+        "dark_gold_cloak",
+        "gykmp_story_grant_game_of_crone_dark_gold_cloak",
+        "s37_blue_magic_bonfire_1_through_5",
+        "ev_s37_clotho_1_through_5",
+        "lock_tp",
+        "is_invulnerable",
+        "gykmp_story_phase_game_of_crone_s37_trial_ready"
+      ],
+      "expectedEffects": [
+        { "kind": "npc_task", "id": "npc_master_alarich:s_ev_34_alarich_tell", "operation": "complete_at_s35_entry_as_a_nonterminal_joined_scene_prefix", "amount": 1.0, "ownership": "shared_campaign" },
+        { "kind": "relationship_delta_receipt", "id": "gykmp_story_relation_game_of_crone_alarich_s35", "operation": "apply_Alarich_plus_twenty_once_after_refugee_s35_2", "amount": 20.0, "ownership": "shared_campaign" },
+        { "kind": "campaign_world_time_baseline", "id": "gykmp_story_time_baseline_game_of_crone_s35", "operation": "persist_the_arbitrary_pre_s35_TimeOfDay_value_plus_captured_and_restored_receipts_before_the_host_applies_pseudo_time_one", "amount": 1.0, "ownership": "shared_campaign" },
+        { "kind": "world_time_override", "id": "game_of_crone_s35_pseudo_time", "operation": "apply_pseudo_time_one_once_from_the_host_after_the_durable_baseline_is_captured", "amount": 1.0, "ownership": "shared_world" },
+        { "kind": "dialogue_blacklist_baseline", "id": "gykmp_story_phrase_baseline_game_of_crone_refugees_s13_1", "operation": "persist_the_exact_pre_trial_blacklist_state_of_refugees_s13_1_before_temporarily_hiding_it", "amount": 1.0, "ownership": "shared_campaign" },
+        { "kind": "dialogue_blacklist_baseline", "id": "gykmp_story_phrase_baseline_game_of_crone_refugees_s13_1_bucket", "operation": "persist_the_exact_pre_trial_blacklist_state_of_refugees_s13_1_bucket_before_temporarily_hiding_it", "amount": 1.0, "ownership": "shared_campaign" },
+        { "kind": "story_phase", "id": "gykmp_story_phase_game_of_crone_s36_to_s37_handoff", "operation": "commit_after_s36s_destructive_actor_transformations_and_immediately_before_Flow_RunScript_refugee_ev_s37_so_recovery_never_replays_s35_or_s36", "amount": 1.0, "ownership": "shared_campaign" },
+        { "kind": "world_actor", "id": "npc_master_alarich_s36", "operation": "spawn_object_npc_master_alarich_with_this_tag_at_gd_witch_3_for_the_continuous_scene", "amount": 1.0, "ownership": "shared_world" },
+        { "kind": "world_position_checkpoint", "id": "initiating_player:gd_witch_4", "operation": "teleport_the_initiator_here_during_the_s35_fade_middle", "amount": 1.0, "ownership": "initiating_player_transaction" },
+        { "kind": "world_environment", "id": "tp_mining_hut_a:RealTime", "operation": "change_to_the_mining_hut_environment_and_set_global_weather_RealTime_before_s36", "amount": 1.0, "ownership": "shared_world" },
+        { "kind": "inventory_item", "id": "dark_gold_cloak", "operation": "replace_or_reserve_the_single_Direction_None_ground_drop_at_s37_entry_and_allocate_one_exactly_once_to_each_personal_profile", "amount": 1.0, "ownership": "personal_character" },
+        { "kind": "world_object", "id": "s37_blue_magic_bonfire_1_through_5", "operation": "spawn_object_point_mapping_blue_magic_bonfire_fire_2_blue_magic_bonfire_fire_3_blue_magic_bonfire_2_fire_5_blue_magic_bonfire_fire_4_blue_magic_bonfire_2_fire_1", "amount": 5.0, "ownership": "shared_world" },
+        { "kind": "world_actor", "id": "ev_s37_clotho_1_through_5", "operation": "spawn_npc_clotho_refugees_at_gd_ev_s37_2_3_4_5_1_respectively_and_arm_only_clone_one", "amount": 5.0, "ownership": "shared_world" },
+        { "kind": "world_position_checkpoint", "id": "initiating_player:gd_ev_s37_6", "operation": "stage_the_source_initiator_for_the_trial", "amount": 1.0, "ownership": "initiating_player_transaction" },
+        { "kind": "world_position_checkpoint", "id": "npc_master_alarich_s36:gd_ev_s37_7", "operation": "stage_the_single_scene_Alarich_for_the_trial", "amount": 1.0, "ownership": "shared_world" },
+        { "kind": "participant_overlay", "id": "lock_tp_is_invulnerable_HUD_past_filter", "operation": "apply_to_each_loaded_participant_with_individual_baselines", "amount": 1.0, "ownership": "personal_presentation" },
+        { "kind": "story_phase", "id": "gykmp_story_phase_game_of_crone_s37_trial_ready", "operation": "commit_after_all_actors_objects_world_state_overlays_and_clone_one_interaction_are_ready", "amount": 1.0, "ownership": "shared_campaign" }
+      ],
+      "safeguards": [
+        "retain_one_joined_phase_across_s35_s36_and_s37_because_no_vanilla_terminal_latch_exists",
+        "apply_each_additive_relationship_change_through_its_own_receipt_instead_of_a_minimum",
+        "keep_canonical_Clotho_safe_in_stock_and_deduplicate_only_scene_transients",
+        "record_the_physical_cloak_recipient_or_suppress_the_drop_before_delivering_missing_profiles",
+        "host_owns_world_time_weather_and_actors_while_each_peer_owns_reversible_presentation_overlays"
+      ]
+    },
+    {
+      "stepId": "game_of_crone_resolve_clothos_memory_trial",
+      "title": "Solve Clotho's nine memories or reach the ninth failed answer",
+      "linkedQuestIds": ["dlc_refugees_s37"],
+      "linkedTaskMilestoneIds": ["game_of_crone_clotho_confrontation_scene_started"],
+      "triggerScripts": [
+        "npc_clotho_refugees:interaction",
+        "npc_clotho_refugees:Interaction after dialog"
+      ],
+      "triggerKeys": [
+        "ev_s37_initial",
+        "ev_s37_task_1_complete",
+        "ev_s37_task_2_complete",
+        "ev_s37_task_3_complete",
+        "ev_s37_task_4_complete",
+        "ev_s37_task_5_complete",
+        "ev_s37_task_6_complete",
+        "ev_s37_task_7_complete",
+        "ev_s37_task_8_complete",
+        "ev_s37_task_9_complete",
+        "ev_s37_fails",
+        "ev_s37_repeating",
+        "interaction_after_dialog",
+        "refugee_s37_26",
+        "gykmp_story_phase_game_of_crone_s37_initial_task_armed",
+        "gykmp_story_state_game_of_crone_s37_current_question",
+        "gykmp_story_transaction_game_of_crone_s37_answer",
+        "gykmp_story_branch_game_of_crone_s37_trial_outcome"
+      ],
+      "expectedEffects": [
+        { "kind": "dialogue_phrase", "id": "refugee_s37_26", "operation": "blacklist_after_refugee_s37_25_and_26_before_setting_ev_s37_initial_one_inside_the_atomic_task_one_arm_transaction", "amount": 1.0, "ownership": "shared_campaign" },
+        { "kind": "story_phase", "id": "gykmp_story_phase_game_of_crone_s37_initial_task_armed", "operation": "commit_only_after_refugee_s37_25_and_26_the_exact_refugee_s37_26_blacklist_ev_s37_initial_one_and_task_one_interaction_are_all_complete", "amount": 1.0, "ownership": "shared_campaign" },
+        { "kind": "story_checkpoint", "id": "gykmp_story_state_game_of_crone_s37_current_question", "operation": "record_the_current_question_value_from_one_through_nine_only_after_the_corresponding_clone_interaction_is_armed", "amount": 1.0, "ownership": "shared_campaign" },
+        { "kind": "answer_transaction", "id": "gykmp_story_transaction_game_of_crone_s37_answer", "operation": "journal_question_selected_phrase_and_correct_wrong_or_replay_route_before_mutating_blacklists_flags_or_failure_count_then_clear_only_after_rearm_or_terminal_outcome", "amount": 1.0, "ownership": "shared_campaign" },
+        { "kind": "conditional_player_param_set", "id": "ev_s37_task_1_complete_through_9_complete", "operation": "set_only_the_individually_correct_memory_to_one_per_correct_answer_and_allow_incomplete_flags_on_the_ninth_failure_route", "amount": 1.0, "ownership": "shared_campaign" },
+        { "kind": "conditional_player_param_increment", "id": "ev_s37_fails", "operation": "increment_by_one_per_unique_wrong_answer_allow_zero_through_eight_on_success_and_enter_s38_only_when_the_failure_route_reaches_exactly_nine", "amount": 1.0, "ownership": "shared_campaign" },
+        { "kind": "dialogue_phrase_group", "id": "synthetic_group:game_of_crone_s37_task_1_blacklistable_answers", "operation": "blacklist_only_the_selected_one_of_refugee_s37_34_35_36_37_and_never_replay_38", "amount": 1.0, "ownership": "shared_campaign" },
+        { "kind": "dialogue_phrase_group", "id": "synthetic_group:game_of_crone_s37_task_2_blacklistable_answers", "operation": "blacklist_only_the_selected_one_of_refugee_s37_44_45_46_47_and_never_replay_48", "amount": 1.0, "ownership": "shared_campaign" },
+        { "kind": "dialogue_phrase_group", "id": "synthetic_group:game_of_crone_s37_task_3_blacklistable_answers", "operation": "blacklist_only_the_selected_one_of_refugee_s37_54_55_56_57_and_never_replay_58", "amount": 1.0, "ownership": "shared_campaign" },
+        { "kind": "dialogue_phrase_group", "id": "synthetic_group:game_of_crone_s37_task_4_blacklistable_answers", "operation": "blacklist_only_the_selected_one_of_refugee_s37_64_65_66_67_and_never_replay_68", "amount": 1.0, "ownership": "shared_campaign" },
+        { "kind": "dialogue_phrase_group", "id": "synthetic_group:game_of_crone_s37_task_5_blacklistable_answers", "operation": "blacklist_only_the_selected_one_of_refugee_s37_74_75_76_77_and_never_replay_78", "amount": 1.0, "ownership": "shared_campaign" },
+        { "kind": "dialogue_phrase_group", "id": "synthetic_group:game_of_crone_s37_task_6_blacklistable_answers", "operation": "blacklist_only_the_selected_one_of_refugee_s37_84_85_86_87_and_never_replay_88", "amount": 1.0, "ownership": "shared_campaign" },
+        { "kind": "dialogue_phrase_group", "id": "synthetic_group:game_of_crone_s37_task_7_blacklistable_answers", "operation": "blacklist_only_the_selected_one_of_refugee_s37_94_95_96_97_and_never_replay_98", "amount": 1.0, "ownership": "shared_campaign" },
+        { "kind": "dialogue_phrase_group", "id": "synthetic_group:game_of_crone_s37_task_8_blacklistable_answers", "operation": "blacklist_only_the_selected_one_of_refugee_s37_104_105_106_107_and_never_replay_108", "amount": 1.0, "ownership": "shared_campaign" },
+        { "kind": "dialogue_phrase_group", "id": "synthetic_group:game_of_crone_s37_task_9_blacklistable_answers", "operation": "blacklist_only_the_selected_one_of_refugee_s37_114_115_116_117_and_never_replay_118", "amount": 1.0, "ownership": "shared_campaign" },
+        { "kind": "branch_receipt", "id": "gykmp_story_branch_game_of_crone_s37_trial_outcome", "operation": "record_task_nine_success_or_ninth_failure_before_launching_s38", "amount": 1.0, "ownership": "shared_campaign" },
+        { "kind": "wgo_param", "id": "ev_s37_clotho_1_through_5:ev_s37_repeating", "operation": "use_only_as_ephemeral_state_on_each_specifically_tagged_clone", "amount": 1.0, "ownership": "shared_world" },
+        { "kind": "wgo_param", "id": "ev_s37_clotho_1_through_5:interaction_after_dialog", "operation": "use_only_as_ephemeral_state_on_each_specifically_tagged_clone", "amount": 1.0, "ownership": "shared_world" }
+      ],
+      "safeguards": [
+        "one_dialogue_owner_selects_answers_while_all_observers_receive_only_live_presentation",
+        "journal_before_blacklist_task_flag_failure_increment_and_next_clone_arm_operations",
+        "never_sum_or_repair_profile_counters_and_never_backfill_all_nine_task_flags_on_the_failure_route",
+        "route_from_eight_to_nine_failures_atomically_so_a_retry_cannot_increment_to_ten_and_softlock",
+        "preserve_the_fifth_answer_as_an_unlimited_no_op_replay"
+      ]
+    },
+    {
+      "stepId": "game_of_crone_finish_the_memory_trial_aftermath",
+      "title": "Finish Clotho's memory trial, receive its rewards, and prepare the guards",
+      "linkedQuestIds": ["dlc_refugees_s37"],
+      "linkedTaskMilestoneIds": ["game_of_crone_clotho_confrontation_scene_started"],
+      "triggerScripts": [
+        "refugee_ev_s38",
+        "refugee_ev_s39_prepare"
+      ],
+      "triggerKeys": [
+        "gykmp_story_branch_game_of_crone_s37_trial_outcome",
+        "dlc_refugees_s37",
+        "gykmp_story_achievement_eligibility_game_of_crone_s37",
+        "gykmp_story_achievement_game_of_crone_s37",
+        "gykmp_story_relation_game_of_crone_alarich_s38",
+        "golden_apple",
+        "gykmp_story_grant_game_of_crone_golden_apple",
+        "event_s38_complete",
+        "gd_witch_24",
+        "gd_witch_20",
+        "gykmp_story_phrase_baseline_game_of_crone_refugees_s13_1",
+        "gykmp_story_phrase_baseline_game_of_crone_refugees_s13_1_bucket",
+        "event_city_3_3_complete",
+        "guard_event_s39_1",
+        "guard_event_s39_2",
+        "refugee_s39_trigger_zone",
+        "gykmp_story_state_game_of_crone_s39_prepare_status",
+        "gykmp_story_phase_game_of_crone_s39_prepared",
+        "gykmp_story_phase_game_of_crone_s38_complete"
+      ],
+      "expectedEffects": [
+        { "kind": "world_object_cleanup", "id": "ev_s37_clotho_1_through_5_and_s37_blue_magic_bonfire_1_through_5", "operation": "destroy_the_ten_trial_transients_idempotently", "amount": 10.0, "ownership": "shared_world" },
+        { "kind": "participant_overlay", "id": "lock_tp_is_invulnerable_HUD_past_filter", "operation": "restore_every_loaded_or_rejoining_players_exact_pre_trial_baseline", "amount": 0.0, "ownership": "personal_presentation" },
+        { "kind": "world_position_checkpoint", "id": "initiating_player:gd_witch_24", "operation": "place_the_source_initiator_here_facing_Up_for_the_s38_aftermath_instead_of_restoring_the_pre_trial_position", "amount": 1.0, "ownership": "initiating_player_transaction" },
+        { "kind": "world_position_checkpoint", "id": "npc_master_alarich_s36:gd_witch_20", "operation": "place_the_staged_Alarich_here_facing_Down_for_the_s38_aftermath", "amount": 1.0, "ownership": "shared_world" },
+        { "kind": "dialogue_blacklist_restore", "id": "gykmp_story_phrase_baseline_game_of_crone_refugees_s13_1", "operation": "restore_the_exact_captured_pre_trial_blacklist_state_instead_of_forcing_the_supply_topic_unblacklisted", "amount": 1.0, "ownership": "shared_campaign" },
+        { "kind": "dialogue_blacklist_restore", "id": "gykmp_story_phrase_baseline_game_of_crone_refugees_s13_1_bucket", "operation": "restore_the_exact_captured_pre_trial_blacklist_state_instead_of_forcing_the_bucket_supply_topic_unblacklisted", "amount": 1.0, "ownership": "shared_campaign" },
+        { "kind": "story_eligibility_receipt", "id": "gykmp_story_achievement_eligibility_game_of_crone_s37", "operation": "record_once_for_the_shared_campaign_when_the_authoritative_trial_enters_the_valid_s38_achievement_checkpoint", "amount": 1.0, "ownership": "shared_campaign" },
+        { "kind": "serialized_achievement_key", "id": "dlc_refugees_s37", "operation": "check_once_in_the_authoritative_campaign_AchievementsSystem_using_the_exact_id_without_the_legacy_leading_tab", "amount": 1.0, "ownership": "shared_campaign" },
+        { "kind": "platform_achievement_receipt", "id": "gykmp_story_achievement_game_of_crone_s37", "operation": "deliver_the_optional_personal_platform_unlock_outside_ordinary_QuestSync", "amount": 1.0, "ownership": "personal_profile" },
+        { "kind": "relationship_delta_receipt", "id": "gykmp_story_relation_game_of_crone_alarich_s38", "operation": "apply_the_second_Alarich_plus_twenty_once_after_refugee_s38_1", "amount": 20.0, "ownership": "shared_campaign" },
+        { "kind": "inventory_item", "id": "golden_apple", "operation": "replace_or_reserve_the_single_Direction_ToPlayer_world_drop_after_refugee_s38_32_and_allocate_one_exactly_once_to_each_personal_profile", "amount": 1.0, "ownership": "personal_character" },
+        { "kind": "world_time_restore_receipt", "id": "gykmp_story_time_baseline_game_of_crone_s35", "operation": "rehydrate_or_bypass_the_static_minus_two_restore_apply_the_durable_captured_pre_s35_TimeOfDay_value_once_mark_the_shared_restored_receipt_and_suppress_every_later_minus_two_replay", "amount": 1.0, "ownership": "shared_campaign" },
+        { "kind": "player_param", "id": "event_s38_complete", "operation": "set_one_after_rewards_dialogue_transformations_and_final_fade_cleanup", "amount": 1.0, "ownership": "shared_campaign" },
+        { "kind": "conditional_world_setup", "id": "guard_event_s39_1_guard_event_s39_2_refugee_s39_trigger_zone", "operation": "spawn_at_most_one_npc_guard_tag_guard_event_s39_1_at_gd_refugee_s39_1_one_npc_guard_2_tag_guard_event_s39_2_at_gd_refugee_s39_2_and_one_refugee_s39_trigger_zone_at_gd_refugee_s39_3_only_when_both_event_flags_are_one", "amount": 3.0, "ownership": "shared_world" },
+        { "kind": "monotonic_story_state", "id": "gykmp_story_state_game_of_crone_s39_prepare_status", "operation": "record_unseen_to_deferred_when_a_prerequisite_is_missing_and_later_upgrade_deferred_to_prepared_when_both_flags_exist_without_ever_treating_deferred_as_final", "amount": 1.0, "ownership": "shared_campaign" },
+        { "kind": "conditional_story_phase", "id": "gykmp_story_phase_game_of_crone_s39_prepared", "operation": "commit_only_after_all_three_guard_scene_objects_are_deduplicated_and_present", "amount": 1.0, "ownership": "shared_campaign" },
+        { "kind": "story_phase", "id": "gykmp_story_phase_game_of_crone_s38_complete", "operation": "commit_after_full_cleanup_control_restore_reward_receipts_and_the_first_s39_prepare_evaluation_while_allowing_a_deferred_status_to_upgrade_later", "amount": 1.0, "ownership": "shared_campaign" }
+      ],
+      "safeguards": [
+        "never_treat_the_early_achievement_check_apple_drop_relation_write_or_event_s38_complete_assignment_alone_as_the_terminal_scene_receipt",
+        "keep_the_two_Alarich_relationship_deltas_independently_receipted_and_never_collapse_them_into_plus_forty_or_a_minimum",
+        "record_the_physical_apple_recipient_or_suppress_the_drop_before_delivering_missing_profiles",
+        "restore_the_captured_time_blacklist_and_per_player_overlay_baselines_even_after_restart_or_abort_and_never_run_vanillas_minus_two_restore_after_the_durable_time_receipt",
+        "deduplicate_s39_prepare_across_s38_city_completion_and_recovery_upgrade_deferred_to_prepared_and_never_set_event_s39_complete",
+        "leave_on_enter_refugee_s39_gd_zone_refugee_ev_s39_and_dlc_refugees_s40_to_the_next_catalogue_batch"
+      ]
+    }
+  ]
+}

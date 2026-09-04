@@ -1,0 +1,776 @@
+{
+  "schemaVersion": 5,
+  "catalogId": "dlc.stranger-sins.tavern-construction",
+  "campaign": "StrangerSins",
+  "chapter": "CoryHireThroughBartenderDollLead",
+  "quests": [
+    {
+      "questId": "dlc_stories_build_tavern",
+      "title": "Build the Talking Skull tavern",
+      "vanilla": {
+        "startTrigger": "",
+        "successTrigger": "1",
+        "failTrigger": "",
+        "startKeys": ["dlc_stories_build_tavern"],
+        "questVisible": false,
+        "oneTimeQuest": false,
+        "startScript": "",
+        "successScript": "",
+        "failScript": "",
+        "arrowWgoCustomTag": "",
+        "arrowWgoObjectId": "",
+        "successRewards": [],
+        "failureRewards": []
+      },
+      "policy": {
+        "stateOwnership": "shared_campaign",
+        "eligibleInitiator": "any_player",
+        "livePresentationOwner": "initiating_player",
+        "observerQuestApplication": "durable_state_only",
+        "personalRewardDelivery": "party_exactly_once",
+        "observerSuccess": {
+          "globalScripts": [],
+          "playerParamRepairs": [],
+          "playerParamMinimums": [],
+          "taskStateMinimums": [],
+          "unlockedTechs": [],
+          "unlockedPhrases": [],
+          "blacklistedPhrases": [],
+          "unlockedCrafts": [],
+          "completedOneTimeCrafts": [],
+          "personalItemGrants": []
+        }
+      },
+      "completionChecks": [
+        { "source": "player_param", "key": "tavern_built", "comparison": ">=", "value": 1.0 },
+        { "source": "player_param", "key": "corridor_to_tavern_built", "comparison": ">=", "value": 1.0 }
+      ]
+    }
+  ],
+  "taskMilestones": [
+    {
+      "milestoneId": "stranger_sins_cory_material_plan_opened",
+      "npcId": "npc_engineer",
+      "taskId": "dlc_stories_goal_cory_nails",
+      "activeStates": ["Visible"],
+      "playerParamRepairs": [],
+      "playerParamMinimums": [],
+      "taskStateMinimums": [
+        { "npcId": "npc_engineer", "taskId": "dlc_stories_goal_cory_iron", "state": "Visible" },
+        { "npcId": "npc_engineer", "taskId": "dlc_stories_goal_cory_planks", "state": "Visible" }
+      ],
+      "unlockedTechs": [],
+      "unlockedPhrases": [],
+      "blacklistedPhrases": [],
+      "unlockedCrafts": [],
+      "completedOneTimeCrafts": [],
+      "wgoParamMinimums": [],
+      "personalItemGrants": []
+    },
+    {
+      "milestoneId": "stranger_sins_cory_iron_delivered",
+      "npcId": "npc_engineer",
+      "taskId": "dlc_stories_goal_cory_iron",
+      "activeStates": ["Complete"],
+      "playerParamRepairs": [],
+      "playerParamMinimums": [],
+      "taskStateMinimums": [],
+      "unlockedTechs": [],
+      "unlockedPhrases": [],
+      "blacklistedPhrases": ["@cory_iron_parts_1"],
+      "unlockedCrafts": [],
+      "completedOneTimeCrafts": [],
+      "wgoParamMinimums": [],
+      "personalItemGrants": []
+    },
+    {
+      "milestoneId": "stranger_sins_cory_planks_delivered",
+      "npcId": "npc_engineer",
+      "taskId": "dlc_stories_goal_cory_planks",
+      "activeStates": ["Complete"],
+      "playerParamRepairs": [],
+      "playerParamMinimums": [],
+      "taskStateMinimums": [],
+      "unlockedTechs": [],
+      "unlockedPhrases": [],
+      "blacklistedPhrases": ["@cory_wooden_planks_1"],
+      "unlockedCrafts": [],
+      "completedOneTimeCrafts": [],
+      "wgoParamMinimums": [],
+      "personalItemGrants": []
+    },
+    {
+      "milestoneId": "stranger_sins_cory_nails_delivered",
+      "npcId": "npc_engineer",
+      "taskId": "dlc_stories_goal_cory_nails",
+      "activeStates": ["Complete"],
+      "playerParamRepairs": [],
+      "playerParamMinimums": [],
+      "taskStateMinimums": [],
+      "unlockedTechs": [],
+      "unlockedPhrases": [],
+      "blacklistedPhrases": ["@cory_nails_1"],
+      "unlockedCrafts": [],
+      "completedOneTimeCrafts": [],
+      "wgoParamMinimums": [],
+      "personalItemGrants": []
+    },
+    {
+      "milestoneId": "stranger_sins_cory_next_day_work_ready",
+      "npcId": "npc_engineer",
+      "taskId": "dlc_stories_goal_next_day_cory",
+      "activeStates": ["Visible"],
+      "playerParamRepairs": [],
+      "playerParamMinimums": [],
+      "taskStateMinimums": [
+        { "npcId": "npc_engineer", "taskId": "dlc_stories_goal_cory_iron", "state": "Complete" },
+        { "npcId": "npc_engineer", "taskId": "dlc_stories_goal_cory_planks", "state": "Complete" },
+        { "npcId": "npc_engineer", "taskId": "dlc_stories_goal_cory_nails", "state": "Complete" }
+      ],
+      "unlockedTechs": [],
+      "unlockedPhrases": [],
+      "blacklistedPhrases": [],
+      "unlockedCrafts": [],
+      "completedOneTimeCrafts": [],
+      "wgoParamMinimums": [
+        { "objectId": "npc_engineer", "key": "tavern_supply_count", "value": 3.0 }
+      ],
+      "personalItemGrants": []
+    },
+    {
+      "milestoneId": "stranger_sins_cory_next_day_decision_finished",
+      "npcId": "npc_engineer",
+      "taskId": "dlc_stories_goal_next_day_cory",
+      "activeStates": ["Complete"],
+      "playerParamRepairs": [],
+      "playerParamMinimums": [],
+      "taskStateMinimums": [],
+      "unlockedTechs": [],
+      "unlockedPhrases": [],
+      "blacklistedPhrases": ["@cory_tavern_talking_1"],
+      "unlockedCrafts": [],
+      "completedOneTimeCrafts": [],
+      "wgoParamMinimums": [],
+      "personalItemGrants": []
+    },
+    {
+      "milestoneId": "stranger_sins_cory_deferred_fee_opened",
+      "npcId": "npc_engineer",
+      "taskId": "dlc_stories_goal_10g_cory",
+      "activeStates": ["Visible"],
+      "playerParamRepairs": [],
+      "playerParamMinimums": [],
+      "taskStateMinimums": [
+        { "npcId": "npc_engineer", "taskId": "dlc_stories_goal_next_day_cory", "state": "Complete" }
+      ],
+      "unlockedTechs": [],
+      "unlockedPhrases": [],
+      "blacklistedPhrases": ["@cory_tavern_talking_1"],
+      "unlockedCrafts": [],
+      "completedOneTimeCrafts": [],
+      "wgoParamMinimums": [],
+      "personalItemGrants": []
+    },
+    {
+      "milestoneId": "stranger_sins_cory_deferred_fee_paid",
+      "npcId": "npc_engineer",
+      "taskId": "dlc_stories_goal_10g_cory",
+      "activeStates": ["Complete"],
+      "playerParamRepairs": [],
+      "playerParamMinimums": [],
+      "taskStateMinimums": [],
+      "unlockedTechs": [],
+      "unlockedPhrases": [],
+      "blacklistedPhrases": ["@cory_tavern_talking_4b_2_d"],
+      "unlockedCrafts": [],
+      "completedOneTimeCrafts": [],
+      "wgoParamMinimums": [],
+      "personalItemGrants": []
+    },
+    {
+      "milestoneId": "stranger_sins_cory_hired_for_tavern",
+      "npcId": "npc_engineer",
+      "taskId": "dlc_stories_goal_hite_cory",
+      "activeStates": ["Complete"],
+      "playerParamRepairs": [],
+      "playerParamMinimums": [],
+      "taskStateMinimums": [],
+      "unlockedTechs": [],
+      "unlockedPhrases": [],
+      "blacklistedPhrases": [],
+      "unlockedCrafts": [],
+      "completedOneTimeCrafts": [],
+      "wgoParamMinimums": [],
+      "personalItemGrants": []
+    },
+    {
+      "milestoneId": "stranger_sins_gerry_finished_tavern_lead_opened",
+      "npcId": "crafting_skull_3",
+      "taskId": "dlc_stories_goal_gerry_after_tavern",
+      "activeStates": ["Visible"],
+      "playerParamRepairs": [],
+      "playerParamMinimums": [],
+      "taskStateMinimums": [],
+      "unlockedTechs": [],
+      "unlockedPhrases": [],
+      "blacklistedPhrases": [],
+      "unlockedCrafts": [],
+      "completedOneTimeCrafts": [],
+      "wgoParamMinimums": [],
+      "personalItemGrants": []
+    },
+    {
+      "milestoneId": "stranger_sins_gerry_finished_tavern_referral_complete",
+      "npcId": "crafting_skull_3",
+      "taskId": "dlc_stories_goal_gerry_after_tavern",
+      "activeStates": ["Complete"],
+      "playerParamRepairs": [],
+      "playerParamMinimums": [],
+      "taskStateMinimums": [],
+      "unlockedTechs": [],
+      "unlockedPhrases": [],
+      "blacklistedPhrases": ["@gerry_tavern_ready_1"],
+      "unlockedCrafts": [],
+      "completedOneTimeCrafts": [],
+      "wgoParamMinimums": [],
+      "personalItemGrants": []
+    },
+    {
+      "milestoneId": "stranger_sins_gerry_tavern_meeting_opened",
+      "npcId": "crafting_skull_3",
+      "taskId": "dlc_stories_goal_gerry_meeting",
+      "activeStates": ["Visible"],
+      "playerParamRepairs": [],
+      "playerParamMinimums": [],
+      "taskStateMinimums": [
+        { "npcId": "crafting_skull_3", "taskId": "dlc_stories_goal_gerry_after_tavern", "state": "Complete" }
+      ],
+      "unlockedTechs": [],
+      "unlockedPhrases": [],
+      "blacklistedPhrases": [],
+      "unlockedCrafts": [],
+      "completedOneTimeCrafts": [],
+      "wgoParamMinimums": [],
+      "personalItemGrants": []
+    },
+    {
+      "milestoneId": "stranger_sins_gerry_first_tavern_meeting_complete",
+      "npcId": "crafting_skull_3",
+      "taskId": "dlc_stories_goal_gerry_meeting",
+      "activeStates": ["Complete"],
+      "playerParamRepairs": [],
+      "playerParamMinimums": [],
+      "taskStateMinimums": [
+        { "npcId": "crafting_skull_3", "taskId": "dlc_stories_goal_gerry_after_tavern", "state": "Complete" }
+      ],
+      "unlockedTechs": [],
+      "unlockedPhrases": [],
+      "blacklistedPhrases": ["@gerry_tavern_ready_1"],
+      "unlockedCrafts": [],
+      "completedOneTimeCrafts": [],
+      "wgoParamMinimums": [],
+      "personalItemGrants": []
+    },
+    {
+      "milestoneId": "stranger_sins_bartender_doll_plan_received",
+      "npcId": "crafting_skull_3",
+      "taskId": "dlc_stories_goal_wooden_doll",
+      "activeStates": ["Visible"],
+      "playerParamRepairs": [
+        { "key": "gerry_first_spawn_in_tavern", "value": 0.0 }
+      ],
+      "playerParamMinimums": [],
+      "taskStateMinimums": [
+        { "npcId": "crafting_skull_3", "taskId": "dlc_stories_goal_gerry_after_tavern", "state": "Complete" },
+        { "npcId": "crafting_skull_3", "taskId": "dlc_stories_goal_gerry_meeting", "state": "Complete" }
+      ],
+      "unlockedTechs": [],
+      "unlockedPhrases": [],
+      "blacklistedPhrases": ["@gerry_tavern_ready_1"],
+      "unlockedCrafts": [],
+      "completedOneTimeCrafts": ["bartender_doll"],
+      "wgoParamMinimums": [],
+      "personalItemGrants": []
+    }
+  ],
+  "cutscenes": [
+    {
+      "cutsceneId": "stranger_sins_cory_tavern_contract",
+      "linkedQuestIds": ["dlc_stories_build_tavern"],
+      "triggerScripts": ["npc_engineer:@cory_tavern_building_1"],
+      "actors": ["initiating_player", "npc_engineer"],
+      "observerPolicy": "all_loaded_party_members",
+      "lateJoinPolicy": "join_live_checkpoint_or_observe",
+      "remoteExecutionPolicy": "live_observation",
+      "executionOwnerPolicy": "any_player",
+      "dialogueOwnerPolicy": "initiating_player",
+      "formationPolicy": "initiator_with_observer_follow",
+      "cleanupRequirements": [
+        "present_the_200_money_or_material_plan_choices_to_the_initiating_player_only",
+        "preserve_the_nested_pay_materials_and_decline_answer_wiring",
+        "charge_only_the_selected_paid_answer_and_never_the_material_or_decline_answers",
+        "restore_player_control_or_return_to_Corys_answer_menu"
+      ]
+    },
+    {
+      "cutsceneId": "stranger_sins_cory_tavern_contract_retry",
+      "linkedQuestIds": ["dlc_stories_build_tavern"],
+      "triggerScripts": ["npc_engineer:@cory_tavern_building_1_1"],
+      "actors": ["initiating_player", "npc_engineer"],
+      "observerPolicy": "all_loaded_party_members",
+      "lateJoinPolicy": "join_live_checkpoint_or_observe",
+      "remoteExecutionPolicy": "live_observation",
+      "executionOwnerPolicy": "any_player",
+      "dialogueOwnerPolicy": "initiating_player",
+      "formationPolicy": "initiator_with_observer_follow",
+      "cleanupRequirements": [
+        "enter_directly_at_the_common_cory_tavern_building_9_choice_without_replaying_lines_2_through_8",
+        "preserve_the_same_paid_material_and_decline_branches_as_the_initial_contract",
+        "never_repeat_a_completed_payment_or_material_handoff",
+        "restore_player_control_or_return_to_Corys_answer_menu"
+      ]
+    },
+    {
+      "cutsceneId": "stranger_sins_cory_iron_delivery",
+      "linkedQuestIds": ["dlc_stories_build_tavern"],
+      "triggerScripts": ["npc_engineer:@cory_iron_parts_1"],
+      "actors": ["initiating_player", "npc_engineer"],
+      "observerPolicy": "all_loaded_party_members",
+      "lateJoinPolicy": "join_live_checkpoint_or_observe",
+      "remoteExecutionPolicy": "live_observation",
+      "executionOwnerPolicy": "any_player",
+      "dialogueOwnerPolicy": "initiating_player",
+      "formationPolicy": "initiator_with_observer_follow",
+      "cleanupRequirements": [
+        "consume_exactly_twelve_detail_1_from_the_initiating_character",
+        "increment_npc_engineer_tavern_supply_count_once",
+        "run_the_all_three_supplies_handoff_when_the_counter_is_at_least_three",
+        "restore_player_control_or_return_to_Corys_answer_menu"
+      ]
+    },
+    {
+      "cutsceneId": "stranger_sins_cory_plank_delivery",
+      "linkedQuestIds": ["dlc_stories_build_tavern"],
+      "triggerScripts": ["npc_engineer:@cory_wooden_planks_1"],
+      "actors": ["initiating_player", "npc_engineer"],
+      "observerPolicy": "all_loaded_party_members",
+      "lateJoinPolicy": "join_live_checkpoint_or_observe",
+      "remoteExecutionPolicy": "live_observation",
+      "executionOwnerPolicy": "any_player",
+      "dialogueOwnerPolicy": "initiating_player",
+      "formationPolicy": "initiator_with_observer_follow",
+      "cleanupRequirements": [
+        "consume_exactly_twelve_wooden_plank_from_the_initiating_character",
+        "increment_npc_engineer_tavern_supply_count_once",
+        "run_the_all_three_supplies_handoff_when_the_counter_is_at_least_three",
+        "restore_player_control_or_return_to_Corys_answer_menu"
+      ]
+    },
+    {
+      "cutsceneId": "stranger_sins_cory_nail_delivery",
+      "linkedQuestIds": ["dlc_stories_build_tavern"],
+      "triggerScripts": ["npc_engineer:@cory_nails_1"],
+      "actors": ["initiating_player", "npc_engineer"],
+      "observerPolicy": "all_loaded_party_members",
+      "lateJoinPolicy": "join_live_checkpoint_or_observe",
+      "remoteExecutionPolicy": "live_observation",
+      "executionOwnerPolicy": "any_player",
+      "dialogueOwnerPolicy": "initiating_player",
+      "formationPolicy": "initiator_with_observer_follow",
+      "cleanupRequirements": [
+        "consume_exactly_twelve_nails_from_the_initiating_character",
+        "increment_npc_engineer_tavern_supply_count_once",
+        "run_the_all_three_supplies_handoff_when_the_counter_is_at_least_three",
+        "restore_player_control_or_return_to_Corys_answer_menu"
+      ]
+    },
+    {
+      "cutsceneId": "stranger_sins_cory_next_day_decision",
+      "linkedQuestIds": ["dlc_stories_build_tavern"],
+      "triggerScripts": ["npc_engineer:@cory_tavern_talking_1"],
+      "actors": ["initiating_player", "npc_engineer"],
+      "observerPolicy": "all_loaded_party_members",
+      "lateJoinPolicy": "join_live_checkpoint_or_observe",
+      "remoteExecutionPolicy": "live_observation",
+      "executionOwnerPolicy": "any_player",
+      "dialogueOwnerPolicy": "initiating_player",
+      "formationPolicy": "initiator_with_observer_follow",
+      "cleanupRequirements": [
+        "present_the_50_money_accept_or_defer_choice_to_the_initiating_player_only",
+        "charge_only_cory_tavern_talking_4a",
+        "open_the_deferred_fee_task_only_on_cory_tavern_talking_4b",
+        "restore_player_control"
+      ]
+    },
+    {
+      "cutsceneId": "stranger_sins_cory_deferred_payment",
+      "linkedQuestIds": ["dlc_stories_build_tavern"],
+      "triggerScripts": ["npc_engineer:@cory_tavern_talking_4b_2_d"],
+      "actors": ["initiating_player", "npc_engineer"],
+      "observerPolicy": "all_loaded_party_members",
+      "lateJoinPolicy": "join_live_checkpoint_or_observe",
+      "remoteExecutionPolicy": "live_observation",
+      "executionOwnerPolicy": "any_player",
+      "dialogueOwnerPolicy": "initiating_player",
+      "formationPolicy": "initiator_with_observer_follow",
+      "cleanupRequirements": [
+        "consume_the_serialized_50_money_answer_price_from_the_initiating_character_only",
+        "preserve_the_separate_serialized_200_money_credit_to_npc_engineer",
+        "set_the_build_sleep_latch_before_completing_Corys_hire_task",
+        "restore_player_control"
+      ]
+    },
+    {
+      "cutsceneId": "stranger_sins_gerry_tavern_ready_referral",
+      "linkedQuestIds": ["dlc_stories_build_tavern"],
+      "triggerScripts": ["crafting_skull_3:@gerry_tavern_ready_1"],
+      "actors": ["initiating_player", "crafting_skull_3"],
+      "observerPolicy": "all_loaded_party_members",
+      "lateJoinPolicy": "join_live_checkpoint_or_observe",
+      "remoteExecutionPolicy": "live_observation",
+      "executionOwnerPolicy": "any_player",
+      "dialogueOwnerPolicy": "initiating_player",
+      "formationPolicy": "initiator_with_observer_follow",
+      "cleanupRequirements": [
+        "treat_this_morgue_conversation_as_optional_before_the_live_tavern_entry_handoff",
+        "complete_the_finished_tavern_task_before_showing_the_tavern_meeting_task",
+        "do_not_reveal_or_unlock_the_bartender_doll_crafts_here",
+        "restore_player_control_and_camera"
+      ]
+    },
+    {
+      "cutsceneId": "stranger_sins_gerry_first_tavern_handoff",
+      "linkedQuestIds": ["dlc_stories_build_tavern"],
+      "triggerScripts": ["talking_skull_in_tavern_first"],
+      "actors": ["initiating_player", "talking_skull_in_tavern"],
+      "observerPolicy": "all_loaded_party_members",
+      "lateJoinPolicy": "join_live_checkpoint_or_observe",
+      "remoteExecutionPolicy": "live_observation",
+      "executionOwnerPolicy": "any_player",
+      "dialogueOwnerPolicy": "initiating_player",
+      "formationPolicy": "initiator_with_observer_follow",
+      "cleanupRequirements": [
+        "run_only_when_on_enter_p_tavern_first_floor_gd_zone_observes_gerry_first_spawn_in_tavern_at_least_one",
+        "clear_the_entry_latch_before_running_the_script",
+        "complete_both_Gerry_tasks_even_when_the_optional_morgue_referral_was_skipped",
+        "destroy_only_the_temporary_talking_skull_in_tavern_after_the_dialogue",
+        "unlock_bartender_doll_and_bartender_doll_2_after_the_temporary_actor_is_destroyed",
+        "restore_player_control_and_camera"
+      ]
+    }
+  ],
+  "storySteps": [
+    {
+      "stepId": "stranger_sins_negotiate_cory_tavern_contract",
+      "title": "Choose Cory's upfront-payment or material-supply tavern plan",
+      "linkedQuestIds": ["dlc_stories_build_tavern"],
+      "linkedTaskMilestoneIds": [
+        "stranger_sins_cory_material_plan_opened",
+        "stranger_sins_cory_hired_for_tavern",
+        "stranger_sins_gerry_finished_tavern_lead_opened"
+      ],
+      "triggerScripts": [
+        "npc_engineer:@cory_tavern_building_1",
+        "npc_engineer:@cory_tavern_building_1_1"
+      ],
+      "triggerKeys": [
+        "cory_tavern_building_9a",
+        "cory_tavern_building_9b",
+        "cory_tavern_building_9a_1a",
+        "cory_tavern_building_9a_1b",
+        "cory_tavern_building_nem",
+        "money:200"
+      ],
+      "expectedEffects": [
+        { "kind": "dialogue_phrase", "id": "@cory_tavern_building_1", "operation": "blacklist_on_initial_entry_only", "amount": 1.0, "ownership": "shared_campaign" },
+        { "kind": "dialogue_answer", "id": "cory_tavern_building_9a", "operation": "blacklist_when_the_upfront_route_is_opened", "amount": 1.0, "ownership": "shared_campaign" },
+        { "kind": "currency", "id": "money", "operation": "consume_from_initiator_on_cory_tavern_building_9a_1a_only", "amount": 200.0, "ownership": "personal_character" },
+        { "kind": "world_param", "id": "npc_engineer:money", "operation": "add_on_cory_tavern_building_9a_1a_only", "amount": 200.0, "ownership": "shared_world" },
+        { "kind": "npc_task", "id": "npc_engineer:dlc_stories_goal_hite_cory", "operation": "complete_after_the_first_paid_line_before_cory_tavern_talking_4b_4_and_the_build_latch", "amount": 1.0, "ownership": "shared_campaign" },
+        { "kind": "player_param", "id": "its_time_build_tavern", "operation": "set_for_initiator_after_the_final_upfront_paid_line", "amount": 1.0, "ownership": "initiating_player_cutscene" },
+        { "kind": "dialogue_phrase", "id": "@cory_tavern_building_1_1", "operation": "blacklist_after_successful_upfront_payment", "amount": 1.0, "ownership": "shared_campaign" },
+        { "kind": "npc_task", "id": "crafting_skull_3:dlc_stories_goal_gerry_after_tavern", "operation": "show_after_successful_upfront_payment", "amount": 1.0, "ownership": "shared_campaign" },
+        { "kind": "npc_task", "id": "npc_engineer:dlc_stories_goal_cory_iron", "operation": "show_on_cory_tavern_building_9b_only", "amount": 1.0, "ownership": "shared_campaign" },
+        { "kind": "npc_task", "id": "npc_engineer:dlc_stories_goal_cory_planks", "operation": "show_on_cory_tavern_building_9b_only", "amount": 1.0, "ownership": "shared_campaign" },
+        { "kind": "npc_task", "id": "npc_engineer:dlc_stories_goal_cory_nails", "operation": "show_on_cory_tavern_building_9b_after_the_intervening_dialogue", "amount": 1.0, "ownership": "shared_campaign" },
+        { "kind": "npc_task", "id": "crafting_skull_3:dlc_stories_goal_gerry_after_tavern", "operation": "show_on_material_route_before_delivery_phrases", "amount": 1.0, "ownership": "shared_campaign" },
+        { "kind": "dialogue_phrase", "id": "@cory_iron_parts_1", "operation": "unlock_on_material_route", "amount": 1.0, "ownership": "shared_campaign" },
+        { "kind": "dialogue_phrase", "id": "@cory_wooden_planks_1", "operation": "unlock_on_material_route", "amount": 1.0, "ownership": "shared_campaign" },
+        { "kind": "dialogue_phrase", "id": "@cory_nails_1", "operation": "unlock_on_material_route", "amount": 1.0, "ownership": "shared_campaign" },
+        { "kind": "dialogue_phrase", "id": "@cory_tavern_building_1_1", "operation": "blacklist_after_material_route_setup", "amount": 1.0, "ownership": "shared_campaign" },
+        { "kind": "dialogue_answer", "id": "cory_tavern_building_9a", "operation": "remove_from_blacklist_on_cory_tavern_building_nem", "amount": 1.0, "ownership": "shared_campaign" },
+        { "kind": "dialogue_phrase", "id": "@cory_tavern_building_1_1", "operation": "unlock_on_cory_tavern_building_nem", "amount": 1.0, "ownership": "shared_campaign" }
+      ],
+      "safeguards": [
+        "cory_tavern_building_9a_1b_calls_cory_tavern_building_9_and_returns_to_the_common_plan_choice",
+        "declining_never_consumes_money_completes_hire_or_sets_the_build_sleep_latch",
+        "the_material_route_never_consumes_the_200_money_price",
+        "the_Gerry_task_is_shown_before_the_tavern_exists_and_must_not_be_used_as_proof_of_construction",
+        "all_currency_costs_are_paid_by_the_initiating_character_only"
+      ]
+    },
+    {
+      "stepId": "stranger_sins_deliver_cory_iron_parts",
+      "title": "Deliver twelve complex iron parts to Cory",
+      "linkedQuestIds": ["dlc_stories_build_tavern"],
+      "linkedTaskMilestoneIds": [
+        "stranger_sins_cory_iron_delivered",
+        "stranger_sins_cory_next_day_work_ready"
+      ],
+      "triggerScripts": ["npc_engineer:@cory_iron_parts_1"],
+      "triggerKeys": ["detail_1:12", "tavern_supply_count:3"],
+      "expectedEffects": [
+        { "kind": "inventory_item", "id": "detail_1", "operation": "consume_from_initiator", "amount": 12.0, "ownership": "personal_character" },
+        { "kind": "dialogue_phrase", "id": "@cory_iron_parts_1", "operation": "blacklist", "amount": 1.0, "ownership": "shared_campaign" },
+        { "kind": "npc_task", "id": "npc_engineer:dlc_stories_goal_cory_iron", "operation": "complete", "amount": 1.0, "ownership": "shared_campaign" },
+        { "kind": "world_param", "id": "npc_engineer:tavern_supply_count", "operation": "add_once", "amount": 1.0, "ownership": "shared_world" },
+        { "kind": "world_param", "id": "npc_engineer:unlock_cory_tavern_talking_1", "operation": "set_when_tavern_supply_count_is_at_least_three", "amount": 1.0, "ownership": "shared_world" },
+        { "kind": "npc_task", "id": "npc_engineer:dlc_stories_goal_next_day_cory", "operation": "show_when_tavern_supply_count_is_at_least_three", "amount": 1.0, "ownership": "shared_campaign" }
+      ],
+      "safeguards": [
+        "consume_the_answer_price_before_running_the_delivery_branch",
+        "do_not_duplicate_materials_for_observers",
+        "both_equal_to_three_and_greater_than_three_run_cory_after_grind",
+        "counts_below_three_return_to_Corys_answer_menu"
+      ]
+    },
+    {
+      "stepId": "stranger_sins_deliver_cory_wooden_planks",
+      "title": "Deliver twelve wooden planks to Cory",
+      "linkedQuestIds": ["dlc_stories_build_tavern"],
+      "linkedTaskMilestoneIds": [
+        "stranger_sins_cory_planks_delivered",
+        "stranger_sins_cory_next_day_work_ready"
+      ],
+      "triggerScripts": ["npc_engineer:@cory_wooden_planks_1"],
+      "triggerKeys": ["wooden_plank:12", "tavern_supply_count:3"],
+      "expectedEffects": [
+        { "kind": "inventory_item", "id": "wooden_plank", "operation": "consume_from_initiator", "amount": 12.0, "ownership": "personal_character" },
+        { "kind": "dialogue_phrase", "id": "@cory_wooden_planks_1", "operation": "blacklist", "amount": 1.0, "ownership": "shared_campaign" },
+        { "kind": "npc_task", "id": "npc_engineer:dlc_stories_goal_cory_planks", "operation": "complete", "amount": 1.0, "ownership": "shared_campaign" },
+        { "kind": "world_param", "id": "npc_engineer:tavern_supply_count", "operation": "add_once", "amount": 1.0, "ownership": "shared_world" },
+        { "kind": "world_param", "id": "npc_engineer:unlock_cory_tavern_talking_1", "operation": "set_when_tavern_supply_count_is_at_least_three", "amount": 1.0, "ownership": "shared_world" },
+        { "kind": "npc_task", "id": "npc_engineer:dlc_stories_goal_next_day_cory", "operation": "show_when_tavern_supply_count_is_at_least_three", "amount": 1.0, "ownership": "shared_campaign" }
+      ],
+      "safeguards": [
+        "consume_the_answer_price_before_running_the_delivery_branch",
+        "do_not_duplicate_materials_for_observers",
+        "both_equal_to_three_and_greater_than_three_run_cory_after_grind",
+        "counts_below_three_return_to_Corys_answer_menu"
+      ]
+    },
+    {
+      "stepId": "stranger_sins_deliver_cory_nails",
+      "title": "Deliver twelve nails to Cory",
+      "linkedQuestIds": ["dlc_stories_build_tavern"],
+      "linkedTaskMilestoneIds": [
+        "stranger_sins_cory_nails_delivered",
+        "stranger_sins_cory_next_day_work_ready"
+      ],
+      "triggerScripts": ["npc_engineer:@cory_nails_1"],
+      "triggerKeys": ["nails:12", "tavern_supply_count:3"],
+      "expectedEffects": [
+        { "kind": "inventory_item", "id": "nails", "operation": "consume_from_initiator", "amount": 12.0, "ownership": "personal_character" },
+        { "kind": "dialogue_phrase", "id": "@cory_nails_1", "operation": "blacklist", "amount": 1.0, "ownership": "shared_campaign" },
+        { "kind": "npc_task", "id": "npc_engineer:dlc_stories_goal_cory_nails", "operation": "complete", "amount": 1.0, "ownership": "shared_campaign" },
+        { "kind": "world_param", "id": "npc_engineer:tavern_supply_count", "operation": "add_once", "amount": 1.0, "ownership": "shared_world" },
+        { "kind": "world_param", "id": "npc_engineer:unlock_cory_tavern_talking_1", "operation": "set_when_tavern_supply_count_is_at_least_three", "amount": 1.0, "ownership": "shared_world" },
+        { "kind": "npc_task", "id": "npc_engineer:dlc_stories_goal_next_day_cory", "operation": "show_when_tavern_supply_count_is_at_least_three", "amount": 1.0, "ownership": "shared_campaign" }
+      ],
+      "safeguards": [
+        "consume_the_answer_price_before_running_the_delivery_branch",
+        "do_not_duplicate_materials_for_observers",
+        "both_equal_to_three_and_greater_than_three_run_cory_after_grind",
+        "counts_below_three_return_to_Corys_answer_menu"
+      ]
+    },
+    {
+      "stepId": "stranger_sins_make_cory_next_day_dialogue_available",
+      "title": "Let Cory expose his next-day tavern decision",
+      "linkedQuestIds": ["dlc_stories_build_tavern"],
+      "linkedTaskMilestoneIds": ["stranger_sins_cory_next_day_work_ready"],
+      "triggerScripts": ["npc_engineer:on_came_to_outside"],
+      "triggerKeys": ["unlock_cory_tavern_talking_1", "@cory_tavern_talking_1"],
+      "expectedEffects": [
+        { "kind": "world_param", "id": "npc_engineer:unlock_cory_tavern_talking_1", "operation": "clear_when_at_least_one", "amount": 0.0, "ownership": "shared_world" },
+        { "kind": "dialogue_phrase", "id": "@cory_tavern_talking_1", "operation": "unlock_after_flag_clear", "amount": 1.0, "ownership": "shared_campaign" }
+      ],
+      "safeguards": [
+        "do_not_unlock_the_phrase_from_goal_next_day_cory_Visible_before_on_came_to_outside_runs",
+        "leave_the_flag_and_phrase_unchanged_when_unlock_cory_tavern_talking_1_is_zero",
+        "do_not_replay_the_three_supply_handoff"
+      ]
+    },
+    {
+      "stepId": "stranger_sins_resolve_cory_next_day_decision",
+      "title": "Pay Cory's next-day charge or defer it",
+      "linkedQuestIds": ["dlc_stories_build_tavern"],
+      "linkedTaskMilestoneIds": [
+        "stranger_sins_cory_next_day_decision_finished",
+        "stranger_sins_cory_deferred_fee_opened",
+        "stranger_sins_cory_hired_for_tavern"
+      ],
+      "triggerScripts": ["npc_engineer:@cory_tavern_talking_1"],
+      "triggerKeys": ["cory_tavern_talking_4a", "cory_tavern_talking_4b", "money:50"],
+      "expectedEffects": [
+        { "kind": "dialogue_phrase", "id": "@cory_tavern_talking_1", "operation": "blacklist_before_dialogue", "amount": 1.0, "ownership": "shared_campaign" },
+        { "kind": "npc_task", "id": "npc_engineer:dlc_stories_goal_next_day_cory", "operation": "complete_before_dialogue", "amount": 1.0, "ownership": "shared_campaign" },
+        { "kind": "currency", "id": "money", "operation": "consume_from_initiator_on_cory_tavern_talking_4a_only", "amount": 50.0, "ownership": "personal_character" },
+        { "kind": "world_param", "id": "npc_engineer:money", "operation": "add_on_cory_tavern_talking_4a_only", "amount": 50.0, "ownership": "shared_world" },
+        { "kind": "player_param", "id": "its_time_build_tavern", "operation": "set_for_initiator_on_cory_tavern_talking_4a_before_both_paid_dialogue_lines", "amount": 1.0, "ownership": "initiating_player_cutscene" },
+        { "kind": "npc_task", "id": "npc_engineer:dlc_stories_goal_hite_cory", "operation": "complete_after_cory_tavern_talking_4a_dialogue", "amount": 1.0, "ownership": "shared_campaign" },
+        { "kind": "npc_task", "id": "npc_engineer:dlc_stories_goal_10g_cory", "operation": "show_on_cory_tavern_talking_4b_only", "amount": 1.0, "ownership": "shared_campaign" },
+        { "kind": "dialogue_phrase", "id": "@cory_tavern_talking_4b_2_d", "operation": "unlock_after_deferred_fee_task_write", "amount": 1.0, "ownership": "shared_campaign" }
+      ],
+      "safeguards": [
+        "goal_next_day_cory_Complete_is_common_to_both_answers_and_does_not_prove_payment_or_hire",
+        "the_50_money_answer_price_applies_only_to_cory_tavern_talking_4a",
+        "the_defer_branch_never_sets_its_time_build_tavern_or_completes_goal_hite_cory",
+        "consume_currency_from_the_initiating_character_only"
+      ]
+    },
+    {
+      "stepId": "stranger_sins_pay_cory_deferred_fee",
+      "title": "Pay Cory after deferring his next-day charge",
+      "linkedQuestIds": ["dlc_stories_build_tavern"],
+      "linkedTaskMilestoneIds": [
+        "stranger_sins_cory_deferred_fee_paid",
+        "stranger_sins_cory_hired_for_tavern"
+      ],
+      "triggerScripts": ["npc_engineer:@cory_tavern_talking_4b_2_d"],
+      "triggerKeys": ["money:50", "npc_engineer:money:200", "its_time_build_tavern"],
+      "expectedEffects": [
+        { "kind": "currency", "id": "money", "operation": "consume_from_initiator_as_answer_price", "amount": 50.0, "ownership": "personal_character" },
+        { "kind": "dialogue_phrase", "id": "@cory_tavern_talking_4b_2_d", "operation": "blacklist", "amount": 1.0, "ownership": "shared_campaign" },
+        { "kind": "npc_task", "id": "npc_engineer:dlc_stories_goal_10g_cory", "operation": "complete", "amount": 1.0, "ownership": "shared_campaign" },
+        { "kind": "world_param", "id": "npc_engineer:money", "operation": "add_after_first_payment_dialogue_line", "amount": 200.0, "ownership": "shared_world" },
+        { "kind": "player_param", "id": "its_time_build_tavern", "operation": "set_for_initiator_after_dialogue", "amount": 1.0, "ownership": "initiating_player_cutscene" },
+        { "kind": "npc_task", "id": "npc_engineer:dlc_stories_goal_hite_cory", "operation": "complete_after_build_latch_set", "amount": 1.0, "ownership": "shared_campaign" }
+      ],
+      "safeguards": [
+        "preserve_the_source_exact_50_player_cost_and_separate_200_Cory_world_credit",
+        "do_not_normalize_the_mismatched_serialized_amounts",
+        "consume_currency_from_the_initiating_character_only",
+        "do_not_start_tavern_build_until_the_sleep_branch_consumes_the_latch"
+      ]
+    },
+    {
+      "stepId": "stranger_sins_construct_tavern_during_sleep",
+      "title": "Construct the tavern during the initiating player's sleep transition",
+      "linkedQuestIds": ["dlc_stories_build_tavern"],
+      "linkedTaskMilestoneIds": ["stranger_sins_gerry_finished_tavern_lead_opened"],
+      "triggerScripts": ["tavern_build"],
+      "triggerKeys": [
+        "sleep:On Appeared",
+        "its_time_build_tavern",
+        "tavern_built",
+        "corridor_to_tavern_built",
+        "dlc_stories_build_tavern",
+        "gerry_first_spawn_in_tavern"
+      ],
+      "expectedEffects": [
+        { "kind": "player_param", "id": "its_time_build_tavern", "operation": "clear_for_initiator_before_tavern_build", "amount": 0.0, "ownership": "initiating_player_cutscene" },
+        { "kind": "world_event", "id": "tavern_build", "operation": "run_once", "amount": 1.0, "ownership": "shared_world" },
+        { "kind": "world_event", "id": "Flow_TavernWGOsClear", "operation": "clear_prebuild_tavern_world_objects_once", "amount": 1.0, "ownership": "shared_world" },
+        { "kind": "world_point", "id": "players_tavern_outside_point", "operation": "set_enabled_true_before_spawn", "amount": 1.0, "ownership": "shared_world" },
+        { "kind": "world_object", "id": "tavern_reputation_bar@gd_reputation_par_place", "operation": "spawn_once", "amount": 1.0, "ownership": "shared_world" },
+        { "kind": "world_object", "id": "bar_barmens_place@gd_bar_barmens_place", "operation": "spawn_once", "amount": 1.0, "ownership": "shared_world" },
+        { "kind": "world_object", "id": "tavern_bar_conveyor@gd_tavern_bar_conveyor", "operation": "spawn_once", "amount": 1.0, "ownership": "shared_world" },
+        { "kind": "world_object", "id": "players_tavern_1@players_tavern_outside_point", "operation": "spawn_once_as_players_tavern", "amount": 1.0, "ownership": "shared_world" },
+        { "kind": "world_object", "id": "cellar_porter_station_2", "operation": "change_to_porter_station_to_tavern", "amount": 1.0, "ownership": "shared_world" },
+        { "kind": "world_object", "id": "teleport_outside@tp_players_tavern_front_b_", "operation": "spawn_once", "amount": 1.0, "ownership": "shared_world" },
+        { "kind": "world_object", "id": "teleport_point@tp_players_tavern_front_a", "operation": "spawn_once", "amount": 1.0, "ownership": "shared_world" },
+        { "kind": "world_object", "id": "teleport_outside_tavern_custom@tp_players_tavern_back_b_", "operation": "spawn_once", "amount": 1.0, "ownership": "shared_world" },
+        { "kind": "world_object", "id": "teleport_point@tp_players_tavern_back_a", "operation": "spawn_once", "amount": 1.0, "ownership": "shared_world" },
+        { "kind": "world_object", "id": "teleport_inside@tp_players_tavern_front_a_", "operation": "spawn_once", "amount": 1.0, "ownership": "shared_world" },
+        { "kind": "world_object", "id": "teleport_point@tp_players_tavern_front_b", "operation": "spawn_once", "amount": 1.0, "ownership": "shared_world" },
+        { "kind": "world_object", "id": "teleport_inside@tp_players_tavern_back_a_", "operation": "spawn_once", "amount": 1.0, "ownership": "shared_world" },
+        { "kind": "world_object", "id": "teleport_point@tp_players_tavern_back_b", "operation": "spawn_once", "amount": 1.0, "ownership": "shared_world" },
+        { "kind": "world_object", "id": "tavern_cashbox@gd_tavern_cashbox_place", "operation": "spawn_once", "amount": 1.0, "ownership": "shared_world" },
+        { "kind": "world_object", "id": "tavern_outside_zombie_fence@gd_tavern_outside_zombie_fence_place", "operation": "spawn_once", "amount": 1.0, "ownership": "shared_world" },
+        { "kind": "player_param", "id": "tavern_built", "operation": "set_during_tavern_build", "amount": 1.0, "ownership": "shared_campaign" },
+        { "kind": "world_point", "id": "walls_before_building_tavern", "operation": "set_enabled_false", "amount": 0.0, "ownership": "shared_world" },
+        { "kind": "world_point", "id": "walls_after_building_tavern", "operation": "set_enabled_true", "amount": 1.0, "ownership": "shared_world" },
+        { "kind": "player_param", "id": "corridor_to_tavern_built", "operation": "set_after_wall_swap", "amount": 1.0, "ownership": "shared_campaign" },
+        { "kind": "dialogue_phrase", "id": "@players_tavern", "operation": "unlock", "amount": 1.0, "ownership": "shared_campaign" },
+        { "kind": "world_object", "id": "chest@tavern_basement_chest_place", "operation": "spawn_once", "amount": 1.0, "ownership": "shared_world" },
+        { "kind": "world_object", "id": "lantern_2@gd_tavern_outside_lantern_left", "operation": "spawn_once", "amount": 1.0, "ownership": "shared_world" },
+        { "kind": "world_object", "id": "lantern_2@gd_tavern_outside_lantern_right", "operation": "spawn_once_and_apply_serialized_scale", "amount": 1.0, "ownership": "shared_world" },
+        { "kind": "world_event", "id": "TavernEngine:players_tavern_idle_1,7,8,10,11,14,15,16", "operation": "register_eight_gd_points_in_source_order", "amount": 8.0, "ownership": "shared_world" },
+        { "kind": "world_event", "id": "tavern_reputation_bar", "operation": "update_ingame_progress_bar", "amount": 1.0, "ownership": "shared_world" },
+        { "kind": "quest_key", "id": "dlc_stories_build_tavern", "operation": "check_once_before_custom_pile_cleanup", "amount": 1.0, "ownership": "shared_campaign" },
+        { "kind": "world_object", "id": "pile_on_ground_custom", "operation": "destroy_after_build_quest_check", "amount": 1.0, "ownership": "shared_world" },
+        { "kind": "dialogue_phrase", "id": "@gerry_tavern_ready_1", "operation": "unlock_from_sleep_Flow_RunScript_Out_without_waiting_for_completion", "amount": 1.0, "ownership": "shared_campaign" },
+        { "kind": "player_param", "id": "gerry_first_spawn_in_tavern", "operation": "set_for_initiator_after_Gerry_phrase_unlock", "amount": 1.0, "ownership": "initiating_player_cutscene" },
+        { "kind": "world_actor", "id": "talking_skull_in_tavern@gd_talking_skull_tavern_1st_floor", "operation": "spawn_once_after_entry_latch_set", "amount": 1.0, "ownership": "shared_world" }
+      ],
+      "safeguards": [
+        "the_sleep_graph_has_no_separate_Stories_check_and_is_gated_only_by_its_time_build_tavern",
+        "run_the_world_mutation_once_even_when_multiple_players_are_sleeping",
+        "do_not_duplicate_tavern_WGOs_teleports_chest_lanterns_or_the_temporary_skull_for_observers",
+        "do_not_apply_partial_quest_success_repairs_without_atomic_tavern_world_reconciliation",
+        "do_not_destroy_pile_on_ground_custom_before_the_build_quest_check",
+        "the_Gerry_phrase_entry_latch_and_temporary_skull_follow_Flow_RunScript_Out_and_are_not_ordered_after_the_build_quest_success_boundary",
+        "do_not_infer_bartender_placement_or_repeatable_tavern_event_state_from_construction"
+      ]
+    },
+    {
+      "stepId": "stranger_sins_ask_gerry_about_finished_tavern",
+      "title": "Optionally ask Gerry about the finished tavern before entering it",
+      "linkedQuestIds": ["dlc_stories_build_tavern"],
+      "linkedTaskMilestoneIds": [
+        "stranger_sins_gerry_finished_tavern_referral_complete",
+        "stranger_sins_gerry_tavern_meeting_opened"
+      ],
+      "triggerScripts": ["crafting_skull_3:@gerry_tavern_ready_1"],
+      "triggerKeys": ["dlc_stories_goal_gerry_after_tavern", "dlc_stories_goal_gerry_meeting"],
+      "expectedEffects": [
+        { "kind": "dialogue_phrase", "id": "@gerry_tavern_ready_1", "operation": "blacklist", "amount": 1.0, "ownership": "shared_campaign" },
+        { "kind": "npc_task", "id": "crafting_skull_3:dlc_stories_goal_gerry_after_tavern", "operation": "complete_before_four_dialogue_lines", "amount": 1.0, "ownership": "shared_campaign" },
+        { "kind": "npc_task", "id": "crafting_skull_3:dlc_stories_goal_gerry_meeting", "operation": "show_after_four_dialogue_lines", "amount": 1.0, "ownership": "shared_campaign" }
+      ],
+      "safeguards": [
+        "this_referral_is_optional_and_talking_skull_in_tavern_first_repairs_both_tasks_if_it_was_skipped",
+        "do_not_reveal_bartender_doll_from_the_morgue_conversation",
+        "do_not_destroy_the_temporary_tavern_skull_here",
+        "do_not_treat_goal_gerry_meeting_Visible_as_the_bartender_doll_lead"
+      ]
+    },
+    {
+      "stepId": "stranger_sins_receive_bartender_doll_plan_in_tavern",
+      "title": "Meet Gerry in the tavern and receive the bartender-doll plan",
+      "linkedQuestIds": ["dlc_stories_build_tavern"],
+      "linkedTaskMilestoneIds": [
+        "stranger_sins_gerry_finished_tavern_referral_complete",
+        "stranger_sins_gerry_first_tavern_meeting_complete",
+        "stranger_sins_bartender_doll_plan_received"
+      ],
+      "triggerScripts": ["talking_skull_in_tavern_first"],
+      "triggerKeys": [
+        "on_enter_p_tavern_first_floor_gd_zone",
+        "gerry_first_spawn_in_tavern",
+        "bartender_doll",
+        "bartender_doll_2"
+      ],
+      "expectedEffects": [
+        { "kind": "player_param", "id": "gerry_first_spawn_in_tavern", "operation": "clear_for_entering_player_before_script", "amount": 0.0, "ownership": "initiating_player_cutscene" },
+        { "kind": "dialogue_phrase", "id": "@gerry_tavern_ready_1", "operation": "blacklist_for_recovery_if_not_already_blacklisted", "amount": 1.0, "ownership": "shared_campaign" },
+        { "kind": "npc_task", "id": "crafting_skull_3:dlc_stories_goal_gerry_after_tavern", "operation": "complete_before_tavern_dialogue", "amount": 1.0, "ownership": "shared_campaign" },
+        { "kind": "npc_task", "id": "crafting_skull_3:dlc_stories_goal_gerry_meeting", "operation": "complete_before_tavern_dialogue", "amount": 1.0, "ownership": "shared_campaign" },
+        { "kind": "craft", "id": "bartender_doll", "operation": "reveal_non_silent_before_final_two_dialogue_lines", "amount": 1.0, "ownership": "shared_campaign" },
+        { "kind": "one_time_craft", "id": "bartender_doll", "operation": "mark_completed_before_opening_the_reveal_dialog", "amount": 1.0, "ownership": "shared_campaign" },
+        { "kind": "npc_task", "id": "crafting_skull_3:dlc_stories_goal_wooden_doll", "operation": "show_after_final_dialogue_line", "amount": 1.0, "ownership": "shared_campaign" },
+        { "kind": "world_actor", "id": "talking_skull_in_tavern", "operation": "destroy_after_camera_returns", "amount": 1.0, "ownership": "shared_world" },
+        { "kind": "craft", "id": "bartender_doll", "operation": "unlock_after_temporary_skull_destroy", "amount": 1.0, "ownership": "shared_campaign" },
+        { "kind": "craft", "id": "bartender_doll_2", "operation": "unlock_after_temporary_skull_destroy", "amount": 1.0, "ownership": "shared_campaign" }
+      ],
+      "safeguards": [
+        "the_first_floor_zone_clears_the_latch_before_running_talking_skull_in_tavern_first",
+        "complete_both_Gerry_tasks_even_if_the_optional_morgue_referral_was_skipped",
+        "preserve_the_reveal_then_task_then_destroy_then_two_unlocks_source_order",
+        "tavern_skull_@gerry_in_ravern_1_is_dead_serialized_residue_and_not_a_live_recovery_trigger",
+        "stop_before_on_barman_placed_dlc_stories_barman_and_all_repeatable_tavern_event_mechanics"
+      ]
+    }
+  ]
+}

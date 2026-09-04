@@ -1,0 +1,2118 @@
+{
+  "schemaVersion": 5,
+  "catalogId": "dlc.better-save-soul.smiler-finale",
+  "campaign": "BetterSaveSoul",
+  "chapter": "SmilerS42InvestigationThroughPortalFarewell",
+  "quests": [
+    {
+      "questId": "dlc_souls_s_s_46",
+      "title": "Serialized Smiler-farewell achievement checkpoint",
+      "definitionKind": "AchievementDefinition",
+      "counter": 1,
+      "vanilla": {
+        "startTrigger": "",
+        "successTrigger": "1",
+        "failTrigger": "",
+        "startKeys": [
+          "dlc_souls_s_s_46"
+        ],
+        "questVisible": false,
+        "oneTimeQuest": false,
+        "startScript": "",
+        "successScript": "",
+        "failScript": "",
+        "arrowWgoCustomTag": "",
+        "arrowWgoObjectId": "",
+        "successRewards": [],
+        "failureRewards": []
+      },
+      "policy": {
+        "stateOwnership": "shared_campaign",
+        "eligibleInitiator": "any_player",
+        "livePresentationOwner": "initiating_player",
+        "observerQuestApplication": "durable_state_only",
+        "personalRewardDelivery": "party_exactly_once",
+        "observerSuccess": {
+          "globalScripts": [],
+          "playerParamRepairs": [],
+          "playerParamMinimums": [],
+          "taskStateMinimums": [],
+          "unlockedTechs": [],
+          "unlockedPhrases": [],
+          "blacklistedPhrases": [],
+          "unlockedCrafts": [],
+          "completedOneTimeCrafts": [],
+          "personalItemGrants": []
+        }
+      },
+      "completionChecks": []
+    }
+  ],
+  "taskMilestones": [
+    {
+      "milestoneId": "better_save_soul_smiler_branch_available",
+      "npcId": "npc_tavern owner",
+      "taskId": "dlc_souls_s35",
+      "activeStates": [
+        "Visible",
+        "Complete"
+      ],
+      "playerParamRepairs": [
+        {
+          "key": "euric_ready_to_destroy",
+          "value": 0
+        }
+      ],
+      "playerParamMinimums": [
+        {
+          "key": "soul_min",
+          "value": 3
+        },
+        {
+          "key": "soul_max",
+          "value": 4
+        },
+        {
+          "key": "is_s_s15_done",
+          "value": 1
+        },
+        {
+          "key": "ev_s_s17_ready_start",
+          "value": 1
+        },
+        {
+          "key": "ev_s_s27_ready_start",
+          "value": 1
+        },
+        {
+          "key": "done_sauce_for_meal",
+          "value": 1
+        }
+      ],
+      "taskStateMinimums": [
+        {
+          "npcId": "npc_inquisitor",
+          "taskId": "dlc_souls_s21_2",
+          "state": "Complete"
+        },
+        {
+          "npcId": "npc_merchant",
+          "taskId": "dlc_souls_s23_2",
+          "state": "Complete"
+        },
+        {
+          "npcId": "npc_astrologer",
+          "taskId": "dlc_souls_s29_1",
+          "state": "Complete"
+        },
+        {
+          "npcId": "npc_actress",
+          "taskId": "dlc_souls_s29_2",
+          "state": "Complete"
+        },
+        {
+          "npcId": "npc_cultist",
+          "taskId": "dlc_souls_s29_3",
+          "state": "Complete"
+        }
+      ],
+      "unlockedTechs": [
+        "soul_sins_1",
+        "soul_sins_2",
+        "soul_buildings",
+        "soul_sins_3",
+        "soul_sins_4"
+      ],
+      "unlockedPhrases": [
+        "@souls_s_s20_1_ask",
+        "@souls_s_s28_ask",
+        "@souls_s_s29_1_1_ask",
+        "@souls_s_s29_1_2_ask",
+        "@souls_s_s29_1_3_ask",
+        "@souls_s_s30_ask",
+        "@souls_s_s31_ask",
+        "@souls_s_s33_ask",
+        "@souls_s_s34_ask"
+      ],
+      "blacklistedPhrases": [
+        "@souls_s_s15_ask",
+        "@souls_s_s16_1_ask",
+        "@souls_s_s19_ask",
+        "@souls_s_s20_2_ask",
+        "@souls_s_s23_ask",
+        "@souls_s_s24_ask",
+        "@souls_s_s28_ask",
+        "@souls_s_s29_1_1_ask",
+        "@souls_s_s29_1_2_ask",
+        "@souls_s_s29_1_3_ask",
+        "@souls_s_s30_ask",
+        "@souls_s_s31_ask",
+        "@souls_s_s33_ask",
+        "@souls_s_s34_ask"
+      ],
+      "unlockedCrafts": [
+        "souls_builddesk:p:soul_container_place",
+        "souls_builddesk::soul_workbench",
+        "souls_builddesk::pride_healing_extension",
+        "fake_global_craft",
+        "souls_builddesk::soul_healing_for_human",
+        "pride_charged_shard_insert",
+        "souls_builddesk:p:soul_container_2_place",
+        "souls_builddesk::soul_extractor_upgrd_to_2",
+        "souls_builddesk::wrath_healing_extension",
+        "souls_builddesk::gluttony_healing_extension",
+        "sauce_for_meal",
+        "wrath_charged_shard_insert",
+        "gluttony_charged_shard_insert",
+        "souls_builddesk::sloth_healing_extension",
+        "souls_builddesk::lust_healing_extension",
+        "souls_builddesk::envy_healing_extension",
+        "sloth_charged_shard_insert",
+        "envy_charged_shard_insert",
+        "lust_charged_shard_insert"
+      ],
+      "completedOneTimeCrafts": [
+        "souls_builddesk::soul_healing_for_human",
+        "sauce_for_meal"
+      ],
+      "wgoParamMinimums": [],
+      "personalItemGrants": []
+    },
+    {
+      "milestoneId": "better_save_soul_smiler_investigation_opened",
+      "npcId": "npc_cultist",
+      "taskId": "dlc_souls_s42",
+      "activeStates": [
+        "Visible"
+      ],
+      "playerParamRepairs": [
+        {
+          "key": "euric_ready_to_destroy",
+          "value": 0
+        }
+      ],
+      "playerParamMinimums": [
+        {
+          "key": "soul_min",
+          "value": 3
+        },
+        {
+          "key": "soul_max",
+          "value": 4
+        },
+        {
+          "key": "is_s_s15_done",
+          "value": 1
+        },
+        {
+          "key": "ev_s_s17_ready_start",
+          "value": 1
+        },
+        {
+          "key": "ev_s_s27_ready_start",
+          "value": 1
+        },
+        {
+          "key": "done_sauce_for_meal",
+          "value": 1
+        }
+      ],
+      "taskStateMinimums": [
+        {
+          "npcId": "npc_inquisitor",
+          "taskId": "dlc_souls_s21_2",
+          "state": "Complete"
+        },
+        {
+          "npcId": "npc_merchant",
+          "taskId": "dlc_souls_s23_2",
+          "state": "Complete"
+        },
+        {
+          "npcId": "npc_astrologer",
+          "taskId": "dlc_souls_s29_1",
+          "state": "Complete"
+        },
+        {
+          "npcId": "npc_actress",
+          "taskId": "dlc_souls_s29_2",
+          "state": "Complete"
+        },
+        {
+          "npcId": "npc_cultist",
+          "taskId": "dlc_souls_s29_3",
+          "state": "Complete"
+        },
+        {
+          "npcId": "npc_tavern owner",
+          "taskId": "dlc_souls_s35",
+          "state": "Visible"
+        }
+      ],
+      "unlockedTechs": [
+        "soul_sins_1",
+        "soul_sins_2",
+        "soul_buildings",
+        "soul_sins_3",
+        "soul_sins_4"
+      ],
+      "unlockedPhrases": [
+        "@souls_s_s20_1_ask",
+        "@souls_s_s28_ask",
+        "@souls_s_s29_1_1_ask",
+        "@souls_s_s29_1_2_ask",
+        "@souls_s_s29_1_3_ask",
+        "@souls_s_s30_ask",
+        "@souls_s_s31_ask",
+        "@souls_s_s33_ask",
+        "@souls_s_s34_ask",
+        "@souls_s_s43_ask",
+        "@souls_s_s42_ask"
+      ],
+      "blacklistedPhrases": [
+        "@souls_s_s15_ask",
+        "@souls_s_s16_1_ask",
+        "@souls_s_s19_ask",
+        "@souls_s_s20_2_ask",
+        "@souls_s_s23_ask",
+        "@souls_s_s24_ask",
+        "@souls_s_s28_ask",
+        "@souls_s_s29_1_1_ask",
+        "@souls_s_s29_1_2_ask",
+        "@souls_s_s29_1_3_ask",
+        "@souls_s_s30_ask",
+        "@souls_s_s31_ask",
+        "@souls_s_s33_ask",
+        "@souls_s_s34_ask"
+      ],
+      "unlockedCrafts": [
+        "souls_builddesk:p:soul_container_place",
+        "souls_builddesk::soul_workbench",
+        "souls_builddesk::pride_healing_extension",
+        "fake_global_craft",
+        "souls_builddesk::soul_healing_for_human",
+        "pride_charged_shard_insert",
+        "souls_builddesk:p:soul_container_2_place",
+        "souls_builddesk::soul_extractor_upgrd_to_2",
+        "souls_builddesk::wrath_healing_extension",
+        "souls_builddesk::gluttony_healing_extension",
+        "sauce_for_meal",
+        "wrath_charged_shard_insert",
+        "gluttony_charged_shard_insert",
+        "souls_builddesk::sloth_healing_extension",
+        "souls_builddesk::lust_healing_extension",
+        "souls_builddesk::envy_healing_extension",
+        "sloth_charged_shard_insert",
+        "envy_charged_shard_insert",
+        "lust_charged_shard_insert"
+      ],
+      "completedOneTimeCrafts": [
+        "souls_builddesk::soul_healing_for_human",
+        "sauce_for_meal"
+      ],
+      "wgoParamMinimums": [],
+      "personalItemGrants": []
+    },
+    {
+      "milestoneId": "better_save_soul_snake_interview_entered",
+      "npcId": "npc_cultist",
+      "taskId": "dlc_souls_s42",
+      "activeStates": [
+        "Complete"
+      ],
+      "playerParamRepairs": [
+        {
+          "key": "euric_ready_to_destroy",
+          "value": 0
+        }
+      ],
+      "playerParamMinimums": [
+        {
+          "key": "soul_min",
+          "value": 3
+        },
+        {
+          "key": "soul_max",
+          "value": 4
+        },
+        {
+          "key": "is_s_s15_done",
+          "value": 1
+        },
+        {
+          "key": "ev_s_s17_ready_start",
+          "value": 1
+        },
+        {
+          "key": "ev_s_s27_ready_start",
+          "value": 1
+        },
+        {
+          "key": "done_sauce_for_meal",
+          "value": 1
+        }
+      ],
+      "taskStateMinimums": [
+        {
+          "npcId": "npc_inquisitor",
+          "taskId": "dlc_souls_s21_2",
+          "state": "Complete"
+        },
+        {
+          "npcId": "npc_merchant",
+          "taskId": "dlc_souls_s23_2",
+          "state": "Complete"
+        },
+        {
+          "npcId": "npc_astrologer",
+          "taskId": "dlc_souls_s29_1",
+          "state": "Complete"
+        },
+        {
+          "npcId": "npc_actress",
+          "taskId": "dlc_souls_s29_2",
+          "state": "Complete"
+        },
+        {
+          "npcId": "npc_cultist",
+          "taskId": "dlc_souls_s29_3",
+          "state": "Complete"
+        },
+        {
+          "npcId": "npc_tavern owner",
+          "taskId": "dlc_souls_s35",
+          "state": "Visible"
+        }
+      ],
+      "unlockedTechs": [
+        "soul_sins_1",
+        "soul_sins_2",
+        "soul_buildings",
+        "soul_sins_3",
+        "soul_sins_4"
+      ],
+      "unlockedPhrases": [
+        "@souls_s_s20_1_ask",
+        "@souls_s_s28_ask",
+        "@souls_s_s29_1_1_ask",
+        "@souls_s_s29_1_2_ask",
+        "@souls_s_s29_1_3_ask",
+        "@souls_s_s30_ask",
+        "@souls_s_s31_ask",
+        "@souls_s_s33_ask",
+        "@souls_s_s34_ask",
+        "@souls_s_s43_ask",
+        "@souls_s_s42_ask"
+      ],
+      "blacklistedPhrases": [
+        "@souls_s_s15_ask",
+        "@souls_s_s16_1_ask",
+        "@souls_s_s19_ask",
+        "@souls_s_s20_2_ask",
+        "@souls_s_s23_ask",
+        "@souls_s_s24_ask",
+        "@souls_s_s28_ask",
+        "@souls_s_s29_1_1_ask",
+        "@souls_s_s29_1_2_ask",
+        "@souls_s_s29_1_3_ask",
+        "@souls_s_s30_ask",
+        "@souls_s_s31_ask",
+        "@souls_s_s33_ask",
+        "@souls_s_s34_ask",
+        "@souls_s_s43_ask"
+      ],
+      "unlockedCrafts": [
+        "souls_builddesk:p:soul_container_place",
+        "souls_builddesk::soul_workbench",
+        "souls_builddesk::pride_healing_extension",
+        "fake_global_craft",
+        "souls_builddesk::soul_healing_for_human",
+        "pride_charged_shard_insert",
+        "souls_builddesk:p:soul_container_2_place",
+        "souls_builddesk::soul_extractor_upgrd_to_2",
+        "souls_builddesk::wrath_healing_extension",
+        "souls_builddesk::gluttony_healing_extension",
+        "sauce_for_meal",
+        "wrath_charged_shard_insert",
+        "gluttony_charged_shard_insert",
+        "souls_builddesk::sloth_healing_extension",
+        "souls_builddesk::lust_healing_extension",
+        "souls_builddesk::envy_healing_extension",
+        "sloth_charged_shard_insert",
+        "envy_charged_shard_insert",
+        "lust_charged_shard_insert"
+      ],
+      "completedOneTimeCrafts": [
+        "souls_builddesk::soul_healing_for_human",
+        "sauce_for_meal"
+      ],
+      "wgoParamMinimums": [],
+      "personalItemGrants": []
+    },
+    {
+      "milestoneId": "better_save_soul_gerry_search_visible",
+      "npcId": "player",
+      "taskId": "dlc_souls_s43",
+      "activeStates": [
+        "Visible"
+      ],
+      "playerParamRepairs": [
+        {
+          "key": "euric_ready_to_destroy",
+          "value": 0
+        }
+      ],
+      "playerParamMinimums": [
+        {
+          "key": "soul_min",
+          "value": 3
+        },
+        {
+          "key": "soul_max",
+          "value": 4
+        },
+        {
+          "key": "is_s_s15_done",
+          "value": 1
+        },
+        {
+          "key": "ev_s_s17_ready_start",
+          "value": 1
+        },
+        {
+          "key": "ev_s_s27_ready_start",
+          "value": 1
+        },
+        {
+          "key": "done_sauce_for_meal",
+          "value": 1
+        }
+      ],
+      "taskStateMinimums": [
+        {
+          "npcId": "npc_inquisitor",
+          "taskId": "dlc_souls_s21_2",
+          "state": "Complete"
+        },
+        {
+          "npcId": "npc_merchant",
+          "taskId": "dlc_souls_s23_2",
+          "state": "Complete"
+        },
+        {
+          "npcId": "npc_astrologer",
+          "taskId": "dlc_souls_s29_1",
+          "state": "Complete"
+        },
+        {
+          "npcId": "npc_actress",
+          "taskId": "dlc_souls_s29_2",
+          "state": "Complete"
+        },
+        {
+          "npcId": "npc_cultist",
+          "taskId": "dlc_souls_s29_3",
+          "state": "Complete"
+        },
+        {
+          "npcId": "npc_tavern owner",
+          "taskId": "dlc_souls_s35",
+          "state": "Visible"
+        },
+        {
+          "npcId": "npc_cultist",
+          "taskId": "dlc_souls_s42",
+          "state": "Complete"
+        }
+      ],
+      "unlockedTechs": [
+        "soul_sins_1",
+        "soul_sins_2",
+        "soul_buildings",
+        "soul_sins_3",
+        "soul_sins_4"
+      ],
+      "unlockedPhrases": [
+        "@souls_s_s20_1_ask",
+        "@souls_s_s28_ask",
+        "@souls_s_s29_1_1_ask",
+        "@souls_s_s29_1_2_ask",
+        "@souls_s_s29_1_3_ask",
+        "@souls_s_s30_ask",
+        "@souls_s_s31_ask",
+        "@souls_s_s33_ask",
+        "@souls_s_s34_ask",
+        "@souls_s_s43_ask",
+        "@souls_s_s42_ask",
+        "@souls_s_s44_ask"
+      ],
+      "blacklistedPhrases": [
+        "@souls_s_s15_ask",
+        "@souls_s_s16_1_ask",
+        "@souls_s_s19_ask",
+        "@souls_s_s20_2_ask",
+        "@souls_s_s23_ask",
+        "@souls_s_s24_ask",
+        "@souls_s_s28_ask",
+        "@souls_s_s29_1_1_ask",
+        "@souls_s_s29_1_2_ask",
+        "@souls_s_s29_1_3_ask",
+        "@souls_s_s30_ask",
+        "@souls_s_s31_ask",
+        "@souls_s_s33_ask",
+        "@souls_s_s34_ask",
+        "@souls_s_s43_ask"
+      ],
+      "unlockedCrafts": [
+        "souls_builddesk:p:soul_container_place",
+        "souls_builddesk::soul_workbench",
+        "souls_builddesk::pride_healing_extension",
+        "fake_global_craft",
+        "souls_builddesk::soul_healing_for_human",
+        "pride_charged_shard_insert",
+        "souls_builddesk:p:soul_container_2_place",
+        "souls_builddesk::soul_extractor_upgrd_to_2",
+        "souls_builddesk::wrath_healing_extension",
+        "souls_builddesk::gluttony_healing_extension",
+        "sauce_for_meal",
+        "wrath_charged_shard_insert",
+        "gluttony_charged_shard_insert",
+        "souls_builddesk::sloth_healing_extension",
+        "souls_builddesk::lust_healing_extension",
+        "souls_builddesk::envy_healing_extension",
+        "sloth_charged_shard_insert",
+        "envy_charged_shard_insert",
+        "lust_charged_shard_insert"
+      ],
+      "completedOneTimeCrafts": [
+        "souls_builddesk::soul_healing_for_human",
+        "sauce_for_meal"
+      ],
+      "wgoParamMinimums": [],
+      "personalItemGrants": []
+    },
+    {
+      "milestoneId": "better_save_soul_gerry_page_handoff_entered",
+      "npcId": "player",
+      "taskId": "dlc_souls_s43",
+      "activeStates": [
+        "Complete"
+      ],
+      "playerParamRepairs": [
+        {
+          "key": "euric_ready_to_destroy",
+          "value": 0
+        }
+      ],
+      "playerParamMinimums": [
+        {
+          "key": "soul_min",
+          "value": 3
+        },
+        {
+          "key": "soul_max",
+          "value": 4
+        },
+        {
+          "key": "is_s_s15_done",
+          "value": 1
+        },
+        {
+          "key": "ev_s_s17_ready_start",
+          "value": 1
+        },
+        {
+          "key": "ev_s_s27_ready_start",
+          "value": 1
+        },
+        {
+          "key": "done_sauce_for_meal",
+          "value": 1
+        }
+      ],
+      "taskStateMinimums": [
+        {
+          "npcId": "npc_inquisitor",
+          "taskId": "dlc_souls_s21_2",
+          "state": "Complete"
+        },
+        {
+          "npcId": "npc_merchant",
+          "taskId": "dlc_souls_s23_2",
+          "state": "Complete"
+        },
+        {
+          "npcId": "npc_astrologer",
+          "taskId": "dlc_souls_s29_1",
+          "state": "Complete"
+        },
+        {
+          "npcId": "npc_actress",
+          "taskId": "dlc_souls_s29_2",
+          "state": "Complete"
+        },
+        {
+          "npcId": "npc_cultist",
+          "taskId": "dlc_souls_s29_3",
+          "state": "Complete"
+        },
+        {
+          "npcId": "npc_tavern owner",
+          "taskId": "dlc_souls_s35",
+          "state": "Visible"
+        },
+        {
+          "npcId": "npc_cultist",
+          "taskId": "dlc_souls_s42",
+          "state": "Complete"
+        }
+      ],
+      "unlockedTechs": [
+        "soul_sins_1",
+        "soul_sins_2",
+        "soul_buildings",
+        "soul_sins_3",
+        "soul_sins_4"
+      ],
+      "unlockedPhrases": [
+        "@souls_s_s20_1_ask",
+        "@souls_s_s28_ask",
+        "@souls_s_s29_1_1_ask",
+        "@souls_s_s29_1_2_ask",
+        "@souls_s_s29_1_3_ask",
+        "@souls_s_s30_ask",
+        "@souls_s_s31_ask",
+        "@souls_s_s33_ask",
+        "@souls_s_s34_ask",
+        "@souls_s_s43_ask",
+        "@souls_s_s42_ask",
+        "@souls_s_s44_ask"
+      ],
+      "blacklistedPhrases": [
+        "@souls_s_s15_ask",
+        "@souls_s_s16_1_ask",
+        "@souls_s_s19_ask",
+        "@souls_s_s20_2_ask",
+        "@souls_s_s23_ask",
+        "@souls_s_s24_ask",
+        "@souls_s_s28_ask",
+        "@souls_s_s29_1_1_ask",
+        "@souls_s_s29_1_2_ask",
+        "@souls_s_s29_1_3_ask",
+        "@souls_s_s30_ask",
+        "@souls_s_s31_ask",
+        "@souls_s_s33_ask",
+        "@souls_s_s34_ask",
+        "@souls_s_s43_ask",
+        "@souls_s_s44_ask"
+      ],
+      "unlockedCrafts": [
+        "souls_builddesk:p:soul_container_place",
+        "souls_builddesk::soul_workbench",
+        "souls_builddesk::pride_healing_extension",
+        "fake_global_craft",
+        "souls_builddesk::soul_healing_for_human",
+        "pride_charged_shard_insert",
+        "souls_builddesk:p:soul_container_2_place",
+        "souls_builddesk::soul_extractor_upgrd_to_2",
+        "souls_builddesk::wrath_healing_extension",
+        "souls_builddesk::gluttony_healing_extension",
+        "sauce_for_meal",
+        "wrath_charged_shard_insert",
+        "gluttony_charged_shard_insert",
+        "souls_builddesk::sloth_healing_extension",
+        "souls_builddesk::lust_healing_extension",
+        "souls_builddesk::envy_healing_extension",
+        "sloth_charged_shard_insert",
+        "envy_charged_shard_insert",
+        "lust_charged_shard_insert"
+      ],
+      "completedOneTimeCrafts": [
+        "souls_builddesk::soul_healing_for_human",
+        "sauce_for_meal"
+      ],
+      "wgoParamMinimums": [],
+      "personalItemGrants": []
+    },
+    {
+      "milestoneId": "better_save_soul_lost_book_page_ready",
+      "npcId": "player",
+      "taskId": "dlc_souls_s44",
+      "activeStates": [
+        "Visible"
+      ],
+      "playerParamRepairs": [
+        {
+          "key": "euric_ready_to_destroy",
+          "value": 0
+        }
+      ],
+      "playerParamMinimums": [
+        {
+          "key": "soul_min",
+          "value": 3
+        },
+        {
+          "key": "soul_max",
+          "value": 4
+        },
+        {
+          "key": "is_s_s15_done",
+          "value": 1
+        },
+        {
+          "key": "ev_s_s17_ready_start",
+          "value": 1
+        },
+        {
+          "key": "ev_s_s27_ready_start",
+          "value": 1
+        },
+        {
+          "key": "done_sauce_for_meal",
+          "value": 1
+        }
+      ],
+      "taskStateMinimums": [
+        {
+          "npcId": "npc_inquisitor",
+          "taskId": "dlc_souls_s21_2",
+          "state": "Complete"
+        },
+        {
+          "npcId": "npc_merchant",
+          "taskId": "dlc_souls_s23_2",
+          "state": "Complete"
+        },
+        {
+          "npcId": "npc_astrologer",
+          "taskId": "dlc_souls_s29_1",
+          "state": "Complete"
+        },
+        {
+          "npcId": "npc_actress",
+          "taskId": "dlc_souls_s29_2",
+          "state": "Complete"
+        },
+        {
+          "npcId": "npc_cultist",
+          "taskId": "dlc_souls_s29_3",
+          "state": "Complete"
+        },
+        {
+          "npcId": "npc_tavern owner",
+          "taskId": "dlc_souls_s35",
+          "state": "Visible"
+        },
+        {
+          "npcId": "npc_cultist",
+          "taskId": "dlc_souls_s42",
+          "state": "Complete"
+        },
+        {
+          "npcId": "player",
+          "taskId": "dlc_souls_s43",
+          "state": "Complete"
+        }
+      ],
+      "unlockedTechs": [
+        "soul_sins_1",
+        "soul_sins_2",
+        "soul_buildings",
+        "soul_sins_3",
+        "soul_sins_4"
+      ],
+      "unlockedPhrases": [
+        "@souls_s_s20_1_ask",
+        "@souls_s_s28_ask",
+        "@souls_s_s29_1_1_ask",
+        "@souls_s_s29_1_2_ask",
+        "@souls_s_s29_1_3_ask",
+        "@souls_s_s30_ask",
+        "@souls_s_s31_ask",
+        "@souls_s_s33_ask",
+        "@souls_s_s34_ask",
+        "@souls_s_s43_ask",
+        "@souls_s_s42_ask",
+        "@souls_s_s44_ask"
+      ],
+      "blacklistedPhrases": [
+        "@souls_s_s15_ask",
+        "@souls_s_s16_1_ask",
+        "@souls_s_s19_ask",
+        "@souls_s_s20_2_ask",
+        "@souls_s_s23_ask",
+        "@souls_s_s24_ask",
+        "@souls_s_s28_ask",
+        "@souls_s_s29_1_1_ask",
+        "@souls_s_s29_1_2_ask",
+        "@souls_s_s29_1_3_ask",
+        "@souls_s_s30_ask",
+        "@souls_s_s31_ask",
+        "@souls_s_s33_ask",
+        "@souls_s_s34_ask",
+        "@souls_s_s43_ask",
+        "@souls_s_s44_ask"
+      ],
+      "unlockedCrafts": [
+        "souls_builddesk:p:soul_container_place",
+        "souls_builddesk::soul_workbench",
+        "souls_builddesk::pride_healing_extension",
+        "fake_global_craft",
+        "souls_builddesk::soul_healing_for_human",
+        "pride_charged_shard_insert",
+        "souls_builddesk:p:soul_container_2_place",
+        "souls_builddesk::soul_extractor_upgrd_to_2",
+        "souls_builddesk::wrath_healing_extension",
+        "souls_builddesk::gluttony_healing_extension",
+        "sauce_for_meal",
+        "wrath_charged_shard_insert",
+        "gluttony_charged_shard_insert",
+        "souls_builddesk::sloth_healing_extension",
+        "souls_builddesk::lust_healing_extension",
+        "souls_builddesk::envy_healing_extension",
+        "sloth_charged_shard_insert",
+        "envy_charged_shard_insert",
+        "lust_charged_shard_insert"
+      ],
+      "completedOneTimeCrafts": [
+        "souls_builddesk::soul_healing_for_human",
+        "sauce_for_meal"
+      ],
+      "wgoParamMinimums": [],
+      "personalItemGrants": []
+    },
+    {
+      "milestoneId": "better_save_soul_portal_encounter_entered",
+      "npcId": "player",
+      "taskId": "dlc_souls_s44",
+      "activeStates": [
+        "Complete"
+      ],
+      "playerParamRepairs": [
+        {
+          "key": "euric_ready_to_destroy",
+          "value": 0
+        }
+      ],
+      "playerParamMinimums": [
+        {
+          "key": "soul_min",
+          "value": 3
+        },
+        {
+          "key": "soul_max",
+          "value": 4
+        },
+        {
+          "key": "is_s_s15_done",
+          "value": 1
+        },
+        {
+          "key": "ev_s_s17_ready_start",
+          "value": 1
+        },
+        {
+          "key": "ev_s_s27_ready_start",
+          "value": 1
+        },
+        {
+          "key": "done_sauce_for_meal",
+          "value": 1
+        }
+      ],
+      "taskStateMinimums": [
+        {
+          "npcId": "npc_inquisitor",
+          "taskId": "dlc_souls_s21_2",
+          "state": "Complete"
+        },
+        {
+          "npcId": "npc_merchant",
+          "taskId": "dlc_souls_s23_2",
+          "state": "Complete"
+        },
+        {
+          "npcId": "npc_astrologer",
+          "taskId": "dlc_souls_s29_1",
+          "state": "Complete"
+        },
+        {
+          "npcId": "npc_actress",
+          "taskId": "dlc_souls_s29_2",
+          "state": "Complete"
+        },
+        {
+          "npcId": "npc_cultist",
+          "taskId": "dlc_souls_s29_3",
+          "state": "Complete"
+        },
+        {
+          "npcId": "npc_tavern owner",
+          "taskId": "dlc_souls_s35",
+          "state": "Visible"
+        },
+        {
+          "npcId": "npc_cultist",
+          "taskId": "dlc_souls_s42",
+          "state": "Complete"
+        },
+        {
+          "npcId": "player",
+          "taskId": "dlc_souls_s43",
+          "state": "Complete"
+        }
+      ],
+      "unlockedTechs": [
+        "soul_sins_1",
+        "soul_sins_2",
+        "soul_buildings",
+        "soul_sins_3",
+        "soul_sins_4"
+      ],
+      "unlockedPhrases": [
+        "@souls_s_s20_1_ask",
+        "@souls_s_s28_ask",
+        "@souls_s_s29_1_1_ask",
+        "@souls_s_s29_1_2_ask",
+        "@souls_s_s29_1_3_ask",
+        "@souls_s_s30_ask",
+        "@souls_s_s31_ask",
+        "@souls_s_s33_ask",
+        "@souls_s_s34_ask",
+        "@souls_s_s43_ask",
+        "@souls_s_s42_ask",
+        "@souls_s_s44_ask"
+      ],
+      "blacklistedPhrases": [
+        "@souls_s_s15_ask",
+        "@souls_s_s16_1_ask",
+        "@souls_s_s19_ask",
+        "@souls_s_s20_2_ask",
+        "@souls_s_s23_ask",
+        "@souls_s_s24_ask",
+        "@souls_s_s28_ask",
+        "@souls_s_s29_1_1_ask",
+        "@souls_s_s29_1_2_ask",
+        "@souls_s_s29_1_3_ask",
+        "@souls_s_s30_ask",
+        "@souls_s_s31_ask",
+        "@souls_s_s33_ask",
+        "@souls_s_s34_ask",
+        "@souls_s_s43_ask",
+        "@souls_s_s44_ask"
+      ],
+      "unlockedCrafts": [
+        "souls_builddesk:p:soul_container_place",
+        "souls_builddesk::soul_workbench",
+        "souls_builddesk::pride_healing_extension",
+        "fake_global_craft",
+        "souls_builddesk::soul_healing_for_human",
+        "pride_charged_shard_insert",
+        "souls_builddesk:p:soul_container_2_place",
+        "souls_builddesk::soul_extractor_upgrd_to_2",
+        "souls_builddesk::wrath_healing_extension",
+        "souls_builddesk::gluttony_healing_extension",
+        "sauce_for_meal",
+        "wrath_charged_shard_insert",
+        "gluttony_charged_shard_insert",
+        "souls_builddesk::sloth_healing_extension",
+        "souls_builddesk::lust_healing_extension",
+        "souls_builddesk::envy_healing_extension",
+        "sloth_charged_shard_insert",
+        "envy_charged_shard_insert",
+        "lust_charged_shard_insert"
+      ],
+      "completedOneTimeCrafts": [
+        "souls_builddesk::soul_healing_for_human",
+        "sauce_for_meal"
+      ],
+      "wgoParamMinimums": [],
+      "personalItemGrants": []
+    },
+    {
+      "milestoneId": "better_save_soul_portal_farewell_visible",
+      "npcId": "npc_smiler",
+      "taskId": "dlc_souls_s45",
+      "activeStates": [
+        "Visible"
+      ],
+      "playerParamRepairs": [
+        {
+          "key": "euric_ready_to_destroy",
+          "value": 0
+        }
+      ],
+      "playerParamMinimums": [
+        {
+          "key": "soul_min",
+          "value": 3
+        },
+        {
+          "key": "soul_max",
+          "value": 4
+        },
+        {
+          "key": "is_s_s15_done",
+          "value": 1
+        },
+        {
+          "key": "ev_s_s17_ready_start",
+          "value": 1
+        },
+        {
+          "key": "ev_s_s27_ready_start",
+          "value": 1
+        },
+        {
+          "key": "done_sauce_for_meal",
+          "value": 1
+        }
+      ],
+      "taskStateMinimums": [
+        {
+          "npcId": "npc_inquisitor",
+          "taskId": "dlc_souls_s21_2",
+          "state": "Complete"
+        },
+        {
+          "npcId": "npc_merchant",
+          "taskId": "dlc_souls_s23_2",
+          "state": "Complete"
+        },
+        {
+          "npcId": "npc_astrologer",
+          "taskId": "dlc_souls_s29_1",
+          "state": "Complete"
+        },
+        {
+          "npcId": "npc_actress",
+          "taskId": "dlc_souls_s29_2",
+          "state": "Complete"
+        },
+        {
+          "npcId": "npc_cultist",
+          "taskId": "dlc_souls_s29_3",
+          "state": "Complete"
+        },
+        {
+          "npcId": "npc_tavern owner",
+          "taskId": "dlc_souls_s35",
+          "state": "Visible"
+        },
+        {
+          "npcId": "npc_cultist",
+          "taskId": "dlc_souls_s42",
+          "state": "Complete"
+        },
+        {
+          "npcId": "player",
+          "taskId": "dlc_souls_s43",
+          "state": "Complete"
+        },
+        {
+          "npcId": "player",
+          "taskId": "dlc_souls_s44",
+          "state": "Complete"
+        }
+      ],
+      "unlockedTechs": [
+        "soul_sins_1",
+        "soul_sins_2",
+        "soul_buildings",
+        "soul_sins_3",
+        "soul_sins_4"
+      ],
+      "unlockedPhrases": [
+        "@souls_s_s20_1_ask",
+        "@souls_s_s28_ask",
+        "@souls_s_s29_1_1_ask",
+        "@souls_s_s29_1_2_ask",
+        "@souls_s_s29_1_3_ask",
+        "@souls_s_s30_ask",
+        "@souls_s_s31_ask",
+        "@souls_s_s33_ask",
+        "@souls_s_s34_ask",
+        "@souls_s_s43_ask",
+        "@souls_s_s42_ask",
+        "@souls_s_s44_ask",
+        "@souls_s_s46_ask"
+      ],
+      "blacklistedPhrases": [
+        "@souls_s_s15_ask",
+        "@souls_s_s16_1_ask",
+        "@souls_s_s19_ask",
+        "@souls_s_s20_2_ask",
+        "@souls_s_s23_ask",
+        "@souls_s_s24_ask",
+        "@souls_s_s28_ask",
+        "@souls_s_s29_1_1_ask",
+        "@souls_s_s29_1_2_ask",
+        "@souls_s_s29_1_3_ask",
+        "@souls_s_s30_ask",
+        "@souls_s_s31_ask",
+        "@souls_s_s33_ask",
+        "@souls_s_s34_ask",
+        "@souls_s_s43_ask",
+        "@souls_s_s44_ask"
+      ],
+      "unlockedCrafts": [
+        "souls_builddesk:p:soul_container_place",
+        "souls_builddesk::soul_workbench",
+        "souls_builddesk::pride_healing_extension",
+        "fake_global_craft",
+        "souls_builddesk::soul_healing_for_human",
+        "pride_charged_shard_insert",
+        "souls_builddesk:p:soul_container_2_place",
+        "souls_builddesk::soul_extractor_upgrd_to_2",
+        "souls_builddesk::wrath_healing_extension",
+        "souls_builddesk::gluttony_healing_extension",
+        "sauce_for_meal",
+        "wrath_charged_shard_insert",
+        "gluttony_charged_shard_insert",
+        "souls_builddesk::sloth_healing_extension",
+        "souls_builddesk::lust_healing_extension",
+        "souls_builddesk::envy_healing_extension",
+        "sloth_charged_shard_insert",
+        "envy_charged_shard_insert",
+        "lust_charged_shard_insert"
+      ],
+      "completedOneTimeCrafts": [
+        "souls_builddesk::soul_healing_for_human",
+        "sauce_for_meal"
+      ],
+      "wgoParamMinimums": [],
+      "personalItemGrants": []
+    },
+    {
+      "milestoneId": "better_save_soul_portal_farewell_entered",
+      "npcId": "npc_smiler",
+      "taskId": "dlc_souls_s45",
+      "activeStates": [
+        "Complete"
+      ],
+      "playerParamRepairs": [
+        {
+          "key": "euric_ready_to_destroy",
+          "value": 0
+        }
+      ],
+      "playerParamMinimums": [
+        {
+          "key": "soul_min",
+          "value": 3
+        },
+        {
+          "key": "soul_max",
+          "value": 4
+        },
+        {
+          "key": "is_s_s15_done",
+          "value": 1
+        },
+        {
+          "key": "ev_s_s17_ready_start",
+          "value": 1
+        },
+        {
+          "key": "ev_s_s27_ready_start",
+          "value": 1
+        },
+        {
+          "key": "done_sauce_for_meal",
+          "value": 1
+        }
+      ],
+      "taskStateMinimums": [
+        {
+          "npcId": "npc_inquisitor",
+          "taskId": "dlc_souls_s21_2",
+          "state": "Complete"
+        },
+        {
+          "npcId": "npc_merchant",
+          "taskId": "dlc_souls_s23_2",
+          "state": "Complete"
+        },
+        {
+          "npcId": "npc_astrologer",
+          "taskId": "dlc_souls_s29_1",
+          "state": "Complete"
+        },
+        {
+          "npcId": "npc_actress",
+          "taskId": "dlc_souls_s29_2",
+          "state": "Complete"
+        },
+        {
+          "npcId": "npc_cultist",
+          "taskId": "dlc_souls_s29_3",
+          "state": "Complete"
+        },
+        {
+          "npcId": "npc_tavern owner",
+          "taskId": "dlc_souls_s35",
+          "state": "Visible"
+        },
+        {
+          "npcId": "npc_cultist",
+          "taskId": "dlc_souls_s42",
+          "state": "Complete"
+        },
+        {
+          "npcId": "player",
+          "taskId": "dlc_souls_s43",
+          "state": "Complete"
+        },
+        {
+          "npcId": "player",
+          "taskId": "dlc_souls_s44",
+          "state": "Complete"
+        }
+      ],
+      "unlockedTechs": [
+        "soul_sins_1",
+        "soul_sins_2",
+        "soul_buildings",
+        "soul_sins_3",
+        "soul_sins_4"
+      ],
+      "unlockedPhrases": [
+        "@souls_s_s20_1_ask",
+        "@souls_s_s28_ask",
+        "@souls_s_s29_1_1_ask",
+        "@souls_s_s29_1_2_ask",
+        "@souls_s_s29_1_3_ask",
+        "@souls_s_s30_ask",
+        "@souls_s_s31_ask",
+        "@souls_s_s33_ask",
+        "@souls_s_s34_ask",
+        "@souls_s_s43_ask",
+        "@souls_s_s42_ask",
+        "@souls_s_s44_ask",
+        "@souls_s_s46_ask"
+      ],
+      "blacklistedPhrases": [
+        "@souls_s_s15_ask",
+        "@souls_s_s16_1_ask",
+        "@souls_s_s19_ask",
+        "@souls_s_s20_2_ask",
+        "@souls_s_s23_ask",
+        "@souls_s_s24_ask",
+        "@souls_s_s28_ask",
+        "@souls_s_s29_1_1_ask",
+        "@souls_s_s29_1_2_ask",
+        "@souls_s_s29_1_3_ask",
+        "@souls_s_s30_ask",
+        "@souls_s_s31_ask",
+        "@souls_s_s33_ask",
+        "@souls_s_s34_ask",
+        "@souls_s_s43_ask",
+        "@souls_s_s44_ask",
+        "@souls_s_s46_ask"
+      ],
+      "unlockedCrafts": [
+        "souls_builddesk:p:soul_container_place",
+        "souls_builddesk::soul_workbench",
+        "souls_builddesk::pride_healing_extension",
+        "fake_global_craft",
+        "souls_builddesk::soul_healing_for_human",
+        "pride_charged_shard_insert",
+        "souls_builddesk:p:soul_container_2_place",
+        "souls_builddesk::soul_extractor_upgrd_to_2",
+        "souls_builddesk::wrath_healing_extension",
+        "souls_builddesk::gluttony_healing_extension",
+        "sauce_for_meal",
+        "wrath_charged_shard_insert",
+        "gluttony_charged_shard_insert",
+        "souls_builddesk::sloth_healing_extension",
+        "souls_builddesk::lust_healing_extension",
+        "souls_builddesk::envy_healing_extension",
+        "sloth_charged_shard_insert",
+        "envy_charged_shard_insert",
+        "lust_charged_shard_insert"
+      ],
+      "completedOneTimeCrafts": [
+        "souls_builddesk::soul_healing_for_human",
+        "sauce_for_meal"
+      ],
+      "wgoParamMinimums": [],
+      "personalItemGrants": []
+    }
+  ],
+  "cutscenes": [
+    {
+      "cutsceneId": "better_save_soul_begin_smiler_investigation",
+      "linkedQuestIds": [],
+      "triggerScripts": [
+        "gykmp_story_dispatch_better_save_soul_s42_event",
+        "npc_smiler:ev_s_42_talk"
+      ],
+      "actors": [
+        "initiating_player",
+        "npc_smiler"
+      ],
+      "observerPolicy": "all_loaded_party_members",
+      "lateJoinPolicy": "join_live_checkpoint_or_observe",
+      "remoteExecutionPolicy": "live_observation",
+      "executionOwnerPolicy": "lobby_host",
+      "dialogueOwnerPolicy": "initiating_player",
+      "formationPolicy": "preserve_positions",
+      "cleanupRequirements": [
+        "require-gykmp_story_phase_better_save_soul_s35_scene_complete-before-delivering-the-event_registered-early-during-S35",
+        "journal-registered_popped_dispatched_and-delivered-separately-because-vanilla-removes-the-queue-head-before-FireEvent",
+        "bind-the-real-Smiler-interactor_then-disable-only-that-player-and-present-souls_s_s42_1-through-15-in-source-speaker-order",
+        "join-the-line-four-and-ten-smile-timers_with-their-dialogue-lines_and-reconcile-the-unjoined-line-fifteen-smile-tail",
+        "show-npc_cultist-dlc_souls_s42_unlock-required-S43-and-optional-S42_topics_then-enter-Smilers-menu-without-prematurely-enabling-the-initiator"
+      ]
+    },
+    {
+      "cutsceneId": "better_save_soul_ask_smiler_about_euric",
+      "linkedQuestIds": [],
+      "triggerScripts": [
+        "gykmp_story_dispatch_better_save_soul_s42_optional",
+        "npc_smiler:@souls_s_s42_ask"
+      ],
+      "actors": [
+        "initiating_player",
+        "npc_smiler"
+      ],
+      "observerPolicy": "all_loaded_party_members",
+      "lateJoinPolicy": "join_live_checkpoint_or_observe",
+      "remoteExecutionPolicy": "live_observation",
+      "executionOwnerPolicy": "lobby_host",
+      "dialogueOwnerPolicy": "initiating_player",
+      "formationPolicy": "preserve_positions",
+      "cleanupRequirements": [
+        "keep-this-lore-topic-optional-and-never-gate-S43-or-later-progress-on-its-blacklist",
+        "bind-menu-answer-seven-to-the-real-selector_and-do-not-coalesce-it-with-S46-despite-the-shared-serialized-return-port-UUID",
+        "present-thirteen-lines_join-line-six-with-the-Right-facing-wait_then-face-the-initiator-Up-from-line-sevens-immediate-edge",
+        "restore-only-the-initiators-acquired-control_after-line-thirteen"
+      ]
+    },
+    {
+      "cutsceneId": "better_save_soul_question_snake_about_book",
+      "linkedQuestIds": [],
+      "triggerScripts": [
+        "gykmp_story_dispatch_better_save_soul_s43_ask",
+        "npc_cultist:@souls_s_s43_ask"
+      ],
+      "actors": [
+        "initiating_player",
+        "npc_cultist"
+      ],
+      "observerPolicy": "all_loaded_party_members",
+      "lateJoinPolicy": "join_live_checkpoint_or_observe",
+      "remoteExecutionPolicy": "live_observation",
+      "executionOwnerPolicy": "lobby_host",
+      "dialogueOwnerPolicy": "initiating_player",
+      "formationPolicy": "preserve_positions",
+      "cleanupRequirements": [
+        "bind-Snakes-menu-answer-thirty_and-blacklist-it-once",
+        "treat-npc_cultist-dlc_souls_s42-Complete-on-line-eighteens-immediate-edge-as-an-early-prefix",
+        "continue-through-two-player-thought-lines_then-show-player-dlc_souls_s43_unlock-S44-and-return-to-Snakes-menu",
+        "restore-control-through-the-real-menu-tail_not-by-enabling-every-observer"
+      ]
+    },
+    {
+      "cutsceneId": "better_save_soul_recover_lost_book_page",
+      "linkedQuestIds": [],
+      "triggerScripts": [
+        "gykmp_story_dispatch_better_save_soul_s44_ask",
+        "crafting_skull_3:@souls_s_s44_ask"
+      ],
+      "actors": [
+        "initiating_player",
+        "crafting_skull_3",
+        "lost_book_part",
+        "ev_s_s45_gd_zone_container"
+      ],
+      "observerPolicy": "all_loaded_party_members",
+      "lateJoinPolicy": "join_live_checkpoint_or_observe",
+      "remoteExecutionPolicy": "live_observation",
+      "executionOwnerPolicy": "lobby_host",
+      "dialogueOwnerPolicy": "initiating_player",
+      "formationPolicy": "preserve_positions",
+      "cleanupRequirements": [
+        "bind-free-menu-answer-thirteen_and-never-apply-the-gerry_tooth-price-from-unrelated-answer-twelve",
+        "treat-player-dlc_souls_s43-Complete-on-line-ones-immediate-edge-as-an-early-prefix",
+        "apply-animator-state-110_wait-two_state-zero_and-any-TryDropOverheadItem-only-to-the-actual-selector",
+        "prepare-then-create-or-adopt-exactly-one-transferable-lost_book_part-world-token_aimed-ToPlayer-without-a-personal-grant",
+        "after-two-thought-lines-show-S44_enable-the-S45-zone_and-restore-only-the-initiator_unless-stronger-S45-evidence-proves-the-token-and-zone-were-consumed"
+      ]
+    },
+    {
+      "cutsceneId": "better_save_soul_prepare_smiler_portal",
+      "linkedQuestIds": [],
+      "triggerScripts": [
+        "gykmp_story_dispatch_better_save_soul_s45_zone",
+        "on_enter_ev_s_s45_gd_zone"
+      ],
+      "actors": [
+        "initiating_player",
+        "npc_smiler",
+        "lost_book_part",
+        "ev_s_s45_gd_zone_container"
+      ],
+      "observerPolicy": "all_loaded_party_members",
+      "lateJoinPolicy": "join_live_checkpoint_or_observe",
+      "remoteExecutionPolicy": "live_observation",
+      "executionOwnerPolicy": "lobby_host",
+      "dialogueOwnerPolicy": "initiating_player",
+      "formationPolicy": "preserve_positions",
+      "cleanupRequirements": [
+        "admit-one-authoritative-zone-entrant_and-let-the-no-item-branch-EndScript-with-the-zone-still-enabled",
+        "reserve-and-remove-exactly-one-real-lost_book_part-from-the-bound-entrant_before-disabling-the-shared-zone",
+        "route-only-the-initiator-through-ev_s_s45_1-and-ev_s_s45_2_while-loaded-peers-observe",
+        "treat-player-dlc_souls_s44-Complete-on-line-eights-immediate-edge-as-an-early-prefix",
+        "after-line-twenty-three-show-npc_smiler-dlc_souls_s45_unlock-S46_restore-the-bound-initiator-and-EndScript",
+        "recover-debit_trigger_dialogue_task_topic_control-and-terminal-as-separate-suffixes_without-reminting-or-redebiting-the-page"
+      ]
+    },
+    {
+      "cutsceneId": "better_save_soul_bid_smiler_farewell",
+      "linkedQuestIds": [
+        "dlc_souls_s_s_46"
+      ],
+      "triggerScripts": [
+        "gykmp_story_dispatch_better_save_soul_s46_ask",
+        "npc_smiler:@souls_s_s46_ask"
+      ],
+      "actors": [
+        "initiating_player",
+        "npc_smiler",
+        "talking_skull",
+        "soul_portal",
+        "smilers_box_opened",
+        "smilers_box_abandoned"
+      ],
+      "observerPolicy": "all_loaded_party_members",
+      "lateJoinPolicy": "join_live_checkpoint_or_observe",
+      "remoteExecutionPolicy": "live_observation",
+      "executionOwnerPolicy": "lobby_host",
+      "dialogueOwnerPolicy": "initiating_player",
+      "formationPolicy": "preserve_positions",
+      "cleanupRequirements": [
+        "bind-free-Smiler-menu-answer-eight_blacklist-it-once_and-keep-it-distinct-from-the-optional-S42-handler",
+        "normalize-the-duplicated-generic-selector-edge_and-duplicated-Gerry-relay-edge-to-one-semantic-invocation-each",
+        "lease-Smiler_Gerry_portal_box-and-the-initiator_then-preserve-the-literal-fade-middle-player-teleport-to-S46_1-followed-immediately-by-S46_2_and-player-facing-Right-followed-by-Left_without-teleporting-Smiler",
+        "spawn-or-adopt-one-talking_skull-at-S46_3_route-him-to-S46_6_and-present-lines-one-through-thirteen-in-source-speaker-order",
+        "treat-the-S46-achievement-check-on-line-thirteens-immediate-edge_and-S45-Complete-after-the-portal-as-early-prefixes",
+        "move-Smiler-to-S46_7_play-send_and-return-him-without-puff-to-default_destroy_point_then-route-the-initiator-and-play-portal-start_wait-three-point-five_stop",
+        "after-Gerrys-line-fourteen_run-the-final-fade-and-at-Middle-return-Gerry-to-stock_disable-cinematic_remove-Smilers-known-NPC-record_convert-the-opened-box-in-place_and-restore-only-the-initiator",
+        "commit-terminal-only-after-final-fade_Gerry-stock_Smiler-absence_abandoned-box_cinematic-off_control-and-lease-release-converge"
+      ]
+    }
+  ],
+  "storySteps": [
+    {
+      "stepId": "better_save_soul_begin_smiler_investigation",
+      "title": "Hear Smiler's suspicions about the Keeper's Book",
+      "linkedQuestIds": [],
+      "linkedTaskMilestoneIds": [
+        "better_save_soul_smiler_investigation_opened"
+      ],
+      "triggerScripts": [
+        "gykmp_story_dispatch_better_save_soul_s42_event",
+        "npc_smiler:ev_s_42_talk"
+      ],
+      "triggerKeys": [
+        "gykmp_story_phase_better_save_soul_s35_scene_complete",
+        "npc_smiler:ev_s_42_talk",
+        "npc_cultist:dlc_souls_s42",
+        "@souls_s_s43_ask",
+        "@souls_s_s42_ask",
+        "gykmp_story_event_better_save_soul_s42_registered",
+        "gykmp_story_event_better_save_soul_s42_popped",
+        "gykmp_story_event_better_save_soul_s42_delivered",
+        "gykmp_story_phase_better_save_soul_s42_complete"
+      ],
+      "expectedEffects": [
+        {
+          "kind": "durable_event",
+          "id": "gykmp_story_event_better_save_soul_s42_registered",
+          "operation": "adopt-the-unique-event-appended-to-Smilers-interaction-FIFO-during-S35_without-delivering-it-before-the-S35-terminal",
+          "amount": 1,
+          "ownership": "shared_world"
+        },
+        {
+          "kind": "shared_interaction_occurrence",
+          "id": "gykmp_story_event_better_save_soul_s42_popped",
+          "operation": "claim-and-persist-the-eligible-Smiler-interaction-before-vanilla-removes-the-FIFO-head",
+          "amount": 1,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "world_event_delivery",
+          "id": "gykmp_story_event_better_save_soul_s42_delivered",
+          "operation": "dispatch-ev_s_42_talk-once-to-the-bound-interactor_and-resume-it-if-a-crash-follows-the-queue-pop",
+          "amount": 1,
+          "ownership": "shared_world"
+        },
+        {
+          "kind": "dialogue_sequence",
+          "id": "souls_s_s42_1_through_15",
+          "operation": "present-fifteen-lines-in-Smiler_Smiler_Player_Smiler_Player_Smiler_Player_Player-Smiler-Smiler-Player-Player-Smiler-Player-Smiler-order",
+          "amount": 15,
+          "ownership": "live_presentation"
+        },
+        {
+          "kind": "actor_animation_group",
+          "id": "npc_smiler:smile_start_to_smile_end",
+          "operation": "join-the-two-second-smile-tail-with-lines-four-and-ten_then-start-and-reconcile-the-unjoined-line-fifteen-tail",
+          "amount": 3,
+          "ownership": "shared_world"
+        },
+        {
+          "kind": "npc_task",
+          "id": "npc_cultist:dlc_souls_s42",
+          "operation": "set-Visible-after-line-fifteen_as-a-prefix-before-the-two-topic-unlocks-and-menu-tail",
+          "amount": 1,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "dialogue_phrase_group",
+          "id": "better_save_soul_s42_topics",
+          "operation": "unlock-required-S43-first_then-optional-S42",
+          "amount": 2,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "initiator_menu_handoff",
+          "id": "npc_smiler:start_talk",
+          "operation": "open-the-same-Smiler-menu-and-retain-the-initiators-acquired-lock-until-a-real-answer-or-Leave-exits",
+          "amount": 1,
+          "ownership": "local_presentation"
+        },
+        {
+          "kind": "story_phase",
+          "id": "gykmp_story_phase_better_save_soul_s42_complete",
+          "operation": "commit-after-event-delivery_dialogue_required-task_both-topic-unlocks_safe-menu-handoff_and-animation-reconciliation-converge",
+          "amount": 1,
+          "ownership": "shared_campaign"
+        }
+      ],
+      "safeguards": [
+        "registration-during-S35-is-not-permission-to-overlap-the-S35-cutscene",
+        "registered-popped-delivered-and-terminal-are-distinct",
+        "SetTaskState-Out-does-not-prove-its-callback-or-the-following-topic-and-menu-tail",
+        "the-final-smile-tail-is-cosmetic-and-unjoined_but-must-be-left-in-a-safe-actor-state"
+      ]
+    },
+    {
+      "stepId": "better_save_soul_ask_smiler_about_euric",
+      "title": "Optionally ask Smiler about Euric's disappearance",
+      "linkedQuestIds": [],
+      "linkedTaskMilestoneIds": [
+        "better_save_soul_smiler_investigation_opened"
+      ],
+      "triggerScripts": [
+        "gykmp_story_dispatch_better_save_soul_s42_optional",
+        "npc_smiler:@souls_s_s42_ask"
+      ],
+      "triggerKeys": [
+        "@souls_s_s42_ask",
+        "souls_s_s42_after_ask_1",
+        "souls_s_s42_after_ask_13",
+        "gykmp_story_phase_better_save_soul_s42_optional_entered",
+        "gykmp_story_phase_better_save_soul_s42_optional_complete"
+      ],
+      "expectedEffects": [
+        {
+          "kind": "story_phase",
+          "id": "gykmp_story_phase_better_save_soul_s42_optional_entered",
+          "operation": "commit-after-binding-menu-answer-seven_revalidating-and-blacklisting-the-optional-topic",
+          "amount": 1,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "dialogue_sequence",
+          "id": "souls_s_s42_after_ask_1_through_13",
+          "operation": "present-thirteen-lines-in-source-speaker-order",
+          "amount": 13,
+          "ownership": "live_presentation"
+        },
+        {
+          "kind": "initiator_facing_sequence",
+          "id": "better_save_soul_s42_optional_facing",
+          "operation": "join-line-six-with-face-Right-and-wait-one-point-five_then-face-Up-on-line-sevens-immediate-edge",
+          "amount": 2,
+          "ownership": "local_presentation"
+        },
+        {
+          "kind": "initiator_control",
+          "id": "better_save_soul_s42_optional_control",
+          "operation": "enable-only-the-bound-selector-after-line-thirteen",
+          "amount": 1,
+          "ownership": "local_presentation"
+        },
+        {
+          "kind": "story_phase",
+          "id": "gykmp_story_phase_better_save_soul_s42_optional_complete",
+          "operation": "commit-after-all-lines_facing_wait_and-control-restoration-converge",
+          "amount": 1,
+          "ownership": "shared_campaign"
+        }
+      ],
+      "safeguards": [
+        "optional-and-non-gating",
+        "blacklist-alone-is-not-terminal-proof",
+        "do-not-respawn-Smiler-after-S46-to-force-this-lore-scene",
+        "do-not-confuse-the-handler-with-S46-from-their-shared-return-port-UUID"
+      ]
+    },
+    {
+      "stepId": "better_save_soul_question_snake_about_book",
+      "title": "Question Snake about the Keeper's Book",
+      "linkedQuestIds": [],
+      "linkedTaskMilestoneIds": [
+        "better_save_soul_gerry_search_visible"
+      ],
+      "triggerScripts": [
+        "gykmp_story_dispatch_better_save_soul_s43_ask",
+        "npc_cultist:@souls_s_s43_ask"
+      ],
+      "triggerKeys": [
+        "@souls_s_s43_ask",
+        "npc_cultist:dlc_souls_s42",
+        "player:dlc_souls_s43",
+        "@souls_s_s44_ask",
+        "gykmp_story_phase_better_save_soul_s43_entered",
+        "gykmp_story_phase_better_save_soul_s43_complete"
+      ],
+      "expectedEffects": [
+        {
+          "kind": "story_phase",
+          "id": "gykmp_story_phase_better_save_soul_s43_entered",
+          "operation": "commit-after-binding-Snakes-menu-answer-thirty_and-blacklisting-the-topic",
+          "amount": 1,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "dialogue_sequence",
+          "id": "souls_s_s43_1_through_20",
+          "operation": "present-twenty-lines_with-player-thoughts-at-twelve_nineteen_and-twenty",
+          "amount": 20,
+          "ownership": "live_presentation"
+        },
+        {
+          "kind": "npc_task",
+          "id": "npc_cultist:dlc_souls_s42",
+          "operation": "set-Complete-from-line-eighteens-immediate-edge_as-an-early-prefix",
+          "amount": 1,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "npc_task",
+          "id": "player:dlc_souls_s43",
+          "operation": "set-Visible-only-after-lines-nineteen-and-twenty",
+          "amount": 1,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "dialogue_phrase",
+          "id": "@souls_s_s44_ask",
+          "operation": "unlock-after-S43-becomes-visible",
+          "amount": 1,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "initiator_menu_handoff",
+          "id": "npc_cultist:start_talk",
+          "operation": "Return-to-the-caller_then-open-Snakes-menu-without-enabling-observers",
+          "amount": 1,
+          "ownership": "local_presentation"
+        },
+        {
+          "kind": "story_phase",
+          "id": "gykmp_story_phase_better_save_soul_s43_complete",
+          "operation": "commit-after-blacklist_all-twenty-lines_both-task-callbacks_S44-unlock_and-menu-handoff-converge",
+          "amount": 1,
+          "ownership": "shared_campaign"
+        }
+      ],
+      "safeguards": [
+        "S42-task-Complete-is-an-early-prefix",
+        "do-not-skip-the-two-post-completion-thought-lines",
+        "restore-control-through-the-real-Snake-menu-tail"
+      ]
+    },
+    {
+      "stepId": "better_save_soul_recover_lost_book_page",
+      "title": "Recover the lost part of the Keeper's Book from Gerry",
+      "linkedQuestIds": [],
+      "linkedTaskMilestoneIds": [
+        "better_save_soul_lost_book_page_ready"
+      ],
+      "triggerScripts": [
+        "gykmp_story_dispatch_better_save_soul_s44_ask",
+        "crafting_skull_3:@souls_s_s44_ask"
+      ],
+      "triggerKeys": [
+        "@souls_s_s44_ask",
+        "player:dlc_souls_s43",
+        "lost_book_part",
+        "player:dlc_souls_s44",
+        "ev_s_s45_gd_zone_container",
+        "gykmp_story_phase_better_save_soul_s44_entered",
+        "gykmp_story_item_better_save_soul_lost_book_page_source_pending",
+        "gykmp_story_item_better_save_soul_lost_book_page_custody",
+        "gykmp_story_phase_better_save_soul_s44_complete"
+      ],
+      "expectedEffects": [
+        {
+          "kind": "story_phase",
+          "id": "gykmp_story_phase_better_save_soul_s44_entered",
+          "operation": "commit-after-binding-free-Gerry-menu-answer-thirteen_and-blacklisting-the-topic",
+          "amount": 1,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "npc_task",
+          "id": "player:dlc_souls_s43",
+          "operation": "set-Complete-from-line-ones-immediate-edge_as-an-early-prefix",
+          "amount": 1,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "dialogue_sequence",
+          "id": "souls_s_s44_1_through_7",
+          "operation": "present-the-first-seven-lines-in-source-speaker-and-thought-order",
+          "amount": 7,
+          "ownership": "live_presentation"
+        },
+        {
+          "kind": "initiator_animator_sequence",
+          "id": "better_save_soul_s44_player_animator",
+          "operation": "set-state-110_wait-two-seconds_then-state-zero_on-the-actual-selector_and-apply-TryDropOverheadItem-locally",
+          "amount": 2,
+          "ownership": "local_presentation"
+        },
+        {
+          "kind": "shared_item_source_intent",
+          "id": "gykmp_story_item_better_save_soul_lost_book_page_source_pending",
+          "operation": "persist-before-the-physical-DropItem-call_so-a-crash-cannot-lose-or-duplicate-the-unique-source",
+          "amount": 1,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "shared_item_custody",
+          "id": "gykmp_story_item_better_save_soul_lost_book_page_custody",
+          "operation": "create-or-adopt-one-transferable-lost_book_part-across-ground_loaded-or-offline-party-inventory_and-in-flight-pickup",
+          "amount": 1,
+          "ownership": "shared_world"
+        },
+        {
+          "kind": "world_item_drop",
+          "id": "lost_book_part",
+          "operation": "drop-the-single-source-token-from-Gerry-Direction-ToPlayer_without-treating-DropItem-Out-as-pickup-proof",
+          "amount": 1,
+          "ownership": "shared_world"
+        },
+        {
+          "kind": "dialogue_sequence",
+          "id": "souls_s_s44_8_through_9",
+          "operation": "present-the-two-player-thought-lines-after-the-drop",
+          "amount": 2,
+          "ownership": "live_presentation"
+        },
+        {
+          "kind": "npc_task",
+          "id": "player:dlc_souls_s44",
+          "operation": "set-Visible-after-the-two-thought-lines",
+          "amount": 1,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "world_trigger_state",
+          "id": "ev_s_s45_gd_zone_container",
+          "operation": "enable-after-S44-becomes-visible_unless-stronger-downstream-evidence-proves-S45-consumed-it",
+          "amount": 1,
+          "ownership": "shared_world"
+        },
+        {
+          "kind": "initiator_control",
+          "id": "better_save_soul_s44_control",
+          "operation": "restore-only-the-Gerry-dialogue-selector-after-zone-activation",
+          "amount": 1,
+          "ownership": "local_presentation"
+        },
+        {
+          "kind": "story_phase",
+          "id": "gykmp_story_phase_better_save_soul_s44_complete",
+          "operation": "commit-after-topic_dialogue_animator_unique-token-custody_thoughts_task_zone_and-control-converge",
+          "amount": 1,
+          "ownership": "shared_campaign"
+        }
+      ],
+      "safeguards": [
+        "S44-is-free_and-gerry_tooth-belongs-to-answer-twelve",
+        "Flow_DropItem-Out-is-not-collection-or-owner-proof",
+        "one-shared-story-token_not-one-copy-per-player",
+        "never-remint-after-S45-debit-or-downstream-evidence",
+        "the-orphan-ev_s_s44_1-and-ev_s_s44_3-route-nodes-do-not-run"
+      ]
+    },
+    {
+      "stepId": "better_save_soul_prepare_smiler_portal",
+      "title": "Bring the lost book page to Smiler",
+      "linkedQuestIds": [],
+      "linkedTaskMilestoneIds": [
+        "better_save_soul_portal_farewell_visible"
+      ],
+      "triggerScripts": [
+        "gykmp_story_dispatch_better_save_soul_s45_zone",
+        "on_enter_ev_s_s45_gd_zone"
+      ],
+      "triggerKeys": [
+        "ev_s_s45_gd_zone_container",
+        "lost_book_part",
+        "player:dlc_souls_s44",
+        "npc_smiler:dlc_souls_s45",
+        "@souls_s_s46_ask",
+        "gykmp_story_occurrence_better_save_soul_s45_zone",
+        "gykmp_story_transaction_better_save_soul_lost_book_page",
+        "gykmp_story_payment_better_save_soul_lost_book_page",
+        "gykmp_story_phase_better_save_soul_s45_entered",
+        "gykmp_story_phase_better_save_soul_s45_complete"
+      ],
+      "expectedEffects": [
+        {
+          "kind": "shared_zone_occurrence",
+          "id": "gykmp_story_occurrence_better_save_soul_s45_zone",
+          "operation": "admit-one-authoritative-entering-player_with-the-real-page-and-keep-no-item-exit-reentry-retryable",
+          "amount": 1,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "initiator_item_transaction",
+          "id": "gykmp_story_transaction_better_save_soul_lost_book_page",
+          "operation": "bind-and-reserve-one-real-lost_book_part-from-the-qualifying-zone-entrant_across-party-wide-custody",
+          "amount": 1,
+          "ownership": "initiating_player_transaction"
+        },
+        {
+          "kind": "story_item_consumption_receipt",
+          "id": "gykmp_story_payment_better_save_soul_lost_book_page",
+          "operation": "remove-exactly-one-lost_book_part-from-the-bound-entrant_before-disabling-the-zone",
+          "amount": 1,
+          "ownership": "initiating_player_transaction"
+        },
+        {
+          "kind": "world_trigger_state",
+          "id": "ev_s_s45_gd_zone_container",
+          "operation": "disable-the-shared-zone-once_after-the-page-debit-and-before-acquiring-cinematic-control",
+          "amount": 0,
+          "ownership": "shared_world"
+        },
+        {
+          "kind": "initiator_control",
+          "id": "better_save_soul_s45_entry_control",
+          "operation": "disable-only-the-bound-entrant-with-Affect-cinematic-true_before-the-first-route",
+          "amount": 0,
+          "ownership": "local_presentation"
+        },
+        {
+          "kind": "story_phase",
+          "id": "gykmp_story_phase_better_save_soul_s45_entered",
+          "operation": "commit-after-the-exact-one-debit_shared-zone-disable_and-bound-entrant-cinematic-lock_before-routes-or-dialogue",
+          "amount": 1,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "initiator_route",
+          "id": "ev_s_s45_1_then_ev_s_s45_2",
+          "operation": "move-the-bound-entrant-by-AStar-to-the-two-source-points_without-moving-observers",
+          "amount": 2,
+          "ownership": "local_presentation"
+        },
+        {
+          "kind": "dialogue_sequence",
+          "id": "souls_s_s45_1_through_23",
+          "operation": "present-twenty-three-lines-in-source-speaker-order",
+          "amount": 23,
+          "ownership": "live_presentation"
+        },
+        {
+          "kind": "npc_task",
+          "id": "player:dlc_souls_s44",
+          "operation": "set-Complete-from-line-eights-immediate-edge_as-an-early-prefix",
+          "amount": 1,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "npc_task",
+          "id": "npc_smiler:dlc_souls_s45",
+          "operation": "set-Visible-after-line-twenty-three",
+          "amount": 1,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "dialogue_phrase",
+          "id": "@souls_s_s46_ask",
+          "operation": "unlock-after-S45-becomes-visible",
+          "amount": 1,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "initiator_control",
+          "id": "better_save_soul_s45_control",
+          "operation": "restore-the-bound-entrant-with-Affect-cinematic-true_then-EndScript",
+          "amount": 1,
+          "ownership": "local_presentation"
+        },
+        {
+          "kind": "story_phase",
+          "id": "gykmp_story_phase_better_save_soul_s45_complete",
+          "operation": "commit-after-debit_zone-disable_routes_dialogue_task_topic_control_and-EndScript-converge",
+          "amount": 1,
+          "ownership": "shared_campaign"
+        }
+      ],
+      "safeguards": [
+        "no-item-entry-is-a-non-progressing-retryable-EndScript",
+        "fresh-StartEvent-Once-graphs-do-not-replace-a-shared-admission-lease",
+        "consume-only-the-real-carriers-page_and-never-debit-observers",
+        "S44-task-Complete-is-an-early-prefix",
+        "resume-missing-suffixes-without-reminting-or-redebiting"
+      ]
+    },
+    {
+      "stepId": "better_save_soul_bid_smiler_farewell",
+      "title": "Help Smiler leave through the soul portal",
+      "linkedQuestIds": [
+        "dlc_souls_s_s_46"
+      ],
+      "linkedTaskMilestoneIds": [
+        "better_save_soul_portal_farewell_entered"
+      ],
+      "triggerScripts": [
+        "gykmp_story_dispatch_better_save_soul_s46_ask",
+        "npc_smiler:@souls_s_s46_ask"
+      ],
+      "triggerKeys": [
+        "@souls_s_s46_ask",
+        "dlc_souls_s_s_46",
+        "npc_smiler:dlc_souls_s45",
+        "talking_skull",
+        "soul_portal",
+        "smilers_box_opened",
+        "smilers_box_abandoned",
+        "gykmp_story_phase_better_save_soul_s46_entered",
+        "gykmp_story_actor_better_save_soul_s46_gerry",
+        "gykmp_story_phase_better_save_soul_s46_departure",
+        "gykmp_story_phase_better_save_soul_smiler_finale_complete"
+      ],
+      "expectedEffects": [
+        {
+          "kind": "story_phase",
+          "id": "gykmp_story_phase_better_save_soul_s46_entered",
+          "operation": "commit-after-binding-free-menu-answer-eight_enabling-cinematic_and-blacklisting-the-topic_before-the-first-fade",
+          "amount": 1,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "initiator_teleport_sequence",
+          "id": "ev_s_s46_1_then_ev_s_s46_2",
+          "operation": "at-the-first-fade-Middle-teleport-MainGame-player-to-S46_1_then-immediately-to-S46_2_and-face-that-player-Right-then-Left_as-the-literal-source-flow_without-teleporting-Smiler",
+          "amount": 2,
+          "ownership": "local_presentation"
+        },
+        {
+          "kind": "dialogue_sequence",
+          "id": "souls_s_s46_1_through_2",
+          "operation": "present-the-opening-player-and-Smiler-lines-after-the-first-fade-finishes",
+          "amount": 2,
+          "ownership": "live_presentation"
+        },
+        {
+          "kind": "world_actor_binding",
+          "id": "gykmp_story_actor_better_save_soul_s46_gerry",
+          "operation": "spawn-or-adopt-one-canonical-talking_skull-at-S46_3_then-route-him-to-S46_6-at-speed-one-point-five",
+          "amount": 1,
+          "ownership": "shared_world"
+        },
+        {
+          "kind": "dialogue_sequence",
+          "id": "souls_s_s46_3_through_13",
+          "operation": "present-Gerry-Smiler-and-player-lines-three-through-thirteen_with-source-facing-edges",
+          "amount": 11,
+          "ownership": "live_presentation"
+        },
+        {
+          "kind": "quest_checkpoint",
+          "id": "dlc_souls_s_s_46",
+          "operation": "check-from-line-thirteens-immediate-edge_as-an-early-achievement-prefix_without-replaying-it-during-suffix-recovery",
+          "amount": 1,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "portal_departure_sequence",
+          "id": "gykmp_story_phase_better_save_soul_s46_departure",
+          "operation": "move-Smiler-Direct-to-S46_7_play-send_move-him-without-puff-to-default_destroy_point_wait-one-point-five_move-player-Direct-to-S46_7_play-start_wait-three-point-five_then-stop",
+          "amount": 1,
+          "ownership": "shared_world"
+        },
+        {
+          "kind": "npc_task",
+          "id": "npc_smiler:dlc_souls_s45",
+          "operation": "set-Complete-after-portal-stop_as-a-prefix-before-Gerrys-last-line-and-final-cleanup",
+          "amount": 1,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "dialogue_sequence",
+          "id": "souls_s_s46_14",
+          "operation": "present-Gerrys-final-line_and-face-only-the-initiator-Left-from-its-immediate-edge",
+          "amount": 1,
+          "ownership": "live_presentation"
+        },
+        {
+          "kind": "world_actor_cleanup",
+          "id": "talking_skull",
+          "operation": "during-the-final-fade-Middle-return-the-bound-Gerry-without-puff-to-default_destroy_point",
+          "amount": 1,
+          "ownership": "shared_world"
+        },
+        {
+          "kind": "known_npc_removal",
+          "id": "npc_smiler",
+          "operation": "remove-the-entire-known-NPC-record_after-disabling-cinematic_without-recreating-it-to-repair-the-transient-S45-task",
+          "amount": 1,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "shared_world_conversion",
+          "id": "smilers_box_opened_to_smilers_box_abandoned",
+          "operation": "replace-the-canonical-opened-box-in-place_with-the-one-slot-soul-container-variant",
+          "amount": 1,
+          "ownership": "shared_world"
+        },
+        {
+          "kind": "initiator_control",
+          "id": "better_save_soul_s46_control",
+          "operation": "restore-only-the-bound-selector-with-cinematic-off_during-the-final-fade-Middle",
+          "amount": 1,
+          "ownership": "local_presentation"
+        },
+        {
+          "kind": "story_phase",
+          "id": "gykmp_story_phase_better_save_soul_smiler_finale_complete",
+          "operation": "commit-only-after-final-fade_Gerry-stock_Smiler-world-and-known-list-absence_abandoned-box_cinematic-off_control-and-all-lease-release-converge",
+          "amount": 1,
+          "ownership": "shared_campaign"
+        }
+      ],
+      "safeguards": [
+        "S46-blacklist_achievement-and-S45-task-Complete-are-all-prefixes_not-terminal-proof",
+        "do-not-coalesce-S42-and-S46-handlers-by-their-shared-return-port-UUID",
+        "do-not-duplicate-Gerry-from-the-repeated-relay-edge",
+        "stock-removal-means-route-to-default_destroy_point_not-an-invented-direct-destroy",
+        "do-not-replay-portal-or-achievement-while-resuming-final-cleanup",
+        "never-recreate-Smilers-known-NPC-record-after-terminal-removal",
+        "the-terminal-box-conversion-is-shared-world-state_not-a-personal-item-reward",
+        "S46-is-the-true-Smiler-branch-terminal_and-does-not-complete-independent-S36-through-S41-repairs"
+      ]
+    }
+  ]
+}

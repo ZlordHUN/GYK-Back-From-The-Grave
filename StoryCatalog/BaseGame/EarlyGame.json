@@ -1,0 +1,4074 @@
+{
+  "schemaVersion": 5,
+  "catalogId": "base-game.early-game",
+  "campaign": "BaseGame",
+  "chapter": "SwordRepairPostBeerAstrologerCharmVagnerAndInquisitorPreFinaleDonkeyStrikeEarlyEventFollowupsAndTownPassGate",
+  "quests": [
+    {
+      "questId": "player_repairs_sword",
+      "title": "Repair the broken sword",
+      "vanilla": {
+        "startTrigger": "1",
+        "successTrigger": "Ppar(\"sword_has_fixed\")",
+        "failTrigger": "",
+        "startKeys": ["item_whetstone"],
+        "questVisible": true,
+        "oneTimeQuest": true,
+        "startScript": "",
+        "successScript": "",
+        "failScript": "",
+        "arrowWgoCustomTag": "grinder_bs",
+        "arrowWgoObjectId": "",
+        "successRewards": [],
+        "failureRewards": []
+      },
+      "policy": {
+        "stateOwnership": "shared_campaign",
+        "eligibleInitiator": "any_player",
+        "livePresentationOwner": "initiating_player",
+        "observerQuestApplication": "durable_state_only",
+        "personalRewardDelivery": "party_exactly_once",
+        "observerSuccess": {
+          "globalScripts": [],
+          "playerParamRepairs": [
+            { "key": "sword_has_fixed", "value": 1.0 }
+          ],
+          "personalItemGrants": []
+        }
+      },
+      "completionChecks": [
+        {
+          "source": "player_param",
+          "key": "sword_has_fixed",
+          "comparison": ">=",
+          "value": 1.0
+        }
+      ]
+    },
+    {
+      "questId": "player_repairs_sword_before",
+      "title": "Prime sword repair at the grindstone",
+      "vanilla": {
+        "startTrigger": "1",
+        "successTrigger": "1",
+        "failTrigger": "",
+        "startKeys": ["interact_mf_grindstone_1"],
+        "questVisible": false,
+        "oneTimeQuest": true,
+        "startScript": "",
+        "successScript": "",
+        "failScript": "",
+        "arrowWgoCustomTag": "",
+        "arrowWgoObjectId": "",
+        "successRewards": [
+          { "type": "sword_has_fixed", "amount": 1.0 }
+        ],
+        "failureRewards": []
+      },
+      "policy": {
+        "stateOwnership": "shared_campaign",
+        "eligibleInitiator": "any_player",
+        "livePresentationOwner": "initiating_player",
+        "observerQuestApplication": "durable_state_only",
+        "personalRewardDelivery": "party_exactly_once",
+        "observerSuccess": {
+          "globalScripts": [],
+          "playerParamRepairs": [
+            { "key": "sword_has_fixed", "value": 1.0 }
+          ],
+          "personalItemGrants": []
+        }
+      },
+      "completionChecks": [
+        {
+          "source": "player_param",
+          "key": "sword_has_fixed",
+          "comparison": ">=",
+          "value": 1.0
+        }
+      ]
+    }
+  ],
+  "taskMilestones": [
+    {
+      "milestoneId": "gerry_portal_goal_revealed",
+      "npcId": "player",
+      "taskId": "player_portal",
+      "activeStates": ["Visible", "Complete"],
+      "playerParamRepairs": [],
+      "playerParamMinimums": [],
+      "taskStateMinimums": [
+        { "npcId": "player", "taskId": "player_astrolog", "state": "Visible" }
+      ],
+      "unlockedPhrases": [],
+      "blacklistedPhrases": [],
+      "wgoParamMinimums": [],
+      "personalItemGrants": []
+    },
+    {
+      "milestoneId": "gerry_astrologer_goal_revealed",
+      "npcId": "player",
+      "taskId": "player_astrolog",
+      "activeStates": ["Visible"],
+      "playerParamRepairs": [],
+      "playerParamMinimums": [],
+      "taskStateMinimums": [
+        { "npcId": "player", "taskId": "player_portal", "state": "Visible" }
+      ],
+      "unlockedPhrases": [
+        "@skull_8_2b_1b",
+        "@astrologer_2a_1b_1",
+        "@skull_8_2b_1c"
+      ],
+      "blacklistedPhrases": ["skull_8_2b_1a"],
+      "wgoParamMinimums": [],
+      "personalItemGrants": []
+    },
+    {
+      "milestoneId": "gerry_wine_requested",
+      "npcId": "crafting_skull_3",
+      "taskId": "skull_wine",
+      "activeStates": ["Visible"],
+      "playerParamRepairs": [],
+      "playerParamMinimums": [
+        { "key": "_rel_crafting_skull_3", "value": 20.0 }
+      ],
+      "taskStateMinimums": [],
+      "unlockedPhrases": ["@skull_8_2a_wine"],
+      "blacklistedPhrases": ["@skull_8_2b_1b"],
+      "wgoParamMinimums": [],
+      "personalItemGrants": []
+    },
+    {
+      "milestoneId": "gerry_wine_delivered",
+      "npcId": "crafting_skull_3",
+      "taskId": "skull_wine",
+      "activeStates": ["Complete"],
+      "playerParamRepairs": [],
+      "playerParamMinimums": [
+        { "key": "_rel_crafting_skull_3", "value": 40.0 }
+      ],
+      "taskStateMinimums": [],
+      "unlockedPhrases": [],
+      "blacklistedPhrases": ["@skull_8_2a_wine"],
+      "wgoParamMinimums": [],
+      "personalItemGrants": []
+    },
+    {
+      "milestoneId": "astrologer_intro_complete",
+      "npcId": "player",
+      "taskId": "player_astrolog",
+      "activeStates": ["Complete"],
+      "playerParamRepairs": [],
+      "playerParamMinimums": [],
+      "taskStateMinimums": [
+        {
+          "npcId": "npc_astrologer",
+          "taskId": "astrologer_skull",
+          "state": "Visible"
+        }
+      ],
+      "unlockedPhrases": [],
+      "blacklistedPhrases": [],
+      "wgoParamMinimums": [
+        { "objectId": "npc_astrologer", "key": "first_time", "value": 1.0 }
+      ],
+      "personalItemGrants": []
+    },
+    {
+      "milestoneId": "astrologer_waiting_for_skull",
+      "npcId": "npc_astrologer",
+      "taskId": "astrologer_skull",
+      "activeStates": ["Visible"],
+      "playerParamRepairs": [],
+      "playerParamMinimums": [],
+      "taskStateMinimums": [
+        { "npcId": "player", "taskId": "player_astrolog", "state": "Complete" }
+      ],
+      "unlockedPhrases": [],
+      "blacklistedPhrases": [],
+      "wgoParamMinimums": [
+        { "objectId": "npc_astrologer", "key": "first_time", "value": 1.0 }
+      ],
+      "personalItemGrants": []
+    },
+    {
+      "milestoneId": "astrologer_skull_delivered",
+      "npcId": "npc_astrologer",
+      "taskId": "astrologer_skull",
+      "activeStates": ["Complete"],
+      "playerParamRepairs": [],
+      "playerParamMinimums": [
+        { "key": "_rel_npc_astrologer", "value": 10.0 }
+      ],
+      "taskStateMinimums": [
+        { "npcId": "player", "taskId": "player_astrolog", "state": "Complete" }
+      ],
+      "unlockedPhrases": [],
+      "blacklistedPhrases": ["astrologer_2b"],
+      "wgoParamMinimums": [
+        { "objectId": "npc_astrologer", "key": "first_time", "value": 1.0 }
+      ],
+      "personalItemGrants": []
+    },
+    {
+      "milestoneId": "astrologer_keeper_key_received",
+      "npcId": "npc_astrologer",
+      "taskId": "astrologer_diary",
+      "activeStates": ["Visible"],
+      "playerParamRepairs": [],
+      "playerParamMinimums": [
+        { "key": "_rel_npc_astrologer", "value": 10.0 }
+      ],
+      "taskStateMinimums": [
+        { "npcId": "player", "taskId": "player_portal", "state": "Visible" },
+        { "npcId": "player", "taskId": "player_astrolog", "state": "Complete" },
+        {
+          "npcId": "npc_astrologer",
+          "taskId": "astrologer_skull",
+          "state": "Complete"
+        }
+      ],
+      "unlockedPhrases": ["@snake_give_key", "@astrologer_diary"],
+      "blacklistedPhrases": ["astrologer_2a_1b_6c"],
+      "wgoParamMinimums": [
+        { "objectId": "npc_astrologer", "key": "first_time", "value": 1.0 }
+      ],
+      "personalItemGrants": []
+    },
+    {
+      "milestoneId": "charm_faith_requested",
+      "npcId": "npc_actress",
+      "taskId": "actress_faith",
+      "activeStates": ["Visible"],
+      "playerParamRepairs": [],
+      "playerParamMinimums": [],
+      "taskStateMinimums": [],
+      "unlockedTechs": [],
+      "unlockedPhrases": [],
+      "blacklistedPhrases": [],
+      "unlockedCrafts": [
+        "keeper_room_builddesk:p:keeper_room_picture_6"
+      ],
+      "completedOneTimeCrafts": [
+        "keeper_room_builddesk:p:keeper_room_picture_6"
+      ],
+      "wgoParamMinimums": [
+        { "objectId": "npc_actress", "key": "meet_actress", "value": 1.0 }
+      ],
+      "personalItemGrants": []
+    },
+    {
+      "milestoneId": "charm_faith_proven",
+      "npcId": "npc_actress",
+      "taskId": "actress_faith",
+      "activeStates": ["Complete"],
+      "playerParamRepairs": [],
+      "playerParamMinimums": [
+        { "key": "_rel_npc_actress", "value": 10.0 },
+        { "key": "_rel_npc_actor", "value": 5.0 }
+      ],
+      "taskStateMinimums": [
+        { "npcId": "npc_actor", "taskId": "actor_paper_ink", "state": "Visible" }
+      ],
+      "unlockedTechs": ["Journalist"],
+      "unlockedPhrases": [],
+      "blacklistedPhrases": [],
+      "unlockedCrafts": [
+        "keeper_room_builddesk:p:keeper_room_picture_6"
+      ],
+      "completedOneTimeCrafts": [
+        "keeper_room_builddesk:p:keeper_room_picture_6"
+      ],
+      "wgoParamMinimums": [
+        { "objectId": "npc_actress", "key": "meet_actress", "value": 1.0 }
+      ],
+      "personalItemGrants": []
+    },
+    {
+      "milestoneId": "vagner_paper_and_ink_requested",
+      "npcId": "npc_actor",
+      "taskId": "actor_paper_ink",
+      "activeStates": ["Visible"],
+      "playerParamRepairs": [],
+      "playerParamMinimums": [
+        { "key": "_rel_npc_actor", "value": 5.0 }
+      ],
+      "taskStateMinimums": [
+        { "npcId": "npc_actress", "taskId": "actress_faith", "state": "Visible" }
+      ],
+      "unlockedTechs": [],
+      "unlockedPhrases": [],
+      "blacklistedPhrases": [],
+      "unlockedCrafts": [
+        "keeper_room_builddesk:p:keeper_room_picture_6"
+      ],
+      "completedOneTimeCrafts": [
+        "keeper_room_builddesk:p:keeper_room_picture_6"
+      ],
+      "wgoParamMinimums": [
+        { "objectId": "npc_actress", "key": "meet_actress", "value": 1.0 }
+      ],
+      "personalItemGrants": []
+    },
+    {
+      "milestoneId": "vagner_paper_and_ink_delivered",
+      "npcId": "npc_actor",
+      "taskId": "actor_paper_ink",
+      "activeStates": ["Complete"],
+      "playerParamRepairs": [],
+      "playerParamMinimums": [
+        { "key": "_rel_npc_actor", "value": 20.0 }
+      ],
+      "taskStateMinimums": [
+        { "npcId": "npc_actress", "taskId": "actress_faith", "state": "Visible" }
+      ],
+      "unlockedTechs": ["Journalist"],
+      "unlockedPhrases": [],
+      "blacklistedPhrases": [
+        "actor_2_1a",
+        "actor_2_1b",
+        "actor_2_1c"
+      ],
+      "unlockedCrafts": [
+        "keeper_room_builddesk:p:keeper_room_picture_6"
+      ],
+      "completedOneTimeCrafts": [
+        "keeper_room_builddesk:p:keeper_room_picture_6"
+      ],
+      "wgoParamMinimums": [
+        { "objectId": "npc_actress", "key": "meet_actress", "value": 1.0 }
+      ],
+      "personalItemGrants": []
+    },
+    {
+      "milestoneId": "vagner_wine_story_requested",
+      "npcId": "npc_actor",
+      "taskId": "actor_wine_story",
+      "activeStates": ["Visible"],
+      "playerParamRepairs": [],
+      "playerParamMinimums": [
+        { "key": "_rel_npc_actor", "value": 20.0 }
+      ],
+      "taskStateMinimums": [
+        { "npcId": "npc_actress", "taskId": "actress_faith", "state": "Visible" },
+        { "npcId": "npc_actor", "taskId": "actor_paper_ink", "state": "Complete" }
+      ],
+      "unlockedTechs": ["Journalist"],
+      "unlockedPhrases": [],
+      "blacklistedPhrases": [
+        "actor_2_1a",
+        "actor_2_1b",
+        "actor_2_1c"
+      ],
+      "unlockedCrafts": [
+        "keeper_room_builddesk:p:keeper_room_picture_6"
+      ],
+      "completedOneTimeCrafts": [
+        "keeper_room_builddesk:p:keeper_room_picture_6"
+      ],
+      "wgoParamMinimums": [
+        { "objectId": "npc_actress", "key": "meet_actress", "value": 1.0 }
+      ],
+      "personalItemGrants": []
+    },
+    {
+      "milestoneId": "vagner_wine_story_completed",
+      "npcId": "npc_actor",
+      "taskId": "actor_wine_story",
+      "activeStates": ["Complete"],
+      "playerParamRepairs": [],
+      "playerParamMinimums": [
+        { "key": "_rel_npc_actor", "value": 20.0 }
+      ],
+      "taskStateMinimums": [
+        { "npcId": "npc_actress", "taskId": "actress_faith", "state": "Visible" },
+        { "npcId": "npc_actor", "taskId": "actor_paper_ink", "state": "Complete" }
+      ],
+      "unlockedTechs": ["Journalist"],
+      "unlockedPhrases": [
+        "@astrologer_2a_1a_1",
+        "@astrologer_trade"
+      ],
+      "blacklistedPhrases": [
+        "actor_2_1a",
+        "actor_2_1b",
+        "actor_2_1c",
+        "@actor_2_1d",
+        "@actor_2_1e"
+      ],
+      "unlockedCrafts": [
+        "keeper_room_builddesk:p:keeper_room_picture_6"
+      ],
+      "completedOneTimeCrafts": [
+        "keeper_room_builddesk:p:keeper_room_picture_6"
+      ],
+      "wgoParamMinimums": [
+        { "objectId": "npc_actress", "key": "meet_actress", "value": 1.0 }
+      ],
+      "personalItemGrants": []
+    },
+    {
+      "milestoneId": "gerry_inquisitor_warning_received",
+      "npcId": "crafting_skull_3",
+      "taskId": "skull_inquisitor",
+      "activeStates": ["Visible"],
+      "playerParamRepairs": [],
+      "playerParamMinimums": [],
+      "taskStateMinimums": [],
+      "unlockedTechs": [],
+      "unlockedPhrases": [],
+      "blacklistedPhrases": [],
+      "unlockedCrafts": [],
+      "completedOneTimeCrafts": [],
+      "wgoParamMinimums": [],
+      "personalItemGrants": []
+    },
+    {
+      "milestoneId": "gerry_inquisitor_warning_resolved",
+      "npcId": "crafting_skull_3",
+      "taskId": "skull_inquisitor",
+      "activeStates": ["Complete"],
+      "playerParamRepairs": [],
+      "playerParamMinimums": [
+        { "key": "met_inquisitor", "value": 1.0 }
+      ],
+      "taskStateMinimums": [],
+      "unlockedTechs": [],
+      "unlockedPhrases": [],
+      "blacklistedPhrases": [],
+      "unlockedCrafts": [
+        "keeper_room_builddesk:p:keeper_room_picture_5"
+      ],
+      "completedOneTimeCrafts": [
+        "keeper_room_builddesk:p:keeper_room_picture_5"
+      ],
+      "wgoParamMinimums": [],
+      "personalItemGrants": []
+    },
+    {
+      "milestoneId": "inquisitor_first_burning_followup_pending",
+      "npcId": "npc_inquisitor",
+      "taskId": "inquisitor_talk",
+      "activeStates": ["Visible"],
+      "playerParamRepairs": [],
+      "playerParamMinimums": [
+        { "key": "met_inquisitor", "value": 1.0 },
+        { "key": "_rel_npc_inquisitor", "value": 10.0 }
+      ],
+      "taskStateMinimums": [
+        {
+          "npcId": "crafting_skull_3",
+          "taskId": "skull_inquisitor",
+          "state": "Complete"
+        }
+      ],
+      "unlockedTechs": [],
+      "unlockedPhrases": [],
+      "blacklistedPhrases": [],
+      "unlockedCrafts": [
+        "keeper_room_builddesk:p:keeper_room_picture_5"
+      ],
+      "completedOneTimeCrafts": [
+        "keeper_room_builddesk:p:keeper_room_picture_5"
+      ],
+      "wgoParamMinimums": [],
+      "personalItemGrants": []
+    },
+    {
+      "milestoneId": "inquisitor_first_burning_supplies_requested",
+      "npcId": "npc_inquisitor",
+      "taskId": "inquisitor_burn",
+      "activeStates": ["Visible"],
+      "playerParamRepairs": [],
+      "playerParamMinimums": [
+        { "key": "met_inquisitor", "value": 1.0 },
+        { "key": "_rel_npc_inquisitor", "value": 10.0 }
+      ],
+      "taskStateMinimums": [
+        {
+          "npcId": "crafting_skull_3",
+          "taskId": "skull_inquisitor",
+          "state": "Complete"
+        },
+        {
+          "npcId": "npc_inquisitor",
+          "taskId": "inquisitor_talk",
+          "state": "Complete"
+        }
+      ],
+      "unlockedTechs": [],
+      "unlockedPhrases": [],
+      "blacklistedPhrases": [],
+      "unlockedCrafts": [
+        "keeper_room_builddesk:p:keeper_room_picture_5"
+      ],
+      "completedOneTimeCrafts": [
+        "keeper_room_builddesk:p:keeper_room_picture_5"
+      ],
+      "wgoParamMinimums": [],
+      "personalItemGrants": []
+    },
+    {
+      "milestoneId": "inquisitor_graveyard_permission_requested",
+      "npcId": "npc_inquisitor",
+      "taskId": "inq_get_perm",
+      "activeStates": ["Visible"],
+      "playerParamRepairs": [],
+      "playerParamMinimums": [
+        { "key": "met_inquisitor", "value": 1.0 },
+        { "key": "saw_graveyard2", "value": 1.0 },
+        { "key": "_rel_npc_inquisitor", "value": 10.0 }
+      ],
+      "taskStateMinimums": [],
+      "unlockedTechs": [],
+      "unlockedPhrases": ["@grv_broken_2"],
+      "blacklistedPhrases": [],
+      "unlockedCrafts": [],
+      "completedOneTimeCrafts": [],
+      "wgoParamMinimums": [],
+      "personalItemGrants": []
+    },
+    {
+      "milestoneId": "inquisitor_graveyard_permission_granted",
+      "npcId": "npc_inquisitor",
+      "taskId": "inq_get_perm",
+      "activeStates": ["Complete"],
+      "playerParamRepairs": [],
+      "playerParamMinimums": [
+        { "key": "met_inquisitor", "value": 1.0 },
+        { "key": "saw_graveyard2", "value": 1.0 },
+        { "key": "_rel_npc_inquisitor", "value": 10.0 }
+      ],
+      "taskStateMinimums": [],
+      "unlockedTechs": [],
+      "unlockedPhrases": ["@grv_broken_2"],
+      "blacklistedPhrases": ["@inquisitor_grave_1_1"],
+      "unlockedCrafts": [],
+      "completedOneTimeCrafts": [],
+      "wgoParamMinimums": [],
+      "personalItemGrants": []
+    },
+    {
+      "milestoneId": "inquisitor_second_burning_supplies_delivered",
+      "npcId": "npc_inquisitor",
+      "taskId": "inquisitor_burn",
+      "activeStates": ["Complete"],
+      "playerParamRepairs": [],
+      "playerParamMinimums": [
+        { "key": "met_inquisitor", "value": 1.0 },
+        { "key": "_rel_npc_inquisitor", "value": 30.0 }
+      ],
+      "taskStateMinimums": [
+        {
+          "npcId": "npc_inquisitor",
+          "taskId": "inquisitor_talk",
+          "state": "Complete"
+        }
+      ],
+      "unlockedTechs": [],
+      "unlockedPhrases": [],
+      "blacklistedPhrases": [],
+      "unlockedCrafts": [],
+      "completedOneTimeCrafts": [],
+      "wgoParamMinimums": [],
+      "personalItemGrants": []
+    },
+    {
+      "milestoneId": "inquisitor_vineyard_wine_requested",
+      "npcId": "npc_inquisitor",
+      "taskId": "inquisitor_wine",
+      "activeStates": ["Visible"],
+      "playerParamRepairs": [],
+      "playerParamMinimums": [
+        { "key": "met_inquisitor", "value": 1.0 },
+        { "key": "_rel_npc_inquisitor", "value": 40.0 }
+      ],
+      "taskStateMinimums": [
+        {
+          "npcId": "npc_inquisitor",
+          "taskId": "inquisitor_burn",
+          "state": "Complete"
+        }
+      ],
+      "unlockedTechs": [],
+      "unlockedPhrases": [],
+      "blacklistedPhrases": [],
+      "unlockedCrafts": [],
+      "completedOneTimeCrafts": [],
+      "wgoParamMinimums": [],
+      "personalItemGrants": []
+    },
+    {
+      "milestoneId": "inquisitor_vineyard_wine_delivered",
+      "npcId": "npc_inquisitor",
+      "taskId": "inquisitor_wine",
+      "activeStates": ["Complete"],
+      "playerParamRepairs": [],
+      "playerParamMinimums": [
+        { "key": "met_inquisitor", "value": 1.0 },
+        { "key": "_rel_npc_inquisitor", "value": 50.0 }
+      ],
+      "taskStateMinimums": [
+        {
+          "npcId": "npc_inquisitor",
+          "taskId": "inquisitor_burn",
+          "state": "Complete"
+        }
+      ],
+      "unlockedTechs": [],
+      "unlockedPhrases": [],
+      "blacklistedPhrases": ["@inquisitor_wine_ready"],
+      "unlockedCrafts": [],
+      "completedOneTimeCrafts": [],
+      "wgoParamMinimums": [],
+      "personalItemGrants": []
+    },
+    {
+      "milestoneId": "inquisitor_tent_requested",
+      "npcId": "npc_inquisitor",
+      "taskId": "inquisitor_tent",
+      "activeStates": ["Visible"],
+      "playerParamRepairs": [],
+      "playerParamMinimums": [
+        { "key": "met_inquisitor", "value": 1.0 },
+        { "key": "_rel_npc_inquisitor", "value": 50.0 }
+      ],
+      "taskStateMinimums": [
+        {
+          "npcId": "npc_inquisitor",
+          "taskId": "inquisitor_burn",
+          "state": "Complete"
+        },
+        {
+          "npcId": "npc_inquisitor",
+          "taskId": "inquisitor_wine",
+          "state": "Visible"
+        }
+      ],
+      "unlockedTechs": [],
+      "unlockedPhrases": [],
+      "blacklistedPhrases": ["@inquisitor_tent"],
+      "unlockedCrafts": [],
+      "completedOneTimeCrafts": [],
+      "wgoParamMinimums": [],
+      "personalItemGrants": []
+    },
+    {
+      "milestoneId": "inquisitor_tent_opened",
+      "npcId": "npc_inquisitor",
+      "taskId": "inquisitor_tent",
+      "activeStates": ["Complete"],
+      "playerParamRepairs": [],
+      "playerParamMinimums": [
+        { "key": "met_inquisitor", "value": 1.0 },
+        { "key": "_rel_npc_inquisitor", "value": 65.0 }
+      ],
+      "taskStateMinimums": [
+        {
+          "npcId": "npc_inquisitor",
+          "taskId": "inquisitor_burn",
+          "state": "Complete"
+        },
+        {
+          "npcId": "npc_inquisitor",
+          "taskId": "inquisitor_wine",
+          "state": "Visible"
+        }
+      ],
+      "unlockedTechs": [],
+      "unlockedPhrases": [],
+      "blacklistedPhrases": [
+        "@inquisitor_tent",
+        "@inquisitor_tent_ready"
+      ],
+      "unlockedCrafts": [],
+      "completedOneTimeCrafts": [],
+      "wgoParamMinimums": [],
+      "personalItemGrants": []
+    },
+    {
+      "milestoneId": "inquisitor_portal_guards_reported",
+      "npcId": "npc_inquisitor",
+      "taskId": "inquisitor_guards",
+      "activeStates": ["Visible"],
+      "playerParamRepairs": [],
+      "playerParamMinimums": [],
+      "taskStateMinimums": [],
+      "unlockedTechs": [],
+      "unlockedPhrases": [],
+      "blacklistedPhrases": [],
+      "unlockedCrafts": [],
+      "completedOneTimeCrafts": [],
+      "wgoParamMinimums": [],
+      "personalItemGrants": []
+    },
+    {
+      "milestoneId": "inquisitor_portal_guards_removed",
+      "npcId": "npc_inquisitor",
+      "taskId": "inquisitor_guards",
+      "activeStates": ["Complete"],
+      "playerParamRepairs": [],
+      "playerParamMinimums": [
+        { "key": "_rel_npc_inquisitor", "value": 70.0 }
+      ],
+      "taskStateMinimums": [],
+      "unlockedTechs": [],
+      "unlockedPhrases": [],
+      "blacklistedPhrases": [
+        "@inquisitor_portal_guard",
+        "@inquisitor_portal_done"
+      ],
+      "unlockedCrafts": [],
+      "completedOneTimeCrafts": [],
+      "wgoParamMinimums": [],
+      "personalItemGrants": []
+    },
+    {
+      "milestoneId": "inquisitor_dark_organ_evidence_requested",
+      "npcId": "npc_inquisitor",
+      "taskId": "inquisitor_evidence",
+      "activeStates": ["Visible"],
+      "playerParamRepairs": [],
+      "playerParamMinimums": [
+        { "key": "player_knows_about_dark_organs", "value": 1.0 },
+        { "key": "_rel_npc_inquisitor", "value": 65.0 }
+      ],
+      "taskStateMinimums": [
+        {
+          "npcId": "npc_inquisitor",
+          "taskId": "inquisitor_tent",
+          "state": "Complete"
+        }
+      ],
+      "unlockedTechs": [],
+      "unlockedPhrases": [],
+      "blacklistedPhrases": [],
+      "unlockedCrafts": [],
+      "completedOneTimeCrafts": [],
+      "wgoParamMinimums": [],
+      "personalItemGrants": []
+    },
+    {
+      "milestoneId": "inquisitor_dark_organ_evidence_delivered",
+      "npcId": "npc_inquisitor",
+      "taskId": "inquisitor_evidence",
+      "activeStates": ["Complete"],
+      "playerParamRepairs": [],
+      "playerParamMinimums": [
+        { "key": "player_knows_about_dark_organs", "value": 1.0 },
+        { "key": "dark_curce", "value": 1.0 },
+        { "key": "_rel_npc_inquisitor", "value": 80.0 }
+      ],
+      "taskStateMinimums": [
+        {
+          "npcId": "npc_inquisitor",
+          "taskId": "inquisitor_tent",
+          "state": "Complete"
+        }
+      ],
+      "unlockedTechs": ["Dark body"],
+      "unlockedPhrases": [],
+      "blacklistedPhrases": [
+        "@inquisitor_dark",
+        "inquisitor_dark_hart",
+        "inquisitor_dark_brain",
+        "inquisitor_dark_intestine"
+      ],
+      "unlockedCrafts": [],
+      "completedOneTimeCrafts": [],
+      "wgoParamMinimums": [],
+      "personalItemGrants": []
+    }
+  ],
+  "cutscenes": [
+    {
+      "cutsceneId": "charm_first_tavern_performance",
+      "linkedQuestIds": [],
+      "triggerScripts": ["first_actress_song"],
+      "actors": ["initiating_player", "npc_actress"],
+      "observerPolicy": "all_loaded_party_members",
+      "lateJoinPolicy": "join_live_checkpoint_or_observe",
+      "remoteExecutionPolicy": "live_observation",
+      "executionOwnerPolicy": "any_player",
+      "dialogueOwnerPolicy": "initiating_player",
+      "formationPolicy": "initiator_with_observer_follow",
+      "cleanupRequirements": [
+        "run_the_three_line_tavern_performance_once",
+        "set_npc_actress_first_meet_actress_once",
+        "fire_npc_actress_intro_only_after_the_performance_finishes",
+        "never_replay_the_performance_from_later_actress_task_state",
+        "restore_tavern_music_camera_and_party_control"
+      ]
+    },
+    {
+      "cutsceneId": "astrologer_first_meeting",
+      "linkedQuestIds": [],
+      "triggerScripts": ["npc_astrologer:intro"],
+      "actors": ["initiating_player", "npc_astrologer"],
+      "observerPolicy": "all_loaded_party_members",
+      "lateJoinPolicy": "join_live_checkpoint_or_observe",
+      "remoteExecutionPolicy": "live_observation",
+      "executionOwnerPolicy": "any_player",
+      "dialogueOwnerPolicy": "initiating_player",
+      "formationPolicy": "initiator_with_observer_follow",
+      "cleanupRequirements": [
+        "restore_player_control",
+        "preserve_astrologer_schedule",
+        "finalize_first_meeting_task_state",
+        "close_letterbox"
+      ]
+    },
+    {
+      "cutsceneId": "charm_and_vagner_first_meeting",
+      "linkedQuestIds": [],
+      "triggerScripts": ["npc_actress:intro"],
+      "actors": ["initiating_player", "npc_actress", "npc_actor"],
+      "observerPolicy": "all_loaded_party_members",
+      "lateJoinPolicy": "join_live_checkpoint_or_observe",
+      "remoteExecutionPolicy": "live_observation",
+      "executionOwnerPolicy": "any_player",
+      "dialogueOwnerPolicy": "initiating_player",
+      "formationPolicy": "initiator_with_observer_follow",
+      "cleanupRequirements": [
+        "set_npc_actress_meet_actress_once",
+        "unlock_and_reveal_keeper_room_picture_6_once",
+        "show_actress_faith_once",
+        "fire_the_nested_npc_actor_intro_once",
+        "move_npc_actor_through_the_two_serialized_tavern_points_once",
+        "apply_vagner_relation_plus_5_once",
+        "show_actor_paper_ink_once",
+        "unlock_journalist_once_after_actor_paper_ink_becomes_visible",
+        "preserve_the_cup_20_reached_dialogue_variant",
+        "restore_camera_letterbox_and_party_control"
+      ]
+    },
+    {
+      "cutsceneId": "gerry_warns_about_inquisitor",
+      "linkedQuestIds": [],
+      "triggerScripts": ["talking_skull:skull_talking_before_inquisitor"],
+      "actors": ["initiating_player", "talking_skull"],
+      "observerPolicy": "all_loaded_party_members",
+      "lateJoinPolicy": "join_live_checkpoint_or_observe",
+      "remoteExecutionPolicy": "live_observation",
+      "executionOwnerPolicy": "any_player",
+      "dialogueOwnerPolicy": "initiating_player",
+      "formationPolicy": "initiator_with_observer_follow",
+      "cleanupRequirements": [
+        "show_skull_inquisitor_once",
+        "consume_inquisitor_waits_under_mountains_2_only_in_the_live_zone_wrapper",
+        "return_the_temporary_talking_skull_to_stock",
+        "never_repair_the_consumed_warning_latch_from_task_state",
+        "restore_camera_letterbox_and_party_control"
+      ]
+    },
+    {
+      "cutsceneId": "inquisitor_first_witch_hill_burning",
+      "linkedQuestIds": [],
+      "triggerScripts": ["npc_inquisitor:first_meet_under_mountains"],
+      "actors": [
+        "initiating_player",
+        "npc_inquisitor",
+        "npc_guard_2",
+        "npc_guard_3",
+        "npc_guard_4",
+        "npc_citizen_1",
+        "npc_citizen_2",
+        "npc_citizen_3",
+        "npc_citizen_4",
+        "npc_citizen_5",
+        "npc_citizen_6",
+        "witch_pylon",
+        "turnpike_close_inquisitor"
+      ],
+      "observerPolicy": "all_loaded_party_members",
+      "lateJoinPolicy": "join_live_checkpoint_or_observe",
+      "remoteExecutionPolicy": "live_observation",
+      "executionOwnerPolicy": "any_player",
+      "dialogueOwnerPolicy": "initiating_player",
+      "formationPolicy": "initiator_with_observer_follow",
+      "cleanupRequirements": [
+        "complete_optional_skull_inquisitor_even_when_gerrys_warning_was_skipped",
+        "apply_inquisitor_relation_plus_10_once_from_the_initiator_flow",
+        "preserve_exactly_one_friend_or_enemy_answer_branch",
+        "show_inquisitor_talk_only_on_the_first_burning_friend_branch",
+        "never_repair_inquisitor_enemy_or_arrival_burning_and_cinematic_latches",
+        "send_the_inquisitor_guards_and_six_citizens_home_once",
+        "restore_time_music_camera_letterbox_and_party_control"
+      ]
+    },
+    {
+      "cutsceneId": "inquisitor_second_witch_hill_burning",
+      "linkedQuestIds": [],
+      "triggerScripts": ["npc_inquisitor:second_witch_burning"],
+      "actors": [
+        "initiating_player",
+        "npc_inquisitor",
+        "npc_guard_3",
+        "npc_citizen_1",
+        "npc_citizen_2",
+        "npc_citizen_5",
+        "witch_pylon",
+        "vineyard_builddesk_broken",
+        "vineyard_builddesk"
+      ],
+      "observerPolicy": "all_loaded_party_members",
+      "lateJoinPolicy": "join_live_checkpoint_or_observe",
+      "remoteExecutionPolicy": "live_observation",
+      "executionOwnerPolicy": "any_player",
+      "dialogueOwnerPolicy": "initiating_player",
+      "formationPolicy": "initiator_with_observer_follow",
+      "cleanupRequirements": [
+        "apply_the_second_burning_relation_plus_10_once_from_the_initiating_flow",
+        "increment_body_max_only_in_the_live_flow",
+        "spawn_the_vineyard_builddesk_once",
+        "show_inquisitor_wine_then_unlock_wine_ready_and_tent_in_serialized_order",
+        "stage_and_release_the_guard_and_three_citizens_once",
+        "never_repair_cur_multianswer_state_or_skull_talk_after_2nd_witch_from_task_state",
+        "restore_camera_letterbox_and_party_control"
+      ]
+    },
+    {
+      "cutsceneId": "inquisitor_tent_opening",
+      "linkedQuestIds": [],
+      "triggerScripts": ["npc_inquisitor:@inquisitor_tent_ready"],
+      "actors": [
+        "initiating_player",
+        "npc_inquisitor",
+        "vendor_tent",
+        "vendor_stall"
+      ],
+      "observerPolicy": "all_loaded_party_members",
+      "lateJoinPolicy": "join_live_checkpoint_or_observe",
+      "remoteExecutionPolicy": "live_observation",
+      "executionOwnerPolicy": "any_player",
+      "dialogueOwnerPolicy": "initiating_player",
+      "formationPolicy": "initiator_with_observer_follow",
+      "cleanupRequirements": [
+        "apply_the_answer_relation_plus_10_once",
+        "increment_body_min_only_in_the_live_flow",
+        "grant_five_gold_story_points_to_the_initiator_once",
+        "set_the_weekly_burning_flags_only_after_the_live_tent_dialogue",
+        "never_repair_player_shown_the_tent_burning_once_at_week_available_beer_active_or_burgers_active_from_task_state",
+        "restore_camera_letterbox_positions_directions_and_party_control"
+      ]
+    },
+    {
+      "cutsceneId": "inquisitor_weekly_tasty_burning",
+      "linkedQuestIds": [],
+      "triggerScripts": ["witch_tasty_burning"],
+      "actors": [
+        "initiating_player",
+        "npc_inquisitor",
+        "npc_guard_3",
+        "npc_citizen_1",
+        "npc_citizen_2",
+        "npc_citizen_5",
+        "npc_burger_eater_1",
+        "npc_burger_eater_2",
+        "npc_burger_eater_3",
+        "npc_burger_eater_4",
+        "npc_burger_eater_5",
+        "npc_burger_eater_6",
+        "npc_burger_eater_7",
+        "npc_burger_eater_8",
+        "witch_pylon",
+        "vendor_stall"
+      ],
+      "observerPolicy": "all_loaded_party_members",
+      "lateJoinPolicy": "join_live_checkpoint_or_observe",
+      "remoteExecutionPolicy": "live_observation",
+      "executionOwnerPolicy": "any_player",
+      "dialogueOwnerPolicy": "initiating_player",
+      "formationPolicy": "initiator_with_observer_follow",
+      "cleanupRequirements": [
+        "apply_first_tasty_burning_flags_and_queue_horadric_after_burger_witch_only_on_the_first_run",
+        "blacklist_burn_again_and_clear_the_weekly_availability_once_per_run",
+        "clear_vendor_beer_and_burgers_only_in_the_live_run",
+        "drop_four_total_faith_from_the_three_serialized_citizens_as_shared_world_drops",
+        "grant_33_money_to_the_initiator_only_on_each_completed_run",
+        "never_repair_first_burning_week_counter_or_weekly_vendor_latches",
+        "despawn_dynamic_burger_eaters_and_release_the_fixed_crowd_once",
+        "restore_camera_letterbox_position_direction_and_party_control"
+      ]
+    },
+    {
+      "cutsceneId": "inquisitor_portal_guard_encounter",
+      "linkedQuestIds": [],
+      "triggerScripts": ["in_front_of_portal"],
+      "actors": ["initiating_player", "npc_guard_7", "npc_guard_8"],
+      "observerPolicy": "all_loaded_party_members",
+      "lateJoinPolicy": "join_live_checkpoint_or_observe",
+      "remoteExecutionPolicy": "live_observation",
+      "executionOwnerPolicy": "any_player",
+      "dialogueOwnerPolicy": "initiating_player",
+      "formationPolicy": "initiator_with_observer_follow",
+      "cleanupRequirements": [
+        "consume_player_first_portal_visit_only_in_the_live_script",
+        "show_inquisitor_guards_before_unlocking_portal_guard_in_serialized_order",
+        "never_repair_the_consumed_portal_visit_latch_or_the_late_phrase_from_visible_task_state",
+        "restore_guard_directions_letterbox_and_party_control"
+      ]
+    },
+    {
+      "cutsceneId": "donkey_workers_strike",
+      "linkedQuestIds": [],
+      "triggerScripts": ["npc_donkey:donkey_strike"],
+      "actors": [
+        "initiating_player",
+        "npc_donkey",
+        "donkey_cart",
+        "carrot_box_place"
+      ],
+      "observerPolicy": "all_loaded_party_members",
+      "lateJoinPolicy": "join_live_checkpoint_or_observe",
+      "remoteExecutionPolicy": "live_observation",
+      "executionOwnerPolicy": "any_player",
+      "dialogueOwnerPolicy": "initiating_player",
+      "formationPolicy": "initiator_with_observer_follow",
+      "cleanupRequirements": [
+        "run_the_sixteen_serialized_strike_dialogue_beats_once",
+        "spawn_one_carrot_box_construction_site",
+        "unlock_donkey_oil_only_after_the_live_strike_dialogue",
+        "never_repair_the_consumed_strike_interaction_event_from_the_church_milestone",
+        "restore_party_control"
+      ]
+    },
+    {
+      "cutsceneId": "donkey_oil_handoff",
+      "linkedQuestIds": [],
+      "triggerScripts": ["npc_donkey:@donkey_oil"],
+      "actors": ["initiating_player", "npc_donkey", "donkey_cart", "carrot_box"],
+      "observerPolicy": "all_loaded_party_members",
+      "lateJoinPolicy": "join_live_checkpoint_or_observe",
+      "remoteExecutionPolicy": "live_observation",
+      "executionOwnerPolicy": "any_player",
+      "dialogueOwnerPolicy": "initiating_player",
+      "formationPolicy": "initiator_with_observer_follow",
+      "cleanupRequirements": [
+        "consume_one_seed_oil_from_the_initiating_player_only",
+        "blacklist_donkey_oil_and_increment_strike_completed_once",
+        "if_this_is_the_second_requirement_consume_five_shared_box_carrots_and_drop_one_body",
+        "never_restore_seed_oil_or_repair_strike_completed_from_the_church_milestone",
+        "restore_party_control"
+      ]
+    },
+    {
+      "cutsceneId": "donkey_carrot_box_built_acknowledgement",
+      "linkedQuestIds": [],
+      "triggerScripts": ["npc_donkey:donkey_strike_done"],
+      "actors": ["initiating_player", "npc_donkey", "carrot_box"],
+      "observerPolicy": "all_loaded_party_members",
+      "lateJoinPolicy": "join_live_checkpoint_or_observe",
+      "remoteExecutionPolicy": "live_observation",
+      "executionOwnerPolicy": "any_player",
+      "dialogueOwnerPolicy": "initiating_player",
+      "formationPolicy": "initiator_with_observer_follow",
+      "cleanupRequirements": [
+        "play_the_single_construction_acknowledgement_once",
+        "face_the_initiating_player_toward_donkey_after_the_serialized_delay",
+        "do_not_increment_strike_completed_for_construction_alone",
+        "restore_party_control"
+      ]
+    },
+    {
+      "cutsceneId": "donkey_first_carrot_box_arrival",
+      "linkedQuestIds": [],
+      "triggerScripts": ["npc_donkey:donkey_strike_done_2"],
+      "actors": ["initiating_player", "npc_donkey", "donkey_cart", "carrot_box"],
+      "observerPolicy": "all_loaded_party_members",
+      "lateJoinPolicy": "join_live_checkpoint_or_observe",
+      "remoteExecutionPolicy": "live_observation",
+      "executionOwnerPolicy": "any_player",
+      "dialogueOwnerPolicy": "initiating_player",
+      "formationPolicy": "initiator_with_observer_follow",
+      "cleanupRequirements": [
+        "run_the_five_serialized_carrot_box_dialogue_beats_once",
+        "set_check_carrot_box_and_increment_strike_completed_once",
+        "if_this_is_the_second_requirement_consume_five_shared_box_carrots_and_drop_one_body",
+        "never_repair_first_check_delivery_or_schedule_latches",
+        "restore_party_control"
+      ]
+    },
+    {
+      "cutsceneId": "first_bed_wake",
+      "linkedQuestIds": ["start", "get_out_from_house"],
+      "triggerScripts": ["first_sleep"],
+      "actors": ["player_party", "first_bed", "bed_no_sleep_2"],
+      "observerPolicy": "all_loaded_party_members",
+      "lateJoinPolicy": "presentation_checkpoint_required",
+      "remoteExecutionPolicy": "local_mirror_required",
+      "executionOwnerPolicy": "any_player",
+      "dialogueOwnerPolicy": "initiating_player",
+      "formationPolicy": "intro_first_bed_party",
+      "cleanupRequirements": [
+        "replace_the_triggering_first_bed_with_bed_no_sleep_2_once",
+        "run_the_two_second_fade_set_serialized_time_zero_and_apply_both_camera_shakes",
+        "set_skull_spawn_only_in_the_live_first_bed_script",
+        "never_infer_or_replay_first_sleep_from_later_skull_or_yorick_state",
+        "restore_party_control_and_camera"
+      ]
+    },
+    {
+      "cutsceneId": "gerry_cellar_back_entrance",
+      "linkedQuestIds": ["goto_tavern", "goto_tavern_2"],
+      "triggerScripts": ["on_enter_skull_back_zone"],
+      "actors": ["initiating_player", "talking_skull", "house_hatch"],
+      "observerPolicy": "all_loaded_party_members",
+      "lateJoinPolicy": "join_live_checkpoint_or_observe",
+      "remoteExecutionPolicy": "live_observation",
+      "executionOwnerPolicy": "any_player",
+      "dialogueOwnerPolicy": "initiating_player",
+      "formationPolicy": "initiator_with_observer_follow",
+      "cleanupRequirements": [
+        "run_only_when_test_tavern_is_set_and_key_to_cellar_is_absent",
+        "apply_gathering_then_bread_in_the_serialized_dialogue_order",
+        "set_key_to_cellar_only_after_the_live_multianswer_converges",
+        "return_gerry_to_stock_and_finalize_the_house_hatch_interaction_once",
+        "restore_party_control"
+      ]
+    },
+    {
+      "cutsceneId": "gerry_river_body_disposal_advice",
+      "linkedQuestIds": ["ghost_come_after_1st_burial"],
+      "triggerScripts": [
+        "gerry_comes_near_the_river_down_point",
+        "gerry_comes_near_the_river_up_point",
+        "gerry_comes_near_the_river"
+      ],
+      "actors": ["initiating_player", "talking_skull", "river"],
+      "observerPolicy": "all_loaded_party_members",
+      "lateJoinPolicy": "join_live_checkpoint_or_observe",
+      "remoteExecutionPolicy": "live_observation",
+      "executionOwnerPolicy": "any_player",
+      "dialogueOwnerPolicy": "initiating_player",
+      "formationPolicy": "initiator_with_observer_follow",
+      "cleanupRequirements": [
+        "route_gerry_from_the_triggered_upper_or_lower_river_point_once",
+        "require_both_river_and_cremation_answers_in_either_order",
+        "increment_gerry_near_counter_param_only_in_the_two_live_answers",
+        "queue_ghost_comes_2_home_after_1st_river_only_after_both_answers",
+        "never_repair_answer_counter_phrase_or_followup_event_latches",
+        "return_gerry_to_stock_show_the_npc_list_and_restore_party_control"
+      ]
+    },
+    {
+      "cutsceneId": "yorick_after_first_river_disposal",
+      "linkedQuestIds": ["ghost_come_after_1st_burial"],
+      "triggerScripts": ["ghost_comes_after_river"],
+      "actors": ["initiating_player", "npc_ghost"],
+      "observerPolicy": "all_loaded_party_members",
+      "lateJoinPolicy": "join_live_checkpoint_or_observe",
+      "remoteExecutionPolicy": "live_observation",
+      "executionOwnerPolicy": "any_player",
+      "dialogueOwnerPolicy": "initiating_player",
+      "formationPolicy": "initiator_with_observer_follow",
+      "participantFacing": "Right",
+      "completionChecks": [
+        {
+          "source": "player_param",
+          "key": "ghost_comes_2_home_after_1st_river",
+          "comparison": "==",
+          "value": 0.0
+        }
+      ],
+      "cleanupRequirements": [
+        "consume_ghost_comes_2_home_after_1st_river_only_in_the_live_wake_event",
+        "run_the_nine_serialized_dialogue_beats_once",
+        "return_yorick_to_stock_and_show_the_grave_tutorial_once",
+        "never_repair_or_requeue_the_sleep_event_latch",
+        "restore_party_control_and_player_facing"
+      ]
+    },
+    {
+      "cutsceneId": "town_guard_pass_gate",
+      "linkedQuestIds": ["get_out_from_house"],
+      "triggerScripts": ["npc_guard_5:intro", "npc_guard_5:interaction"],
+      "actors": ["initiating_player", "npc_guard_5", "turnpike_to_village"],
+      "observerPolicy": "all_loaded_party_members",
+      "lateJoinPolicy": "join_live_checkpoint_or_observe",
+      "remoteExecutionPolicy": "live_observation",
+      "executionOwnerPolicy": "any_player",
+      "dialogueOwnerPolicy": "initiating_player",
+      "formationPolicy": "initiator_with_observer_follow",
+      "cleanupRequirements": [
+        "intro_and_interaction_converge_on_the_same_two_guard_lines_and_town_pass_multianswer",
+        "consume_one_town_pass_only_when_the_initiator_selects_town_guard_3",
+        "change_turnpike_to_village_to_turnpike_open_once_before_the_final_guard_line",
+        "the_Leave_answer_restores_control_without_inventory_or_world_mutation",
+        "never_bind_town_guard_3_as_a_standalone_script_or_replay_the_guard_spawn_route",
+        "never_repair_regrant_or_reconsume_town_pass_or_rebuild_the_turnpike_from_get_out_from_house_or_later_story_state",
+        "restore_player_control"
+      ]
+    }
+  ],
+  "storySteps": [
+    {
+      "stepId": "repair_broken_sword",
+      "title": "Repair the broken sword at Krezvold's grindstone",
+      "linkedQuestIds": [
+        "player_repairs_sword",
+        "player_repairs_sword_before"
+      ],
+      "triggerScripts": [],
+      "triggerKeys": [
+        "item_whetstone",
+        "interact_mf_grindstone_1",
+        "sword_has_fixed"
+      ],
+      "expectedEffects": [
+        {
+          "kind": "player_param",
+          "id": "sword_has_fixed",
+          "operation": "set",
+          "amount": 1.0,
+          "ownership": "shared_campaign"
+        }
+      ],
+      "safeguards": [
+        "single_grindstone_completion",
+        "sword_repair_state_shared",
+        "no_duplicate_equipment"
+      ]
+    },
+    {
+      "stepId": "ask_gerry_about_home_and_astrologer",
+      "title": "Ask Gerry how to get home and learn about the Astrologer",
+      "linkedQuestIds": [],
+      "linkedTaskMilestoneIds": [
+        "gerry_beer_delivered",
+        "gerry_portal_goal_revealed",
+        "gerry_astrologer_goal_revealed"
+      ],
+      "triggerScripts": ["crafting_skull_3:interaction"],
+      "triggerKeys": ["skull_8_2b_1a", "player_portal", "player_astrolog"],
+      "expectedEffects": [
+        {
+          "kind": "npc_task",
+          "id": "player:player_portal",
+          "operation": "show",
+          "amount": 1.0,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "npc_task",
+          "id": "player:player_astrolog",
+          "operation": "show",
+          "amount": 1.0,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "dialogue_phrase",
+          "id": "skull_8_2b_1a",
+          "operation": "blacklist",
+          "amount": 1.0,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "dialogue_phrase",
+          "id": "@skull_8_2b_1b",
+          "operation": "unlock",
+          "amount": 1.0,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "dialogue_phrase",
+          "id": "@astrologer_2a_1b_1",
+          "operation": "unlock",
+          "amount": 1.0,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "dialogue_phrase",
+          "id": "@skull_8_2b_1c",
+          "operation": "unlock",
+          "amount": 1.0,
+          "ownership": "shared_campaign"
+        }
+      ],
+      "safeguards": [
+        "requires_gerry_relation_twenty",
+        "single_gerry_dialogue_owner",
+        "portal_and_astrologer_tasks_shared",
+        "do_not_infer_optional_followup_answers"
+      ]
+    },
+    {
+      "stepId": "ask_gerry_for_wine",
+      "title": "Ask Gerry about the Library and receive his wine request",
+      "linkedQuestIds": [],
+      "linkedTaskMilestoneIds": ["gerry_wine_requested"],
+      "triggerScripts": ["crafting_skull_3:interaction"],
+      "triggerKeys": ["@skull_8_2b_1b", "skull_wine"],
+      "expectedEffects": [
+        {
+          "kind": "npc_task",
+          "id": "crafting_skull_3:skull_wine",
+          "operation": "show",
+          "amount": 1.0,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "dialogue_phrase",
+          "id": "@skull_8_2b_1b",
+          "operation": "blacklist",
+          "amount": 1.0,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "dialogue_phrase",
+          "id": "@skull_8_2a_wine",
+          "operation": "unlock",
+          "amount": 1.0,
+          "ownership": "shared_campaign"
+        }
+      ],
+      "safeguards": [
+        "single_gerry_dialogue_owner",
+        "wine_request_task_shared",
+        "preserve_unselected_gerry_topics"
+      ]
+    },
+    {
+      "stepId": "deliver_gerry_wine",
+      "title": "Bring Gerry silver-quality red wine",
+      "linkedQuestIds": [],
+      "linkedTaskMilestoneIds": ["gerry_wine_delivered"],
+      "triggerScripts": ["crafting_skull_3:interaction"],
+      "triggerKeys": ["@skull_8_2a_wine", "skull_wine"],
+      "expectedEffects": [
+        {
+          "kind": "inventory_item",
+          "id": "bottle_red_vine:2",
+          "operation": "consume_from_initiator",
+          "amount": 1.0,
+          "ownership": "personal_character"
+        },
+        {
+          "kind": "npc_task",
+          "id": "crafting_skull_3:skull_wine",
+          "operation": "complete",
+          "amount": 1.0,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "player_param",
+          "id": "_rel_crafting_skull_3",
+          "operation": "minimum",
+          "amount": 40.0,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "story_point",
+          "id": "silver",
+          "operation": "grant_to_initiator",
+          "amount": 2.0,
+          "ownership": "personal_character"
+        },
+        {
+          "kind": "dialogue_phrase",
+          "id": "@skull_8_2a_wine",
+          "operation": "blacklist",
+          "amount": 1.0,
+          "ownership": "shared_campaign"
+        }
+      ],
+      "safeguards": [
+        "consume_one_silver_wine_from_initiator_only",
+        "never_consume_observer_inventory",
+        "wine_relation_reward_once",
+        "wine_story_points_once",
+        "stories_dlc_cognac_followup_remains_conditional"
+      ]
+    },
+    {
+      "stepId": "meet_astrologer_and_receive_skull_request",
+      "title": "Meet the Astrologer and receive his skull request",
+      "linkedQuestIds": [],
+      "linkedTaskMilestoneIds": [
+        "astrologer_intro_complete",
+        "astrologer_waiting_for_skull"
+      ],
+      "triggerScripts": ["npc_astrologer:intro"],
+      "triggerKeys": ["intro", "player_astrolog", "astrologer_skull"],
+      "expectedEffects": [
+        {
+          "kind": "world_param",
+          "id": "npc_astrologer:first_time",
+          "operation": "minimum",
+          "amount": 1.0,
+          "ownership": "shared_world"
+        },
+        {
+          "kind": "npc_task",
+          "id": "player:player_astrolog",
+          "operation": "complete",
+          "amount": 1.0,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "npc_task",
+          "id": "npc_astrologer:astrologer_skull",
+          "operation": "show",
+          "amount": 1.0,
+          "ownership": "shared_campaign"
+        }
+      ],
+      "safeguards": [
+        "single_astrologer_intro_owner",
+        "astrologer_first_time_shared",
+        "preserve_astrologer_schedule",
+        "skull_request_shared"
+      ]
+    },
+    {
+      "stepId": "deliver_skull_to_astrologer",
+      "title": "Bring a skull to the Astrologer",
+      "linkedQuestIds": [],
+      "linkedTaskMilestoneIds": ["astrologer_skull_delivered"],
+      "triggerScripts": ["npc_astrologer:interaction"],
+      "triggerKeys": ["astrologer_2b", "true_skull"],
+      "expectedEffects": [
+        {
+          "kind": "inventory_item",
+          "id": "skull",
+          "operation": "consume_from_initiator",
+          "amount": 1.0,
+          "ownership": "personal_character"
+        },
+        {
+          "kind": "player_param",
+          "id": "_rel_npc_astrologer",
+          "operation": "minimum",
+          "amount": 10.0,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "npc_task",
+          "id": "npc_astrologer:astrologer_skull",
+          "operation": "complete",
+          "amount": 1.0,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "dialogue_phrase",
+          "id": "astrologer_2b",
+          "operation": "blacklist",
+          "amount": 1.0,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "achievement_key",
+          "id": "true_skull",
+          "operation": "check_for_initiator",
+          "amount": 1.0,
+          "ownership": "personal_platform"
+        }
+      ],
+      "safeguards": [
+        "consume_one_skull_from_initiator_only",
+        "never_consume_observer_inventory",
+        "astrologer_relation_reward_once",
+        "true_skull_check_is_personal"
+      ]
+    },
+    {
+      "stepId": "receive_old_keepers_key",
+      "title": "Ask about the Portal and receive the old Keeper's Key",
+      "linkedQuestIds": [],
+      "linkedTaskMilestoneIds": ["astrologer_keeper_key_received"],
+      "triggerScripts": ["npc_astrologer:interaction"],
+      "triggerKeys": [
+        "astrologer_2a",
+        "@astrologer_2a_1b_1",
+        "astrologer_2a_1b_6c"
+      ],
+      "expectedEffects": [
+        {
+          "kind": "inventory_item",
+          "id": "quest_key_astrologer",
+          "operation": "drop_once",
+          "amount": 1.0,
+          "ownership": "shared_story_token"
+        },
+        {
+          "kind": "npc_task",
+          "id": "npc_astrologer:astrologer_diary",
+          "operation": "show",
+          "amount": 1.0,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "dialogue_phrase",
+          "id": "astrologer_2a_1b_6c",
+          "operation": "blacklist",
+          "amount": 1.0,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "dialogue_phrase",
+          "id": "@snake_give_key",
+          "operation": "unlock",
+          "amount": 1.0,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "dialogue_phrase",
+          "id": "@astrologer_diary",
+          "operation": "unlock",
+          "amount": 1.0,
+          "ownership": "shared_campaign"
+        }
+      ],
+      "safeguards": [
+        "requires_astrologer_relation_ten",
+        "keepers_key_dropped_once",
+        "keepers_key_not_granted_per_player",
+        "diary_task_shared",
+        "portal_parent_topic_remains_until_all_subtopics_consumed"
+      ]
+    },
+    {
+      "stepId": "meet_charm_and_vagner_at_the_dead_horse",
+      "title": "Meet Charm and Vagner at the Dead Horse",
+      "linkedQuestIds": [],
+      "linkedTaskMilestoneIds": [
+        "charm_faith_requested",
+        "vagner_paper_and_ink_requested"
+      ],
+      "triggerScripts": [
+        "npc_actress:intro",
+        "npc_actor:intro"
+      ],
+      "triggerKeys": [
+        "meet_actress",
+        "keeper_room_builddesk:p:keeper_room_picture_6",
+        "actress_faith",
+        "actor_paper_ink",
+        "Journalist",
+        "cup_20_reached"
+      ],
+      "expectedEffects": [
+        {
+          "kind": "world_param",
+          "id": "npc_actress:meet_actress",
+          "operation": "set",
+          "amount": 1.0,
+          "ownership": "shared_world"
+        },
+        {
+          "kind": "craft",
+          "id": "keeper_room_builddesk:p:keeper_room_picture_6",
+          "operation": "unlock_and_reveal_once",
+          "amount": 1.0,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "npc_task",
+          "id": "npc_actress:actress_faith",
+          "operation": "show",
+          "amount": 1.0,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "npc_event",
+          "id": "npc_actor:intro",
+          "operation": "fire_once_after_charm_intro",
+          "amount": 1.0,
+          "ownership": "shared_world"
+        },
+        {
+          "kind": "player_param",
+          "id": "_rel_npc_actor",
+          "operation": "add_once",
+          "amount": 5.0,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "npc_task",
+          "id": "npc_actor:actor_paper_ink",
+          "operation": "show",
+          "amount": 1.0,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "technology",
+          "id": "Journalist",
+          "operation": "unlock_after_actor_paper_ink_is_visible",
+          "amount": 1.0,
+          "ownership": "shared_campaign"
+        }
+      ],
+      "safeguards": [
+        "run_one_authoritative_charm_intro_with_the_nested_vagner_intro",
+        "do_not_bind_a_second_cutscene_policy_to_the_nested_npc_actor_intro",
+        "apply_vagner_relation_once",
+        "preserve_the_optional_cup_20_reached_dialogue_branch",
+        "do_not_repair_journalist_from_actor_paper_ink_visible_because_the_unlock_occurs_after_that_anchor",
+        "restore_camera_letterbox_and_party_control"
+      ]
+    },
+    {
+      "stepId": "prove_faith_to_charm",
+      "title": "Show Charm five Faith",
+      "linkedQuestIds": [],
+      "linkedTaskMilestoneIds": ["charm_faith_proven"],
+      "triggerScripts": ["npc_actress:interaction"],
+      "triggerKeys": [
+        "actress_2a_2",
+        "faith",
+        "actress_faith"
+      ],
+      "expectedEffects": [
+        {
+          "kind": "inventory_item",
+          "id": "faith",
+          "operation": "consume_from_initiator",
+          "amount": 5.0,
+          "ownership": "personal_character"
+        },
+        {
+          "kind": "player_param",
+          "id": "_rel_npc_actress",
+          "operation": "add_once",
+          "amount": 10.0,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "npc_task",
+          "id": "npc_actress:actress_faith",
+          "operation": "complete",
+          "amount": 1.0,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "story_point",
+          "id": "silver",
+          "operation": "grant_to_initiator",
+          "amount": 2.0,
+          "ownership": "personal_character"
+        },
+        {
+          "kind": "dialogue_phrase",
+          "id": "actress_2a_2",
+          "operation": "blacklist_after_task_completion",
+          "amount": 1.0,
+          "ownership": "shared_campaign"
+        }
+      ],
+      "safeguards": [
+        "consume_five_faith_from_the_initiator_only",
+        "never_consume_observer_inventory",
+        "relation_and_silver_story_points_apply_once",
+        "do_not_repair_actress_2a_2_from_actress_faith_complete_because_the_blacklist_occurs_after_that_anchor"
+      ]
+    },
+    {
+      "stepId": "bring_vagner_paper_and_ink",
+      "title": "Bring Vagner one ink and ten clean paper",
+      "linkedQuestIds": [],
+      "linkedTaskMilestoneIds": [
+        "vagner_paper_and_ink_requested",
+        "vagner_paper_and_ink_delivered",
+        "vagner_wine_story_requested"
+      ],
+      "triggerScripts": ["npc_actor:interaction"],
+      "triggerKeys": [
+        "actor_2_1a",
+        "ink:ink_jar",
+        "actor_2_1b",
+        "paper_clean",
+        "actor_2_1c",
+        "actor_paper_ink",
+        "actor_wine_story",
+        "@actor_2_1d",
+        "@actor_2_1e",
+        "@astrologer_2a_1a_1",
+        "@astrologer_trade"
+      ],
+      "expectedEffects": [
+        {
+          "kind": "inventory_item",
+          "id": "ink:ink_jar",
+          "operation": "consume_from_ink_handoff_initiator",
+          "amount": 1.0,
+          "ownership": "personal_character"
+        },
+        {
+          "kind": "player_param",
+          "id": "_rel_npc_actor",
+          "operation": "add_once_for_ink_handoff",
+          "amount": 10.0,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "dialogue_phrase",
+          "id": "actor_2_1a",
+          "operation": "blacklist",
+          "amount": 1.0,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "inventory_item",
+          "id": "paper_clean",
+          "operation": "consume_from_paper_handoff_initiator",
+          "amount": 10.0,
+          "ownership": "personal_character"
+        },
+        {
+          "kind": "player_param",
+          "id": "_rel_npc_actor",
+          "operation": "add_once_for_paper_handoff",
+          "amount": 10.0,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "dialogue_phrase",
+          "id": "actor_2_1b",
+          "operation": "blacklist",
+          "amount": 1.0,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "dialogue_phrase",
+          "id": "actor_2_1c",
+          "operation": "blacklist_after_both_handoffs",
+          "amount": 1.0,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "npc_task",
+          "id": "npc_actor:actor_paper_ink",
+          "operation": "complete",
+          "amount": 1.0,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "story_point",
+          "id": "bronze",
+          "operation": "grant_to_final_handoff_initiator",
+          "amount": 2.0,
+          "ownership": "personal_character"
+        },
+        {
+          "kind": "npc_task",
+          "id": "npc_actor:actor_wine_story",
+          "operation": "show_after_paper_and_ink_dialogue",
+          "amount": 1.0,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "dialogue_phrase",
+          "id": "@actor_2_1e",
+          "operation": "blacklist_after_actor_wine_story_is_visible",
+          "amount": 1.0,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "dialogue_phrase",
+          "id": "@actor_2_1d",
+          "operation": "blacklist_after_actor_wine_story_is_visible",
+          "amount": 1.0,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "dialogue_phrase",
+          "id": "@astrologer_2a_1a_1",
+          "operation": "unlock_after_actor_wine_story_is_visible",
+          "amount": 1.0,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "dialogue_phrase",
+          "id": "@astrologer_trade",
+          "operation": "unlock_after_actor_wine_story_is_visible",
+          "amount": 1.0,
+          "ownership": "shared_campaign"
+        }
+      ],
+      "safeguards": [
+        "ink_and_paper_may_be_delivered_in_either_order",
+        "consume_each_delivery_from_its_own_initiator_only",
+        "never_consume_observer_inventory",
+        "each_relation_reward_applies_once",
+        "two_bronze_story_points_apply_once_to_the_final_handoff_initiator",
+        "do_not_repair_post_anchor_topics_from_actor_wine_story_visible"
+      ]
+    },
+    {
+      "stepId": "exchange_wine_for_vagners_story",
+      "title": "Exchange silver-quality red wine for Vagner's stories below relation 50",
+      "linkedQuestIds": [],
+      "linkedTaskMilestoneIds": ["vagner_wine_story_completed"],
+      "triggerScripts": ["npc_actor:interaction"],
+      "triggerKeys": [
+        "actor_3a",
+        "bottle_red_vine:2",
+        "story:2",
+        "actor_wine_story"
+      ],
+      "expectedEffects": [
+        {
+          "kind": "inventory_item",
+          "id": "bottle_red_vine:2",
+          "operation": "consume_from_initiator_on_each_below_50_selection",
+          "amount": 1.0,
+          "ownership": "personal_character"
+        },
+        {
+          "kind": "inventory_item",
+          "id": "story:2",
+          "operation": "grant_to_initiator_on_each_below_50_selection",
+          "amount": 1.0,
+          "ownership": "personal_character"
+        },
+        {
+          "kind": "npc_task",
+          "id": "npc_actor:actor_wine_story",
+          "operation": "complete_once_on_the_first_below_50_exchange",
+          "amount": 1.0,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "player_param",
+          "id": "_rel_npc_actor",
+          "operation": "add_once_per_below_50_exchange_after_task_completion",
+          "amount": 5.0,
+          "ownership": "shared_campaign"
+        }
+      ],
+      "safeguards": [
+        "the_wine_for_story_exchange_is_intentionally_repeatable_until_actor_relation_50",
+        "consume_one_silver_wine_from_each_below_50_selection_initiator_only",
+        "grant_one_silver_story_to_each_below_50_selection_initiator_only",
+        "never_duplicate_any_story_for_observers",
+        "preserve_actor_3a_after_actor_wine_story_first_becomes_complete",
+        "do_not_repair_actor_3a_or_the_late_relation_plus_5_from_actor_wine_story_complete"
+      ]
+    },
+    {
+      "stepId": "finish_vagners_wine_exchange_at_relation_50",
+      "title": "Finish Vagner's wine exchange at relation 50",
+      "linkedQuestIds": [],
+      "linkedTaskMilestoneIds": ["vagner_wine_story_completed"],
+      "triggerScripts": ["npc_actor:interaction"],
+      "triggerKeys": [
+        "actor_3a",
+        "bottle_red_vine:2",
+        "story:2",
+        "_rel_npc_actor"
+      ],
+      "expectedEffects": [
+        {
+          "kind": "player_param",
+          "id": "_rel_npc_actor",
+          "operation": "require_exactly",
+          "amount": 50.0,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "inventory_item",
+          "id": "bottle_red_vine:2",
+          "operation": "consume_from_relation_50_selection_initiator",
+          "amount": 1.0,
+          "ownership": "personal_character"
+        },
+        {
+          "kind": "inventory_item",
+          "id": "story:2",
+          "operation": "grant_to_relation_50_selection_initiator",
+          "amount": 1.0,
+          "ownership": "personal_character"
+        },
+        {
+          "kind": "dialogue_phrase",
+          "id": "actor_3a",
+          "operation": "blacklist",
+          "amount": 1.0,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "npc_task",
+          "id": "npc_actor:actor_wine_story",
+          "operation": "preserve_complete_without_reapplying_task_rewards",
+          "amount": 1.0,
+          "ownership": "shared_campaign"
+        }
+      ],
+      "safeguards": [
+        "run_this_terminal_branch_only_when_actor_relation_equals_50",
+        "consume_and_reward_only_the_relation_50_selection_initiator",
+        "blacklist_actor_3a_once",
+        "do_not_add_relation_on_the_terminal_branch",
+        "never_repair_actor_3a_from_actor_wine_story_complete"
+      ]
+    },
+    {
+      "stepId": "hear_gerrys_optional_inquisitor_warning",
+      "title": "Hear Gerry's optional warning before meeting the Inquisitor",
+      "linkedQuestIds": [],
+      "linkedTaskMilestoneIds": ["gerry_inquisitor_warning_received"],
+      "triggerScripts": [
+        "on_enter_house_outside_gd_zone",
+        "on_enter_morgue_outside_gd_zone",
+        "talking_skull:skull_talking_before_inquisitor"
+      ],
+      "triggerKeys": [
+        "inquisitor_waits_under_mountains_2",
+        "skull_house_spawn_inquisitor",
+        "skull_talk_point_1_rem",
+        "skull_inquisitor"
+      ],
+      "expectedEffects": [
+        {
+          "kind": "player_param",
+          "id": "inquisitor_waits_under_mountains_2",
+          "operation": "consume_in_live_zone_wrapper",
+          "amount": 0.0,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "world_object",
+          "id": "talking_skull",
+          "operation": "spawn_for_warning_then_return_to_stock",
+          "amount": 1.0,
+          "ownership": "shared_world"
+        },
+        {
+          "kind": "npc_task",
+          "id": "crafting_skull_3:skull_inquisitor",
+          "operation": "show",
+          "amount": 1.0,
+          "ownership": "shared_campaign"
+        }
+      ],
+      "safeguards": [
+        "this_warning_is_optional_and_the_first_meeting_can_complete_its_task_without_showing_it",
+        "never_restore_inquisitor_waits_under_mountains_2_from_skull_inquisitor_visible",
+        "do_not_spawn_one_talking_skull_per_observer",
+        "restore_camera_letterbox_and_party_control"
+      ]
+    },
+    {
+      "stepId": "meet_the_inquisitor_and_witness_the_first_burning",
+      "title": "Meet the Inquisitor at Witch Hill and witness the first burning",
+      "linkedQuestIds": [],
+      "linkedTaskMilestoneIds": ["gerry_inquisitor_warning_resolved"],
+      "triggerScripts": [
+        "on_enter_witch_hill_down_gd_zone_big_L",
+        "on_enter_witch_hill_down_gd_zone_big_R",
+        "npc_inquisitor:first_meet_under_mountains",
+        "npc_inquisitor:on_came_to_mountain_for_witch_burning"
+      ],
+      "triggerKeys": [
+        "inquisitor_waits_under_mountains",
+        "inquisitor_waits_under_mountains_2",
+        "met_inquisitor",
+        "keeper_room_builddesk:p:keeper_room_picture_5",
+        "skull_inquisitor",
+        "witch_fired",
+        "on_witch_burning",
+        "need_to_remove_guards",
+        "burning_done",
+        "locked"
+      ],
+      "expectedEffects": [
+        {
+          "kind": "player_param",
+          "id": "met_inquisitor",
+          "operation": "set",
+          "amount": 1.0,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "craft",
+          "id": "keeper_room_builddesk:p:keeper_room_picture_5",
+          "operation": "unlock_and_reveal_once",
+          "amount": 1.0,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "npc_task",
+          "id": "crafting_skull_3:skull_inquisitor",
+          "operation": "complete",
+          "amount": 1.0,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "world_craft",
+          "id": "witch_fired",
+          "operation": "start_once",
+          "amount": 1.0,
+          "ownership": "shared_world"
+        },
+        {
+          "kind": "player_param",
+          "id": "_rel_npc_inquisitor",
+          "operation": "add_once_from_initiating_flow",
+          "amount": 10.0,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "world_param",
+          "id": "npc_inquisitor:burning_done",
+          "operation": "set_until_post_burning_interaction",
+          "amount": 1.0,
+          "ownership": "shared_world"
+        },
+        {
+          "kind": "world_param",
+          "id": "npc_inquisitor:locked",
+          "operation": "set_until_schedule_release",
+          "amount": 1.0,
+          "ownership": "shared_world"
+        }
+      ],
+      "safeguards": [
+        "the_two_witch_hill_zone_wrappers_only_stage_and_consume_arrival_latches",
+        "bind_the_live_cutscene_only_to_npc_inquisitor_first_meet_under_mountains",
+        "the_skull_task_completes_before_the_burning_and_relation_reward",
+        "apply_relation_only_once_from_the_initiating_flow_and_never_to_observers",
+        "never_repair_inquisitor_waits_under_mountains_inquisitor_waits_under_mountains_2_on_witch_burning_need_to_remove_guards_huray_finished_stopped_talking_burning_done_or_locked",
+        "restore_time_music_camera_letterbox_and_party_control"
+      ]
+    },
+    {
+      "stepId": "side_with_the_inquisitor_after_the_first_burning",
+      "title": "Side with the Inquisitor after the first burning",
+      "linkedQuestIds": [],
+      "linkedTaskMilestoneIds": ["inquisitor_first_burning_followup_pending"],
+      "triggerScripts": ["npc_inquisitor:first_meet_under_mountains"],
+      "triggerKeys": [
+        "inquisitor_2_9a",
+        "inquisitor_talk"
+      ],
+      "expectedEffects": [
+        {
+          "kind": "npc_task",
+          "id": "npc_inquisitor:inquisitor_talk",
+          "operation": "show_on_friend_branch_only",
+          "amount": 1.0,
+          "ownership": "shared_campaign"
+        }
+      ],
+      "safeguards": [
+        "do_not_show_inquisitor_talk_on_the_enemy_branch",
+        "do_not_infer_or_repair_inquisitor_enemy_from_inquisitor_talk_visible"
+      ]
+    },
+    {
+      "stepId": "oppose_the_inquisitor_after_the_first_burning",
+      "title": "Oppose the Inquisitor after the first burning",
+      "linkedQuestIds": [],
+      "linkedTaskMilestoneIds": ["gerry_inquisitor_warning_resolved"],
+      "triggerScripts": ["npc_inquisitor:first_meet_under_mountains"],
+      "triggerKeys": [
+        "inquisitor_2_9b",
+        "inquisitor_enemy"
+      ],
+      "expectedEffects": [
+        {
+          "kind": "player_param",
+          "id": "inquisitor_enemy",
+          "operation": "set_on_enemy_branch_only",
+          "amount": 1.0,
+          "ownership": "shared_campaign"
+        }
+      ],
+      "safeguards": [
+        "leave_inquisitor_talk_hidden_on_this_branch",
+        "never_repair_inquisitor_enemy_from_skull_inquisitor_complete_or_the_later_supplies_task"
+      ]
+    },
+    {
+      "stepId": "receive_the_inquisitors_direct_supplies_request",
+      "title": "Receive the Inquisitor's direct firewood and flyers request",
+      "linkedQuestIds": [],
+      "linkedTaskMilestoneIds": ["inquisitor_first_burning_supplies_requested"],
+      "triggerScripts": ["npc_inquisitor:interaction"],
+      "triggerKeys": [
+        "burning_done",
+        "Next day after witch burning",
+        "inquisitor_enemy",
+        "inquisitor_burn_3a_1b",
+        "inquisitor_talk",
+        "inquisitor_burn",
+        "@inquisitor_firewood_1",
+        "@inquisitor_flyer"
+      ],
+      "expectedEffects": [
+        {
+          "kind": "world_param",
+          "id": "npc_inquisitor:burning_done",
+          "operation": "consume_in_live_interaction",
+          "amount": 0.0,
+          "ownership": "shared_world"
+        },
+        {
+          "kind": "npc_task",
+          "id": "npc_inquisitor:inquisitor_talk",
+          "operation": "complete",
+          "amount": 1.0,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "story_point",
+          "id": "bronze",
+          "operation": "grant_to_initiator",
+          "amount": 2.0,
+          "ownership": "personal_character"
+        },
+        {
+          "kind": "player_param",
+          "id": "inquisitor_enemy",
+          "operation": "clear_only_if_the_enemy_reconciliation_answer_is_selected",
+          "amount": 0.0,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "npc_task",
+          "id": "npc_inquisitor:inquisitor_burn",
+          "operation": "show",
+          "amount": 1.0,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "dialogue_phrase",
+          "id": "@inquisitor_firewood_1",
+          "operation": "unlock_on_friend_or_reconciled_branch_only",
+          "amount": 1.0,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "dialogue_phrase",
+          "id": "@inquisitor_flyer",
+          "operation": "unlock_on_friend_or_reconciled_branch_only",
+          "amount": 1.0,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "inventory_item",
+          "id": "firewood",
+          "operation": "require_for_future_handoff",
+          "amount": 20.0,
+          "ownership": "personal_character"
+        },
+        {
+          "kind": "inventory_item",
+          "id": "flyer:flyer_bad",
+          "operation": "require_for_future_handoff",
+          "amount": 10.0,
+          "ownership": "personal_character"
+        }
+      ],
+      "safeguards": [
+        "this_branch_applies_only_when_inquisitor_enemy_is_zero_or_the_reconciliation_answer_clears_it",
+        "unlock_only_the_direct_relation_reward_phrase_pair",
+        "twenty_firewood_and_ten_flyers_are_later_answer_prices_and_are_not_consumed_by_this_request",
+        "grant_two_bronze_story_points_to_the_dialogue_initiator_only",
+        "never_repair_either_conditional_phrase_pair_from_inquisitor_burn_visible",
+        "never_repair_the_consumed_burning_done_latch"
+      ]
+    },
+    {
+      "stepId": "receive_the_inquisitors_paid_supplies_request",
+      "title": "Receive the Inquisitor's paid firewood and flyers request",
+      "linkedQuestIds": [],
+      "linkedTaskMilestoneIds": ["inquisitor_first_burning_supplies_requested"],
+      "triggerScripts": ["npc_inquisitor:interaction"],
+      "triggerKeys": [
+        "burning_done",
+        "Next day after witch burning",
+        "inquisitor_enemy",
+        "inquisitor_burn_3a_1a",
+        "inquisitor_talk",
+        "inquisitor_burn",
+        "@inquisitor_firewood_1_buy",
+        "@inquisitor_flyer_buy"
+      ],
+      "expectedEffects": [
+        {
+          "kind": "world_param",
+          "id": "npc_inquisitor:burning_done",
+          "operation": "consume_in_live_interaction",
+          "amount": 0.0,
+          "ownership": "shared_world"
+        },
+        {
+          "kind": "npc_task",
+          "id": "npc_inquisitor:inquisitor_talk",
+          "operation": "complete",
+          "amount": 1.0,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "story_point",
+          "id": "bronze",
+          "operation": "grant_to_initiator",
+          "amount": 2.0,
+          "ownership": "personal_character"
+        },
+        {
+          "kind": "npc_task",
+          "id": "npc_inquisitor:inquisitor_burn",
+          "operation": "show",
+          "amount": 1.0,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "dialogue_phrase",
+          "id": "@inquisitor_firewood_1_buy",
+          "operation": "unlock_on_continued_enemy_branch_only",
+          "amount": 1.0,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "dialogue_phrase",
+          "id": "@inquisitor_flyer_buy",
+          "operation": "unlock_on_continued_enemy_branch_only",
+          "amount": 1.0,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "inventory_item",
+          "id": "firewood",
+          "operation": "require_for_future_handoff",
+          "amount": 20.0,
+          "ownership": "personal_character"
+        },
+        {
+          "kind": "inventory_item",
+          "id": "flyer:flyer_bad",
+          "operation": "require_for_future_handoff",
+          "amount": 10.0,
+          "ownership": "personal_character"
+        }
+      ],
+      "safeguards": [
+        "this_branch_applies_only_when_inquisitor_enemy_is_one_and_the_paid_answer_is_selected",
+        "unlock_only_the_paid_money_reward_phrase_pair",
+        "twenty_firewood_and_ten_flyers_are_later_answer_prices_and_are_not_consumed_by_this_request",
+        "grant_two_bronze_story_points_to_the_dialogue_initiator_only",
+        "never_repair_either_conditional_phrase_pair_from_inquisitor_burn_visible",
+        "never_repair_the_consumed_burning_done_latch"
+      ]
+    },
+    {
+      "stepId": "inspect_the_lower_graveyard_barrier",
+      "title": "Inspect the blocked lower graveyard",
+      "linkedQuestIds": [],
+      "linkedTaskMilestoneIds": ["inquisitor_graveyard_permission_requested"],
+      "triggerScripts": ["graveyard_zone_lvlup2:broken_info"],
+      "triggerKeys": [
+        "broken_info",
+        "@inquisitor_grave_1_1",
+        "saw_graveyard2"
+      ],
+      "expectedEffects": [
+        {
+          "kind": "dialogue_phrase",
+          "id": "@inquisitor_grave_1_1",
+          "operation": "unlock",
+          "amount": 1.0,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "player_param",
+          "id": "saw_graveyard2",
+          "operation": "set",
+          "amount": 1.0,
+          "ownership": "shared_campaign"
+        }
+      ],
+      "safeguards": [
+        "this_non_cinematic_info_event_only_reveals_the_permission_topic",
+        "do_not_grant_the_permission_scroll_at_the_barrier",
+        "restore_control_after_the_info_box"
+      ]
+    },
+    {
+      "stepId": "ask_the_inquisitor_for_graveyard_permission",
+      "title": "Ask the Inquisitor for permission to expand the graveyard",
+      "linkedQuestIds": [],
+      "linkedTaskMilestoneIds": ["inquisitor_graveyard_permission_requested"],
+      "triggerScripts": ["npc_inquisitor:@inquisitor_grave_1_1"],
+      "triggerKeys": [
+        "inquisitor_enemy",
+        "@inquisitor_grave_1_1",
+        "@inquisitor_grave_2_1",
+        "@inquisitor_grave_2a",
+        "@grv_broken_2",
+        "inq_get_perm"
+      ],
+      "expectedEffects": [
+        {
+          "kind": "dialogue_phrase",
+          "id": "@inquisitor_grave_2_1",
+          "operation": "unlock_on_friend_branch_only",
+          "amount": 1.0,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "dialogue_phrase",
+          "id": "@inquisitor_grave_2a",
+          "operation": "unlock_on_enemy_branch_only",
+          "amount": 1.0,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "dialogue_phrase",
+          "id": "@grv_broken_2",
+          "operation": "unlock_on_either_branch",
+          "amount": 1.0,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "npc_task",
+          "id": "npc_inquisitor:inq_get_perm",
+          "operation": "show",
+          "amount": 1.0,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "dialogue_phrase",
+          "id": "@inquisitor_grave_1_1",
+          "operation": "blacklist_after_the_task_write",
+          "amount": 1.0,
+          "ownership": "shared_campaign"
+        }
+      ],
+      "safeguards": [
+        "unlock_exactly_one_relation_or_paid_permission_answer",
+        "never_repair_either_conditional_answer_from_inq_get_perm_visible",
+        "the_common_graveyard_barrier_answer_is_safe_because_both_branches_unlock_it",
+        "do_not_grant_or_consume_the_unique_scroll_in_this_conversation"
+      ]
+    },
+    {
+      "stepId": "receive_graveyard_permission_by_relation",
+      "title": "Receive graveyard permission from the Inquisitor",
+      "linkedQuestIds": [],
+      "linkedTaskMilestoneIds": ["inquisitor_graveyard_permission_granted"],
+      "triggerScripts": ["npc_inquisitor:@inquisitor_grave_2_1"],
+      "triggerKeys": [
+        "@inquisitor_grave_2_1",
+        "_rel_npc_inquisitor:20",
+        "scroll_graveyard_prop",
+        "inq_get_perm"
+      ],
+      "expectedEffects": [
+        {
+          "kind": "player_param",
+          "id": "_rel_npc_inquisitor",
+          "operation": "require_minimum_for_answer",
+          "amount": 20.0,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "inventory_item",
+          "id": "scroll_graveyard_prop",
+          "operation": "drop_once_to_initiator",
+          "amount": 1.0,
+          "ownership": "shared_story_token"
+        },
+        {
+          "kind": "npc_task",
+          "id": "npc_inquisitor:inq_get_perm",
+          "operation": "complete",
+          "amount": 1.0,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "story_point",
+          "id": "silver",
+          "operation": "grant_to_initiator",
+          "amount": 2.0,
+          "ownership": "personal_character"
+        },
+        {
+          "kind": "dialogue_phrase",
+          "id": "@inquisitor_grave_2_1",
+          "operation": "blacklist_after_task_completion",
+          "amount": 1.0,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "dialogue_phrase",
+          "id": "@inquisitor_grave_2a",
+          "operation": "blacklist_after_task_completion",
+          "amount": 1.0,
+          "ownership": "shared_campaign"
+        }
+      ],
+      "safeguards": [
+        "the_relation_20_value_is_a_lock_and_is_not_consumed",
+        "drop_exactly_one_shared_permission_scroll_to_the_dialogue_initiator",
+        "never_regrant_the_scroll_or_two_silver_points_from_completed_task_state",
+        "do_not_repair_the_two_post_completion_blacklist_writes_from_the_task_milestone"
+      ]
+    },
+    {
+      "stepId": "buy_graveyard_permission_from_the_inquisitor",
+      "title": "Buy graveyard permission from the Inquisitor",
+      "linkedQuestIds": [],
+      "linkedTaskMilestoneIds": ["inquisitor_graveyard_permission_granted"],
+      "triggerScripts": ["npc_inquisitor:@inquisitor_grave_2a"],
+      "triggerKeys": [
+        "@inquisitor_grave_2a",
+        "money:10",
+        "scroll_graveyard_prop",
+        "inq_get_perm"
+      ],
+      "expectedEffects": [
+        {
+          "kind": "currency",
+          "id": "money",
+          "operation": "consume_from_initiator",
+          "amount": 10.0,
+          "ownership": "personal_character"
+        },
+        {
+          "kind": "inventory_item",
+          "id": "scroll_graveyard_prop",
+          "operation": "drop_once_to_initiator",
+          "amount": 1.0,
+          "ownership": "shared_story_token"
+        },
+        {
+          "kind": "npc_task",
+          "id": "npc_inquisitor:inq_get_perm",
+          "operation": "complete",
+          "amount": 1.0,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "story_point",
+          "id": "silver",
+          "operation": "grant_to_initiator",
+          "amount": 2.0,
+          "ownership": "personal_character"
+        },
+        {
+          "kind": "dialogue_phrase",
+          "id": "@inquisitor_grave_2_1",
+          "operation": "blacklist_after_task_completion",
+          "amount": 1.0,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "dialogue_phrase",
+          "id": "@inquisitor_grave_2a",
+          "operation": "blacklist_after_task_completion",
+          "amount": 1.0,
+          "ownership": "shared_campaign"
+        }
+      ],
+      "safeguards": [
+        "consume_ten_money_from_the_dialogue_initiator_only",
+        "drop_exactly_one_shared_permission_scroll_to_that_initiator",
+        "never_regrant_the_scroll_two_silver_points_or_money_effect_from_completed_task_state",
+        "do_not_repair_the_two_post_completion_blacklist_writes_from_the_task_milestone"
+      ]
+    },
+    {
+      "stepId": "activate_the_lower_graveyard",
+      "title": "Use the Inquisitor's permission at the lower graveyard",
+      "linkedQuestIds": [],
+      "linkedTaskMilestoneIds": ["inquisitor_graveyard_permission_granted"],
+      "triggerScripts": ["graveyard_zone_lvlup2:interaction"],
+      "triggerKeys": [
+        "@grv_broken_2",
+        "scroll_graveyard_prop",
+        "graveyard_buildzone_2_gd",
+        "graveyard_buildzone_1_gd"
+      ],
+      "expectedEffects": [
+        {
+          "kind": "inventory_item",
+          "id": "scroll_graveyard_prop",
+          "operation": "consume_from_initiator",
+          "amount": 1.0,
+          "ownership": "shared_story_token"
+        },
+        {
+          "kind": "world_object",
+          "id": "graveyard_buildzone_2_gd",
+          "operation": "enable_once",
+          "amount": 1.0,
+          "ownership": "shared_world"
+        },
+        {
+          "kind": "world_object",
+          "id": "graveyard_buildzone_1_gd",
+          "operation": "disable_once",
+          "amount": 1.0,
+          "ownership": "shared_world"
+        },
+        {
+          "kind": "world_object",
+          "id": "graveyard_zone_lvlup2",
+          "operation": "destroy_after_unlock",
+          "amount": 1.0,
+          "ownership": "shared_world"
+        }
+      ],
+      "safeguards": [
+        "consume_the_shared_permission_scroll_once_from_the_player_who_uses_the_barrier",
+        "never_recreate_or_regrant_the_scroll_from_permission_task_state",
+        "switch_the_two_serialized_graveyard_buildzone_points_once",
+        "restore_player_control_after_the_graveyard_menu"
+      ]
+    },
+    {
+      "stepId": "deliver_firewood_on_the_direct_inquisitor_branch",
+      "title": "Give the Inquisitor twenty firewood",
+      "linkedQuestIds": [],
+      "linkedTaskMilestoneIds": ["inquisitor_first_burning_supplies_requested"],
+      "triggerScripts": ["npc_inquisitor:@inquisitor_firewood_1"],
+      "triggerKeys": [
+        "@inquisitor_firewood_1",
+        "firewood:20",
+        "tasks_done"
+      ],
+      "expectedEffects": [
+        {
+          "kind": "inventory_item",
+          "id": "firewood",
+          "operation": "consume_from_initiator",
+          "amount": 20.0,
+          "ownership": "personal_character"
+        },
+        {
+          "kind": "player_param",
+          "id": "_rel_npc_inquisitor",
+          "operation": "increment_once",
+          "amount": 10.0,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "dialogue_phrase",
+          "id": "@inquisitor_firewood_1",
+          "operation": "blacklist",
+          "amount": 1.0,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "world_param",
+          "id": "npc_inquisitor:tasks_done",
+          "operation": "increment_live_only",
+          "amount": 1.0,
+          "ownership": "shared_world"
+        }
+      ],
+      "safeguards": [
+        "this_handoff_exists_only_on_the_direct_branch",
+        "consume_firewood_from_the_selecting_player_only",
+        "apply_relation_plus_10_once_and_not_once_per_observer",
+        "never_repair_the_derived_tasks_done_counter"
+      ]
+    },
+    {
+      "stepId": "deliver_flyers_on_the_direct_inquisitor_branch",
+      "title": "Give the Inquisitor ten flyers",
+      "linkedQuestIds": [],
+      "linkedTaskMilestoneIds": ["inquisitor_first_burning_supplies_requested"],
+      "triggerScripts": ["npc_inquisitor:@inquisitor_flyer"],
+      "triggerKeys": [
+        "@inquisitor_flyer",
+        "flyer:flyer_bad:10",
+        "tasks_done"
+      ],
+      "expectedEffects": [
+        {
+          "kind": "inventory_item",
+          "id": "flyer:flyer_bad",
+          "operation": "consume_from_initiator",
+          "amount": 10.0,
+          "ownership": "personal_character"
+        },
+        {
+          "kind": "player_param",
+          "id": "_rel_npc_inquisitor",
+          "operation": "increment_once",
+          "amount": 10.0,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "dialogue_phrase",
+          "id": "@inquisitor_flyer",
+          "operation": "blacklist",
+          "amount": 1.0,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "world_param",
+          "id": "npc_inquisitor:tasks_done",
+          "operation": "increment_live_only",
+          "amount": 1.0,
+          "ownership": "shared_world"
+        }
+      ],
+      "safeguards": [
+        "this_handoff_exists_only_on_the_direct_branch",
+        "consume_flyers_from_the_selecting_player_only",
+        "apply_relation_plus_10_once_and_not_once_per_observer",
+        "never_repair_the_derived_tasks_done_counter"
+      ]
+    },
+    {
+      "stepId": "sell_firewood_on_the_paid_inquisitor_branch",
+      "title": "Sell the Inquisitor twenty firewood",
+      "linkedQuestIds": [],
+      "linkedTaskMilestoneIds": ["inquisitor_first_burning_supplies_requested"],
+      "triggerScripts": ["npc_inquisitor:@inquisitor_firewood_1_buy"],
+      "triggerKeys": [
+        "@inquisitor_firewood_1_buy",
+        "firewood:20",
+        "money:2",
+        "tasks_done"
+      ],
+      "expectedEffects": [
+        {
+          "kind": "inventory_item",
+          "id": "firewood",
+          "operation": "consume_from_initiator",
+          "amount": 20.0,
+          "ownership": "personal_character"
+        },
+        {
+          "kind": "currency",
+          "id": "money",
+          "operation": "grant_to_initiator",
+          "amount": 2.0,
+          "ownership": "personal_character"
+        },
+        {
+          "kind": "player_param",
+          "id": "_rel_npc_inquisitor",
+          "operation": "increment_once",
+          "amount": 10.0,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "dialogue_phrase",
+          "id": "@inquisitor_firewood_1_buy",
+          "operation": "blacklist",
+          "amount": 1.0,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "world_param",
+          "id": "npc_inquisitor:tasks_done",
+          "operation": "increment_live_only",
+          "amount": 1.0,
+          "ownership": "shared_world"
+        }
+      ],
+      "safeguards": [
+        "this_handoff_exists_only_on_the_paid_enemy_branch",
+        "consume_firewood_and_grant_two_money_to_the_selecting_player_only",
+        "apply_relation_plus_10_once_and_not_once_per_observer",
+        "never_repair_the_derived_tasks_done_counter"
+      ]
+    },
+    {
+      "stepId": "sell_flyers_on_the_paid_inquisitor_branch",
+      "title": "Sell the Inquisitor ten flyers",
+      "linkedQuestIds": [],
+      "linkedTaskMilestoneIds": ["inquisitor_first_burning_supplies_requested"],
+      "triggerScripts": ["npc_inquisitor:@inquisitor_flyer_buy"],
+      "triggerKeys": [
+        "@inquisitor_flyer_buy",
+        "flyer:flyer_bad:10",
+        "money:3",
+        "tasks_done"
+      ],
+      "expectedEffects": [
+        {
+          "kind": "inventory_item",
+          "id": "flyer:flyer_bad",
+          "operation": "consume_from_initiator",
+          "amount": 10.0,
+          "ownership": "personal_character"
+        },
+        {
+          "kind": "currency",
+          "id": "money",
+          "operation": "grant_to_initiator",
+          "amount": 3.0,
+          "ownership": "personal_character"
+        },
+        {
+          "kind": "player_param",
+          "id": "_rel_npc_inquisitor",
+          "operation": "increment_once",
+          "amount": 10.0,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "dialogue_phrase",
+          "id": "@inquisitor_flyer_buy",
+          "operation": "blacklist",
+          "amount": 1.0,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "world_param",
+          "id": "npc_inquisitor:tasks_done",
+          "operation": "increment_live_only",
+          "amount": 1.0,
+          "ownership": "shared_world"
+        }
+      ],
+      "safeguards": [
+        "this_handoff_exists_only_on_the_paid_enemy_branch",
+        "consume_flyers_and_grant_three_money_to_the_selecting_player_only",
+        "apply_relation_plus_10_once_and_not_once_per_observer",
+        "never_repair_the_derived_tasks_done_counter"
+      ]
+    },
+    {
+      "stepId": "complete_supplies_and_witness_the_second_burning",
+      "title": "Complete the supplies request and witness the second burning",
+      "linkedQuestIds": [],
+      "linkedTaskMilestoneIds": [
+        "inquisitor_second_burning_supplies_delivered",
+        "inquisitor_vineyard_wine_requested"
+      ],
+      "triggerScripts": ["npc_inquisitor:second_witch_burning"],
+      "triggerKeys": [
+        "inquisitor_burn",
+        "second_witch_burning",
+        "cur_multianswer_state",
+        "body_max",
+        "witch_fired",
+        "vineyard_builddesk",
+        "inquisitor_wine",
+        "@inquisitor_wine_ready",
+        "@inquisitor_tent",
+        "skull_talk_after_2nd_witch"
+      ],
+      "expectedEffects": [
+        {
+          "kind": "npc_task",
+          "id": "npc_inquisitor:inquisitor_burn",
+          "operation": "complete_before_the_cutscene",
+          "amount": 1.0,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "story_point",
+          "id": "silver",
+          "operation": "grant_to_initiator_of_the_second_handoff",
+          "amount": 2.0,
+          "ownership": "personal_character"
+        },
+        {
+          "kind": "player_param",
+          "id": "_rel_npc_inquisitor",
+          "operation": "increment_once_in_live_cutscene",
+          "amount": 10.0,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "player_param",
+          "id": "body_max",
+          "operation": "increment_once_in_live_cutscene",
+          "amount": 1.0,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "world_param",
+          "id": "npc_inquisitor:cur_multianswer_state",
+          "operation": "set_live_only",
+          "amount": 1.0,
+          "ownership": "shared_world"
+        },
+        {
+          "kind": "world_object",
+          "id": "vineyard_builddesk_broken:vineyard_builddesk",
+          "operation": "replace_and_spawn_once",
+          "amount": 1.0,
+          "ownership": "shared_world"
+        },
+        {
+          "kind": "npc_task",
+          "id": "npc_inquisitor:inquisitor_wine",
+          "operation": "show",
+          "amount": 1.0,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "dialogue_phrase",
+          "id": "@inquisitor_wine_ready",
+          "operation": "unlock_after_task_write",
+          "amount": 1.0,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "dialogue_phrase",
+          "id": "@inquisitor_tent",
+          "operation": "unlock_after_task_write",
+          "amount": 1.0,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "player_param",
+          "id": "skull_talk_after_2nd_witch",
+          "operation": "set_as_one_shot_live_latch",
+          "amount": 1.0,
+          "ownership": "shared_campaign"
+        }
+      ],
+      "safeguards": [
+        "the_second_handoff_owner_receives_two_silver_story_points_once",
+        "apply_relation_and_body_max_additions_once_from_the_initiating_flow",
+        "do_not_repair_cur_multianswer_state_or_the_skull_latch",
+        "do_not_repair_the_two_phrases_from_the_earlier_inquisitor_wine_visible_anchor",
+        "restore_all_staged_actors_camera_letterbox_and_party_control"
+      ]
+    },
+    {
+      "stepId": "hear_gerrys_second_burning_followup",
+      "title": "Hear Gerry's reaction to the second burning",
+      "linkedQuestIds": [],
+      "linkedTaskMilestoneIds": ["inquisitor_second_burning_supplies_delivered"],
+      "triggerScripts": [
+        "on_enter_mortuary_gd_zone",
+        "crafting_skull_3:skull_talk_after_2nd_witch"
+      ],
+      "triggerKeys": [
+        "skull_talk_after_2nd_witch",
+        "skull_2_1_event",
+        "skull_2_7_event"
+      ],
+      "expectedEffects": [
+        {
+          "kind": "player_param",
+          "id": "skull_talk_after_2nd_witch",
+          "operation": "consume_after_live_dialogue",
+          "amount": 0.0,
+          "ownership": "shared_campaign"
+        }
+      ],
+      "safeguards": [
+        "the_mortuary_zone_wrapper_only_fires_the_live_gerry_event",
+        "never_restore_the_consumed_skull_latch_from_inquisitor_task_state",
+        "this_camera_dialogue_is_non_cinematic_and_has_no_reward",
+        "restore_camera_and_party_control"
+      ]
+    },
+    {
+      "stepId": "deliver_wine_to_the_inquisitor",
+      "title": "Give the Inquisitor ten silver-star red wines",
+      "linkedQuestIds": [],
+      "linkedTaskMilestoneIds": ["inquisitor_vineyard_wine_delivered"],
+      "triggerScripts": ["npc_inquisitor:@inquisitor_wine_ready"],
+      "triggerKeys": [
+        "@inquisitor_wine_ready",
+        "bottle_red_vine:2:10",
+        "inquisitor_wine"
+      ],
+      "expectedEffects": [
+        {
+          "kind": "inventory_item",
+          "id": "bottle_red_vine:2",
+          "operation": "consume_from_initiator",
+          "amount": 10.0,
+          "ownership": "personal_character"
+        },
+        {
+          "kind": "player_param",
+          "id": "_rel_npc_inquisitor",
+          "operation": "increment_once",
+          "amount": 10.0,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "dialogue_phrase",
+          "id": "@inquisitor_wine_ready",
+          "operation": "blacklist",
+          "amount": 1.0,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "npc_task",
+          "id": "npc_inquisitor:inquisitor_wine",
+          "operation": "complete",
+          "amount": 1.0,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "story_point",
+          "id": "silver",
+          "operation": "grant_to_initiator",
+          "amount": 5.0,
+          "ownership": "personal_character"
+        }
+      ],
+      "safeguards": [
+        "consume_all_ten_wines_from_the_selecting_player_only",
+        "apply_relation_plus_10_once_and_not_once_per_observer",
+        "grant_five_silver_story_points_to_the_initiator_once",
+        "never_replay_the_item_or_story_reward_from_completed_task_state"
+      ]
+    },
+    {
+      "stepId": "accept_the_inquisitors_tent_plan",
+      "title": "Agree to build the Inquisitor's food-and-drink tent",
+      "linkedQuestIds": [],
+      "linkedTaskMilestoneIds": ["inquisitor_tent_requested"],
+      "triggerScripts": ["npc_inquisitor:@inquisitor_tent"],
+      "triggerKeys": [
+        "@inquisitor_tent",
+        "_rel_npc_inquisitor:50",
+        "inquisitor_tent",
+        "build_vendor_tent_and_stall"
+      ],
+      "expectedEffects": [
+        {
+          "kind": "player_param",
+          "id": "_rel_npc_inquisitor",
+          "operation": "require_minimum_for_answer",
+          "amount": 50.0,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "dialogue_phrase",
+          "id": "@inquisitor_tent",
+          "operation": "blacklist",
+          "amount": 1.0,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "npc_task",
+          "id": "npc_inquisitor:inquisitor_tent",
+          "operation": "show",
+          "amount": 1.0,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "player_param",
+          "id": "_rel_npc_inquisitor",
+          "operation": "increment_after_task_write_once",
+          "amount": 5.0,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "world_object",
+          "id": "build_vendor_tent_and_stall",
+          "operation": "spawn_after_task_write",
+          "amount": 1.0,
+          "ownership": "shared_world"
+        }
+      ],
+      "safeguards": [
+        "the_relation_50_answer_lock_is_not_consumed",
+        "apply_relation_plus_5_once_from_the_live_dialogue",
+        "do_not_repair_that_late_relation_write_or_the_build_marker_from_inquisitor_tent_visible",
+        "preserve_the_camera_fade_and_restore_control"
+      ]
+    },
+    {
+      "stepId": "build_the_inquisitors_tent_and_stall",
+      "title": "Build the tent and burger stall on Witch Hill",
+      "linkedQuestIds": [],
+      "linkedTaskMilestoneIds": ["inquisitor_tent_requested"],
+      "triggerScripts": ["place_tent_n_stall"],
+      "triggerKeys": [
+        "build_vendor_tent_and_stall",
+        "vendor_tent",
+        "vendor_stall",
+        "@inquisitor_tent_ready"
+      ],
+      "expectedEffects": [
+        {
+          "kind": "world_object",
+          "id": "vendor_tent",
+          "operation": "spawn_once",
+          "amount": 1.0,
+          "ownership": "shared_world"
+        },
+        {
+          "kind": "world_object",
+          "id": "vendor_stall",
+          "operation": "spawn_once",
+          "amount": 1.0,
+          "ownership": "shared_world"
+        },
+        {
+          "kind": "world_object",
+          "id": "build_vendor_tent_and_stall",
+          "operation": "destroy_after_build",
+          "amount": 1.0,
+          "ownership": "shared_world"
+        },
+        {
+          "kind": "dialogue_phrase",
+          "id": "@inquisitor_tent_ready",
+          "operation": "unlock",
+          "amount": 1.0,
+          "ownership": "shared_campaign"
+        }
+      ],
+      "safeguards": [
+        "spawn_each_finished_world_object_once",
+        "the_tent_ready_phrase_is_unlocked_only_by_the_completed_build",
+        "never_repair_tent_ready_from_the_earlier_visible_task_anchor"
+      ]
+    },
+    {
+      "stepId": "open_the_inquisitors_tent",
+      "title": "Show the completed tent to the Inquisitor",
+      "linkedQuestIds": [],
+      "linkedTaskMilestoneIds": ["inquisitor_tent_opened"],
+      "triggerScripts": ["npc_inquisitor:@inquisitor_tent_ready"],
+      "triggerKeys": [
+        "@inquisitor_tent_ready",
+        "_rel_npc_inquisitor:+10",
+        "body_min",
+        "inquisitor_tent",
+        "player_shown_the_tent",
+        "burning_once_at_week_available",
+        "witch_burning_enable",
+        "@inquisitor_burn_again"
+      ],
+      "expectedEffects": [
+        {
+          "kind": "player_param",
+          "id": "_rel_npc_inquisitor",
+          "operation": "increment_once_from_answer_reward",
+          "amount": 10.0,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "dialogue_phrase",
+          "id": "@inquisitor_tent_ready",
+          "operation": "blacklist",
+          "amount": 1.0,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "player_param",
+          "id": "body_min",
+          "operation": "increment_once_in_live_cutscene",
+          "amount": 1.0,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "npc_task",
+          "id": "npc_inquisitor:inquisitor_tent",
+          "operation": "complete",
+          "amount": 1.0,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "story_point",
+          "id": "gold",
+          "operation": "grant_to_initiator",
+          "amount": 5.0,
+          "ownership": "personal_character"
+        },
+        {
+          "kind": "world_param",
+          "id": "npc_inquisitor:player_shown_the_tent",
+          "operation": "set_after_task_completion_live_only",
+          "amount": 1.0,
+          "ownership": "shared_world"
+        },
+        {
+          "kind": "world_param",
+          "id": "npc_inquisitor:burning_once_at_week_available",
+          "operation": "set_after_task_completion_live_only",
+          "amount": 1.0,
+          "ownership": "shared_world"
+        },
+        {
+          "kind": "dialogue_phrase",
+          "id": "@inquisitor_burn_again",
+          "operation": "unlock_only_if_beer_and_burgers_are_active",
+          "amount": 1.0,
+          "ownership": "shared_campaign"
+        }
+      ],
+      "safeguards": [
+        "the_tent_ready_answer_reward_adds_relation_plus_10_once",
+        "grant_five_gold_story_points_to_the_initiator_only",
+        "do_not_repair_additive_body_min_or_any_late_weekly_latch_from_task_state",
+        "do_not_unlock_burn_again_without_both_serialized_vendor_flags",
+        "restore_positions_directions_camera_letterbox_and_party_control"
+      ]
+    },
+    {
+      "stepId": "run_the_weekly_tasty_burning",
+      "title": "Hold a weekly burning with beer and burgers",
+      "linkedQuestIds": [],
+      "linkedTaskMilestoneIds": ["inquisitor_tent_opened"],
+      "triggerScripts": ["witch_tasty_burning"],
+      "triggerKeys": [
+        "@inquisitor_burn_again",
+        "is_first_witch_tasty_burning",
+        "do_count_weeks_after_first_tasty",
+        "horadric_after_burger_witch",
+        "burning_once_at_week_available",
+        "beer_active",
+        "burgers_active",
+        "faith",
+        "money:33"
+      ],
+      "expectedEffects": [
+        {
+          "kind": "world_param",
+          "id": "npc_inquisitor:is_first_witch_tasty_burning",
+          "operation": "set_on_first_live_run_only",
+          "amount": 1.0,
+          "ownership": "shared_world"
+        },
+        {
+          "kind": "world_param",
+          "id": "npc_inquisitor:do_count_weeks_after_first_tasty",
+          "operation": "start_at_one_on_first_live_run_only",
+          "amount": 1.0,
+          "ownership": "shared_world"
+        },
+        {
+          "kind": "npc_event",
+          "id": "npc_tavern owner:horadric_after_burger_witch",
+          "operation": "queue_on_first_live_run_only",
+          "amount": 1.0,
+          "ownership": "shared_world"
+        },
+        {
+          "kind": "dialogue_phrase",
+          "id": "@inquisitor_burn_again",
+          "operation": "blacklist_for_this_week",
+          "amount": 1.0,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "world_param",
+          "id": "npc_inquisitor:burning_once_at_week_available",
+          "operation": "clear_for_this_week",
+          "amount": 0.0,
+          "ownership": "shared_world"
+        },
+        {
+          "kind": "world_param",
+          "id": "vendor_stall:beer_active",
+          "operation": "clear_after_sale",
+          "amount": 0.0,
+          "ownership": "shared_world"
+        },
+        {
+          "kind": "world_param",
+          "id": "vendor_stall:burgers_active",
+          "operation": "clear_after_sale",
+          "amount": 0.0,
+          "ownership": "shared_world"
+        },
+        {
+          "kind": "inventory_item",
+          "id": "faith",
+          "operation": "drop_as_shared_world_pickups_from_three_citizens",
+          "amount": 4.0,
+          "ownership": "shared_world"
+        },
+        {
+          "kind": "currency",
+          "id": "money",
+          "operation": "grant_to_initiator_on_each_completed_run",
+          "amount": 33.0,
+          "ownership": "personal_character"
+        }
+      ],
+      "safeguards": [
+        "this_is_a_repeatable_weekly_cutscene_but_the_first_run_branch_executes_once",
+        "never_repair_week_count_availability_vendor_flags_or_the_consumed_burn_phrase",
+        "faith_is_dropped_into_the_shared_world_and_is_not_granted_to_each_observer",
+        "grant_33_money_only_to_the_player_who_started_the_completed_run",
+        "HoradricGarden_owns_the_queued_horadric_followup_not_this_catalog",
+        "restore_all_dynamic_and_fixed_actors_camera_letterbox_and_party_control"
+      ]
+    },
+    {
+      "stepId": "encounter_the_portal_guards",
+      "title": "Encounter the guards blocking the portal",
+      "linkedQuestIds": [],
+      "linkedTaskMilestoneIds": ["inquisitor_portal_guards_reported"],
+      "triggerScripts": ["in_front_of_portal"],
+      "triggerKeys": [
+        "player_first_portal_visit",
+        "npc_guard_7",
+        "npc_guard_8",
+        "inquisitor_guards",
+        "@inquisitor_portal_guard"
+      ],
+      "expectedEffects": [
+        {
+          "kind": "player_param",
+          "id": "player_first_portal_visit",
+          "operation": "consume_in_live_cutscene",
+          "amount": 0.0,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "npc_task",
+          "id": "npc_inquisitor:inquisitor_guards",
+          "operation": "show",
+          "amount": 1.0,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "dialogue_phrase",
+          "id": "@inquisitor_portal_guard",
+          "operation": "unlock_after_task_write",
+          "amount": 1.0,
+          "ownership": "shared_campaign"
+        }
+      ],
+      "safeguards": [
+        "consume_the_first_visit_latch_only_in_the_live_portal_script",
+        "do_not_repair_the_late_portal_guard_phrase_from_inquisitor_guards_visible",
+        "show_the_task_once_for_the_campaign",
+        "restore_guard_directions_letterbox_and_party_control"
+      ]
+    },
+    {
+      "stepId": "ask_the_inquisitor_to_remove_the_portal_guards",
+      "title": "Ask the Inquisitor to remove the portal guards",
+      "linkedQuestIds": [],
+      "linkedTaskMilestoneIds": ["inquisitor_portal_guards_reported"],
+      "triggerScripts": ["npc_inquisitor:@inquisitor_portal_guard"],
+      "triggerKeys": [
+        "@inquisitor_portal_guard",
+        "@inquisitor_portal_done"
+      ],
+      "expectedEffects": [
+        {
+          "kind": "dialogue_phrase",
+          "id": "@inquisitor_portal_guard",
+          "operation": "blacklist",
+          "amount": 1.0,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "dialogue_phrase",
+          "id": "@inquisitor_portal_done",
+          "operation": "unlock",
+          "amount": 1.0,
+          "ownership": "shared_campaign"
+        }
+      ],
+      "safeguards": [
+        "this_dialogue_has_no_item_or_story_reward",
+        "do_not_repair_portal_done_from_the_earlier_visible_task_anchor",
+        "preserve_the_relation_60_gate_on_the_followup_answer"
+      ]
+    },
+    {
+      "stepId": "have_the_inquisitor_remove_the_portal_guards",
+      "title": "Have the Inquisitor clear the portal",
+      "linkedQuestIds": [],
+      "linkedTaskMilestoneIds": ["inquisitor_portal_guards_removed"],
+      "triggerScripts": [
+        "npc_inquisitor:@inquisitor_portal_done",
+        "bonfire_disable_near_portal"
+      ],
+      "triggerKeys": [
+        "@inquisitor_portal_done",
+        "_rel_npc_inquisitor:60",
+        "witch_hill_keeper",
+        "inquisitor_guards",
+        "npc_guard_7",
+        "npc_guard_8",
+        "marble_stand_active"
+      ],
+      "expectedEffects": [
+        {
+          "kind": "player_param",
+          "id": "_rel_npc_inquisitor",
+          "operation": "require_60_then_increment_once",
+          "amount": 10.0,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "dialogue_phrase",
+          "id": "@inquisitor_portal_done",
+          "operation": "blacklist",
+          "amount": 1.0,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "quest_key",
+          "id": "witch_hill_keeper",
+          "operation": "check_once",
+          "amount": 1.0,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "npc_task",
+          "id": "npc_inquisitor:inquisitor_guards",
+          "operation": "complete",
+          "amount": 1.0,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "story_point",
+          "id": "silver",
+          "operation": "grant_to_initiator",
+          "amount": 5.0,
+          "ownership": "personal_character"
+        },
+        {
+          "kind": "world_object",
+          "id": "npc_guard_7",
+          "operation": "return_to_stock_after_task_completion",
+          "amount": 1.0,
+          "ownership": "shared_world"
+        },
+        {
+          "kind": "world_object",
+          "id": "npc_guard_8",
+          "operation": "return_to_stock_after_task_completion",
+          "amount": 1.0,
+          "ownership": "shared_world"
+        },
+        {
+          "kind": "world_object",
+          "id": "marble_stand:marble_stand_active",
+          "operation": "replace_after_task_completion",
+          "amount": 1.0,
+          "ownership": "shared_world"
+        }
+      ],
+      "safeguards": [
+        "the_relation_60_value_is_a_lock_and_the_function_adds_10_once",
+        "grant_five_silver_story_points_to_the_dialogue_initiator_only",
+        "do_not_replay_the_post_task_bonfire_cleanup_from_task_repair",
+        "remove_each_guard_and_change_the_marble_stand_once"
+      ]
+    },
+    {
+      "stepId": "receive_the_inquisitors_dark_organ_request",
+      "title": "Receive the Inquisitor's request for dark-organ evidence",
+      "linkedQuestIds": [],
+      "linkedTaskMilestoneIds": ["inquisitor_dark_organ_evidence_requested"],
+      "triggerScripts": [
+        "npc_inquisitor:on_came_to_finish",
+        "npc_inquisitor:inquisitor_black_event"
+      ],
+      "triggerKeys": [
+        "do_count_weeks_after_first_tasty",
+        "is_inquisitor_black_event_on",
+        "inquisitor_black_event",
+        "player_knows_about_dark_organs",
+        "inquisitor_evidence",
+        "Dark body",
+        "dark_curce",
+        "body_max",
+        "@inquisitor_dark"
+      ],
+      "expectedEffects": [
+        {
+          "kind": "world_param",
+          "id": "npc_inquisitor:do_count_weeks_after_first_tasty",
+          "operation": "increment_on_scheduled_arrival_until_four",
+          "amount": 1.0,
+          "ownership": "shared_world"
+        },
+        {
+          "kind": "world_param",
+          "id": "npc_inquisitor:is_inquisitor_black_event_on",
+          "operation": "set_once_when_the_counter_reaches_four",
+          "amount": 1.0,
+          "ownership": "shared_world"
+        },
+        {
+          "kind": "world_param",
+          "id": "npc_inquisitor:inquisitor_black_event",
+          "operation": "queue_then_consume_in_live_event",
+          "amount": 0.0,
+          "ownership": "shared_world"
+        },
+        {
+          "kind": "player_param",
+          "id": "player_knows_about_dark_organs",
+          "operation": "set_before_task_write",
+          "amount": 1.0,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "npc_task",
+          "id": "npc_inquisitor:inquisitor_evidence",
+          "operation": "show",
+          "amount": 1.0,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "technology",
+          "id": "Dark body",
+          "operation": "unlock_after_task_write",
+          "amount": 1.0,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "player_param",
+          "id": "dark_curce",
+          "operation": "set_after_task_write",
+          "amount": 1.0,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "player_param",
+          "id": "body_max",
+          "operation": "increment_after_task_write_in_live_event",
+          "amount": 1.0,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "dialogue_phrase",
+          "id": "@inquisitor_dark",
+          "operation": "unlock_after_task_write",
+          "amount": 1.0,
+          "ownership": "shared_campaign"
+        }
+      ],
+      "safeguards": [
+        "the_black_event_is_scheduled_only_after_four_arrivals_following_the_first_tasty_burning",
+        "only_player_knows_about_dark_organs_precedes_the_visible_task_anchor",
+        "do_not_repair_the_late_technology_dark_curce_body_max_or_phrase_from_visible_task_state",
+        "never_repair_week_counters_or_black_event_latches",
+        "restore_camera_and_party_control_after_the_non_cinematic_dialogue"
+      ]
+    },
+    {
+      "stepId": "deliver_three_dark_organs_to_the_inquisitor",
+      "title": "Give the Inquisitor a dark heart, brain, and intestine",
+      "linkedQuestIds": [],
+      "linkedTaskMilestoneIds": ["inquisitor_dark_organ_evidence_delivered"],
+      "triggerScripts": [
+        "npc_inquisitor:@inquisitor_dark",
+        "npc_inquisitor:inquisitor_dark_multi_answer",
+        "npc_inquisitor:player_brings_three_dark_org"
+      ],
+      "triggerKeys": [
+        "inquisitor_dark_hart",
+        "heart_dark",
+        "inquisitor_dark_brain",
+        "brain_dark",
+        "inquisitor_dark_intestine",
+        "intestine_dark",
+        "player_brings_three_dark_org",
+        "dark_organs",
+        "inquisitor_evidence",
+        "inquisitor_after_dark_event"
+      ],
+      "expectedEffects": [
+        {
+          "kind": "inventory_item",
+          "id": "heart_dark",
+          "operation": "consume_from_the_player_selecting_the_heart_answer",
+          "amount": 1.0,
+          "ownership": "personal_character"
+        },
+        {
+          "kind": "inventory_item",
+          "id": "brain_dark",
+          "operation": "consume_from_the_player_selecting_the_brain_answer",
+          "amount": 1.0,
+          "ownership": "personal_character"
+        },
+        {
+          "kind": "inventory_item",
+          "id": "intestine_dark",
+          "operation": "consume_from_the_player_selecting_the_intestine_answer",
+          "amount": 1.0,
+          "ownership": "personal_character"
+        },
+        {
+          "kind": "player_param",
+          "id": "_rel_npc_inquisitor",
+          "operation": "increment_5_once_for_each_of_the_three_answer_rewards",
+          "amount": 15.0,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "dialogue_phrase",
+          "id": "inquisitor_dark_hart",
+          "operation": "blacklist_after_heart_handoff",
+          "amount": 1.0,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "dialogue_phrase",
+          "id": "inquisitor_dark_brain",
+          "operation": "blacklist_after_brain_handoff",
+          "amount": 1.0,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "dialogue_phrase",
+          "id": "inquisitor_dark_intestine",
+          "operation": "blacklist_after_intestine_handoff",
+          "amount": 1.0,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "world_param",
+          "id": "npc_inquisitor:player_brings_three_dark_org",
+          "operation": "increment_live_only_after_each_handoff",
+          "amount": 1.0,
+          "ownership": "shared_world"
+        },
+        {
+          "kind": "dialogue_phrase",
+          "id": "@inquisitor_dark",
+          "operation": "blacklist_when_all_three_are_recorded",
+          "amount": 1.0,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "quest_key",
+          "id": "dark_organs",
+          "operation": "check_once_when_all_three_are_recorded",
+          "amount": 1.0,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "npc_task",
+          "id": "npc_inquisitor:inquisitor_evidence",
+          "operation": "complete_when_all_three_are_recorded",
+          "amount": 1.0,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "story_point",
+          "id": "gold",
+          "operation": "grant_to_initiator_of_the_third_handoff",
+          "amount": 5.0,
+          "ownership": "personal_character"
+        },
+        {
+          "kind": "world_param",
+          "id": "npc_inquisitor:inquisitor_after_dark_event",
+          "operation": "queue_after_task_completion_live_only",
+          "amount": 1.0,
+          "ownership": "shared_world"
+        }
+      ],
+      "safeguards": [
+        "each_organ_price_is_paid_only_by_the_player_selecting_that_answer",
+        "apply_each_relation_plus_5_answer_reward_once_and_not_once_per_observer",
+        "never_grant_or_restore_any_dark_organ_from_shared_task_state",
+        "never_repair_the_derived_three_organ_counter",
+        "grant_five_gold_story_points_only_to_the_player_who_delivers_the_third_organ",
+        "do_not_repair_the_after_dark_event_latch_from_completed_task_state"
+      ]
+    },
+    {
+      "stepId": "hear_the_inquisitors_dark_organ_aftermath",
+      "title": "Hear the Inquisitor's conclusion after the dark-organ evidence",
+      "linkedQuestIds": [],
+      "linkedTaskMilestoneIds": ["inquisitor_dark_organ_evidence_delivered"],
+      "triggerScripts": ["npc_inquisitor:inquisitor_after_dark_event"],
+      "triggerKeys": [
+        "inquisitor_after_dark_event",
+        "@inquisitor_evidence",
+        "inquisitor_gerry",
+        "attempt_btr_grr",
+        "inquisitor_cultists",
+        "inquisitor_nothing"
+      ],
+      "expectedEffects": [
+        {
+          "kind": "world_param",
+          "id": "npc_inquisitor:inquisitor_after_dark_event",
+          "operation": "consume_in_live_event",
+          "amount": 0.0,
+          "ownership": "shared_world"
+        },
+        {
+          "kind": "dialogue_phrase",
+          "id": "@inquisitor_evidence",
+          "operation": "unlock_in_live_aftermath",
+          "amount": 1.0,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "quest_key",
+          "id": "attempt_btr_grr",
+          "operation": "check_only_on_the_gerry_answer",
+          "amount": 1.0,
+          "ownership": "shared_campaign"
+        }
+      ],
+      "safeguards": [
+        "consume_the_one_shot_aftermath_latch_only_in_the_live_event",
+        "do_not_unlock_inquisitor_evidence_from_the_earlier_completed_task_milestone",
+        "preserve_exactly_one_gerry_cultists_or_nothing_answer",
+        "this_slice_stops_before_inquisitor_magic_item_inquisitor_magic_100_inquisitor_ceremony_and_final_ritual",
+        "restore_party_control_after_the_non_cinematic_dialogue"
+      ]
+    },
+    {
+      "stepId": "make_donkeys_workers_strike_available",
+      "title": "Make Donkey's workers' strike available after the Church opens",
+      "linkedQuestIds": [],
+      "linkedTaskMilestoneIds": ["bishop_church_opened"],
+      "triggerScripts": ["npc_donkey:add_donkey_strike"],
+      "triggerKeys": ["add_donkey_strike", "donkey_strike"],
+      "expectedEffects": [
+        {
+          "kind": "npc_event",
+          "id": "npc_donkey:donkey_strike",
+          "operation": "add_interaction_once_after_the_serialized_delay",
+          "amount": 1.0,
+          "ownership": "shared_world"
+        }
+      ],
+      "safeguards": [
+        "the_church_catalog_already_owns_donkey_talk_after_church_open",
+        "do_not_replay_the_sixty_second_timer_or_consumed_interaction_event",
+        "do_not_treat_the_bishop_milestone_as_proof_that_the_strike_dialogue_ran"
+      ]
+    },
+    {
+      "stepId": "negotiate_donkeys_workers_strike",
+      "title": "Hear Donkey's strike demands",
+      "linkedQuestIds": [],
+      "linkedTaskMilestoneIds": ["bishop_church_opened"],
+      "triggerScripts": ["npc_donkey:donkey_strike"],
+      "triggerKeys": ["donkey_strike", "carrot_box_place", "@donkey_oil"],
+      "expectedEffects": [
+        {
+          "kind": "world_object",
+          "id": "carrot_box_place:carrot_box",
+          "operation": "spawn_construction_site_once",
+          "amount": 1.0,
+          "ownership": "shared_world"
+        },
+        {
+          "kind": "dialogue_phrase",
+          "id": "@donkey_oil",
+          "operation": "unlock_after_live_strike_dialogue",
+          "amount": 1.0,
+          "ownership": "shared_campaign"
+        }
+      ],
+      "safeguards": [
+        "there_is_no_serialized_donkey_task_or_quest_for_this_event_only_branch",
+        "spawn_exactly_one_carrot_box_site",
+        "do_not_unlock_oil_from_bishop_church_opened_without_the_live_strike"
+      ]
+    },
+    {
+      "stepId": "give_seed_oil_to_donkey",
+      "title": "Give Donkey one unit of seed oil",
+      "linkedQuestIds": [],
+      "linkedTaskMilestoneIds": ["bishop_church_opened"],
+      "triggerScripts": ["npc_donkey:@donkey_oil"],
+      "triggerKeys": ["@donkey_oil", "seed_oil", "donkey_no_body_say", "strike_completed"],
+      "expectedEffects": [
+        {
+          "kind": "inventory_item",
+          "id": "seed_oil",
+          "operation": "consume_from_initiating_player",
+          "amount": 1.0,
+          "ownership": "personal_character"
+        },
+        {
+          "kind": "dialogue_phrase",
+          "id": "@donkey_oil",
+          "operation": "blacklist_after_handoff",
+          "amount": 1.0,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "world_param",
+          "id": "npc_donkey:donkey_no_body_say",
+          "operation": "set_in_live_handoff",
+          "amount": 1.0,
+          "ownership": "shared_world"
+        },
+        {
+          "kind": "world_param",
+          "id": "npc_donkey:strike_completed",
+          "operation": "increment_live_once_for_oil_requirement",
+          "amount": 1.0,
+          "ownership": "shared_world"
+        }
+      ],
+      "safeguards": [
+        "only_the_player_selecting_the_answer_pays_the_seed_oil_price",
+        "do_not_grant_or_restore_seed_oil",
+        "do_not_repair_strike_completed_or_donkey_no_body_say_from_an_unrelated_milestone"
+      ]
+    },
+    {
+      "stepId": "build_donkeys_carrot_box",
+      "title": "Build Donkey's carrot box",
+      "linkedQuestIds": [],
+      "linkedTaskMilestoneIds": ["bishop_church_opened"],
+      "triggerScripts": ["carrot_box_building", "npc_donkey:donkey_strike_done"],
+      "triggerKeys": ["carrot_box_building", "donkey_strike_done", "carrot_box"],
+      "expectedEffects": [
+        {
+          "kind": "world_object",
+          "id": "carrot_box",
+          "operation": "complete_construction_by_player_action",
+          "amount": 1.0,
+          "ownership": "shared_world"
+        },
+        {
+          "kind": "npc_event",
+          "id": "npc_donkey:donkey_strike_done",
+          "operation": "fire_once_from_carrot_box_building",
+          "amount": 1.0,
+          "ownership": "shared_world"
+        }
+      ],
+      "safeguards": [
+        "carrot_box_building_dispatches_only_the_acknowledgement_event",
+        "construction_does_not_increment_strike_completed",
+        "do_not_spawn_or_finish_the_box_from_bishop_church_opened"
+      ]
+    },
+    {
+      "stepId": "complete_donkeys_first_carrot_box_check",
+      "title": "Complete Donkey's first carrot-box check",
+      "linkedQuestIds": [],
+      "linkedTaskMilestoneIds": ["bishop_church_opened"],
+      "triggerScripts": ["check_carrot_box", "npc_donkey:donkey_strike_done_2"],
+      "triggerKeys": [
+        "was_first_check_carrot_box",
+        "donkey_strike_done_2",
+        "check_carrot_box",
+        "strike_completed"
+      ],
+      "expectedEffects": [
+        {
+          "kind": "world_param",
+          "id": "npc_donkey:was_first_check_carrot_box",
+          "operation": "set_in_first_live_check_only",
+          "amount": 1.0,
+          "ownership": "shared_world"
+        },
+        {
+          "kind": "npc_event",
+          "id": "npc_donkey:donkey_strike_done_2",
+          "operation": "fire_once_from_first_check",
+          "amount": 1.0,
+          "ownership": "shared_world"
+        },
+        {
+          "kind": "world_param",
+          "id": "npc_donkey:check_carrot_box",
+          "operation": "set_after_live_dialogue",
+          "amount": 1.0,
+          "ownership": "shared_world"
+        },
+        {
+          "kind": "world_param",
+          "id": "npc_donkey:strike_completed",
+          "operation": "increment_live_once_for_carrot_box_requirement",
+          "amount": 1.0,
+          "ownership": "shared_world"
+        }
+      ],
+      "safeguards": [
+        "the_first_check_branch_precedes_the_repeatable_five_carrot_delivery_branch",
+        "never_repair_was_first_check_carrot_box_check_carrot_box_or_strike_completed",
+        "exclude_the_later_s22_refugee_stop_wired_into_the_shared_helper_script"
+      ]
+    },
+    {
+      "stepId": "complete_donkeys_strike_requirements",
+      "title": "Complete both Donkey strike requirements and resume body deliveries",
+      "linkedQuestIds": [],
+      "linkedTaskMilestoneIds": ["bishop_church_opened"],
+      "triggerScripts": ["npc_donkey:@donkey_oil", "npc_donkey:donkey_strike_done_2"],
+      "triggerKeys": ["strike_completed:2", "carrot_crop:5", "get_carrots_not_locked", "drop_body"],
+      "expectedEffects": [
+        {
+          "kind": "inventory_item",
+          "id": "carrot_crop",
+          "operation": "consume_from_shared_carrot_box_only_when_strike_completed_reaches_two",
+          "amount": 5.0,
+          "ownership": "shared_world"
+        },
+        {
+          "kind": "world_param",
+          "id": "npc_donkey:get_carrots_not_locked",
+          "operation": "set_only_when_both_requirements_are_complete",
+          "amount": 1.0,
+          "ownership": "shared_world"
+        },
+        {
+          "kind": "npc_event",
+          "id": "npc_donkey:drop_body",
+          "operation": "fire_once_at_strike_convergence",
+          "amount": 1.0,
+          "ownership": "shared_world"
+        }
+      ],
+      "safeguards": [
+        "oil_and_carrot_box_requirements_are_order_independent",
+        "consume_exactly_five_carrots_from_the_shared_box_not_from_every_player",
+        "do_not_repair_carrots_oil_body_inventory_or_any_delivery_counter",
+        "stop_before_repeatable_deliveries_and_all_plague_war_rich_starving_refugee_and_souls_events"
+      ]
+    },
+    {
+      "stepId": "wake_in_first_bed_and_prime_gerry",
+      "title": "Wake in the first bed and prime Gerry's arrival",
+      "linkedQuestIds": ["start", "get_out_from_house"],
+      "linkedTaskMilestoneIds": [],
+      "triggerScripts": ["first_sleep"],
+      "triggerKeys": ["first_bed", "bed_no_sleep_2", "skull_spawn", "hero_wake"],
+      "expectedEffects": [
+        {
+          "kind": "world_object",
+          "id": "first_bed",
+          "operation": "replace_triggering_object_with_bed_no_sleep_2_once",
+          "amount": 1.0,
+          "ownership": "shared_world"
+        },
+        {
+          "kind": "world_time",
+          "id": "day_time",
+          "operation": "set_to_serialized_zero_during_live_fade",
+          "amount": 0.0,
+          "ownership": "shared_world"
+        },
+        {
+          "kind": "player_param",
+          "id": "skull_spawn",
+          "operation": "set_in_live_first_sleep_only",
+          "amount": 1.0,
+          "ownership": "shared_campaign"
+        }
+      ],
+      "safeguards": [
+        "first_sleep_is_the_first_bed_script_not_the_generic_sleep_flow",
+        "it_is_distinct_from_ghost_comes_after_players_sleep_and_ghost_comes_after_river",
+        "do_not_repair_or_replay_it_from_skull_spawn_or_any_later_story_state"
+      ]
+    },
+    {
+      "stepId": "receive_gerrys_cellar_key_and_basic_technologies",
+      "title": "Meet Gerry behind Sweet Home and unlock the cellar route",
+      "linkedQuestIds": ["goto_tavern", "goto_tavern_2"],
+      "linkedTaskMilestoneIds": [],
+      "triggerScripts": ["on_enter_skull_back_zone"],
+      "triggerKeys": ["test_tavern", "key_to_cellar", "Gathering", "Bread", "house_hatch"],
+      "expectedEffects": [
+        {
+          "kind": "technology",
+          "id": "Gathering",
+          "operation": "unlock_during_live_dialogue",
+          "amount": 1.0,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "technology",
+          "id": "Bread",
+          "operation": "unlock_after_gathering_during_live_dialogue",
+          "amount": 1.0,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "player_param",
+          "id": "key_to_cellar",
+          "operation": "set_after_live_dialogue",
+          "amount": 1.0,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "world_object",
+          "id": "house_hatch",
+          "operation": "add_serialized_interaction_event_once",
+          "amount": 1.0,
+          "ownership": "shared_world"
+        }
+      ],
+      "safeguards": [
+        "test_tavern_is_set_by_the_tavern_entry_quest_before_this_zone_can_run",
+        "the_existing_blacksmith_milestone_is_only_a_durable_backstop_not_the_live_trigger",
+        "preserve_exactly_one_of_the_three_flavor_answers",
+        "do_not_replay_the_cutscene_after_key_to_cellar_is_set"
+      ]
+    },
+    {
+      "stepId": "prime_gerrys_river_followup_with_a_body_disposal",
+      "title": "Throw the first Yorick-primed body into the river",
+      "linkedQuestIds": ["ghost_come_after_1st_burial"],
+      "linkedTaskMilestoneIds": [],
+      "triggerScripts": ["throw_body_river"],
+      "triggerKeys": [
+        "talking_skull:on_showing_gerry_near_river",
+        "showing_gerry_near_river",
+        "Flow_PlayerThrowBody"
+      ],
+      "expectedEffects": [
+        {
+          "kind": "world_param",
+          "id": "talking_skull:on_showing_gerry_near_river",
+          "operation": "consume_only_on_the_first_eligible_live_throw",
+          "amount": 0.0,
+          "ownership": "shared_world"
+        },
+        {
+          "kind": "player_param",
+          "id": "showing_gerry_near_river",
+          "operation": "set_only_on_the_first_eligible_live_throw",
+          "amount": 1.0,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "world_object",
+          "id": "carried_body",
+          "operation": "throw_into_river_in_live_player_action",
+          "amount": 1.0,
+          "ownership": "shared_world"
+        }
+      ],
+      "safeguards": [
+        "catalog_only_the_first_yorick_primed_branch_not_repeatable_body_disposal",
+        "never_restore_the_body_or_on_showing_gerry_near_river_latch",
+        "exclude_thrown_body_and_worker_counters_used_by_later_optional_content"
+      ]
+    },
+    {
+      "stepId": "hear_gerrys_river_and_cremation_advice",
+      "title": "Hear Gerry's river and cremation advice",
+      "linkedQuestIds": ["ghost_come_after_1st_burial"],
+      "linkedTaskMilestoneIds": [],
+      "triggerScripts": [
+        "gerry_comes_near_the_river_down_point",
+        "gerry_comes_near_the_river_up_point",
+        "gerry_comes_near_the_river"
+      ],
+      "triggerKeys": [
+        "showing_gerry_near_river",
+        "gerry_river_0",
+        "gerry_burn",
+        "gerry_near_counter_param:2",
+        "ghost_comes_2_home_after_1st_river"
+      ],
+      "expectedEffects": [
+        {
+          "kind": "player_param",
+          "id": "showing_gerry_near_river",
+          "operation": "consume_at_upper_or_lower_river_entry",
+          "amount": 0.0,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "dialogue_phrase",
+          "id": "gerry_river_0",
+          "operation": "blacklist_after_live_answer",
+          "amount": 1.0,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "dialogue_phrase",
+          "id": "gerry_burn",
+          "operation": "blacklist_after_live_answer",
+          "amount": 1.0,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "world_param",
+          "id": "talking_skull:gerry_near_counter_param",
+          "operation": "increment_once_per_live_answer_until_two",
+          "amount": 2.0,
+          "ownership": "shared_world"
+        },
+        {
+          "kind": "player_param",
+          "id": "ghost_comes_2_home_after_1st_river",
+          "operation": "queue_after_both_answers",
+          "amount": 1.0,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "tutorial_window",
+          "id": "tut_npc_list",
+          "operation": "show_after_both_answers",
+          "amount": 1.0,
+          "ownership": "personal_character"
+        }
+      ],
+      "safeguards": [
+        "both_answers_are_required_and_may_be_selected_in_either_order",
+        "never_repair_the_two_answer_counter_or_blacklisted_answer_phrases",
+        "never_queue_the_sleep_followup_from_the_first_answer_only",
+        "do_not_replay_the_npc_list_tutorial_for_observers"
+      ]
+    },
+    {
+      "stepId": "wake_to_yoricks_river_followup",
+      "title": "Wake to Yorick's follow-up after the first river disposal",
+      "linkedQuestIds": ["ghost_come_after_1st_burial"],
+      "linkedTaskMilestoneIds": [],
+      "triggerScripts": ["ghost_comes_after_river"],
+      "triggerKeys": ["ghost_comes_2_home_after_1st_river", "sleep:On Wake Up", "tut_grave"],
+      "expectedEffects": [
+        {
+          "kind": "player_param",
+          "id": "ghost_comes_2_home_after_1st_river",
+          "operation": "consume_at_live_wake_event_start",
+          "amount": 0.0,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "tutorial_window",
+          "id": "tut_grave",
+          "operation": "show_after_live_dialogue",
+          "amount": 1.0,
+          "ownership": "personal_character"
+        },
+        {
+          "kind": "npc_position",
+          "id": "npc_ghost:stock",
+          "operation": "return_after_live_dialogue",
+          "amount": 1.0,
+          "ownership": "shared_world"
+        }
+      ],
+      "safeguards": [
+        "the_sleep_graph_checks_this_only_on_wake_after_higher_priority_base_events",
+        "do_not_bind_or_repair_the_generic_sleep_flow",
+        "never_restore_or_requeue_ghost_comes_2_home_after_1st_river",
+        "stop_before_the_refugees_sleep_event_and_other_dlc_wake_branches"
+      ]
+    },
+    {
+      "stepId": "open_the_town_gate_with_a_town_pass",
+      "title": "Give the town guard a Town Pass and open the gate",
+      "linkedQuestIds": ["get_out_from_house"],
+      "linkedTaskMilestoneIds": [],
+      "triggerScripts": ["npc_guard_5:intro", "npc_guard_5:interaction"],
+      "triggerKeys": [
+        "town_guard_1",
+        "town_guard_2",
+        "town_guard_3",
+        "town_pass",
+        "turnpike_to_village",
+        "turnpike_open"
+      ],
+      "expectedEffects": [
+        { "kind": "inventory_item", "id": "town_pass", "operation": "consume_from_initiator_only_if_town_guard_3_is_selected", "amount": 1.0, "ownership": "shared_story_token" },
+        { "kind": "world_object", "id": "turnpike_to_village", "operation": "change_once_to_turnpike_open_after_the_live_answer_price_is_paid", "amount": 1.0, "ownership": "shared_world" }
+      ],
+      "safeguards": [
+        "town_guard_3_is_an_inline_multianswer_branch_and_not_a_flow_script_trigger",
+        "the_answer_price_consumes_exactly_one_town_pass_before_the_out_0_world_change_branch",
+        "the_Leave_branch_never_consumes_the_pass_or_changes_the_turnpike",
+        "get_out_from_house_is_only_the_truthful_outdoor_access_anchor_and_must_never_repair_inventory_or_world_state",
+        "never_recreate_the_closed_turnpike_regrant_the_pass_or_replay_the_guard_dialogue_after_the_live_world_change",
+        "exclude_the_repeatable_guard_spawn_and_route_flow"
+      ]
+    }
+  ]
+}

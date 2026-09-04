@@ -1,0 +1,1814 @@
+{
+  "schemaVersion": 5,
+  "catalogId": "dlc.game-of-crone.donkey-revolution-supplies",
+  "campaign": "GameOfCrone",
+  "chapter": "RevolutionSuppliesThroughD17Finale",
+  "quests": [
+    {
+      "questId": "dlc_refugees_d16",
+      "title": "Serialized Donkey revolution-supplies achievement checkpoint",
+      "definitionKind": "AchievementDefinition",
+      "counter": 1,
+      "vanilla": {
+        "startTrigger": "",
+        "successTrigger": "1",
+        "failTrigger": "",
+        "startKeys": [
+          "dlc_refugees_d16"
+        ],
+        "questVisible": false,
+        "oneTimeQuest": false,
+        "startScript": "",
+        "successScript": "",
+        "failScript": "",
+        "arrowWgoCustomTag": "",
+        "arrowWgoObjectId": "",
+        "successRewards": [],
+        "failureRewards": []
+      },
+      "policy": {
+        "stateOwnership": "shared_campaign",
+        "eligibleInitiator": "any_player",
+        "livePresentationOwner": "initiating_player",
+        "observerQuestApplication": "durable_state_only",
+        "personalRewardDelivery": "party_exactly_once",
+        "observerSuccess": {
+          "globalScripts": [],
+          "playerParamRepairs": [],
+          "playerParamMinimums": [],
+          "taskStateMinimums": [],
+          "unlockedTechs": [],
+          "unlockedPhrases": [],
+          "blacklistedPhrases": [],
+          "unlockedCrafts": [],
+          "completedOneTimeCrafts": [],
+          "personalItemGrants": []
+        }
+      },
+      "completionChecks": []
+    }
+  ],
+  "taskMilestones": [
+    {
+      "milestoneId": "game_of_crone_donkey_paint_fulfilled",
+      "npcId": "donkey",
+      "taskId": "dlc_refugees_s_ev_d11_cans",
+      "activeStates": [
+        "Complete"
+      ],
+      "playerParamRepairs": [],
+      "playerParamMinimums": [],
+      "taskStateMinimums": [
+        {
+          "npcId": "donkey",
+          "taskId": "dlc_refugees_d10_take_note",
+          "state": "Complete"
+        }
+      ],
+      "unlockedTechs": [],
+      "unlockedPhrases": [],
+      "blacklistedPhrases": [],
+      "unlockedCrafts": [],
+      "completedOneTimeCrafts": [],
+      "wgoParamMinimums": [],
+      "personalItemGrants": []
+    },
+    {
+      "milestoneId": "game_of_crone_donkey_power_jelly_fulfilled",
+      "npcId": "donkey",
+      "taskId": "dlc_refugees_s_ev_d12_jelly",
+      "activeStates": [
+        "Complete"
+      ],
+      "playerParamRepairs": [],
+      "playerParamMinimums": [],
+      "taskStateMinimums": [
+        {
+          "npcId": "donkey",
+          "taskId": "dlc_refugees_d10_take_note",
+          "state": "Complete"
+        }
+      ],
+      "unlockedTechs": [],
+      "unlockedPhrases": [],
+      "blacklistedPhrases": [],
+      "unlockedCrafts": [],
+      "completedOneTimeCrafts": [],
+      "wgoParamMinimums": [],
+      "personalItemGrants": []
+    },
+    {
+      "milestoneId": "game_of_crone_donkey_revolutionary_banner_fulfilled",
+      "npcId": "donkey",
+      "taskId": "dlc_refugees_s_ev_d15_banner",
+      "activeStates": [
+        "Complete"
+      ],
+      "playerParamRepairs": [],
+      "playerParamMinimums": [],
+      "taskStateMinimums": [
+        {
+          "npcId": "donkey",
+          "taskId": "dlc_refugees_d10_take_note",
+          "state": "Complete"
+        }
+      ],
+      "unlockedTechs": [],
+      "unlockedPhrases": [],
+      "blacklistedPhrases": [],
+      "unlockedCrafts": [],
+      "completedOneTimeCrafts": [],
+      "wgoParamMinimums": [],
+      "personalItemGrants": []
+    }
+  ],
+  "cutscenes": [
+    {
+      "cutsceneId": "game_of_crone_fulfill_donkeys_paint_request",
+      "linkedQuestIds": [
+        "dlc_refugees_d10"
+      ],
+      "triggerScripts": [
+        "gykmp_story_dispatch_game_of_crone_d11_paint_deposit",
+        "gykmp_story_dispatch_game_of_crone_d11_paint_callback",
+        "gykmp_story_dispatch_game_of_crone_d11_paint_collection"
+      ],
+      "actors": [
+        "initiating_player",
+        "contraband_box",
+        "donkey"
+      ],
+      "observerPolicy": "all_loaded_party_members",
+      "lateJoinPolicy": "join_live_checkpoint_or_observe",
+      "remoteExecutionPolicy": "live_observation",
+      "executionOwnerPolicy": "lobby_host",
+      "dialogueOwnerPolicy": "initiating_player",
+      "formationPolicy": "initiator_with_observer_follow",
+      "cleanupRequirements": [
+        "allow_any_player_to_start_d11_send_items_but_serialize_the_single_shared_box_craft_and_record_the_actual_AllFromFirst_inventory_allocations",
+        "atomically_record_black_paint-two_then_white_paint-two_input-removal_and_identically-ordered_box-credit_subreceipts_at_zero-time_finish",
+        "preserve_d11_send_items_exact_recipe_and_attach_on_event_d11_items_sent_before_the_completed-one-time-marker_without_assuming_attached-script_start_order",
+        "treat_donkey_dlc_refugees_s_ev_d11_cans_Complete_as_callback-evidence_only_because_Immediate-Out_can_request_the_visit_before_the_quest-marker-flight_commits",
+        "persist_the_immediate-visit_intent_before_the_unjoined_0_03-real-second_Flow_FireEvent_wrapper_and_pre-resolve_the_canonical_Donkey",
+        "require_authoritative-count-at-least-two_for_black_paint_and-white_paint_then_reserve-and-remove_exactly-two-each_in_the_D11_collection_transaction",
+        "normalize_the_three_doubled_D11_control-edges_and_fourteen_total_redundant_D11_control-and-value_wires_to_one_semantic_pass",
+        "journal_both_removals_before_clearing_get_items_d11_setting_transient_contraband_one_applying_Donkey_relation_plus-ten_and_recording_one_D16_counter-delta_receipt",
+        "commit_the_D11-fulfillment_phase_after_its_own_removal_latch_relation-and-counter_receipts_without_waiting_for_D12_D15_or_D16",
+        "hand_off_any_third-distinct-receipt_case_to_gykmp_story_dispatch_game_of_crone_d16_supply_convergence_and_stop_before_unlock_event_d16_delivery"
+      ]
+    },
+    {
+      "cutsceneId": "game_of_crone_fulfill_donkeys_power_jelly_request",
+      "linkedQuestIds": [
+        "dlc_refugees_d10"
+      ],
+      "triggerScripts": [
+        "gykmp_story_dispatch_game_of_crone_d12_power_jelly_deposit",
+        "gykmp_story_dispatch_game_of_crone_d12_power_jelly_callback",
+        "gykmp_story_dispatch_game_of_crone_d12_power_jelly_collection"
+      ],
+      "actors": [
+        "initiating_player",
+        "contraband_box",
+        "donkey"
+      ],
+      "observerPolicy": "all_loaded_party_members",
+      "lateJoinPolicy": "join_live_checkpoint_or_observe",
+      "remoteExecutionPolicy": "live_observation",
+      "executionOwnerPolicy": "lobby_host",
+      "dialogueOwnerPolicy": "initiating_player",
+      "formationPolicy": "initiator_with_observer_follow",
+      "cleanupRequirements": [
+        "allow_any_player_to_start_d12_send_items_but_serialize_the_single_shared_box_craft_and_record_the_actual_AllFromFirst_inventory_allocations",
+        "atomically_record_jelly_splinter-five_input-removal_and_identical_box-credit_at_zero-time_finish",
+        "preserve_d12_send_items_exact_recipe_and_attach_on_event_d12_items_sent_before_the_completed-one-time-marker_without_assuming_attached-script_start_order",
+        "bind_both_source_Think-lines_and_control-disable-enable_to_the_actual_initiating_player_while_shared_task_recipe-lock_and-visit-effects_remain_host-owned",
+        "persist_the_immediate-visit_intent_before_the_unjoined_0_03-real-second_Flow_FireEvent_wrapper_and_pre-resolve_the_canonical_Donkey",
+        "require_authoritative-count-at-least-five_for_jelly_splinter_then_reserve-and-remove_exactly-five_in_the_D12_collection_transaction_because_source_HasItem_checks_only_identifier-presence",
+        "normalize_fivefold_box-and-item_Has_bindings_and_doubled_Donkey-clear_bindings_once_and_collapse_any_inherited_D11-or-D10_dispatch_fan-in",
+        "journal_the_removal_before_clearing_get_items_d12_setting_transient_contraband_one_applying_Donkey_relation_plus-ten_and_recording_one_D16_counter-delta_receipt",
+        "commit_the_D12-fulfillment_phase_after_its_own_removal_latch_relation-and-counter_receipts_without_waiting_for_D11_D15_or_D16",
+        "hand_off_any_third-distinct-receipt_case_to_gykmp_story_dispatch_game_of_crone_d16_supply_convergence_and_stop_before_unlock_event_d16_delivery"
+      ]
+    },
+    {
+      "cutsceneId": "game_of_crone_fulfill_donkeys_revolutionary_banner_request",
+      "linkedQuestIds": [
+        "dlc_refugees_d10"
+      ],
+      "triggerScripts": [
+        "gykmp_story_dispatch_game_of_crone_d15_revolutionary_banner_deposit",
+        "gykmp_story_dispatch_game_of_crone_d15_revolutionary_banner_callback",
+        "gykmp_story_dispatch_game_of_crone_d15_revolutionary_banner_collection"
+      ],
+      "actors": [
+        "initiating_player",
+        "contraband_box",
+        "donkey"
+      ],
+      "observerPolicy": "all_loaded_party_members",
+      "lateJoinPolicy": "join_live_checkpoint_or_observe",
+      "remoteExecutionPolicy": "live_observation",
+      "executionOwnerPolicy": "lobby_host",
+      "dialogueOwnerPolicy": "initiating_player",
+      "formationPolicy": "initiator_with_observer_follow",
+      "cleanupRequirements": [
+        "allow_any_player_to_start_d15_send_items_but_serialize_the_single_shared_box_craft_and_record_the_actual_AllFromFirst_inventory_allocation",
+        "atomically_record_revolutionary_banner-one_input-removal_and_identical_box-credit_at_zero-time_finish",
+        "preserve_d15_send_items_exact_recipe_and_attach_on_event_d15_items_sent_before_the_completed-one-time-marker_without_assuming_attached-script_start_order",
+        "preserve_callback_order_task-Complete_then_immediate-visit-request_then_LockCraft_revolutionary_banner_and_never_infer_any_suffix_from_the_earlier_task_state",
+        "persist_the_immediate-visit_intent_before_the_unjoined_0_03-real-second_Flow_FireEvent_wrapper_and_pre-resolve_the_canonical_Donkey",
+        "require_authoritative-count-at-least-one_for_revolutionary_banner_then_reserve-and-remove_exactly-one_in_the_D15_collection_transaction",
+        "normalize_doubled_D15_flag-yes-and-no_Has-yes-and-no_Remove-Out_edges_and_all_duplicate_Donkey-box-item_bindings_to_one_semantic_pass",
+        "journal_the_removal_before_clearing_get_items_d15_setting_transient_contraband_one_applying_Donkey_relation_plus-ten_and_recording_one_D16_counter-delta_receipt",
+        "commit_the_D15-fulfillment_phase_after_its_own_removal_latch_relation-and-counter_receipts_without_waiting_for_D11_D12_or_D16",
+        "hand_off_any_third-distinct-receipt_case_to_gykmp_story_dispatch_game_of_crone_d16_supply_convergence_and_stop_before_unlock_event_d16_delivery"
+      ]
+    },
+    {
+      "cutsceneId": "game_of_crone_schedule_donkeys_d16_handoff",
+      "linkedQuestIds": [
+        "dlc_refugees_d16"
+      ],
+      "triggerScripts": [
+        "gykmp_story_dispatch_game_of_crone_d16_supply_convergence"
+      ],
+      "actors": [
+        "donkey"
+      ],
+      "observerPolicy": "all_loaded_party_members",
+      "lateJoinPolicy": "durable_state_only",
+      "remoteExecutionPolicy": "live_observation",
+      "executionOwnerPolicy": "lobby_host",
+      "dialogueOwnerPolicy": "initiating_player",
+      "formationPolicy": "preserve_positions",
+      "cleanupRequirements": [
+        "run_only_when_the_distinct_D11-paint_D12-power-jelly_and_D15-revolutionary-banner_counter-delta_receipts_all_exist_and_claim_one_shared_D16-convergence_dispatch",
+        "pre-resolve_the_exact_canonical_Donkey_before_the_source_AddWGOParam-and-ParamCompare_sequence_because_a_null_connected-FindWGO_value_makes_WGOParamOrSelf_fall_back_to_the_enclosing-checker_graph-agent-WGO_normally_the_contraband-box_and_can_increment_compare_and_schedule_both_events_on_that_wrong-object_while_only_a_null_graph-agent_skips-the-add-and-strands-the-compare",
+        "recognize_the_third_distinct_source-increment_receipt_without_applying_a_fourth_increment_or_minimum-repairing_or_re-reading_donkey_ev_d16_check_count",
+        "persist_the_ten-simulated-second_unlock-event_d16_gameplay-time_remaining-delay_and_once-sampled_next-midnight_try_force_send_gameplay-time_remaining-delay_before_registering_either_event",
+        "account_for_each_unjoined_outer_0_03-real-second_Flow_FireEvent_timer_and_the_parallel_serialized_WorldGameObject_event-id-and-remaining-delay_lists",
+        "never_reschedule_from_the_raw_greater-than-three_branch_after_the_shared_convergence_receipt_exists",
+        "commit_the_terminal_convergence_phase_only_after_all_three_branch_receipts_and_both_durable_timer_registrations",
+        "stop_before_delivering_unlock_event_d16_or_executing_its_zone-spawn_suffix"
+      ]
+    },
+    {
+      "cutsceneId": "game_of_crone_complete_donkeys_revolution",
+      "linkedQuestIds": [
+        "dlc_refugees_d16"
+      ],
+      "triggerScripts": [
+        "gykmp_story_dispatch_game_of_crone_d16_unlock_delivery",
+        "gykmp_story_dispatch_game_of_crone_d16_donkey_ready",
+        "gykmp_story_dispatch_game_of_crone_d16_scene"
+      ],
+      "actors": [
+        "initiating_player",
+        "donkey",
+        "refugee_s22_trigger_zone"
+      ],
+      "observerPolicy": "all_loaded_party_members",
+      "lateJoinPolicy": "join_live_checkpoint_or_observe",
+      "remoteExecutionPolicy": "live_observation",
+      "executionOwnerPolicy": "lobby_host",
+      "dialogueOwnerPolicy": "initiating_player",
+      "formationPolicy": "initiator_with_observer_follow",
+      "cleanupRequirements": [
+        "begin_only_when_the_single_persisted_ten-second_D16_unlock_timer_delivers_unlock_event_d16_to_the_pre-resolved_canonical_Donkey_and_commit_the_delivery-claim_before_any_source_world-write",
+        "consume_only_the_due_D16-unlock_schedule_here_and_preserve_the_independent_once-sampled_next-midnight_try_force_send_schedule_until_its_own_delivery_regardless_of_which_timer_fires_first",
+        "set_donkey_should_stop_in_d16_one_spawn_exactly_one_refugee_s22_trigger_zone_at_refugee_s22_trigger_zone_spawn_then_set_is_zone_d16_active_one_in_exact_source_order",
+        "normalize_npc_donkey_Spawn617-Out-to-zone-flag619_and_GDPoint648-to-Spawn617-Point_from_three_wires_each_to_one_semantic_spawn-and-flag_suffix_without_calling_Spawn617_more_than_once",
+        "after_an_authoritative_Donkey-arrival_reaches_the_shared-stop-selection_by_normal-body-drop_or_an_independently-scheduled_forced-shortcut_set_donkey_ready_for_d16_one_only_when_the_higher-priority_D1_s22_and_s30_stop-branches_do_not_claim_that_visit",
+        "preserve_the_source_D1_then_s22_then_s30_then_D16_then_D17_arrival-and-zone_priority_and_keep_D16s_stop-and-zone_state_pending_when_an_earlier_event_owns_the_visit",
+        "allow_only_one_host-owned_E_N_or_W_zone_claim_when_is_zone_d16_active_and_donkey_ready_for_d16_are_both_one_and_persist_the_ingress_variant_and_actual_entering_peer_before_clearing_any_latch",
+        "after_the_durable_scene-claim_clear_is_zone_d16_active_donkey_ready_for_d16_and_donkey_should_stop_in_d16_in_order_then_destroy_only_the_single_shared_refugee_s22_trigger_zone",
+        "normalize_ev_d16_set_flags_FindWGO-to-Destroy-WGO_from_three_identical_value-bindings_to_one_while_recognizing_that_the_Destroy-control_path_itself_runs_once",
+        "receipt-bind_the_exact_D16-spawned_trigger-instance_before_dispatch_and_destroy_that_instance_not_an_arbitrary_same-tag-zone_reused_by_D1_s22_s30_or_D17",
+        "collapse_each_directional_wrappers_doubled_StartEvent-Once-to-PlayerEnable-false_admission_before_it_can_launch_two_complete_wrappers_and_two_refugee_ev_d16_core-scenes",
+        "bind_every_player-disable_direction-move-talk-camera-and-enable_operation_to_the_recorded_local-or-remote_initiator_and_expose_the_same_live_scene_to_observers_without_mutating_their_positions",
+        "pre-resolve_the_canonical_Donkey_and_each_direction-selected_GD-point_before_disabling_the_initiator_because_a_missing_Donkey_or_movement-target_can_suppress_the_drop-Out_or_Came-to-dest_continuation_and_strand_the_scene",
+        "for_E_move_the_initiator_at_speed_2_2_directly_to_gd_refugee_d1_player_E_then_by_GDGraph_to_gd_refugee_d1_player_for_N_use_gd_refugee_s22_N_1_then_the_same_common_point_and_for_W_move_directly_to_the_common_point",
+        "face_the_initiator_toward_Donkey_fly_the_camera_to_Donkey_present_refugee_d_16_1_then_honor_its_Immediate-Out_with_the_source_0_2-second_pause_even_while_the_talk_bubble_may_remain_live",
+        "treat_the_directional_Flow_RunScript-Out_and_its_doubled-End-wires_as_immediate_wrapper-completion_not_core-completion_and_join_the_synthetic_session_to_refugee_ev_d16_before_any_control-release",
+        "reset_the_camera_then_present_refugee_d_16_2_through_10_in_exact_Donkey-player_order_drop_one_ice_axe_from_Donkey_with_Direction-None_wait_one_second_and_present_lines_eleven_and_twelve",
+        "before_the_physical_ice-axe_drop_atomically_suppress_or_reserve_the_single_world-instance_and_adopt_at-most-one_actual_collector_receipt_then_allocate_one_personal-equipment-entitlement_per_eligible_profile_without_leaving_a_second_pickable_source-copy",
+        "keep_the_quest-and-cutscene_personalItemGrants_arrays_empty_until_source-drop_suppression_reservation_collection-adoption_and_per-profile_receipts_are_atomic_because_the_vanilla_Direction-None_drop_is_not_direct_inventory_ownership",
+        "after_line_twelve_persist_and_fire_Donkey_going_home_with_requested-delay-zero_through_its_unjoined_outer_0_03-real-second_wrapper_then_wait_0_5_seconds_and_present_player_line_thirteen",
+        "set_Donkeys_is_d16_completed_one_only_after_line_thirteen_then_persist_the_900-simulated-second_event_unlock_d17_remaining-delay_before_registering_it_on_the_same_Donkey",
+        "record_the_is_need_bring_carl_for_ev_31_result_after_the_D17-timer-registration_and_when_true_set_ev_s31_spawn_carl_next_coming_one_then_persist_one_requested-delay-zero_try_donkey_force_come_intent_without_clearing_the_historical_latch",
+        "hand_the_deferred-Carl_flag-and-visit_to_the_separately_catalogued_CarlInterrogation_S31_route_and_never_spawn_Carl_or_re-own_its_tasks_in_this_cutscene",
+        "normalize_the_doubled_is_need_bring_carl_for_ev_31-greater-or-equal-one_edge_and_the_doubled_directional-wrapper_launch_at_admission_so_the_common_relation-achievement-enable_suffix_runs_once_not_two-or-four-times",
+        "apply_exactly_one_Donkey_relation_delta_of_plus-ten_then_record_D16-achievement-eligibility_check_the_exact_dlc_refugees_d16_AchievementDefinition_key_once_and_reconcile_one_optional_platform_unlock_receipt_per_profile",
+        "restore_the_initiators_camera_cinematic-control_facing-and-movement_baseline_on_success_disconnect_cancellation_timeout_scene-change_or_recovery_without_enabling_between_wrapper-and-core",
+        "commit_the_terminal_D16-phase_only_after_the_ice-axe_source-and-entitlements_going-home-intent_completion-flag_D17-timer_optional-Carl-branch_relation_achievement_and_presentation-cleanup_receipts_are_all_durable",
+        "stop_before_delivery_of_event_unlock_d17_or_any_D17_zone-spawn_ready-state_directional-wrapper_dialogue_music_or-final-cleanup"
+      ]
+    },
+    {
+      "cutsceneId": "game_of_crone_complete_donkeys_d17_failed_revolution",
+      "linkedQuestIds": [],
+      "triggerScripts": [
+        "gykmp_story_dispatch_game_of_crone_d17_unlock_delivery",
+        "gykmp_story_dispatch_game_of_crone_d17_donkey_ready",
+        "gykmp_story_dispatch_game_of_crone_d17_scene"
+      ],
+      "actors": [
+        "initiating_player",
+        "donkey",
+        "refugee_s22_trigger_zone"
+      ],
+      "observerPolicy": "all_loaded_party_members",
+      "lateJoinPolicy": "join_live_checkpoint_or_observe",
+      "remoteExecutionPolicy": "live_observation",
+      "executionOwnerPolicy": "lobby_host",
+      "dialogueOwnerPolicy": "initiating_player",
+      "formationPolicy": "initiator_with_observer_follow",
+      "cleanupRequirements": [
+        "begin_only_when_the_single_persisted_900-simulated-second_D17_unlock_timer_delivers_event_unlock_d17_to_the_pre-resolved_canonical_Donkey_and_commit_the_delivery-claim_before_any_source_world-write",
+        "consume_only_the_due_D17-unlock_schedule_and_never_resample_re-register_or_treat_its_delivery_as_a_guaranteed_immediate-visit",
+        "pre-resolve_refugee_s22_trigger_zone_spawn_before_the_source_suffix_because_Flow_SpawnWGO_dereferences_a_missing_point_and_can_leave_only_the_earlier_stop-latch_written",
+        "set_donkey_should_stop_in_d17_one_spawn_exactly_one_D17-bound_refugee_s22_trigger_zone_at_refugee_s22_trigger_zone_spawn_then_set_is_zone_d17_active_one_in_exact_source_order",
+        "collapse_npc_donkey_Set655-Out-to-Spawn657_from_two_control-wires_before_execution_so_the_raw_graph_cannot_create_two_shared_zones",
+        "normalize_Spawn657-Out-to-zone-flag659_and_GDPoint661-to-Spawn657-Point_from_four_wires_each_to_one_semantic_suffix_while_recognizing_that_two_unnormalized_spawn-calls_can_attempt_eight_flag-writes",
+        "after_a_later_authoritative_Donkey-arrival_reaches_the_shared-stop-selection_by_normal-body-drop_or_an_independently-forced_shortcut_set_donkey_ready_for_d17_one_only_when_the_higher-priority_D1_s22_s30_and_D16_stop-branches_do_not_claim_that_visit",
+        "preserve_the_source_D1_then_s22_then_s30_then_D16_then_D17_arrival-and-zone_priority_and_keep_D17s_stop-and-zone_state_pending_when_an_earlier_event_owns_the_visit",
+        "allow_only_one_host-owned_E_N_or_W_zone_claim_when_is_zone_d17_active_and_donkey_ready_for_d17_are_both_one_and_persist_the_ingress-variant_actual-entering-peer_and-exact-D17-zone-receipt_before_clearing_any_latch",
+        "after_the_durable_scene-claim_clear_is_zone_d17_active_donkey_ready_for_d17_and_donkey_should_stop_in_d17_in_order_then_destroy_only_the_receipt-bound_D17_trigger-zone",
+        "normalize_ev_d17_set_flags_FindWGO-to-Destroy-WGO_from_three_identical_value-bindings_to_one_while_recognizing_that_the_Destroy-control_path_itself_runs_once",
+        "collapse_the_inherited_N-and-W_dispatcher_fan-in_before_the_D17-check_and_retain_the_atomic-host-claim_as_the_backstop_against_repeated_checks",
+        "collapse_each_directional_wrappers_doubled_StartEvent-Once-to-PlayerEnable-false_edge_to_one_admission_before_competing_direction-camera-and-GoTo_callbacks_can_race_and_enforce_one_separate_core-scene-claim",
+        "bind_every_player-disable_direction-move-talk-camera-and-enable_operation_to_the_recorded_local-or-remote_initiator_and_expose_the_same_live_scene_to_observers_without_mutating_their_positions",
+        "capture_the_initiators_control-camera-facing-movement_baseline_and_each_presenting_peers_music-override_baseline_before_any_cinematic_mutation",
+        "pre-resolve_the_canonical_Donkey_and_each_direction-selected_GD-point_before_disabling_the_initiator_because_a_missing_movement-target_never_emits_Came-to-dest_and_can_strand_control",
+        "for_E_move_the_initiator_at_speed_2_2_directly_to_gd_refugee_d1_player_E_then_by_GDGraph_to_gd_refugee_d1_player_for_N_use_gd_refugee_s22_N_1_then_the_same_common_point_and_for_W_move_directly_to_the_common_point",
+        "face_the_initiator_toward_Donkey_start_the_non-instant_camera-fly_to_Donkey_and_follow_its_Immediate-Out_into_movement_without_waiting_for_camera_On-Finished",
+        "treat_the_directional_Flow_RunScript-Out_and_its_doubled-End-wires_as_immediate_wrapper-completion_not_core-completion_and_join_the_synthetic-session_to_refugee_ev_d17_before_any_control-release",
+        "present_player_lines_refugees_d_17_1_through_3_then_Donkey-line-4_and_start_the_grim_music-override_from_line-fours_Immediate-Out_while_only_On-Finished_advances_to_line-five",
+        "present_player-thought-five_player-line-six_Donkey-lines-seven-and-eight_wait-one-second_then_present_player-nine_Donkey-ten_and_player-eleven_in_exact_source-order",
+        "after_line-eleven_persist_and_fire_Donkey_going_home_with_requested-delay-zero_through_its_unjoined_outer_0_03-real-second-wrapper_then_wait_1_5-seconds_and_present_Donkey-line-twelve_even_if_he_has_started-leaving",
+        "after_line-twelve_wait_one-second_join_the_non-instant_null-target_CameraFlyBack_On-Finished_stop_the_grim_override_with_id-null_play-false_then_execute_the_source_initiator-cinematic-control-enable_without_rewinding_scene-earned_position-or-facing",
+        "on_disconnect_cancellation_timeout_scene-change_or_recovery_apply_the_synthetic_per-presenter_music-camera-control-facing-and-movement-safety_restore_without_enabling_between_wrapper-and-core",
+        "normalize_the_doubled_npc_donkey-going_home_clear-edge_and_reconcile_the_asynchronous_on_returned_home_cleanup_without_using_Donkeys_eventual-return_as_the_scene-completion-barrier",
+        "durably_checkpoint_the_canonical_core-line_wait_and-shared-going-home_progress_while_tracking_each_presenters_local-music-and-cleanup_receipts_separately_so_recovery_does_not_replay_completed-dialogue_or_world-side-effects",
+        "commit_the_synthetic_terminal_D17-phase_only_after_the_scene-claim_three-consumed-latches_exact-zone-removal_terminal-core-checkpoint_all-twelve-lines_going-home-intent_music-stop_camera-return_and-participant-cleanup_receipts_are_durable",
+        "use_the_synthetic_D17-terminal-phase_as_the_only_completion-evidence_because_beyond_the_generic-going-home_intent_the_source_writes_no_task_quest_achievement_item_relation_recipe_completion-flag_or_downstream-story-successor-timer",
+        "leave_any_parallel_S22_S30_or_S31_Carl_state_to_its_own_catalogue_and_allow_ordinary_Donkey_corpse-carrot-contraband_behaviour_to_continue_after_this_terminal_revolution-branch",
+        "do_not_recheck_dlc_refugees_d16_or_repeat_its_achievement_ice-axe_relation_or_D17-timer_effects_during_this_epilogue"
+      ]
+    }
+  ],
+  "storySteps": [
+    {
+      "stepId": "game_of_crone_deposit_donkeys_paint",
+      "title": "Deposit two black paint and two white paint in Donkey's contraband box",
+      "linkedQuestIds": [
+        "dlc_refugees_d10"
+      ],
+      "linkedTaskMilestoneIds": [
+        "game_of_crone_donkey_paint_fulfilled"
+      ],
+      "triggerScripts": [
+        "gykmp_story_dispatch_game_of_crone_d11_paint_deposit",
+        "gykmp_story_dispatch_game_of_crone_d11_paint_callback"
+      ],
+      "triggerKeys": [
+        "d11_send_items",
+        "i_goc_revolution_event",
+        "contraband_box",
+        "black_paint",
+        "white_paint",
+        "MultiInventory.DestinationType.AllFromFirst",
+        "CraftComponent.FinishCurrentCraft",
+        "WorldGameObject.AddToInventory",
+        "WorldGameObject.AttachFlowScript",
+        "GameSave.OnFinishedCraft",
+        "on_event_d11_items_sent",
+        "dlc_refugees_s_ev_d11_cans",
+        "try_donkey_force_come",
+        "try_force_send",
+        "Flow_SetTaskState.Immediate.Out",
+        "Flow_FireEvent",
+        "gykmp_story_transaction_game_of_crone_d11_paint_deposit",
+        "gykmp_story_event_game_of_crone_d11_immediate_donkey_visit",
+        "gykmp_story_phase_game_of_crone_d11_paint_deposited"
+      ],
+      "expectedEffects": [
+        {
+          "kind": "craft_recipe",
+          "id": "d11_send_items",
+          "operation": "execute_the_previously-unlocked_craft-in-contraband-box_with_source-icon_i_goc_revolution_event_hidden-false_needs-unlock-true_type-zero_is-auto-true_one-time-craft-true_recipe_with_craft-time-zero_craft-time-is-zero-true_energy-zero_gratitude-cost-zero_sanity-zero_exact-ordered-needs_black_paint-two_then_white_paint-two_empty-player-output_exact-ordered-output-to-WGO_black_paint-two_then_white_paint-two_empty-needs-from-WGO_empty-output-to-WGO-on-start_transfer-needs-to-WGO-false_set-out-params-false_hide-quality-icon-true_no-multiquality_needs-quality-zero_no-tool-actions_end-script_on_event_d11_items_sent_and_empty-end-event",
+          "amount": 1,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "story_transaction",
+          "id": "gykmp_story_transaction_game_of_crone_d11_paint_deposit",
+          "operation": "atomically_record_exact_AllFromFirst_source-allocations_and-debits_ordered-box-credits_attached-callback_and-completed-one-time-marker_subreceipts",
+          "amount": 1,
+          "ownership": "initiating_player_transaction"
+        },
+        {
+          "kind": "inventory_item",
+          "id": "black_paint",
+          "operation": "remove_exactly_two_from_the_actual_AllFromFirst_interaction-MultiInventory_sources_at_craft-start_then_add_exactly_two_to_the_canonical-box_as_the_first_ordered_zero-time_output-to-WGO_credit",
+          "amount": 2,
+          "ownership": "shared_story_token"
+        },
+        {
+          "kind": "inventory_item",
+          "id": "white_paint",
+          "operation": "remove_exactly_two_from_the_actual_AllFromFirst_interaction-MultiInventory_sources_at_craft-start_then_add_exactly_two_to_the_canonical-box_as_the_second_ordered_zero-time_output-to-WGO_credit",
+          "amount": 2,
+          "ownership": "shared_story_token"
+        },
+        {
+          "kind": "completed_one_time_craft",
+          "id": "d11_send_items",
+          "operation": "record_only_after_GameSave_OnFinishedCraft_and_do_not_infer_it_from_either_box-credit_or_callback-task_completion",
+          "amount": 1,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "npc_task",
+          "id": "donkey:dlc_refugees_s_ev_d11_cans",
+          "operation": "request_Complete_with_zero_story-rewards_through_Flow_SetTaskState_Immediate-Out_in_the_fresh_box-attached_on_event_d11_items_sent_script",
+          "amount": 1,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "world_event_intent",
+          "id": "gykmp_story_event_game_of_crone_d11_immediate_donkey_visit",
+          "operation": "persist_before_requesting_canonical-donkey_try_force_send_with_requested-delay-zero_through_the_unjoined_0_03-real-second_wrapper",
+          "amount": 1,
+          "ownership": "shared_world"
+        },
+        {
+          "kind": "story_phase",
+          "id": "gykmp_story_phase_game_of_crone_d11_paint_deposited",
+          "operation": "commit_after_both_craft-debits_both_ordered-box-credits_marker_callback-task-request_and-immediate-visit-intent_subreceipts_are_durable",
+          "amount": 1,
+          "ownership": "shared_campaign"
+        }
+      ],
+      "safeguards": [
+        "record_the_actual_AllFromFirst_inventory-index-first-to-last_allocations_which_can_span_the_players_inventory_carried-bags_and_other_interaction-MultiInventory_sources",
+        "reserve_canonical-box_capacity_or_reconcile_each_ordered_AddToInventory_credit_because_failed-output_returns_are_ignored_and_callback-plus-one-time-marker_still_advance",
+        "recover_any_crash_between_the_two_input-debits_two_ordered-box-credits_callback_attach_and-one-time-marker_without_duplicating_or_losing_paint",
+        "the_output-to-WGO_credits_precede_AttachFlowScript_and_the_attach-call_precedes_OnFinishedCraft_but_fresh-script_start-order_is_not_proven_so_reconcile_each_subreceipt_independently",
+        "Flow_SetTaskState_Immediate-Out_can_dispatch_the_visit_before_the_quest-marker-flight_makes_Complete_durable_or_observable",
+        "a_missing_canonical-Donkey_can_route_the_macro_event_to_the_box-local_script-self_so_pre-resolve_the_Donkey_and_replay_only_a_missing_visit-intent",
+        "do_not_lock_black_paint_or_white_paint_and_do_not_reunlock_d11_send_items_after_its_one-time-completion"
+      ]
+    },
+    {
+      "stepId": "game_of_crone_complete_donkeys_paint_collection",
+      "title": "Let Donkey collect both paints and record the first revolution-supply receipt",
+      "linkedQuestIds": [
+        "dlc_refugees_d10"
+      ],
+      "linkedTaskMilestoneIds": [
+        "game_of_crone_donkey_paint_fulfilled"
+      ],
+      "triggerScripts": [
+        "gykmp_story_dispatch_game_of_crone_d11_paint_collection"
+      ],
+      "triggerKeys": [
+        "check_contraband_box",
+        "get_items_d11",
+        "black_paint",
+        "white_paint",
+        "contraband",
+        "_rel_donkey",
+        "check_ev_d16_start",
+        "ev_d16_check_count",
+        "Flow_HasItemInInventory",
+        "Flow_RemoveItemFromInventory",
+        "check_contraband_box.node152.Yes_to_node163.x2",
+        "check_contraband_box.node163.Yes_to_node174.x2",
+        "check_contraband_box.node174.Out_to_node185.x2",
+        "gykmp_story_transaction_game_of_crone_d11_paint_collection",
+        "gykmp_story_relation_game_of_crone_donkey_d11_paint_supply",
+        "gykmp_story_counter_game_of_crone_d16_paint_collection",
+        "gykmp_story_phase_game_of_crone_d11_fulfillment_complete"
+      ],
+      "expectedEffects": [
+        {
+          "kind": "story_transaction",
+          "id": "gykmp_story_transaction_game_of_crone_d11_paint_collection",
+          "operation": "preflight_authoritative-count-at-least-two_for_each-paint_then_atomically-reserve-and-journal_the_ordered_remove-black-two_remove-white-two_clear-latch_contraband_relation-and-counter_suffix",
+          "amount": 1,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "wgo_param",
+          "id": "donkey:get_items_d11",
+          "operation": "set_zero_once_after_both_exact_removal-receipts_and_before_contraband_relation_or-counter_mutation",
+          "amount": 0,
+          "ownership": "shared_world"
+        },
+        {
+          "kind": "wgo_param",
+          "id": "donkey:contraband",
+          "operation": "set_one_after_latch-clear_as_a_transient_visit-state_only",
+          "amount": 1,
+          "ownership": "shared_world"
+        },
+        {
+          "kind": "relation_delta_receipt",
+          "id": "gykmp_story_relation_game_of_crone_donkey_d11_paint_supply",
+          "operation": "apply_exactly_one_source_delta_of_plus-ten_to_the_authoritative_shared-player-param__rel_donkey_after_removal-and-latch_receipts",
+          "amount": 10,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "counter_delta_receipt",
+          "id": "gykmp_story_counter_game_of_crone_d16_paint_collection",
+          "operation": "record_exactly_one_source_delta_of_plus-one_for_donkey_ev_d16_check_count_after_the_D11_relation-receipt_without_minimum-repairing_the_raw_counter",
+          "amount": 1,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "story_phase",
+          "id": "gykmp_story_phase_game_of_crone_d11_fulfillment_complete",
+          "operation": "commit_after_the_D11_transaction_latch_contraband_relation-and-counter_receipts_without_waiting_for_other_supply-branches",
+          "amount": 1,
+          "ownership": "shared_campaign"
+        }
+      ],
+      "safeguards": [
+        "source_HasItem_checks_only_identifier-presence_despite_value-two_and_source_RemoveItem-failure_still_emits_Out_so_require_authoritative_count-at-least-two_for_each_paint_before_any_mutation",
+        "normalize_D11_control-edges_152-Yes-to-163_163-Yes-to-174_and_174-Out-to-185_from_two_wires_each_to_one_logical_edge",
+        "normalize_box-and-black-bindings_into_Has152_from-four-each_box-and-white-bindings_into_Has163_from-two-each_black-Remove174_bindings_from-two-each_white-Remove185_box-from-two_and-item-from-one_and_the_single_Donkey-clear-binding_once",
+        "normalize_the_whole_shared-checker_pass_so_the_D11_suffix_cannot_enter_D12_repeatedly_after_duplicate_D11_success-path_fan-out",
+        "never_treat_task-Complete_box-presence_get_items_d11-zero_or-transient-contraband_as_proof_of_both_exact_removals_relation-or-counter-receipts",
+        "never_minimum-repair_or_additively-replay__rel_donkey_or_ev_d16_check_count",
+        "if_this_is_the_third_distinct_D16-counter_receipt_publish_it_to_the_single_shared-convergence_dispatch_without_applying_an_extra_increment",
+        "clear_transient_contraband_only_when_npc_donkey_on_returned_home_runs_and_do_not_require_that_cleanup_for_D11-terminal-completion"
+      ]
+    },
+    {
+      "stepId": "game_of_crone_deposit_donkeys_power_jelly",
+      "title": "Deposit five power-jelly splinters in Donkey's contraband box",
+      "linkedQuestIds": [
+        "dlc_refugees_d10"
+      ],
+      "linkedTaskMilestoneIds": [
+        "game_of_crone_donkey_power_jelly_fulfilled"
+      ],
+      "triggerScripts": [
+        "gykmp_story_dispatch_game_of_crone_d12_power_jelly_deposit",
+        "gykmp_story_dispatch_game_of_crone_d12_power_jelly_callback"
+      ],
+      "triggerKeys": [
+        "jelly_splinter",
+        "i_jelly_splinter",
+        "cooking_table",
+        "cooking_table_2",
+        "jelly_slug",
+        "flour",
+        "d12_send_items",
+        "i_goc_revolution_event",
+        "contraband_box",
+        "MultiInventory.DestinationType.AllFromFirst",
+        "CraftComponent.FinishCurrentCraft",
+        "WorldGameObject.AddToInventory",
+        "WorldGameObject.AttachFlowScript",
+        "GameSave.OnFinishedCraft",
+        "on_event_d12_items_sent",
+        "refugee_d_12_1",
+        "refugee_d_12_2",
+        "dlc_refugees_s_ev_d12_jelly",
+        "try_donkey_force_come",
+        "try_force_send",
+        "Flow_FireEvent",
+        "gykmp_story_transaction_game_of_crone_d12_power_jelly_deposit",
+        "gykmp_story_event_game_of_crone_d12_immediate_donkey_visit",
+        "gykmp_story_phase_game_of_crone_d12_power_jelly_deposited"
+      ],
+      "expectedEffects": [
+        {
+          "kind": "craft_recipe",
+          "id": "d12_send_items",
+          "operation": "execute_the_previously-unlocked_craft-in-contraband-box_with_source-icon_i_goc_revolution_event_hidden-false_needs-unlock-true_type-zero_is-auto-true_one-time-craft-true_recipe_with_craft-time-zero_craft-time-is-zero-true_energy-zero_gratitude-cost-zero_sanity-zero_exact-need_jelly_splinter-five_empty-player-output_output-to-WGO_jelly_splinter-five_empty-needs-from-WGO_empty-output-to-WGO-on-start_transfer-needs-to-WGO-false_set-out-params-false_hide-quality-icon-true_no-multiquality_needs-quality-zero_no-tool-actions_end-script_on_event_d12_items_sent_and_empty-end-event",
+          "amount": 1,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "story_transaction",
+          "id": "gykmp_story_transaction_game_of_crone_d12_power_jelly_deposit",
+          "operation": "atomically_record_exact_AllFromFirst_source-allocations_and-debit_box-credit_attached-callback_and-completed-one-time-marker_subreceipts",
+          "amount": 1,
+          "ownership": "initiating_player_transaction"
+        },
+        {
+          "kind": "inventory_item",
+          "id": "jelly_splinter",
+          "operation": "remove_exactly_five_from_the_actual_AllFromFirst_interaction-MultiInventory_sources_at_craft-start_then_add_exactly_five_to_the_canonical-box_at_zero-time-finish",
+          "amount": 5,
+          "ownership": "shared_story_token"
+        },
+        {
+          "kind": "completed_one_time_craft",
+          "id": "d12_send_items",
+          "operation": "record_only_after_GameSave_OnFinishedCraft_and_do_not_infer_it_from_box-credit_callback-task_or-recipe-lock",
+          "amount": 1,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "dialogue_sequence",
+          "id": "refugee_d_12_1_through_2",
+          "operation": "disable_only_the_initiating-player_present_both_Player-Think_lines_in_order_with_null-animation_Before-timing_and-Auto-orientation_then_continue_the_shared-callback",
+          "amount": 2,
+          "ownership": "live_presentation"
+        },
+        {
+          "kind": "npc_task",
+          "id": "donkey:dlc_refugees_s_ev_d12_jelly",
+          "operation": "request_Complete_with_zero_story-rewards_through_Flow_SetTaskState_Immediate-Out_after_both_Think-lines_and_before_the_recipe-lock-and-visit-request",
+          "amount": 1,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "craft_lock",
+          "id": "jelly_splinter",
+          "operation": "remove_jelly_splinter_from_GameSave-unlocked-crafts_if-present_without_adding_locked-crafts_destroying-items_cancelling-production_relocking_d12_send_items_or-preventing_later_UnlockCraft",
+          "amount": 0,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "world_event_intent",
+          "id": "gykmp_story_event_game_of_crone_d12_immediate_donkey_visit",
+          "operation": "persist_after_the_recipe-lock_and_before_requesting_canonical-donkey_try_force_send_with_requested-delay-zero_through_the_unjoined_0_03-real-second_wrapper",
+          "amount": 1,
+          "ownership": "shared_world"
+        },
+        {
+          "kind": "story_phase",
+          "id": "gykmp_story_phase_game_of_crone_d12_power_jelly_deposited",
+          "operation": "commit_after_debit_box-credit_marker_dialogue_task_recipe-lock_visit-intent_and-initiating-player-reenable_subreceipts_are_durable",
+          "amount": 1,
+          "ownership": "shared_campaign"
+        }
+      ],
+      "safeguards": [
+        "jelly_splinter-production_is_the_previously-unlocked_cooking_table-or-cooking_table_2_recipe_need_jelly_slug-one_then_flour-one_output-one_icon_i_jelly_splinter_time-three_energy-five_gratitude-two_sanity-zero_hidden-false_needs-unlock-true_nonauto-repeatable_nontransfer_no-quality-tool-or-end-script",
+        "jelly_splinter-item_is_icon_i_jelly_splinter_stack-five_type-zero_not-used-false_player-cant-throw-out-false_can-be-used-false_stay-on-use-false_non-durable_no-use-script_and-base-price-zero",
+        "record_the_actual_AllFromFirst_inventory-index-first-to-last_allocations_across_all_interaction-MultiInventory_sources",
+        "reserve_canonical-box_capacity_or_reconcile_the_AddToInventory_credit_because_a_failed-output_return_is_ignored_and_callback-plus-one-time-marker_still_advance",
+        "the_box-credit_precedes_AttachFlowScript_and_the_attach-call_precedes_OnFinishedCraft_but_fresh-script_start-order_is_not_proven_so_reconcile_each_subreceipt_independently",
+        "disable_and-enable_only_the_bound_initiating-player_and_never_freeze_or-enable_observers",
+        "Flow_SetTaskState_Immediate-Out_can_run_the_recipe-lock-and-visit_suffix_before_the_quest-marker-flight_makes_Complete_durable_or-observable",
+        "a_missing_canonical-Donkey_can_route_the_macro_event_to_the_box-local_script-self_so_pre-resolve_the_Donkey_and_replay_only_a_missing_visit-intent",
+        "Flow_LockCraft_is_reversible_and_only_removes_jelly_splinter_from_GameSave-unlocked-crafts_if-present_without_adding_a_locked-crafts-record_destroying-inventory_cancelling-production_or-blocking_later_UnlockCraft"
+      ]
+    },
+    {
+      "stepId": "game_of_crone_complete_donkeys_power_jelly_collection",
+      "title": "Let Donkey collect five power-jelly splinters and record its revolution-supply receipt",
+      "linkedQuestIds": [
+        "dlc_refugees_d10"
+      ],
+      "linkedTaskMilestoneIds": [
+        "game_of_crone_donkey_power_jelly_fulfilled"
+      ],
+      "triggerScripts": [
+        "gykmp_story_dispatch_game_of_crone_d12_power_jelly_collection"
+      ],
+      "triggerKeys": [
+        "check_contraband_box",
+        "get_items_d12",
+        "jelly_splinter",
+        "contraband",
+        "_rel_donkey",
+        "check_ev_d16_start",
+        "ev_d16_check_count",
+        "Flow_HasItemInInventory",
+        "Flow_RemoveItemFromInventory",
+        "check_contraband_box.node616.box_to_node208.Has.x5",
+        "check_contraband_box.node618.jelly_splinter-five_to_node208.Has.x5",
+        "check_contraband_box.node621.donkey_to_node272.Clear.x2",
+        "gykmp_story_transaction_game_of_crone_d12_power_jelly_collection",
+        "gykmp_story_relation_game_of_crone_donkey_d12_power_jelly",
+        "gykmp_story_counter_game_of_crone_d16_power_jelly_collection",
+        "gykmp_story_phase_game_of_crone_d12_fulfillment_complete"
+      ],
+      "expectedEffects": [
+        {
+          "kind": "story_transaction",
+          "id": "gykmp_story_transaction_game_of_crone_d12_power_jelly_collection",
+          "operation": "preflight_authoritative-count-at-least-five_then_atomically-reserve-and-journal_remove-exactly-five_clear-latch_contraband_relation-and-counter_suffix",
+          "amount": 1,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "wgo_param",
+          "id": "donkey:get_items_d12",
+          "operation": "set_zero_once_after_the_exact-removal-receipt_and_before_contraband_relation_or-counter_mutation",
+          "amount": 0,
+          "ownership": "shared_world"
+        },
+        {
+          "kind": "wgo_param",
+          "id": "donkey:contraband",
+          "operation": "set_one_after_latch-clear_as_a_transient_visit-state_only",
+          "amount": 1,
+          "ownership": "shared_world"
+        },
+        {
+          "kind": "relation_delta_receipt",
+          "id": "gykmp_story_relation_game_of_crone_donkey_d12_power_jelly",
+          "operation": "apply_exactly_one_source_delta_of_plus-ten_to_the_authoritative_shared-player-param__rel_donkey_after_removal-and-latch_receipts",
+          "amount": 10,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "counter_delta_receipt",
+          "id": "gykmp_story_counter_game_of_crone_d16_power_jelly_collection",
+          "operation": "record_exactly_one_source_delta_of_plus-one_for_donkey_ev_d16_check_count_after_the_D12_relation-receipt_without_minimum-repairing_the_raw_counter",
+          "amount": 1,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "story_phase",
+          "id": "gykmp_story_phase_game_of_crone_d12_fulfillment_complete",
+          "operation": "commit_after_the_D12_transaction_latch_contraband_relation-and-counter_receipts_without_waiting_for_other_supply-branches",
+          "amount": 1,
+          "ownership": "shared_campaign"
+        }
+      ],
+      "safeguards": [
+        "source_HasItem_checks_only_identifier-presence_despite_value-five_and_source_RemoveItem-failure_still_emits_Out_so_require_authoritative_count-at-least-five_before_any_mutation",
+        "normalize_the_five_box-WGO_and-five_jelly_splinter-value_bindings_into_Has208_and_the_two_Donkey-bindings_into_clear-node272_once",
+        "normalize_the_whole_shared-checker_pass_including_any_inherited_D11-success_or_D9-zero-D10_fan-in_before_entering_D12",
+        "never_treat_task-Complete_box-presence_get_items_d12-zero_or-transient-contraband_as_proof_of_exact-removal_relation-or-counter-receipts",
+        "never_minimum-repair_or_additively-replay__rel_donkey_or_ev_d16_check_count",
+        "if_this_is_the_third_distinct_D16-counter_receipt_publish_it_to_the_single_shared-convergence_dispatch_without_applying_an_extra_increment",
+        "clear_transient_contraband_only_when_npc_donkey_on_returned_home_runs_and_do_not_require_that_cleanup_for_D12-terminal-completion"
+      ]
+    },
+    {
+      "stepId": "game_of_crone_deposit_donkeys_revolutionary_banner",
+      "title": "Deposit the revolutionary banner in Donkey's contraband box",
+      "linkedQuestIds": [
+        "dlc_refugees_d10"
+      ],
+      "linkedTaskMilestoneIds": [
+        "game_of_crone_donkey_revolutionary_banner_fulfilled"
+      ],
+      "triggerScripts": [
+        "gykmp_story_dispatch_game_of_crone_d15_revolutionary_banner_deposit",
+        "gykmp_story_dispatch_game_of_crone_d15_revolutionary_banner_callback"
+      ],
+      "triggerKeys": [
+        "revolutionary_banner",
+        "i_revolutionary_banner",
+        "table_book_constr",
+        "silk",
+        "white_paint",
+        "d15_send_items",
+        "i_goc_revolution_event",
+        "contraband_box",
+        "MultiInventory.DestinationType.AllFromFirst",
+        "CraftComponent.FinishCurrentCraft",
+        "WorldGameObject.AddToInventory",
+        "WorldGameObject.AttachFlowScript",
+        "GameSave.OnFinishedCraft",
+        "on_event_d15_items_sent",
+        "dlc_refugees_s_ev_d15_banner",
+        "try_donkey_force_come",
+        "try_force_send",
+        "Flow_SetTaskState.Immediate.Out",
+        "Flow_LockCraft",
+        "Flow_FireEvent",
+        "gykmp_story_transaction_game_of_crone_d15_revolutionary_banner_deposit",
+        "gykmp_story_event_game_of_crone_d15_immediate_donkey_visit",
+        "gykmp_story_phase_game_of_crone_d15_revolutionary_banner_deposited"
+      ],
+      "expectedEffects": [
+        {
+          "kind": "craft_recipe",
+          "id": "d15_send_items",
+          "operation": "execute_the_previously-unlocked_craft-in-contraband-box_with_source-icon_i_goc_revolution_event_hidden-false_needs-unlock-true_type-zero_is-auto-true_one-time-craft-true_recipe_with_craft-time-zero_craft-time-is-zero-true_energy-zero_gratitude-cost-zero_sanity-zero_exact-need_revolutionary_banner-one_empty-player-output_output-to-WGO_revolutionary_banner-one_empty-needs-from-WGO_empty-output-to-WGO-on-start_transfer-needs-to-WGO-false_set-out-params-false_hide-quality-icon-true_no-multiquality_needs-quality-zero_no-tool-actions_end-script_on_event_d15_items_sent_and_empty-end-event",
+          "amount": 1,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "story_transaction",
+          "id": "gykmp_story_transaction_game_of_crone_d15_revolutionary_banner_deposit",
+          "operation": "atomically_record_exact_AllFromFirst_source-allocation_and-debit_box-credit_attached-callback_and-completed-one-time-marker_subreceipts",
+          "amount": 1,
+          "ownership": "initiating_player_transaction"
+        },
+        {
+          "kind": "inventory_item",
+          "id": "revolutionary_banner",
+          "operation": "remove_exactly_one_from_the_actual_AllFromFirst_interaction-MultiInventory_source_at_craft-start_then_add_exactly_one_to_the_canonical-box_at_zero-time-finish",
+          "amount": 1,
+          "ownership": "shared_story_token"
+        },
+        {
+          "kind": "completed_one_time_craft",
+          "id": "d15_send_items",
+          "operation": "record_only_after_GameSave_OnFinishedCraft_and_do_not_infer_it_from_box-credit_callback-task_or-recipe-lock",
+          "amount": 1,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "npc_task",
+          "id": "donkey:dlc_refugees_s_ev_d15_banner",
+          "operation": "request_Complete_with_zero_story-rewards_through_Flow_SetTaskState_Immediate-Out_before_the_visit-request_and-recipe-lock",
+          "amount": 1,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "world_event_intent",
+          "id": "gykmp_story_event_game_of_crone_d15_immediate_donkey_visit",
+          "operation": "persist_after_task-request_and_before_requesting_canonical-donkey_try_force_send_with_requested-delay-zero_through_the_unjoined_0_03-real-second_wrapper",
+          "amount": 1,
+          "ownership": "shared_world"
+        },
+        {
+          "kind": "craft_lock",
+          "id": "revolutionary_banner",
+          "operation": "remove_revolutionary_banner_from_GameSave-unlocked-crafts_if-present_after_the_visit-request_without_adding_locked-crafts_destroying-items_cancelling-production_relocking_d15_send_items_or-preventing_later_UnlockCraft",
+          "amount": 0,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "story_phase",
+          "id": "gykmp_story_phase_game_of_crone_d15_revolutionary_banner_deposited",
+          "operation": "commit_after_debit_box-credit_marker_task_visit-intent_and-production-recipe-lock_subreceipts_are_durable",
+          "amount": 1,
+          "ownership": "shared_campaign"
+        }
+      ],
+      "safeguards": [
+        "revolutionary_banner-production_is_the_previously-unlocked_table_book_constr_recipe_need_silk-one_then_white_paint-one_output-one_icon_i_revolutionary_banner_time-three_energy-five_gratitude-two_sanity-zero_hidden-false_needs-unlock-true_nonauto-repeatable_nontransfer_no-quality-tool-or-end-script",
+        "revolutionary_banner-item_is_icon_i_revolutionary_banner_stack-one_type-zero_not-used-false_player-cant-throw-out-false_can-be-used-false_stay-on-use-false_non-durable_no-use-script_and-base-price-zero",
+        "record_the_actual_AllFromFirst_inventory-index-first-to-last_allocation_across_all_interaction-MultiInventory_sources",
+        "reserve_canonical-box_capacity_or_reconcile_the_AddToInventory_credit_because_a_failed-output_return_is_ignored_and_callback-plus-one-time-marker_still_advance",
+        "the_box-credit_precedes_AttachFlowScript_and_the_attach-call_precedes_OnFinishedCraft_but_fresh-script_start-order_is_not_proven_so_reconcile_each_subreceipt_independently",
+        "preserve_callback_order_task-request_then_visit-request_then-production-recipe-lock_and_replay_only_missing_suffix-receipts_after_a_crash",
+        "Flow_SetTaskState_Immediate-Out_can_run_the_visit-and-lock_suffix_before_the_quest-marker-flight_makes_Complete_durable_or-observable",
+        "a_missing_canonical-Donkey_can_route_the_macro_event_to_the_box-local_script-self_so_pre-resolve_the_Donkey_and_replay_only_a_missing_visit-intent",
+        "Flow_LockCraft_is_reversible_and_only_removes_revolutionary_banner_from_GameSave-unlocked-crafts_if-present_without_adding_a_locked-crafts-record_destroying-inventory_cancelling-production_or-blocking_later_UnlockCraft"
+      ]
+    },
+    {
+      "stepId": "game_of_crone_complete_donkeys_revolutionary_banner_collection",
+      "title": "Let Donkey collect the revolutionary banner and record its revolution-supply receipt",
+      "linkedQuestIds": [
+        "dlc_refugees_d10"
+      ],
+      "linkedTaskMilestoneIds": [
+        "game_of_crone_donkey_revolutionary_banner_fulfilled"
+      ],
+      "triggerScripts": [
+        "gykmp_story_dispatch_game_of_crone_d15_revolutionary_banner_collection"
+      ],
+      "triggerKeys": [
+        "check_contraband_box",
+        "get_items_d15",
+        "revolutionary_banner",
+        "contraband",
+        "_rel_donkey",
+        "check_ev_d16_start",
+        "ev_d16_check_count",
+        "Flow_ParamFlag",
+        "Flow_HasItemInInventory",
+        "Flow_RemoveItemFromInventory",
+        "check_contraband_box.node223.greater-or-equal-one_to_node225.x2",
+        "check_contraband_box.node223.equal-zero_to_node236.x2",
+        "check_contraband_box.node225.Yes_to_node242.x2",
+        "check_contraband_box.node225.No_to_node236.x2",
+        "check_contraband_box.node242.Out_to_node253.x2",
+        "check_contraband_box.node623.donkey_to_node223.x2",
+        "check_contraband_box.node625.box_to_node225.x6",
+        "check_contraband_box.node627.revolutionary_banner-one_to_node225.x6",
+        "check_contraband_box.node625.box_to_node242.x2",
+        "check_contraband_box.node627.revolutionary_banner-one_to_node242.x2",
+        "check_contraband_box.node630.donkey_to_node253.x3",
+        "gykmp_story_transaction_game_of_crone_d15_revolutionary_banner_collection",
+        "gykmp_story_relation_game_of_crone_donkey_d15_revolutionary_banner",
+        "gykmp_story_counter_game_of_crone_d16_revolutionary_banner_collection",
+        "gykmp_story_phase_game_of_crone_d15_fulfillment_complete"
+      ],
+      "expectedEffects": [
+        {
+          "kind": "story_transaction",
+          "id": "gykmp_story_transaction_game_of_crone_d15_revolutionary_banner_collection",
+          "operation": "preflight_authoritative-count-at-least-one_then_atomically-reserve-and-journal_remove-exactly-one_clear-latch_contraband_relation-and-counter_suffix",
+          "amount": 1,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "wgo_param",
+          "id": "donkey:get_items_d15",
+          "operation": "set_zero_once_after_the_exact-removal-receipt_and_before_contraband_relation_or-counter_mutation",
+          "amount": 0,
+          "ownership": "shared_world"
+        },
+        {
+          "kind": "wgo_param",
+          "id": "donkey:contraband",
+          "operation": "set_one_after_latch-clear_as_a_transient_visit-state_only",
+          "amount": 1,
+          "ownership": "shared_world"
+        },
+        {
+          "kind": "relation_delta_receipt",
+          "id": "gykmp_story_relation_game_of_crone_donkey_d15_revolutionary_banner",
+          "operation": "apply_exactly_one_source_delta_of_plus-ten_to_the_authoritative_shared-player-param__rel_donkey_after_removal-and-latch_receipts",
+          "amount": 10,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "counter_delta_receipt",
+          "id": "gykmp_story_counter_game_of_crone_d16_revolutionary_banner_collection",
+          "operation": "record_exactly_one_source_delta_of_plus-one_for_donkey_ev_d16_check_count_after_the_D15_relation-receipt_without_minimum-repairing_the_raw_counter",
+          "amount": 1,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "story_phase",
+          "id": "gykmp_story_phase_game_of_crone_d15_fulfillment_complete",
+          "operation": "commit_after_the_D15_transaction_latch_contraband_relation-and-counter_receipts_without_waiting_for_other_supply-branches",
+          "amount": 1,
+          "ownership": "shared_campaign"
+        }
+      ],
+      "safeguards": [
+        "normalize_D15_flag-node223_greater-or-equal-one-and-equal-zero_Has-node225_Yes-and-No_and_Remove-node242-Out_from_two_wires_each_to_one_logical_edge",
+        "normalize_two_Donkey-flag-bindings_six_box-plus-item_Has-bindings_two_box-plus-item_Remove-bindings_and-three_Donkey-clear-bindings_once",
+        "with_the_canonical_one-banner_payload_the_doubled-flag_Has-Yes_and-Remove-Out_path_reaches_the_shared-mutation-tail_four-times_after_only_the_first-remove_succeeds_and_extra-stock-at-least-three_can_raise_that_to-eight",
+        "source_RemoveItem-failure_still_emits_Out_so_require_the_authoritative_exact-item_preflight_and_use_one_claimed-transaction-receipt",
+        "normalize_the_whole_shared-checker_pass_including_inherited_D9-zero-D10-routing_and_D11-success_fan-in_while_preserving_D12s_singleton-direct-control_path_before_entering_D15",
+        "never_treat_task-Complete_box-presence_get_items_d15-zero_or-transient-contraband_as_proof_of_exact-removal_relation-or-counter-receipts",
+        "never_minimum-repair_or_additively-replay__rel_donkey_or_ev_d16_check_count",
+        "if_this_is_the_third_distinct_D16-counter_receipt_publish_it_to_the_single_shared-convergence_dispatch_without_applying_an_extra_increment",
+        "clear_transient_contraband_only_when_npc_donkey_on_returned_home_runs_and_do_not_require_that_cleanup_for_D15-terminal-completion"
+      ]
+    },
+    {
+      "stepId": "game_of_crone_converge_donkeys_d16_supply_collections",
+      "title": "Converge all three revolution-supply collections and schedule the D16 event handoff",
+      "linkedQuestIds": [
+        "dlc_refugees_d16"
+      ],
+      "linkedTaskMilestoneIds": [
+        "game_of_crone_donkey_paint_fulfilled",
+        "game_of_crone_donkey_power_jelly_fulfilled",
+        "game_of_crone_donkey_revolutionary_banner_fulfilled"
+      ],
+      "triggerScripts": [
+        "gykmp_story_dispatch_game_of_crone_d16_supply_convergence"
+      ],
+      "triggerKeys": [
+        "check_ev_d16_start",
+        "ev_d16_check_count",
+        "Flow_AddWGOParam",
+        "Flow_ParamCompare",
+        "unlock_event_d16",
+        "GetSecondsToTheMidnight",
+        "try_donkey_force_come",
+        "try_force_send",
+        "Flow_FireEvent",
+        "WorldGameObject.SerializableEvents.event_ids",
+        "WorldGameObject.SerializableEvents.event_delays",
+        "npc_donkey:try_force_send",
+        "npc_donkey:going_home",
+        "npc_donkey:on_returned_home",
+        "npc_donkey:unlock_event_d16",
+        "gykmp_story_counter_game_of_crone_d16_paint_collection",
+        "gykmp_story_counter_game_of_crone_d16_power_jelly_collection",
+        "gykmp_story_counter_game_of_crone_d16_revolutionary_banner_collection",
+        "gykmp_story_phase_game_of_crone_d16_supply_threshold_reached",
+        "gykmp_story_timer_game_of_crone_d16_unlock",
+        "gykmp_story_timer_game_of_crone_d16_midnight_visit",
+        "gykmp_story_phase_game_of_crone_d16_supply_convergence_complete"
+      ],
+      "expectedEffects": [
+        {
+          "kind": "story_phase",
+          "id": "gykmp_story_phase_game_of_crone_d16_supply_threshold_reached",
+          "operation": "derive_once_after_all_three_distinct_D11-paint_D12-power-jelly_and_D15-revolutionary-banner_counter-delta_receipts_and_their_preceding_relation-receipts_without_re-reading_or-repairing_the_raw-counter",
+          "amount": 1,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "story_timer",
+          "id": "gykmp_story_timer_game_of_crone_d16_unlock",
+          "operation": "persist_the_host-authoritative_gameplay-time_remaining-delay_of_ten_simulated-seconds_at_the_third-distinct-receipt_then_register_donkey_unlock_event_d16_through_the_unjoined_outer_0_03-real-second_timer",
+          "amount": 1,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "story_timer",
+          "id": "gykmp_story_timer_game_of_crone_d16_midnight_visit",
+          "operation": "sample_GetSecondsToTheMidnight_once_at_the_third-distinct-receipt_persist_that_independent_gameplay-time_remaining-delay_then_register_donkey_try_force_send_through_the_unjoined_outer_0_03-real-second_timer",
+          "amount": 1,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "world_event_cleanup",
+          "id": "npc_donkey:on_returned_home",
+          "operation": "clear_the_transient_donkey_contraband_flag_to_zero_on_the_authoritative_return-home_event_without_using_it_as_collection-or-timer_evidence",
+          "amount": 0,
+          "ownership": "shared_world"
+        },
+        {
+          "kind": "story_phase",
+          "id": "gykmp_story_phase_game_of_crone_d16_supply_convergence_complete",
+          "operation": "commit_after_all_three_branch-specific_collection_relation-and-counter_receipts_and_both_durable-timer_registrations_but_before_unlock_event_d16_delivery",
+          "amount": 1,
+          "ownership": "shared_campaign"
+        }
+      ],
+      "safeguards": [
+        "whichever_branch_commits_the_third_distinct_counter-receipt_owns_the_single_source-threshold_suffix",
+        "when_all_three_payloads_are_collected_in_one_shared-checker_pass_source-order_is_D11_then_D12_then_D15",
+        "pre-resolve_the_canonical-Donkey_before_counter-execution_because_a_null_connected-FindWGO_value_makes_AddWGOParam-and-ParamCompare_WGOParamOrSelf_fall_back_to_the_enclosing-checker_graph-agent-WGO_normally_the_contraband-box_and_can_increment_compare_and_schedule_both-events_on-that-wrong-object_while_only-a-null-graph-agent_skips-the-add-and-strands-the-compare",
+        "recognize_the_third_source-increment_receipt_without_mutating_a_fourth_time_or_inferring_progress_from_the_raw-counter-value",
+        "never_replay_the_raw_equal-or-greater-than-three_branch_after_the_convergence-receipt_or-register_duplicate-events",
+        "persist_both_gameplay-time_remaining-delays_before_registration_and_preserve_WorldGameObjects_parallel_event-id-and-delay_pairing_across_save-load-and-host-migration",
+        "the_next-midnight_schedule_is_independent_of_the_ten-second_unlock-schedule_and_either_may_deliver_first",
+        "each_Flow_FireEvent_Out_is_immediate_while_actual_registration_occurs_in_an_unjoined_0_03-real-second_outer-timer_so_terminal-commit_requires_durable-registration-receipts",
+        "normalize_try_force_send_duplicates_672-equal-zero-to-674_682-Out-to-684_692-target-to-684_and_going_home_320-greater-or-equal-one-to-322_from-two-wires_each_to-one_visit-route",
+        "the_D16-macro_has_no_duplicate-tuples_but_its_greater-than-three_branch_reschedules_both_events_and_serialized-event-queues_do_not-deduplicate",
+        "a_single_future_unlock_event_d16_delivery_calls_Spawn617_once_while_Spawn617-Out-to-zone-flag619_and_GDPoint648-to-Spawn617-Point_are_tripled_wires_that_only_repeat_the_flag-set-and-value-binding_not-the-spawn",
+        "the_clean_boundary_is_after_both_timer-registrations_but_before_unlock_event_d16_delivery_zone-spawn_or-any_later_D16_story-state"
+      ]
+    },
+    {
+      "stepId": "game_of_crone_deliver_donkeys_d16_unlock_and_wait",
+      "title": "Deliver Donkey's D16 unlock and hold him for the revolution scene",
+      "linkedQuestIds": [
+        "dlc_refugees_d16"
+      ],
+      "linkedTaskMilestoneIds": [],
+      "triggerScripts": [
+        "gykmp_story_dispatch_game_of_crone_d16_unlock_delivery",
+        "gykmp_story_dispatch_game_of_crone_d16_donkey_ready"
+      ],
+      "triggerKeys": [
+        "gykmp_story_phase_game_of_crone_d16_supply_convergence_complete",
+        "gykmp_story_timer_game_of_crone_d16_unlock",
+        "gykmp_story_timer_game_of_crone_d16_midnight_visit",
+        "unlock_event_d16",
+        "npc_donkey:unlock_event_d16",
+        "donkey_should_stop_in_d16",
+        "refugee_s22_trigger_zone",
+        "refugee_s22_trigger_zone_spawn",
+        "Flow_SpawnWGO:617",
+        "npc_donkey.node617.Out_to_node619.In.x3",
+        "npc_donkey.node648.GDPoint_to_node617.Point.x3",
+        "is_zone_d16_active",
+        "try_force_send",
+        "force_send",
+        "on_came_to_cemetery",
+        "npc_donkey:on_came_to_cemetery",
+        "drop_body",
+        "try_just_go_home",
+        "npc_donkey:try_just_go_home",
+        "donkey_should_stop_in_d1",
+        "donkey_should_stop_in_s22",
+        "donkey_should_stop_in_s30",
+        "donkey_ready_for_d16",
+        "donkey_should_stop_in_d17",
+        "gykmp_story_phase_game_of_crone_d16_unlock_delivery_claimed",
+        "gykmp_story_phase_game_of_crone_d16_zone_armed",
+        "gykmp_story_phase_game_of_crone_d16_donkey_ready"
+      ],
+      "expectedEffects": [
+        {
+          "kind": "story_phase",
+          "id": "gykmp_story_phase_game_of_crone_d16_unlock_delivery_claimed",
+          "operation": "commit_when_the_single_persisted_unlock_event_d16_delivery_begins_on_the_canonical_Donkey_before_the_stop-flag_or-zone-spawn_and_retire_only_that_due_schedule",
+          "amount": 1,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "wgo_param",
+          "id": "donkey:donkey_should_stop_in_d16",
+          "operation": "set_one_until_the_D16_directional-zone_claim_consumes_it_after_an_authoritative_Donkey_arrival_marks_ready",
+          "amount": 1,
+          "ownership": "shared_world"
+        },
+        {
+          "kind": "world_object",
+          "id": "refugee_s22_trigger_zone:refugee_s22_trigger_zone",
+          "operation": "spawn_or_reconcile_exactly_one_at_refugee_s22_trigger_zone_spawn_after_the_D16-stop-latch",
+          "amount": 1,
+          "ownership": "shared_world"
+        },
+        {
+          "kind": "wgo_param",
+          "id": "donkey:is_zone_d16_active",
+          "operation": "set_one_after_the_single_zone-spawn_and_hold_until_one_valid_directional-claim",
+          "amount": 1,
+          "ownership": "shared_world"
+        },
+        {
+          "kind": "story_phase",
+          "id": "gykmp_story_phase_game_of_crone_d16_zone_armed",
+          "operation": "commit_after_the_D16-stop-latch_single_shared-zone_and_zone-active-write_are_all_durable",
+          "amount": 1,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "wgo_param",
+          "id": "donkey:donkey_ready_for_d16",
+          "operation": "set_one_from_the_D16-priority-branch_after_a_normal-body-drop_or_independently-forced_arrival_reaches_the_shared-selection_and_leave_Donkey_waiting_until_the_zone-claim_consumes_it",
+          "amount": 1,
+          "ownership": "shared_world"
+        },
+        {
+          "kind": "story_phase",
+          "id": "gykmp_story_phase_game_of_crone_d16_donkey_ready",
+          "operation": "commit_only_when_the_authoritative_Donkey_is_waiting_and_both_is_zone_d16_active_and_donkey_ready_for_d16_are_one",
+          "amount": 1,
+          "ownership": "shared_campaign"
+        }
+      ],
+      "safeguards": [
+        "accept_only_delivery_of_the_single_persisted_ten-second_unlock_event_d16_schedule_from_the_completed_supply-convergence-boundary",
+        "preserve_the_independent_next-midnight_visit_schedule_and_allow_either_timer_to_deliver_first_without_resampling_or_forcing_the_other",
+        "if_the_midnight_visit_passes_the_shared-stop-selection_before_the_D16-stop-latch_is_armed_leave_the_zone_pending_for_a_later_qualifying_normal-or-forced-arrival_instead_of_fabricating_ready-state",
+        "deduplicate_the_shared_refugee_s22_trigger_zone_before_spawn_and_repair_a_missing-zone-or-flag-suffix_from_the_claimed-delivery-phase_without_creating_one_per_observer",
+        "normalize_the_three_spawn-Out-control-wires_to_one_flag-write_and_the_three_GDPoint-value-wires_to_one_target-binding_while_preserving_one_actual_spawn-call",
+        "do_not_mark_D16-ready_when_a_higher-priority_D1_s22_or_s30_stop-event_claims_the_same_qualifying-arrival_and_do_not_let_the_lower-priority_D17-branch_bypass_D16",
+        "do_not_put_donkey_should_stop_in_d16_is_zone_d16_active_or_donkey_ready_for_d16_in_any_task-milestone-minimum_because_the_scene_consumes_all_three",
+        "never_treat_the_unlock-timer-delivery_zone-spawn_or-ready-write_as_D16-completion_or_achievement-evidence",
+        "do_not_start_the_directional-wrapper_until_both_source-gates_are_true_and_the_shared_host_claim_has_recorded_the_actual-zone-entrant"
+      ]
+    },
+    {
+      "stepId": "game_of_crone_complete_donkeys_d16_revolution",
+      "title": "Complete Donkey's revolution scene and schedule D17",
+      "linkedQuestIds": [
+        "dlc_refugees_d16"
+      ],
+      "linkedTaskMilestoneIds": [],
+      "triggerScripts": [
+        "gykmp_story_dispatch_game_of_crone_d16_scene"
+      ],
+      "triggerKeys": [
+        "on_enter_gd_zone_s22_E",
+        "on_enter_gd_zone_s22_N",
+        "on_enter_gd_zone_s22_W",
+        "ev_d16_check_start",
+        "ev_d16_set_flags",
+        "refugee_ev_d16_E",
+        "refugee_ev_d16_N",
+        "refugee_ev_d16_W",
+        "refugee_ev_d16",
+        "ev_d16_set_flags.node16.WGO_to_node10.WGO.x3",
+        "refugee_ev_d16_E.node2.Once_to_node4.In.x2",
+        "refugee_ev_d16_N.node2.Once_to_node4.In.x2",
+        "refugee_ev_d16_W.node2.Once_to_node4.In.x2",
+        "refugee_ev_d16_E.node19.Out_to_node21.In.x2",
+        "refugee_ev_d16_N.node19.Out_to_node21.In.x2",
+        "refugee_ev_d16_W.node17.Out_to_node19.In.x2",
+        "on_enter_gd_zone_s22_N.node22.Out_to_node24.In.x2",
+        "on_enter_gd_zone_s22_W.node24.Out_to_node26.In.x2",
+        "on_enter_gd_zone_s22_W.node26.false_to_node28.In.x2",
+        "refugee_ev_d16_E.node23.Player_to_node15.WGO.x2",
+        "refugee_ev_d16_E.node26.GDPoint_to_node15.target.x2",
+        "refugee_ev_d16_E.node32.Player_to_node6.WGO.x2",
+        "refugee_ev_d16_N.node23.Player_to_node15.WGO.x2",
+        "refugee_ev_d16_N.node26.GDPoint_to_node15.target.x2",
+        "refugee_ev_d16_N.node32.Player_to_node6.WGO.x2",
+        "refugee_ev_d16_W.node21.Player_to_node15.WGO.x2",
+        "refugee_ev_d16_W.node24.GDPoint_to_node15.target.x2",
+        "refugee_ev_d16_W.node30.Player_to_node6.WGO.x2",
+        "refugee_ev_d16.node53.greater-or-equal-one_to_node55.In.x2",
+        "npc_donkey.node320.greater-or-equal-one_to_node322.In.x2",
+        "Flow_RunScript.Immediate.Out",
+        "is_zone_d16_active",
+        "donkey_ready_for_d16",
+        "donkey_should_stop_in_d16",
+        "refugee_s22_trigger_zone",
+        "gd_refugee_d1_player_E",
+        "gd_refugee_s22_N_1",
+        "gd_refugee_d1_player",
+        "GoTo:2.2",
+        "Flow_PlayerEnable",
+        "Flow_CameraFly",
+        "refugee_d_16_1",
+        "refugee_d_16_2",
+        "refugee_d_16_3",
+        "refugee_d_16_4",
+        "refugee_d_16_5",
+        "refugee_d_16_6",
+        "refugee_d_16_7",
+        "refugee_d_16_8",
+        "refugee_d_16_9",
+        "refugee_d_16_10",
+        "refugee_d_16_11",
+        "refugee_d_16_12",
+        "refugee_d_16_13",
+        "ice_axe",
+        "i_goc_iceaxe",
+        "Flow_DropItem",
+        "Direction.None",
+        "going_home",
+        "npc_donkey:going_home",
+        "donkey_forced_came",
+        "donkey_stays_at_cemetery",
+        "on_the_way_now",
+        "donkey_village_point",
+        "on_returned_home",
+        "npc_donkey:on_returned_home",
+        "default_destroy_point",
+        "donkey_on_scene",
+        "send_forced_donkey",
+        "force_send",
+        "is_d16_completed",
+        "event_unlock_d17",
+        "Flow_FireEvent",
+        "GJTimer:0.03",
+        "WorldGameObject.SerializableEvents.event_ids",
+        "WorldGameObject.SerializableEvents.event_delays",
+        "is_need_bring_carl_for_ev_31",
+        "ev_s31_spawn_carl_next_coming",
+        "try_donkey_force_come",
+        "try_force_send",
+        "_rel_donkey",
+        "dlc_refugees_d16",
+        "gykmp_story_branch_game_of_crone_d16_ingress",
+        "gykmp_story_phase_game_of_crone_d16_scene_claimed",
+        "gykmp_story_transaction_game_of_crone_d16_ice_axe_drop",
+        "gykmp_story_grant_game_of_crone_ice_axe",
+        "gykmp_story_event_game_of_crone_d16_going_home",
+        "gykmp_story_timer_game_of_crone_d17_unlock",
+        "gykmp_story_branch_game_of_crone_d16_s31_rearm",
+        "gykmp_story_event_game_of_crone_d16_s31_next_coming",
+        "gykmp_story_relation_game_of_crone_donkey_d16_revolution",
+        "gykmp_story_achievement_eligibility_game_of_crone_d16",
+        "gykmp_story_achievement_game_of_crone_d16",
+        "gykmp_story_phase_game_of_crone_d16_revolution_complete"
+      ],
+      "expectedEffects": [
+        {
+          "kind": "branch_dispatch_receipt",
+          "id": "gykmp_story_branch_game_of_crone_d16_ingress",
+          "operation": "persist_E_N_or_W_and_the_actual_zone-entering_peer_before_dispatching_exactly_one_directional-wrapper",
+          "amount": 1,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "story_phase",
+          "id": "gykmp_story_phase_game_of_crone_d16_scene_claimed",
+          "operation": "commit_before_clearing_the_three_Donkey-latches_or_destroying_the_single_shared-trigger",
+          "amount": 1,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "wgo_param",
+          "id": "donkey:is_zone_d16_active",
+          "operation": "consume_to_zero_after_the_durable_directional-claim",
+          "amount": 0,
+          "ownership": "shared_world"
+        },
+        {
+          "kind": "wgo_param",
+          "id": "donkey:donkey_ready_for_d16",
+          "operation": "consume_to_zero_after_the_durable_directional-claim",
+          "amount": 0,
+          "ownership": "shared_world"
+        },
+        {
+          "kind": "wgo_param",
+          "id": "donkey:donkey_should_stop_in_d16",
+          "operation": "consume_to_zero_after_the_durable_directional-claim",
+          "amount": 0,
+          "ownership": "shared_world"
+        },
+        {
+          "kind": "world_object",
+          "id": "refugee_s22_trigger_zone",
+          "operation": "destroy_only_the_claimed_shared-trigger_after_the_D16-dispatch_is_durable",
+          "amount": 1,
+          "ownership": "shared_world"
+        },
+        {
+          "kind": "conditional_participant_route",
+          "id": "initiating_player:gykmp_story_branch_game_of_crone_d16_ingress",
+          "operation": "run_the_exact_E_N_or_W_speed-2_2_approach_and_converge_at_gd_refugee_d1_player_while_preserving_the_recorded-peer",
+          "amount": 1,
+          "ownership": "initiating_player_transaction"
+        },
+        {
+          "kind": "dialogue_sequence",
+          "id": "refugee_d_16_1_through_13",
+          "operation": "present_all_thirteen_source-lines_once_to_the_recorded_dialogue-owner_with_the_line-one_Immediate-Out_staging_overlap",
+          "amount": 13,
+          "ownership": "live_presentation"
+        },
+        {
+          "kind": "source_drop_reservation",
+          "id": "gykmp_story_transaction_game_of_crone_d16_ice_axe_drop",
+          "operation": "before_the_single_Donkey_Direction-None_drop_atomically_choose_suppressed-or-reserved_physical-state_and_adopt_at-most-one_actual-collector_receipt",
+          "amount": 1,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "inventory_item_entitlement",
+          "id": "ice_axe",
+          "operation": "allocate_one_icon-i_goc_iceaxe_type-Pickaxe_stack-one_not-used-true_can-be-used-false_non-durable_discard-protected_one-time-story-sourced-reward_to_each_eligible_personal-profile_under_gykmp_story_grant_game_of_crone_ice_axe_after_accounting-for-the-single-source-world-drop",
+          "amount": 1,
+          "ownership": "personal_character"
+        },
+        {
+          "kind": "world_event_intent",
+          "id": "gykmp_story_event_game_of_crone_d16_going_home",
+          "operation": "persist_after_line-twelve_before_requesting_Donkey-going_home-at-delay-zero_through_the_unjoined_0_03-real-second-wrapper",
+          "amount": 1,
+          "ownership": "shared_world"
+        },
+        {
+          "kind": "wgo_param",
+          "id": "donkey:is_d16_completed",
+          "operation": "set_one_once_after_the_0_5-second_wait_and_player-line-thirteen_before_the_D17-timer-registration",
+          "amount": 1,
+          "ownership": "shared_world"
+        },
+        {
+          "kind": "story_timer",
+          "id": "gykmp_story_timer_game_of_crone_d17_unlock",
+          "operation": "persist_the_host-authoritative_gameplay-time_remaining-delay_of_900-simulated-seconds_then_register_Donkey-event_unlock_d17_once_through_the_unjoined_outer_0_03-real-second-timer",
+          "amount": 1,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "branch_receipt",
+          "id": "gykmp_story_branch_game_of_crone_d16_s31_rearm",
+          "operation": "record_the_authoritative_is_need_bring_carl_for_ev_31-zero-or-at-least-one_result_after_the_D17-timer-registration_before_applying_either_suffix",
+          "amount": 1,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "conditional_wgo_param",
+          "id": "donkey:ev_s31_spawn_carl_next_coming",
+          "operation": "set_one_only_on_the_recorded_deferred-Carl-true-branch_without_clearing_the_historical_is_need_bring_carl_for_ev_31-latch",
+          "amount": 1,
+          "ownership": "shared_world"
+        },
+        {
+          "kind": "conditional_world_event_intent",
+          "id": "gykmp_story_event_game_of_crone_d16_s31_next_coming",
+          "operation": "on_the_recorded_deferred-Carl-true-branch_persist_one_try_donkey_force_come-requested-delay-zero_intent_for_the_separately-catalogued_S31-route",
+          "amount": 1,
+          "ownership": "shared_world"
+        },
+        {
+          "kind": "relation_delta_receipt",
+          "id": "gykmp_story_relation_game_of_crone_donkey_d16_revolution",
+          "operation": "apply_exactly_one_source-delta-of-plus-ten_to_the_authoritative_shared-player-param__rel_donkey_after_the_recorded-Carl-branch",
+          "amount": 10,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "story_eligibility_receipt",
+          "id": "gykmp_story_achievement_eligibility_game_of_crone_d16",
+          "operation": "record_once_after_the_D16-relation-receipt_before_the_source-key-check",
+          "amount": 1,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "serialized_achievement_key",
+          "id": "dlc_refugees_d16",
+          "operation": "check_once_in_the_authoritative_campaign_AchievementsSystem_at_the_exact_source-checkpoint",
+          "amount": 1,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "platform_achievement_receipt",
+          "id": "gykmp_story_achievement_game_of_crone_d16",
+          "operation": "deliver_the_optional_platform-unlock_once_per_personal-profile_outside_ordinary_QuestSync",
+          "amount": 1,
+          "ownership": "personal_profile"
+        },
+        {
+          "kind": "world_navigation",
+          "id": "donkey:going_home->on_returned_home",
+          "operation": "clear_donkey_forced_came_if-set_clear_donkey_stays_at_cemetery_set_on_the_way_now_one_and_move_by_GDGraph-speed-1_2_to_donkey_village_point_with_on_returned_home",
+          "amount": 1,
+          "ownership": "shared_world"
+        },
+        {
+          "kind": "world_event_cleanup",
+          "id": "npc_donkey:on_returned_home",
+          "operation": "clear_Donkey-contraband_process-player-donkey_on_scene_and_Donkey-on_the_way_now_teleport_to_default_destroy_point_then_honor_one_pending_send_forced_donkey-by-force_send",
+          "amount": 1,
+          "ownership": "shared_world"
+        },
+        {
+          "kind": "participant_cleanup",
+          "id": "initiating_player:d16_revolution_presentation",
+          "operation": "restore_the_recorded_initiators_camera_cinematic-control_facing-and-movement_baseline_after_the_core-scene",
+          "amount": 1,
+          "ownership": "initiating_player_transaction"
+        },
+        {
+          "kind": "story_phase",
+          "id": "gykmp_story_phase_game_of_crone_d16_revolution_complete",
+          "operation": "commit_after_the_scene-claim_source-drop-and-entitlements_going-home_intent_completion-flag_D17-timer_recorded-Carl_suffix_relation_achievement_and_participant-cleanup_receipts_are_durable",
+          "amount": 1,
+          "ownership": "shared_campaign"
+        }
+      ],
+      "safeguards": [
+        "claim_E_N_or_W_once_on_the_host_and_carry_the_original_zone-entrant_through_every_null-player_Flow_GetPlayer_talk-camera-move-and-enable-operation",
+        "journal_the_ingress-and-scene_before_ev_d16_set_flags_clears_is_zone_d16_active_donkey_ready_for_d16_donkey_should_stop_in_d16_and_destroys_the_shared-trigger",
+        "normalize_the_tripled-zone-FindWGO-to-Destroy-value-binding_without_inventing_three_destroy-calls_and_reconcile_a_missing-claimed-zone_without_rearming_D16",
+        "bind_and_destroy_only_the_exact_D16-spawn-receipt-zone_because_refugee_s22_trigger_zone_is_a_reused-custom-tag_across_five_priority-events",
+        "normalize_N-dispatcher-node22-to-s30-check_from-two-wires_and_W-node24-to-s30-check-plus-each-negative-to-D16-fallthrough_from-two-wires_before_the_atomic-D16-claim",
+        "without_dispatcher-normalization_N-can-evaluate_the_D16-fallthrough_twice_and_W-four-times_but_only_the_first_synchronous-host-claim_may_clear-latches-and-launch-the-wrapper",
+        "collapse_each_E_N_W_wrappers_doubled_Start-Once-edge_at_admission_because_it_duplicates_the_entire_async-wrapper_and_main-scene_not_just_the_player-disable",
+        "without_wrapper-normalization_after_one_atomic-directional-dispatch_the_source_can_drop_two_ice-axes_set-completion-twice_register-two-D17-timers_and_apply-relation-plus-twenty_even_when_the_Carl-latch-is-zero",
+        "when_the_Carl-latch-is-true_for_one_claimed-dispatch_the_doubled-wrapper-plus-doubled-greater-or-equal-edge_can_reach_the_common-relation-achievement-enable-tail_four-times_and_apply-plus-forty_so_claim_the_core-and-branch-independently",
+        "normalize_the_directional_duplicate-player-WGO_target-and-direction-value-bindings_and_doubled-RunScript-Out-to-End-wires_without_treating_wrapper-End-as-core-completion",
+        "line-one-advances_from_Flow_Talk-Out_not-On-Finished_so_preserve_the_0_2-second-overlap_before_movement_and_do_not_wait-for-dismissal_or_skip-the-bubble",
+        "the_core-CameraFly-with-null-target_is_a_0_7-second-CameraFlyBack_and_must_remain_joined_before_line-two",
+        "pre-resolve_the_canonical_Donkey_and_recorded-ingress-movement-points_before_control-lock_because_missing-target_GoTo-never-emits-Came-to-dest_and_a_null-DropItem-owner-never-emits-Out",
+        "reserve_or_suppress_the_single_Direction-None-world-drop_before_delivery_adopt_at-most-one_physical-recipient_and_never_leave_an_unowned-source-axe_beside_synthetic-personal-copies",
+        "leave_observerSuccess-and-cutscene-personalItemGrants-empty_until_atomic-source-drop-accounting_exists_because_current-local-quest-success-would-record-a-receipt_without_proving_who_collected_the_physical-axe",
+        "treat_the_going_home-request_as_async_and_allow_Donkey-to-start-leaving_before_line-thirteen_is_d16_completed_or_the_D17-schedule_while_the_recorded-dialogue-owner-remains-bound",
+        "persist_the_D17-remaining-delay_before-registration_and_verify_exactly-one_parallel-serialized-event-id-and-delay-pair_before_terminal-commit_because_Flow_FireEvent-Out-is-immediate",
+        "record_the_Carl-branch-once_after_D17-registration_never-re-evaluate-the-stale-historical-latch_during-recovery_and_never-clear-it_because_the_source-does-not",
+        "hand_ev_s31_spawn_carl_next_coming_and_the_next-coming-intent_to_CarlInterrogation_and_do_not_spawn_npc_vampire_carl_bounded_or_advance_any_S31-task-here",
+        "normalize_npc_donkey-going_home_donkey_forced_came-greater-or-equal-one-to-clear_from-two-wires-to-one_so_the_home-return-route-is-not-dispatched-twice",
+        "reconcile_the_asynchronous_on_returned_home-cleanup-and-optional-force-resend_when_it_occurs_but_never_use_Donkeys-eventual-return-as-the_D16-scene-completion-barrier",
+        "treat_is_d16_completed_as_achievement-migration-recovery-evidence_but_not_as_terminal-scene_D17-timer_Carl-relation-platform-or-control-cleanup-proof",
+        "treat_the_dlc_refugees_d16-key-check_as_a_late-prefix_before_player-enable_and_not_as_proof_of_participant-or-world-return-cleanup",
+        "keep_the_optional-platform-receipt_separate-from-the-single-shared-campaign-eligibility-and-key-check_and_never_run_ordinary-QuestSync-observer-rewards_for_this_AchievementDefinition",
+        "stop_after_cataloguing_D16-recovery-and-its-asynchronous-home-return-cleanup_with_the_single_900-second-D17-timer-durable_but_before_event_unlock_d17-delivery_or_any_D17-world-or-presentation-state"
+      ]
+    },
+    {
+      "stepId": "game_of_crone_deliver_donkeys_d17_unlock_and_wait",
+      "title": "Deliver Donkey's D17 unlock and wait for his next qualifying arrival",
+      "linkedQuestIds": [
+        "dlc_refugees_d16"
+      ],
+      "linkedTaskMilestoneIds": [],
+      "triggerScripts": [
+        "gykmp_story_dispatch_game_of_crone_d17_unlock_delivery",
+        "gykmp_story_dispatch_game_of_crone_d17_donkey_ready"
+      ],
+      "triggerKeys": [
+        "gykmp_story_phase_game_of_crone_d16_revolution_complete",
+        "gykmp_story_timer_game_of_crone_d17_unlock",
+        "event_unlock_d17",
+        "npc_donkey:event_unlock_d17",
+        "WorldGameObject.SerializableEvents.event_ids",
+        "WorldGameObject.SerializableEvents.event_delays",
+        "donkey_should_stop_in_d17",
+        "refugee_s22_trigger_zone",
+        "refugee_s22_trigger_zone_spawn",
+        "Flow_SpawnWGO:657",
+        "npc_donkey.node655.Out_to_node657.In.x2",
+        "npc_donkey.node657.Out_to_node659.In.x4",
+        "npc_donkey.node661.GDPoint_to_node657.Point.x4",
+        "is_zone_d17_active",
+        "on_came_to_cemetery",
+        "npc_donkey:on_came_to_cemetery",
+        "drop_body",
+        "donkey_forced_came",
+        "try_just_go_home",
+        "npc_donkey:try_just_go_home",
+        "ev_s31_spawn_carl_next_coming",
+        "setup_ev_s31",
+        "donkey_should_stop_in_d1",
+        "donkey_should_stop_in_s22",
+        "donkey_should_stop_in_s30",
+        "donkey_should_stop_in_d16",
+        "donkey_ready_for_d17",
+        "gykmp_story_phase_game_of_crone_d17_unlock_delivery_claimed",
+        "gykmp_story_phase_game_of_crone_d17_zone_armed",
+        "gykmp_story_phase_game_of_crone_d17_donkey_ready"
+      ],
+      "expectedEffects": [
+        {
+          "kind": "story_phase",
+          "id": "gykmp_story_phase_game_of_crone_d17_unlock_delivery_claimed",
+          "operation": "commit_when_the_single_persisted_event_unlock_d17_delivery_begins_on_the_canonical_Donkey_before_the_stop-flag_or-zone-spawn_and_retire_only_that_due_900-second_schedule",
+          "amount": 1,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "wgo_param",
+          "id": "donkey:donkey_should_stop_in_d17",
+          "operation": "set_one_until_the_D17_directional-zone_claim_consumes_it_after_an_authoritative_later_Donkey_arrival_marks_ready",
+          "amount": 1,
+          "ownership": "shared_world"
+        },
+        {
+          "kind": "world_object",
+          "id": "refugee_s22_trigger_zone:refugee_s22_trigger_zone",
+          "operation": "spawn_or_reconcile_exactly_one_D17-receipt-bound_instance_at_refugee_s22_trigger_zone_spawn_after_the_D17-stop-latch_without_claiming_another_events_same-tag-zone",
+          "amount": 1,
+          "ownership": "shared_world"
+        },
+        {
+          "kind": "wgo_param",
+          "id": "donkey:is_zone_d17_active",
+          "operation": "set_one_after_the_single_D17-zone-spawn_and_hold_until_one_valid_directional-claim",
+          "amount": 1,
+          "ownership": "shared_world"
+        },
+        {
+          "kind": "story_phase",
+          "id": "gykmp_story_phase_game_of_crone_d17_zone_armed",
+          "operation": "commit_after_the_D17-stop-latch_exact-zone-receipt_and_zone-active-write_are_all_durable",
+          "amount": 1,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "wgo_param",
+          "id": "donkey:donkey_ready_for_d17",
+          "operation": "set_one_from_the_lowest-priority_D17-stop-branch_after_a_normal-body-drop_or_independently-forced_arrival_reaches_the_shared-selection_and_leave_Donkey_waiting_until_the_zone-claim_consumes_it",
+          "amount": 1,
+          "ownership": "shared_world"
+        },
+        {
+          "kind": "story_phase",
+          "id": "gykmp_story_phase_game_of_crone_d17_donkey_ready",
+          "operation": "commit_only_when_the_authoritative_Donkey_is_waiting_and_both_is_zone_d17_active_and_donkey_ready_for_d17_are_one",
+          "amount": 1,
+          "ownership": "shared_campaign"
+        }
+      ],
+      "safeguards": [
+        "accept_only_delivery_of_the_single_persisted_900-simulated-second_event_unlock_d17_schedule_from_the_terminal_D16-boundary_and_never_recheck_the_D16-achievement",
+        "treat_900-seconds_as_the_unlock-delay_only_because_D17_schedules_no_forced-visit_of_its_own_and_requires_a_later_authoritative_arrival_to_reach_the_shared-stop-selection_via_normal-body-drop_or_an_independently-pending_forced-shortcut",
+        "if_Donkeys_current-arrival_has_already_passed_the_shared-stop-selection_before_the_D17-stop-latch_is_armed_leave_the_zone_pending_for_a_future_qualifying-arrival_instead_of_fabricating_ready-state",
+        "pre-resolve_the_canonical_Donkey_and_refugee_s22_trigger_zone_spawn_before_the_first_world-write_because_the_source_spawn_dereferences_a_missing-point_after_the_stop-latch",
+        "normalize_the_doubled_Set655-to-Spawn657_control-edge_to_one_actual-spawn_then_collapse_the_four_spawn-Out-control-wires_and_four-point-value-wires_to_one_semantic_suffix",
+        "without_normalization_one_timer-delivery_can_spawn_two_same-tag-zones_and_each_spawn_can drive_four_zone-active-writes_for_up-to-eight_idempotent-writes",
+        "bind_the_exact_D17-zone-generation_to_the_armed-phase_and_never_globally_deduplicate_or_adopt_a_same-tag-trigger_that_belongs_to_D1_s22_s30_or_D16",
+        "repair_a_partial_claimed-delivery_suffix_from_its_receipts_without_spawning_one-zone-per-observer_or_consuming_any_unrelated_serialized-event-entry",
+        "do_not_mark_D17-ready_when_a_higher-priority_D1_s22_s30_or_D16_stop-event_claims_the_same_qualifying-arrival",
+        "on_any_authoritative_arrival_preserve_the_separate_ev_s31_spawn_carl_next_coming_consume-and-setup_ev_s31_prefix_before_the_forced-status_wait-body-stop_split_then_allow_that_same-arrival_to_reach_D17_without_owning_or_clearing_Carl-state",
+        "do_not_put_donkey_should_stop_in_d17_is_zone_d17_active_or_donkey_ready_for_d17_in_any_task-milestone-minimum_because_the_scene_consumes_all_three",
+        "never_treat_the_unlock-timer-delivery_zone-spawn_ready-write_or_dlc_refugees_d16-linkage-as_D17-completion-evidence"
+      ]
+    },
+    {
+      "stepId": "game_of_crone_complete_donkeys_d17_failed_revolution",
+      "title": "Witness Donkey's failed revolution and farewell",
+      "linkedQuestIds": [
+        "dlc_refugees_d16"
+      ],
+      "linkedTaskMilestoneIds": [],
+      "triggerScripts": [
+        "gykmp_story_dispatch_game_of_crone_d17_scene"
+      ],
+      "triggerKeys": [
+        "on_enter_gd_zone_s22_E",
+        "on_enter_gd_zone_s22_N",
+        "on_enter_gd_zone_s22_W",
+        "ev_d17_check_start",
+        "ev_d17_set_flags",
+        "refugee_ev_d17_E",
+        "refugee_ev_d17_N",
+        "refugee_ev_d17_W",
+        "refugee_ev_d17",
+        "ev_d17_set_flags.node16.WGO_to_node10.WGO.x3",
+        "on_enter_gd_zone_s22_N.node22.Out_to_node24.In.x2",
+        "on_enter_gd_zone_s22_W.node24.Out_to_node26.In.x2",
+        "on_enter_gd_zone_s22_W.node26.false_to_node28.In.x2",
+        "refugee_ev_d17_E.node2.Once_to_node4.In.x2",
+        "refugee_ev_d17_N.node2.Once_to_node4.In.x2",
+        "refugee_ev_d17_W.node2.Once_to_node4.In.x2",
+        "refugee_ev_d17_E.node14.Out_to_node16.In.x2",
+        "refugee_ev_d17_N.node14.Out_to_node16.In.x2",
+        "refugee_ev_d17_W.node12.Out_to_node14.In.x2",
+        "refugee_ev_d17_E.node18.Player_to_node10.WGO.x2",
+        "refugee_ev_d17_E.node21.GDPoint_to_node10.target.x2",
+        "refugee_ev_d17_E.node27.Player_to_node6.WGO.x2",
+        "refugee_ev_d17_N.node18.Player_to_node10.WGO.x2",
+        "refugee_ev_d17_N.node21.GDPoint_to_node10.target.x2",
+        "refugee_ev_d17_N.node27.Player_to_node6.WGO.x2",
+        "refugee_ev_d17_W.node16.Player_to_node10.WGO.x2",
+        "refugee_ev_d17_W.node19.GDPoint_to_node10.target.x2",
+        "refugee_ev_d17_W.node25.Player_to_node6.WGO.x2",
+        "refugee_ev_d17.node10.Out_to_node12.In",
+        "refugee_ev_d17.node10.OnFinished_to_node14.In",
+        "refugee_ev_d17.node18.WGO_to_node20.WGO",
+        "Flow_RunScript.Immediate.Out",
+        "Flow_CameraFly.Immediate.Out",
+        "Flow_CameraFly.OnFinished",
+        "is_zone_d17_active",
+        "donkey_ready_for_d17",
+        "donkey_should_stop_in_d17",
+        "refugee_s22_trigger_zone",
+        "gd_refugee_d1_player_E",
+        "gd_refugee_s22_N_1",
+        "gd_refugee_d1_player",
+        "GoTo:2.2",
+        "Flow_PlayerEnable",
+        "Flow_SetCharacterDirection",
+        "Flow_CameraFly",
+        "refugees_d_17_1",
+        "refugees_d_17_2",
+        "refugees_d_17_3",
+        "refugees_d_17_4",
+        "refugees_d_17_5",
+        "refugees_d_17_6",
+        "refugees_d_17_7",
+        "refugees_d_17_8",
+        "refugees_d_17_9",
+        "refugees_d_17_10",
+        "refugees_d_17_11",
+        "refugees_d_17_12",
+        "Flow_Talk.Immediate.Out",
+        "Flow_OvrMusic",
+        "grim",
+        "refugee_ev_d17.node22.Wait:1.0",
+        "refugee_ev_d17.node33.Wait:1.5",
+        "refugee_ev_d17.node38.Wait:1.0",
+        "CameraFlyBack:0.7",
+        "going_home",
+        "npc_donkey:going_home",
+        "Flow_FireEvent",
+        "GJTimer:0.03",
+        "donkey_forced_came",
+        "npc_donkey.node320.greater-or-equal-one_to_node322.In.x2",
+        "donkey_stays_at_cemetery",
+        "on_the_way_now",
+        "donkey_village_point",
+        "on_returned_home",
+        "npc_donkey:on_returned_home",
+        "default_destroy_point",
+        "donkey_on_scene",
+        "send_forced_donkey",
+        "force_send",
+        "gykmp_story_branch_game_of_crone_d17_ingress",
+        "gykmp_story_phase_game_of_crone_d17_scene_claimed",
+        "gykmp_story_presentation_baseline_game_of_crone_d17",
+        "gykmp_story_checkpoint_game_of_crone_d17_core",
+        "gykmp_story_phase_game_of_crone_d17_grim_music_started",
+        "gykmp_story_event_game_of_crone_d17_going_home",
+        "gykmp_story_presentation_restore_game_of_crone_d17",
+        "gykmp_story_phase_game_of_crone_d17_failed_revolution_complete"
+      ],
+      "expectedEffects": [
+        {
+          "kind": "branch_dispatch_receipt",
+          "id": "gykmp_story_branch_game_of_crone_d17_ingress",
+          "operation": "persist_E_N_or_W_the_actual_zone-entering-peer_and_the_exact_D17-zone-generation_before_dispatching_exactly_one_directional-wrapper",
+          "amount": 1,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "story_phase",
+          "id": "gykmp_story_phase_game_of_crone_d17_scene_claimed",
+          "operation": "commit_before_clearing_the_three_Donkey-latches_or_destroying_the_receipt-bound_trigger",
+          "amount": 1,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "wgo_param",
+          "id": "donkey:is_zone_d17_active",
+          "operation": "consume_to_zero_after_the_durable_directional-claim",
+          "amount": 0,
+          "ownership": "shared_world"
+        },
+        {
+          "kind": "wgo_param",
+          "id": "donkey:donkey_ready_for_d17",
+          "operation": "consume_to_zero_after_the_durable_directional-claim",
+          "amount": 0,
+          "ownership": "shared_world"
+        },
+        {
+          "kind": "wgo_param",
+          "id": "donkey:donkey_should_stop_in_d17",
+          "operation": "consume_to_zero_after_the_durable_directional-claim",
+          "amount": 0,
+          "ownership": "shared_world"
+        },
+        {
+          "kind": "world_object",
+          "id": "refugee_s22_trigger_zone",
+          "operation": "destroy_only_the_exact_D17-generation-recorded_at_unlock-delivery_after_the_scene-claim_is_durable",
+          "amount": 1,
+          "ownership": "shared_world"
+        },
+        {
+          "kind": "participant_presentation_baseline",
+          "id": "gykmp_story_presentation_baseline_game_of_crone_d17",
+          "operation": "capture_the_initiators_control-camera-cinematic-facing-and-movement_state_and_each_presenting-peers_music-override_state_before_the_wrapper_mutates_them",
+          "amount": 1,
+          "ownership": "personal_presentation"
+        },
+        {
+          "kind": "conditional_participant_route",
+          "id": "initiating_player:gykmp_story_branch_game_of_crone_d17_ingress",
+          "operation": "run_the_exact_E_N_or_W_speed-2_2_approach_and_converge_at_gd_refugee_d1_player_while_preserving_the_recorded-peer",
+          "amount": 1,
+          "ownership": "initiating_player_transaction"
+        },
+        {
+          "kind": "camera",
+          "id": "donkey",
+          "operation": "start_the_non-instant_fly_to_Donkey_before_the_route_but_advance_from_Immediate-Out_then_after_line-twelve_and_the_final-one-second-wait_join_the_null-target_0_7-second-fly-back",
+          "amount": 1,
+          "ownership": "live_presentation"
+        },
+        {
+          "kind": "dialogue_sequence",
+          "id": "refugees_d_17_1_through_12",
+          "operation": "present_the_twelve_source-lines_once_to_the_recorded_dialogue-owner_in_player-player-player-Donkey-player-thought-player-Donkey-Donkey-player-Donkey-player-Donkey_order_with_source_waits",
+          "amount": 12,
+          "ownership": "live_presentation"
+        },
+        {
+          "kind": "presentation_checkpoint",
+          "id": "gykmp_story_checkpoint_game_of_crone_d17_core",
+          "operation": "durably_record_the_canonical_core-line-or-wait_and_shared-going-home-intent-fired_substates_before_each_advance_while_leaving_per-presenter_camera-music-control_cleanup_proof_to_personal-presentation-receipts",
+          "amount": 1,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "story_phase",
+          "id": "gykmp_story_phase_game_of_crone_d17_grim_music_started",
+          "operation": "commit_the_canonical-core_crossing_of_Donkey-line-fours_Immediate-Out_before_that_lines_On-Finished_dialogue-continuation_without_treating_it_as_proof_that_every_observers_local-audio-started",
+          "amount": 1,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "music_override",
+          "id": "grim",
+          "operation": "start_from_refugees_d_17_4_Immediate-Out_then_after_the_joined_final-camera-return_execute_the_literal_id-null_play-false_stop_and_restore_each_presenting-peers_captured_baseline",
+          "amount": 0,
+          "ownership": "live_presentation"
+        },
+        {
+          "kind": "world_event_intent",
+          "id": "gykmp_story_event_game_of_crone_d17_going_home",
+          "operation": "persist_after_player-line-eleven_before_requesting_Donkey-going_home-at-delay-zero_through_the_unjoined_0_03-real-second-wrapper",
+          "amount": 1,
+          "ownership": "shared_world"
+        },
+        {
+          "kind": "world_navigation",
+          "id": "donkey:going_home->on_returned_home",
+          "operation": "clear_donkey_forced_came_if-set_clear_donkey_stays_at_cemetery_set_on_the_way_now_one_and_move_by_GDGraph-speed-1_2_to_donkey_village_point_with_on_returned_home",
+          "amount": 1,
+          "ownership": "shared_world"
+        },
+        {
+          "kind": "world_event_cleanup",
+          "id": "npc_donkey:on_returned_home",
+          "operation": "clear_Donkey-contraband_process-player-donkey_on_scene_and_Donkey-on_the_way_now_teleport_to_default_destroy_point_then_honor_one_pending_send_forced_donkey-by-force_send",
+          "amount": 1,
+          "ownership": "shared_world"
+        },
+        {
+          "kind": "participant_presentation_restore",
+          "id": "gykmp_story_presentation_restore_game_of_crone_d17",
+          "operation": "on_success_execute_the_source_camera-back_music-stop_and-control-enable_tail_without_rewinding_the_initiators_scene-earned_position-or-facing_and_on_abort_also_reconcile_captured_facing-movement-callback-and-speed_plus_every_presenters_music-baseline",
+          "amount": 1,
+          "ownership": "personal_presentation"
+        },
+        {
+          "kind": "story_phase",
+          "id": "gykmp_story_phase_game_of_crone_d17_failed_revolution_complete",
+          "operation": "commit_after_the_scene-claim_consumed-latches_exact-zone-removal_all-twelve-lines_going-home-intent_camera-return_music-stop-and-participant-cleanup_receipts_are_durable_without_waiting_for_Donkeys_physical-return",
+          "amount": 1,
+          "ownership": "shared_campaign"
+        }
+      ],
+      "safeguards": [
+        "claim_E_N_or_W_once_on_the_host_and_carry_the_original_zone-entrant_through_every_null-player_Flow_GetPlayer_direction-move-talk-camera-and-enable-operation",
+        "journal_the_ingress-and-scene_before_ev_d17_set_flags_clears_is_zone_d17_active_donkey_ready_for_d17_donkey_should_stop_in_d17_and_destroys_the_trigger",
+        "pre-resolve_the_canonical_Donkey_for_both_ev_d17_check_start_gate-reads_and_all_three_ev_d17_set_flags_clears_because_a_connected-null_FindWGO_can_fall_back_to_the_macro-agent-zone_and_silently_read-or-clear_the_wrong-object",
+        "normalize_the_tripled-zone-FindWGO-to-Destroy-value-binding_without_inventing_three_destroy-calls_and_reconcile_a_missing-claimed-zone_without_rearming_D17",
+        "bind_and_destroy_only_the_exact_D17-spawn-receipt-zone_because_refugee_s22_trigger_zone_is_a_reused-custom-tag_across_five_priority-events_and_a_missing-or-ambiguous_lookup_can_fall_back_to_or_select_the_wrong-zone",
+        "normalize_N-dispatcher-node22-to-s30-check_from-two-wires_and_W-node24-to-s30-check-plus-each-negative-to-D16-fallthrough_from-two-wires_before_the_atomic-D17-claim",
+        "without_dispatcher-normalization_D17-can-be-checked_E-once_N-twice_or_W-four-times_but_the_first_same-thread_set-flags_call_normally_clears_the_gates_so_core-multiplicity_is_not_source-provable_and_cross-peer_atomic-host-claim_remains_required",
+        "collapse_each_E_N_W_wrappers_doubled_Start-Once-edge_to_one_admission_before_competing_direction-camera-and-GoTo_callbacks_can_overwrite-or-return-early_then_enforce_one_separate_core_music-going-home-and-terminal-session-claim",
+        "normalize_the_directional_duplicate-player-WGO_target-and-direction-value-bindings_and_doubled-RunScript-Out-to-End-wires_without_treating_value-redundancy_or_wrapper-End_as_core-completion",
+        "pre-resolve_the_direction-selected_GD-points_before_control-lock_because_a_missing-GoTo-target_emits_Immediate-Out_but_never_Came-to-dest_and_strands_the_disabled-player",
+        "pre-resolve_and_hold_the_canonical_Donkey_before_direction-and-dialogue_because_missing-direction-target_can_throw_and_line-twelve_must_keep_the_same_actor_after_going_home_begins",
+        "preserve_the_wrapper-camera_flys_Immediate-Out_overlap_with_movement_and_do_not_wait_for_its_On-Finished_before_the_route",
+        "join_the_synthetic-session_to_the_core_refugee_ev_d17_EndScript_because_the_directional_RunScript-Out_and_wrapper-End_occur_immediately",
+        "the_refugee_ev_d17_core_has_zero_exact-duplicate-connection-tuples_so_preserve_line-fours_distinct_Immediate-Out-music_and_On-Finished-dialogue_branches_plus_line-sevens_single_WGO-forwarding",
+        "persist_the_exact_core-line-or-wait_checkpoint_before_each_advance_and_resume_from_it_for_late-join_or_recovery_instead_of_replaying_lines_one-through-three_or_five-through-eleven",
+        "start_grim_from_line-fours_Immediate-Out_but advance_dialogue_only_from_On-Finished_and_restore_each_presenting-peers_pre-scene_override_if_the_scene_aborts_after_the_music-started-phase",
+        "treat_going_home_as_async_and_allow_Donkey-to_begin_the_shared_world-route_during_the_1_5-second_wait_before_his_final-line_without_rebinding_to_a_new_same-tag-object",
+        "wait_for_the_final_null-target_CameraFlyBack_On-Finished_before_stopping_override-music_and_restoring_control",
+        "normalize_npc_donkey-going_home_donkey_forced_came-greater-or-equal-one-to-clear_from-two-wires-to-one_so_the_home-return-route-is-not-dispatched-twice",
+        "reconcile_the_asynchronous_on_returned_home_cleanup-and-optional-force-resend_when_it_occurs_but_never_use_Donkeys_eventual-return_as_the_D17-terminal-barrier",
+        "never_infer_terminal-D17-from_D16-completion_timer-delivery_consumed-flags_or_an_absent-zone_because_the_source_has_no_durable_D17-completion-latch",
+        "after_the_synthetic_terminal-phase_late-joiners_receive_durable-state-only_observation_and_never_replay_the_farewell-dialogue_or_music",
+        "do_not_create_or_recheck_any_task_quest_achievement_relation_item_recipe_phrase_completion-flag_or_downstream-story-successor-timer_but_do_preserve_the_catalogued_generic-going-home_intent_and_do_not_apply_D16_rewards_despite_the_schema-required_catalogue-provenance-link",
+        "end_only_the_D-numbered_Donkey-revolution-branch_here_leave_parallel_S22_S30_and_S31_Carl_state_to_their_own_catalogues_and_preserve_ordinary_Donkey_behaviour"
+      ]
+    }
+  ]
+}

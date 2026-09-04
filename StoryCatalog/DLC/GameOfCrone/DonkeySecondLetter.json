@@ -1,0 +1,2235 @@
+{
+  "schemaVersion": 5,
+  "catalogId": "dlc.game-of-crone.donkey-second-letter",
+  "campaign": "GameOfCrone",
+  "chapter": "SecondContrabandLetterThroughD10SupplyConvergence",
+  "quests": [
+    {
+      "questId": "dlc_refugees_d6",
+      "title": "Serialized second Donkey letter achievement checkpoint",
+      "definitionKind": "AchievementDefinition",
+      "counter": 1,
+      "vanilla": {
+        "startTrigger": "",
+        "successTrigger": "1",
+        "failTrigger": "",
+        "startKeys": [
+          "dlc_refugees_d6"
+        ],
+        "questVisible": false,
+        "oneTimeQuest": false,
+        "startScript": "",
+        "successScript": "",
+        "failScript": "",
+        "arrowWgoCustomTag": "",
+        "arrowWgoObjectId": "",
+        "successRewards": [],
+        "failureRewards": []
+      },
+      "policy": {
+        "stateOwnership": "shared_campaign",
+        "eligibleInitiator": "any_player",
+        "livePresentationOwner": "initiating_player",
+        "observerQuestApplication": "durable_state_only",
+        "personalRewardDelivery": "party_exactly_once",
+        "observerSuccess": {
+          "globalScripts": [],
+          "playerParamRepairs": [],
+          "playerParamMinimums": [],
+          "taskStateMinimums": [],
+          "unlockedTechs": [],
+          "unlockedPhrases": [],
+          "blacklistedPhrases": [],
+          "unlockedCrafts": [],
+          "completedOneTimeCrafts": [],
+          "personalItemGrants": []
+        }
+      },
+      "completionChecks": []
+    }
+  ],
+  "taskMilestones": [
+    {
+      "milestoneId": "game_of_crone_donkey_second_letter_delivery_opened",
+      "npcId": "donkey",
+      "taskId": "dlc_refugees_d6_note_receive",
+      "activeStates": [
+        "Visible"
+      ],
+      "playerParamRepairs": [],
+      "playerParamMinimums": [],
+      "taskStateMinimums": [],
+      "unlockedTechs": [],
+      "unlockedPhrases": [],
+      "blacklistedPhrases": [],
+      "unlockedCrafts": [],
+      "completedOneTimeCrafts": [],
+      "wgoParamMinimums": [],
+      "personalItemGrants": []
+    },
+    {
+      "milestoneId": "game_of_crone_donkey_second_letter_delivery_completed",
+      "npcId": "donkey",
+      "taskId": "dlc_refugees_d6_note_receive",
+      "activeStates": [
+        "Complete"
+      ],
+      "playerParamRepairs": [],
+      "playerParamMinimums": [],
+      "taskStateMinimums": [],
+      "unlockedTechs": [],
+      "unlockedPhrases": [],
+      "blacklistedPhrases": [],
+      "unlockedCrafts": [],
+      "completedOneTimeCrafts": [],
+      "wgoParamMinimums": [],
+      "personalItemGrants": []
+    },
+    {
+      "milestoneId": "game_of_crone_donkey_second_letter_pickup_opened",
+      "npcId": "donkey",
+      "taskId": "dlc_refugees_d6_take_note",
+      "activeStates": [
+        "Visible"
+      ],
+      "playerParamRepairs": [],
+      "playerParamMinimums": [],
+      "taskStateMinimums": [
+        {
+          "npcId": "donkey",
+          "taskId": "dlc_refugees_d6_note_receive",
+          "state": "Complete"
+        }
+      ],
+      "unlockedTechs": [],
+      "unlockedPhrases": [],
+      "blacklistedPhrases": [],
+      "unlockedCrafts": [],
+      "completedOneTimeCrafts": [],
+      "wgoParamMinimums": [],
+      "personalItemGrants": []
+    },
+    {
+      "milestoneId": "game_of_crone_donkey_second_letter_pickup_completed",
+      "npcId": "donkey",
+      "taskId": "dlc_refugees_d6_take_note",
+      "activeStates": [
+        "Complete"
+      ],
+      "playerParamRepairs": [],
+      "playerParamMinimums": [],
+      "taskStateMinimums": [
+        {
+          "npcId": "donkey",
+          "taskId": "dlc_refugees_d6_note_receive",
+          "state": "Complete"
+        }
+      ],
+      "unlockedTechs": [],
+      "unlockedPhrases": [],
+      "blacklistedPhrases": [],
+      "unlockedCrafts": [],
+      "completedOneTimeCrafts": [],
+      "wgoParamMinimums": [],
+      "personalItemGrants": []
+    },
+    {
+      "milestoneId": "game_of_crone_donkey_battle_supply_requested",
+      "npcId": "donkey",
+      "taskId": "dlc_refugees_s_ev_d6_battle_supply",
+      "activeStates": [
+        "Visible"
+      ],
+      "playerParamRepairs": [],
+      "playerParamMinimums": [],
+      "taskStateMinimums": [
+        {
+          "npcId": "donkey",
+          "taskId": "dlc_refugees_d6_take_note",
+          "state": "Complete"
+        }
+      ],
+      "unlockedTechs": [],
+      "unlockedPhrases": [],
+      "blacklistedPhrases": [],
+      "unlockedCrafts": [],
+      "completedOneTimeCrafts": [],
+      "wgoParamMinimums": [],
+      "personalItemGrants": []
+    },
+    {
+      "milestoneId": "game_of_crone_blacksmith_battle_supply_help_requested",
+      "npcId": "npc_blacksmith",
+      "taskId": "dlc_refugees_s_ev_d6_krezvold",
+      "activeStates": [
+        "Visible"
+      ],
+      "playerParamRepairs": [],
+      "playerParamMinimums": [],
+      "taskStateMinimums": [
+        {
+          "npcId": "donkey",
+          "taskId": "dlc_refugees_d6_take_note",
+          "state": "Complete"
+        },
+        {
+          "npcId": "donkey",
+          "taskId": "dlc_refugees_s_ev_d6_battle_supply",
+          "state": "Visible"
+        }
+      ],
+      "unlockedTechs": [],
+      "unlockedPhrases": [],
+      "blacklistedPhrases": [],
+      "unlockedCrafts": [],
+      "completedOneTimeCrafts": [],
+      "wgoParamMinimums": [],
+      "personalItemGrants": []
+    },
+    {
+      "milestoneId": "game_of_crone_donkey_magic_pumpkin_requested",
+      "npcId": "donkey",
+      "taskId": "dlc_refugees_s_ev_d6_pumpkin",
+      "activeStates": [
+        "Visible"
+      ],
+      "playerParamRepairs": [],
+      "playerParamMinimums": [],
+      "taskStateMinimums": [
+        {
+          "npcId": "donkey",
+          "taskId": "dlc_refugees_d6_take_note",
+          "state": "Complete"
+        },
+        {
+          "npcId": "donkey",
+          "taskId": "dlc_refugees_s_ev_d6_battle_supply",
+          "state": "Visible"
+        },
+        {
+          "npcId": "npc_blacksmith",
+          "taskId": "dlc_refugees_s_ev_d6_krezvold",
+          "state": "Visible"
+        }
+      ],
+      "unlockedTechs": [],
+      "unlockedPhrases": [],
+      "blacklistedPhrases": [],
+      "unlockedCrafts": [],
+      "completedOneTimeCrafts": [],
+      "wgoParamMinimums": [],
+      "personalItemGrants": []
+    },
+    {
+      "milestoneId": "game_of_crone_witch_magic_pumpkin_help_requested",
+      "npcId": "npc_witch",
+      "taskId": "dlc_refugees_s_ev_d6_pumpkin_enchant",
+      "activeStates": [
+        "Visible"
+      ],
+      "playerParamRepairs": [],
+      "playerParamMinimums": [],
+      "taskStateMinimums": [
+        {
+          "npcId": "donkey",
+          "taskId": "dlc_refugees_d6_take_note",
+          "state": "Complete"
+        },
+        {
+          "npcId": "donkey",
+          "taskId": "dlc_refugees_s_ev_d6_battle_supply",
+          "state": "Visible"
+        },
+        {
+          "npcId": "npc_blacksmith",
+          "taskId": "dlc_refugees_s_ev_d6_krezvold",
+          "state": "Visible"
+        },
+        {
+          "npcId": "donkey",
+          "taskId": "dlc_refugees_s_ev_d6_pumpkin",
+          "state": "Visible"
+        }
+      ],
+      "unlockedTechs": [],
+      "unlockedPhrases": [],
+      "blacklistedPhrases": [],
+      "unlockedCrafts": [],
+      "completedOneTimeCrafts": [],
+      "wgoParamMinimums": [],
+      "personalItemGrants": []
+    },
+    {
+      "milestoneId": "game_of_crone_witch_magic_pumpkin_help_completed",
+      "npcId": "npc_witch",
+      "taskId": "dlc_refugees_s_ev_d6_pumpkin_enchant",
+      "activeStates": [
+        "Complete"
+      ],
+      "playerParamRepairs": [],
+      "playerParamMinimums": [],
+      "taskStateMinimums": [],
+      "unlockedTechs": [],
+      "unlockedPhrases": [],
+      "blacklistedPhrases": [
+        "@refugee_d_7"
+      ],
+      "unlockedCrafts": [],
+      "completedOneTimeCrafts": [],
+      "wgoParamMinimums": [],
+      "personalItemGrants": []
+    },
+    {
+      "milestoneId": "game_of_crone_witch_magic_pumpkin_payment_opened",
+      "npcId": "npc_witch",
+      "taskId": "dlc_refugees_s_ev_d7_money",
+      "activeStates": [
+        "Visible"
+      ],
+      "playerParamRepairs": [],
+      "playerParamMinimums": [],
+      "taskStateMinimums": [
+        {
+          "npcId": "npc_witch",
+          "taskId": "dlc_refugees_s_ev_d6_pumpkin_enchant",
+          "state": "Complete"
+        }
+      ],
+      "unlockedTechs": [],
+      "unlockedPhrases": [],
+      "blacklistedPhrases": [],
+      "unlockedCrafts": [],
+      "completedOneTimeCrafts": [],
+      "wgoParamMinimums": [],
+      "personalItemGrants": []
+    },
+    {
+      "milestoneId": "game_of_crone_witch_magic_pumpkin_payment_completed",
+      "npcId": "npc_witch",
+      "taskId": "dlc_refugees_s_ev_d7_money",
+      "activeStates": [
+        "Complete"
+      ],
+      "playerParamRepairs": [],
+      "playerParamMinimums": [],
+      "taskStateMinimums": [
+        {
+          "npcId": "npc_witch",
+          "taskId": "dlc_refugees_s_ev_d6_pumpkin_enchant",
+          "state": "Complete"
+        }
+      ],
+      "unlockedTechs": [],
+      "unlockedPhrases": [],
+      "blacklistedPhrases": [
+        "@refugee_d_7_money"
+      ],
+      "unlockedCrafts": [],
+      "completedOneTimeCrafts": [],
+      "wgoParamMinimums": [],
+      "personalItemGrants": []
+    },
+    {
+      "milestoneId": "game_of_crone_donkey_magic_pumpkin_fulfilled",
+      "npcId": "donkey",
+      "taskId": "dlc_refugees_s_ev_d6_pumpkin",
+      "activeStates": [
+        "Complete"
+      ],
+      "playerParamRepairs": [],
+      "playerParamMinimums": [],
+      "taskStateMinimums": [
+        {
+          "npcId": "npc_witch",
+          "taskId": "dlc_refugees_s_ev_d7_money",
+          "state": "Complete"
+        }
+      ],
+      "unlockedTechs": [],
+      "unlockedPhrases": [],
+      "blacklistedPhrases": [],
+      "unlockedCrafts": [],
+      "completedOneTimeCrafts": [],
+      "wgoParamMinimums": [],
+      "personalItemGrants": []
+    },
+    {
+      "milestoneId": "game_of_crone_blacksmith_battle_supply_help_completed",
+      "npcId": "npc_blacksmith",
+      "taskId": "dlc_refugees_s_ev_d6_krezvold",
+      "activeStates": [
+        "Complete"
+      ],
+      "playerParamRepairs": [],
+      "playerParamMinimums": [],
+      "taskStateMinimums": [
+        {
+          "npcId": "donkey",
+          "taskId": "dlc_refugees_d6_take_note",
+          "state": "Complete"
+        },
+        {
+          "npcId": "donkey",
+          "taskId": "dlc_refugees_s_ev_d6_battle_supply",
+          "state": "Visible"
+        }
+      ],
+      "unlockedTechs": [],
+      "unlockedPhrases": [],
+      "blacklistedPhrases": [
+        "@refugee_d_8"
+      ],
+      "unlockedCrafts": [],
+      "completedOneTimeCrafts": [],
+      "wgoParamMinimums": [],
+      "personalItemGrants": []
+    },
+    {
+      "milestoneId": "game_of_crone_blacksmith_battle_supply_pickup_opened",
+      "npcId": "npc_blacksmith",
+      "taskId": "dlc_refugees_s_ev_d8_parts",
+      "activeStates": [
+        "Visible"
+      ],
+      "playerParamRepairs": [],
+      "playerParamMinimums": [],
+      "taskStateMinimums": [
+        {
+          "npcId": "donkey",
+          "taskId": "dlc_refugees_d6_take_note",
+          "state": "Complete"
+        },
+        {
+          "npcId": "donkey",
+          "taskId": "dlc_refugees_s_ev_d6_battle_supply",
+          "state": "Visible"
+        },
+        {
+          "npcId": "npc_blacksmith",
+          "taskId": "dlc_refugees_s_ev_d6_krezvold",
+          "state": "Complete"
+        }
+      ],
+      "unlockedTechs": [],
+      "unlockedPhrases": [],
+      "blacklistedPhrases": [
+        "@refugee_d_8_12"
+      ],
+      "unlockedCrafts": [],
+      "completedOneTimeCrafts": [],
+      "wgoParamMinimums": [],
+      "personalItemGrants": []
+    },
+    {
+      "milestoneId": "game_of_crone_blacksmith_battle_supply_pickup_completed",
+      "npcId": "npc_blacksmith",
+      "taskId": "dlc_refugees_s_ev_d8_parts",
+      "activeStates": [
+        "Complete"
+      ],
+      "playerParamRepairs": [],
+      "playerParamMinimums": [],
+      "taskStateMinimums": [
+        {
+          "npcId": "donkey",
+          "taskId": "dlc_refugees_d6_take_note",
+          "state": "Complete"
+        },
+        {
+          "npcId": "donkey",
+          "taskId": "dlc_refugees_s_ev_d6_battle_supply",
+          "state": "Visible"
+        },
+        {
+          "npcId": "npc_blacksmith",
+          "taskId": "dlc_refugees_s_ev_d6_krezvold",
+          "state": "Complete"
+        }
+      ],
+      "unlockedTechs": [],
+      "unlockedPhrases": [],
+      "blacklistedPhrases": [
+        "@refugee_d_9"
+      ],
+      "unlockedCrafts": [],
+      "completedOneTimeCrafts": [],
+      "wgoParamMinimums": [],
+      "personalItemGrants": []
+    },
+    {
+      "milestoneId": "game_of_crone_donkey_battle_supply_fulfilled",
+      "npcId": "donkey",
+      "taskId": "dlc_refugees_s_ev_d6_battle_supply",
+      "activeStates": [
+        "Complete"
+      ],
+      "playerParamRepairs": [],
+      "playerParamMinimums": [],
+      "taskStateMinimums": [
+        {
+          "npcId": "donkey",
+          "taskId": "dlc_refugees_d6_take_note",
+          "state": "Complete"
+        },
+        {
+          "npcId": "npc_blacksmith",
+          "taskId": "dlc_refugees_s_ev_d6_krezvold",
+          "state": "Complete"
+        },
+        {
+          "npcId": "npc_blacksmith",
+          "taskId": "dlc_refugees_s_ev_d8_parts",
+          "state": "Complete"
+        }
+      ],
+      "unlockedTechs": [],
+      "unlockedPhrases": [],
+      "blacklistedPhrases": [],
+      "unlockedCrafts": [],
+      "completedOneTimeCrafts": [],
+      "wgoParamMinimums": [],
+      "personalItemGrants": []
+    }
+  ],
+  "cutscenes": [
+    {
+      "cutsceneId": "game_of_crone_deliver_donkeys_second_letter",
+      "linkedQuestIds": [
+        "dlc_refugees_d6"
+      ],
+      "triggerScripts": [
+        "gykmp_story_dispatch_game_of_crone_d6_letter_arm",
+        "gykmp_story_dispatch_game_of_crone_d6_letter_delivery"
+      ],
+      "actors": [
+        "initiating_player",
+        "donkey",
+        "contraband_box"
+      ],
+      "observerPolicy": "all_loaded_party_members",
+      "lateJoinPolicy": "join_live_checkpoint_or_observe",
+      "remoteExecutionPolicy": "live_observation",
+      "executionOwnerPolicy": "lobby_host",
+      "dialogueOwnerPolicy": "initiating_player",
+      "formationPolicy": "initiator_with_observer_follow",
+      "cleanupRequirements": [
+        "begin_only_when_the_authoritative_ten-second_D6_unlock_timer_delivers_unlock_event_d6_to_the_canonical_Donkey_and_commit_the_delivery-arm_claim_before_the_source_flag_or_task_write",
+        "consume_only_the_due_D6_unlock_timer_receipt_here_and_preserve_the_independent_next-midnight_Donkey_visit_schedule_until_its_own_try_force_send_delivery_even_when_midnight_precedes_the_ten-second_unlock",
+        "set_Donkeys_is_bring_note_for_d6_to_one_then_show_donkey_dlc_refugees_d6_note_receive_Visible_with_zero_bronze_silver_and_gold_story_rewards_in_exact_source_order",
+        "treat_is_bring_note_for_d6_as_a_consumable_next-arrival_latch_and_the_Visible_receive-task_as_an_early_prefix_neither_is_terminal_or_safe_for_cross-repair",
+        "on_the_next_authoritative_Donkey_arrival_that_observes_the_latch_claim_only_the_D6_branch_of_the_shared_check_contraband_box_graph_without_suppressing_any_other_pending_letter_reward_or_supply_branch",
+        "journal_the_second-letter_delivery_claim_before_clearing_is_bring_note_for_d6_because_the_source_consumes_the_only_latch_before_its_strict_contraband_box_lookup_and_interaction-event_write",
+        "require_or_reconcile_the_single_canonical_contraband_box_then_clear_the_latch_enqueue_event_second_letter_delivered_complete_donkey_dlc_refugees_d6_note_receive_and_show_donkey_dlc_refugees_d6_take_note_in_that_order",
+        "collapse_the_duplicated_serialized_is_bring_note_for_d6_at-least-one_control_edge_and_repeated_value_bindings_to_one_semantic_delivery_transaction",
+        "resume_from_the_delivery_claim_if_the_box_was_missing_or_the_queue_write_or_either_task_transition_failed_and_never_rearm_the_consumed_latch_from_a_persistent_task_state",
+        "before_the_box_interaction_removes_event_second_letter_delivered_from_its_custom-event_queue_commit_an_ordered_drop_transaction_bound_to_the_actual_interacting_peer",
+        "reserve_suppress_or_adopt_the_one_second_letter_source_drop_and_two_details_pile_source_drops_independently_before_any_synthetic_allocation_so_a_crash_between_them_neither_duplicates_nor_loses_a_partial_delivery",
+        "preserve_the_exact_reachable_box-event_order_of_second_letter_one_ToPlayer_then_details_pile_two_ToPlayer_then_donkey_dlc_refugees_d6_take_note_Complete",
+        "allocate_one_retained_second_letter_entitlement_to_each_eligible_personal_profile_only_after_atomic_source-drop_accounting_and_bind_the_vanilla_ToPlayer_copy_to_at_most_one_matching_receipt",
+        "keep_the_two_details_pile_units_as_one_shared_quest-token_bundle_owned_by_the_bound_interacting_peer_or_an_authoritative_shared-inventory_record_and_never_party-duplicate_them",
+        "treat_Direction_ToPlayer_as_an_unowned_world_drop_aimed_relative_to_the_executing_process_player_and_never_as_inventory_ownership_or_proof_that_a_remote_interactor_received_any_item",
+        "leave_all_milestone_personalItemGrants_empty_until_source-drop_suppression_reservation_collection-adoption_and_per-profile_receipts_are_atomic",
+        "ignore_the_disconnected_is_waiting_amulet_from_s22_wool-drop_and_hair-task_nodes_after_the_reachable_take-note_completion_because_the_box_graph_has_no_control_edge_into_that_dead_tail",
+        "commit_the_letter-available_phase_only_after_the_queue_claim_both_drop_subtransactions_second-letter_entitlements_shared-components_bundle_take-note_completion_and_box-event_cleanup_are_durable"
+      ]
+    },
+    {
+      "cutsceneId": "game_of_crone_read_donkeys_second_letter",
+      "linkedQuestIds": [
+        "dlc_refugees_d6"
+      ],
+      "triggerScripts": [
+        "gykmp_story_dispatch_game_of_crone_d6_letter_read"
+      ],
+      "actors": [
+        "initiating_player",
+        "donkey"
+      ],
+      "observerPolicy": "all_loaded_party_members",
+      "lateJoinPolicy": "join_live_checkpoint_or_observe",
+      "remoteExecutionPolicy": "live_observation",
+      "executionOwnerPolicy": "lobby_host",
+      "dialogueOwnerPolicy": "initiating_player",
+      "formationPolicy": "initiator_with_observer_follow",
+      "cleanupRequirements": [
+        "scope_each_read_claim_to_the_profile_that_used_its_own_second_letter_entitlement_and_bind_every_PlayerFlag_SetPlayerParam_PlayerTalk_InfoBox_Think_drop_and_control_operation_to_that_reader",
+        "pre-resolve_the_exact_canonical_Donkey_before_disabling_the_reader_because_the_strict_source_lookup_is_evaluated_only_after_four_task_and_two_phrase_writes_and_can_otherwise_strand_control_before_both_latches_crafts_achievement_flag_and_enable",
+        "disable_only_the_reader_without_affecting_cinematic_then_set_that_profiles_is_ev_d6_completed_to_one_before_presenting_any_dialogue_exactly_as_the_source_does",
+        "treat_is_ev_d6_completed_as_an_early_personal_cross-route_latch_for_the_s22_hair_convergence_and_never_as_terminal_second-letter-read_evidence",
+        "freeze_the_readers_exact_is_second_letter_red_once_zero-or-at-least-one_branch_before_line_one_and_reuse_that_branch_receipt_after_line_twelve_so_reconnect_or_duplicate_dispatch_cannot_change_the_path",
+        "present_InfoBox_lines_refugee_d_6_1_through_12_to_the_actual_reader_on_every_use_with_the_source_player-talk_presentation_then_check_the_exact_typoed_personal_flag_is_second_letter_red_once",
+        "for_a_repeat_read_skip_the_entire_waiting-amulet_branch_thoughts_thirteen_and_fourteen_and_shared_payload_then_rewrite_the_personal_typoed_flag_to_one_and_restore_control",
+        "for_a_first_read_freeze_the_readers_personal_is_waiting_amulet_from_s22_branch_before_any_conditional_mutation_and_never_clear_that_historical_latch",
+        "when_the_waiting-amulet_branch_is_true_converge_with_the_existing_MemoryClouds_hair_transaction_exactly_once_by_dropping_one_donkey_lock_wool_ToPlayer_for_the_bound_reader_unlocking_pagan_amulet_setting_that_profiles_gd_zone_s23_is_active_to_one_completing_donkey_s_ev_21_take_hair_and_showing_player_s_ev_22_make_amulet_in_order",
+        "reserve_or_adopt_the_single_conditional_wool_drop_before_unlocking_the_one-time_amulet_recipe_and_never_create_a_second_shared_wool_token_when_the_s22_route_already_completed_the_same_transaction",
+        "collapse_the_source_graphs_repeated_wool_item_bindings_and_fourfold_downstream_control_bindings_to_one_semantic_hair-grant_suffix",
+        "after_the_conditional_hair_convergence_or_the_no-wait_branch_present_Player_thoughts_refugee_d_6_13_then_refugee_d_6_14_only_for_that_profiles_first_read",
+        "after_the_first-read_personal_dialogue_claim_acquire_one_independent_shared-payload_claim_so_only_one_profile_can_open_the_four_tasks_two_topics_two_Donkey_latches_two_send-crafts_and_D6_achievement",
+        "show_donkey_dlc_refugees_s_ev_d6_battle_supply_then_npc_blacksmith_dlc_refugees_s_ev_d6_krezvold_then_donkey_dlc_refugees_s_ev_d6_pumpkin_then_npc_witch_dlc_refugees_s_ev_d6_pumpkin_enchant_Visible_with_zero_story_rewards",
+        "unlock_Clothos_exact_topic_refugee_d_7_then_Krezvolds_exact_topic_refugee_d_8_and_leave_both_unselected_and_not_blacklisted_at_this_boundary",
+        "set_get_item_d7_then_get_item_d9_to_one_only_on_the_pre-resolved_canonical_Donkey_and_keep_both_consumable_collection_latches_out_of_milestone_minima",
+        "unlock_d7_send_items_then_d9_send_items_in_exact_order_without_completing_or_marking_either_one-time_send_craft_and_without_consuming_magic_pumpkin_battle_horseshoes_or_unicorn_horn",
+        "record_D6_achievement_eligibility_then_check_the_exact_dlc_refugees_d6_AchievementDefinition_once_after_both_crafts_and_before_the_personal_read_flag_or_control_restore",
+        "deliver_the_optional_dlc_refugees_d6_platform_unlock_once_per_personal_profile_under_independent_receipts_outside_ordinary_QuestSync",
+        "commit_the_shared-payload_complete_phase_after_all_tasks_topics_latches_crafts_and_achievement_receipts_then_set_only_the_readers_is_second_letter_red_once_to_one_restore_only_that_readers_control_and_commit_its_personal_read_complete_phase",
+        "if_another_profile_reads_after_the_shared_payload_finished_still_run_that_profiles_lines_one-through-fourteen_and_conditional_hair_convergence_if_unresolved_then_set_its_personal_flags_but_never_replay_shared_D6_mutations",
+        "if_is_ev_d6_completed_or_is_second_letter_red_once_is_already_one_while_the_corresponding_synthetic_terminal_phase_is_missing_resume_the_missing_personal_or_shared_suffix_without_trusting_the_early_source_flags_as_completion",
+        "do_not_consume_second_letter_on_use_because_its_ItemDefinition_has_stay_on_use_true_and_the_read_graph_contains_no_remove-item_node",
+        "restore_the_readers_control_GUI_camera_and_input_baseline_on_success_disconnect_cancellation_timeout_or_recovery_and_do_not_change_observers_personal_flags",
+        "do_not_add_money_currency_relationship_item_consumption_or_task_story_rewards_because_the_second-letter_read_source_has_none",
+        "stop_before_selecting_refugee_d_7_or_refugee_d_8_crafting_pagan_amulet_depositing_any_D7_or_D9_payload_or_scheduling_the_downstream_Krezvold_midnight_event"
+      ]
+    },
+    {
+      "cutsceneId": "game_of_crone_request_magic_pumpkin_from_clotho",
+      "linkedQuestIds": [
+        "dlc_refugees_d6"
+      ],
+      "triggerScripts": [
+        "gykmp_story_dispatch_game_of_crone_d7_pumpkin_enchantment"
+      ],
+      "actors": [
+        "initiating_player",
+        "npc_witch"
+      ],
+      "observerPolicy": "all_loaded_party_members",
+      "lateJoinPolicy": "join_live_checkpoint_or_observe",
+      "remoteExecutionPolicy": "live_observation",
+      "executionOwnerPolicy": "lobby_host",
+      "dialogueOwnerPolicy": "initiating_player",
+      "formationPolicy": "initiator_with_observer_follow",
+      "cleanupRequirements": [
+        "enter_only_after_gykmp_story_phase_game_of_crone_d6_second_letter_shared_payload_complete_has_opened_npc_witch_dlc_refugees_s_ev_d6_pumpkin_enchant_and_refugee_d_7",
+        "bind_the_exact_profile_that_selects_refugee_d_7_and_commit_one_shared_selection-transaction_claim_before_the_MultiAnswerOptionGUI_OnChosen_price_debit",
+        "consume_exactly_one_pumpkin_crop_colon_3_from_that_selecting_profiles_direct_player_inventory_first_then_top-level_carried-bag_contents_before_dispatching_the_topic_handler_as_the_source_UI_does_and_never_charge_MainGame_me_player_merely_because_the_host_executes_the_flow",
+        "serialize_concurrent_refugee_d_7_selections_before_the_shared_blacklist_so_two_players_cannot_each_pay_the_single_story_request",
+        "blacklist_refugee_d_7_then_complete_npc_witch_dlc_refugees_s_ev_d6_pumpkin_enchant_with_zero_bronze_silver_and_gold_story_rewards",
+        "present_refugee_d_7_1_through_10_in_exact_source_order_with_Player_speaking_1_4_8_Clotho_speaking_2_3_5_6_7_9_and_Player_thinking_10",
+        "show_npc_witch_dlc_refugees_s_ev_d7_money_Visible_after_line_ten_then_unlock_refugee_d_7_money_and_restore_only_the_bound_players_control",
+        "treat_the_help-task_Complete_and_payment-task_Visible_states_as_early_prefixes_and_resume_the_missing_dialogue_task-topic-or-control_suffix_without_recharging_the_gold-quality_pumpkin",
+        "leave_refugee_d_7_money_unselected_and_do_not_create_magic_pumpkin_or_debit_money_at_this_boundary"
+      ]
+    },
+    {
+      "cutsceneId": "game_of_crone_buy_magic_pumpkin_from_clotho",
+      "linkedQuestIds": [
+        "dlc_refugees_d6"
+      ],
+      "triggerScripts": [
+        "gykmp_story_dispatch_game_of_crone_d7_pumpkin_purchase"
+      ],
+      "actors": [
+        "initiating_player",
+        "npc_witch"
+      ],
+      "observerPolicy": "all_loaded_party_members",
+      "lateJoinPolicy": "join_live_checkpoint_or_observe",
+      "remoteExecutionPolicy": "live_observation",
+      "executionOwnerPolicy": "lobby_host",
+      "dialogueOwnerPolicy": "initiating_player",
+      "formationPolicy": "initiator_with_observer_follow",
+      "cleanupRequirements": [
+        "bind_the_profile_that_selects_the_exact_unlocalized_source_topic_refugee_d_7_money_and_commit_its_shared_purchase_claim_before_the_MultiAnswerOptionGUI_OnChosen_debit",
+        "debit_exactly_fifty_money_from_that_selecting_profile_before_dispatching_the_topic_handler_and_never_charge_the_hosts_local_MainGame_me_player_for_a_remote_selection",
+        "serialize_concurrent_purchase_attempts_before_the_shared_topic_blacklist_so_only_one_fifty-money_debit_and_one_magic-pumpkin_source_drop_can_occur",
+        "blacklist_refugee_d_7_money_then_complete_npc_witch_dlc_refugees_s_ev_d7_money_with_zero_story_rewards_in_exact_source_order",
+        "before_Flow_DropItem_reserve_suppress_or_adopt_the_single_magic_pumpkin_source_instance_and_bind_it_to_the_shared_purchase_transaction",
+        "preserve_the_source_Direction_ToPlayer_behavior_that_rewrites_the_spawn_relative_to_local_MainGame_me_player_with_check-walls_false_but_never_treat_that_physical_position_as_recipient_ownership",
+        "assign_exactly_one_magic_pumpkin_shared-story-token_receipt_to_the_bound_payer_or_authoritative_shared-quest_inventory_without_party_duplication",
+        "retain_the_items_exact_stack-one_discard-protected_stay-on-use-false_can-be-used-false_inert_semantics_and_do_not_create_a_use_or_craft-production_path",
+        "treat_the_payment-task_Complete_state_as_a_pre-drop_prefix_and_resume_drop_reservation_allocation_or_control_restore_without_debiting_again",
+        "restore_only_the_bound_players_control_on_success_disconnect_cancellation_timeout_or_recovery_and_leave_Donkeys_request_get_item_d7_and_d7_send_items_pending"
+      ]
+    },
+    {
+      "cutsceneId": "game_of_crone_fulfill_donkeys_magic_pumpkin_request",
+      "linkedQuestIds": [
+        "dlc_refugees_d6"
+      ],
+      "triggerScripts": [
+        "gykmp_story_dispatch_game_of_crone_d7_pumpkin_deposit",
+        "gykmp_story_dispatch_game_of_crone_d7_pumpkin_callback",
+        "gykmp_story_dispatch_game_of_crone_d7_pumpkin_collection"
+      ],
+      "actors": [
+        "initiating_player",
+        "contraband_box",
+        "donkey"
+      ],
+      "observerPolicy": "all_loaded_party_members",
+      "lateJoinPolicy": "join_live_checkpoint_or_observe",
+      "remoteExecutionPolicy": "live_observation",
+      "executionOwnerPolicy": "lobby_host",
+      "dialogueOwnerPolicy": "initiating_player",
+      "formationPolicy": "initiator_with_observer_follow",
+      "cleanupRequirements": [
+        "allow_any_player_to_start_d7_send_items_but_serialize_the_single_shared_box_craft_and_record_the_actual_AllFromFirst_inventory_allocations_selected_from_that_players_interaction_MultiInventory",
+        "atomically_record_the_magic-pumpkin_input_removal_at_craft_start_and_the_identical_output_to_the_canonical_contraband_box_at_zero-time_finish_because_transfer_needs_to_WGO_is_false",
+        "preserve_d7_send_items_as_needs-unlock-true_auto-true_one-time-true_with_exact_need_magic_pumpkin_one_empty_player-output_output-to-WGO_magic_pumpkin_one_zero_time_energy_gratitude_sanity_no_quality_tool-action_or_end-event_effects_and_end-script_on_event_d7_items_sent",
+        "record_box-credit_attached-callback_and_completed-one-time-craft_marker_as_independent_subreceipts_because_FinishCurrentCraft_adds_output_to_WGO_then_calls_AttachFlowScript_before_OnFinishedCraft_but_the_attached_scripts_start_timing_is_not_guaranteed_by_that_call_order",
+        "run_on_event_d7_items_sent_as_a_fresh_script_attached_to_the_box_not_as_a_join_or_event_into_the_box_graph_then_complete_donkey_dlc_refugees_s_ev_d6_pumpkin_before_requesting_Donkeys_immediate_visit",
+        "pre-resolve_or_recover_the_single_canonical_Donkey_before_the_strict_try_donkey_force_come_lookup_and_persist_the_visit_intent_before_its_unjoined_Flow_FireEvent_0_03-real-second_wrapper",
+        "treat_the_Donkey-task_Complete_state_as_callback_evidence_only_and_never_as_proof_of_box_inventory_one-time-marker_visit_delivery_collection_relation_counter_or_D10_timer_progress",
+        "on_the_authoritative_shared_check_contraband_box_pass_process_D7_after_the_D6-letter_branch_and_before_D9_then_require_get_item_d7_at_least_one_and_exactly_one_magic_pumpkin_in_the_canonical_box",
+        "journal_the_collection_before_removing_the_only_box_item_then_clear_get_item_d7_set_transient_contraband_one_apply_Donkey_relation_plus-ten_and_invoke_check_ev_d10_start_in_exact_order",
+        "collapse_D7s_doubled_Has-to-Remove_Yes_and_doubled_Remove-to-get_item_d7-zero_Out_edges_to_one_semantic_transition",
+        "collapse_the_two_box-WGO_links_and_two_magic-pumpkin-item_links_into_each_D7_Has-and-Remove_node_and_the_three_Donkey-WGO_links_into_get_item_d7-zero_without_replaying_any_action",
+        "write_the_source_relation_to_the_authoritative_shared_player-param__rel_donkey_once_under_a_D7-specific_delta_receipt_instead_of_mutating_every_observer_or_only_the_host_process_player",
+        "record_exactly_one_D7-specific_delta_receipt_for_donkey_ev_d10_check_count_and_never_minimum-repair_or_re-add_that_raw_counter_or_Donkey_relation",
+        "if_the_distinct_D9-counter_receipt_already_exists_D7_is_the_second_collection_and_must_publish_its_own_counter_receipt_to_the_single_shared_D10_supply-convergence_dispatch",
+        "if_D7_is_first_commit_its_terminal_fulfillment_and_wait_for_D9_if_both_payloads_are_ready_in_one_box-pass_D7_runs_first_and_the_later_D9_branch_publishes_the_second_receipt",
+        "clear_transient_contraband_only_when_npc_donkey_on_returned_home_runs_and_never_use_that_flag_or_cleanup_as_collection_or_timer_evidence",
+        "commit_the_D7-fulfillment_phase_after_its_own_removal_flag_relation-and-counter_receipts_are_durable_without_waiting_for_D9_or_D10",
+        "hand_off_any_second-distinct-receipt_case_to_gykmp_story_dispatch_game_of_crone_d10_supply_convergence_and_stop_before_unlock_event_d10_delivery"
+      ]
+    },
+    {
+      "cutsceneId": "game_of_crone_commission_battle_supplies_from_krezvold",
+      "linkedQuestIds": [
+        "dlc_refugees_d6"
+      ],
+      "triggerScripts": [
+        "gykmp_story_dispatch_game_of_crone_d8_battle_supply_commission"
+      ],
+      "actors": [
+        "initiating_player",
+        "npc_blacksmith"
+      ],
+      "observerPolicy": "all_loaded_party_members",
+      "lateJoinPolicy": "join_live_checkpoint_or_observe",
+      "remoteExecutionPolicy": "live_observation",
+      "executionOwnerPolicy": "lobby_host",
+      "dialogueOwnerPolicy": "initiating_player",
+      "formationPolicy": "initiator_with_observer_follow",
+      "cleanupRequirements": [
+        "enter_only_after_the_D6_shared-payload_boundary_has_opened_npc_blacksmith_dlc_refugees_s_ev_d6_krezvold_and_refugee_d_8",
+        "bind_the_profile_that_selects_refugee_d_8_and_commit_one_shared_commission-transaction_claim_before_MultiAnswerOptionGUI_OnChosen_removes_its_price",
+        "consume_exactly_two_details_pile_from_that_selecting_profiles_direct_player_inventory_first_then_top-level_carried-bag_contents_combining_sources_if_needed_before_dispatching_the_handler_and_do_not_substitute_interaction_MultiInventory_or_an_observers_bundle",
+        "serialize_concurrent_refugee_d_8_selections_before_the_shared_blacklist_so_the_single_two-item_story_bundle_cannot_be_charged_twice",
+        "blacklist_refugee_d_8_then_complete_npc_blacksmith_dlc_refugees_s_ev_d6_krezvold_with_zero_bronze_silver_and_gold_story_rewards",
+        "present_refugee_d_8_1_through_11_in_order_with_Player_speaking_1_4_6_8_11_and_Krezvold_speaking_2_3_5_7_9_10",
+        "preserve_Krezvolds_mustache_Together_animation_on_line_ten_without_treating_it_as_a_state_checkpoint",
+        "unlock_refugee_d_8_12_only_after_line_eleven_then_restore_only_the_bound_players_control",
+        "treat_the_Krezvold-task_Complete_state_as_an_early_prefix_and_resume_missing_dialogue_topic-or-control_suffix_without_re-consuming_the_component_pile",
+        "leave_refugee_d_8_12_unselected_and_do_not_debit_money_open_the_parts_task_or_schedule_midnight_at_this_boundary"
+      ]
+    },
+    {
+      "cutsceneId": "game_of_crone_pay_krezvold_and_arm_battle_supply_pickup",
+      "linkedQuestIds": [
+        "dlc_refugees_d6"
+      ],
+      "triggerScripts": [
+        "gykmp_story_dispatch_game_of_crone_d8_battle_supply_payment",
+        "gykmp_story_dispatch_game_of_crone_d9_pickup_topic_unlock"
+      ],
+      "actors": [
+        "initiating_player",
+        "npc_blacksmith"
+      ],
+      "observerPolicy": "all_loaded_party_members",
+      "lateJoinPolicy": "join_live_checkpoint_or_observe",
+      "remoteExecutionPolicy": "live_observation",
+      "executionOwnerPolicy": "lobby_host",
+      "dialogueOwnerPolicy": "initiating_player",
+      "formationPolicy": "initiator_with_observer_follow",
+      "cleanupRequirements": [
+        "bind_the_actual_profile_that_selects_refugee_d_8_12_which_may_differ_from_the_original_commission_owner_and_commit_a_payment_claim_before_the_source_UI_debit",
+        "debit_exactly_fifty_money_from_that_selecting_profile_before_handler_dispatch_then_blacklist_refugee_d_8_12_without_charging_the_host_for_a_remote_payer",
+        "present_the_single_Krezvold_line_refugee_d_8_13_then_show_npc_blacksmith_dlc_refugees_s_ev_d8_parts_Visible_with_zero_story_rewards",
+        "sample_GetSecondsToTheMidnight_once_after_the_parts-task_opening_and_persist_the_host-authoritative_gameplay-time_remaining-delay_before_Flow_FireEvent_registration",
+        "account_for_the_unjoined_outer_0_03-real-second_timer_then_register_event_d9_phrase_unlock_on_the_exact_canonical_npc_blacksmith_WGO_with_the_sampled_remaining_delay",
+        "restore_only_the_payers_control_after_requesting_the_timer_without_waiting_for_midnight",
+        "when_the_persisted_timer_delivers_event_d9_phrase_unlock_unlock_refugee_d_9_exactly_once_and_leave_it_unselected",
+        "treat_the_shared_topic_blacklist_and_parts-task_Visible_state_as_pre-timer_prefixes_and_resume_the_missing_line_task_timer-or-topic_suffix_without_a_second_debit_or_midnight_resample",
+        "do_not_unlock_refugee_d_9_from_the_Visible_milestone_or_schedule_a_new_full-day_delay_after_restart_host-migration_or_late_join"
+      ]
+    },
+    {
+      "cutsceneId": "game_of_crone_collect_battle_supplies_from_krezvold",
+      "linkedQuestIds": [
+        "dlc_refugees_d6"
+      ],
+      "triggerScripts": [
+        "gykmp_story_dispatch_game_of_crone_d9_battle_supply_pickup"
+      ],
+      "actors": [
+        "initiating_player",
+        "npc_blacksmith"
+      ],
+      "observerPolicy": "all_loaded_party_members",
+      "lateJoinPolicy": "join_live_checkpoint_or_observe",
+      "remoteExecutionPolicy": "live_observation",
+      "executionOwnerPolicy": "lobby_host",
+      "dialogueOwnerPolicy": "initiating_player",
+      "formationPolicy": "initiator_with_observer_follow",
+      "cleanupRequirements": [
+        "bind_the_profile_that_selects_the_free_refugee_d_9_pickup_topic_then_blacklist_it_and_complete_npc_blacksmith_dlc_refugees_s_ev_d8_parts_with_zero_story_rewards",
+        "present_refugee_d_9_1_through_8_in_order_with_Player_speaking_1_3_6_7_and_Krezvold_speaking_2_4_5_8",
+        "from_line_twos_Immediate_output_start_the_unjoined_source_Wait_0_5_then_reserve_the_unicorn_horn_drop_first_and_battle_horseshoes_drop_second_while_the_On-Finished_dialogue_chain_continues",
+        "collapse_the_two_serialized_battle-horseshoes_value_links_into_the_second_Flow_DropItem_to_one_semantic_drop",
+        "reserve_suppress_or_adopt_each_Direction_ToPlayer_physical_source_instance_independently_before_any_synthetic_shared-token_allocation",
+        "bind_both_drops_to_the_actual_pickup_profile_or_authoritative_shared-quest_inventory_because_host_execution_otherwise_spawns_them_relative_to_local_MainGame_me_player",
+        "keep_unicorn_horn_and_battle_horseshoes_as_two_distinct_stack-one_discard-protected_inert_shared_story_tokens_and_never_party-duplicate_either",
+        "treat_the_parts-task_Complete_state_as_a_pre-dialogue_pre-drop_prefix_and_recover_each_line_drop-and-control_suffix_independently_without_replaying_the_other",
+        "restore_only_the_bound_players_control_after_line_eight_and_on_disconnect_cancellation_timeout_or_recovery"
+      ]
+    },
+    {
+      "cutsceneId": "game_of_crone_fulfill_donkeys_battle_supply_request",
+      "linkedQuestIds": [
+        "dlc_refugees_d6"
+      ],
+      "triggerScripts": [
+        "gykmp_story_dispatch_game_of_crone_d9_battle_supply_deposit",
+        "gykmp_story_dispatch_game_of_crone_d9_battle_supply_callback",
+        "gykmp_story_dispatch_game_of_crone_d9_battle_supply_collection"
+      ],
+      "actors": [
+        "initiating_player",
+        "contraband_box",
+        "donkey"
+      ],
+      "observerPolicy": "all_loaded_party_members",
+      "lateJoinPolicy": "join_live_checkpoint_or_observe",
+      "remoteExecutionPolicy": "live_observation",
+      "executionOwnerPolicy": "lobby_host",
+      "dialogueOwnerPolicy": "initiating_player",
+      "formationPolicy": "initiator_with_observer_follow",
+      "cleanupRequirements": [
+        "serialize_the_single_d9_send_items_box_craft_and_record_actual_AllFromFirst_allocations_for_battle_horseshoes_then_unicorn_horn_even_when_the_two_needs_come_from_different_interaction_inventories",
+        "atomically_record_both_ordered_input_removals_at_start_and_both_identical_ordered_output-to-WGO_credits_at_zero-time_finish_because_transfer-needs-to-WGO_is_false",
+        "preserve_the_full_d9_send_items_recipe_metadata_and_execute_on_event_d9_items_sent_as_a_fresh_box-attached_script_not_a_join_or_event_into_the_box_graph",
+        "record_box-credits_attached-callback_and_completed-one-time-craft_marker_as_independent_subreceipts_because_AttachFlowScript_is_called_before_OnFinishedCraft_but_attached-script_start_timing_is_not_proven",
+        "complete_donkey_dlc_refugees_s_ev_d6_battle_supply_then_use_its_SetTask_Out_to_request_Donkeys_immediate_try_force_send_through_the_unjoined_0_03-real-second_wrapper",
+        "pre-resolve_or_recover_the_single_canonical_Donkey_before_the_strict_visit_macro_and_replay_only_a_missing_visit_intent_after_task-complete_or_marker_prefixes",
+        "on_the_authoritative_check_contraband_box_pass_process_D9_after_D7_require_get_item_d9_at_least_one_then_require_one_battle_horseshoes_and_one_unicorn_horn_in_the_canonical_box",
+        "journal_collection_before_removing_battle_horseshoes_first_then_unicorn_horn_second_then_clear_get_item_d9_set_transient_contraband_one_apply_Donkey_relation-plus-ten_and_invoke_check_ev_d10_start",
+        "normalize_D9s_exact_asymmetric_duplicate-wiring_once_two_Donkey-relay-to-ParamFlag_WGO_links_doubled_flag-branch_edges_doubled_zero-path_Dummy-142-Out-to-Dummy-144_edges_three_battle-Has_box-and-item_links_four_Donkey-WGO_setter-links_and_two_macro-continuation_edges",
+        "do_not_invent_duplicated_Has_Yes-or-No_or_Remove_links_for_D9_because_the_source_has_none",
+        "record_distinct_D9_relation-and-counter_delta_receipts_and_leave_the_shared_D10_convergence_dispatch_to_the_second-distinct-receipt_barrier",
+        "clear_transient_contraband_only_on_npc_donkey_on_returned_home_and_stop_before_unlock_event_d10_delivery"
+      ]
+    },
+    {
+      "cutsceneId": "game_of_crone_schedule_donkeys_d10_handoff",
+      "linkedQuestIds": [
+        "dlc_refugees_d6"
+      ],
+      "triggerScripts": [
+        "gykmp_story_dispatch_game_of_crone_d10_supply_convergence"
+      ],
+      "actors": [
+        "donkey"
+      ],
+      "observerPolicy": "all_loaded_party_members",
+      "lateJoinPolicy": "durable_state_only",
+      "remoteExecutionPolicy": "live_observation",
+      "executionOwnerPolicy": "lobby_host",
+      "dialogueOwnerPolicy": "initiating_player",
+      "formationPolicy": "preserve_positions",
+      "cleanupRequirements": [
+        "run_only_when_the_distinct_D7-magic-pumpkin_and_D9-battle-supply_counter-delta_receipts_both_exist_and_claim_one_shared_D10-convergence_dispatch",
+        "pre-resolve_the_exact_canonical_Donkey_before_the_source_AddWGOParam-equivalent_because_a_null_target_skips_the_add_and_the_following_ParamCompare_emits_no_control_output",
+        "recognize_the_second_distinct_source-increment_receipt_without_applying_a_third_increment_or_minimum-repairing_or_re-reading_donkey_ev_d10_check_count",
+        "persist_the_ten-simulated-second_unlock-event_d10_gameplay-time_remaining-delay_and_once-sampled_next-midnight_try_force_send_gameplay-time_remaining-delay_before_registering_either_event",
+        "account_for_each_unjoined_outer_0_03-real-second_Flow_FireEvent_timer_and_the_parallel_serialized_WorldGameObject_event-id-and-remaining-delay_lists",
+        "never_reschedule_from_the_raw_greater-than-two_branch_after_the_shared_convergence_receipt_exists",
+        "commit_the_terminal_convergence_phase_only_after_both_branch_receipts_and_both_durable_timer_registrations",
+        "stop_before_delivering_unlock_event_d10_setting_is_bring_note_for_d10_or_opening_donkey_dlc_refugees_d10_note_receive"
+      ]
+    }
+  ],
+  "storySteps": [
+    {
+      "stepId": "game_of_crone_arm_donkeys_second_letter_delivery",
+      "title": "Arm Donkey's second-letter delivery",
+      "linkedQuestIds": [
+        "dlc_refugees_d6"
+      ],
+      "linkedTaskMilestoneIds": [
+        "game_of_crone_donkey_second_letter_delivery_opened"
+      ],
+      "triggerScripts": [
+        "gykmp_story_dispatch_game_of_crone_d6_letter_arm"
+      ],
+      "triggerKeys": [
+        "gykmp_story_phase_game_of_crone_d5_fulfillment_complete",
+        "gykmp_story_timer_game_of_crone_d6_unlock",
+        "gykmp_story_timer_game_of_crone_d6_midnight_visit",
+        "check_ev_d6_start",
+        "ev_d6_check_count",
+        "unlock_event_d6",
+        "npc_donkey:unlock_event_d6",
+        "is_bring_note_for_d6",
+        "dlc_refugees_d6_note_receive",
+        "gykmp_story_phase_game_of_crone_d6_letter_arm_claimed",
+        "gykmp_story_phase_game_of_crone_d6_letter_armed"
+      ],
+      "expectedEffects": [
+        {
+          "kind": "story_phase",
+          "id": "gykmp_story_phase_game_of_crone_d6_letter_arm_claimed",
+          "operation": "commit_when_the_single_persisted_unlock_event_d6_delivery_begins_before_the_Donkey_flag_or_task_write",
+          "amount": 1,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "wgo_param",
+          "id": "donkey:is_bring_note_for_d6",
+          "operation": "set_one_until_the_next_authoritative_Donkey_arrival_that_observes_it_claims_and_consumes_the_letter-delivery_branch",
+          "amount": 1,
+          "ownership": "shared_world"
+        },
+        {
+          "kind": "npc_task",
+          "id": "donkey:dlc_refugees_d6_note_receive",
+          "operation": "set_Visible_after_the_delivery_latch_with_zero_story_rewards",
+          "amount": 1,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "story_phase",
+          "id": "gykmp_story_phase_game_of_crone_d6_letter_armed",
+          "operation": "commit_after_the_consumable_latch_and_receive-task_opening_are_both_durable",
+          "amount": 1,
+          "ownership": "shared_campaign"
+        }
+      ],
+      "safeguards": [
+        "accept_only_delivery_of_the_single_persisted_ten-second_unlock_event_d6_schedule_from_the_completed_D5_fulfillment_boundary",
+        "preserve_the_source_independence_of_the_ten-second_unlock_and_next-midnight_visit_schedules_and_never_delay_or_replay_one_to_force_their_order",
+        "if_the_midnight_visit_occurs_before_the_latch_is_armed_allow_that_visit_to_finish_normally_and_leave_delivery_for_the_next_authoritative_Donkey_arrival",
+        "if_unlock_event_d6_delivery_repeats_after_the_armed_phase_do_not_rearm_a_consumed_is_bring_note_for_d6_or_regress_either_letter_task",
+        "never_put_is_bring_note_for_d6_in_wgoParamMinimums_because_Donkeys_later_visit_consumes_it_before_queuing_the_letter",
+        "do_not_open_the_take-note_task_or_create_any_drop_until_the_authoritative_Donkey-arrival_delivery_transaction"
+      ]
+    },
+    {
+      "stepId": "game_of_crone_receive_donkeys_second_letter",
+      "title": "Receive Donkey's second letter and component pile from the contraband box",
+      "linkedQuestIds": [
+        "dlc_refugees_d6"
+      ],
+      "linkedTaskMilestoneIds": [
+        "game_of_crone_donkey_second_letter_delivery_completed",
+        "game_of_crone_donkey_second_letter_pickup_opened",
+        "game_of_crone_donkey_second_letter_pickup_completed"
+      ],
+      "triggerScripts": [
+        "gykmp_story_dispatch_game_of_crone_d6_letter_delivery"
+      ],
+      "triggerKeys": [
+        "gykmp_story_timer_game_of_crone_d6_midnight_visit",
+        "try_force_send",
+        "on_came_to_cemetery",
+        "npc_donkey:on_came_to_cemetery",
+        "check_contraband_box",
+        "is_bring_note_for_d6",
+        "contraband_box",
+        "event_second_letter_delivered",
+        "interaction",
+        "contraband_box:interaction",
+        "second_letter",
+        "details_pile",
+        "is_waiting_amulet_from_s22",
+        "donkey_lock_wool",
+        "dlc_refugees_d6_note_receive",
+        "dlc_refugees_d6_take_note",
+        "gykmp_story_phase_game_of_crone_d6_letter_delivery_claimed",
+        "gykmp_story_phase_game_of_crone_d6_letter_event_queued",
+        "gykmp_story_transaction_game_of_crone_d6_second_letter_drop",
+        "gykmp_story_transaction_game_of_crone_d6_details_pile_drop",
+        "gykmp_story_grant_game_of_crone_second_letter",
+        "gykmp_story_phase_game_of_crone_d6_letter_available"
+      ],
+      "expectedEffects": [
+        {
+          "kind": "story_phase",
+          "id": "gykmp_story_phase_game_of_crone_d6_letter_delivery_claimed",
+          "operation": "commit_on_Donkeys_arrival_before_clearing_the_only_is_bring_note_for_d6_latch",
+          "amount": 1,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "wgo_param",
+          "id": "donkey:is_bring_note_for_d6",
+          "operation": "consume_from_one_to_zero_after_the_durable_delivery_claim",
+          "amount": 0,
+          "ownership": "shared_world"
+        },
+        {
+          "kind": "world_interaction_event",
+          "id": "contraband_box:event_second_letter_delivered",
+          "operation": "enqueue_exactly_once_on_the_single_shared_box_and_preserve_until_one_interacting_peer_claims_it",
+          "amount": 1,
+          "ownership": "shared_world"
+        },
+        {
+          "kind": "npc_task",
+          "id": "donkey:dlc_refugees_d6_note_receive",
+          "operation": "set_Complete_after_the_interaction_event_is_queued_with_zero_story_rewards",
+          "amount": 1,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "npc_task",
+          "id": "donkey:dlc_refugees_d6_take_note",
+          "operation": "set_Visible_after_the_receive_task_completes_with_zero_story_rewards",
+          "amount": 1,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "story_phase",
+          "id": "gykmp_story_phase_game_of_crone_d6_letter_event_queued",
+          "operation": "commit_after_the_box_queue_and_both_delivery-task_transitions_are_durable",
+          "amount": 1,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "source_drop_reservation",
+          "id": "gykmp_story_transaction_game_of_crone_d6_second_letter_drop",
+          "operation": "before_the_box_pops_its_custom_event_atomically_choose_suppressed_or_reserved_physical_state_for_the_first_ordered_drop_and_adopt_at_most_one_actual_collector_receipt",
+          "amount": 1,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "inventory_item_entitlement",
+          "id": "second_letter",
+          "operation": "allocate_one_retained_nonthrowable_readable_letter_to_each_eligible_personal_profile_under_gykmp_story_grant_game_of_crone_second_letter_after_accounting_for_the_single_source_world_drop",
+          "amount": 1,
+          "ownership": "personal_character"
+        },
+        {
+          "kind": "source_drop_reservation",
+          "id": "gykmp_story_transaction_game_of_crone_d6_details_pile_drop",
+          "operation": "reserve_suppress_or_adopt_the_second_ordered_source_drop_of_exactly_two_details_pile_as_one_shared_quest_bundle",
+          "amount": 2,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "inventory_item",
+          "id": "details_pile",
+          "operation": "assign_exactly_two_nonthrowable_unusable_component_items_once_to_the_bound_interacting_peer_or_authoritative_shared_quest_inventory_without_per-profile_duplication",
+          "amount": 2,
+          "ownership": "shared_story_token"
+        },
+        {
+          "kind": "npc_task",
+          "id": "donkey:dlc_refugees_d6_take_note",
+          "operation": "set_Complete_after_both_Flow_DropItem_Out_callbacks_without_using_the_task_as_collection_allocation_or_read_proof",
+          "amount": 1,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "story_phase",
+          "id": "gykmp_story_phase_game_of_crone_d6_letter_available",
+          "operation": "commit_after_event_consumption_both_drop_transactions_all_personal_letter_entitlements_the_single_shared-components_bundle_and_take-note_completion_are_reconciled",
+          "amount": 1,
+          "ownership": "shared_campaign"
+        }
+      ],
+      "safeguards": [
+        "preserve_the_shared_contraband_checker_and_claim_only_the_second-letter_branch_without_skipping_other_pending_branches",
+        "repair_or_wait_for_the_single_canonical_box_before_consuming_the_latch_because_Flow_AddInteractionEvent_has_no_Out_when_its_target_is_null",
+        "journal_before_the_box_Interact_path_removes_the_custom_event_from_its_queue_before_FireEvent",
+        "bind_the_box_interacting_peer_before_host_execution_so_Direction_ToPlayer_never_targets_the_hosts_local_player_by_accident",
+        "never_allow_either_single_unowned_source_drop_to_satisfy_multiple_receipts_or_leave_a_source_world_drop_beside_a_synthetic_duplicate",
+        "keep_the_second_letter_personal_but_the_details_pile_bundle_shared_because_only_one_later_Krezvold_option_consumes_the_exact_two_components",
+        "leave_every_milestone_personalItemGrants_array_empty_until_both_source-drop_reservations_and_physical-recipient_adoption_are_atomic",
+        "ignore_the_unreachable_box-local_is_waiting_amulet_from_s22_branch_and_its_disconnected_wool_and_hair_nodes_instead_of_synthesizing_a_second_hair_grant",
+        "do_not_consume_second_letter_when_read_and_do_not_infer_read_completion_from_the_take-note_Complete_task"
+      ]
+    },
+    {
+      "stepId": "game_of_crone_read_donkeys_second_letter",
+      "title": "Read Donkey's second letter and open the battle-supply requests",
+      "linkedQuestIds": [
+        "dlc_refugees_d6"
+      ],
+      "linkedTaskMilestoneIds": [
+        "game_of_crone_donkey_battle_supply_requested",
+        "game_of_crone_blacksmith_battle_supply_help_requested",
+        "game_of_crone_donkey_magic_pumpkin_requested",
+        "game_of_crone_witch_magic_pumpkin_help_requested"
+      ],
+      "triggerScripts": [
+        "gykmp_story_dispatch_game_of_crone_d6_letter_read"
+      ],
+      "triggerKeys": [
+        "second_letter",
+        "refugee_ev_d6",
+        "second_letter:refugee_ev_d6",
+        "refugee_d_6_1",
+        "refugee_d_6_2",
+        "refugee_d_6_3",
+        "refugee_d_6_4",
+        "refugee_d_6_5",
+        "refugee_d_6_6",
+        "refugee_d_6_7",
+        "refugee_d_6_8",
+        "refugee_d_6_9",
+        "refugee_d_6_10",
+        "refugee_d_6_11",
+        "refugee_d_6_12",
+        "refugee_d_6_13",
+        "refugee_d_6_14",
+        "is_ev_d6_completed",
+        "is_second_letter_red_once",
+        "is_waiting_amulet_from_s22",
+        "donkey_lock_wool",
+        "pagan_amulet",
+        "table_book_constr",
+        "intestine",
+        "beeswax",
+        "gd_zone_s23_is_active",
+        "s_ev_21_take_hair",
+        "s_ev_22_make_amulet",
+        "dlc_refugees_s_ev_d6_battle_supply",
+        "dlc_refugees_s_ev_d6_krezvold",
+        "dlc_refugees_s_ev_d6_pumpkin",
+        "dlc_refugees_s_ev_d6_pumpkin_enchant",
+        "@refugee_d_7",
+        "npc_witch:@refugee_d_7",
+        "@refugee_d_8",
+        "npc_blacksmith:@refugee_d_8",
+        "get_item_d7",
+        "get_item_d9",
+        "d7_send_items",
+        "d9_send_items",
+        "i_goc_revolution_event",
+        "contraband_box",
+        "magic_pumpkin",
+        "battle_horseshoes",
+        "unicorn_horn",
+        "on_event_d7_items_sent",
+        "on_event_d9_items_sent",
+        "check_ev_d10_start",
+        "dlc_refugees_d6",
+        "gykmp_story_phase_game_of_crone_d6_second_letter_personal_read_claimed",
+        "gykmp_story_branch_game_of_crone_d6_waiting_amulet",
+        "gykmp_story_transaction_game_of_crone_donkey_hair_grant",
+        "gykmp_story_phase_game_of_crone_d6_second_letter_shared_payload_claimed",
+        "gykmp_story_achievement_eligibility_game_of_crone_d6",
+        "gykmp_story_achievement_game_of_crone_d6",
+        "gykmp_story_phase_game_of_crone_d6_second_letter_shared_payload_complete",
+        "gykmp_story_phase_game_of_crone_d6_second_letter_read_complete"
+      ],
+      "expectedEffects": [
+        {
+          "kind": "personal_story_phase",
+          "id": "gykmp_story_phase_game_of_crone_d6_second_letter_personal_read_claimed",
+          "operation": "freeze_and_commit_the_reading_profiles_exact_is_second_letter_red_once_branch_before_disabling_control_then_reuse_it_at_the_post-line-twelve_check",
+          "amount": 1,
+          "ownership": "personal_profile"
+        },
+        {
+          "kind": "player_param",
+          "id": "is_ev_d6_completed",
+          "operation": "set_one_for_the_actual_reader_immediately_after_control_disable_and_before_line_one_as_an_early_nonterminal_cross-route_latch",
+          "amount": 1,
+          "ownership": "personal_profile"
+        },
+        {
+          "kind": "dialogue_sequence",
+          "id": "refugee_d_6_1_through_12",
+          "operation": "present_the_twelve_source_InfoBox_lines_in_order_to_the_actual_reader_on_every_use",
+          "amount": 12,
+          "ownership": "personal_presentation"
+        },
+        {
+          "kind": "personal_branch_receipt",
+          "id": "gykmp_story_branch_game_of_crone_d6_waiting_amulet",
+          "operation": "on_a_first_read_freeze_whether_that_readers_is_waiting_amulet_from_s22_is_zero_or_at-least-one_before_the_conditional_hair_convergence",
+          "amount": 1,
+          "ownership": "personal_profile"
+        },
+        {
+          "kind": "source_drop_reservation",
+          "id": "gykmp_story_transaction_game_of_crone_donkey_hair_grant",
+          "operation": "only_on_the_waiting_branch_and_only_if_the_shared_s22-or-D6_hair_transaction_is_unresolved_reserve_or_adopt_one_ToPlayer_donkey_lock_wool_drop_for_the_bound_reader",
+          "amount": 1,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "inventory_item",
+          "id": "donkey_lock_wool",
+          "operation": "deliver_one_nonthrowable_unusable_shared_story_token_to_the_waiting_reader_without_party_duplication_or_regrant_after_the_alternate_s22_path",
+          "amount": 1,
+          "ownership": "shared_story_token"
+        },
+        {
+          "kind": "craft_recipe",
+          "id": "pagan_amulet",
+          "operation": "conditionally_unlock_the_needs-unlock-true_is-auto-false_one-time-craft-true_table_book_constr_recipe_with_craft-time-four_craft-time-is-zero-false_energy-zero_gratitude-cost-zero_sanity-zero_exact-ordered-needs_intestine-one_beeswax-one_donkey_lock_wool-one_output_pagan_amulet-one_empty-output-to-WGO_transfer-needs-to-WGO-false_hide-quality-icon-false_no-multiquality_needs-quality-zero_no-tool-actions_end-script_on_pagan_amulet_crafted_and_empty-end-event",
+          "amount": 1,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "player_param",
+          "id": "gd_zone_s23_is_active",
+          "operation": "conditionally_set_one_only_for_the_waiting_reader_after_the_pagan_amulet_craft_unlock_until_the_later_s23_route_consumes_it",
+          "amount": 1,
+          "ownership": "personal_profile"
+        },
+        {
+          "kind": "npc_task",
+          "id": "donkey:s_ev_21_take_hair",
+          "operation": "conditionally_set_Complete_after_the_hair_drop_recipe_and_personal_dungeon_latch_with_zero_story_rewards",
+          "amount": 1,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "npc_task",
+          "id": "player:s_ev_22_make_amulet",
+          "operation": "conditionally_set_Visible_after_the_hair_task_completion_with_zero_story_rewards_and_leave_fulfillment_to_the_existing_MemoryClouds_catalogue",
+          "amount": 1,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "first_read_dialogue",
+          "id": "refugee_d_6_13_through_14",
+          "operation": "present_the_two_Player_thoughts_in_order_only_when_the_readers_exact_typoed_read_flag_was_zero",
+          "amount": 2,
+          "ownership": "personal_profile"
+        },
+        {
+          "kind": "story_phase",
+          "id": "gykmp_story_phase_game_of_crone_d6_second_letter_shared_payload_claimed",
+          "operation": "acquire_once_after_one_profiles_first-read_dialogue_and_conditional_hair_convergence_before_any_shared_D6_task_topic_WGO_craft_or_achievement_mutation",
+          "amount": 1,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "npc_task",
+          "id": "donkey:dlc_refugees_s_ev_d6_battle_supply",
+          "operation": "set_Visible_first_with_zero_story_rewards",
+          "amount": 1,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "npc_task",
+          "id": "npc_blacksmith:dlc_refugees_s_ev_d6_krezvold",
+          "operation": "set_Visible_second_with_zero_story_rewards",
+          "amount": 1,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "npc_task",
+          "id": "donkey:dlc_refugees_s_ev_d6_pumpkin",
+          "operation": "set_Visible_third_with_zero_story_rewards",
+          "amount": 1,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "npc_task",
+          "id": "npc_witch:dlc_refugees_s_ev_d6_pumpkin_enchant",
+          "operation": "set_Visible_fourth_with_zero_story_rewards",
+          "amount": 1,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "dialogue_phrase",
+          "id": "@refugee_d_7",
+          "operation": "unlock_first_on_npc_witch_for_the_future_Enchant-a-pumpkin_branch_without_selecting_or_blacklisting_it",
+          "amount": 1,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "dialogue_phrase",
+          "id": "@refugee_d_8",
+          "operation": "unlock_second_on_npc_blacksmith_for_the_future_two-details_pile_battle-equipment_branch_without_selecting_or_blacklisting_it",
+          "amount": 1,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "wgo_param",
+          "id": "donkey:get_item_d7",
+          "operation": "set_one_after_both_topics_until_the_later_contraband_checker_consumes_one_magic_pumpkin",
+          "amount": 1,
+          "ownership": "shared_world"
+        },
+        {
+          "kind": "wgo_param",
+          "id": "donkey:get_item_d9",
+          "operation": "set_one_after_get_item_d7_until_the_later_contraband_checker_consumes_one_battle_horseshoes_and_one_unicorn_horn",
+          "amount": 1,
+          "ownership": "shared_world"
+        },
+        {
+          "kind": "craft",
+          "id": "d7_send_items",
+          "operation": "unlock_first_as_the_needs-unlock-true_is-auto-true_one-time-craft-true_contraband-box_recipe_with_source-icon_i_goc_revolution_event_craft-time-zero_craft-time-is-zero-true_energy-zero_gratitude-cost-zero_sanity-zero_exact-need_magic_pumpkin-one_empty-player-output_output-to-WGO_magic_pumpkin-one_transfer-needs-to-WGO-false_hide-quality-icon-true_no-multiquality_needs-quality-zero_no-tool-actions_end-script_on_event_d7_items_sent_and_empty-end-event",
+          "amount": 1,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "craft",
+          "id": "d9_send_items",
+          "operation": "unlock_second_as_the_needs-unlock-true_is-auto-true_one-time-craft-true_contraband-box_recipe_with_source-icon_i_goc_revolution_event_craft-time-zero_craft-time-is-zero-true_energy-zero_gratitude-cost-zero_sanity-zero_exact-ordered-needs_battle_horseshoes-one_then_unicorn_horn-one_empty-player-output_ordered-output-to-WGO_battle_horseshoes-one_then_unicorn_horn-one_transfer-needs-to-WGO-false_hide-quality-icon-true_no-multiquality_needs-quality-zero_no-tool-actions_end-script_on_event_d9_items_sent_and_empty-end-event",
+          "amount": 1,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "story_eligibility_receipt",
+          "id": "gykmp_story_achievement_eligibility_game_of_crone_d6",
+          "operation": "record_once_after_both_send-craft_unlocks_before_the_source_key_check",
+          "amount": 1,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "serialized_achievement_key",
+          "id": "dlc_refugees_d6",
+          "operation": "check_once_in_the_authoritative_campaign_AchievementsSystem_at_the_exact_source_checkpoint",
+          "amount": 1,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "platform_achievement_receipt",
+          "id": "gykmp_story_achievement_game_of_crone_d6",
+          "operation": "deliver_the_optional_platform_unlock_once_per_personal_profile_outside_ordinary_QuestSync",
+          "amount": 1,
+          "ownership": "personal_profile"
+        },
+        {
+          "kind": "story_phase",
+          "id": "gykmp_story_phase_game_of_crone_d6_second_letter_shared_payload_complete",
+          "operation": "commit_after_the_four_tasks_two_topics_two_consumable_latches_two_send-craft_unlocks_and_achievement_receipts_are_durable",
+          "amount": 1,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "player_param",
+          "id": "is_second_letter_red_once",
+          "operation": "set_one_only_for_the_reading_profile_after_shared-payload_convergence_using_the_exact_source_typo",
+          "amount": 1,
+          "ownership": "personal_profile"
+        },
+        {
+          "kind": "personal_story_phase",
+          "id": "gykmp_story_phase_game_of_crone_d6_second_letter_read_complete",
+          "operation": "commit_for_each_reading_profile_after_its_typoed_flag_and_control_restoration_are_durable",
+          "amount": 1,
+          "ownership": "personal_profile"
+        }
+      ],
+      "safeguards": [
+        "use_is_second_letter_red_once_exactly_as_serialized_and_keep_it_personal_so_one_reader_does_not_suppress_another_profiles_first-read_thoughts",
+        "keep_is_ev_d6_completed_personal_and_early_because_the_independent_s22_branch_uses_it_to_choose_immediate-versus-deferred_hair_delivery",
+        "separate_the_personal_first-read_phase_conditional_shared_hair_transaction_and_single_D6_shared-payload_claim_because_the_vanilla_personal_flag_gates_all_three",
+        "later_personal_reads_present_only_InfoBoxes_one-through-twelve_and_skip_the_waiting_branch_thoughts_thirteen-fourteen_and_every_shared_D6_mutation",
+        "never_put_get_item_d7_or_get_item_d9_in_wgoParamMinimums_because_later_Donkey_collections_consume_them",
+        "never_put_d7_send_items_or_d9_send_items_in_task_milestone_unlockedCrafts_because_the_tasks_precede_the_craft_tail_and_future_one-time_sends_consume_or_lock_them",
+        "never_put_pagan_amulet_or_the_conditional_hair_task_state_in_this_catalogues_milestones_because_MemoryClouds_owns_that_cross-route_transaction_and_fulfillment",
+        "treat_the_readers_waiting-amulet_branch_as_one_alternate_entrance_to_the_existing_hair_transaction_and_ignore_the_box_graphs_dead_hair_nodes",
+        "the_dlc_refugees_d6_achievement_check_occurs_after_the_two_crafts_but_before_the_personal_typoed_flag_and_player_enable_so_it_is_not_terminal_read_evidence",
+        "treat_GameSave_platform_reconstruction_from_donkey_dlc_refugees_s_ev_d6_battle_supply_Visible-or-Complete_only_as_input_to_each_profiles_idempotent_platform_receipt_and_never_as_shared-payload_or_terminal-read_evidence",
+        "resolve_the_canonical_Donkey_before_disabling_the_reader_and_restore_only_that_profile_on_success_disconnect_cancellation_timeout_or_recovery",
+        "do_not_consume_regrant_or_relocate_second_letter_on_read_and_do_not_mutate_an_observers_personal_flags_topics_or_control",
+        "the_D6_read_schedules_no_new_timer_and_the_clean_boundary_is_before_refugee_d_7_refugee_d_8_pagan_amulet_d7_send_items_d9_send_items_on_event_d7_items_sent_on_event_d9_items_sent_or_check_ev_d10_start_execution",
+        "finish_only_after_the_shared_payload_and_initiating_profiles_personal_flags_control_and_read-complete_receipt_have_converged"
+      ]
+    },
+    {
+      "stepId": "game_of_crone_ask_clotho_to_enchant_a_pumpkin",
+      "title": "Trade one gold-quality pumpkin for Clotho's enchantment offer",
+      "linkedQuestIds": [
+        "dlc_refugees_d6"
+      ],
+      "linkedTaskMilestoneIds": [
+        "game_of_crone_witch_magic_pumpkin_help_requested",
+        "game_of_crone_witch_magic_pumpkin_help_completed",
+        "game_of_crone_witch_magic_pumpkin_payment_opened"
+      ],
+      "triggerScripts": [
+        "gykmp_story_dispatch_game_of_crone_d7_pumpkin_enchantment"
+      ],
+      "triggerKeys": [
+        "gykmp_story_phase_game_of_crone_d6_second_letter_shared_payload_complete",
+        "npc_witch:@refugee_d_7",
+        "@refugee_d_7",
+        "MultiAnswerOptionGUI.OnChosen",
+        "pumpkin_crop:3",
+        "dlc_refugees_s_ev_d6_pumpkin_enchant",
+        "refugee_d_7_1",
+        "refugee_d_7_2",
+        "refugee_d_7_3",
+        "refugee_d_7_4",
+        "refugee_d_7_5",
+        "refugee_d_7_6",
+        "refugee_d_7_7",
+        "refugee_d_7_8",
+        "refugee_d_7_9",
+        "refugee_d_7_10",
+        "dlc_refugees_s_ev_d7_money",
+        "@refugee_d_7_money",
+        "gykmp_story_transaction_game_of_crone_d7_gold_pumpkin_payment",
+        "gykmp_story_phase_game_of_crone_d7_enchantment_payment_opened"
+      ],
+      "expectedEffects": [
+        {
+          "kind": "story_transaction",
+          "id": "gykmp_story_transaction_game_of_crone_d7_gold_pumpkin_payment",
+          "operation": "record_the_selecting_profile_and_intent_debited-converged_subreceipts_around_the_pre-dispatch_AnswerData_price",
+          "amount": 1,
+          "ownership": "initiating_player_transaction"
+        },
+        {
+          "kind": "inventory_item",
+          "id": "pumpkin_crop:3",
+          "operation": "consume_exactly_one_quality-three_product-tier-three_Stars_pumpkin_from_the_bound_selecting_profiles_direct_player_inventory_first_then_top-level_carried-bag_contents_before_topic_dispatch",
+          "amount": 1,
+          "ownership": "initiating_player_transaction"
+        },
+        {
+          "kind": "dialogue_phrase",
+          "id": "@refugee_d_7",
+          "operation": "blacklist_after_the_durable_debit_before_the_help-task_completion",
+          "amount": 1,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "npc_task",
+          "id": "npc_witch:dlc_refugees_s_ev_d6_pumpkin_enchant",
+          "operation": "set_Complete_after_the_blacklist_with_zero_story_rewards",
+          "amount": 1,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "dialogue_sequence",
+          "id": "refugee_d_7_1_through_10",
+          "operation": "present_all_ten_source_lines_in_order_to_the_bound_dialogue_owner_with_line_ten_as_Player_Think",
+          "amount": 10,
+          "ownership": "live_presentation"
+        },
+        {
+          "kind": "npc_task",
+          "id": "npc_witch:dlc_refugees_s_ev_d7_money",
+          "operation": "set_Visible_after_line_ten_with_zero_story_rewards",
+          "amount": 1,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "dialogue_phrase",
+          "id": "@refugee_d_7_money",
+          "operation": "unlock_after_the_payment-task_opening_using_the_exact_source_identifier_despite_its_missing_English_localization_entry",
+          "amount": 1,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "story_phase",
+          "id": "gykmp_story_phase_game_of_crone_d7_enchantment_payment_opened",
+          "operation": "commit_after_the_debit_blacklist_task_dialogue_payment-task_topic-and-control_suffix_is_durable",
+          "amount": 1,
+          "ownership": "shared_campaign"
+        }
+      ],
+      "safeguards": [
+        "the_required_item_is_exactly_pumpkin_crop_colon_3_one_not_an_unqualified_pumpkin_and_its_colon-bearing_ID_must_remain_exact_in_data_lookups",
+        "the_source_UI_debits_MainGame_me_player_before_the_flow_handler_so_remote_selection_requires_an_initiator-bound_wrapper_before_host_dispatch",
+        "do_not_reopen_refugee_d_7_from_the_prior_Visible_task_after_the_payment_receipt_or_blacklist_exists",
+        "do_not_unlock_refugee_d_7_money_from_the_payment-task_Visible_milestone_because_the_source_unlock_is_a_later_suffix",
+        "restore_only_the_bound_player_and_do_not_mutate_observers_inventory_or_control"
+      ]
+    },
+    {
+      "stepId": "game_of_crone_buy_clothos_magic_pumpkin",
+      "title": "Pay Clotho 50 money and receive the magic pumpkin",
+      "linkedQuestIds": [
+        "dlc_refugees_d6"
+      ],
+      "linkedTaskMilestoneIds": [
+        "game_of_crone_witch_magic_pumpkin_payment_opened",
+        "game_of_crone_witch_magic_pumpkin_payment_completed"
+      ],
+      "triggerScripts": [
+        "gykmp_story_dispatch_game_of_crone_d7_pumpkin_purchase"
+      ],
+      "triggerKeys": [
+        "npc_witch:@refugee_d_7_money",
+        "@refugee_d_7_money",
+        "MultiAnswerOptionGUI.OnChosen",
+        "money",
+        "dlc_refugees_s_ev_d7_money",
+        "magic_pumpkin",
+        "i_magic_pumpkin",
+        "Flow_DropItem",
+        "Direction.ToPlayer",
+        "gykmp_story_transaction_game_of_crone_d7_money_payment",
+        "gykmp_story_transaction_game_of_crone_d7_magic_pumpkin_drop",
+        "gykmp_story_phase_game_of_crone_d7_magic_pumpkin_received"
+      ],
+      "expectedEffects": [
+        {
+          "kind": "story_transaction",
+          "id": "gykmp_story_transaction_game_of_crone_d7_money_payment",
+          "operation": "record_the_actual_payer_and_intent_debited-converged_subreceipts_around_the_pre-dispatch_money-fifty_AnswerData_price",
+          "amount": 50,
+          "ownership": "initiating_player_transaction"
+        },
+        {
+          "kind": "dialogue_phrase",
+          "id": "@refugee_d_7_money",
+          "operation": "blacklist_after_the_durable_debit_before_the_payment-task_completion",
+          "amount": 1,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "npc_task",
+          "id": "npc_witch:dlc_refugees_s_ev_d7_money",
+          "operation": "set_Complete_after_the_blacklist_with_zero_story_rewards_and_treat_as_pre-drop_evidence_only",
+          "amount": 1,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "source_drop_reservation",
+          "id": "gykmp_story_transaction_game_of_crone_d7_magic_pumpkin_drop",
+          "operation": "reserve_suppress_or_adopt_the_single_Clotho-originated_Direction-ToPlayer_physical_drop_before_any_synthetic_allocation",
+          "amount": 1,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "inventory_item",
+          "id": "magic_pumpkin",
+          "operation": "assign_exactly_one_icon_i_magic_pumpkin_not-used-false_stack-one_discard-protected_stay-on-use-false_can-be-used-false_inert_shared_story_token_to_the_bound_payer_or_authoritative_shared-quest_inventory_after_source-drop_accounting",
+          "amount": 1,
+          "ownership": "shared_story_token"
+        },
+        {
+          "kind": "story_phase",
+          "id": "gykmp_story_phase_game_of_crone_d7_magic_pumpkin_received",
+          "operation": "commit_after_the_currency_blacklist_task_drop_allocation-and-control_suffix_is_durable",
+          "amount": 1,
+          "ownership": "shared_campaign"
+        }
+      ],
+      "safeguards": [
+        "the_source_topic_has_no_English_localization_entry_but_its_exact_identifier_and_money-fifty_price_are_authoritative",
+        "Direction_ToPlayer_spawns_relative_to_local_MainGame_me_player_and_is_neither_direct_inventory_delivery_nor_proof_of_the_remote_payers_receipt",
+        "leave_personalItemGrants_empty_until_physical-drop_reservation_suppression_adoption_and_shared-token_ownership_are_atomic",
+        "do_not_party-duplicate_magic_pumpkin_because_only_one_d7_send_items_payload_and_one_Donkey_collection_exist",
+        "do_not_infer_the_drop_or_pickup_from_npc_witch_dlc_refugees_s_ev_d7_money_Complete"
+      ]
+    },
+    {
+      "stepId": "game_of_crone_deposit_donkeys_magic_pumpkin",
+      "title": "Deposit the magic pumpkin in Donkey's contraband box",
+      "linkedQuestIds": [
+        "dlc_refugees_d6"
+      ],
+      "linkedTaskMilestoneIds": [
+        "game_of_crone_witch_magic_pumpkin_payment_completed",
+        "game_of_crone_donkey_magic_pumpkin_requested",
+        "game_of_crone_donkey_magic_pumpkin_fulfilled"
+      ],
+      "triggerScripts": [
+        "gykmp_story_dispatch_game_of_crone_d7_pumpkin_deposit",
+        "gykmp_story_dispatch_game_of_crone_d7_pumpkin_callback"
+      ],
+      "triggerKeys": [
+        "d7_send_items",
+        "i_goc_revolution_event",
+        "contraband_box",
+        "magic_pumpkin",
+        "MultiInventory.DestinationType.AllFromFirst",
+        "CraftComponent.FinishCurrentCraft",
+        "WorldGameObject.AttachFlowScript",
+        "GameSave.OnFinishedCraft",
+        "on_event_d7_items_sent",
+        "dlc_refugees_s_ev_d6_pumpkin",
+        "try_donkey_force_come",
+        "try_force_send",
+        "Flow_FireEvent",
+        "gykmp_story_transaction_game_of_crone_d7_magic_pumpkin_deposit",
+        "gykmp_story_event_game_of_crone_d7_immediate_donkey_visit",
+        "gykmp_story_phase_game_of_crone_d7_pumpkin_deposited"
+      ],
+      "expectedEffects": [
+        {
+          "kind": "craft_recipe",
+          "id": "d7_send_items",
+          "operation": "execute_the_previously-unlocked_craft-in-contraband-box_with_source-icon_i_goc_revolution_event_hidden-false_needs-unlock-true_is-auto-true_one-time-craft-true_recipe_with_craft-time-zero_craft-time-is-zero-true_energy-zero_gratitude-cost-zero_sanity-zero_exact-ordered-need_magic_pumpkin-one_empty-player-output_output-to-WGO_magic_pumpkin-one_empty-needs-from-WGO_empty-output-to-WGO-on-start_transfer-needs-to-WGO-false_hide-quality-icon-true_no-multiquality_needs-quality-zero_no-tool-actions_end-script_on_event_d7_items_sent_and_empty-end-event",
+          "amount": 1,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "story_transaction",
+          "id": "gykmp_story_transaction_game_of_crone_d7_magic_pumpkin_deposit",
+          "operation": "atomically_record_exact_AllFromFirst_source-allocation_and-debit_box-credit_attached-callback_and_completed-one-time-marker_subreceipts",
+          "amount": 1,
+          "ownership": "initiating_player_transaction"
+        },
+        {
+          "kind": "inventory_item",
+          "id": "magic_pumpkin",
+          "operation": "remove_one_from_the_actual_AllFromFirst_interaction-MultiInventory_source_at_craft_start_then_add_one_identical_item_to_the_canonical_box_at_zero-time_finish",
+          "amount": 1,
+          "ownership": "shared_story_token"
+        },
+        {
+          "kind": "completed_one_time_craft",
+          "id": "d7_send_items",
+          "operation": "record_only_after_GameSave_OnFinishedCraft_and_do_not_infer_it_from_box-credit_or_callback-task_completion",
+          "amount": 1,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "npc_task",
+          "id": "donkey:dlc_refugees_s_ev_d6_pumpkin",
+          "operation": "set_Complete_with_zero_story_rewards_from_the_fresh_box-attached_on_event_d7_items_sent_script",
+          "amount": 1,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "world_event_intent",
+          "id": "gykmp_story_event_game_of_crone_d7_immediate_donkey_visit",
+          "operation": "persist_before_requesting_donkey_try_force_send_with_requested_delay-zero_through_the_unjoined_0_03-real-second_wrapper",
+          "amount": 1,
+          "ownership": "shared_world"
+        },
+        {
+          "kind": "story_phase",
+          "id": "gykmp_story_phase_game_of_crone_d7_pumpkin_deposited",
+          "operation": "commit_after_the_craft_debit_box-credit_marker_callback-task-and-immediate-visit-intent_subreceipts_are_durable",
+          "amount": 1,
+          "ownership": "shared_campaign"
+        }
+      ],
+      "safeguards": [
+        "allow_AllFromFirst_to_select_player-bag_nearby-shared-or-zone-storage_inventories_and_record_the_actual_source_allocations_instead_of_charging_only_the_named_initiator",
+        "recover_a_crash_between_input_removal_and_output_to_WGO_without_creating_a_second_shared_magic_pumpkin_or_losing_the_only_one",
+        "the_output_to_WGO_credit_precedes_AttachFlowScript_and_the_attach_API_call_precedes_OnFinishedCraft_but_attached-script_execution_order_is_not_proven_so_reconcile_each_subreceipt_independently",
+        "never_infer_callback-task_completion_craft-marker_or_visit-delivery_from_any_other_deposit_subreceipt",
+        "the_strict_Donkey_lookup_can_fail_after_the_task_has_completed_so_retain_and_replay_only_the_missing_visit-intent_suffix",
+        "do_not_reunlock_d7_send_items_from_the_prior_D6_task_or_craft_state_after_its_one-time_completion"
+      ]
+    },
+    {
+      "stepId": "game_of_crone_complete_donkeys_magic_pumpkin_collection",
+      "title": "Let Donkey collect the magic pumpkin and advance the D10 supply convergence",
+      "linkedQuestIds": [
+        "dlc_refugees_d6"
+      ],
+      "linkedTaskMilestoneIds": [
+        "game_of_crone_donkey_magic_pumpkin_fulfilled"
+      ],
+      "triggerScripts": [
+        "gykmp_story_dispatch_game_of_crone_d7_pumpkin_collection"
+      ],
+      "triggerKeys": [
+        "check_contraband_box",
+        "get_item_d7",
+        "magic_pumpkin",
+        "contraband",
+        "_rel_donkey",
+        "check_ev_d10_start",
+        "ev_d10_check_count",
+        "get_item_d9",
+        "battle_horseshoes",
+        "unicorn_horn",
+        "gykmp_story_transaction_game_of_crone_d7_magic_pumpkin_collection",
+        "gykmp_story_relation_game_of_crone_donkey_d7_magic_pumpkin",
+        "gykmp_story_counter_game_of_crone_d10_magic_pumpkin_collection",
+        "gykmp_story_counter_game_of_crone_d10_battle_supply_collection",
+        "gykmp_story_phase_game_of_crone_d7_fulfillment_complete"
+      ],
+      "expectedEffects": [
+        {
+          "kind": "story_transaction",
+          "id": "gykmp_story_transaction_game_of_crone_d7_magic_pumpkin_collection",
+          "operation": "claim_and_remove_exactly_one_magic_pumpkin_then_clear_get_item_d7_set_contraband-one_apply_relation-plus-ten-and_invoke_check_ev_d10_start",
+          "amount": 1,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "wgo_param",
+          "id": "donkey:get_item_d7",
+          "operation": "set_exactly_zero_only_after_the_magic-pumpkin_removal_is_durable",
+          "amount": 0,
+          "ownership": "shared_world"
+        },
+        {
+          "kind": "wgo_param_transition",
+          "id": "donkey:contraband",
+          "operation": "set_one_after_get_item_d7_clears_until_npc_donkey_on_returned_home_resets_it",
+          "amount": 1,
+          "ownership": "shared_world"
+        },
+        {
+          "kind": "relationship_delta_receipt",
+          "id": "gykmp_story_relation_game_of_crone_donkey_d7_magic_pumpkin",
+          "operation": "apply_exactly_plus-ten_to_the_authoritative_shared_player-param__rel_donkey_once_before_the_D10_counter_macro",
+          "amount": 10,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "counter_delta_receipt",
+          "id": "gykmp_story_counter_game_of_crone_d10_magic_pumpkin_collection",
+          "operation": "apply_exactly_one_source_increment_to_donkey_ev_d10_check_count_for_the_magic-pumpkin_bundle_after_the_relation_receipt",
+          "amount": 1,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "story_phase",
+          "id": "gykmp_story_phase_game_of_crone_d7_fulfillment_complete",
+          "operation": "commit_after_the_D7_removal_flag_relation-and-counter_receipts_are_durable_without_waiting_for_D9_D10_timers_or_Donkeys_return-home_cleanup",
+          "amount": 1,
+          "ownership": "shared_campaign"
+        }
+      ],
+      "safeguards": [
+        "normalize_D7s_exact_duplicate-wire_pattern_once_doubled_Yes-and-Out_control_edges_two_box-WGO_and-two-item_links_per_Has-or-Remove_and_three_Donkey-WGO_links_into_get_item_d7-zero",
+        "preserve_the_shared-checker_order_D6-letter_then-D7-then-D9_and_do_not_skip_or_claim_any_adjacent_pending_branch",
+        "if_both_payloads_are_present_in_one_pass_D7_is_first_and_D9_is_second_because_the_checker_continues_from_D7_into_D9",
+        "if_D9_was_collected_on_an_earlier_pass_D7_is_second_and_must_dispatch_the_single_shared_D10_convergence_after_its_own_counter_receipt",
+        "do_not_copy_D9s_distinct_duplicate_wiring_onto_D7_D9_has_doubled_flag_edges_a_doubled_Dummy-142-Out-to-Dummy-144_zero-path_edge_three_battle-Has_links_four_get_item_d9-zero_Donkey-links_and_a_doubled_macro-continuation_edge",
+        "never_minimum-repair_or_add_again_to_donkey_ev_d10_check_count_or__rel_donkey_because_both_are_additive_and_the_raw_greater-than-two_path_reschedules_events",
+        "do_not_require_npc_donkey_on_returned_home_or_contraband-zero_for_the_D7_terminal_phase",
+        "leave_all_timer_registration_to_the_shared_D10_convergence_step_and_stop_before_unlock_event_d10_delivery"
+      ]
+    },
+    {
+      "stepId": "game_of_crone_commission_battle_supplies_from_krezvold",
+      "title": "Give Krezvold two component piles and commission Donkey's battle supplies",
+      "linkedQuestIds": [
+        "dlc_refugees_d6"
+      ],
+      "linkedTaskMilestoneIds": [
+        "game_of_crone_blacksmith_battle_supply_help_requested",
+        "game_of_crone_blacksmith_battle_supply_help_completed"
+      ],
+      "triggerScripts": [
+        "gykmp_story_dispatch_game_of_crone_d8_battle_supply_commission"
+      ],
+      "triggerKeys": [
+        "gykmp_story_phase_game_of_crone_d6_second_letter_shared_payload_complete",
+        "npc_blacksmith:@refugee_d_8",
+        "@refugee_d_8",
+        "MultiAnswerOptionGUI.OnChosen",
+        "details_pile",
+        "i_details_pile",
+        "dlc_refugees_s_ev_d6_krezvold",
+        "refugee_d_8_1",
+        "refugee_d_8_2",
+        "refugee_d_8_3",
+        "refugee_d_8_4",
+        "refugee_d_8_5",
+        "refugee_d_8_6",
+        "refugee_d_8_7",
+        "refugee_d_8_8",
+        "refugee_d_8_9",
+        "refugee_d_8_10",
+        "refugee_d_8_11",
+        "@refugee_d_8_12",
+        "gykmp_story_transaction_game_of_crone_d8_component_pile_payment",
+        "gykmp_story_phase_game_of_crone_d8_money_payment_opened"
+      ],
+      "expectedEffects": [
+        {
+          "kind": "story_transaction",
+          "id": "gykmp_story_transaction_game_of_crone_d8_component_pile_payment",
+          "operation": "record_the_selecting_profile_and_intent_debited-converged_subreceipts_around_the_pre-dispatch_details-pile-two_AnswerData_price",
+          "amount": 2,
+          "ownership": "initiating_player_transaction"
+        },
+        {
+          "kind": "inventory_item",
+          "id": "details_pile",
+          "operation": "consume_exactly_two_icon_i_details_pile_not-used-true_stack-five_discard-protected_nonusable_component_items_from_the_bound_selecting_profiles_direct_player_inventory_first_then_top-level_carried-bag_contents_combining_sources_if_needed_before_topic_dispatch",
+          "amount": 2,
+          "ownership": "initiating_player_transaction"
+        },
+        {
+          "kind": "dialogue_phrase",
+          "id": "@refugee_d_8",
+          "operation": "blacklist_after_the_durable_component_debit_before_the_help-task_completion",
+          "amount": 1,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "npc_task",
+          "id": "npc_blacksmith:dlc_refugees_s_ev_d6_krezvold",
+          "operation": "set_Complete_after_the_blacklist_with_zero_story_rewards_and_treat_as_pre-dialogue_evidence",
+          "amount": 1,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "dialogue_sequence",
+          "id": "refugee_d_8_1_through_11",
+          "operation": "present_all_eleven_source_lines_in_order_to_the_bound_dialogue_owner",
+          "amount": 11,
+          "ownership": "live_presentation"
+        },
+        {
+          "kind": "dialogue_phrase",
+          "id": "@refugee_d_8_12",
+          "operation": "unlock_after_line_eleven_as_the_exact_money-fifty_payment_topic",
+          "amount": 1,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "story_phase",
+          "id": "gykmp_story_phase_game_of_crone_d8_money_payment_opened",
+          "operation": "commit_after_component-debit_blacklist_task_dialogue_topic-and-control_suffix_converges",
+          "amount": 1,
+          "ownership": "shared_campaign"
+        }
+      ],
+      "safeguards": [
+        "the_details-pile_price_is_two_items_removed_by_MultiAnswerOptionGUI_from_the_selecting_profiles_direct_player_inventory_first_then_top-level_carried-bag_contents_combining_sources_if_needed_not_the_craft_AllFromFirst_path",
+        "the_two_details_pile_are_the_single_shared_bundle_from_Donkeys_second-letter_delivery_and_must_not_be_party-duplicated_or_charged_to_an_observer",
+        "do_not_repair_refugee_d_8_12_from_the_Krezvold-task_Complete_milestone_because_the_topic_unlock_follows_eleven_dialogue_lines",
+        "do_not_debit_the_fifty-money_price_during_this_first_commission_handler",
+        "restore_only_the_bound_player_and_leave_other_players_control_unchanged"
+      ]
+    },
+    {
+      "stepId": "game_of_crone_pay_krezvold_and_wait_until_midnight",
+      "title": "Pay Krezvold 50 money and wait until midnight for the battle supplies",
+      "linkedQuestIds": [
+        "dlc_refugees_d6"
+      ],
+      "linkedTaskMilestoneIds": [
+        "game_of_crone_blacksmith_battle_supply_help_completed",
+        "game_of_crone_blacksmith_battle_supply_pickup_opened"
+      ],
+      "triggerScripts": [
+        "gykmp_story_dispatch_game_of_crone_d8_battle_supply_payment",
+        "gykmp_story_dispatch_game_of_crone_d9_pickup_topic_unlock"
+      ],
+      "triggerKeys": [
+        "npc_blacksmith:@refugee_d_8_12",
+        "@refugee_d_8_12",
+        "money",
+        "refugee_d_8_13",
+        "dlc_refugees_s_ev_d8_parts",
+        "GetSecondsToTheMidnight",
+        "event_d9_phrase_unlock",
+        "npc_blacksmith:event_d9_phrase_unlock",
+        "@refugee_d_9",
+        "gykmp_story_transaction_game_of_crone_d8_krezvold_money_payment",
+        "gykmp_story_timer_game_of_crone_d9_battle_supply_pickup",
+        "gykmp_story_phase_game_of_crone_d9_pickup_topic_opened"
+      ],
+      "expectedEffects": [
+        {
+          "kind": "story_transaction",
+          "id": "gykmp_story_transaction_game_of_crone_d8_krezvold_money_payment",
+          "operation": "record_the_actual_payer_and_intent_debited-converged_subreceipts_around_the_pre-dispatch_money-fifty_AnswerData_price",
+          "amount": 50,
+          "ownership": "initiating_player_transaction"
+        },
+        {
+          "kind": "dialogue_phrase",
+          "id": "@refugee_d_8_12",
+          "operation": "blacklist_after_the_durable_debit_before_Krezvolds_payment_line",
+          "amount": 1,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "dialogue_line",
+          "id": "refugee_d_8_13",
+          "operation": "present_the_single_Krezvold_line_to_the_actual_payer",
+          "amount": 1,
+          "ownership": "live_presentation"
+        },
+        {
+          "kind": "npc_task",
+          "id": "npc_blacksmith:dlc_refugees_s_ev_d8_parts",
+          "operation": "set_Visible_after_the_line_with_zero_story_rewards",
+          "amount": 1,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "story_timer",
+          "id": "gykmp_story_timer_game_of_crone_d9_battle_supply_pickup",
+          "operation": "sample_GetSecondsToTheMidnight_once_after_the_task_opening_persist_the_host-authoritative_gameplay-time_remaining-delay_and_register_npc_blacksmith_event_d9_phrase_unlock_through_the_unjoined_outer_0_03-real-second_timer",
+          "amount": 1,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "dialogue_phrase",
+          "id": "@refugee_d_9",
+          "operation": "unlock_exactly_once_when_the_persisted_midnight_event_delivers_event_d9_phrase_unlock_on_the_canonical_Krezvold",
+          "amount": 1,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "story_phase",
+          "id": "gykmp_story_phase_game_of_crone_d9_pickup_topic_opened",
+          "operation": "commit_after_the_money_blacklist_line_task_timer-delivery_topic-unlock_and_payer-control_suffix_converges",
+          "amount": 1,
+          "ownership": "shared_campaign"
+        }
+      ],
+      "safeguards": [
+        "the_payer_may_differ_from_the_component-pile_contributor_and_only_the_selecting_payer_loses_money",
+        "never_put_refugee_d_9_in_the_parts-task_Visible_milestone_because_the_source_timer_delivers_it_later",
+        "persist_the_original_gameplay-time_remaining-delay_before_registration_and_never_resample_midnight_after_restart_or_host_migration",
+        "restore_the_payer_immediately_after_timer-request_while_the_shared_topic_remains_pending",
+        "do_not_complete_the_parts_task_or_create_either_battle-supply_item_at_timer_delivery"
+      ]
+    },
+    {
+      "stepId": "game_of_crone_collect_krezvolds_battle_supplies",
+      "title": "Collect the unicorn horn and battle horseshoes from Krezvold",
+      "linkedQuestIds": [
+        "dlc_refugees_d6"
+      ],
+      "linkedTaskMilestoneIds": [
+        "game_of_crone_blacksmith_battle_supply_pickup_opened",
+        "game_of_crone_blacksmith_battle_supply_pickup_completed"
+      ],
+      "triggerScripts": [
+        "gykmp_story_dispatch_game_of_crone_d9_battle_supply_pickup"
+      ],
+      "triggerKeys": [
+        "npc_blacksmith:@refugee_d_9",
+        "@refugee_d_9",
+        "dlc_refugees_s_ev_d8_parts",
+        "refugee_d_9_1",
+        "refugee_d_9_2",
+        "Flow_Talk.Immediate",
+        "Wait:0.5",
+        "refugee_d_9_3",
+        "refugee_d_9_4",
+        "refugee_d_9_5",
+        "refugee_d_9_6",
+        "refugee_d_9_7",
+        "refugee_d_9_8",
+        "unicorn_horn",
+        "i_unicorn_horn",
+        "battle_horseshoes",
+        "i_battle_horseshoes",
+        "Flow_DropItem",
+        "Direction.ToPlayer",
+        "gykmp_story_transaction_game_of_crone_d9_unicorn_horn_drop",
+        "gykmp_story_transaction_game_of_crone_d9_battle_horseshoes_drop",
+        "gykmp_story_phase_game_of_crone_d9_battle_supplies_received"
+      ],
+      "expectedEffects": [
+        {
+          "kind": "dialogue_phrase",
+          "id": "@refugee_d_9",
+          "operation": "blacklist_before_the_parts-task_completion",
+          "amount": 1,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "npc_task",
+          "id": "npc_blacksmith:dlc_refugees_s_ev_d8_parts",
+          "operation": "set_Complete_after_the_blacklist_with_zero_story_rewards_and_treat_as_pre-dialogue-and-drop_evidence",
+          "amount": 1,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "dialogue_sequence",
+          "id": "refugee_d_9_1_through_8",
+          "operation": "present_all_eight_source_lines_in_order_while_line_twos_Immediate_output_runs_the_drop_suffix_in_parallel",
+          "amount": 8,
+          "ownership": "live_presentation"
+        },
+        {
+          "kind": "source_drop_reservation",
+          "id": "gykmp_story_transaction_game_of_crone_d9_unicorn_horn_drop",
+          "operation": "after_the_unjoined_Wait_0_5_reserve_suppress_or_adopt_the_first_source_Direction-ToPlayer_drop",
+          "amount": 1,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "inventory_item",
+          "id": "unicorn_horn",
+          "operation": "assign_one_icon_i_unicorn_horn_not-used-false_stack-one_discard-protected_stay-on-use-false_can-be-used-false_inert_shared_story_token_after_source-drop_accounting",
+          "amount": 1,
+          "ownership": "shared_story_token"
+        },
+        {
+          "kind": "source_drop_reservation",
+          "id": "gykmp_story_transaction_game_of_crone_d9_battle_horseshoes_drop",
+          "operation": "reserve_suppress_or_adopt_the_second_source_Direction-ToPlayer_drop_after_the_horn",
+          "amount": 1,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "inventory_item",
+          "id": "battle_horseshoes",
+          "operation": "assign_one_icon_i_battle_horseshoes_not-used-false_stack-one_discard-protected_stay-on-use-false_can-be-used-false_inert_shared_story_token_after_source-drop_accounting",
+          "amount": 1,
+          "ownership": "shared_story_token"
+        },
+        {
+          "kind": "story_phase",
+          "id": "gykmp_story_phase_game_of_crone_d9_battle_supplies_received",
+          "operation": "commit_after_blacklist_task_dialogue_both_ordered_drop_transactions_item-ownership_and_control_suffix_converges",
+          "amount": 1,
+          "ownership": "shared_campaign"
+        }
+      ],
+      "safeguards": [
+        "task_Complete_precedes_all_eight_lines_and_both_drops_so_it_is_not_item_dialogue_or-control_evidence",
+        "the_drop_suffix_starts_from_line_twos_Immediate_output_and_is_unjoined_from_the_remaining_On-Finished_dialogue_chain",
+        "Direction_ToPlayer_targets_local_MainGame_me_player_position_under_host_execution_and_does_not_prove_which_profile_collected_either_item",
+        "reserve_the_horn_and_horseshoes_independently_so_a_crash_between_them_can_resume_only_the_missing_second_drop",
+        "collapse_the_repeated_battle-horseshoes_value_binding_without_creating_two_horseshoes",
+        "leave_personalItemGrants_empty_and_never_party-duplicate_either_shared_payload_token"
+      ]
+    },
+    {
+      "stepId": "game_of_crone_deposit_donkeys_battle_supplies",
+      "title": "Deposit the battle horseshoes and unicorn horn in Donkey's contraband box",
+      "linkedQuestIds": [
+        "dlc_refugees_d6"
+      ],
+      "linkedTaskMilestoneIds": [
+        "game_of_crone_blacksmith_battle_supply_pickup_completed",
+        "game_of_crone_donkey_battle_supply_requested",
+        "game_of_crone_donkey_battle_supply_fulfilled"
+      ],
+      "triggerScripts": [
+        "gykmp_story_dispatch_game_of_crone_d9_battle_supply_deposit",
+        "gykmp_story_dispatch_game_of_crone_d9_battle_supply_callback"
+      ],
+      "triggerKeys": [
+        "d9_send_items",
+        "i_goc_revolution_event",
+        "contraband_box",
+        "battle_horseshoes",
+        "unicorn_horn",
+        "MultiInventory.DestinationType.AllFromFirst",
+        "CraftComponent.FinishCurrentCraft",
+        "WorldGameObject.AttachFlowScript",
+        "GameSave.OnFinishedCraft",
+        "on_event_d9_items_sent",
+        "dlc_refugees_s_ev_d6_battle_supply",
+        "try_donkey_force_come",
+        "try_force_send",
+        "Flow_FireEvent",
+        "gykmp_story_transaction_game_of_crone_d9_battle_supply_deposit",
+        "gykmp_story_event_game_of_crone_d9_immediate_donkey_visit",
+        "gykmp_story_phase_game_of_crone_d9_battle_supplies_deposited"
+      ],
+      "expectedEffects": [
+        {
+          "kind": "craft_recipe",
+          "id": "d9_send_items",
+          "operation": "execute_the_previously-unlocked_craft-in-contraband-box_with_source-icon_i_goc_revolution_event_hidden-false_needs-unlock-true_is-auto-true_one-time-craft-true_recipe_with_craft-time-zero_craft-time-is-zero-true_energy-zero_gratitude-cost-zero_sanity-zero_exact-ordered-needs_battle_horseshoes-one_then_unicorn_horn-one_empty-player-output_ordered-output-to-WGO_battle_horseshoes-one_then_unicorn_horn-one_empty-needs-from-WGO_empty-output-to-WGO-on-start_transfer-needs-to-WGO-false_hide-quality-icon-true_no-multiquality_needs-quality-zero_no-tool-actions_end-script_on_event_d9_items_sent_and_empty-end-event",
+          "amount": 1,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "story_transaction",
+          "id": "gykmp_story_transaction_game_of_crone_d9_battle_supply_deposit",
+          "operation": "atomically_record_exact_AllFromFirst_allocations-and-debits_for_both_ordered_inputs_both_ordered_box-credits_attached-callback_and_completed-one-time-marker_subreceipts",
+          "amount": 2,
+          "ownership": "initiating_player_transaction"
+        },
+        {
+          "kind": "inventory_item",
+          "id": "battle_horseshoes",
+          "operation": "remove_one_from_its_actual_AllFromFirst_source_at_craft_start_then_add_one_identical_item_to_the_canonical_box_first_at_zero-time_finish",
+          "amount": 1,
+          "ownership": "shared_story_token"
+        },
+        {
+          "kind": "inventory_item",
+          "id": "unicorn_horn",
+          "operation": "remove_one_from_its_actual_AllFromFirst_source_at_craft_start_then_add_one_identical_item_to_the_canonical_box_second_at_zero-time_finish",
+          "amount": 1,
+          "ownership": "shared_story_token"
+        },
+        {
+          "kind": "completed_one_time_craft",
+          "id": "d9_send_items",
+          "operation": "record_only_after_GameSave_OnFinishedCraft_and_do_not_infer_it_from_box-credits_or_callback-task_completion",
+          "amount": 1,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "npc_task",
+          "id": "donkey:dlc_refugees_s_ev_d6_battle_supply",
+          "operation": "set_Complete_with_zero_story_rewards_from_the_fresh_box-attached_on_event_d9_items_sent_script_before_the_visit_macro",
+          "amount": 1,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "world_event_intent",
+          "id": "gykmp_story_event_game_of_crone_d9_immediate_donkey_visit",
+          "operation": "persist_before_requesting_donkey_try_force_send_with_requested-delay-zero_through_the_unjoined_0_03-real-second_wrapper",
+          "amount": 1,
+          "ownership": "shared_world"
+        },
+        {
+          "kind": "story_phase",
+          "id": "gykmp_story_phase_game_of_crone_d9_battle_supplies_deposited",
+          "operation": "commit_after_both_craft-debits_box-credits_marker_callback-task-and-immediate-visit-intent_subreceipts_are_durable",
+          "amount": 1,
+          "ownership": "shared_campaign"
+        }
+      ],
+      "safeguards": [
+        "AllFromFirst_may_split_the_two_needs_across_player-bag_nearby-shared-or-zone-storage_inventories_so_record_each_actual_source_allocation",
+        "the_source_pickup_drops_horn-then-horseshoes_but_the_recipe_consumes-and-credits_horseshoes-then-horn_preserve_each_contexts_own_order",
+        "recover_crashes_between_either_input-debit_output-credit_callback-or-marker_without_losing_or_duplicating_a_payload",
+        "AttachFlowScript_is_not_a_join_or_named_event_and_its_runtime_start_order_relative_to_OnFinishedCraft_is_not_proven",
+        "never_infer_callback-task_craft-marker_visit-delivery_or_box-collection_from_any_other_deposit_subreceipt",
+        "do_not_reunlock_d9_send_items_from_the_prior_D6_state_after_its_one-time_completion"
+      ]
+    },
+    {
+      "stepId": "game_of_crone_complete_donkeys_battle_supply_collection",
+      "title": "Let Donkey collect the battle supplies",
+      "linkedQuestIds": [
+        "dlc_refugees_d6"
+      ],
+      "linkedTaskMilestoneIds": [
+        "game_of_crone_donkey_battle_supply_fulfilled"
+      ],
+      "triggerScripts": [
+        "gykmp_story_dispatch_game_of_crone_d9_battle_supply_collection"
+      ],
+      "triggerKeys": [
+        "check_contraband_box",
+        "get_item_d9",
+        "battle_horseshoes",
+        "unicorn_horn",
+        "contraband",
+        "_rel_donkey",
+        "check_ev_d10_start",
+        "ev_d10_check_count",
+        "gykmp_story_transaction_game_of_crone_d9_battle_supply_collection",
+        "gykmp_story_relation_game_of_crone_donkey_d9_battle_supply",
+        "gykmp_story_counter_game_of_crone_d10_battle_supply_collection",
+        "gykmp_story_phase_game_of_crone_d9_fulfillment_complete"
+      ],
+      "expectedEffects": [
+        {
+          "kind": "story_transaction",
+          "id": "gykmp_story_transaction_game_of_crone_d9_battle_supply_collection",
+          "operation": "claim_and_remove_one_battle_horseshoes_then_one_unicorn_horn_clear_get_item_d9_set_contraband-one_apply_relation-plus-ten_and_invoke_check_ev_d10_start",
+          "amount": 2,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "wgo_param",
+          "id": "donkey:get_item_d9",
+          "operation": "set_exactly_zero_only_after_both_ordered_box-removals_are_durable",
+          "amount": 0,
+          "ownership": "shared_world"
+        },
+        {
+          "kind": "wgo_param_transition",
+          "id": "donkey:contraband",
+          "operation": "set_one_after_get_item_d9_clears_until_npc_donkey_on_returned_home_resets_it",
+          "amount": 1,
+          "ownership": "shared_world"
+        },
+        {
+          "kind": "relationship_delta_receipt",
+          "id": "gykmp_story_relation_game_of_crone_donkey_d9_battle_supply",
+          "operation": "apply_exactly_plus-ten_to_the_authoritative_shared_player-param__rel_donkey_once_before_the_D10_counter_macro",
+          "amount": 10,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "counter_delta_receipt",
+          "id": "gykmp_story_counter_game_of_crone_d10_battle_supply_collection",
+          "operation": "apply_exactly_one_source_increment_to_donkey_ev_d10_check_count_for_the_two-item_bundle_after_the_relation_receipt",
+          "amount": 1,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "story_phase",
+          "id": "gykmp_story_phase_game_of_crone_d9_fulfillment_complete",
+          "operation": "commit_after_both_removals_flag_relation-and-counter_receipts_are_durable_without_waiting_for_Donkeys_return-home_cleanup",
+          "amount": 1,
+          "ownership": "shared_campaign"
+        }
+      ],
+      "safeguards": [
+        "normalize_the_exact_D9_duplicate-wire_pattern_once_including_the_doubled_Flow-ParamFlag-zero-to-Dummy-142_and_doubled_Dummy-142-Out-to-Dummy-144_edges_without_copying_D7s_doubled_Has-Yes_or_Remove-Out_edges",
+        "preserve_battle-horseshoes_remove-before-unicorn-horn_and_never_allow_a_partial_bundle_to_satisfy_the_collection_receipt",
+        "D9_runs_after_D7_in_the_same_shared_checker_pass_so_when_both_are_ready_D9_supplies_the_second_D10_counter_delta",
+        "never_minimum-repair_or_add_again_to_donkey_ev_d10_check_count_or__rel_donkey",
+        "do_not_require_contraband-zero_or_npc_donkey_on_returned_home_for_the_D9_terminal_phase"
+      ]
+    },
+    {
+      "stepId": "game_of_crone_converge_donkeys_d10_supply_collections",
+      "title": "Converge both Donkey supply collections and schedule the D10 event handoff",
+      "linkedQuestIds": [
+        "dlc_refugees_d6"
+      ],
+      "linkedTaskMilestoneIds": [
+        "game_of_crone_donkey_magic_pumpkin_fulfilled",
+        "game_of_crone_donkey_battle_supply_fulfilled"
+      ],
+      "triggerScripts": [
+        "gykmp_story_dispatch_game_of_crone_d10_supply_convergence"
+      ],
+      "triggerKeys": [
+        "check_ev_d10_start",
+        "ev_d10_check_count",
+        "unlock_event_d10",
+        "GetSecondsToTheMidnight",
+        "try_donkey_force_come",
+        "try_force_send",
+        "Flow_FireEvent",
+        "WorldGameObject.SerializableEvents.event_ids",
+        "WorldGameObject.SerializableEvents.event_delays",
+        "npc_donkey:on_returned_home",
+        "gykmp_story_counter_game_of_crone_d10_magic_pumpkin_collection",
+        "gykmp_story_counter_game_of_crone_d10_battle_supply_collection",
+        "gykmp_story_phase_game_of_crone_d10_supply_threshold_reached",
+        "gykmp_story_timer_game_of_crone_d10_unlock",
+        "gykmp_story_timer_game_of_crone_d10_midnight_visit",
+        "gykmp_story_phase_game_of_crone_d10_supply_convergence_complete"
+      ],
+      "expectedEffects": [
+        {
+          "kind": "story_phase",
+          "id": "gykmp_story_phase_game_of_crone_d10_supply_threshold_reached",
+          "operation": "derive_once_after_both_distinct_D7-and-D9_counter-delta_receipts_and_their_preceding_relation_receipts_without_re-reading_or_repairing_the_raw_counter",
+          "amount": 1,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "story_timer",
+          "id": "gykmp_story_timer_game_of_crone_d10_unlock",
+          "operation": "persist_the_host-authoritative_gameplay-time_remaining-delay_of_ten_simulated-seconds_at_the_second_distinct_delta_then_register_donkey_unlock_event_d10_through_the_unjoined_outer_0_03-real-second_timer",
+          "amount": 1,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "story_timer",
+          "id": "gykmp_story_timer_game_of_crone_d10_midnight_visit",
+          "operation": "sample_GetSecondsToTheMidnight_once_at_the_second_distinct_delta_persist_that_gameplay-time_remaining-delay_then_register_donkey_try_force_send_through_the_unjoined_outer_0_03-real-second_timer",
+          "amount": 1,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "world_event_cleanup",
+          "id": "npc_donkey:on_returned_home",
+          "operation": "clear_the_transient_donkey_contraband_flag_to_zero_on_the_authoritative_return-home_event_without_using_it_as_collection_or_timer_evidence",
+          "amount": 0,
+          "ownership": "shared_world"
+        },
+        {
+          "kind": "story_phase",
+          "id": "gykmp_story_phase_game_of_crone_d10_supply_convergence_complete",
+          "operation": "commit_after_both_branch-specific_collection_relation-and-counter_receipts_and_both_durable_timer_registrations_but_before_unlock_event_d10_delivery",
+          "amount": 1,
+          "ownership": "shared_campaign"
+        }
+      ],
+      "safeguards": [
+        "whichever_branch_commits_the_second_distinct_counter_receipt_owns_the_single_source_threshold_suffix",
+        "when_both_payloads_are_collected_in_one_shared_checker_pass_D7_runs_first_and_D9_runs_second",
+        "pre-resolve_the_canonical_Donkey_before_counter_execution_because_the_source_null_target_skips_AddWGOParam_then_ParamCompare_has_no_output",
+        "never_replay_the_raw_equal-or-greater-than-two_branch_after_the_convergence_receipt_or_register_duplicate_events",
+        "persist_both_gameplay-time_remaining-delays_before_registration_and_preserve_WorldGameObjects_parallel_event-id-and-delay_pairing_across_save_load_and_host_migration",
+        "the_next-midnight_schedule_is_independent_of_the_ten-second_unlock_schedule_and_either_may_deliver_first",
+        "the_clean_boundary_is_after_both_timer_registrations_but_before_unlock_event_d10_is_bring_note_for_d10_event_third_letter_delivered_or_D10_task_transitions"
+      ]
+    }
+  ]
+}

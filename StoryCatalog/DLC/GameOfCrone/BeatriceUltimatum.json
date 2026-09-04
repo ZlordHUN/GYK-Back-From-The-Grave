@@ -1,0 +1,608 @@
+{
+  "schemaVersion": 5,
+  "catalogId": "dlc.game-of-crone.beatrice-ultimatum",
+  "campaign": "GameOfCrone",
+  "chapter": "GuardAmbushThroughBeatriceBranchAftermath",
+  "quests": [
+    {
+      "questId": "dlc_refugees_s40",
+      "title": "Serialized Beatrice beach-confrontation achievement checkpoint",
+      "definitionKind": "AchievementDefinition",
+      "counter": 1,
+      "vanilla": {
+        "startTrigger": "",
+        "successTrigger": "1",
+        "failTrigger": "",
+        "startKeys": ["dlc_refugees_s40"],
+        "questVisible": false,
+        "oneTimeQuest": false,
+        "startScript": "",
+        "successScript": "",
+        "failScript": "",
+        "arrowWgoCustomTag": "",
+        "arrowWgoObjectId": "",
+        "successRewards": [],
+        "failureRewards": []
+      },
+      "policy": {
+        "stateOwnership": "shared_campaign",
+        "eligibleInitiator": "any_player",
+        "livePresentationOwner": "initiating_player",
+        "observerQuestApplication": "durable_state_only",
+        "personalRewardDelivery": "party_exactly_once",
+        "observerSuccess": {
+          "globalScripts": [],
+          "playerParamRepairs": [],
+          "playerParamMinimums": [],
+          "taskStateMinimums": [],
+          "unlockedTechs": [],
+          "unlockedPhrases": [],
+          "blacklistedPhrases": [],
+          "unlockedCrafts": [],
+          "completedOneTimeCrafts": [],
+          "personalItemGrants": []
+        }
+      },
+      "completionChecks": []
+    }
+  ],
+  "taskMilestones": [
+    {
+      "milestoneId": "game_of_crone_beatrice_alliance_alarich_lead_opened",
+      "npcId": "npc_master_alarich",
+      "taskId": "s_ev_41_alarich",
+      "activeStates": ["Visible"],
+      "playerParamRepairs": [],
+      "playerParamMinimums": [
+        { "key": "is_player_agreed_help_beatrice", "value": 1.0 }
+      ],
+      "taskStateMinimums": [
+        { "npcId": "player", "taskId": "s_ev_41_player", "state": "Visible" },
+        { "npcId": "npc_hunchback", "taskId": "s_ev_41_koukol", "state": "Visible" }
+      ],
+      "unlockedTechs": [],
+      "unlockedPhrases": [
+        "@refugee_s42_1",
+        "@refugee_s42_2",
+        "@refugee_s43"
+      ],
+      "blacklistedPhrases": [],
+      "unlockedCrafts": ["death_emulsion"],
+      "completedOneTimeCrafts": ["death_emulsion"],
+      "wgoParamMinimums": [],
+      "personalItemGrants": []
+    },
+    {
+      "milestoneId": "game_of_crone_beatrice_alliance_player_lead_opened",
+      "npcId": "player",
+      "taskId": "s_ev_41_player",
+      "activeStates": ["Visible"],
+      "playerParamRepairs": [],
+      "playerParamMinimums": [
+        { "key": "is_player_agreed_help_beatrice", "value": 1.0 }
+      ],
+      "taskStateMinimums": [
+        { "npcId": "npc_master_alarich", "taskId": "s_ev_41_alarich", "state": "Visible" },
+        { "npcId": "npc_hunchback", "taskId": "s_ev_41_koukol", "state": "Visible" }
+      ],
+      "unlockedTechs": [],
+      "unlockedPhrases": [
+        "@refugee_s42_1",
+        "@refugee_s42_2",
+        "@refugee_s43"
+      ],
+      "blacklistedPhrases": [],
+      "unlockedCrafts": ["death_emulsion"],
+      "completedOneTimeCrafts": ["death_emulsion"],
+      "wgoParamMinimums": [],
+      "personalItemGrants": []
+    },
+    {
+      "milestoneId": "game_of_crone_beatrice_alliance_koukol_lead_opened",
+      "npcId": "npc_hunchback",
+      "taskId": "s_ev_41_koukol",
+      "activeStates": ["Visible"],
+      "playerParamRepairs": [],
+      "playerParamMinimums": [
+        { "key": "is_player_agreed_help_beatrice", "value": 1.0 }
+      ],
+      "taskStateMinimums": [
+        { "npcId": "npc_master_alarich", "taskId": "s_ev_41_alarich", "state": "Visible" },
+        { "npcId": "player", "taskId": "s_ev_41_player", "state": "Visible" }
+      ],
+      "unlockedTechs": [],
+      "unlockedPhrases": [
+        "@refugee_s42_1",
+        "@refugee_s42_2",
+        "@refugee_s43"
+      ],
+      "blacklistedPhrases": [],
+      "unlockedCrafts": ["death_emulsion"],
+      "completedOneTimeCrafts": ["death_emulsion"],
+      "wgoParamMinimums": [],
+      "personalItemGrants": []
+    },
+    {
+      "milestoneId": "game_of_crone_beatrice_refusal_koukol_lead_opened",
+      "npcId": "npc_hunchback",
+      "taskId": "dlc_refugees_s_ev_61_koukol",
+      "activeStates": ["Visible"],
+      "playerParamRepairs": [],
+      "playerParamMinimums": [],
+      "taskStateMinimums": [],
+      "unlockedTechs": [],
+      "unlockedPhrases": ["@refguee_s62_1"],
+      "blacklistedPhrases": [],
+      "unlockedCrafts": [],
+      "completedOneTimeCrafts": [],
+      "wgoParamMinimums": [],
+      "personalItemGrants": []
+    },
+    {
+      "milestoneId": "game_of_crone_beatrice_refusal_koukol_report_completed",
+      "npcId": "npc_hunchback",
+      "taskId": "dlc_refugees_s_ev_62_1",
+      "activeStates": ["Visible"],
+      "playerParamRepairs": [],
+      "playerParamMinimums": [],
+      "taskStateMinimums": [
+        { "npcId": "npc_hunchback", "taskId": "dlc_refugees_s_ev_61_koukol", "state": "Complete" }
+      ],
+      "unlockedTechs": [],
+      "unlockedPhrases": ["@refugee_s68"],
+      "blacklistedPhrases": ["@refguee_s62_1"],
+      "unlockedCrafts": [],
+      "completedOneTimeCrafts": [],
+      "wgoParamMinimums": [],
+      "personalItemGrants": []
+    }
+  ],
+  "cutscenes": [
+    {
+      "cutsceneId": "game_of_crone_trigger_the_s39_guard_ambush",
+      "linkedQuestIds": ["dlc_refugees_s40"],
+      "triggerScripts": ["gykmp_story_dispatch_game_of_crone_s39_guard_ambush"],
+      "actors": [
+        "initiating_player",
+        "guard_event_s39_1",
+        "guard_event_s39_2",
+        "refugee_s39_trigger_zone"
+      ],
+      "observerPolicy": "all_loaded_party_members",
+      "lateJoinPolicy": "join_live_checkpoint_or_observe",
+      "remoteExecutionPolicy": "live_observation",
+      "executionOwnerPolicy": "lobby_host",
+      "dialogueOwnerPolicy": "initiating_player",
+      "formationPolicy": "initiator_with_observer_follow",
+      "cleanupRequirements": [
+        "serialize_the_zone_entry_and_post_resurrection_fallback_as_one_shared_claim_the_zone_route_requires_an_enabled_player_while_both_routes_require_event_s38_complete_one_event_city_3_3_complete_one_and_event_s39_complete_zero_and_the_resurrection_route_must_remain_valid_after_it_disables_player_control",
+        "do_not_register_the_generic_player_ressurection_script_or_the_raw_zone_and_s39_scripts_as_lobby_host_cutscene_triggers_until_an_initiator_bound_client_to_host_claim_transaction_can_forward_only_the_matching_s39_branch",
+        "carry_the_claiming_peer_id_through_host_execution_so_source_GetPlayer_player_lines_direction_and_control_nodes_bind_to_the_remote_initiator_instead_of_the_host_avatar",
+        "journal_gykmp_story_phase_game_of_crone_s39_entry_claimed_before_setting_event_s39_complete_one_and_launching_refugee_ev_s39_so_the_source_set_before_run_latch_cannot_consume_the_scene_on_a_crash",
+        "treat_event_s39_complete_as_an_entry_once_latch_only_and_resume_an_interrupted_scene_when_it_is_one_but_neither_the_s39_to_s40_handoff_nor_a_later_branch_dispatch_receipt_exists",
+        "destroy_only_refugee_s39_trigger_zone_then_apply_the_cinematic_control_lock_to_each_loaded_participant_with_an_individual_baseline_that_is_transferred_to_the_downstream_branch_and_on_recovery_tolerate_that_the_source_ignore_error_false_lookup_finds_the_zone_already_missing_without_recreating_it",
+        "preserve_refugee_s39_1_through_9_with_the_source_player_guard_one_guard_two_speaker_order_and_direction_choreography",
+        "start_the_dungeon_music_override_after_refugee_s39_9_but_do_not_execute_the_disconnected_pause_music_playlist_node",
+        "commit_gykmp_story_phase_game_of_crone_s39_to_s40_handoff_immediately_before_running_refugee_ev_s40_exactly_once",
+        "do_not_enable_players_destroy_the_guards_or_restore_music_at_the_s39_handoff_because_s40_continues_the_same_cinematic",
+        "late_joiners_observe_the_current_checkpoint_without_recreating_the_consumed_zone_or_replaying_the_entry_latch"
+      ]
+    },
+    {
+      "cutsceneId": "game_of_crone_face_beatrices_s40_ultimatum",
+      "linkedQuestIds": ["dlc_refugees_s40"],
+      "triggerScripts": ["gykmp_story_dispatch_game_of_crone_s40_beatrice_ultimatum"],
+      "actors": [
+        "initiating_player",
+        "beatrice_ev_s40",
+        "guard_event_s39_1",
+        "guard_event_s39_2",
+        "golem_ev_28_2",
+        "golem_ev_28_blue",
+        "golem_ev_28_red"
+      ],
+      "observerPolicy": "all_loaded_party_members",
+      "lateJoinPolicy": "join_live_checkpoint_or_observe",
+      "remoteExecutionPolicy": "live_observation",
+      "executionOwnerPolicy": "lobby_host",
+      "dialogueOwnerPolicy": "initiating_player",
+      "formationPolicy": "initiator_with_observer_follow",
+      "cleanupRequirements": [
+        "enter_from_the_committed_s39_to_s40_handoff_and_conditionally_destroy_each_present_old_golem_object_id_golem_ev_28_2_golem_ev_28_blue_and_golem_ev_28_red_without_treating_their_absence_as_an_error",
+        "capture_a_durable_shared_host_world_environment_weather_and_music_baseline_plus_separate_per_participant_camera_control_and_cinematic_lock_baselines_before_the_fade_middle_then_transfer_each_receipt_to_the_selected_downstream_branch",
+        "during_the_1_5_second_InOut_fade_middle_change_environment_to_tp_church_b__set_global_weather_RealTime_store_the_environment_engine_state_apply_beach_event_s40_disable_dynamic_weather_and_force_rain_one_wind_zero_fog_zero",
+        "teleport_the_initiator_to_gd_refugee_s40_4_facing_Left_spawn_npc_beatrice_tag_beatrice_ev_s40_at_gd_refugee_s40_3_then_face_her_Right_and_teleport_guards_one_and_two_to_gd_refugee_s40_2_and_1_facing_Right_before_flying_the_camera_to_Beatrice",
+        "deduplicate_beatrice_ev_s40_and_commit_gykmp_story_phase_game_of_crone_s40_staged_after_the_environment_actor_positions_and_camera_are_converged_so_recovery_never_spawns_a_second_Beatrice_or_replays_the_beach_entry",
+        "after_refugee_s40_2_wait_0_4_face_Beatrice_Left_wait_0_2_and_play_refugee_s40_3_then_start_guard_one_at_speed_1_5_to_gd_refugee_s40_6_and_from_its_Out_start_guard_two_to_gd_refugee_s40_5_without_waiting_for_either_arrival_while_each_Came_to_dest_independently_destroys_that_guard",
+        "from_guard_twos_Out_wait_0_2_face_Beatrice_Right_wait_0_4_and_continue_refugee_s40_4_through_11_even_if_either_asynchronous_guard_walk_or_destruction_is_still_pending",
+        "journal_gykmp_story_state_game_of_crone_s40_guard_departure_before_starting_either_GoTo_treat_each_already_missing_guard_as_clean_on_recovery_converge_any_survivor_to_absent_then_commit_gykmp_story_phase_game_of_crone_s40_guards_departed",
+        "commit_gykmp_story_phase_game_of_crone_s40_dialogue_ready_after_the_post_departure_Beatrice_Right_checkpoint_and_on_restart_resume_at_refugee_s40_4_after_converging_guard_cleanup_instead_of_replaying_staging",
+        "check_the_exact_dlc_refugees_s40_AchievementDefinition_key_from_refugee_s40_8s_parallel_out_branch_after_one_second_but_treat_that_check_as_early_nonterminal_campaign_eligibility_and_keep_each_profiles_platform_delivery_receipt_outside_ordinary_QuestSync",
+        "for_saves_at_or_below_version_1301_use_blacklisted_refugee_s40_12_only_as_valid_missed_achievement_recovery_evidence_and_never_as_proof_that_the_negotiation_or_choice_finished",
+        "serialize_the_first_two_question_loop_so_refugee_s40_12_runs_13_through_22_and_blacklists_12_refugee_s40_23_runs_24_through_34_and_blacklists_23_and_the_scene_advances_only_after_both_are_consumed_in_either_order",
+        "serialize_the_second_two_question_loop_so_refugee_s40_35_runs_36_through_39_and_blacklists_35_refugee_s40_40_runs_41_through_47_and_blacklists_40_and_the_bargain_advances_only_after_both_are_consumed_in_either_order",
+        "preserve_refugee_s40_48_through_53_then_treat_answer_54_as_accept_answer_55_as_hesitation_only_answer_58_as_accept_and_answer_59_as_refuse",
+        "journal_the_selected_terminal_answer_and_target_script_in_gykmp_story_branch_game_of_crone_s40_beatrice_choice_before_dispatching_exactly_one_of_refugee_ev_s41_for_54_or_58_and_refugee_ev_s61_for_59",
+        "commit_gykmp_story_state_game_of_crone_s40_answer_55_followup_pending_before_refugee_s40_56_when_answer_55_is_selected_then_clear_or_consume_it_only_when_terminal_answer_58_or_59_is_journaled",
+        "do_not_execute_the_disconnected_TimeEnable_false_or_unconnected_goto_nodes_and_do_not_invent_player_enable_weather_restore_music_stop_Beatrice_cleanup_or_a_stable_vanilla_s40_terminal",
+        "keep_this_lobby_host_policy_bound_only_to_the_synthetic_initiator_aware_dispatch_until_remote_player_binding_and_remote_multi_answer_choice_return_are_implemented",
+        "transfer_the_live_cinematic_locks_Beatrice_actor_dungeon_music_and_environment_baseline_to_the_committed_s41_or_s61_handoff_instead_of_cleaning_them_up_inside_this_catalogue_batch"
+      ]
+    },
+    {
+      "cutsceneId": "game_of_crone_accept_beatrice_and_open_three_leads",
+      "linkedQuestIds": ["dlc_refugees_s40"],
+      "triggerScripts": ["gykmp_story_dispatch_game_of_crone_s41_acceptance"],
+      "actors": [
+        "initiating_player",
+        "beatrice_ev_s40"
+      ],
+      "observerPolicy": "all_loaded_party_members",
+      "lateJoinPolicy": "join_live_checkpoint_or_observe",
+      "remoteExecutionPolicy": "live_observation",
+      "executionOwnerPolicy": "lobby_host",
+      "dialogueOwnerPolicy": "initiating_player",
+      "formationPolicy": "initiator_with_observer_follow",
+      "cleanupRequirements": [
+        "enter_only_from_the_committed_s40_accept_receipt_for_answer_54_or_58_targeting_refugee_ev_s41_and_never_from_hesitation_answer_55_or_refusal_answer_59",
+        "carry_the_s40_dialogue_owners_peer_id_through_host_execution_so_every_GetPlayer_dialogue_thought_facing_teleport_camera_and_control_node_targets_the_remote_initiator_instead_of_the_host_avatar",
+        "journal_gykmp_story_phase_game_of_crone_s41_entry_before_the_source_sets_is_player_agreed_help_beatrice_one_and_treat_that_early_param_as_a_branch_prefix_not_completion",
+        "mirror_the_accepted_shared_branch_into_is_player_agreed_help_beatrice_one_for_every_eligible_party_profile_because_later_local_donat_box_inside_and_refugee_ev_s50_flows_read_their_own_player_param",
+        "preserve_refugee_s41_1_through_8_with_Beatrice_as_speaker_except_player_lines_three_and_five_then_face_Beatrice_Down_start_and_stop_her_casting_at_the_source_checkpoints",
+        "at_the_line_eight_fade_middle_destroy_only_beatrice_ev_s40_teleport_the_initiator_to_player_house_point_facing_Down_stop_the_dungeon_override_enable_weather_change_to_tp_house_b__set_global_weather_Inside_fly_the_camera_to_the_player_and_execute_the_literal_RestoreEnvironmentPreset_call",
+        "tolerate_beatrice_ev_s40_already_missing_on_recovery_and_independently_restore_or_clear_the_custom_s40_environment_engine_baseline_because_vanilla_s41_restores_a_preset_but_never_calls_StoreEnvironmentEngineState_false",
+        "commit_gykmp_story_phase_game_of_crone_s41_home_restored_only_after_the_house_transition_world_environment_music_and_each_participants_presentation_baseline_are_converged",
+        "after_the_fade_finishes_preserve_the_initiators_thoughts_refugee_s41_9_through_17_before_applying_any_tail_unlock_as_terminal",
+        "show_npc_master_alarich_s_ev_41_alarich_player_s_ev_41_player_and_npc_hunchback_s_ev_41_koukol_then_reveal_death_emulsion_into_completed_one_time_crafts_unlock_the_craft_and_unlock_refugee_s42_1_refugee_s42_2_and_refugee_s43_in_the_exact_source_order",
+        "commit_gykmp_story_phase_game_of_crone_s41_leads_opened_after_all_three_tasks_the_craft_reveal_and_unlock_and_all_three_topics_are_durable_then_enable_every_participant_from_its_own_transferred_cinematic_baseline",
+        "commit_gykmp_story_phase_game_of_crone_s41_complete_only_after_control_camera_weather_environment_and_music_cleanup_are_terminal_and_never_infer_it_from_the_early_agreement_param",
+        "do_not_grant_an_item_for_death_emulsion_because_the_source_only_reveals_and_unlocks_its_craft",
+        "keep_the_raw_refugee_ev_s41_script_as_story_provenance_only_and_leave_this_synthetic_policy_dormant_until_initiator_bound_host_dispatch_and_per_profile_param_reconciliation_exist"
+      ]
+    },
+    {
+      "cutsceneId": "game_of_crone_refuse_beatrice_and_die",
+      "linkedQuestIds": ["dlc_refugees_s40"],
+      "triggerScripts": ["gykmp_story_dispatch_game_of_crone_s61_refusal_death"],
+      "actors": [
+        "initiating_player",
+        "beatrice_ev_s40",
+        "sea_fishing_spot",
+        "sea_fishing_spot_as_mask_s61"
+      ],
+      "observerPolicy": "all_loaded_party_members",
+      "lateJoinPolicy": "join_live_checkpoint_or_observe",
+      "remoteExecutionPolicy": "live_observation",
+      "executionOwnerPolicy": "lobby_host",
+      "dialogueOwnerPolicy": "initiating_player",
+      "formationPolicy": "initiator_with_observer_follow",
+      "cleanupRequirements": [
+        "enter_only_from_the_committed_s40_refusal_receipt_for_answer_59_targeting_refugee_ev_s61_and_never_dispatch_this_death_route_for_accept_answers_54_or_58",
+        "carry_the_refusing_peer_id_through_host_execution_so_dialogue_animation_movement_teleport_damage_resurrection_routing_and_control_belong_only_to_that_initiator_while_observers_receive_live_presentation_without_damage_or_death_count_changes",
+        "pause_playlist_music_find_the_canonical_sea_fishing_spot_and_spawn_exactly_one_sea_fishing_spot_as_mask_tagged_sea_fishing_spot_as_mask_s61_without_replacing_destroying_or_duplicating_the_canonical_spot",
+        "commit_gykmp_story_phase_game_of_crone_s61_staged_after_the_mask_single_Beatrice_and_transferred_s40_environment_music_and_participant_presentation_baselines_are_bound",
+        "preserve_refugee_s61_1_through_12_with_the_source_Beatrice_player_speaker_casting_and_facing_order_then_disable_only_the_initiators_animation_start_flying_disable_trails_and_move_that_player_to_gd_refugee_s61_player_lost_at_speed_0_5",
+        "preserve_the_camera_flight_waits_refugee_s61_12_additional_flying_end_and_Beatrice_Right_facing_before_teleporting_only_the_initiator_to_gd_refugee_s61_player_death_place",
+        "journal_gykmp_story_state_game_of_crone_s61_death_pending_and_arm_the_initiator_bound_continuation_before_any_lethal_mutation_so_the_source_order_of_666666_damage_before_is_need_activate_s61_part_2_one_cannot_strand_the_branch",
+        "apply_the_666666_damage_exactly_once_to_the_refusing_initiator_only_then_converge_that_profiles_is_need_activate_s61_part_2_latch_or_durable_equivalent_without_replaying_damage_after_a_disconnect_or_host_crash",
+        "restore_the_initiators_trails_stop_the_dungeon_music_override_enable_weather_and_execute_the_literal_RestoreEnvironmentPreset_call_while_reconciling_the_custom_s40_environment_engine_baseline_and_carrying_unconsumed_participant_presentation_receipts_into_part_two",
+        "commit_gykmp_story_phase_game_of_crone_s61_world_cleanup_complete_only_after_the_death_scenes_shared_world_cleanup_converges_but_keep_the_branch_and_participant_presentation_nonterminal_until_the_scoped_resurrection_handoff_and_part_two_tail_finish",
+        "do_not_register_suppress_or_host_execute_the_generic_player_ressurection_script_and_expose_only_its_is_need_activate_s61_part_2_branch_to_the_synthetic_initiator_aware_dispatch",
+        "do_not_treat_any_other_resurrection_flag_death_count_first_death_dialogue_or_event_s39_fallback_as_refusal_evidence_and_do_not_grant_any_item_or_reward"
+      ]
+    },
+    {
+      "cutsceneId": "game_of_crone_finish_beatrice_refusal_after_resurrection",
+      "linkedQuestIds": ["dlc_refugees_s40"],
+      "triggerScripts": ["gykmp_story_dispatch_game_of_crone_s61_part_2"],
+      "actors": [
+        "initiating_player",
+        "beatrice_ev_s40",
+        "sea_fishing_spot_as_mask_s61"
+      ],
+      "observerPolicy": "all_loaded_party_members",
+      "lateJoinPolicy": "join_live_checkpoint_or_observe",
+      "remoteExecutionPolicy": "live_observation",
+      "executionOwnerPolicy": "lobby_host",
+      "dialogueOwnerPolicy": "initiating_player",
+      "formationPolicy": "initiator_with_observer_follow",
+      "cleanupRequirements": [
+        "claim_only_the_is_need_activate_s61_part_2_branch_after_the_generic_resurrection_flow_has_moved_the_refusing_initiator_through_tp_house_b_and_preserve_every_independent_resurrection_branch_outside_this_catalogue",
+        "commit_gykmp_story_phase_game_of_crone_s61_part2_claimed_before_clearing_is_need_activate_s61_part_2_zero_or_launching_refugee_ev_s61_part_2_so_the_source_clear_before_RunScript_latch_cannot_consume_the_tail_on_a_crash",
+        "resume_or_converge_from_the_durable_part_two_claim_when_the_vanilla_latch_is_already_zero_instead_of_rearming_the_lethal_s61_scene",
+        "unpause_playlist_music_then_destroy_only_sea_fishing_spot_as_mask_s61_and_beatrice_ev_s40_in_that_order_while_treating_either_already_missing_object_as_completed_cleanup_instead_of_replaying_the_source_ignore_error_false_failure",
+        "never_destroy_the_canonical_sea_fishing_spot_and_commit_gykmp_story_phase_game_of_crone_s61_actor_cleanup_complete_after_both_temporary_scene_tags_are_absent",
+        "preserve_the_refusing_initiators_thoughts_refugee_s61_13_through_16_then_show_npc_hunchback_dlc_refugees_s_ev_61_koukol_and_unlock_the_exact_typoed_topic_refguee_s62_1",
+        "enable_only_the_initiators_source_control_node_then_restore_every_other_participant_from_its_transferred_presentation_baseline_without_moving_or_resurrecting_observers",
+        "commit_gykmp_story_phase_game_of_crone_s61_complete_only_after_regular_music_shared_environment_weather_actor_cleanup_task_topic_and_all_participant_control_camera_receipts_are_converged",
+        "treat_neither_the_visible_Koukol_task_nor_unlocked_typoed_topic_as_evidence_that_the_followup_conversation_finished",
+        "keep_refugee_ev_s61_part_2_and_the_scoped_player_ressurection_branch_as_provenance_only_until_durable_clear_before_run_interception_and_remote_initiator_binding_are_implemented"
+      ]
+    },
+    {
+      "cutsceneId": "game_of_crone_report_beatrices_refusal_to_koukol",
+      "linkedQuestIds": ["dlc_refugees_s40"],
+      "triggerScripts": ["gykmp_story_dispatch_game_of_crone_s62_koukol_refusal_report"],
+      "actors": [
+        "initiating_player",
+        "npc_hunchback"
+      ],
+      "observerPolicy": "all_loaded_party_members",
+      "lateJoinPolicy": "join_live_checkpoint_or_observe",
+      "remoteExecutionPolicy": "live_observation",
+      "executionOwnerPolicy": "lobby_host",
+      "dialogueOwnerPolicy": "initiating_player",
+      "formationPolicy": "initiator_with_observer_follow",
+      "cleanupRequirements": [
+        "scope_the_npc_hunchback_interaction_to_the_exact_refguee_s62_1_topic_allow_any_player_to_claim_it_as_dialogue_owner_and_serialize_the_shared_task_and_phrase_writes_on_the_host",
+        "never_register_or_suppress_the_whole_npc_hunchback_script_because_it_contains_unrelated_Koukol_topics_and_trading",
+        "journal_gykmp_story_phase_game_of_crone_s62_koukol_entered_before_blacklisting_refguee_s62_1_so_the_source_entry_write_cannot_consume_the_conversation_on_a_crash",
+        "preserve_refguee_s62_1_1_and_2_then_complete_npc_hunchback_dlc_refugees_s_ev_61_koukol_but_treat_that_early_completion_as_a_dialogue_prefix_only",
+        "resume_refguee_s62_1_3_through_14_with_the_source_one_second_wait_and_player_Down_facing_checkpoint_without_replaying_the_blacklisted_topic_prefix",
+        "show_npc_hunchback_dlc_refugees_s_ev_62_1_unlock_refugee_s68_and_restore_the_dialogue_owners_control_only_after_all_fourteen_lines_finish",
+        "commit_gykmp_story_phase_game_of_crone_s62_koukol_complete_only_after_the_old_task_is_complete_the_typoed_topic_is_blacklisted_the_next_task_is_visible_refugee_s68_is_unlocked_and_participant_control_is_restored",
+        "do_not_grant_a_scroll_or_any_other_inventory_item_because_the_Scroll_of_ghoul_raising_is_dialogue_and_task_intent_only_and_both_source_task_reward_triples_are_zero"
+      ]
+    }
+  ],
+  "storySteps": [
+    {
+      "stepId": "game_of_crone_enter_the_guard_ambush_and_reach_beatrice",
+      "title": "Trigger the guard ambush and follow it into Beatrice's beach confrontation",
+      "linkedQuestIds": ["dlc_refugees_s40"],
+      "linkedTaskMilestoneIds": [],
+      "triggerScripts": [
+        "on_enter_refugee_s39_gd_zone",
+        "refugee_ev_s39",
+        "refugee_ev_s40"
+      ],
+      "triggerKeys": [
+        "player_ressurection:event_s39_fallback",
+        "gykmp_story_dispatch_game_of_crone_s39_guard_ambush",
+        "gykmp_story_dispatch_game_of_crone_s40_beatrice_ultimatum",
+        "event_s38_complete",
+        "event_city_3_3_complete",
+        "event_s39_complete",
+        "gykmp_story_phase_game_of_crone_s39_entry_claimed",
+        "refugee_s39_trigger_zone",
+        "guard_event_s39_1",
+        "guard_event_s39_2",
+        "gykmp_story_phase_game_of_crone_s39_to_s40_handoff",
+        "golem_ev_28_2",
+        "golem_ev_28_blue",
+        "golem_ev_28_red",
+        "beatrice_ev_s40",
+        "beach_event_s40",
+        "gykmp_story_environment_baseline_game_of_crone_s40",
+        "gykmp_story_presentation_baseline_game_of_crone_s40",
+        "gykmp_story_phase_game_of_crone_s40_staged",
+        "gykmp_story_state_game_of_crone_s40_guard_departure",
+        "gykmp_story_phase_game_of_crone_s40_guards_departed",
+        "gykmp_story_phase_game_of_crone_s40_dialogue_ready"
+      ],
+      "expectedEffects": [
+        { "kind": "story_phase", "id": "gykmp_story_phase_game_of_crone_s39_entry_claimed", "operation": "commit_before_the_source_sets_its_crash_unsafe_event_s39_complete_launch_latch", "amount": 1.0, "ownership": "shared_campaign" },
+        { "kind": "player_param", "id": "event_s39_complete", "operation": "set_one_as_the_single_s39_entry_claim_before_running_refugee_ev_s39_and_never_use_as_scene_completion", "amount": 1.0, "ownership": "shared_campaign" },
+        { "kind": "world_object_cleanup", "id": "refugee_s39_trigger_zone", "operation": "destroy_the_claimed_zone_at_s39_entry_without_recreating_it_from_the_durable_latch", "amount": 0.0, "ownership": "shared_world" },
+        { "kind": "participant_overlay", "id": "game_of_crone_s39_s40_cinematic_control_lock", "operation": "disable_and_live_gate_each_loaded_participant_with_an_individual_baseline_until_the_selected_downstream_branch_restores_control", "amount": 1.0, "ownership": "personal_presentation" },
+        { "kind": "world_music_override", "id": "dungeon", "operation": "start_after_refugee_s39_9_and_transfer_cleanup_to_the_s41_or_s61_branch", "amount": 1.0, "ownership": "shared_world" },
+        { "kind": "story_phase", "id": "gykmp_story_phase_game_of_crone_s39_to_s40_handoff", "operation": "commit_after_all_nine_s39_lines_and_immediately_before_running_refugee_ev_s40", "amount": 1.0, "ownership": "shared_campaign" },
+        { "kind": "world_object_cleanup", "id": "golem_ev_28_2_golem_ev_28_blue_golem_ev_28_red", "operation": "destroy_each_present_leftover_object_id_conditionally_at_s40_entry", "amount": 0.0, "ownership": "shared_world" },
+        { "kind": "campaign_environment_baseline", "id": "gykmp_story_environment_baseline_game_of_crone_s40", "operation": "persist_only_the_host_world_pre_beach_environment_weather_and_music_state_before_shared_world_staging_then_transfer_its_restore_receipt_to_the_selected_branch", "amount": 1.0, "ownership": "shared_campaign" },
+        { "kind": "participant_presentation_baseline", "id": "gykmp_story_presentation_baseline_game_of_crone_s40", "operation": "persist_camera_control_and_cinematic_lock_state_separately_for_each_loaded_or_late_joining_participant_and_transfer_each_personal_restore_receipt_to_the_selected_branch", "amount": 1.0, "ownership": "personal_presentation" },
+        { "kind": "world_environment", "id": "tp_church_b_:beach_event_s40:RealTime:rain_1", "operation": "apply_the_exact_source_environment_preset_global_state_and_forced_weather_during_the_fade_middle", "amount": 1.0, "ownership": "shared_world" },
+        { "kind": "world_actor", "id": "beatrice_ev_s40", "operation": "spawn_npc_beatrice_at_gd_refugee_s40_3_and_keep_the_single_scene_actor_for_the_downstream_branch", "amount": 1.0, "ownership": "shared_world" },
+        { "kind": "story_phase", "id": "gykmp_story_phase_game_of_crone_s40_staged", "operation": "commit_after_the_environment_single_Beatrice_player_and_guard_positions_facings_and_camera_are_converged", "amount": 1.0, "ownership": "shared_campaign" },
+        { "kind": "world_position_checkpoint", "id": "initiating_player:gd_refugee_s40_4", "operation": "teleport_the_source_initiator_here_facing_Left_during_the_beach_fade", "amount": 1.0, "ownership": "initiating_player_transaction" },
+        { "kind": "story_transaction", "id": "gykmp_story_state_game_of_crone_s40_guard_departure", "operation": "journal_before_starting_guard_one_then_guard_two_and_track_each_independent_arrival_destruction_for_recovery", "amount": 1.0, "ownership": "shared_campaign" },
+        { "kind": "world_actor_cleanup", "id": "guard_event_s39_1_guard_event_s39_2", "operation": "start_guard_one_to_gd_refugee_s40_6_then_start_guard_two_to_gd_refugee_s40_5_from_the_first_GoTos_Out_without_waiting_for_arrival_and_destroy_each_independently_from_its_Came_to_dest", "amount": 0.0, "ownership": "shared_world" },
+        { "kind": "story_phase", "id": "gykmp_story_phase_game_of_crone_s40_guards_departed", "operation": "commit_when_both_guard_tags_are_absent_treating_an_already_missing_guard_as_completed_cleanup_on_recovery", "amount": 1.0, "ownership": "shared_campaign" },
+        { "kind": "world_direction_checkpoint", "id": "beatrice_ev_s40:s40_guard_departure", "operation": "face_Left_after_refugee_s40_2_then_face_Right_from_guard_twos_Out_before_refugee_s40_4_with_the_source_0_4_0_2_and_0_2_0_4_waits", "amount": 1.0, "ownership": "shared_world" },
+        { "kind": "story_phase", "id": "gykmp_story_phase_game_of_crone_s40_dialogue_ready", "operation": "commit_at_the_post_departure_Right_facing_checkpoint_before_refugee_s40_4_and_resume_here_after_guard_cleanup_without_replaying_staging", "amount": 1.0, "ownership": "shared_campaign" }
+      ],
+      "safeguards": [
+        "deduplicate_the_zone_and_resurrection_entry_paths_before_the_source_launch_latch_is_written",
+        "resume_from_custom_phases_when_event_s39_complete_has_already_consumed_the_vanilla_entry",
+        "keep_world_object_environment_guard_and_Beatrice_mutations_host_authoritative_while_the_initiator_owns_dialogue_and_personal_presentation",
+        "do_not_activate_host_execution_for_the_raw_vanilla_scripts_until_client_claim_forwarding_explicit_initiator_binding_and_remote_choice_return_exist",
+        "omit_every_disconnected_source_node_including_pause_playlist_TimeEnable_false_and_the_three_unconnected_goto_nodes",
+        "do_not_restore_or_release_the_continuous_cinematic_at_the_s39_to_s40_boundary"
+      ]
+    },
+    {
+      "stepId": "game_of_crone_negotiate_beatrices_ultimatum",
+      "title": "Question Beatrice and commit to helping or refusing her",
+      "linkedQuestIds": ["dlc_refugees_s40"],
+      "linkedTaskMilestoneIds": [],
+      "triggerScripts": ["refugee_ev_s40"],
+      "triggerKeys": [
+        "dlc_refugees_s40",
+        "gykmp_story_achievement_eligibility_game_of_crone_s40",
+        "gykmp_story_achievement_game_of_crone_s40",
+        "refugee_s40_12",
+        "refugee_s40_23",
+        "refugee_s40_35",
+        "refugee_s40_40",
+        "refugee_s40_54",
+        "refugee_s40_55",
+        "refugee_s40_58",
+        "refugee_s40_59",
+        "gykmp_story_state_game_of_crone_s40_answer_55_followup_pending",
+        "gykmp_story_branch_game_of_crone_s40_beatrice_choice",
+        "refugee_ev_s41",
+        "refugee_ev_s61"
+      ],
+      "expectedEffects": [
+        { "kind": "story_eligibility_receipt", "id": "gykmp_story_achievement_eligibility_game_of_crone_s40", "operation": "record_once_when_the_authoritative_s40_scene_reaches_the_parallel_post_line_eight_achievement_checkpoint", "amount": 1.0, "ownership": "shared_campaign" },
+        { "kind": "serialized_achievement_key", "id": "dlc_refugees_s40", "operation": "check_once_in_the_authoritative_campaign_AchievementsSystem_at_the_exact_early_source_checkpoint_without_treating_it_as_s40_completion", "amount": 1.0, "ownership": "shared_campaign" },
+        { "kind": "platform_achievement_receipt", "id": "gykmp_story_achievement_game_of_crone_s40", "operation": "deliver_the_optional_personal_platform_unlock_outside_ordinary_QuestSync", "amount": 1.0, "ownership": "personal_profile" },
+        { "kind": "dialogue_phrase", "id": "refugee_s40_12", "operation": "blacklist_after_its_13_through_22_answer_path_and_use_with_23_only_to_resume_the_first_mandatory_question_loop", "amount": 1.0, "ownership": "shared_campaign" },
+        { "kind": "dialogue_phrase", "id": "refugee_s40_23", "operation": "blacklist_after_its_24_through_34_answer_path_and_advance_only_when_12_is_also_blacklisted", "amount": 1.0, "ownership": "shared_campaign" },
+        { "kind": "dialogue_phrase", "id": "refugee_s40_35", "operation": "blacklist_after_its_36_through_39_answer_path_and_use_with_40_only_to_resume_the_second_mandatory_question_loop", "amount": 1.0, "ownership": "shared_campaign" },
+        { "kind": "dialogue_phrase", "id": "refugee_s40_40", "operation": "blacklist_after_its_41_through_47_answer_path_and_advance_to_the_bargain_only_when_35_is_also_blacklisted", "amount": 1.0, "ownership": "shared_campaign" },
+        { "kind": "choice_followup_checkpoint", "id": "gykmp_story_state_game_of_crone_s40_answer_55_followup_pending", "operation": "commit_before_refugee_s40_56_for_hesitation_answer_55_resume_the_56_57_followup_prompt_when_present_and_consume_only_with_terminal_answer_58_or_59", "amount": 1.0, "ownership": "shared_campaign" },
+        { "kind": "branch_dispatch_receipt", "id": "gykmp_story_branch_game_of_crone_s40_beatrice_choice", "operation": "journal_accept_with_answer_54_or_58_and_target_refugee_ev_s41_or_refuse_with_answer_59_and_target_refugee_ev_s61_before_dispatching_exactly_one_successor", "amount": 1.0, "ownership": "shared_campaign" }
+      ],
+      "safeguards": [
+        "serialize_each_multi_answer_menu_to_one_dialogue_owner_and_present_only_live_observation_to_other_players",
+        "use_the_four_source_blacklists_as_mid_scene_loop_progress_without_mistaking_any_of_them_for_terminal_state",
+        "treat_the_live_achievement_check_and_legacy_refugee_s40_12_migration_evidence_as_prefixes_only",
+        "never_commit_answer_55_as_a_choice_and_reopen_only_its_followup_58_or_59_prompt_after_an_interruption",
+        "journal_the_terminal_answer_and_successor_before_RunScript_so_recovery_cannot_dispatch_both_s41_and_s61",
+        "leave_player_enable_environment_weather_music_Beatrice_and_branch_specific_story_cleanup_to_the_selected_downstream_catalogue"
+      ]
+    },
+    {
+      "stepId": "game_of_crone_accept_beatrice_and_return_home",
+      "title": "Accept Beatrice's bargain, return home, and open the three investigation leads",
+      "linkedQuestIds": ["dlc_refugees_s40"],
+      "linkedTaskMilestoneIds": [
+        "game_of_crone_beatrice_alliance_alarich_lead_opened",
+        "game_of_crone_beatrice_alliance_player_lead_opened",
+        "game_of_crone_beatrice_alliance_koukol_lead_opened"
+      ],
+      "triggerScripts": ["refugee_ev_s41"],
+      "triggerKeys": [
+        "gykmp_story_dispatch_game_of_crone_s41_acceptance",
+        "gykmp_story_branch_game_of_crone_s40_beatrice_choice",
+        "gykmp_story_phase_game_of_crone_s41_entry",
+        "is_player_agreed_help_beatrice",
+        "beatrice_ev_s40",
+        "player_house_point",
+        "gykmp_story_phase_game_of_crone_s41_home_restored",
+        "s_ev_41_alarich",
+        "s_ev_41_player",
+        "s_ev_41_koukol",
+        "death_emulsion",
+        "@refugee_s42_1",
+        "@refugee_s42_2",
+        "@refugee_s43",
+        "gykmp_story_phase_game_of_crone_s41_leads_opened",
+        "gykmp_story_phase_game_of_crone_s41_complete"
+      ],
+      "expectedEffects": [
+        { "kind": "branch_dispatch_receipt", "id": "gykmp_story_branch_game_of_crone_s40_beatrice_choice", "operation": "require_the_receipts_accept_value_answer_54_or_58_and_refugee_ev_s41_as_the_exact_committed_successor_before_claiming_this_branch", "amount": 1.0, "ownership": "shared_campaign" },
+        { "kind": "story_phase", "id": "gykmp_story_phase_game_of_crone_s41_entry", "operation": "commit_before_the_source_early_agreement_param_and_any_s41_dialogue", "amount": 1.0, "ownership": "shared_campaign" },
+        { "kind": "player_param", "id": "is_player_agreed_help_beatrice", "operation": "set_one_as_the_shared_accept_branch_and_reconcile_it_into_each_eligible_profiles_local_player_param_without_using_it_as_terminal_evidence", "amount": 1.0, "ownership": "party_personal" },
+        { "kind": "dialogue_sequence", "id": "refugee_s41_1_through_17", "operation": "present_lines_one_through_eight_with_Beatrices_casting_then_the_initiators_nine_through_seventeen_thoughts_after_the_home_fade", "amount": 17.0, "ownership": "live_presentation" },
+        { "kind": "world_actor_cleanup", "id": "beatrice_ev_s40", "operation": "destroy_the_single_beach_actor_during_the_fade_middle_and_treat_an_already_missing_tag_as_clean_recovery", "amount": 0.0, "ownership": "shared_world" },
+        { "kind": "world_position_checkpoint", "id": "initiating_player:player_house_point", "operation": "teleport_only_the_accepting_initiator_here_facing_Down_during_the_fade_middle", "amount": 1.0, "ownership": "initiating_player_transaction" },
+        { "kind": "world_environment_restore", "id": "gykmp_story_environment_baseline_game_of_crone_s40", "operation": "apply_tp_house_b__and_Inside_then_execute_the_literal_source_RestoreEnvironmentPreset_and_independently_consume_the_custom_environment_engine_weather_and_dungeon_music_restore_receipts", "amount": 1.0, "ownership": "shared_world" },
+        { "kind": "participant_presentation_restore", "id": "gykmp_story_presentation_baseline_game_of_crone_s40", "operation": "restore_camera_animation_and_cinematic_control_once_for_every_loaded_or_late_joining_participant_after_the_continuous_s39_s41_scene", "amount": 1.0, "ownership": "personal_presentation" },
+        { "kind": "story_phase", "id": "gykmp_story_phase_game_of_crone_s41_home_restored", "operation": "commit_after_Beatrice_cleanup_the_initiator_house_transition_and_world_and_participant_baseline_restoration_are_converged", "amount": 1.0, "ownership": "shared_campaign" },
+        { "kind": "npc_task", "id": "npc_master_alarich:s_ev_41_alarich", "operation": "set_Visible_in_the_source_tail", "amount": 1.0, "ownership": "shared_campaign" },
+        { "kind": "npc_task", "id": "player:s_ev_41_player", "operation": "set_Visible_in_the_source_tail", "amount": 1.0, "ownership": "shared_campaign" },
+        { "kind": "npc_task", "id": "npc_hunchback:s_ev_41_koukol", "operation": "set_Visible_in_the_source_tail", "amount": 1.0, "ownership": "shared_campaign" },
+        { "kind": "craft", "id": "death_emulsion", "operation": "reveal_into_completed_one_time_crafts_then_unlock_after_all_seventeen_lines_without_granting_a_crafted_item", "amount": 1.0, "ownership": "shared_campaign" },
+        { "kind": "dialogue_phrase_set", "id": "@refugee_s42_1_@refugee_s42_2_@refugee_s43", "operation": "unlock_all_three_source_topics_after_the_three_task_visibility_writes_and_craft_unlock", "amount": 3.0, "ownership": "shared_campaign" },
+        { "kind": "story_phase", "id": "gykmp_story_phase_game_of_crone_s41_leads_opened", "operation": "commit_after_the_three_tasks_craft_reveal_and_unlock_and_three_topics_are_durable", "amount": 1.0, "ownership": "shared_campaign" },
+        { "kind": "story_phase", "id": "gykmp_story_phase_game_of_crone_s41_complete", "operation": "commit_only_after_the_full_dialogue_tail_player_enable_and_every_world_and_participant_cleanup_receipt", "amount": 1.0, "ownership": "shared_campaign" }
+      ],
+      "safeguards": [
+        "dispatch_only_the_committed_accept_branch_and_never_converge_it_from_is_player_agreed_help_beatrice_alone",
+        "keep_shared_world_mutations_host_authoritative_while_the_remote_accepting_peer_owns_GetPlayer_presentation_and_house_position",
+        "restore_the_literal_vanilla_environment_preset_and_the_separate_custom_s40_engine_baseline_without_claiming_the_source_performs_a_symmetric_engine_restore",
+        "repair_the_three_task_craft_and_topic_tail_as_one_idempotent_transaction_after_any_durable_task_evidence",
+        "keep_refugee_ev_s41_out_of_live_host_trigger_binding_until_remote_initiator_dispatch_exists"
+      ]
+    },
+    {
+      "stepId": "game_of_crone_refuse_beatrice_die_and_resume_after_resurrection",
+      "title": "Refuse Beatrice, survive her execution, and resume the story after resurrection",
+      "linkedQuestIds": ["dlc_refugees_s40"],
+      "linkedTaskMilestoneIds": [
+        "game_of_crone_beatrice_refusal_koukol_lead_opened"
+      ],
+      "triggerScripts": [
+        "refugee_ev_s61",
+        "refugee_ev_s61_part_2"
+      ],
+      "triggerKeys": [
+        "gykmp_story_dispatch_game_of_crone_s61_refusal_death",
+        "gykmp_story_branch_game_of_crone_s40_beatrice_choice",
+        "gykmp_story_phase_game_of_crone_s61_staged",
+        "sea_fishing_spot",
+        "sea_fishing_spot_as_mask_s61",
+        "gd_refugee_s61_player_lost",
+        "gd_refugee_s61_player_death_place",
+        "gykmp_story_state_game_of_crone_s61_death_pending",
+        "is_need_activate_s61_part_2",
+        "player_ressurection:is_need_activate_s61_part_2",
+        "gykmp_story_phase_game_of_crone_s61_world_cleanup_complete",
+        "gykmp_story_dispatch_game_of_crone_s61_part_2",
+        "gykmp_story_phase_game_of_crone_s61_part2_claimed",
+        "gykmp_story_phase_game_of_crone_s61_actor_cleanup_complete",
+        "dlc_refugees_s_ev_61_koukol",
+        "@refguee_s62_1",
+        "gykmp_story_phase_game_of_crone_s61_complete"
+      ],
+      "expectedEffects": [
+        { "kind": "branch_dispatch_receipt", "id": "gykmp_story_branch_game_of_crone_s40_beatrice_choice", "operation": "require_the_receipts_refuse_value_answer_59_and_refugee_ev_s61_as_the_exact_committed_successor_before_claiming_this_branch", "amount": 1.0, "ownership": "shared_campaign" },
+        { "kind": "world_actor", "id": "sea_fishing_spot_as_mask_s61", "operation": "spawn_exactly_one_temporary_mask_at_the_canonical_sea_fishing_spot_then_remove_only_the_mask_during_part_two", "amount": 1.0, "ownership": "shared_world" },
+        { "kind": "story_phase", "id": "gykmp_story_phase_game_of_crone_s61_staged", "operation": "commit_after_the_mask_Beatrice_and_transferred_s40_baselines_are_bound_before_dialogue", "amount": 1.0, "ownership": "shared_campaign" },
+        { "kind": "dialogue_sequence", "id": "refugee_s61_1_through_12_additional", "operation": "present_the_source_Beatrice_and_refusing_initiator_lines_casting_facing_camera_flight_and_flying_animation", "amount": 13.0, "ownership": "live_presentation" },
+        { "kind": "world_position_checkpoint", "id": "initiating_player:gd_refugee_s61_player_death_place", "operation": "move_through_gd_refugee_s61_player_lost_then_teleport_only_the_refusing_initiator_here_before_damage", "amount": 1.0, "ownership": "initiating_player_transaction" },
+        { "kind": "story_transaction", "id": "gykmp_story_state_game_of_crone_s61_death_pending", "operation": "journal_and_arm_the_scoped_post_resurrection_continuation_before_lethal_damage_then_record_damage_latch_and_part_two_subreceipts", "amount": 1.0, "ownership": "initiating_player_transaction" },
+        { "kind": "player_damage", "id": "initiating_player:refugee_s61_execution", "operation": "deal_666666_once_to_the_refusing_player_only_and_never_replay_it_when_the_durable_death_transaction_exists", "amount": 666666.0, "ownership": "initiating_player_transaction" },
+        { "kind": "player_param", "id": "is_need_activate_s61_part_2", "operation": "set_one_for_the_refusing_profile_after_damage_in_vanilla_but_recover_from_the_pre_damage_durable_transaction_then_clear_zero_only_after_part_two_dispatch_is_journaled", "amount": 0.0, "ownership": "initiating_player_transaction" },
+        { "kind": "world_environment_restore", "id": "gykmp_story_environment_baseline_game_of_crone_s40", "operation": "stop_the_dungeon_override_enable_weather_restore_the_source_preset_and_converge_the_custom_s40_environment_engine_baseline_without_waiting_for_part_two_actor_cleanup", "amount": 1.0, "ownership": "shared_world" },
+        { "kind": "story_phase", "id": "gykmp_story_phase_game_of_crone_s61_world_cleanup_complete", "operation": "commit_after_the_initiators_trails_and_shared_dungeon_override_weather_and_environment_cleanup_converge_while_participant_presentation_receipts_remain_owned_by_part_two", "amount": 1.0, "ownership": "shared_campaign" },
+        { "kind": "scoped_resurrection_dispatch", "id": "player_ressurection:is_need_activate_s61_part_2", "operation": "claim_only_this_refusing_profiles_branch_after_the_generic_house_resurrection_transition_without_owning_other_resurrection_flags", "amount": 1.0, "ownership": "initiating_player_transaction" },
+        { "kind": "story_phase", "id": "gykmp_story_phase_game_of_crone_s61_part2_claimed", "operation": "commit_before_clearing_the_vanilla_latch_and_before_RunScript_so_a_zero_latch_can_resume_from_the_durable_dispatch", "amount": 1.0, "ownership": "initiating_player_transaction" },
+        { "kind": "world_music_override", "id": "music", "operation": "unpause_the_playlist_at_part_two_entry_after_the_s61_death_scene_paused_it", "amount": 1.0, "ownership": "personal_presentation" },
+        { "kind": "world_actor_cleanup", "id": "sea_fishing_spot_as_mask_s61_beatrice_ev_s40", "operation": "destroy_the_temporary_mask_then_Beatrice_and_treat_either_already_absent_tag_as_a_completed_subreceipt", "amount": 0.0, "ownership": "shared_world" },
+        { "kind": "story_phase", "id": "gykmp_story_phase_game_of_crone_s61_actor_cleanup_complete", "operation": "commit_after_both_temporary_scene_actors_are_absent_without_touching_the_canonical_fishing_spot", "amount": 1.0, "ownership": "shared_campaign" },
+        { "kind": "dialogue_sequence", "id": "refugee_s61_13_through_16", "operation": "present_the_four_post_resurrection_thoughts_to_the_refusing_initiator_after_actor_cleanup", "amount": 4.0, "ownership": "live_presentation" },
+        { "kind": "npc_task", "id": "npc_hunchback:dlc_refugees_s_ev_61_koukol", "operation": "set_Visible_after_all_four_post_resurrection_thoughts", "amount": 1.0, "ownership": "shared_campaign" },
+        { "kind": "dialogue_phrase", "id": "@refguee_s62_1", "operation": "unlock_the_exact_source_typoed_Koukol_topic_after_the_task_visibility_write", "amount": 1.0, "ownership": "shared_campaign" },
+        { "kind": "participant_presentation_restore", "id": "gykmp_story_presentation_baseline_game_of_crone_s40", "operation": "restore_each_participants_camera_animation_audio_and_cinematic_control_once_without_resurrecting_or_moving_observers", "amount": 1.0, "ownership": "personal_presentation" },
+        { "kind": "story_phase", "id": "gykmp_story_phase_game_of_crone_s61_complete", "operation": "commit_after_part_two_dialogue_task_topic_world_actor_environment_audio_and_all_participant_control_receipts_are_terminal", "amount": 1.0, "ownership": "shared_campaign" }
+      ],
+      "safeguards": [
+        "arm_a_durable_initiator_bound_continuation_before_the_sources_damage_before_flag_race",
+        "apply_lethal_damage_death_count_resurrection_and_transient_flag_state_only_to_the_refusing_profile",
+        "intercept_only_the_scoped_s61_resurrection_branch_and_never_bind_or_suppress_player_ressurection_as_a_whole",
+        "journal_part_two_before_the_sources_clear_before_run_latch_and_resume_from_the_receipt_when_the_flag_is_zero",
+        "deduplicate_the_temporary_mask_and_tolerate_partial_mask_or_Beatrice_cleanup_without_touching_sea_fishing_spot",
+        "do_not_infer_terminal_state_from_the_visible_Koukol_task_or_unlocked_topic_and_do_not_grant_any_item"
+      ]
+    },
+    {
+      "stepId": "game_of_crone_report_the_refusal_to_koukol",
+      "title": "Tell Koukol what Beatrice did and open the next refusal-route task",
+      "linkedQuestIds": ["dlc_refugees_s40"],
+      "linkedTaskMilestoneIds": [
+        "game_of_crone_beatrice_refusal_koukol_lead_opened",
+        "game_of_crone_beatrice_refusal_koukol_report_completed"
+      ],
+      "triggerScripts": ["gykmp_story_dispatch_game_of_crone_s62_koukol_refusal_report"],
+      "triggerKeys": [
+        "npc_hunchback:@refguee_s62_1",
+        "gykmp_story_dispatch_game_of_crone_s62_koukol_refusal_report",
+        "gykmp_story_phase_game_of_crone_s62_koukol_entered",
+        "@refguee_s62_1",
+        "dlc_refugees_s_ev_61_koukol",
+        "dlc_refugees_s_ev_62_1",
+        "@refugee_s68",
+        "gykmp_story_phase_game_of_crone_s62_koukol_complete"
+      ],
+      "expectedEffects": [
+        { "kind": "story_phase", "id": "gykmp_story_phase_game_of_crone_s62_koukol_entered", "operation": "commit_after_the_exact_typoed_topic_is_claimed_and_before_its_source_entry_blacklist", "amount": 1.0, "ownership": "shared_campaign" },
+        { "kind": "dialogue_phrase", "id": "@refguee_s62_1", "operation": "blacklist_at_entry_but_treat_the_mutation_as_a_nonterminal_prefix_until_all_fourteen_lines_finish", "amount": 1.0, "ownership": "shared_campaign" },
+        { "kind": "dialogue_sequence", "id": "refguee_s62_1_1_through_14", "operation": "present_all_fourteen_source_lines_to_one_serialized_dialogue_owner_including_the_wait_and_Down_facing_checkpoint", "amount": 14.0, "ownership": "live_presentation" },
+        { "kind": "npc_task", "id": "npc_hunchback:dlc_refugees_s_ev_61_koukol", "operation": "set_Complete_after_lines_one_and_two_as_an_unsafe_prefix_then_continue_the_dialogue", "amount": 1.0, "ownership": "shared_campaign" },
+        { "kind": "npc_task", "id": "npc_hunchback:dlc_refugees_s_ev_62_1", "operation": "set_Visible_only_after_line_fourteen", "amount": 1.0, "ownership": "shared_campaign" },
+        { "kind": "dialogue_phrase", "id": "@refugee_s68", "operation": "unlock_after_the_next_task_visibility_write", "amount": 1.0, "ownership": "shared_campaign" },
+        { "kind": "player_control", "id": "game_of_crone_s62_koukol_dialogue_owner", "operation": "enable_the_dialogue_owner_after_the_next_task_and_topic_tail_and_restore_observers_from_their_own_baselines", "amount": 1.0, "ownership": "personal_presentation" },
+        { "kind": "story_phase", "id": "gykmp_story_phase_game_of_crone_s62_koukol_complete", "operation": "commit_after_all_fourteen_lines_old_task_completion_topic_blacklist_next_task_visibility_next_topic_unlock_and_control_restore", "amount": 1.0, "ownership": "shared_campaign" }
+      ],
+      "safeguards": [
+        "scope_the_host_claim_to_npc_hunchbacks_refguee_s62_1_topic_and_leave_every_other_topic_and_trade_interaction_local",
+        "resume_after_the_entry_blacklist_or_early_old_task_completion_without_skipping_lines_three_through_fourteen",
+        "serialize_the_topic_to_one_dialogue_owner_while_the_host_commits_shared_task_and_phrase_state",
+        "treat_only_the_next_visible_task_refugee_s68_unlock_and_control_restore_as_the_terminal_tail",
+        "record_no_inventory_grant_for_the_dialogue_only_Scroll_of_ghoul_raising"
+      ]
+    }
+  ]
+}

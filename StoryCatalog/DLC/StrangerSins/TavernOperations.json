@@ -1,0 +1,845 @@
+{
+  "schemaVersion": 5,
+  "catalogId": "dlc.stranger-sins.tavern-operations",
+  "campaign": "StrangerSins",
+  "chapter": "BartenderPlacementThroughZombieGreeterCrossover",
+  "quests": [
+    {
+      "questId": "interact_tavern_rack_in_player_tavern",
+      "title": "Connect the tavern cellar rack",
+      "vanilla": {
+        "startTrigger": "1",
+        "successTrigger": "",
+        "failTrigger": "",
+        "startKeys": ["put_beer_into_taverns_rack"],
+        "questVisible": false,
+        "oneTimeQuest": true,
+        "startScript": "on_tavern_cellar_rack_interacted",
+        "successScript": "",
+        "failScript": "",
+        "arrowWgoCustomTag": "",
+        "arrowWgoObjectId": "",
+        "successRewards": [],
+        "failureRewards": []
+      },
+      "policy": {
+        "stateOwnership": "shared_campaign",
+        "eligibleInitiator": "any_player",
+        "livePresentationOwner": "initiating_player",
+        "observerQuestApplication": "durable_state_only",
+        "personalRewardDelivery": "party_exactly_once",
+        "observerStart": {
+          "globalScripts": [],
+          "playerParamRepairs": [],
+          "playerParamMinimums": [],
+          "taskStateMinimums": [
+            { "npcId": "npc_ghost", "taskId": "dlc_stories_barman_pallets", "state": "Complete" }
+          ],
+          "unlockedTechs": [],
+          "unlockedPhrases": ["@barman_after_pallets_1"],
+          "blacklistedPhrases": [],
+          "unlockedCrafts": [],
+          "completedOneTimeCrafts": [],
+          "personalItemGrants": []
+        },
+        "observerSuccess": {
+          "globalScripts": [],
+          "playerParamRepairs": [],
+          "playerParamMinimums": [],
+          "taskStateMinimums": [],
+          "unlockedTechs": [],
+          "unlockedPhrases": [],
+          "blacklistedPhrases": [],
+          "unlockedCrafts": [],
+          "completedOneTimeCrafts": [],
+          "personalItemGrants": []
+        }
+      },
+      "completionChecks": []
+    },
+    {
+      "questId": "first_tavern_event",
+      "title": "Complete the first tavern event",
+      "vanilla": {
+        "startTrigger": "1",
+        "successTrigger": "",
+        "failTrigger": "",
+        "startKeys": ["dlc_stories_event"],
+        "questVisible": false,
+        "oneTimeQuest": true,
+        "startScript": "on_finished_tavern_event_first_time",
+        "successScript": "",
+        "failScript": "",
+        "arrowWgoCustomTag": "",
+        "arrowWgoObjectId": "",
+        "successRewards": [],
+        "failureRewards": []
+      },
+      "policy": {
+        "stateOwnership": "shared_campaign",
+        "eligibleInitiator": "any_player",
+        "livePresentationOwner": "initiating_player",
+        "observerQuestApplication": "durable_state_only",
+        "personalRewardDelivery": "party_exactly_once",
+        "observerStart": {
+          "globalScripts": [],
+          "playerParamRepairs": [],
+          "playerParamMinimums": [
+            { "key": "allow_place_zombie_greeter", "value": 1.0 }
+          ],
+          "taskStateMinimums": [],
+          "unlockedTechs": [],
+          "unlockedPhrases": [],
+          "blacklistedPhrases": [],
+          "unlockedCrafts": [],
+          "completedOneTimeCrafts": [],
+          "personalItemGrants": []
+        },
+        "observerSuccess": {
+          "globalScripts": [],
+          "playerParamRepairs": [],
+          "playerParamMinimums": [],
+          "taskStateMinimums": [],
+          "unlockedTechs": [],
+          "unlockedPhrases": [],
+          "blacklistedPhrases": [],
+          "unlockedCrafts": [],
+          "completedOneTimeCrafts": [],
+          "personalItemGrants": []
+        }
+      },
+      "completionChecks": []
+    },
+    {
+      "questId": "dlc_stories_tavern_q_20",
+      "title": "Reach 20 Tavern quality",
+      "vanilla": {
+        "startTrigger": "",
+        "successTrigger": "1",
+        "failTrigger": "",
+        "startKeys": ["dlc_stories_tavern_q_20"],
+        "questVisible": false,
+        "oneTimeQuest": false,
+        "startScript": "",
+        "successScript": "",
+        "failScript": "",
+        "arrowWgoCustomTag": "",
+        "arrowWgoObjectId": "",
+        "successRewards": [],
+        "failureRewards": []
+      },
+      "policy": {
+        "stateOwnership": "shared_campaign",
+        "eligibleInitiator": "any_player",
+        "livePresentationOwner": "initiating_player",
+        "observerQuestApplication": "durable_state_only",
+        "personalRewardDelivery": "party_exactly_once",
+        "observerSuccess": {
+          "globalScripts": [],
+          "playerParamRepairs": [],
+          "playerParamMinimums": [],
+          "taskStateMinimums": [],
+          "unlockedTechs": [],
+          "unlockedPhrases": [],
+          "blacklistedPhrases": [],
+          "unlockedCrafts": [],
+          "completedOneTimeCrafts": [],
+          "personalItemGrants": []
+        }
+      },
+      "completionChecks": []
+    },
+    {
+      "questId": "dlc_stories_tavern_q_40",
+      "title": "Reach 40 Tavern quality",
+      "vanilla": {
+        "startTrigger": "",
+        "successTrigger": "1",
+        "failTrigger": "",
+        "startKeys": ["dlc_stories_tavern_q_40"],
+        "questVisible": false,
+        "oneTimeQuest": false,
+        "startScript": "",
+        "successScript": "",
+        "failScript": "",
+        "arrowWgoCustomTag": "",
+        "arrowWgoObjectId": "",
+        "successRewards": [],
+        "failureRewards": []
+      },
+      "policy": {
+        "stateOwnership": "shared_campaign",
+        "eligibleInitiator": "any_player",
+        "livePresentationOwner": "initiating_player",
+        "observerQuestApplication": "durable_state_only",
+        "personalRewardDelivery": "party_exactly_once",
+        "observerSuccess": {
+          "globalScripts": [],
+          "playerParamRepairs": [],
+          "playerParamMinimums": [],
+          "taskStateMinimums": [],
+          "unlockedTechs": [],
+          "unlockedPhrases": [],
+          "blacklistedPhrases": [],
+          "unlockedCrafts": [],
+          "completedOneTimeCrafts": [],
+          "personalItemGrants": []
+        }
+      },
+      "completionChecks": []
+    },
+    {
+      "questId": "dlc_stories_tavern_q_80",
+      "title": "Reach 80 Tavern quality",
+      "vanilla": {
+        "startTrigger": "",
+        "successTrigger": "1",
+        "failTrigger": "",
+        "startKeys": ["dlc_stories_tavern_q_80"],
+        "questVisible": false,
+        "oneTimeQuest": false,
+        "startScript": "",
+        "successScript": "",
+        "failScript": "",
+        "arrowWgoCustomTag": "",
+        "arrowWgoObjectId": "",
+        "successRewards": [],
+        "failureRewards": []
+      },
+      "policy": {
+        "stateOwnership": "shared_campaign",
+        "eligibleInitiator": "any_player",
+        "livePresentationOwner": "initiating_player",
+        "observerQuestApplication": "durable_state_only",
+        "personalRewardDelivery": "party_exactly_once",
+        "observerSuccess": {
+          "globalScripts": [],
+          "playerParamRepairs": [],
+          "playerParamMinimums": [],
+          "taskStateMinimums": [],
+          "unlockedTechs": [],
+          "unlockedPhrases": [],
+          "blacklistedPhrases": [],
+          "unlockedCrafts": [],
+          "completedOneTimeCrafts": [],
+          "personalItemGrants": []
+        }
+      },
+      "completionChecks": []
+    },
+    {
+      "questId": "dlc_stories_barman",
+      "title": "Install the tavern bartender",
+      "vanilla": {
+        "startTrigger": "",
+        "successTrigger": "1",
+        "failTrigger": "",
+        "startKeys": ["dlc_stories_barman"],
+        "questVisible": false,
+        "oneTimeQuest": false,
+        "startScript": "",
+        "successScript": "",
+        "failScript": "",
+        "arrowWgoCustomTag": "",
+        "arrowWgoObjectId": "",
+        "successRewards": [],
+        "failureRewards": []
+      },
+      "policy": {
+        "stateOwnership": "shared_campaign",
+        "eligibleInitiator": "any_player",
+        "livePresentationOwner": "initiating_player",
+        "observerQuestApplication": "durable_state_only",
+        "personalRewardDelivery": "party_exactly_once",
+        "observerSuccess": {
+          "globalScripts": [],
+          "playerParamRepairs": [],
+          "playerParamMinimums": [],
+          "taskStateMinimums": [],
+          "unlockedTechs": [],
+          "unlockedPhrases": [],
+          "blacklistedPhrases": [],
+          "unlockedCrafts": [],
+          "completedOneTimeCrafts": [],
+          "personalItemGrants": []
+        }
+      },
+      "completionChecks": []
+    }
+  ],
+  "taskMilestones": [
+    {
+      "milestoneId": "stranger_sins_bartender_doll_task_completed",
+      "npcId": "crafting_skull_3",
+      "taskId": "dlc_stories_goal_wooden_doll",
+      "activeStates": ["Complete"],
+      "playerParamRepairs": [],
+      "playerParamMinimums": [],
+      "taskStateMinimums": [],
+      "unlockedTechs": [],
+      "unlockedPhrases": [],
+      "blacklistedPhrases": [],
+      "unlockedCrafts": [],
+      "completedOneTimeCrafts": [],
+      "wgoParamMinimums": [],
+      "personalItemGrants": []
+    },
+    {
+      "milestoneId": "stranger_sins_barman_pallets_tutorial_opened",
+      "npcId": "npc_ghost",
+      "taskId": "dlc_stories_barman_pallets",
+      "activeStates": ["Visible"],
+      "playerParamRepairs": [],
+      "playerParamMinimums": [
+        { "key": "tavern_shuffle_started", "value": 1.0 },
+        { "key": "tavern_selling_started", "value": 1.0 },
+        { "key": "do_tavern_sellings", "value": 1.0 }
+      ],
+      "taskStateMinimums": [],
+      "unlockedTechs": [],
+      "unlockedPhrases": [],
+      "blacklistedPhrases": [],
+      "unlockedCrafts": [],
+      "completedOneTimeCrafts": [],
+      "wgoParamMinimums": [],
+      "personalItemGrants": []
+    },
+    {
+      "milestoneId": "stranger_sins_gerry_cellar_meeting_opened",
+      "npcId": "crafting_skull_3",
+      "taskId": "dlc_stories_meet_gerry_cellar",
+      "activeStates": ["Visible"],
+      "playerParamRepairs": [],
+      "playerParamMinimums": [
+        { "key": "tavern_shuffle_started", "value": 1.0 },
+        { "key": "tavern_selling_started", "value": 1.0 },
+        { "key": "do_tavern_sellings", "value": 1.0 }
+      ],
+      "taskStateMinimums": [],
+      "unlockedTechs": [],
+      "unlockedPhrases": [],
+      "blacklistedPhrases": [],
+      "unlockedCrafts": [],
+      "completedOneTimeCrafts": [],
+      "wgoParamMinimums": [],
+      "personalItemGrants": []
+    },
+    {
+      "milestoneId": "stranger_sins_barman_pallets_connected",
+      "npcId": "npc_ghost",
+      "taskId": "dlc_stories_barman_pallets",
+      "activeStates": ["Complete"],
+      "playerParamRepairs": [],
+      "playerParamMinimums": [],
+      "taskStateMinimums": [],
+      "unlockedTechs": [],
+      "unlockedPhrases": ["@barman_after_pallets_1"],
+      "blacklistedPhrases": [],
+      "unlockedCrafts": [],
+      "completedOneTimeCrafts": [],
+      "wgoParamMinimums": [],
+      "personalItemGrants": []
+    },
+    {
+      "milestoneId": "stranger_sins_zombie_greeter_task_opened",
+      "npcId": "npc_ghost",
+      "taskId": "dlc_stories_put_zombie_greeter",
+      "activeStates": ["Visible"],
+      "playerParamRepairs": [],
+      "playerParamMinimums": [
+        { "key": "allow_place_zombie_greeter", "value": 1.0 }
+      ],
+      "taskStateMinimums": [],
+      "unlockedTechs": [],
+      "unlockedPhrases": [],
+      "blacklistedPhrases": [],
+      "unlockedCrafts": [],
+      "completedOneTimeCrafts": [],
+      "wgoParamMinimums": [],
+      "personalItemGrants": []
+    },
+    {
+      "milestoneId": "stranger_sins_zombie_greeter_placed",
+      "npcId": "npc_ghost",
+      "taskId": "dlc_stories_put_zombie_greeter",
+      "activeStates": ["Complete"],
+      "playerParamRepairs": [],
+      "playerParamMinimums": [
+        { "key": "allow_place_zombie_greeter", "value": 1.0 },
+        { "key": "zombie_greeter_placed", "value": 1.0 }
+      ],
+      "taskStateMinimums": [],
+      "unlockedTechs": [],
+      "unlockedPhrases": ["@barman_greeter_placed_1"],
+      "blacklistedPhrases": [],
+      "unlockedCrafts": [],
+      "completedOneTimeCrafts": [],
+      "wgoParamMinimums": [],
+      "personalItemGrants": []
+    }
+  ],
+  "cutscenes": [
+    {
+      "cutsceneId": "stranger_sins_bartender_placement",
+      "linkedQuestIds": ["dlc_stories_barman"],
+      "triggerScripts": ["on_barman_placed"],
+      "actors": ["initiating_player", "talking_skull_tavern", "npc_ghost", "bar_barmens_place", "npc_tavern_barman", "tavern_skull"],
+      "observerPolicy": "all_loaded_party_members",
+      "lateJoinPolicy": "join_live_checkpoint_or_observe",
+      "remoteExecutionPolicy": "live_observation",
+      "executionOwnerPolicy": "any_player",
+      "dialogueOwnerPolicy": "initiating_player",
+      "formationPolicy": "initiator_with_observer_follow",
+      "participantFacing": "Left",
+      "cleanupRequirements": [
+        "spawn_talking_skull_at_gd_barman_craft_2_on_the_camera_fade_midpoint_then_teleport_the_player_to_gd_barman_craft_1_and_face_them_Left",
+        "face_the_player_Up_before_gerry_yorick_tavern_2_then_wait_point_three_seconds_after_the_line_4_quest_check_and_face_them_Left_again",
+        "attach_intro_to_the_spawned_npc_tavern_barman_before_the_barman_quest_check",
+        "check_dlc_stories_barman_on_entry_to_gerry_yorick_tavern_4_before_completing_the_wooden_doll_task",
+        "run_ghost_to_barman_on_bar_barmens_place_then_destroy_the_separate_npc_ghost_actor_before_spawning_the_barman",
+        "destroy_only_the_temporary_skull_and_bar_barmens_place_owned_by_this_live_sequence",
+        "spawn_tavern_skull_then_lock_bartender_doll_and_bartender_doll_2_before_restoring_player_control"
+      ]
+    },
+    {
+      "cutsceneId": "stranger_sins_barman_introduction",
+      "linkedQuestIds": ["dlc_stories_barman"],
+      "triggerScripts": ["npc_tavern_barman:intro"],
+      "actors": ["initiating_player", "npc_tavern_barman"],
+      "observerPolicy": "all_loaded_party_members",
+      "lateJoinPolicy": "join_live_checkpoint_or_observe",
+      "remoteExecutionPolicy": "live_observation",
+      "executionOwnerPolicy": "any_player",
+      "dialogueOwnerPolicy": "initiating_player",
+      "formationPolicy": "initiator_with_observer_follow",
+      "cleanupRequirements": [
+        "set_all_three_tavern_operation_flags_before_barman_intro_new_1",
+        "show_the_pallet_and_cellar_tasks_only_after_barman_intro_new_14_finishes",
+        "unlock_about_machine_1_before_attaching_after_first_barman_talk_to_the_cellar_teleport",
+        "unlock_barman_alcohol_tutorial_after_the_cellar_interaction_event_is_attached",
+        "restore_player_control_without_entering_the_disconnected_barman_intro_15_answer_residue"
+      ]
+    },
+    {
+      "cutsceneId": "stranger_sins_barman_after_pallets",
+      "linkedQuestIds": ["dlc_stories_barman"],
+      "triggerScripts": ["npc_tavern_barman:@barman_after_pallets_1"],
+      "actors": ["initiating_player", "npc_tavern_barman"],
+      "observerPolicy": "all_loaded_party_members",
+      "lateJoinPolicy": "join_live_checkpoint_or_observe",
+      "remoteExecutionPolicy": "live_observation",
+      "executionOwnerPolicy": "any_player",
+      "dialogueOwnerPolicy": "initiating_player",
+      "formationPolicy": "initiator_with_observer_follow",
+      "cleanupRequirements": [
+        "blacklist_barman_after_pallets_1_before_barman_after_pallets_2",
+        "preserve_all_seventeen_serialized_dialogue_lines_through_barman_after_pallets_18",
+        "unlock_barman_tavern_tutorial_only_after_the_final_line",
+        "return_to_start_talk_through_the_callers_continuation"
+      ]
+    },
+    {
+      "cutsceneId": "stranger_sins_barman_alcohol_tutorial",
+      "linkedQuestIds": ["dlc_stories_barman"],
+      "triggerScripts": ["npc_tavern_barman:@barman_alcohol_tutorial"],
+      "actors": ["initiating_player", "npc_tavern_barman"],
+      "observerPolicy": "all_loaded_party_members",
+      "lateJoinPolicy": "join_live_checkpoint_or_observe",
+      "remoteExecutionPolicy": "live_observation",
+      "executionOwnerPolicy": "any_player",
+      "dialogueOwnerPolicy": "initiating_player",
+      "formationPolicy": "initiator_with_observer_follow",
+      "cleanupRequirements": [
+        "present_barman_intro_new_8_through_barman_intro_new_12_without_durable_mutations",
+        "leave_barman_alcohol_tutorial_unblacklisted_and_repeatable",
+        "return_to_start_talk_through_the_callers_continuation"
+      ]
+    },
+    {
+      "cutsceneId": "stranger_sins_barman_tavern_tutorial",
+      "linkedQuestIds": ["dlc_stories_barman"],
+      "triggerScripts": ["npc_tavern_barman:@barman_tavern_tutorial"],
+      "actors": ["initiating_player", "npc_tavern_barman"],
+      "observerPolicy": "all_loaded_party_members",
+      "lateJoinPolicy": "join_live_checkpoint_or_observe",
+      "remoteExecutionPolicy": "live_observation",
+      "executionOwnerPolicy": "any_player",
+      "dialogueOwnerPolicy": "initiating_player",
+      "formationPolicy": "initiator_with_observer_follow",
+      "cleanupRequirements": [
+        "start_with_barman_tavern_tutorial_2_then_preserve_barman_after_pallets_6_through_barman_after_pallets_18",
+        "leave_barman_tavern_tutorial_unblacklisted_and_repeatable",
+        "return_to_start_talk_through_the_callers_continuation"
+      ]
+    },
+    {
+      "cutsceneId": "stranger_sins_zombie_greeter_briefing",
+      "linkedQuestIds": ["first_tavern_event"],
+      "triggerScripts": ["npc_tavern_barman:about_zombie_greeter"],
+      "actors": ["initiating_player", "npc_tavern_barman"],
+      "observerPolicy": "all_loaded_party_members",
+      "lateJoinPolicy": "join_live_checkpoint_or_observe",
+      "remoteExecutionPolicy": "live_observation",
+      "executionOwnerPolicy": "any_player",
+      "dialogueOwnerPolicy": "initiating_player",
+      "formationPolicy": "initiator_with_observer_follow",
+      "cleanupRequirements": [
+        "require_the_cross_DLC_about_zombie_greeter_interaction_on_the_persistent_barman",
+        "present_barman_greeter_1_and_barman_greeter_2_once",
+        "show_npc_ghost_dlc_stories_put_zombie_greeter_once",
+        "attach_place_zombie_event_to_tavern_outside_zombie_fence_once",
+        "restore_player_control_and_return_to_normal_barman_interaction"
+      ]
+    },
+    {
+      "cutsceneId": "stranger_sins_zombie_greeter_placement",
+      "linkedQuestIds": ["first_tavern_event"],
+      "triggerScripts": ["tavern_outside_zombie_fence:place_zombie_event"],
+      "actors": [
+        "initiating_player",
+        "tavern_outside_zombie_fence",
+        "zombie_promo"
+      ],
+      "observerPolicy": "all_loaded_party_members",
+      "lateJoinPolicy": "join_live_checkpoint_or_observe",
+      "remoteExecutionPolicy": "live_observation",
+      "executionOwnerPolicy": "any_player",
+      "dialogueOwnerPolicy": "initiating_player",
+      "formationPolicy": "initiator_with_observer_follow",
+      "cleanupRequirements": [
+        "require_the_initiator_to_carry_working_zombie_pseudoitem_1_overhead",
+        "validate_Flow_CanInsertItemIntoWGO_before_consuming_the_carried_worker",
+        "teleport_only_the_initiator_to_gd_promo_player_despawn_during_the_fade",
+        "move_the_exact_worker_item_into_tavern_outside_zombie_fence_once",
+        "spawn_one_zombie_promo_at_gd_promo_zombie_point",
+        "set_zombie_greeter_placed_unlock_barman_greeter_placed_1_and_complete_the_task_once",
+        "never_duplicate_or_replace_the_worker_for_observers_or_late_joiners",
+        "restore_player_control_and_camera_on_every_exit"
+      ]
+    },
+    {
+      "cutsceneId": "stranger_sins_zombie_greeter_praise",
+      "linkedQuestIds": ["first_tavern_event"],
+      "triggerScripts": ["npc_tavern_barman:@barman_greeter_placed_1"],
+      "actors": ["initiating_player", "npc_tavern_barman"],
+      "observerPolicy": "all_loaded_party_members",
+      "lateJoinPolicy": "join_live_checkpoint_or_observe",
+      "remoteExecutionPolicy": "live_observation",
+      "executionOwnerPolicy": "any_player",
+      "dialogueOwnerPolicy": "initiating_player",
+      "formationPolicy": "initiator_with_observer_follow",
+      "cleanupRequirements": [
+        "require_the_unlocked_barman_greeter_placed_1_phrase",
+        "blacklist_barman_greeter_placed_1_before_the_praise_dialogue",
+        "present_barman_greeter_placed_2_and_barman_greeter_placed_3_once",
+        "return_to_start_talk_through_the_callers_continuation",
+        "do_not_replay_the_worker_placement_or_task_completion"
+      ]
+    }
+  ],
+  "storySteps": [
+    {
+      "stepId": "stranger_sins_install_tavern_bartender",
+      "title": "Install the bartender doll and transform Yorick into the tavern barman",
+      "linkedQuestIds": ["dlc_stories_barman"],
+      "linkedTaskMilestoneIds": ["stranger_sins_bartender_doll_task_completed"],
+      "triggerScripts": ["on_barman_placed"],
+      "triggerKeys": [
+        "bartender_doll",
+        "bartender_doll_2",
+        "ghost_to_barman",
+        "npc_tavern_barman:intro",
+        "dlc_stories_barman",
+        "dlc_stories_goal_wooden_doll"
+      ],
+      "expectedEffects": [
+        { "kind": "world_actor", "id": "talking_skull@gd_barman_craft_2", "operation": "spawn_as_talking_skull_tavern_after_camera_fade_midpoint", "amount": 1.0, "ownership": "shared_world" },
+        { "kind": "player_position", "id": "gd_barman_craft_1", "operation": "teleport_initiator_after_temporary_skull_spawn", "amount": 1.0, "ownership": "live_presentation" },
+        { "kind": "participant_facing", "id": "initiating_player", "operation": "face_Left_after_teleport_then_Up_before_line_2_then_Left_after_line_4_quest_check_wait", "amount": 1.0, "ownership": "live_presentation" },
+        { "kind": "world_actor", "id": "npc_ghost@gd_barman_tavern_base_point", "operation": "spawn_then_run_to_happy_before_gerry_yorick_tavern_2", "amount": 1.0, "ownership": "shared_world" },
+        { "kind": "world_object", "id": "bar_barmens_place", "operation": "run_ghost_to_barman_after_gerry_yorick_tavern_3", "amount": 1.0, "ownership": "shared_world" },
+        { "kind": "world_actor", "id": "npc_ghost", "operation": "destroy_after_bar_barmens_place_finishes_ghost_to_barman", "amount": 1.0, "ownership": "shared_world" },
+        { "kind": "world_actor", "id": "npc_tavern_barman@gd_barman_tavern_base_point", "operation": "spawn_after_three_second_transformation_wait", "amount": 1.0, "ownership": "shared_world" },
+        { "kind": "npc_interaction", "id": "npc_tavern_barman:intro", "operation": "attach_to_spawned_barman", "amount": 1.0, "ownership": "shared_world" },
+        { "kind": "world_object", "id": "bar_barmens_place", "operation": "destroy_after_intro_attachment_wait_before_gerry_yorick_tavern_4", "amount": 1.0, "ownership": "shared_world" },
+        { "kind": "quest_key", "id": "dlc_stories_barman", "operation": "check_on_each_script_invocation_on_entry_to_gerry_yorick_tavern_4", "amount": 1.0, "ownership": "shared_campaign" },
+        { "kind": "npc_task", "id": "crafting_skull_3:dlc_stories_goal_wooden_doll", "operation": "complete_on_entry_to_gerry_yorick_tavern_6", "amount": 1.0, "ownership": "shared_campaign" },
+        { "kind": "world_actor", "id": "talking_skull_tavern", "operation": "destroy_after_gerry_yorick_tavern_9", "amount": 1.0, "ownership": "shared_world" },
+        { "kind": "world_actor", "id": "tavern_skull@gd_tavern_skull_place", "operation": "spawn_after_temporary_skull_destroy", "amount": 1.0, "ownership": "shared_world" },
+        { "kind": "craft", "id": "bartender_doll", "operation": "lock_after_tavern_skull_spawn", "amount": 1.0, "ownership": "shared_campaign" },
+        { "kind": "craft", "id": "bartender_doll_2", "operation": "lock_after_bartender_doll", "amount": 1.0, "ownership": "shared_campaign" }
+      ],
+      "safeguards": [
+        "dlc_stories_barman_success_is_observable_before_goal_wooden_doll_Complete_and_the_final_actor_and_craft_cleanup",
+        "never_replay_on_barman_placed_or_spawn_duplicate_barman_skull_or_ghost_actors_for_an_observer",
+        "on_barman_placed_has_no_internal_once_guard_even_though_multiplayer_must_never_replay_its_world_sequence",
+        "do_not_restore_bar_barmens_place_after_the_live_sequence_destroys_it",
+        "do_not_infer_the_later_task_actor_or_craft_effects_from_the_quest_key_alone",
+        "bartender_doll_and_bartender_doll_2_are_alternative_recipes_for_the_same_item_and_recipe_inputs_are_crafting_provenance_only_never_synthesized_refunded_or_charged_from_quest_or_task_state",
+        "exclude_the_unconnected_anonymous_meet_gerry_cellar_task_node",
+        "exclude_the_unconnected_Flow_FireEvent_intro_camera_fly_duplicate_barman_spawn_and_orphan_destroy_residue"
+      ]
+    },
+    {
+      "stepId": "stranger_sins_receive_barman_operating_tutorials",
+      "title": "Meet the tavern barman and open the cellar and alcohol tutorials",
+      "linkedQuestIds": ["dlc_stories_barman"],
+      "linkedTaskMilestoneIds": [
+        "stranger_sins_barman_pallets_tutorial_opened",
+        "stranger_sins_gerry_cellar_meeting_opened"
+      ],
+      "triggerScripts": ["npc_tavern_barman:intro"],
+      "triggerKeys": [
+        "tavern_shuffle_started",
+        "tavern_selling_started",
+        "do_tavern_sellings",
+        "@about_machine_1",
+        "after_first_barman_talk",
+        "@barman_alcohol_tutorial"
+      ],
+      "expectedEffects": [
+        { "kind": "player_param", "id": "tavern_shuffle_started", "operation": "set_before_barman_intro_new_1", "amount": 1.0, "ownership": "shared_campaign" },
+        { "kind": "player_param", "id": "tavern_selling_started", "operation": "set_after_tavern_shuffle_started_before_dialogue", "amount": 1.0, "ownership": "shared_campaign" },
+        { "kind": "player_param", "id": "do_tavern_sellings", "operation": "set_after_tavern_selling_started_before_dialogue", "amount": 1.0, "ownership": "shared_campaign" },
+        { "kind": "npc_task", "id": "npc_ghost:dlc_stories_barman_pallets", "operation": "show_after_barman_intro_new_14", "amount": 1.0, "ownership": "shared_campaign" },
+        { "kind": "npc_task", "id": "crafting_skull_3:dlc_stories_meet_gerry_cellar", "operation": "show_after_the_pallet_task", "amount": 1.0, "ownership": "shared_campaign" },
+        { "kind": "dialogue_phrase", "id": "@about_machine_1", "operation": "unlock_after_both_task_writes", "amount": 1.0, "ownership": "shared_campaign" },
+        { "kind": "npc_interaction", "id": "tp_tavern_to_cellar_b_:after_first_barman_talk", "operation": "attach_after_about_machine_1_unlock", "amount": 1.0, "ownership": "shared_world" },
+        { "kind": "dialogue_phrase", "id": "@barman_alcohol_tutorial", "operation": "unlock_after_cellar_interaction_attachment", "amount": 1.0, "ownership": "shared_campaign" }
+      ],
+      "safeguards": [
+        "the_pallet_Visible_and_meet_Gerry_Visible_milestones_minimum_repair_only_the_three_unconditional_source_prior_operation_flags",
+        "both_tasks_are_written_after_the_fourteenth_line_and_before_about_machine_1",
+        "do_not_execute_tavern_skull_@about_machine_1_or_complete_meet_gerry_cellar_in_this_batch",
+        "exclude_the_disconnected_tavern_skull_dlc_stories_barman_gerry_task_node",
+        "exclude_the_separate_disconnected_MultiAnswer_87_and_barman_intro_15_a_alias",
+        "the_live_intro_shows_crafting_skull_3_meet_gerry_cellar_but_excluded_tavern_skull_about_machine_1_later_completes_the_separate_tavern_skull_owner_record"
+      ]
+    },
+    {
+      "stepId": "stranger_sins_connect_tavern_cellar_pallets",
+      "title": "Interact with the tavern cellar rack and connect the barman's pallets",
+      "linkedQuestIds": [
+        "dlc_stories_barman",
+        "interact_tavern_rack_in_player_tavern"
+      ],
+      "linkedTaskMilestoneIds": ["stranger_sins_barman_pallets_connected"],
+      "triggerScripts": ["on_tavern_cellar_rack_interacted"],
+      "triggerKeys": ["dlc_stories_barman_pallets", "@barman_after_pallets_1"],
+      "expectedEffects": [
+        { "kind": "npc_task", "id": "npc_ghost:dlc_stories_barman_pallets", "operation": "complete_on_rack_interaction", "amount": 1.0, "ownership": "shared_campaign" },
+        { "kind": "dialogue_phrase", "id": "@barman_after_pallets_1", "operation": "unlock_after_task_completion", "amount": 1.0, "ownership": "shared_campaign" }
+      ],
+      "safeguards": [
+        "preserve_task_completion_before_phrase_unlock",
+        "the_unguarded_rack_script_can_write_Complete_before_a_later_intro_writes_Visible_so_do_not_assume_monotonic_task_order",
+        "do_not_complete_meet_gerry_cellar_or_start_the_time_machine_story",
+        "the_Complete_milestone_repairs_only_the_immediate_barman_after_pallets_1_unlock_and_must_not_infer_dialogue_or_tavern_tutorial"
+      ]
+    },
+    {
+      "stepId": "stranger_sins_finish_barman_pallet_handoff",
+      "title": "Tell the barman that the cellar pallets are connected",
+      "linkedQuestIds": ["dlc_stories_barman"],
+      "linkedTaskMilestoneIds": ["stranger_sins_barman_pallets_connected"],
+      "triggerScripts": ["npc_tavern_barman:@barman_after_pallets_1"],
+      "triggerKeys": ["@barman_after_pallets_1", "@barman_tavern_tutorial"],
+      "expectedEffects": [
+        { "kind": "dialogue_phrase", "id": "@barman_after_pallets_1", "operation": "blacklist_before_barman_after_pallets_2", "amount": 1.0, "ownership": "shared_campaign" },
+        { "kind": "dialogue_sequence", "id": "barman_after_pallets_2..barman_after_pallets_18", "operation": "present_in_serialized_order", "amount": 17.0, "ownership": "live_presentation" },
+        { "kind": "dialogue_phrase", "id": "@barman_tavern_tutorial", "operation": "unlock_after_barman_after_pallets_18", "amount": 1.0, "ownership": "shared_campaign" },
+        { "kind": "dialogue_menu", "id": "npc_tavern_barman:start_talk", "operation": "return_after_custom_function", "amount": 1.0, "ownership": "live_presentation" }
+      ],
+      "safeguards": [
+        "run_the_one_shot_after_pallets_dialogue_only_from_its_unlocked_phrase",
+        "do_not_blacklist_the_new_repeatable_tavern_tutorial_topic",
+        "do_not_start_a_tavern_event_or_the_Gerry_time_machine_chapter"
+      ]
+    },
+    {
+      "stepId": "stranger_sins_repeat_barman_alcohol_tutorial",
+      "title": "Repeat the barman's alcohol tutorial",
+      "linkedQuestIds": ["dlc_stories_barman"],
+      "linkedTaskMilestoneIds": [],
+      "triggerScripts": ["npc_tavern_barman:@barman_alcohol_tutorial"],
+      "triggerKeys": ["@barman_alcohol_tutorial"],
+      "expectedEffects": [
+        { "kind": "dialogue_sequence", "id": "barman_intro_new_8..barman_intro_new_12", "operation": "present_without_durable_mutation", "amount": 5.0, "ownership": "live_presentation" },
+        { "kind": "dialogue_menu", "id": "npc_tavern_barman:start_talk", "operation": "return_after_custom_function", "amount": 1.0, "ownership": "live_presentation" }
+      ],
+      "safeguards": [
+        "this_topic_is_intentionally_repeatable_and_never_blacklists_itself",
+        "do_not_reapply_the_intro_operation_flags_tasks_phrases_or_interaction_event",
+        "do_not_treat_repeatable_tutorial_dialogue_as_a_repeatable_tavern_event"
+      ]
+    },
+    {
+      "stepId": "stranger_sins_repeat_barman_tavern_tutorial",
+      "title": "Repeat the barman's tavern operations tutorial",
+      "linkedQuestIds": ["dlc_stories_barman"],
+      "linkedTaskMilestoneIds": [],
+      "triggerScripts": ["npc_tavern_barman:@barman_tavern_tutorial"],
+      "triggerKeys": ["@barman_tavern_tutorial"],
+      "expectedEffects": [
+        { "kind": "dialogue_sequence", "id": "barman_tavern_tutorial_2,barman_after_pallets_6..barman_after_pallets_18", "operation": "present_without_durable_mutation", "amount": 14.0, "ownership": "live_presentation" },
+        { "kind": "dialogue_menu", "id": "npc_tavern_barman:start_talk", "operation": "return_after_custom_function", "amount": 1.0, "ownership": "live_presentation" }
+      ],
+      "safeguards": [
+        "this_topic_is_intentionally_repeatable_and_never_blacklists_itself",
+        "do_not_reapply_the_one_shot_after_pallets_blacklist_or_unlock",
+        "do_not_treat_repeatable_tutorial_dialogue_as_a_repeatable_tavern_event"
+      ]
+    },
+    {
+      "stepId": "stranger_sins_check_initial_tavern_quality_achievements",
+      "title": "Check the 20, 40, and 80 Tavern-quality achievements",
+      "linkedQuestIds": [
+        "dlc_stories_tavern_q_20",
+        "dlc_stories_tavern_q_40",
+        "dlc_stories_tavern_q_80"
+      ],
+      "linkedTaskMilestoneIds": [],
+      "triggerScripts": ["tavern_quality_achievment_check"],
+      "triggerKeys": [
+        "players_tavern",
+        "quality:20",
+        "quality:40",
+        "quality:80",
+        "on_tavern_barrel_built",
+        "on_tavern_table_built",
+        "place_rat_race_table",
+        "place_tavern_artifacts_shelves",
+        "tavern_upgrade"
+      ],
+      "expectedEffects": [
+        { "kind": "zone_quality", "id": "players_tavern", "operation": "require_at_least", "amount": 20.0, "ownership": "shared_world" },
+        { "kind": "quest_key", "id": "dlc_stories_tavern_q_20", "operation": "check_on_each_qualifying_invocation", "amount": 1.0, "ownership": "shared_campaign" },
+        { "kind": "zone_quality", "id": "players_tavern", "operation": "require_at_least", "amount": 40.0, "ownership": "shared_world" },
+        { "kind": "quest_key", "id": "dlc_stories_tavern_q_40", "operation": "check_on_each_qualifying_invocation_after_q20", "amount": 1.0, "ownership": "shared_campaign" },
+        { "kind": "zone_quality", "id": "players_tavern", "operation": "require_at_least", "amount": 80.0, "ownership": "shared_world" },
+        { "kind": "quest_key", "id": "dlc_stories_tavern_q_80", "operation": "check_on_each_qualifying_invocation_after_q20_and_q40", "amount": 1.0, "ownership": "shared_campaign" }
+      ],
+      "safeguards": [
+        "quality_below_20_checks_no_tavern_quality_quest_key",
+        "quality_from_20_through_39_checks_only_q20",
+        "quality_from_40_through_79_checks_q20_before_q40",
+        "quality_at_least_80_checks_q20_then_q40_then_q80",
+        "all_three_quest_definitions_are_repeatable_and_rewardless_so_qualifying_rechecks_must_leave_completed_transitions_idempotent",
+        "players_tavern_quality_is_live_read_only_state_and_must_never_be_repaired_from_a_quest_key",
+        "do_not_replay_any_caller_build_upgrade_or_placement_script_for_an_observer",
+        "stop_before_dlc_stories_first_alcoparty_first_stand_up_first_sharmel_song_first_rat_race_greeter_and_all_repeatable_tavern_event_mechanics"
+      ]
+    },
+    {
+      "stepId": "stranger_sins_arm_zombie_greeter_after_first_event",
+      "title": "Arm the optional zombie-greeter crossover after the first tavern event",
+      "linkedQuestIds": ["first_tavern_event"],
+      "linkedTaskMilestoneIds": [],
+      "triggerScripts": [
+        "on_finished_tavern_event_first_time",
+        "zombie_after_hit_sword_cutscene"
+      ],
+      "triggerKeys": [
+        "dlc_stories_event",
+        "allow_place_zombie_greeter",
+        "BreakingDead",
+        "Stories",
+        "npc_tavern_barman:about_zombie_greeter"
+      ],
+      "expectedEffects": [
+        { "kind": "player_param", "id": "allow_place_zombie_greeter", "operation": "set_after_the_first_tavern_event", "amount": 1.0, "ownership": "shared_campaign" },
+        { "kind": "npc_interaction", "id": "npc_tavern_barman:about_zombie_greeter", "operation": "add_when_BreakingDead_is_available", "amount": 1.0, "ownership": "shared_world" },
+        { "kind": "npc_interaction", "id": "npc_tavern_barman:about_zombie_greeter", "operation": "reconcile_after_Gunters_interview_when_Stories_is_available_and_allow_place_zombie_greeter_is_set", "amount": 1.0, "ownership": "shared_world" }
+      ],
+      "safeguards": [
+        "the_first_tavern_event_sets_allow_place_zombie_greeter_even_when_BreakingDead_is_unavailable",
+        "attach_about_zombie_greeter_from_on_finished_tavern_event_first_time_only_when_BreakingDead_is_available",
+        "the_post_Gunter_fallback_requires_Stories_and_allow_place_zombie_greeter",
+        "treat_both_source_orderings_as_idempotent_ways_to_arm_one_barman_interaction",
+        "never_show_or_complete_the_greeter_task_from_first_tavern_event_completion_alone",
+        "do_not_replay_the_first_tavern_event_or_Gunter_interview_to_repair_the_interaction"
+      ]
+    },
+    {
+      "stepId": "stranger_sins_accept_zombie_greeter_task",
+      "title": "Ask the barman about placing a zombie greeter",
+      "linkedQuestIds": ["first_tavern_event"],
+      "linkedTaskMilestoneIds": ["stranger_sins_zombie_greeter_task_opened"],
+      "triggerScripts": ["npc_tavern_barman:about_zombie_greeter"],
+      "triggerKeys": [
+        "barman_greeter_1",
+        "barman_greeter_2",
+        "dlc_stories_put_zombie_greeter",
+        "tavern_outside_zombie_fence:place_zombie_event"
+      ],
+      "expectedEffects": [
+        { "kind": "npc_task", "id": "npc_ghost:dlc_stories_put_zombie_greeter", "operation": "show_after_barman_greeter_2", "amount": 1.0, "ownership": "shared_campaign" },
+        { "kind": "world_interaction", "id": "tavern_outside_zombie_fence:place_zombie_event", "operation": "add_after_task_visibility", "amount": 1.0, "ownership": "shared_world" }
+      ],
+      "safeguards": [
+        "require_the_cross_DLC_barman_interaction_to_be_armed",
+        "preserve_task_visibility_before_placement_event_attachment",
+        "never_attach_duplicate_place_zombie_event_handlers",
+        "do_not_spawn_or_consume_a_worker_during_the_briefing",
+        "do_not_infer_the_world_interaction_from_task_visibility_during_late_join_repair"
+      ]
+    },
+    {
+      "stepId": "stranger_sins_place_zombie_greeter",
+      "title": "Install a zombie worker as the tavern greeter",
+      "linkedQuestIds": ["first_tavern_event"],
+      "linkedTaskMilestoneIds": [
+        "stranger_sins_zombie_greeter_task_opened",
+        "stranger_sins_zombie_greeter_placed"
+      ],
+      "triggerScripts": ["tavern_outside_zombie_fence:place_zombie_event"],
+      "triggerKeys": [
+        "working_zombie_pseudoitem_1",
+        "gd_promo_player_despawn",
+        "gd_promo_zombie_point",
+        "zombie_promo",
+        "zombie_greeter_placed",
+        "@barman_greeter_placed_1"
+      ],
+      "expectedEffects": [
+        { "kind": "overhead_item", "id": "working_zombie_pseudoitem_1", "operation": "validate_then_clear_from_initiator", "amount": 1.0, "ownership": "initiating_player" },
+        { "kind": "world_inventory", "id": "tavern_outside_zombie_fence:working_zombie_pseudoitem_1", "operation": "insert_exact_worker_once", "amount": 1.0, "ownership": "shared_world" },
+        { "kind": "world_actor", "id": "zombie_promo@gd_promo_zombie_point", "operation": "spawn_once", "amount": 1.0, "ownership": "shared_world" },
+        { "kind": "player_param", "id": "zombie_greeter_placed", "operation": "set", "amount": 1.0, "ownership": "shared_campaign" },
+        { "kind": "dialogue_phrase", "id": "@barman_greeter_placed_1", "operation": "unlock", "amount": 1.0, "ownership": "shared_campaign" },
+        { "kind": "npc_task", "id": "npc_ghost:dlc_stories_put_zombie_greeter", "operation": "complete_after_the_fade_finishes", "amount": 1.0, "ownership": "shared_campaign" }
+      ],
+      "safeguards": [
+        "reject_the_interaction_without_the_exact_worker_overhead_item_or_available_fence_slot",
+        "move_one_existing_worker_identity_instead_of_minting_an_observer_copy",
+        "commit_fence_inventory_promo_spawn_param_phrase_and_task_as_one_authoritative_operation",
+        "never_spawn_zombie_promo_or_set_zombie_greeter_placed_from_completed_task_state_alone",
+        "never_refund_or_duplicate_working_zombie_pseudoitem_1_for_observers_late_joiners_or_reconnects",
+        "restore_only_the_initiators_position_camera_and_control_after_the_shared_world_commit"
+      ]
+    },
+    {
+      "stepId": "stranger_sins_receive_zombie_greeter_praise",
+      "title": "Tell the barman that the zombie greeter is in place",
+      "linkedQuestIds": ["first_tavern_event"],
+      "linkedTaskMilestoneIds": ["stranger_sins_zombie_greeter_placed"],
+      "triggerScripts": ["npc_tavern_barman:@barman_greeter_placed_1"],
+      "triggerKeys": [
+        "@barman_greeter_placed_1",
+        "barman_greeter_placed_2",
+        "barman_greeter_placed_3"
+      ],
+      "expectedEffects": [
+        { "kind": "dialogue_phrase", "id": "@barman_greeter_placed_1", "operation": "blacklist_before_the_first_praise_line", "amount": 1.0, "ownership": "shared_campaign" },
+        { "kind": "dialogue_sequence", "id": "barman_greeter_placed_2..barman_greeter_placed_3", "operation": "present_in_serialized_order", "amount": 2.0, "ownership": "live_presentation" },
+        { "kind": "dialogue_menu", "id": "npc_tavern_barman:start_talk", "operation": "return_after_custom_function", "amount": 1.0, "ownership": "live_presentation" }
+      ],
+      "safeguards": [
+        "run_the_praise_only_from_the_unlocked_one_shot_phrase",
+        "blacklist_the_phrase_once_for_the_shared_campaign",
+        "do_not_replay_place_zombie_event_or_recomplete_the_greeter_task",
+        "do_not_spawn_replace_refund_or_duplicate_the_installed_worker"
+      ]
+    }
+  ]
+}

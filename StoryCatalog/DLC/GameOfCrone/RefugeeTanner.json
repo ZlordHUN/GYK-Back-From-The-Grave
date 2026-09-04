@@ -1,0 +1,1366 @@
+{
+  "schemaVersion": 5,
+  "catalogId": "dlc.game-of-crone.refugee-tanner",
+  "campaign": "GameOfCrone",
+  "chapter": "RefugeeTannerWorkplaceFarmAnimalsAndFinalVendor",
+  "quests": [
+    {
+      "questId": "dlc_refugees_tanner",
+      "title": "Serialized refugee-tanner achievement checkpoint",
+      "definitionKind": "AchievementDefinition",
+      "counter": 1,
+      "vanilla": {
+        "startTrigger": "",
+        "successTrigger": "1",
+        "failTrigger": "",
+        "startKeys": ["dlc_refugees_tanner"],
+        "questVisible": false,
+        "oneTimeQuest": false,
+        "startScript": "",
+        "successScript": "",
+        "failScript": "",
+        "arrowWgoCustomTag": "",
+        "arrowWgoObjectId": "",
+        "successRewards": [],
+        "failureRewards": []
+      },
+      "policy": {
+        "stateOwnership": "shared_campaign",
+        "eligibleInitiator": "any_player",
+        "livePresentationOwner": "initiating_player",
+        "observerQuestApplication": "durable_state_only",
+        "personalRewardDelivery": "party_exactly_once",
+        "observerSuccess": {
+          "globalScripts": [],
+          "playerParamRepairs": [],
+          "playerParamMinimums": [],
+          "taskStateMinimums": [],
+          "unlockedTechs": [],
+          "unlockedPhrases": [],
+          "blacklistedPhrases": [],
+          "unlockedCrafts": [],
+          "completedOneTimeCrafts": [],
+          "personalItemGrants": []
+        }
+      },
+      "completionChecks": []
+    }
+  ],
+  "taskMilestones": [
+    {
+      "milestoneId": "game_of_crone_tanner_workplace_requested",
+      "npcId": "npc_refugee_tanner",
+      "taskId": "dlc_refugees_city_tanner_1",
+      "activeStates": ["Visible"],
+      "playerParamRepairs": [],
+      "playerParamMinimums": [],
+      "taskStateMinimums": [],
+      "unlockedTechs": [],
+      "unlockedPhrases": [],
+      "blacklistedPhrases": [],
+      "unlockedCrafts": [],
+      "completedOneTimeCrafts": [],
+      "wgoParamMinimums": [],
+      "personalItemGrants": []
+    },
+    {
+      "milestoneId": "game_of_crone_tanner_workplace_completed",
+      "npcId": "npc_refugee_tanner",
+      "taskId": "dlc_refugees_city_tanner_1",
+      "activeStates": ["Complete"],
+      "playerParamRepairs": [],
+      "playerParamMinimums": [],
+      "taskStateMinimums": [],
+      "unlockedTechs": [],
+      "unlockedPhrases": [],
+      "blacklistedPhrases": [],
+      "unlockedCrafts": [],
+      "completedOneTimeCrafts": ["refugee_builddesk:p:refugee_tanner_workplace_place"],
+      "wgoParamMinimums": [],
+      "personalItemGrants": []
+    },
+    {
+      "milestoneId": "game_of_crone_tanner_farm_requested",
+      "npcId": "npc_refugee_tanner",
+      "taskId": "dlc_refugees_city_tanner_2",
+      "activeStates": ["Visible"],
+      "playerParamRepairs": [],
+      "playerParamMinimums": [],
+      "taskStateMinimums": [
+        { "npcId": "npc_refugee_tanner", "taskId": "dlc_refugees_city_tanner_1", "state": "Complete" }
+      ],
+      "unlockedTechs": [],
+      "unlockedPhrases": ["@tanner_vendor_inventory_1"],
+      "blacklistedPhrases": ["@refugee_tanner_2"],
+      "unlockedCrafts": [],
+      "completedOneTimeCrafts": [],
+      "wgoParamMinimums": [],
+      "personalItemGrants": []
+    },
+    {
+      "milestoneId": "game_of_crone_tanner_farm_completed",
+      "npcId": "npc_refugee_tanner",
+      "taskId": "dlc_refugees_city_tanner_2",
+      "activeStates": ["Complete"],
+      "playerParamRepairs": [],
+      "playerParamMinimums": [],
+      "taskStateMinimums": [
+        { "npcId": "npc_refugee_tanner", "taskId": "dlc_refugees_city_tanner_1", "state": "Complete" }
+      ],
+      "unlockedTechs": [],
+      "unlockedPhrases": ["@tanner_vendor_inventory_1"],
+      "blacklistedPhrases": ["@refugee_tanner_2"],
+      "unlockedCrafts": [],
+      "completedOneTimeCrafts": ["refugee_builddesk::refugee_camp_farm_fence_place"],
+      "wgoParamMinimums": [],
+      "personalItemGrants": []
+    },
+    {
+      "milestoneId": "game_of_crone_tanner_animal_work_requested",
+      "npcId": "npc_refugee_tanner",
+      "taskId": "dlc_refugees_city_tanner_3_1",
+      "activeStates": ["Visible"],
+      "playerParamRepairs": [],
+      "playerParamMinimums": [],
+      "taskStateMinimums": [
+        { "npcId": "npc_refugee_tanner", "taskId": "dlc_refugees_city_tanner_2", "state": "Complete" }
+      ],
+      "unlockedTechs": [],
+      "unlockedPhrases": [],
+      "blacklistedPhrases": ["@refugee_tanner_3"],
+      "unlockedCrafts": [],
+      "completedOneTimeCrafts": [],
+      "wgoParamMinimums": [],
+      "personalItemGrants": []
+    },
+    {
+      "milestoneId": "game_of_crone_tanner_cows_requested",
+      "npcId": "npc_shepherds_wife",
+      "taskId": "dlc_refugees_city_tanner_3_2",
+      "activeStates": ["Visible"],
+      "playerParamRepairs": [],
+      "playerParamMinimums": [],
+      "taskStateMinimums": [
+        { "npcId": "npc_refugee_tanner", "taskId": "dlc_refugees_city_tanner_3_1", "state": "Visible" }
+      ],
+      "unlockedTechs": [],
+      "unlockedPhrases": [],
+      "blacklistedPhrases": ["@refugee_tanner_3"],
+      "unlockedCrafts": [],
+      "completedOneTimeCrafts": [],
+      "wgoParamMinimums": [],
+      "personalItemGrants": []
+    },
+    {
+      "milestoneId": "game_of_crone_tanner_chickens_requested",
+      "npcId": "egg_seller",
+      "taskId": "dlc_refugees_city_tanner_3_3",
+      "activeStates": ["Visible"],
+      "playerParamRepairs": [],
+      "playerParamMinimums": [],
+      "taskStateMinimums": [
+        { "npcId": "npc_refugee_tanner", "taskId": "dlc_refugees_city_tanner_3_1", "state": "Visible" },
+        { "npcId": "npc_shepherds_wife", "taskId": "dlc_refugees_city_tanner_3_2", "state": "Visible" }
+      ],
+      "unlockedTechs": [],
+      "unlockedPhrases": [],
+      "blacklistedPhrases": ["@refugee_tanner_3"],
+      "unlockedCrafts": [],
+      "completedOneTimeCrafts": [],
+      "wgoParamMinimums": [],
+      "personalItemGrants": []
+    },
+    {
+      "milestoneId": "game_of_crone_tanner_cows_purchased",
+      "npcId": "npc_shepherds_wife",
+      "taskId": "dlc_refugees_city_tanner_3_2",
+      "activeStates": ["Complete"],
+      "playerParamRepairs": [],
+      "playerParamMinimums": [],
+      "taskStateMinimums": [
+        { "npcId": "npc_refugee_tanner", "taskId": "dlc_refugees_city_tanner_3_1", "state": "Visible" },
+        { "npcId": "egg_seller", "taskId": "dlc_refugees_city_tanner_3_3", "state": "Visible" }
+      ],
+      "unlockedTechs": [],
+      "unlockedPhrases": [],
+      "blacklistedPhrases": ["@refugee_tanner_4_2"],
+      "unlockedCrafts": [],
+      "completedOneTimeCrafts": [],
+      "wgoParamMinimums": [],
+      "personalItemGrants": []
+    },
+    {
+      "milestoneId": "game_of_crone_tanner_chickens_purchased",
+      "npcId": "egg_seller",
+      "taskId": "dlc_refugees_city_tanner_3_3",
+      "activeStates": ["Complete"],
+      "playerParamRepairs": [],
+      "playerParamMinimums": [],
+      "taskStateMinimums": [
+        { "npcId": "npc_refugee_tanner", "taskId": "dlc_refugees_city_tanner_3_1", "state": "Visible" },
+        { "npcId": "npc_shepherds_wife", "taskId": "dlc_refugees_city_tanner_3_2", "state": "Visible" }
+      ],
+      "unlockedTechs": [],
+      "unlockedPhrases": [],
+      "blacklistedPhrases": ["@refugee_tanner_4_3"],
+      "unlockedCrafts": [],
+      "completedOneTimeCrafts": [],
+      "wgoParamMinimums": [],
+      "personalItemGrants": []
+    },
+    {
+      "milestoneId": "game_of_crone_tanner_animal_contributions_completed",
+      "npcId": "npc_refugee_tanner",
+      "taskId": "dlc_refugees_city_tanner_3_1",
+      "activeStates": ["Complete"],
+      "playerParamRepairs": [],
+      "playerParamMinimums": [],
+      "taskStateMinimums": [],
+      "unlockedTechs": [],
+      "unlockedPhrases": ["@refugee_tanner_4_1"],
+      "blacklistedPhrases": [],
+      "unlockedCrafts": [],
+      "completedOneTimeCrafts": [],
+      "wgoParamMinimums": [],
+      "personalItemGrants": []
+    }
+  ],
+  "cutscenes": [
+    {
+      "cutsceneId": "game_of_crone_initialize_refugee_tanner",
+      "linkedQuestIds": ["dlc_refugees_tanner"],
+      "triggerScripts": [
+        "gykmp_story_dispatch_game_of_crone_refugee_tanner_initialize",
+        "npc_refugee_tanner:initialize"
+      ],
+      "actors": ["npc_refugee_tanner"],
+      "observerPolicy": "all_loaded_party_members",
+      "lateJoinPolicy": "join_live_checkpoint_or_observe",
+      "remoteExecutionPolicy": "live_observation",
+      "executionOwnerPolicy": "lobby_host",
+      "dialogueOwnerPolicy": "lobby_host",
+      "formationPolicy": "preserve_positions",
+      "cleanupRequirements": [
+        "apply-the-canonical-RefugeeParams-personal_1-personal_2-personal_3-two_on_the_way_now-one_refugee_unrollable-zero_first_roll-zero_and-roll_percent-point-seven-only-at-genuine-first-initialization",
+        "when-the-Tanner-script-is-registered-or-loaded_collapse-the-main-interactions-doubled-Received-to-on_the_way_now-ParamFlag-edge-before-routing-any-menu-choice_even-on-mature-saves-where-the-one-time-initialize-path-does-not-rerun",
+        "never-reset-the-three-personal-slots-or-other-Tanner-WGO-params-after-workplace-or-downstream-progress",
+        "persist-one-durable-four-hundred-fifty-second-event_tanner_1_unlock-arm-and-never-create-one-timer-per-peer",
+        "add-event_tanner_1-exactly-once-when-the-authoritative-delay-expires_rearm-only-if-consumed-without-an-entered-receipt_and-never-after-opening-or-downstream-evidence",
+        "keep-the-Tanners-movement-roll-and-home-schedule-support-edges-outside-story-phase-accounting",
+        "when-gykmp_story_phase_game_of_crone_refugee_camp_deactivated-or-gykmp_story_phase_game_of_crone_s54_complete-is-durable_keep-prior-Tanner-receipts-historical-and-never-reinitialize-rearm-or-respawn-deactivated-camp-state"
+      ]
+    },
+    {
+      "cutsceneId": "game_of_crone_meet_refugee_tanner",
+      "linkedQuestIds": ["dlc_refugees_tanner"],
+      "triggerScripts": [
+        "gykmp_story_dispatch_game_of_crone_refugee_tanner_1",
+        "npc_refugee_tanner:event_tanner_1"
+      ],
+      "actors": ["initiating_player", "npc_refugee_tanner"],
+      "observerPolicy": "all_loaded_party_members",
+      "lateJoinPolicy": "join_live_checkpoint_or_observe",
+      "remoteExecutionPolicy": "live_observation",
+      "executionOwnerPolicy": "lobby_host",
+      "dialogueOwnerPolicy": "initiating_player",
+      "formationPolicy": "initiator_with_observer_follow",
+      "cleanupRequirements": [
+        "claim-and-consume-the-single-event_tanner_1-interaction-before-locking-the-initiator-or-Tanner",
+        "collapse-the-four-identical-facing-control-and-value-bindings_to-one-semantic-facing-chain",
+        "present-refugee_tanner_1_1-through-1_15-once_with-player-lines-owned-by-the-actual-initiator",
+        "unlock-only-refugee_builddesk-colon-p-colon-refugee_tanner_workplace_place_then-show-task-tanner-1-in-source-order",
+        "normalize-the-Unlock-helpers-doubled-player-enable-to-refugee_unrollable-reset-edge_then-restore-control-and-NPC-state-on-success-disconnect-timeout-or-recovery"
+      ]
+    },
+    {
+      "cutsceneId": "game_of_crone_build_refugee_tanner_workplace",
+      "linkedQuestIds": ["dlc_refugees_tanner"],
+      "triggerScripts": [
+        "gykmp_story_dispatch_game_of_crone_refugee_tanner_workplace",
+        "place_tanner_workplace"
+      ],
+      "actors": ["initiating_player", "npc_refugee_tanner", "refugee_tanner_workplace_place", "refugee_tanner_workplace"],
+      "observerPolicy": "all_loaded_party_members",
+      "lateJoinPolicy": "join_live_checkpoint_or_observe",
+      "remoteExecutionPolicy": "live_observation",
+      "executionOwnerPolicy": "lobby_host",
+      "dialogueOwnerPolicy": "initiating_player",
+      "formationPolicy": "preserve_positions",
+      "cleanupRequirements": [
+        "claim-the-workplace-build-for-the-initiator_then-persist-prepared-debited-and-converged-subreceipts-around-ten-wooden-planks-sixteen-nails-and-twelve-physical-refugee_happiness_item-tokens-from-the-authoritative-build-MultiInventory-before-placement",
+        "treat-generic-place_refugee_workplace-as-a-support-effect_not-a-whole-story-cutscene-or-completion-witness",
+        "run-the-generic-camp-value-reconciliation-once-under-host-authority_without-replaying-the-Tanner-story-tail",
+        "record-distinct-valid-DoPlace-completed-one-time-craft_placeholder-and-seven-HP-completed-refugee_tanner_workplace-receipts",
+        "only-from-the-completed-workplace-receipt_complete-task-tanner-1_unlock-refugee_tanner_2_and-enable-canopy-roads-one-two-three-in-order",
+        "collapse-the-doubled-canopy-one-to-canopy-two-control-edge_to-one-world-layout-transition",
+        "clear-exactly-one-Tanner-personal-slot-by-source-x-threshold_greater-than-4000-to-personal_3_greater-than-3700-to-personal_2_greater-than-3300-to-personal_1",
+        "if-the-completed-workplaces-x-is-at-most-3300_flag-the-dangling-source-branch-and-wait-for-authoritative-reconciliation_instead-of-inventing-a-slot",
+        "if-the-strict-npc_refugee_tanner-WGO-is-absent_defer-the-selected-personal-slot-write_and-never-write-it-to-the-workplace",
+        "restore-the-building-players-camera-control-and-BuildMode-state_after-shared-world-task-and-phrase-receipts-are-durable",
+        "after-the-durable-refugee-camp-deactivation-or-s54-terminal_never-recreate-the-workplace-reunlock-its-build-craft-or-rearm-Tanner-from-historical-receipts"
+      ]
+    },
+    {
+      "cutsceneId": "game_of_crone_advance_refugee_tanner_two",
+      "linkedQuestIds": ["dlc_refugees_tanner"],
+      "triggerScripts": [
+        "gykmp_story_dispatch_game_of_crone_refugee_tanner_2",
+        "npc_refugee_tanner:@refugee_tanner_2"
+      ],
+      "actors": ["initiating_player", "npc_refugee_tanner", "vendor_refugee_tanner"],
+      "observerPolicy": "all_loaded_party_members",
+      "lateJoinPolicy": "join_live_checkpoint_or_observe",
+      "remoteExecutionPolicy": "live_observation",
+      "executionOwnerPolicy": "lobby_host",
+      "dialogueOwnerPolicy": "initiating_player",
+      "formationPolicy": "initiator_with_observer_follow",
+      "cleanupRequirements": [
+        "claim-refugee_tanner_2-before-blacklisting-or-applying-the-plus-thirty-relation-reward",
+        "present-refugee_tanner_2_1-through-2_10-once_with-player-lines-owned-by-the-actual-initiator",
+        "unlock-tanner_vendor_inventory_1_then-spawn-or-adopt-one-vendor_refugee_tanner_1-at-default_destroy_point",
+        "collapse-the-vendor-one-spawn-points-doubled-binding_to-one-spawn",
+        "unlock-refugee_builddesk-colon-colon-refugee_camp_farm_fence_place_then-show-task-tanner-2",
+        "restore-participant-control-and-interaction-state_only-after-relation-dialogue-vendor-craft-and-task-receipts-are-durable",
+        "after-the-durable-refugee-camp-deactivation-or-s54-terminal_never-respawn-the-Tanner-vendor-or-reunlock-the-farm-craft-from-historical-receipts"
+      ]
+    },
+    {
+      "cutsceneId": "game_of_crone_build_refugee_tanner_farm",
+      "linkedQuestIds": ["dlc_refugees_tanner"],
+      "triggerScripts": [
+        "gykmp_story_dispatch_game_of_crone_refugee_tanner_farm",
+        "place_refugees_camp_farm_fence",
+        "on_refugee_camp_farm_fence_build"
+      ],
+      "actors": ["initiating_player", "npc_refugee_tanner", "refugee_camp_farm_fence_place", "refugee_camp_farm_fence", "Camp"],
+      "observerPolicy": "all_loaded_party_members",
+      "lateJoinPolicy": "join_live_checkpoint_or_observe",
+      "remoteExecutionPolicy": "live_observation",
+      "executionOwnerPolicy": "lobby_host",
+      "dialogueOwnerPolicy": "initiating_player",
+      "formationPolicy": "preserve_positions",
+      "cleanupRequirements": [
+        "claim-the-farm-build-for-the-initiator_then-persist-prepared-debited-and-converged-subreceipts-around-twenty-four-flitch-twelve-wood1-and-twelve-physical-refugee_happiness_item-tokens-from-the-authoritative-build-MultiInventory-before-world-mutation",
+        "record-distinct-BuildType-None-completed-one-time-craft_scripted-placeholder-and-six-HP-completed-refugee_camp_farm_fence-receipts",
+        "during-placement-spawn-or-adopt-one-placeholder-at-gd_refugee_camp_farm_fence_place_and-remove-only-the-three-exact-source-obstacles",
+        "enable-gd_refugees_camp_farm_disable-gd_refugees_camp_before_farm_and-disable-the-literal-gd_refugges_camp_from_tents_to_no_farm",
+        "on-completion-enable-gd_refugees_road_farm_gd_refugees_road_camp_5_and-gd_refugee_farm_interior_and_exterior_then-clear-Camp-idle-slots-22-and-30_or-defer-only-those-slot-writes-when-strict-Camp-stock-is-unloaded",
+        "collapse-the-doubled-Camp-stock-Found-and-value-bindings_so-the-completion-suffix-runs-once",
+        "do-not-run-place_refugee_workplace-UpdateRefugeeCampValues-or-any-invented-fixed-cur_refugee_happiness-delta_for-the-farm-build",
+        "spawn-or-adopt-flower_small_6-at-flower-one_flower_small_8-at-flower-two_and-flower_small_9-then-flower_small_7-at-the-same-literal-flower-three-point",
+        "do-not-import-the-disconnected-camp_chicken_stock-and-five-chicken-source-island_from-on_refugee_camp_farm_fence_build",
+        "complete-task-tanner-2_then-unlock-refugee_tanner_3-in-source-order_and-restore-camera-control-and-BuildMode-state",
+        "after-the-durable-refugee-camp-deactivation-or-s54-terminal_never-reenable-farm-subzones-reunlock-the-farm-craft-or-recreate-farm-objects-from-historical-receipts"
+      ]
+    },
+    {
+      "cutsceneId": "game_of_crone_advance_refugee_tanner_three",
+      "linkedQuestIds": ["dlc_refugees_tanner"],
+      "triggerScripts": [
+        "gykmp_story_dispatch_game_of_crone_refugee_tanner_3",
+        "npc_refugee_tanner:@refugee_tanner_3"
+      ],
+      "actors": ["initiating_player", "npc_refugee_tanner", "npc_shepherds_wife", "egg_seller", "vendor_refugee_tanner"],
+      "observerPolicy": "all_loaded_party_members",
+      "lateJoinPolicy": "join_live_checkpoint_or_observe",
+      "remoteExecutionPolicy": "live_observation",
+      "executionOwnerPolicy": "lobby_host",
+      "dialogueOwnerPolicy": "initiating_player",
+      "formationPolicy": "initiator_with_observer_follow",
+      "cleanupRequirements": [
+        "claim-refugee_tanner_3-before-blacklisting-or-the-plus-forty-relation-reward",
+        "collapse-the-doubled-relation-value-binding_and-present-refugee_tanner_3_1-through-3_4-once",
+        "show-tanner-task-3_1_then-shepherds-wife-task-3_2_then-egg-seller-task-3_3-in-source-order",
+        "unlock-refugee_tanner_4_3-before-refugee_tanner_4_2-exactly-as-the-source-does",
+        "destroy-all-obsolete-same-tag-vendors-if-present_then-spawn-or-adopt-one-vendor_refugee_tanner_2-at-default_destroy_point",
+        "when-the-old-vendor-is-missing_never-let-Flow_DestroyWGO-null-fallback-target-the-Tanner-flow-self",
+        "collapse-the-vendor-two-spawn-points-tripled-binding_and-deduplicate-all-vendor_refugee_tanner-tagged-objects",
+        "restore-participant-state-after-dialogue-tasks-topics-and-one-level-two-vendor-are-durable",
+        "after-the-durable-refugee-camp-deactivation-or-s54-terminal_never-respawn-vendor-two-or-Tanner-from-historical-task-topic-or-vendor-receipts"
+      ]
+    },
+    {
+      "cutsceneId": "game_of_crone_purchase_refugee_tanner_animals",
+      "linkedQuestIds": ["dlc_refugees_tanner"],
+      "triggerScripts": [
+        "gykmp_story_dispatch_game_of_crone_refugee_tanner_animals",
+        "npc_shepherds_wife:@refugee_tanner_4_2",
+        "egg_seller:@refugee_tanner_4_3",
+        "spawn_refugee_chickens",
+        "check_and_set_refugee_tanner_4_1_start"
+      ],
+      "actors": ["initiating_player", "npc_shepherds_wife", "egg_seller", "npc_refugee_tanner", "camp_chicken_stock", "refugee_chicken_1", "refugee_chicken_2", "refugee_chicken_3", "refugee_chicken_4", "refugee_chicken_5"],
+      "observerPolicy": "all_loaded_party_members",
+      "lateJoinPolicy": "join_live_checkpoint_or_observe",
+      "remoteExecutionPolicy": "live_observation",
+      "executionOwnerPolicy": "lobby_host",
+      "dialogueOwnerPolicy": "initiating_player",
+      "formationPolicy": "preserve_positions",
+      "cleanupRequirements": [
+        "before-claiming-a-new-cow-or-chicken-topic_check-the-durable-camp-deactivation-or-S54-terminal_and-when-present-without-that-sides-preexisting-debited-receipt-retire-or-reject-the-stale-topic-before-opening-MultiAnswer-or-taking-money",
+        "claim-each-external-topic-before-its-local-MultiAnswer-GUI-debits-one-hundred-or-fifty-money-from-the-selecting-profile",
+        "persist-prepared-debited-and-converged-payment-subreceipts_per-actual-payer_so-recovery-never-charges-the-host-or-debits-a-completed-side-twice",
+        "when-a-side-topic-is-already-blacklisted-without-a-synthetic-receipt_adopt-a-payer-unknown-legacy-debited-entry-prefix_never-guess-a-payer-refund-or-recharge_and-for-the-cow-side-resume-or-join-the-missing-dialogue-before-task-contribution-and-world-tail-unless-task-Complete-or-a-dialogue-complete-receipt-proves-all-twelve-lines",
+        "for-the-cow-side_blacklist-refugee_tanner_4_2_present-lines-4_2_1-through-4_2_12_then-complete-only-the-shepherds-wife-task",
+        "for-the-chicken-side_blacklist-refugee_tanner_4_3_complete-only-the-egg-seller-task_and-do-not-invent-dialogue",
+        "record-one-distinct-shared-cow-or-chicken-contribution-before-any-source-counter-write_and-derive-convergence-from-both-distinct-receipts",
+        "never-minimum-repair-or-use-per-invoker-refugee_tanner_4_1_start_count-as-authoritative_concurrent-players-must-not-be-stranded-at-one-each-or-complete-from-one-side-twice",
+        "after-the-cow-prefix-enable-gd_refugee_cows_and-set-refugee_cows_live-one_as-an-independent-world-suffix-receipt",
+        "treat-Flow_RunScript-spawn_refugee_chickens-Out-as-asynchronous_and-join-its-world-receipt-separately-from-the-chicken-task-and-gate",
+        "for-the-chicken-world-suffix-set-refugee_farm_active-and-refugee_farm_live-one_enable-gd_refugee_henhouse_and-spawn-or-adopt-one-idle_points_stock-tagged-camp_chicken_stock-with-max-idle-points-eight",
+        "spawn-or-adopt-exactly-one-of-each-refugee_chicken_1-through-5-at-the-five-literal-chicken_1-lookups_then-only-for-newly-spawned-or-uninitialized-chickens-send-Evening-at-night-or-Roll-with-delays-zero-point-zero-through-zero-point-eight-otherwise",
+        "collapse-spawn_refugee_chickens-every-doubled-control-and-value-edge_before-any-spawn-event-or-EndScript",
+        "unlock-refugee_tanner_4_1_then-complete-central-task-3_1-only-after-both-distinct-contributions_but-do-not-call-the-animal-step-terminal-until-both-independent-world-suffixes-are-also-durable",
+        "restore-only-the-selecting-players-control-after-each-external-interaction_while-observers-retain-their-own-state",
+        "after-the-durable-refugee-camp-deactivation-or-s54-terminal_keep-animal-receipts-historical-and-never-set-cow-or-farm-live-back-to-one_reenable-cow-or-hen-GD-points_or-respawn-stock-or-chickens"
+      ]
+    },
+    {
+      "cutsceneId": "game_of_crone_complete_refugee_tanner",
+      "linkedQuestIds": ["dlc_refugees_tanner"],
+      "triggerScripts": [
+        "gykmp_story_dispatch_game_of_crone_refugee_tanner_4",
+        "npc_refugee_tanner:@refugee_tanner_4_1"
+      ],
+      "actors": ["initiating_player", "npc_refugee_tanner", "vendor_refugee_tanner"],
+      "observerPolicy": "all_loaded_party_members",
+      "lateJoinPolicy": "join_live_checkpoint_or_observe",
+      "remoteExecutionPolicy": "live_observation",
+      "executionOwnerPolicy": "lobby_host",
+      "dialogueOwnerPolicy": "initiating_player",
+      "formationPolicy": "initiator_with_observer_follow",
+      "cleanupRequirements": [
+        "require-both-animal-contribution-and-both-animal-world-suffix-receipts_before-claiming-the-final-topic",
+        "claim-refugee_tanner_4_1-before-blacklisting-or-applying-the-plus-thirty-relation-reward",
+        "collapse-the-tripled-relation-value-binding_and-present-refugee_tanner_4_1_1-through-4_1_9-once",
+        "when-the-old-vendor-is-missing_never-let-Flow_DestroyWGO-null-fallback-target-the-Tanner-flow-self",
+        "collapse-the-doubled-Destroy-to-Spawn-control-edge_four-spawn-point-bindings_and-two-old-vendor-bindings_to-one-level-three-replacement",
+        "spawn-or-adopt-exactly-one-vendor_refugee_tanner_3_with-tag-vendor_refugee_tanner-at-default_destroy_point",
+        "unlock-tech_bag_alchemy_then-tech_bag_farming_then-tech_bag_fishing_once_and-collapse-the-second-identical-fishing-unlock",
+        "do-not-silently-invent-the-missing-tech_bag_tools-topic-unlock",
+        "invoke-Flow_CheckKeyQuest-dlc_refugees_tanner-after-the-vendor-and-three-topic-tail_then-return_restore-control_and-only-then-fire-on_talk_end",
+        "keep-shared-achievement-eligibility-separate-from-per-profile-platform-delivery_and-never-block-the-shared-terminal-on-offline-platform-state",
+        "only-for-LateSaveFixer-saves-with-rounded-game-version-at-most-1301_use-an-existing-tech_bag_alchemy-phrase-as-a-personal-platform-migration-witness_never-as-shared-finale-proof",
+        "after-the-durable-refugee-camp-deactivation-or-s54-terminal_keep-finale-and-achievement-receipts-but-never-respawn-vendor-three-or-Tanner"
+      ]
+    },
+    {
+      "cutsceneId": "game_of_crone_unlock_refugee_tanner_technologies",
+      "linkedQuestIds": ["dlc_refugees_tanner"],
+      "triggerScripts": [
+        "gykmp_story_dispatch_game_of_crone_refugee_tanner_tech",
+        "npc_refugee_tanner:@tech_bag_alchemy",
+        "npc_refugee_tanner:@tech_bag_farming",
+        "npc_refugee_tanner:@tech_bag_fishing",
+        "npc_refugee_tanner:@tech_bag_tools"
+      ],
+      "actors": ["initiating_player", "npc_refugee_tanner"],
+      "observerPolicy": "all_loaded_party_members",
+      "lateJoinPolicy": "join_live_checkpoint_or_observe",
+      "remoteExecutionPolicy": "live_observation",
+      "executionOwnerPolicy": "lobby_host",
+      "dialogueOwnerPolicy": "initiating_player",
+      "formationPolicy": "preserve_positions",
+      "cleanupRequirements": [
+        "claim-each-optional-topic-independently-before-the-forced-unlock-dialog-or-its-tech-flowscript-blacklists-the-topic",
+        "map-tech_bag_alchemy-to-bag_alchemy_tech_bag_farming-to-bag_farming_and-tech_bag_fishing-to-bag_fishing-exactly",
+        "collapse-the-farming-functions-doubled_fishings-tripled_and-tools-quadrupled-entry-and-callback-edges-to-one-semantic-call",
+        "for-each-reachable-topic-open-the-non-silent-show-tech-false-tech-dialog-on-the-initiating-player_wait-for-OK-to-call-UnlockTech_then-commit-on-close-after-the-exact-tech-and-craft-exist",
+        "never-infer-a-Tanner-topic-selection-or-blacklist-from-tech-and-craft-state-alone_because-canonical-recipe-scroll-routes-can-unlock-the-same-bag-technologies",
+        "if-disconnect-or-programmatic-close-interrupts-before-the-forced-OK-applies-the-tech_leave-the-topic-retryable_while-recovery-after-tech-application-completes-only-the-missing-exact-topic-blacklist-and-callback-suffix",
+        "do-not-invent-tech_bag_tools-topic-availability_the-final-source-never-unlocks-it",
+        "if-the-orphan-tools-topic-is-somehow-invoked_do-not-translate-the-malformed-at-tech_bag_tools-lookup-or-grant-or-blacklist-anything_release-the-presentation-callback-safely-and-leave-real-tech_bag_tools-to-its-canonical-recipe-route",
+        "apply-each-exact-technology-and-craft-as-shared-durable-state_then-restore-only-the-selecting-players-interaction-state"
+      ]
+    }
+  ],
+  "storySteps": [
+    {
+      "stepId": "game_of_crone_settle_and_meet_refugee_tanner",
+      "title": "Let the refugee tanner settle and request a workplace",
+      "linkedQuestIds": ["dlc_refugees_tanner"],
+      "linkedTaskMilestoneIds": ["game_of_crone_tanner_workplace_requested"],
+      "triggerScripts": [
+        "gykmp_story_dispatch_game_of_crone_refugee_tanner_initialize",
+        "gykmp_story_dispatch_game_of_crone_refugee_tanner_1"
+      ],
+      "triggerKeys": [
+        "npc_refugee_tanner:initialize",
+        "npc_refugee_10",
+        "personal_1:2",
+        "personal_2:2",
+        "personal_3:2",
+        "roll_percent:0.7",
+        "event_tanner_1_unlock:450",
+        "event_tanner_1",
+        "refugee_tanner_1_1",
+        "refugee_tanner_1_15",
+        "refugee_builddesk:p:refugee_tanner_workplace_place",
+        "dlc_refugees_city_tanner_1",
+        "gykmp_story_phase_game_of_crone_refugee_tanner_invite_armed",
+        "gykmp_story_phase_game_of_crone_refugee_tanner_1_entered",
+        "gykmp_story_phase_game_of_crone_refugee_tanner_1_complete"
+      ],
+      "expectedEffects": [
+        {
+          "kind": "world_event_timer",
+          "id": "gykmp_story_phase_game_of_crone_refugee_tanner_invite_armed",
+          "operation": "schedule-one-authoritative-event_tanner_1_unlock-for-four-hundred-fifty-seconds-after-genuine-first-initialization_then-add-one-opening-interaction",
+          "amount": 450,
+          "ownership": "shared_world"
+        },
+        {
+          "kind": "story_phase",
+          "id": "gykmp_story_phase_game_of_crone_refugee_tanner_1_entered",
+          "operation": "consume-the-single-opening-interaction-and-commit-before-player-or-Tanner-lock-facing-and-dialogue",
+          "amount": 1,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "dialogue_sequence",
+          "id": "refugee_tanner_1_1_through_1_15",
+          "operation": "collapse-the-fourfold-facing-chain_then-present-fifteen-lines-once-with-the-actual-initiator-owning-player-lines",
+          "amount": 15,
+          "ownership": "live_presentation"
+        },
+        {
+          "kind": "craft",
+          "id": "refugee_builddesk:p:refugee_tanner_workplace_place",
+          "operation": "unlock-after-line-1_15-and-before-task-visibility",
+          "amount": 1,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "npc_task",
+          "id": "npc_refugee_tanner:dlc_refugees_city_tanner_1",
+          "operation": "set-Visible-with-zero-task-story-rewards_after-the-workplace-craft",
+          "amount": 1,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "story_phase",
+          "id": "gykmp_story_phase_game_of_crone_refugee_tanner_1_complete",
+          "operation": "commit-after-dialogue-craft-task-and-participant-cleanup-are-durable",
+          "amount": 1,
+          "ownership": "shared_campaign"
+        }
+      ],
+      "safeguards": [
+        "the-delayed-WGO-event-is-shared-world-state_not-a-per-player-timer",
+        "reinitialization-must-not-reset-personal_1-personal_2-personal_3-or-rearm-the-opening-after-workplace-or-downstream-evidence",
+        "normalize-the-fourfold-facing-bindings-and-the-Unlock-helpers-single-doubled-reset-edge-before-live-presentation",
+        "do-not-promote-normal-interaction_rolling_home-or-on_talk_end-schedule-support-to-story-phases_and-keep-repeatable-interaction-edge-normalization-independent-of-one-time-initialize-trigger-ownership",
+        "do-not-put-the-workplace-craft-in-the-Visible-task-milestone_replay-it-only-from-the-live-request-step-so-a-stale-task-cannot-undo-S54-deactivation",
+        "gykmp_story_phase_game_of_crone_refugee_camp_deactivated-or-gykmp_story_phase_game_of_crone_s54_complete-supersedes-opening-rearm-and-reinitialization"
+      ]
+    },
+    {
+      "stepId": "game_of_crone_build_refugee_tanner_workplace",
+      "title": "Build and finish the refugee tanner's workplace",
+      "linkedQuestIds": ["dlc_refugees_tanner"],
+      "linkedTaskMilestoneIds": [
+        "game_of_crone_tanner_workplace_requested",
+        "game_of_crone_tanner_workplace_completed"
+      ],
+      "triggerScripts": ["gykmp_story_dispatch_game_of_crone_refugee_tanner_workplace"],
+      "triggerKeys": [
+        "wooden_plank:10",
+        "nails:16",
+        "refugee_happiness_item:12",
+        "refugee_builddesk:p:refugee_tanner_workplace_place",
+        "place_refugee_workplace",
+        ":r:refugee_tanner_workplace_place",
+        "refugee_tanner_workplace_place",
+        "hp:7",
+        "refugee_tanner_workplace",
+        "place_tanner_workplace",
+        "gd_refugees_road_canopy_1",
+        "gd_refugees_road_canopy_2",
+        "gd_refugees_road_canopy_3",
+        "personal_1:0",
+        "personal_2:0",
+        "personal_3:0",
+        "@refugee_tanner_2",
+        "gykmp_story_build_game_of_crone_refugee_tanner_workplace",
+        "gykmp_story_object_game_of_crone_refugee_tanner_workplace_completed",
+        "gykmp_story_phase_game_of_crone_refugee_tanner_2_armed"
+      ],
+      "expectedEffects": [
+        {
+          "kind": "build_transaction",
+          "id": "gykmp_story_build_game_of_crone_refugee_tanner_workplace",
+          "operation": "record-the-actual-building-profile-and-prepared-debited-converged-subreceipts_while-consuming-ten-wooden-planks_sixteen-nails_and-twelve-physical-refugee_happiness_item-tokens-from-the-authoritative-BuildMode-player-plus-zone-MultiInventory-with-DestinationType-AllFromLast",
+          "amount": 1,
+          "ownership": "initiating_player_transaction"
+        },
+        {
+          "kind": "world_object",
+          "id": "refugee_tanner_workplace_place",
+          "operation": "place-or-adopt-one-seven-HP-placeholder_and-run-the-generic-camp-value-support-effect-once",
+          "amount": 1,
+          "ownership": "shared_world"
+        },
+        {
+          "kind": "completed_one_time_craft",
+          "id": "refugee_builddesk:p:refugee_tanner_workplace_place",
+          "operation": "after-valid-DoPlace-consumes-the-three-costs_replaces-the-floating-object_and-launches-generic-place_refugee_workplace-support_record-the-exact-craft-in-completed_one_time_crafts-as-debit-placement-and-script-launch-evidence",
+          "amount": 1,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "story_object_receipt",
+          "id": "gykmp_story_object_game_of_crone_refugee_tanner_workplace_completed",
+          "operation": "record-only-from-the-physical-refugee_tanner_workplace-completion-callback_not-from-generic-placement",
+          "amount": 1,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "npc_task",
+          "id": "npc_refugee_tanner:dlc_refugees_city_tanner_1",
+          "operation": "set-Complete-before-unlocking-refugee_tanner_2",
+          "amount": 1,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "dialogue_phrase",
+          "id": "@refugee_tanner_2",
+          "operation": "unlock-after-task-tanner-1-Complete-and-before-enabling-the-three-canopy-roads",
+          "amount": 1,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "world_layout",
+          "id": "game_of_crone_refugee_tanner_canopy_roads",
+          "operation": "enable-canopy-roads-one-two-three-once-in-source-order_after-collapsing-the-doubled-first-transition",
+          "amount": 3,
+          "ownership": "shared_world"
+        },
+        {
+          "kind": "conditional_wgo_param",
+          "id": "npc_refugee_tanner:personal_slot",
+          "operation": "clear-exactly-one-personal-slot-selected-by-the-completed-workplaces-source-x-threshold_and-defer-the-dangling-at-most-3300-case",
+          "amount": 0,
+          "ownership": "shared_world"
+        },
+        {
+          "kind": "story_phase",
+          "id": "gykmp_story_phase_game_of_crone_refugee_tanner_2_armed",
+          "operation": "commit-after-completed-object-task-topic-roads-slot-and-BuildMode-cleanup-are-durable",
+          "amount": 1,
+          "ownership": "shared_campaign"
+        }
+      ],
+      "safeguards": [
+        "placement-and-seven-HP-completion-are-distinct-receipts",
+        "place_refugee_workplace-is-generic-happiness-reconciliation_not-proof-of-the-Tanner-workplace-or-task-tail",
+        "run-UpdateRefugeeCampValues-zero-ItemUpdatesGameRes-once-after-the-physical-happiness-item-debit_and-never-apply-an-additional-fixed-minus-twelve-param-delta-on-host-or-observers",
+        "using-literal-removal-craft-colon-r-colon-refugee_tanner_workplace_place-on-an-unfinished-placeholder-refunds-all-needs_removes-the-completed-craft-marker_and-marks-the-synthetic-transaction-refunded-and-retryable",
+        "the-S54-deactivation-lock-list-literal-refugee_builddesk:r:refugee_tanner_workplace_place-does-not-match-the-real-removal-craft-:r:refugee_tanner_workplace_place_treat-that-source-entry-as-documentary-no-op-risk-and-never-alias-it-into-removal-craft-evidence",
+        "after-the-physical-refugee_tanner_workplace-and-story-tail-receipt-exist_do-not-regress-that-terminal-merely-because-the-transient-put-craft-marker-is-absent",
+        "adopting-an-existing-placeholder-completed-object-or-task-tail-must-never-redebit-materials-or-shared-happiness",
+        "write-the-selected-personal-slot-only-to-a-strictly-found-npc_refugee_tanner-WGO",
+        "do-not-invent-a-personal-slot-for-the-source-branch-at-or-below-x-3300",
+        "after-the-durable-camp-deactivation-terminal_keep-workplace-receipts-historical-and-never-recreate-or-reunlock-deactivated-build-state"
+      ]
+    },
+    {
+      "stepId": "game_of_crone_open_refugee_tanner_farm",
+      "title": "Hear the tanner's farm request and open her first vendor tier",
+      "linkedQuestIds": ["dlc_refugees_tanner"],
+      "linkedTaskMilestoneIds": ["game_of_crone_tanner_farm_requested"],
+      "triggerScripts": ["gykmp_story_dispatch_game_of_crone_refugee_tanner_2"],
+      "triggerKeys": [
+        "@refugee_tanner_2",
+        "refugee_tanner_2_1",
+        "refugee_tanner_2_10",
+        "_rel:30",
+        "@tanner_vendor_inventory_1",
+        "vendor_refugee_tanner_1",
+        "vendor_refugee_tanner",
+        "default_destroy_point",
+        "bags_1",
+        "bag_alchemy",
+        "bag_farming",
+        "bag_fishing",
+        "bag_tools",
+        "vendor_refugee_tanner_1:tier1:money10:daily0.05",
+        "refugee_builddesk::refugee_camp_farm_fence_place",
+        "dlc_refugees_city_tanner_2",
+        "gykmp_story_phase_game_of_crone_refugee_tanner_2_entered",
+        "gykmp_story_relation_game_of_crone_refugee_tanner_2",
+        "gykmp_story_vendor_game_of_crone_refugee_tanner_1",
+        "gykmp_story_phase_game_of_crone_refugee_tanner_farm_armed"
+      ],
+      "expectedEffects": [
+        {
+          "kind": "story_phase",
+          "id": "gykmp_story_phase_game_of_crone_refugee_tanner_2_entered",
+          "operation": "claim-the-topic-before-blacklisting-relation-or-dialogue",
+          "amount": 1,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "relationship_delta_receipt",
+          "id": "gykmp_story_relation_game_of_crone_refugee_tanner_2",
+          "operation": "apply-Tanner-plus-thirty-once_reaching-the-canonical-profession-total-thirty",
+          "amount": 30,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "dialogue_sequence",
+          "id": "refugee_tanner_2_1_through_2_10",
+          "operation": "present-ten-lines-once_with-lines-one-eight-and-ten-owned-by-the-actual-initiator",
+          "amount": 10,
+          "ownership": "live_presentation"
+        },
+        {
+          "kind": "dialogue_phrase",
+          "id": "@tanner_vendor_inventory_1",
+          "operation": "unlock-before-the-level-one-vendor-spawn",
+          "amount": 1,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "story_vendor_receipt",
+          "id": "gykmp_story_vendor_game_of_crone_refugee_tanner_1",
+          "operation": "spawn-or-adopt-one-tagged-level-one-vendor-with-bags_1_base-alchemy-farming-fishing-tools-bags_start-tier-one_money-ten_daily-point-zero-five_levelup-zero-zero_empty-not_buying_and-all-seven-direct-bag-IDs-in-tier-zero-not_selling",
+          "amount": 1,
+          "ownership": "shared_world"
+        },
+        {
+          "kind": "craft",
+          "id": "refugee_builddesk::refugee_camp_farm_fence_place",
+          "operation": "unlock-after-vendor-one-and-before-task-tanner-2",
+          "amount": 1,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "npc_task",
+          "id": "npc_refugee_tanner:dlc_refugees_city_tanner_2",
+          "operation": "set-Visible-with-zero-task-story-rewards",
+          "amount": 1,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "story_phase",
+          "id": "gykmp_story_phase_game_of_crone_refugee_tanner_farm_armed",
+          "operation": "commit-after-blacklist-relation-dialogue-vendor-topic-craft-task-and-cleanup-are-durable",
+          "amount": 1,
+          "ownership": "shared_campaign"
+        }
+      ],
+      "safeguards": [
+        "blacklisted-refugee_tanner_2-is-entry-prefix-evidence_not-proof-of-dialogue-vendor-craft-or-task-tail",
+        "collapse-the-vendor-one-GD-point-binding-before-spawn",
+        "vendor-use-is-repeatable-menu-support_not-story-progress",
+        "never-replay-the-plus-thirty-relation-reward-from-task-or-phrase-state-without-its-receipt",
+        "do-not-put-the-farm-craft-in-the-Visible-task-milestone_replay-it-only-from-this-live-request-step-so-a-stale-task-cannot-undo-S54-deactivation",
+        "after-the-durable-camp-deactivation-terminal_keep-vendor-and-farm-request-receipts-historical-and-never-respawn-or-reunlock-deactivated-camp-state"
+      ]
+    },
+    {
+      "stepId": "game_of_crone_build_refugee_tanner_farm",
+      "title": "Build the refugee animal farm and open the livestock request",
+      "linkedQuestIds": ["dlc_refugees_tanner"],
+      "linkedTaskMilestoneIds": [
+        "game_of_crone_tanner_farm_requested",
+        "game_of_crone_tanner_farm_completed"
+      ],
+      "triggerScripts": ["gykmp_story_dispatch_game_of_crone_refugee_tanner_farm"],
+      "triggerKeys": [
+        "flitch:24",
+        "wood1:12",
+        "refugee_happiness_item:12",
+        "refugee_builddesk::refugee_camp_farm_fence_place",
+        "refugee_camp_farm_fence_place",
+        "refugee_camp_farm_fence",
+        "gd_refugee_camp_farm_fence_place",
+        "hp:6",
+        "tree_1_3@3360,4224",
+        "tree_1_3@2880,4236",
+        "bush_5@3360,4032",
+        "gd_refugees_camp_farm",
+        "gd_refugees_camp_before_farm",
+        "gd_refugges_camp_from_tents_to_no_farm",
+        "gd_refugees_road_farm",
+        "gd_refugees_road_camp_5",
+        "gd_refugee_farm_interior_and_exterior",
+        "camp_idle_22:0",
+        "camp_idle_30:0",
+        "flower_small_6@gd_refugee_farm_flower_1",
+        "flower_small_8@gd_refugee_farm_flower_2",
+        "flower_small_9@gd_refugee_farm_flower_3",
+        "flower_small_7@gd_refugee_farm_flower_3",
+        "@refugee_tanner_3",
+        "gykmp_story_build_game_of_crone_refugee_tanner_farm",
+        "gykmp_story_object_game_of_crone_refugee_tanner_farm_completed",
+        "gykmp_story_phase_game_of_crone_refugee_tanner_3_armed"
+      ],
+      "expectedEffects": [
+        {
+          "kind": "build_transaction",
+          "id": "gykmp_story_build_game_of_crone_refugee_tanner_farm",
+          "operation": "record-the-actual-building-profile-and-prepared-debited-converged-subreceipts_while-consuming-twenty-four-flitch_twelve-wood1_and-twelve-physical-refugee_happiness_item-tokens-from-the-authoritative-BuildMode-player-plus-zone-MultiInventory-with-DestinationType-AllFromFirst",
+          "amount": 1,
+          "ownership": "initiating_player_transaction"
+        },
+        {
+          "kind": "completed_one_time_craft",
+          "id": "refugee_builddesk::refugee_camp_farm_fence_place",
+          "operation": "consume-the-three-costs-at-BuildType-None-CraftReally-start_attach-and-launch-place_refugees_camp_farm_fence_then-let-GameSave-OnFinishedCraft-record-the-exact-one-time-craft_as-committed-debit-and-script-launch-evidence-not-placeholder-camera-world-or-HP-six-completion",
+          "amount": 1,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "world_object",
+          "id": "refugee_camp_farm_fence_place@gd_refugee_camp_farm_fence_place",
+          "operation": "spawn-or-adopt-one-six-HP-farm-placeholder_and-record-placement-separately-from-physical-completion",
+          "amount": 1,
+          "ownership": "shared_world"
+        },
+        {
+          "kind": "world_object_cleanup",
+          "id": "game_of_crone_refugee_tanner_farm_obstacles",
+          "operation": "remove-only-the-two-exact-tree_1_3-positions-and-one-exact-bush_5-position-during-placement",
+          "amount": 3,
+          "ownership": "shared_world"
+        },
+        {
+          "kind": "world_layout",
+          "id": "game_of_crone_refugee_tanner_farm_placement_layout",
+          "operation": "during-placement-enable-the-farm_disable-before-farm_and-disable-the-literal-typo-no-farm-subzone-once",
+          "amount": 3,
+          "ownership": "shared_world"
+        },
+        {
+          "kind": "story_object_receipt",
+          "id": "gykmp_story_object_game_of_crone_refugee_tanner_farm_completed",
+          "operation": "record-from-the-physical-refugee_camp_farm_fence-completion-callback-before-running-its-single-normalized-world-and-task-suffix",
+          "amount": 1,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "world_layout",
+          "id": "game_of_crone_refugee_tanner_farm_completion_layout",
+          "operation": "disable-the-literal-typo-no-farm-subzone_then-enable-road-farm_road-camp-five_and-farm-interior-and-exterior-once",
+          "amount": 4,
+          "ownership": "shared_world"
+        },
+        {
+          "kind": "wgo_param_bundle",
+          "id": "Camp:refugee_tanner_farm_idle_slots",
+          "operation": "on-a-strictly-found-Camp-stock-set-camp_idle_22-and-camp_idle_30-to-zero_once_or-defer-only-this-bundle-while-that-stock-is-unloaded",
+          "amount": 2,
+          "ownership": "shared_world"
+        },
+        {
+          "kind": "world_actor_set",
+          "id": "game_of_crone_refugee_tanner_farm_flowers",
+          "operation": "spawn-or-adopt-the-four-exact-flowers_preserving-the-source-reuse-of-flower-point-three-for-the-last-two",
+          "amount": 4,
+          "ownership": "shared_world"
+        },
+        {
+          "kind": "npc_task",
+          "id": "npc_refugee_tanner:dlc_refugees_city_tanner_2",
+          "operation": "set-Complete-after-layout-Camp-idle-and-flower-effects",
+          "amount": 1,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "dialogue_phrase",
+          "id": "@refugee_tanner_3",
+          "operation": "unlock-after-task-tanner-2-Complete",
+          "amount": 1,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "story_phase",
+          "id": "gykmp_story_phase_game_of_crone_refugee_tanner_3_armed",
+          "operation": "commit-after-world-task-topic-and-BuildMode-cleanup-are-durable",
+          "amount": 1,
+          "ownership": "shared_campaign"
+        }
+      ],
+      "safeguards": [
+        "placement-and-six-HP-completion-are-distinct-receipts",
+        "collapse-the-doubled-Camp-stock-Found-suffix-before-writing-idle-slots-or-spawning-flowers",
+        "do-not-import-the-completion-graphs-disconnected-chicken-stock-and-five-chicken-island",
+        "adopting-an-existing-placeholder-completed-fence-or-task-tail-must-never-redebit-materials-or-shared-happiness",
+        "an-interruption-before-GameSave-OnFinishedCraft-may-refund-_cur_craft_items_used_and-must-leave-the-farm-transaction-retryable",
+        "the-farm-scripts-never-call-UpdateRefugeeCampValues_or-set-cur_refugee_happiness_so-neither-host-nor-observers-may-synthesize-an-extra-happiness-param-delta",
+        "if-strict-Camp-stock-is-unloaded_defer-idle-slot-writes-without-blocking-or-replaying-the-rest-of-the-completion-suffix",
+        "task-tanner-2-Complete-precedes-the-refugee_tanner_3-unlock_and-cannot-by-itself-repair-that-later-phrase",
+        "never-spawn-a-second-farm-placeholder-when-the-six-HP-object-or-completion-receipt-already-exists",
+        "after-the-durable-camp-deactivation-terminal_keep-farm-receipts-historical-and-never-reenable-subzones-reunlock-crafts-or-recreate-objects"
+      ]
+    },
+    {
+      "stepId": "game_of_crone_open_refugee_tanner_animal_orders",
+      "title": "Ask the tanner about livestock and open both animal orders",
+      "linkedQuestIds": ["dlc_refugees_tanner"],
+      "linkedTaskMilestoneIds": [
+        "game_of_crone_tanner_animal_work_requested",
+        "game_of_crone_tanner_cows_requested",
+        "game_of_crone_tanner_chickens_requested"
+      ],
+      "triggerScripts": ["gykmp_story_dispatch_game_of_crone_refugee_tanner_3"],
+      "triggerKeys": [
+        "@refugee_tanner_3",
+        "refugee_tanner_3_1",
+        "refugee_tanner_3_4",
+        "_rel:40",
+        "dlc_refugees_city_tanner_3_1",
+        "npc_shepherds_wife:dlc_refugees_city_tanner_3_2",
+        "egg_seller:dlc_refugees_city_tanner_3_3",
+        "@refugee_tanner_4_3",
+        "@refugee_tanner_4_2",
+        "vendor_refugee_tanner_2",
+        "bags_1",
+        "bags_2",
+        "recipe_bag_alchemy",
+        "recipe_bag_farming",
+        "recipe_bag_fishing",
+        "recipe_bag_tools",
+        "vendor_refugee_tanner_2:tier2:money15:daily0.05",
+        "gykmp_story_phase_game_of_crone_refugee_tanner_3_entered",
+        "gykmp_story_relation_game_of_crone_refugee_tanner_3",
+        "gykmp_story_vendor_game_of_crone_refugee_tanner_2",
+        "gykmp_story_phase_game_of_crone_refugee_tanner_animals_armed"
+      ],
+      "expectedEffects": [
+        {
+          "kind": "story_phase",
+          "id": "gykmp_story_phase_game_of_crone_refugee_tanner_3_entered",
+          "operation": "claim-the-topic-before-blacklisting-relation-or-dialogue",
+          "amount": 1,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "relationship_delta_receipt",
+          "id": "gykmp_story_relation_game_of_crone_refugee_tanner_3",
+          "operation": "collapse-the-doubled-reward-binding_and-apply-Tanner-plus-forty-once_reaching-the-canonical-total-seventy",
+          "amount": 40,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "dialogue_sequence",
+          "id": "refugee_tanner_3_1_through_3_4",
+          "operation": "present-four-lines-once_with-line-two-and-both-thought-lines-owned-by-the-actual-initiator",
+          "amount": 4,
+          "ownership": "live_presentation"
+        },
+        {
+          "kind": "npc_task_set",
+          "id": "game_of_crone_refugee_tanner_animal_tasks",
+          "operation": "show-central-task-3_1_then-wife-task-3_2_then-egg-seller-task-3_3_with-zero-task-story-rewards",
+          "amount": 3,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "dialogue_phrase_bundle",
+          "id": "game_of_crone_refugee_tanner_animal_topics",
+          "operation": "unlock-chicken-topic-4_3-then-cow-topic-4_2-in-source-order",
+          "amount": 2,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "story_vendor_receipt",
+          "id": "gykmp_story_vendor_game_of_crone_refugee_tanner_2",
+          "operation": "strict-target-and-remove-obsolete-same-tag-vendors_then-spawn-or-adopt-one-tier-two-vendor-with-bags_1-and-bags_2_base-seven-bags-plus-four-first-bag-recipes_money-fifteen_daily-point-zero-five_levelup-zero-zero_empty-not_buying_and-all-seven-direct-bags-in-tier-zero-not_selling",
+          "amount": 1,
+          "ownership": "shared_world"
+        },
+        {
+          "kind": "story_phase",
+          "id": "gykmp_story_phase_game_of_crone_refugee_tanner_animals_armed",
+          "operation": "commit-after-blacklist-relation-dialogue-three-tasks-two-topics-vendor-and-cleanup-are-durable",
+          "amount": 1,
+          "ownership": "shared_campaign"
+        }
+      ],
+      "safeguards": [
+        "blacklisted-refugee_tanner_3-is-entry-prefix-evidence_not-proof-of-the-three-tasks-two-topics-or-vendor-two",
+        "task-visibility-order-does-not-authorize-repairing-a-later-side-topic-from-an-earlier-task",
+        "never-let-a-missing-vendor-input-fall-back-to-destroying-the-Tanner-flow-self",
+        "collapse-the-vendor-two-tripled-point-binding-and-deduplicate-same-tag-vendors",
+        "never-replay-the-plus-forty-relation-reward-without-its-receipt",
+        "after-the-durable-camp-deactivation-terminal_keep-animal-order-and-vendor-two-receipts-historical-and-never-respawn-deactivated-actors"
+      ]
+    },
+    {
+      "stepId": "game_of_crone_purchase_refugee_tanner_animals",
+      "title": "Buy the cow and hens and settle both sides of the farm",
+      "linkedQuestIds": ["dlc_refugees_tanner"],
+      "linkedTaskMilestoneIds": [
+        "game_of_crone_tanner_cows_requested",
+        "game_of_crone_tanner_chickens_requested",
+        "game_of_crone_tanner_cows_purchased",
+        "game_of_crone_tanner_chickens_purchased",
+        "game_of_crone_tanner_animal_contributions_completed"
+      ],
+      "triggerScripts": ["gykmp_story_dispatch_game_of_crone_refugee_tanner_animals"],
+      "triggerKeys": [
+        "@refugee_tanner_4_2",
+        "money:100",
+        "refugee_tanner_4_2_1",
+        "refugee_tanner_4_2_12",
+        "gd_refugee_cows",
+        "refugee_cows_live",
+        "@refugee_tanner_4_3",
+        "money:50",
+        "spawn_refugee_chickens",
+        "refugee_farm_active",
+        "refugee_farm_live",
+        "gd_refugee_henhouse",
+        "idle_points_stock@camp_chicken_stock:max_idle_points:8",
+        "refugee_chicken_1",
+        "refugee_chicken_2",
+        "refugee_chicken_3",
+        "refugee_chicken_4",
+        "refugee_chicken_5",
+        "chicken_1",
+        "refugee_tanner_4_1_start_count",
+        "@refugee_tanner_4_1",
+        "gykmp_story_transaction_game_of_crone_refugee_tanner_cow",
+        "gykmp_story_transaction_game_of_crone_refugee_tanner_chickens",
+        "gykmp_story_contribution_game_of_crone_refugee_tanner_cow",
+        "gykmp_story_contribution_game_of_crone_refugee_tanner_chickens",
+        "gykmp_story_world_game_of_crone_refugee_tanner_cow",
+        "gykmp_story_world_game_of_crone_refugee_tanner_chickens",
+        "gykmp_story_phase_game_of_crone_refugee_tanner_animal_convergence",
+        "gykmp_story_phase_game_of_crone_refugee_tanner_animals_complete"
+      ],
+      "expectedEffects": [
+        {
+          "kind": "story_transaction",
+          "id": "gykmp_story_transaction_game_of_crone_refugee_tanner_cow",
+          "operation": "record-the-selecting-profile-and-prepared-debited-converged-subreceipts-around-the-money-100-AnswerData-price",
+          "amount": 100,
+          "ownership": "initiating_player_transaction"
+        },
+        {
+          "kind": "dialogue_sequence",
+          "id": "refugee_tanner_4_2_1_through_4_2_12",
+          "operation": "after-blacklisting-the-cow-topic_present-the-twelve-cow-purchase-lines-once-with-lines-one-three-five-seven-nine-ten-and-eleven-owned-by-the-actual-payer",
+          "amount": 12,
+          "ownership": "live_presentation"
+        },
+        {
+          "kind": "story_contribution_receipt",
+          "id": "gykmp_story_contribution_game_of_crone_refugee_tanner_cow",
+          "operation": "after-the-twelve-line-dialogue_complete-only-wife-task-3_2_and-record-one-distinct-shared-cow-contribution-before-the-source-counter",
+          "amount": 1,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "story_transaction",
+          "id": "gykmp_story_transaction_game_of_crone_refugee_tanner_chickens",
+          "operation": "record-the-selecting-profile-and-prepared-debited-converged-subreceipts-around-the-money-50-AnswerData-price",
+          "amount": 50,
+          "ownership": "initiating_player_transaction"
+        },
+        {
+          "kind": "story_contribution_receipt",
+          "id": "gykmp_story_contribution_game_of_crone_refugee_tanner_chickens",
+          "operation": "blacklist-only-chicken-topic_complete-only-egg-seller-task-3_3_start-the-asynchronous-world-script_and-record-one-distinct-shared-contribution-before-the-source-counter",
+          "amount": 1,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "story_phase",
+          "id": "gykmp_story_phase_game_of_crone_refugee_tanner_animal_convergence",
+          "operation": "after-both-distinct-contribution-receipts_unlock-refugee_tanner_4_1-and-complete-central-task-3_1_without-relying-on-the-per-invoker-counter_while-either-branches-independent-world-suffix-may-still-be-running",
+          "amount": 1,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "story_world_receipt",
+          "id": "gykmp_story_world_game_of_crone_refugee_tanner_cow",
+          "operation": "independently-after-the-cow-task-and-that-branches-gate-call_enable-gd_refugee_cows-once_without-redebiting-the-payer-on-recovery",
+          "amount": 1,
+          "ownership": "shared_world"
+        },
+        {
+          "kind": "player_param",
+          "id": "refugee_cows_live",
+          "operation": "set-one-after-gd_refugee_cows-is-enabled_and-apply-the-shared-campaign-value-to-every-party-profile-without-using-it-as-payment-or-contribution-proof",
+          "amount": 1,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "player_param",
+          "id": "refugee_farm_active",
+          "operation": "independently-set-one-at-the-start-of-the-authoritative-chicken-world-script_and-apply-the-shared-campaign-value-to-every-party-profile",
+          "amount": 1,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "player_param",
+          "id": "refugee_farm_live",
+          "operation": "set-one-after-refugee_farm_active_and-apply-the-shared-campaign-value-to-every-party-profile",
+          "amount": 1,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "story_world_receipt",
+          "id": "gykmp_story_world_game_of_crone_refugee_tanner_chickens",
+          "operation": "after-both-farm-flags_enable-the-henhouse_spawn-or-adopt-one-idle_points_stock-object-tagged-camp_chicken_stock-with-eight-idle-slots-and-five-uniquely-tagged-chickens_then-dispatch-one-time-of-day-event-only-to-each-newly-spawned-or-uninitialized-chicken",
+          "amount": 1,
+          "ownership": "shared_world"
+        },
+        {
+          "kind": "story_phase",
+          "id": "gykmp_story_phase_game_of_crone_refugee_tanner_animals_complete",
+          "operation": "join-both-payment-and-contribution-receipts_all-three-shared-player-params_and-both-independent-world-receipts_then-commit-after-every-payers-control-is-restored",
+          "amount": 1,
+          "ownership": "shared_campaign"
+        }
+      ],
+      "safeguards": [
+        "claim-each-paid-topic-before-MultiAnswerOptionGUI-removes-money-from-MainGame-player",
+        "after-the-durable-camp-deactivation-or-S54-terminal_never-accept-a-new-animal-purchase_when-no-preexisting-side-debit-receipt-exists-retire-or-reject-the-stale-topic-without-opening-MultiAnswer-or-taking-money",
+        "cow-and-chicken-payments-may-belong-to-two-different-profiles_and-neither-may-be-charged-to-the-host-by-execution-ownership",
+        "a-complete-side-task-proves-its-payment-prefix-and-must-never-trigger-a-second-debit_but-does-not-prove-its-world-suffix",
+        "an-existing-cow-or-chicken-topic-blacklist-is-an-even-earlier-post-debit-entry-prefix_adopt-it-as-payer-unknown-and-never-reopen-recharge-guess-the-host-or-issue-a-guessed-refund_for-cows-it-does-not-skip-the-twelve-line-dialogue-without-task-Complete-or-an-exact-dialogue-complete-receipt",
+        "derive-the-gate-from-two-distinct-contribution-receipts_not-refugee_tanner_4_1_start_count-equality-minimum-or-one-side-twice",
+        "Flow_RunScript-Out-does-not-wait-for-spawn_refugee_chickens_and-central-task-3_1-Complete-proves-neither-world-suffix",
+        "collapse-all-thirty-six-duplicated-chicken-script-edge-groups-before-spawning-or-firing-events",
+        "adopt-existing-exactly-tagged-stock-and-chickens-on-partial-recovery_instead-of-multiplying-them",
+        "the-five-source-GD-lookups-share-the-literal-chicken_1-tag_preserve-one-semantic-placement-input-per-named-chicken",
+        "refugee_farm_active-can-remain-stale-after-camp-teardown_and-never-proves-live-chickens-without-farm-live-the-world-receipt-and-no-deactivation-terminal",
+        "the-animal-step-terminal-requires-both-world-receipts_even-when-the-final-topic-is-already-unlocked",
+        "if-gykmp_story_phase_game_of_crone_refugee_camp_deactivated-or-gykmp_story_phase_game_of_crone_s54_complete-is-durable_never-use-historical-animal-tasks-params-or-receipts-to-set-live-flags-reenable-GD-points-or-respawn-stock-and-chickens"
+      ]
+    },
+    {
+      "stepId": "game_of_crone_complete_refugee_tanner_profession",
+      "title": "Complete the refugee tanner's vendor and achievement progression",
+      "linkedQuestIds": ["dlc_refugees_tanner"],
+      "linkedTaskMilestoneIds": ["game_of_crone_tanner_animal_contributions_completed"],
+      "triggerScripts": ["gykmp_story_dispatch_game_of_crone_refugee_tanner_4"],
+      "triggerKeys": [
+        "@refugee_tanner_4_1",
+        "refugee_tanner_4_1_1",
+        "refugee_tanner_4_1_9",
+        "_rel:30",
+        "vendor_refugee_tanner_3",
+        "bags_1",
+        "bags_2",
+        "bags_3",
+        "recipe_bag_potions",
+        "recipe_bag_builder",
+        "recipe_bag_food",
+        "vendor_refugee_tanner_3:tier3:money20:daily0.05",
+        "@tech_bag_alchemy",
+        "@tech_bag_farming",
+        "@tech_bag_fishing",
+        "dlc_refugees_tanner",
+        "gykmp_story_phase_game_of_crone_refugee_tanner_4_entered",
+        "gykmp_story_relation_game_of_crone_refugee_tanner_4",
+        "gykmp_story_vendor_game_of_crone_refugee_tanner_3",
+        "gykmp_story_achievement_eligibility_game_of_crone_tanner",
+        "gykmp_story_achievement_game_of_crone_tanner",
+        "gykmp_story_phase_game_of_crone_refugee_tanner_complete"
+      ],
+      "expectedEffects": [
+        {
+          "kind": "story_phase",
+          "id": "gykmp_story_phase_game_of_crone_refugee_tanner_4_entered",
+          "operation": "require-the-two-contribution-and-two-world-receipts_then-claim-the-final-topic-before-blacklist-relation-or-dialogue",
+          "amount": 1,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "relationship_delta_receipt",
+          "id": "gykmp_story_relation_game_of_crone_refugee_tanner_4",
+          "operation": "collapse-the-tripled-reward-binding_and-apply-Tanner-plus-thirty-once_reaching-the-canonical-profession-total-one-hundred",
+          "amount": 30,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "dialogue_sequence",
+          "id": "refugee_tanner_4_1_1_through_4_1_9",
+          "operation": "present-nine-lines-once_with-lines-three-five-and-seven-owned-by-the-actual-initiator",
+          "amount": 9,
+          "ownership": "live_presentation"
+        },
+        {
+          "kind": "story_vendor_receipt",
+          "id": "gykmp_story_vendor_game_of_crone_refugee_tanner_3",
+          "operation": "strict-target-and-remove-obsolete-same-tag-vendors_then-spawn-or-adopt-one-tier-three-vendor-with-bags_1-through-3_all-seven-bags-and-seven-recipes_money-twenty_daily-point-zero-five_levelup-zero-zero_empty-not_buying_and-all-seven-direct-bags-in-tier-zero-not_selling",
+          "amount": 1,
+          "ownership": "shared_world"
+        },
+        {
+          "kind": "dialogue_phrase_bundle",
+          "id": "game_of_crone_refugee_tanner_final_technology_topics",
+          "operation": "unlock-alchemy-farming-fishing-in-source-order_collapse-the-second-fishing-write_and-do-not-invent-tools",
+          "amount": 3,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "story_eligibility_receipt",
+          "id": "gykmp_story_achievement_eligibility_game_of_crone_tanner",
+          "operation": "invoke-the-serialized-dlc_refugees_tanner-check-after-vendor-and-three-unique-topic-tail-effects",
+          "amount": 1,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "platform_achievement_receipt",
+          "id": "gykmp_story_achievement_game_of_crone_tanner",
+          "operation": "settle-once-per-personal-profile-as-unlocked-already-unlocked-or-unsupported_outside-ordinary-QuestSync_and-use-legacy-tech_bag_alchemy-only-as-a-version-bounded-personal-migration-witness",
+          "amount": 1,
+          "ownership": "personal_profile"
+        },
+        {
+          "kind": "story_phase",
+          "id": "gykmp_story_phase_game_of_crone_refugee_tanner_complete",
+          "operation": "commit-after-blacklist-relation-dialogue-vendor-phrases-key-check-control-restore-and-on_talk_end-dispatch_without-waiting-for-platform-delivery",
+          "amount": 1,
+          "ownership": "shared_campaign"
+        }
+      ],
+      "safeguards": [
+        "central-task-3_1-Complete-is-only-the-contribution-gate_and-does-not-authorize-finale-before-both-animal-world-suffixes",
+        "blacklisted-refugee_tanner_4_1-and-tech_bag_alchemy-are-prefix-evidence_not-an-exact-finale-terminal",
+        "never-let-a-missing-old-vendor-fall-back-to-destroying-the-Tanner-flow-self",
+        "collapse-the-final-doubled-spawn-control-fourfold-point-and-doubled-vendor-bindings_before-one-level-three-replacement",
+        "the-source-unlocks-fishing-twice-but-idempotent-state-must-not-trigger-two-observer-effects",
+        "do-not-silently-invent-the-missing-tech_bag_tools-topic-unlock",
+        "the-key-check-precedes-function-return_control-restore-and-on_talk_end_fire_preserve-that-order-while-delaying-the-shared-terminal-until-cleanup",
+        "legacy-tech_bag_alchemy-may-repair-only-personal-platform-delivery_on-save-versions-at-most-1301_never-shared-vendor-dialogue-task-or-terminal",
+        "after-the-durable-camp-deactivation-terminal_keep-finale-and-achievement-receipts-historical-but-never-respawn-Tanner-or-vendor-three"
+      ]
+    },
+    {
+      "stepId": "game_of_crone_learn_refugee_tanner_technologies",
+      "title": "Learn the refugee tanner's optional bag technologies",
+      "linkedQuestIds": ["dlc_refugees_tanner"],
+      "linkedTaskMilestoneIds": [],
+      "triggerScripts": ["gykmp_story_dispatch_game_of_crone_refugee_tanner_tech"],
+      "triggerKeys": [
+        "@tech_bag_alchemy",
+        "tech_bag_alchemy",
+        "bag_alchemy",
+        "@tech_bag_farming",
+        "tech_bag_farming",
+        "bag_farming",
+        "@tech_bag_fishing",
+        "tech_bag_fishing",
+        "bag_fishing",
+        "@tech_bag_tools",
+        "tech_bag_tools",
+        "bag_tools",
+        "recipe_bag_tools",
+        "gykmp_story_tech_game_of_crone_refugee_tanner_alchemy",
+        "gykmp_story_tech_game_of_crone_refugee_tanner_farming",
+        "gykmp_story_tech_game_of_crone_refugee_tanner_fishing",
+        "gykmp_story_anomaly_game_of_crone_refugee_tanner_tools_handler"
+      ],
+      "expectedEffects": [
+        {
+          "kind": "conditional_tech_dialogue",
+          "id": "tech_dialog:tech_bag_alchemy",
+          "operation": "show-the-source-forced-unlock_non-silent_show-tech-false-dialog-to-the-initiating-player_wait-for-its-non-cancelable-OK-to-call-UnlockTech_then-wait-for-close-before-function-return",
+          "amount": 1,
+          "ownership": "live_presentation"
+        },
+        {
+          "kind": "technology",
+          "id": "tech_bag_alchemy",
+          "operation": "on-dialog-OK_reveal-the-hidden-zero-price-technology-and-grant-exact-craft-bag_alchemy",
+          "amount": 1,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "dialogue_phrase",
+          "id": "@tech_bag_alchemy",
+          "operation": "blacklist-through-the-tech_bag_alchemy-ApplyTech-flow-before-the-dialog-close-callback",
+          "amount": 1,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "technology_unlock_receipt",
+          "id": "gykmp_story_tech_game_of_crone_refugee_tanner_alchemy",
+          "operation": "only-with-a-durable-qualified-Tanner-alchemy-topic-selection-claim_after-close-verify-tech_bag_alchemy_craft-bag_alchemy_and-the-blacklist-then-journal-once_without-inferring-selection-from-recipe-owned-tech-or-blacklist-state",
+          "amount": 1,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "conditional_tech_dialogue",
+          "id": "tech_dialog:tech_bag_farming",
+          "operation": "normalize-the-doubled-handler_then-show-the-source-forced-unlock_non-silent_show-tech-false-dialog-to-the-initiating-player_wait-for-OK-and-close",
+          "amount": 1,
+          "ownership": "live_presentation"
+        },
+        {
+          "kind": "technology",
+          "id": "tech_bag_farming",
+          "operation": "on-dialog-OK_reveal-the-hidden-zero-price-technology-and-grant-exact-craft-bag_farming",
+          "amount": 1,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "dialogue_phrase",
+          "id": "@tech_bag_farming",
+          "operation": "blacklist-through-the-tech_bag_farming-ApplyTech-flow-before-the-dialog-close-callback",
+          "amount": 1,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "technology_unlock_receipt",
+          "id": "gykmp_story_tech_game_of_crone_refugee_tanner_farming",
+          "operation": "only-with-a-durable-qualified-Tanner-farming-topic-selection-claim_after-close-verify-tech_bag_farming_craft-bag_farming_and-the-blacklist-then-journal-once_without-inferring-selection-from-recipe-owned-tech-or-blacklist-state",
+          "amount": 1,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "conditional_tech_dialogue",
+          "id": "tech_dialog:tech_bag_fishing",
+          "operation": "normalize-the-tripled-handler_then-show-the-source-forced-unlock_non-silent_show-tech-false-dialog-to-the-initiating-player_wait-for-OK-and-close",
+          "amount": 1,
+          "ownership": "live_presentation"
+        },
+        {
+          "kind": "technology",
+          "id": "tech_bag_fishing",
+          "operation": "on-dialog-OK_reveal-the-hidden-zero-price-technology-and-grant-exact-craft-bag_fishing",
+          "amount": 1,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "dialogue_phrase",
+          "id": "@tech_bag_fishing",
+          "operation": "blacklist-through-the-tech_bag_fishing-ApplyTech-flow-before-the-dialog-close-callback",
+          "amount": 1,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "technology_unlock_receipt",
+          "id": "gykmp_story_tech_game_of_crone_refugee_tanner_fishing",
+          "operation": "only-with-a-durable-qualified-Tanner-fishing-topic-selection-claim_after-close-verify-tech_bag_fishing_craft-bag_fishing_and-the-blacklist-then-journal-once_without-inferring-selection-from-recipe-owned-tech-or-blacklist-state",
+          "amount": 1,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "source_anomaly_receipt",
+          "id": "gykmp_story_anomaly_game_of_crone_refugee_tanner_tools_handler",
+          "operation": "if-the-orphan-tools-topic-is-invoked_record-the-malformed-at-tech_bag_tools-lookup_release-the-callback-safely_and-do-not-grant-or-blacklist-the-real-tech-which-remains-owned-by-recipe_bag_tools",
+          "amount": 1,
+          "ownership": "shared_campaign"
+        }
+      ],
+      "safeguards": [
+        "all-real-bag-tech-definitions-are-hidden-free_require-Refugees-DLC-enum-three_and-use-UnlockTech-never-BuyTech-or-a-resource-debit",
+        "each-topic-is-independent_do-not-auto-complete-unselected-technologies-from-the-achievement-terminal",
+        "bag-techs-crafts-and-their-exact-blacklists-can-all-arrive-from-canonical-recipe-scrolls_so-never-journal-or-repair-a-Tanner-topic-without-its-durable-qualified-entered-selection-claim",
+        "when-a-legitimately-claimed-topic-finds-its-exact-tech-already-present_converge-without-regranting-and-finish-only-that-claimed-topics-missing-callback-suffix",
+        "the-source-forced-dialog-has-one-valid-OK-path_if-disconnect-or-programmatic-close-interrupts-before-application-leave-the-topic-retryable_and-after-unlock-adopt-the-exact-tech-and-craft-and-complete-only-the-missing-blacklist-callback-suffix",
+        "do-not-invent-tools-topic-availability_the-finale-never-unlocks-it-and-recipe_bag_tools-is-the-canonical-valid-route-to-the-real-tech",
+        "the-raw-tools-handler-passes-invalid-at-tech_bag_tools-and-can-null-dereference_release-that-orphan-call-safely-without-translating-it-into-a-free-grant",
+        "route-the-dialog-through-the-initiating-player_while-shared-tech-craft-and-topic-state-remain-idempotent"
+      ]
+    }
+  ]
+}

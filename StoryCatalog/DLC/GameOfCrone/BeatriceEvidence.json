@@ -1,0 +1,4140 @@
+{
+  "schemaVersion": 5,
+  "catalogId": "dlc.game-of-crone.beatrice-evidence",
+  "campaign": "GameOfCrone",
+  "chapter": "BeatriceEvidenceRoutesThroughRefugeeCampShutdown",
+  "quests": [
+    {
+      "questId": "dlc_refugees_s46_or_s53",
+      "title": "Serialized proof-against-Beatrice achievement checkpoint",
+      "definitionKind": "AchievementDefinition",
+      "counter": 1,
+      "vanilla": {
+        "startTrigger": "",
+        "successTrigger": "1",
+        "failTrigger": "",
+        "startKeys": [
+          "dlc_refugees_s46_or_s53"
+        ],
+        "questVisible": false,
+        "oneTimeQuest": false,
+        "startScript": "",
+        "successScript": "",
+        "failScript": "",
+        "arrowWgoCustomTag": "",
+        "arrowWgoObjectId": "",
+        "successRewards": [],
+        "failureRewards": []
+      },
+      "policy": {
+        "stateOwnership": "shared_campaign",
+        "eligibleInitiator": "any_player",
+        "livePresentationOwner": "initiating_player",
+        "observerQuestApplication": "durable_state_only",
+        "personalRewardDelivery": "party_exactly_once",
+        "observerSuccess": {
+          "globalScripts": [],
+          "playerParamRepairs": [],
+          "playerParamMinimums": [],
+          "taskStateMinimums": [],
+          "unlockedTechs": [],
+          "unlockedPhrases": [],
+          "blacklistedPhrases": [],
+          "unlockedCrafts": [],
+          "completedOneTimeCrafts": [],
+          "personalItemGrants": []
+        }
+      },
+      "completionChecks": []
+    }
+  ],
+  "taskMilestones": [
+    {
+      "milestoneId": "game_of_crone_beatrice_alarich_advice_completed",
+      "npcId": "npc_master_alarich",
+      "taskId": "s_ev_41_alarich",
+      "activeStates": [
+        "Complete"
+      ],
+      "playerParamRepairs": [],
+      "playerParamMinimums": [
+        {
+          "key": "is_player_agreed_help_beatrice",
+          "value": 1
+        }
+      ],
+      "taskStateMinimums": [
+        {
+          "npcId": "player",
+          "taskId": "s_ev_41_player",
+          "state": "Visible"
+        },
+        {
+          "npcId": "npc_hunchback",
+          "taskId": "s_ev_41_koukol",
+          "state": "Visible"
+        }
+      ],
+      "unlockedTechs": [],
+      "unlockedPhrases": [],
+      "blacklistedPhrases": [
+        "@refugee_s42_2"
+      ],
+      "unlockedCrafts": [],
+      "completedOneTimeCrafts": [
+        "death_emulsion"
+      ],
+      "wgoParamMinimums": [],
+      "personalItemGrants": []
+    },
+    {
+      "milestoneId": "game_of_crone_beatrice_guard_or_betrayal_player_lead_completed",
+      "npcId": "player",
+      "taskId": "s_ev_41_player",
+      "activeStates": [
+        "Complete"
+      ],
+      "playerParamRepairs": [],
+      "playerParamMinimums": [
+        {
+          "key": "is_player_agreed_help_beatrice",
+          "value": 1
+        }
+      ],
+      "taskStateMinimums": [
+        {
+          "npcId": "npc_master_alarich",
+          "taskId": "s_ev_41_alarich",
+          "state": "Complete"
+        },
+        {
+          "npcId": "npc_hunchback",
+          "taskId": "s_ev_41_koukol",
+          "state": "Complete"
+        }
+      ],
+      "unlockedTechs": [],
+      "unlockedPhrases": [],
+      "blacklistedPhrases": [
+        "@refugee_s42_1",
+        "@refugee_s42_2",
+        "@refugee_s43"
+      ],
+      "unlockedCrafts": [],
+      "completedOneTimeCrafts": [
+        "death_emulsion"
+      ],
+      "wgoParamMinimums": [],
+      "personalItemGrants": []
+    },
+    {
+      "milestoneId": "game_of_crone_beatrice_guard_or_betrayal_koukol_lead_completed",
+      "npcId": "npc_hunchback",
+      "taskId": "s_ev_41_koukol",
+      "activeStates": [
+        "Complete"
+      ],
+      "playerParamRepairs": [],
+      "playerParamMinimums": [
+        {
+          "key": "is_player_agreed_help_beatrice",
+          "value": 1
+        }
+      ],
+      "taskStateMinimums": [
+        {
+          "npcId": "npc_master_alarich",
+          "taskId": "s_ev_41_alarich",
+          "state": "Complete"
+        },
+        {
+          "npcId": "player",
+          "taskId": "s_ev_41_player",
+          "state": "Complete"
+        }
+      ],
+      "unlockedTechs": [],
+      "unlockedPhrases": [],
+      "blacklistedPhrases": [
+        "@refugee_s42_1",
+        "@refugee_s42_2",
+        "@refugee_s43"
+      ],
+      "unlockedCrafts": [],
+      "completedOneTimeCrafts": [
+        "death_emulsion"
+      ],
+      "wgoParamMinimums": [],
+      "personalItemGrants": []
+    },
+    {
+      "milestoneId": "game_of_crone_beatrice_koukol_betrayal_route_opened",
+      "npcId": "npc_hunchback",
+      "taskId": "s_ev_42_1_koukol",
+      "activeStates": [
+        "Visible"
+      ],
+      "playerParamRepairs": [],
+      "playerParamMinimums": [
+        {
+          "key": "is_player_agreed_help_beatrice",
+          "value": 1
+        }
+      ],
+      "taskStateMinimums": [
+        {
+          "npcId": "npc_master_alarich",
+          "taskId": "s_ev_41_alarich",
+          "state": "Complete"
+        },
+        {
+          "npcId": "player",
+          "taskId": "s_ev_41_player",
+          "state": "Complete"
+        },
+        {
+          "npcId": "npc_hunchback",
+          "taskId": "s_ev_41_koukol",
+          "state": "Complete"
+        }
+      ],
+      "unlockedTechs": [],
+      "unlockedPhrases": [
+        "@refugee_s48"
+      ],
+      "blacklistedPhrases": [
+        "@refugee_s42_1",
+        "@refugee_s42_1_3",
+        "@refugee_s42_2",
+        "@refugee_s43"
+      ],
+      "unlockedCrafts": [
+        "death_emulsion"
+      ],
+      "completedOneTimeCrafts": [
+        "death_emulsion"
+      ],
+      "wgoParamMinimums": [],
+      "personalItemGrants": []
+    },
+    {
+      "milestoneId": "game_of_crone_beatrice_teodoro_followup_opened",
+      "npcId": "npc_marquis_teodoro_jr",
+      "taskId": "s_ev_44_teodoro",
+      "activeStates": [
+        "Visible"
+      ],
+      "playerParamRepairs": [],
+      "playerParamMinimums": [],
+      "taskStateMinimums": [],
+      "unlockedTechs": [],
+      "unlockedPhrases": [
+        "@refugee_s45"
+      ],
+      "blacklistedPhrases": [],
+      "unlockedCrafts": [],
+      "completedOneTimeCrafts": [],
+      "wgoParamMinimums": [],
+      "personalItemGrants": []
+    },
+    {
+      "milestoneId": "game_of_crone_beatrice_evidence_s50_teodoro_task_opened",
+      "npcId": "npc_marquis_teodoro_jr",
+      "taskId": "dlc_refugees_s_ev_50_tedoro",
+      "activeStates": [
+        "Visible"
+      ],
+      "playerParamRepairs": [],
+      "playerParamMinimums": [],
+      "taskStateMinimums": [],
+      "unlockedTechs": [],
+      "unlockedPhrases": [],
+      "blacklistedPhrases": [],
+      "unlockedCrafts": [],
+      "completedOneTimeCrafts": [],
+      "wgoParamMinimums": [],
+      "personalItemGrants": []
+    },
+    {
+      "milestoneId": "game_of_crone_beatrice_evidence_teodoro_route_opened",
+      "npcId": "npc_marquis_teodoro_jr",
+      "taskId": "dlc_refugees_s_ev_68_teodoro",
+      "activeStates": [
+        "Visible"
+      ],
+      "playerParamRepairs": [],
+      "playerParamMinimums": [],
+      "taskStateMinimums": [
+        {
+          "npcId": "npc_hunchback",
+          "taskId": "dlc_refugees_s_ev_62_1",
+          "state": "Complete"
+        }
+      ],
+      "unlockedTechs": [],
+      "unlockedPhrases": [],
+      "blacklistedPhrases": [
+        "@refugee_s68"
+      ],
+      "unlockedCrafts": [],
+      "completedOneTimeCrafts": [],
+      "wgoParamMinimums": [],
+      "personalItemGrants": []
+    },
+    {
+      "milestoneId": "game_of_crone_beatrice_evidence_koukol_payment_pending",
+      "npcId": "npc_hunchback",
+      "taskId": "dlc_refugees_s_ev_68_pay_koukol",
+      "activeStates": [
+        "Visible"
+      ],
+      "playerParamRepairs": [],
+      "playerParamMinimums": [],
+      "taskStateMinimums": [
+        {
+          "npcId": "npc_hunchback",
+          "taskId": "dlc_refugees_s_ev_62_1",
+          "state": "Complete"
+        }
+      ],
+      "unlockedTechs": [],
+      "unlockedPhrases": [
+        "@refugee_s68_10"
+      ],
+      "blacklistedPhrases": [
+        "@refugee_s68"
+      ],
+      "unlockedCrafts": [],
+      "completedOneTimeCrafts": [],
+      "wgoParamMinimums": [],
+      "personalItemGrants": []
+    },
+    {
+      "milestoneId": "game_of_crone_beatrice_evidence_koukol_meeting_opened",
+      "npcId": "npc_hunchback",
+      "taskId": "dlc_refugees_s_ev_68_koukol",
+      "activeStates": [
+        "Visible"
+      ],
+      "playerParamRepairs": [],
+      "playerParamMinimums": [],
+      "taskStateMinimums": [
+        {
+          "npcId": "npc_hunchback",
+          "taskId": "dlc_refugees_s_ev_62_1",
+          "state": "Complete"
+        }
+      ],
+      "unlockedTechs": [],
+      "unlockedPhrases": [],
+      "blacklistedPhrases": [
+        "@refugee_s68"
+      ],
+      "unlockedCrafts": [],
+      "completedOneTimeCrafts": [],
+      "wgoParamMinimums": [],
+      "personalItemGrants": []
+    },
+    {
+      "milestoneId": "game_of_crone_beatrice_evidence_teodoro_victory_report_started",
+      "npcId": "npc_marquis_teodoro_jr",
+      "taskId": "s_ev_44_teodoro",
+      "activeStates": [
+        "Complete"
+      ],
+      "playerParamRepairs": [],
+      "playerParamMinimums": [],
+      "taskStateMinimums": [],
+      "unlockedTechs": [],
+      "unlockedPhrases": [],
+      "blacklistedPhrases": [
+        "@refugee_s45"
+      ],
+      "unlockedCrafts": [],
+      "completedOneTimeCrafts": [],
+      "wgoParamMinimums": [],
+      "personalItemGrants": []
+    },
+    {
+      "milestoneId": "game_of_crone_beatrice_evidence_alarich_finale_opened",
+      "npcId": "npc_master_alarich",
+      "taskId": "dlc_refugees_s_ev_45_alaric",
+      "activeStates": [
+        "Visible"
+      ],
+      "playerParamRepairs": [],
+      "playerParamMinimums": [],
+      "taskStateMinimums": [],
+      "unlockedTechs": [],
+      "unlockedPhrases": [
+        "@refugee_s46"
+      ],
+      "blacklistedPhrases": [],
+      "unlockedCrafts": [],
+      "completedOneTimeCrafts": [],
+      "wgoParamMinimums": [],
+      "personalItemGrants": []
+    },
+    {
+      "milestoneId": "game_of_crone_beatrice_evidence_alarich_finale_conversation_started",
+      "npcId": "npc_master_alarich",
+      "taskId": "dlc_refugees_s_ev_45_alaric",
+      "activeStates": [
+        "Complete"
+      ],
+      "playerParamRepairs": [],
+      "playerParamMinimums": [],
+      "taskStateMinimums": [],
+      "unlockedTechs": [],
+      "unlockedPhrases": [],
+      "blacklistedPhrases": [
+        "@refugee_s46"
+      ],
+      "unlockedCrafts": [],
+      "completedOneTimeCrafts": [],
+      "wgoParamMinimums": [],
+      "personalItemGrants": []
+    },
+    {
+      "milestoneId": "game_of_crone_refugee_departure_s50_warning_completed",
+      "npcId": "npc_marquis_teodoro_jr",
+      "taskId": "dlc_refugees_s_ev_50_tedoro",
+      "activeStates": [
+        "Complete"
+      ],
+      "playerParamRepairs": [],
+      "playerParamMinimums": [],
+      "taskStateMinimums": [],
+      "unlockedTechs": [],
+      "unlockedPhrases": [],
+      "blacklistedPhrases": [],
+      "unlockedCrafts": [],
+      "completedOneTimeCrafts": [],
+      "wgoParamMinimums": [],
+      "personalItemGrants": []
+    },
+    {
+      "milestoneId": "game_of_crone_refugee_departure_s68_warning_completed",
+      "npcId": "npc_marquis_teodoro_jr",
+      "taskId": "dlc_refugees_s_ev_68_teodoro",
+      "activeStates": [
+        "Complete"
+      ],
+      "playerParamRepairs": [],
+      "playerParamMinimums": [],
+      "taskStateMinimums": [],
+      "unlockedTechs": [],
+      "unlockedPhrases": [],
+      "blacklistedPhrases": [],
+      "unlockedCrafts": [],
+      "completedOneTimeCrafts": [],
+      "wgoParamMinimums": [],
+      "personalItemGrants": []
+    },
+    {
+      "milestoneId": "game_of_crone_refugee_departure_horadric_followup_opened",
+      "npcId": "npc_tavern owner",
+      "taskId": "dlc_refugees_s_ev_51_horadric",
+      "activeStates": [
+        "Visible"
+      ],
+      "playerParamRepairs": [],
+      "playerParamMinimums": [],
+      "taskStateMinimums": [
+        {
+          "npcId": "npc_marquis_teodoro_jr",
+          "taskId": "dlc_refugees_s_ev_50_tedoro",
+          "state": "Complete"
+        },
+        {
+          "npcId": "npc_marquis_teodoro_jr",
+          "taskId": "dlc_refugees_s_ev_68_teodoro",
+          "state": "Complete"
+        }
+      ],
+      "unlockedTechs": [],
+      "unlockedPhrases": [],
+      "blacklistedPhrases": [],
+      "unlockedCrafts": [],
+      "completedOneTimeCrafts": [],
+      "wgoParamMinimums": [],
+      "personalItemGrants": []
+    },
+    {
+      "milestoneId": "game_of_crone_refugee_departure_horadric_plan_completed",
+      "npcId": "npc_tavern owner",
+      "taskId": "dlc_refugees_s_ev_51_horadric",
+      "activeStates": [
+        "Complete"
+      ],
+      "playerParamRepairs": [],
+      "playerParamMinimums": [],
+      "taskStateMinimums": [],
+      "unlockedTechs": [],
+      "unlockedPhrases": [],
+      "blacklistedPhrases": [
+        "@refugee_s52"
+      ],
+      "unlockedCrafts": [],
+      "completedOneTimeCrafts": [],
+      "wgoParamMinimums": [],
+      "personalItemGrants": []
+    },
+    {
+      "milestoneId": "game_of_crone_refugee_departure_captain_apple_opened",
+      "npcId": "npc_captain",
+      "taskId": "dlc_refugees_s_ev_52_apple",
+      "activeStates": [
+        "Visible"
+      ],
+      "playerParamRepairs": [],
+      "playerParamMinimums": [],
+      "taskStateMinimums": [
+        {
+          "npcId": "npc_tavern owner",
+          "taskId": "dlc_refugees_s_ev_51_horadric",
+          "state": "Complete"
+        }
+      ],
+      "unlockedTechs": [],
+      "unlockedPhrases": [
+        "@refugee_s52_2"
+      ],
+      "blacklistedPhrases": [
+        "@refugee_s52"
+      ],
+      "unlockedCrafts": [],
+      "completedOneTimeCrafts": [],
+      "wgoParamMinimums": [],
+      "personalItemGrants": []
+    },
+    {
+      "milestoneId": "game_of_crone_refugee_departure_captain_apple_completed",
+      "npcId": "npc_captain",
+      "taskId": "dlc_refugees_s_ev_52_apple",
+      "activeStates": [
+        "Complete"
+      ],
+      "playerParamRepairs": [],
+      "playerParamMinimums": [],
+      "taskStateMinimums": [],
+      "unlockedTechs": [],
+      "unlockedPhrases": [],
+      "blacklistedPhrases": [
+        "@refugee_s52_2"
+      ],
+      "unlockedCrafts": [],
+      "completedOneTimeCrafts": [],
+      "wgoParamMinimums": [],
+      "personalItemGrants": []
+    },
+    {
+      "milestoneId": "game_of_crone_refugee_departure_teodoro_rescue_opened",
+      "npcId": "npc_marquis_teodoro_jr",
+      "taskId": "dlc_refugees_s_ev_52_rescue",
+      "activeStates": [
+        "Visible"
+      ],
+      "playerParamRepairs": [],
+      "playerParamMinimums": [],
+      "taskStateMinimums": [
+        {
+          "npcId": "npc_captain",
+          "taskId": "dlc_refugees_s_ev_52_apple",
+          "state": "Complete"
+        }
+      ],
+      "unlockedTechs": [],
+      "unlockedPhrases": [
+        "@refugee_s53"
+      ],
+      "blacklistedPhrases": [
+        "@refugee_s52_2"
+      ],
+      "unlockedCrafts": [],
+      "completedOneTimeCrafts": [],
+      "wgoParamMinimums": [],
+      "personalItemGrants": []
+    },
+    {
+      "milestoneId": "game_of_crone_refugee_departure_horadric_fee_opened",
+      "npcId": "npc_tavern owner",
+      "taskId": "dlc_refugees_s_ev_52_gold",
+      "activeStates": [
+        "Visible"
+      ],
+      "playerParamRepairs": [],
+      "playerParamMinimums": [],
+      "taskStateMinimums": [
+        {
+          "npcId": "npc_captain",
+          "taskId": "dlc_refugees_s_ev_52_apple",
+          "state": "Complete"
+        }
+      ],
+      "unlockedTechs": [],
+      "unlockedPhrases": [
+        "@refugee_s52_3"
+      ],
+      "blacklistedPhrases": [
+        "@refugee_s52_2"
+      ],
+      "unlockedCrafts": [],
+      "completedOneTimeCrafts": [],
+      "wgoParamMinimums": [],
+      "personalItemGrants": []
+    },
+    {
+      "milestoneId": "game_of_crone_refugee_departure_horadric_fee_paid",
+      "npcId": "npc_tavern owner",
+      "taskId": "dlc_refugees_s_ev_52_gold",
+      "activeStates": [
+        "Complete"
+      ],
+      "playerParamRepairs": [],
+      "playerParamMinimums": [],
+      "taskStateMinimums": [],
+      "unlockedTechs": [],
+      "unlockedPhrases": [],
+      "blacklistedPhrases": [
+        "@refugee_s52_3"
+      ],
+      "unlockedCrafts": [],
+      "completedOneTimeCrafts": [],
+      "wgoParamMinimums": [],
+      "personalItemGrants": []
+    },
+    {
+      "milestoneId": "game_of_crone_refugee_departure_teodoro_rescue_committed",
+      "npcId": "npc_marquis_teodoro_jr",
+      "taskId": "dlc_refugees_s_ev_52_rescue",
+      "activeStates": [
+        "Complete"
+      ],
+      "playerParamRepairs": [],
+      "playerParamMinimums": [],
+      "taskStateMinimums": [],
+      "unlockedTechs": [],
+      "unlockedPhrases": [],
+      "blacklistedPhrases": [
+        "@refugee_s53"
+      ],
+      "unlockedCrafts": [],
+      "completedOneTimeCrafts": [],
+      "wgoParamMinimums": [],
+      "personalItemGrants": []
+    },
+    {
+      "milestoneId": "game_of_crone_refugee_departure_alarich_goodbye_opened",
+      "npcId": "npc_master_alarich",
+      "taskId": "dlc_refugees_s_ev_53_bye",
+      "activeStates": [
+        "Visible"
+      ],
+      "playerParamRepairs": [],
+      "playerParamMinimums": [],
+      "taskStateMinimums": [],
+      "unlockedTechs": [],
+      "unlockedPhrases": [
+        "@refugee_s54"
+      ],
+      "blacklistedPhrases": [
+        "@refugee_s53"
+      ],
+      "unlockedCrafts": [],
+      "completedOneTimeCrafts": [],
+      "wgoParamMinimums": [],
+      "personalItemGrants": []
+    },
+    {
+      "milestoneId": "game_of_crone_refugee_departure_alarich_goodbye_completed",
+      "npcId": "npc_master_alarich",
+      "taskId": "dlc_refugees_s_ev_53_bye",
+      "activeStates": [
+        "Complete"
+      ],
+      "playerParamRepairs": [],
+      "playerParamMinimums": [],
+      "taskStateMinimums": [],
+      "unlockedTechs": [],
+      "unlockedPhrases": [],
+      "blacklistedPhrases": [
+        "@refugee_s54"
+      ],
+      "unlockedCrafts": [],
+      "completedOneTimeCrafts": [],
+      "wgoParamMinimums": [],
+      "personalItemGrants": []
+    },
+    {
+      "milestoneId": "game_of_crone_beatrice_evidence_koukol_scroll_route_completed",
+      "npcId": "npc_hunchback",
+      "taskId": "dlc_refugees_s_ev_68_koukol",
+      "activeStates": [
+        "Complete"
+      ],
+      "playerParamRepairs": [],
+      "playerParamMinimums": [],
+      "taskStateMinimums": [
+        {
+          "npcId": "npc_hunchback",
+          "taskId": "dlc_refugees_s_ev_62_1",
+          "state": "Complete"
+        }
+      ],
+      "unlockedTechs": [],
+      "unlockedPhrases": [],
+      "blacklistedPhrases": [
+        "@refugee_s68",
+        "@refugee_s80"
+      ],
+      "unlockedCrafts": [],
+      "completedOneTimeCrafts": [],
+      "wgoParamMinimums": [],
+      "personalItemGrants": []
+    }
+  ],
+  "cutscenes": [
+    {
+      "cutsceneId": "game_of_crone_probe_koukol_about_beatrice",
+      "linkedQuestIds": [
+        "dlc_refugees_s46_or_s53"
+      ],
+      "triggerScripts": [
+        "gykmp_story_dispatch_game_of_crone_s42_koukol_probe"
+      ],
+      "actors": [
+        "initiating_player",
+        "npc_hunchback"
+      ],
+      "observerPolicy": "all_loaded_party_members",
+      "lateJoinPolicy": "join_live_checkpoint_or_observe",
+      "remoteExecutionPolicy": "live_observation",
+      "executionOwnerPolicy": "lobby_host",
+      "dialogueOwnerPolicy": "initiating_player",
+      "formationPolicy": "initiator_with_observer_follow",
+      "cleanupRequirements": [
+        "scope_the_host_claim_to_npc_hunchbacks_exact_refugee_s42_1_topic_and_never_register_or_suppress_the_generic_Koukol_dialogue_shell_travel_menu_or_trade_routes",
+        "commit_gykmp_story_phase_game_of_crone_s42_koukol_probe_entered_before_blacklisting_refugee_s42_1_so_the_source_entry_write_cannot_consume_the_only_probe_on_a_crash",
+        "present_the_dialogue_owners_refugee_s42_1_1_and_2_thoughts_then_unlock_refugee_s42_1_3_without_completing_any_task_or_granting_any_item",
+        "commit_gykmp_story_phase_game_of_crone_s42_koukol_probe_complete_after_the_topic_blacklist_followup_unlock_and_dialogue_owner_control_restore_are_durable",
+        "leave_refugee_s42_1_3_as_a_separate_later_interaction_and_do_not_infer_betrayal_from_the_completed_probe"
+      ]
+    },
+    {
+      "cutsceneId": "game_of_crone_betray_beatrice_to_koukol",
+      "linkedQuestIds": [
+        "dlc_refugees_s46_or_s53"
+      ],
+      "triggerScripts": [
+        "gykmp_story_dispatch_game_of_crone_s42_koukol_betrayal"
+      ],
+      "actors": [
+        "initiating_player",
+        "npc_hunchback"
+      ],
+      "observerPolicy": "all_loaded_party_members",
+      "lateJoinPolicy": "join_live_checkpoint_or_observe",
+      "remoteExecutionPolicy": "live_observation",
+      "executionOwnerPolicy": "lobby_host",
+      "dialogueOwnerPolicy": "initiating_player",
+      "formationPolicy": "initiator_with_observer_follow",
+      "cleanupRequirements": [
+        "scope_the_claim_to_npc_hunchbacks_exact_refugee_s42_1_3_topic_and_commit_gykmp_story_phase_game_of_crone_s42_koukol_betrayal_entered_before_its_immediate_blacklist",
+        "complete_npc_hunchback_s_ev_41_koukol_after_entry_but_treat_that_early_task_write_as_a_nonterminal_prefix_until_the_full_dialogue_and_route_tail_finish",
+        "preserve_refugee_s42_1_4_through_16_with_the_source_player_and_Koukol_order_one_second_wait_Koukol_Down_facing_and_final_player_thoughts",
+        "show_npc_hunchback_s_ev_42_1_koukol_then_blacklist_refugee_s42_2_complete_npc_master_alarich_s_ev_41_alarich_blacklist_refugee_s43_complete_player_s_ev_41_player_and_unlock_refugee_s48_in_source_order",
+        "preserve_death_emulsion_as_an_unlocked_completed_one_time_craft_on_this_betrayal_route_and_do_not_apply_the_guard_routes_Flow_LockCraft_effect",
+        "commit_gykmp_story_phase_game_of_crone_s42_koukol_betrayal_complete_only_after_all_three_old_tasks_the_new_Koukol_task_all_four_phrase_states_dialogue_and_control_restore_are_terminal",
+        "for_legacy_saves_at_or_below_1304_treat_the_blacklisted_refugee_s42_1_3_and_completed_old_Koukol_task_as_recovery_evidence_only_not_as_proof_of_the_terminal_tail"
+      ]
+    },
+    {
+      "cutsceneId": "game_of_crone_choose_the_s48_evidence_route",
+      "linkedQuestIds": [
+        "dlc_refugees_s46_or_s53"
+      ],
+      "triggerScripts": [
+        "gykmp_story_dispatch_game_of_crone_s48_koukol_choice"
+      ],
+      "actors": [
+        "initiating_player",
+        "npc_hunchback"
+      ],
+      "observerPolicy": "all_loaded_party_members",
+      "lateJoinPolicy": "join_live_checkpoint_or_observe",
+      "remoteExecutionPolicy": "live_observation",
+      "executionOwnerPolicy": "lobby_host",
+      "dialogueOwnerPolicy": "initiating_player",
+      "formationPolicy": "initiator_with_observer_follow",
+      "cleanupRequirements": [
+        "scope_the_host_claim_to_npc_hunchbacks_exact_refugee_s48_topic_require_Koukols_on_the_way_now_zero_menu_condition_and_never_register_or_suppress_the_generic_Koukol_host_shell",
+        "journal_gykmp_story_phase_game_of_crone_s48_entered_before_the_source_blacklists_refugee_s48_and_completes_npc_hunchback_s_ev_42_1_koukol",
+        "treat_the_entry_blacklist_and_zero_reward_task_completion_as_nonterminal_prefixes_then_preserve_refugee_s48_1_through_6_before_serializing_the_two_answer_menu_to_one_dialogue_owner",
+        "commit_gykmp_story_branch_game_of_crone_s48_choice_as_call_lord_commander_or_warn_teodoro_before_dispatching_either_child_because_vanilla_records_no_branch_flag",
+        "for_answer_7a_preserve_refugee_s48_7a_1_commit_gykmp_story_phase_game_of_crone_s48_to_s50_handoff_immediately_before_refugee_ev_s50_and_transfer_control_ownership_without_enabling_the_player",
+        "for_answer_7b_preserve_refugee_s48_7b_1_and_7b_2_commit_gykmp_story_phase_game_of_crone_s48_to_s51_prepare_handoff_before_refugee_ev_s51_prepare_and_do_not_treat_its_immediate_Out_as_world_preparation",
+        "on_the_direct_7b_parent_tail_show_npc_marquis_teodoro_jr_dlc_refugees_s_ev_50_tedoro_with_zero_rewards_then_enable_the_dialogue_owner_cinematic_false",
+        "commit_gykmp_story_phase_game_of_crone_s48_parent_tail_complete_after_the_direct_task_and_control_tail_then_commit_s48_warn_teodoro_complete_only_after_joining_that_tail_with_gykmp_story_phase_game_of_crone_s51_prepared",
+        "let_the_shared_s50_catalogue_own_all_7a_staging_dialogue_actor_cleanup_task_s51_handoff_and_control_restore_without_inventing_an_s48_terminal_before_it",
+        "do_not_charge_money_consume_or_grant_an_item_change_relation_or_check_an_achievement_because_neither_s48_answer_has_an_AnswerData_price_or_reward"
+      ]
+    },
+    {
+      "cutsceneId": "game_of_crone_seek_alarichs_advice_about_beatrice",
+      "linkedQuestIds": [
+        "dlc_refugees_s46_or_s53"
+      ],
+      "triggerScripts": [
+        "gykmp_story_dispatch_game_of_crone_s42_alarich_advice"
+      ],
+      "actors": [
+        "initiating_player",
+        "npc_master_alarich"
+      ],
+      "observerPolicy": "all_loaded_party_members",
+      "lateJoinPolicy": "join_live_checkpoint_or_observe",
+      "remoteExecutionPolicy": "live_observation",
+      "executionOwnerPolicy": "lobby_host",
+      "dialogueOwnerPolicy": "initiating_player",
+      "formationPolicy": "initiator_with_observer_follow",
+      "cleanupRequirements": [
+        "scope_the_host_claim_to_npc_master_alarichs_exact_refugee_s42_2_topic_and_leave_every_other_Alarich_route_unbound",
+        "commit_gykmp_story_phase_game_of_crone_s42_alarich_advice_entered_before_blacklisting_refugee_s42_2_and_completing_s_ev_41_alarich",
+        "treat_the_entry_blacklist_and_early_task_completion_as_nonterminal_prefixes_then_present_refugee_s42_2_1_through_14_with_the_source_player_thought_and_speaker_order",
+        "commit_gykmp_story_phase_game_of_crone_s42_alarich_advice_complete_only_after_all_fourteen_lines_and_dialogue_owner_control_restore",
+        "leave_the_player_Koukol_and_guard_leads_open_and_apply_no_new_topic_task_script_item_craft_or_world_mutation"
+      ]
+    },
+    {
+      "cutsceneId": "game_of_crone_deliver_death_emulsions_and_choose_codeword",
+      "linkedQuestIds": [
+        "dlc_refugees_s46_or_s53"
+      ],
+      "triggerScripts": [
+        "gykmp_story_dispatch_game_of_crone_s43_guard_delivery"
+      ],
+      "actors": [
+        "initiating_player",
+        "npc_guard_6"
+      ],
+      "observerPolicy": "all_loaded_party_members",
+      "lateJoinPolicy": "join_live_checkpoint_or_observe",
+      "remoteExecutionPolicy": "live_observation",
+      "executionOwnerPolicy": "lobby_host",
+      "dialogueOwnerPolicy": "initiating_player",
+      "formationPolicy": "initiator_with_observer_follow",
+      "cleanupRequirements": [
+        "scope_the_claim_to_npc_guard_6s_exact_refugee_s43_topic_and_require_the_selecting_profile_to_own_at_least_five_death_emulsion_before_accepting_the_paid_answer",
+        "persist_gykmp_story_transaction_game_of_crone_s43_death_emulsion_delivery_with_payer_identity_and_prepared_state_before_the_sources_AnswerData_debits_exactly_five_items_from_that_dialogue_owner",
+        "advance_the_delivery_transaction_through_debited_and_converged_states_without_charging_observers_or_the_host_when_a_remote_client_owns_the_dialogue",
+        "commit_gykmp_story_phase_game_of_crone_s43_payment_applied_before_blacklisting_refugee_s43_then_present_guard_line_one_and_player_line_two",
+        "serialize_the_inner_five_answer_codeword_loop_to_one_dialogue_owner_and_allow_wrong_answers_Reformation_Restoration_Revolution_or_Red_bread_redemption_to_play_guard_line_4b_and_reopen_the_same_menu_without_another_payment",
+        "commit_gykmp_story_branch_game_of_crone_s43_codeword_as_Retribution_before_the_correct_answer_completes_player_s_ev_41_player_plays_guard_lines_4a_and_5_and_dispatches_refugee_ev_s44",
+        "journal_gykmp_story_phase_game_of_crone_s43_to_s44_handoff_before_Flow_RunScript_and_do_not_treat_its_immediate_Out_as_proof_that_the_child_scene_finished",
+        "join_the_overlapping_parent_tail_with_s44_while_removing_death_emulsion_only_from_unlocked_crafts_preserving_completed_one_time_crafts_blacklisting_refugee_s42_2_and_refugee_s42_1_and_completing_the_Alarich_and_Koukol_s41_tasks",
+        "preserve_the_source_quirk_that_an_already_unlocked_refugee_s42_1_3_is_not_blacklisted_by_the_guard_route_and_do_not_invent_cleanup_for_it",
+        "commit_gykmp_story_phase_game_of_crone_s43_parent_tail_complete_only_after_the_item_transaction_topic_task_and_craft_removal_effects_are_durable"
+      ]
+    },
+    {
+      "cutsceneId": "game_of_crone_confront_beatrice_at_home",
+      "linkedQuestIds": [
+        "dlc_refugees_s46_or_s53"
+      ],
+      "triggerScripts": [
+        "gykmp_story_dispatch_game_of_crone_s44_beatrice_home"
+      ],
+      "actors": [
+        "initiating_player",
+        "npc_beatrice_s44"
+      ],
+      "observerPolicy": "all_loaded_party_members",
+      "lateJoinPolicy": "join_live_checkpoint_or_observe",
+      "remoteExecutionPolicy": "live_observation",
+      "executionOwnerPolicy": "lobby_host",
+      "dialogueOwnerPolicy": "initiating_player",
+      "formationPolicy": "initiator_with_observer_follow",
+      "cleanupRequirements": [
+        "enter_only_from_the_committed_s43_to_s44_handoff_and_commit_gykmp_story_phase_game_of_crone_s44_entry_claimed_before_setting_the_source_early_s44_triggered_latch",
+        "mirror_s44_triggered_one_into_each_eligible_profiles_local_player_param_because_later_Alarich_dialogue_reads_its_own_profile_value_but_never_use_that_early_latch_as_terminal_evidence",
+        "capture_per_participant_camera_control_and_cinematic_baselines_and_record_the_pre_scene_shared_world_state_for_rollback_only_while_preserving_tp_house_b__and_Inside_as_the_successful_source_terminal_environment",
+        "during_fade_middle_teleport_only_the_initiator_to_gd_refugee_s44_1_facing_Right_find_gd_refugee_s44_2_spawn_exactly_one_npc_beatrice_tagged_npc_beatrice_s44_facing_Left_enable_cinematic_start_dlc_refugee_final_change_environment_to_tp_house_b__and_set_global_weather_Inside",
+        "commit_gykmp_story_phase_game_of_crone_s44_staged_after_the_single_Beatrice_player_position_environment_weather_music_and_participant_presentation_are_converged",
+        "present_refugee_s44_1_through_7_in_source_order_then_face_Beatrice_Down_wait_half_a_second_start_cast_wait_three_seconds_and_enter_the_final_one_second_InOut_fade",
+        "during_the_final_fade_middle_stop_Beatrices_cast_destroy_only_npc_beatrice_s44_teleport_the_initiator_to_player_house_point_facing_Down_and_stop_dlc_refugee_final",
+        "treat_an_already_missing_npc_beatrice_s44_as_completed_cleanup_and_commit_gykmp_story_phase_game_of_crone_s44_actor_cleanup_complete_only_after_the_actor_is_absent_and_music_and_player_position_are_converged",
+        "after_fade_finished_unlock_refugee_s45_show_npc_marquis_teodoro_jr_s_ev_44_teodoro_restore_every_participants_own_presentation_baseline_and_end_without_inventing_an_environment_preset_restore",
+        "commit_gykmp_story_phase_game_of_crone_s44_complete_only_after_the_s43_parent_tail_and_s44_topic_task_actor_world_music_and_control_receipts_are_all_terminal",
+        "do_not_check_dlc_refugees_s46_or_s53_here_because_the_serialized_achievement_checkpoint_occurs_later_in_the_s45_or_s53_followup"
+      ]
+    },
+    {
+      "cutsceneId": "game_of_crone_choose_the_s68_evidence_route",
+      "linkedQuestIds": [
+        "dlc_refugees_s46_or_s53"
+      ],
+      "triggerScripts": [
+        "gykmp_story_dispatch_game_of_crone_s68_koukol_plan"
+      ],
+      "actors": [
+        "initiating_player",
+        "npc_hunchback"
+      ],
+      "observerPolicy": "all_loaded_party_members",
+      "lateJoinPolicy": "join_live_checkpoint_or_observe",
+      "remoteExecutionPolicy": "live_observation",
+      "executionOwnerPolicy": "lobby_host",
+      "dialogueOwnerPolicy": "initiating_player",
+      "formationPolicy": "initiator_with_observer_follow",
+      "cleanupRequirements": [
+        "scope_the_host_claim_to_the_exact_npc_hunchback_topic_refugee_s68_and_never_register_or_suppress_the_whole_Koukol_script_which_also_owns_schedule_trading_and_unrelated_dialogue",
+        "require_the_completed_s62_refusal_report_and_unlocked_refugee_s68_topic_then_journal_gykmp_story_phase_game_of_crone_s68_entered_before_the_source_blacklists_refugee_s68_or_completes_dlc_refugees_s_ev_62_1",
+        "treat_the_entry_blacklist_and_early_dlc_refugees_s_ev_62_1_completion_as_nonterminal_prefixes_and_resume_the_s68_dialogue_when_either_exists_without_a_committed_route",
+        "preserve_refugee_s68_1_through_6_then_serialize_answer_7a_7b_or_7c_to_one_dialogue_owner_and_store_prompt_7_before_waiting_for_the_remote_choice",
+        "for_answer_7c_preserve_7c_1_through_5_store_prompt_8_and_serialize_8a_or_8b_then_for_8b_preserve_8b_1_through_3_store_prompt_9_and_serialize_9a_or_9b",
+        "journal_gykmp_story_branch_game_of_crone_s68_route_with_the_exact_selected_answer_and_commander_teodoro_koukol_paid_or_koukol_payment_pending_target_before_any_child_script_task_write_phrase_write_or_money_debit",
+        "for_answer_7a_preserve_refugee_s68_7a_1_and_transfer_the_live_dialogue_owners_presentation_baseline_to_the_single_s50_commander_dispatch_without_enabling_players_in_between",
+        "for_answer_7b_preserve_refugee_s68_7b_1_and_7b_2_then_show_npc_marquis_teodoro_jr_dlc_refugees_s_ev_68_teodoro_and_dispatch_s51_prepare_exactly_once",
+        "for_answer_8a_preserve_refugee_s68_8a_1_then_show_npc_marquis_teodoro_jr_dlc_refugees_s_ev_68_teodoro_and_dispatch_s51_prepare_exactly_once",
+        "for_answer_9a_bind_the_source_money_300_AnswerData_price_to_the_actual_selecting_profile_and_journal_an_initiator_bound_intent_debited_converged_transaction_so_recovery_never_charges_the_host_or_debits_twice",
+        "after_the_9a_debit_preserve_refugee_s68_9a_1_and_9a_2_show_npc_hunchback_dlc_refugees_s_ev_68_koukol_and_arm_is_come_from_ev80_with_phrase_one_on_the_canonical_host_Koukol",
+        "for_answer_9b_show_npc_hunchback_dlc_refugees_s_ev_68_pay_koukol_unlock_refugee_s68_10_and_commit_a_payment_pending_terminal_without_charging_any_profile",
+        "all_s68_task_reward_triples_are_zero_and_the_scroll_ghoul_is_dialogue_intent_only_here_so_do_not_grant_an_item_story_points_relation_or_achievement",
+        "restore_each_observers_baseline_and_enable_the_dialogue_owner_only_after_the_selected_branch_specific_task_world_or_payment_pending_tail_is_durable",
+        "keep_raw_npc_hunchback_refugee_s68_event_68_meet_next_night_refugee_ev_s50_and_refugee_ev_s51_prepare_identifiers_as_provenance_only"
+      ]
+    },
+    {
+      "cutsceneId": "game_of_crone_run_the_s50_commander_confrontation",
+      "linkedQuestIds": [
+        "dlc_refugees_s46_or_s53"
+      ],
+      "triggerScripts": [
+        "gykmp_story_dispatch_game_of_crone_s50_commander_confrontation"
+      ],
+      "actors": [
+        "initiating_player",
+        "npc_hunchback",
+        "npc_lord_commander_s50",
+        "npc_guard_1_s50",
+        "npc_guard_2_s50",
+        "npc_guard_3_s50",
+        "npc_guard_4_s50"
+      ],
+      "observerPolicy": "all_loaded_party_members",
+      "lateJoinPolicy": "join_live_checkpoint_or_observe",
+      "remoteExecutionPolicy": "live_observation",
+      "executionOwnerPolicy": "lobby_host",
+      "dialogueOwnerPolicy": "initiating_player",
+      "formationPolicy": "initiator_with_observer_follow",
+      "cleanupRequirements": [
+        "enter_only_from_the_committed_s48_or_s68_call_lord_commander_handoff_and_carry_the_remote_dialogue_owners_peer_id_through_every_GetPlayer_teleport_facing_camera_dialogue_and_control_node",
+        "capture_a_per_participant_presentation_baseline_then_disable_the_initiator_and_apply_the_2_second_InOut_fade_without_moving_observer_avatars",
+        "during_the_fade_middle_teleport_the_initiator_to_gd_refugee_s50_player_place_facing_Up_and_converge_canonical_npc_hunchback_at_gd_refugee_s50_kuk_1_facing_Down",
+        "find_or_spawn_exactly_one_npc_lord_commander_tag_npc_lord_commander_s50_at_gd_refugee_s50_lord_1_and_exactly_one_each_guard_tags_npc_guard_1_s50_npc_guard_2_s50_npc_guard_3_s50_npc_guard_4_s50_at_the_matching_guard_1_points",
+        "preserve_npc_guard_9_for_guards_one_two_and_four_npc_guard_torch_for_guard_three_and_never_replace_or_destroy_the_canonical_npc_hunchback",
+        "move_the_four_guards_Koukol_and_Commander_at_speed_1_7_to_the_matching_guard_1_3_through_guard_4_3_gd_refugee_s50_kuk_3_and_gd_refugee_s50_lord_3_points_then_commit_gykmp_story_phase_game_of_crone_s50_staged",
+        "preserve_refugee_s50_1_through_8_then_read_the_authoritative_dialogue_owners_is_player_agreed_help_beatrice_value_using_9_10_Player_and_11_Commander_for_refusal_zero_or_12_13_Player_and_14_Commander_for_acceptance_one_then_converge_15_through_21",
+        "journal_actor_departure_before_returning_the_five_temporary_actors_to_their_matching_1_points_and_recover_by_converging_each_actor_independently_instead_of_replaying_the_strict_source_chain",
+        "during_the_1_second_InOut_cleanup_fade_stop_and_destroy_guard_one_guard_two_guard_three_guard_four_then_Commander_in_exact_source_order_and_treat_each_already_missing_tag_as_a_completed_subreceipt",
+        "teleport_only_canonical_Koukol_to_the_exact_source_tag_gd_refugee_s50_kukol_facing_Down_then_preserve_refugee_s50_22_Koukol_and_23_24_Player_with_the_source_camera_and_facing_tail",
+        "show_npc_marquis_teodoro_jr_dlc_refugees_s_ev_50_tedoro_preserving_the_tedoro_typo_and_commit_the_s50_to_s51_handoff_before_dispatching_s51_prepare_once",
+        "do_not_treat_the_visible_tedoro_task_or_RunScript_Out_as_s51_completion_and_do_not_restore_control_until_the_shared_s51_prepared_receipt_exists",
+        "commit_gykmp_story_phase_game_of_crone_s50_actor_cleanup_complete_when_all_five_temporary_tags_are_absent_and_restore_each_participant_from_its_own_baseline_at_the_branch_terminal",
+        "do_not_add_items_currency_relation_counters_time_weather_music_or_story_rewards_because_s50_has_none"
+      ]
+    },
+    {
+      "cutsceneId": "game_of_crone_prepare_the_s51_teodoro_encounter",
+      "linkedQuestIds": [
+        "dlc_refugees_s46_or_s53"
+      ],
+      "triggerScripts": [
+        "gykmp_story_dispatch_game_of_crone_s51_prepare"
+      ],
+      "actors": [
+        "initiating_player",
+        "refugee_s51_trigger_zone",
+        "horadric_s51",
+        "npc_refugee_1"
+      ],
+      "observerPolicy": "all_loaded_party_members",
+      "lateJoinPolicy": "join_live_checkpoint_or_observe",
+      "remoteExecutionPolicy": "live_observation",
+      "executionOwnerPolicy": "lobby_host",
+      "dialogueOwnerPolicy": "initiating_player",
+      "formationPolicy": "initiator_with_observer_follow",
+      "cleanupRequirements": [
+        "accept_exactly_one_host_owned_prepare_claim_from_the_shared_s50_handoff_the_direct_s48_warn_Teodoro_route_or_the_direct_s68_Teodoro_routes_and_deduplicate_every_call_site",
+        "journal_gykmp_story_phase_game_of_crone_s51_prepare_claimed_before_the_source_sets_is_need_activate_ev_s51_one_so_the_early_PlayerParam_cannot_consume_the_helper_on_a_crash",
+        "treat_is_need_activate_ev_s51_as_a_mechanically_local_PlayerParam_but_canonicalize_it_as_one_host_owned_shared_story_activation_latch_instead_of_independently_arming_every_participant",
+        "find_or_spawn_exactly_one_refugee_s51_trigger_zone_at_gd_refugee_s51_trigger_zone_and_exactly_one_npc_tavern_owner_tag_horadric_s51_at_gd_refugee_s51_horadric_facing_Left_Idle",
+        "preserve_the_source_Is_it_a_copy_false_value_for_horadric_s51_but_deduplicate_by_custom_tag_so_recovery_never_creates_a_second_tavern_owner_actor",
+        "strictly_find_canonical_npc_refugee_1_then_set_refugee_unrollable_one_stop_movement_teleport_to_gd_refugee_s51_teodoro_reset_the_animator_set_on_the_way_now_zero_and_face_Right",
+        "recover_a_missing_or_delayed_npc_refugee_1_by_waiting_for_or_restoring_the_canonical_actor_then_converging_all_properties_without_replaying_the_zone_or_horadric_spawns",
+        "commit_gykmp_story_phase_game_of_crone_s51_prepared_only_after_one_trigger_one_horadric_and_the_canonical_Teodoro_position_facing_animation_and_params_are_all_converged",
+        "do_not_start_any_north_east_north_west_or_south_s51_zone_entry_script_in_this_unit_and_leave_the_prepared_world_staging_intact_at_the_terminal_boundary"
+      ]
+    },
+    {
+      "cutsceneId": "game_of_crone_pay_koukol_after_s68",
+      "linkedQuestIds": [
+        "dlc_refugees_s46_or_s53"
+      ],
+      "triggerScripts": [
+        "gykmp_story_dispatch_game_of_crone_s68_koukol_payment"
+      ],
+      "actors": [
+        "initiating_player",
+        "npc_hunchback"
+      ],
+      "observerPolicy": "all_loaded_party_members",
+      "lateJoinPolicy": "join_live_checkpoint_or_observe",
+      "remoteExecutionPolicy": "live_observation",
+      "executionOwnerPolicy": "lobby_host",
+      "dialogueOwnerPolicy": "initiating_player",
+      "formationPolicy": "initiator_with_observer_follow",
+      "cleanupRequirements": [
+        "scope_the_claim_to_the_exact_unlocked_npc_hunchback_topic_refugee_s68_10_and_require_the_shared_koukol_payment_pending_route_without_owning_other_Koukol_topics",
+        "bind_the_source_AnswerData_money_300_price_to_the_profile_that_selects_refugee_s68_10_which_may_differ_from_the_original_s68_dialogue_owner",
+        "journal_gykmp_story_transaction_game_of_crone_s68_koukol_payment_with_payer_id_and_intent_before_debit_then_debited_before_the_first_function_body_node_so_a_crash_cannot_charge_twice",
+        "after_the_durable_debit_blacklist_refugee_s68_10_complete_npc_hunchback_dlc_refugees_s_ev_68_pay_koukol_and_preserve_Player_lines_refugee_s68_11_and_12",
+        "treat_event_68_meet_next_night_as_a_plain_tail_call_with_no_timer_day_sleep_or_clock_effect_then_preserve_Koukol_lines_refugee_s68_9a_1_and_9a_2",
+        "show_npc_hunchback_dlc_refugees_s_ev_68_koukol_then_set_canonical_host_Koukol_param_is_come_from_ev80_with_phrase_one_and_commit_the_transaction_as_converged",
+        "persist_gykmp_story_phase_game_of_crone_s68_koukol_next_arrival_armed_independently_of_the_WGO_param_and_never_repair_the_param_after_refugee_s80_has_already_been_unlocked",
+        "leave_Koukols_future_on_came_to_finish_schedule_transaction_and_refugee_s80_outside_this_unit_and_do_not_grant_scroll_ghoul_here",
+        "enable_the_payer_after_the_task_arm_and_transaction_receipts_are_durable_and_restore_observers_from_their_independent_presentation_baselines"
+      ]
+    },
+    {
+      "cutsceneId": "game_of_crone_report_refugee_safety_to_teodoro",
+      "linkedQuestIds": [
+        "dlc_refugees_s46_or_s53"
+      ],
+      "triggerScripts": [
+        "gykmp_story_dispatch_game_of_crone_s45_teodoro_victory"
+      ],
+      "actors": [
+        "initiating_player",
+        "npc_marquis_teodoro_jr",
+        "npc_refugee_1",
+        "spawned_refugees"
+      ],
+      "observerPolicy": "all_loaded_party_members",
+      "lateJoinPolicy": "join_live_checkpoint_or_observe",
+      "remoteExecutionPolicy": "live_observation",
+      "executionOwnerPolicy": "lobby_host",
+      "dialogueOwnerPolicy": "initiating_player",
+      "formationPolicy": "initiator_with_observer_follow",
+      "cleanupRequirements": [
+        "scope_the_claim_to_exactly_npc_marquis_teodoro_jr_refugee_s45_and_never_bind_the_generic_npc_teodoro_dialogue_shell",
+        "journal_gykmp_story_phase_game_of_crone_s45_entered_before_blacklisting_refugee_s45_or_completing_s_ev_44_teodoro_because_both_source_mutations_precede_every_line_reward_and_cleanup",
+        "preserve_Player_lines_refugee_s45_1_and_2_then_Teodoro_lines_refugee_s45_3_through_6_with_the_source_waits_and_facing_changes",
+        "only_when_is_s81_triggered_is_at_least_one_set_the_refugee_camp_music_theme_to_Happy_and_start_the_dlc_refugee_theme_happy_override_without_inventing_that_music_on_the_direct_s44_route",
+        "reserve_or_adopt_each_of_the_four_Direction_ToPlayer_drops_before_delivery_and_allocate_exactly_one_armor_lamellar_2_one_sword_damask_gem_one_ingot_silver_and_one_ingot_gold_to_each_eligible_personal_profile",
+        "journal_each_personal_reward_receipt_and_the_shared_Teodoro_relationship_plus_ten_receipt_before_releasing_any_world_drop_so_a_disconnect_pickup_or_replay_cannot_duplicate_or_steal_the_reward",
+        "treat_the_repeated_serialized_binder_edges_around_the_reward_nodes_as_graph_noise_and_execute_each_Flow_DropItem_node_once",
+        "free_Camp_idle_points_then_for_refugee_indexes_one_through_ten_wait_the_source_random_zero_point_two_to_zero_point_five_seconds_set_refugee_unrollable_one_stop_movement_and_face_each_existing_refugee_toward_Teodoro",
+        "commit_gykmp_story_phase_game_of_crone_s45_teodoro_handoff_only_after_the_reward_and_relationship_receipts_and_the_stop_all_refugees_function_return_then_hand_off_to_the_s45_assembly",
+        "do_not_release_Teodoro_or_fire_on_talk_end_until_the_s45_assembly_child_has_reached_its_terminal_cleanup"
+      ]
+    },
+    {
+      "cutsceneId": "game_of_crone_hold_the_refugee_victory_assembly",
+      "linkedQuestIds": [
+        "dlc_refugees_s46_or_s53"
+      ],
+      "triggerScripts": [
+        "gykmp_story_dispatch_game_of_crone_s45_refugee_assembly"
+      ],
+      "actors": [
+        "initiating_player",
+        "npc_refugee_1",
+        "npc_master_alarich",
+        "spawned_refugees"
+      ],
+      "observerPolicy": "all_loaded_party_members",
+      "lateJoinPolicy": "join_live_checkpoint_or_observe",
+      "remoteExecutionPolicy": "live_observation",
+      "executionOwnerPolicy": "lobby_host",
+      "dialogueOwnerPolicy": "initiating_player",
+      "formationPolicy": "initiator_with_observer_follow",
+      "cleanupRequirements": [
+        "accept_only_the_committed_s45_Teodoro_handoff_and_mirror_the_s45_assembly_child_as_one_continuous_live_scene_without_starting_a_second_child_script",
+        "journal_gykmp_story_phase_game_of_crone_s45_assembly_claimed_before_the_one_point_five_second_InOut_fade_and_capture_every_participants_presentation_baseline",
+        "at_fade_middle_enable_cinematic_stage_Teodoro_at_gd_refugee_s45_0_facing_Down_with_reset_animator_and_stage_the_initiator_at_gd_refugee_s45_player_facing_Down",
+        "teleport_each_spawned_refugee_except_canonical_npc_refugee_1_and_npc_master_alarich_once_to_sequential_gd_refugee_s45_1_and_later_points_reset_animators_and_face_Teodoro",
+        "move_the_camera_instantly_to_the_exact_GD_tag_refugee_ev_s2_camera_point_then_preserve_Teodoro_lines_refugee_s45_7_through_12_and_14_through_17",
+        "present_refugee_s45_13_and_refugee_s45_18_once_as_collective_spawned_refugee_choruses_with_the_source_three_second_return_waits_and_without_relaying_one_duplicate_line_per_observer",
+        "fly_the_camera_back_over_zero_point_seven_seconds_then_check_dlc_refugees_s46_or_s53_once_in_the_authoritative_AchievementsSystem_before_opening_the_Alarich_followup",
+        "set_npc_master_alarich_dlc_refugees_s_ev_45_alaric_Visible_with_zero_rewards_then_unlock_refugee_s46",
+        "for_each_spawned_refugee_except_Alarich_reset_refugee_unrollable_to_zero_and_only_when_refugees_spawned_equals_zero_fire_on_go_home_and_despawn_once",
+        "after_the_child_enables_the_player_and_ends_reset_canonical_Teodoro_refugee_unrollable_to_zero_fire_on_talk_end_and_restore_every_participants_independent_presentation_baseline",
+        "commit_gykmp_story_phase_game_of_crone_s45_complete_only_after_achievement_task_phrase_actor_camera_control_and_parent_release_state_are_converged"
+      ]
+    },
+    {
+      "cutsceneId": "game_of_crone_ask_alarich_about_his_final_plans",
+      "linkedQuestIds": [
+        "dlc_refugees_s46_or_s53"
+      ],
+      "triggerScripts": [
+        "gykmp_story_dispatch_game_of_crone_s46_alarich_plans"
+      ],
+      "actors": [
+        "initiating_player",
+        "npc_master_alarich"
+      ],
+      "observerPolicy": "all_loaded_party_members",
+      "lateJoinPolicy": "join_live_checkpoint_or_observe",
+      "remoteExecutionPolicy": "live_observation",
+      "executionOwnerPolicy": "lobby_host",
+      "dialogueOwnerPolicy": "initiating_player",
+      "formationPolicy": "initiator_with_observer_follow",
+      "cleanupRequirements": [
+        "scope_the_claim_to_exactly_npc_master_alarich_refugee_s46_and_never_bind_the_generic_Alarich_dialogue_shell",
+        "journal_gykmp_story_phase_game_of_crone_s46_entered_before_blacklisting_refugee_s46_or_completing_dlc_refugees_s_ev_45_alaric_because_the_task_is_an_early_nonterminal_latch",
+        "preserve_lines_refugee_s46_1_through_9_then_apply_the_shared_Alarich_relationship_plus_twenty_through_its_own_additive_receipt",
+        "select_only_refugee_s46_10_when_s44_triggered_is_at_least_one_or_refugee_s46_11_when_it_is_zero_without_changing_that_route_parameter",
+        "face_the_initiator_Down_present_refugee_s46_12_as_a_thought_then_face_the_initiator_back_toward_Alarich_and_unlock_refugee_s46_13",
+        "set_the_refugee_camp_music_theme_to_Sad_and_dispatch_the_single_s47_body_setup_only_when_s44_triggered_is_at_least_one_or_set_the_theme_Happy_without_bodies_when_it_is_zero",
+        "unlock_Persistence_once_for_every_eligible_personal_profile_after_the_conditional_music_and_body_setup_dispatch_and_restore_each_participants_control_baseline",
+        "commit_gykmp_story_phase_game_of_crone_s46_complete_only_after_the_relation_receipt_followup_phrase_conditional_route_side_effects_and_personal_tech_receipts_are_converged",
+        "never_infer_the_relationship_body_scene_followup_phrase_or_Persistence_from_the_early_Complete_task_state_alone"
+      ]
+    },
+    {
+      "cutsceneId": "game_of_crone_stage_the_s47_body_evidence",
+      "linkedQuestIds": [
+        "dlc_refugees_s46_or_s53"
+      ],
+      "triggerScripts": [
+        "gykmp_story_dispatch_game_of_crone_s47_body_setup"
+      ],
+      "actors": [
+        "initiating_player",
+        "empty_s47",
+        "crafting_skull_3"
+      ],
+      "observerPolicy": "all_loaded_party_members",
+      "lateJoinPolicy": "join_live_checkpoint_or_observe",
+      "remoteExecutionPolicy": "live_observation",
+      "executionOwnerPolicy": "lobby_host",
+      "dialogueOwnerPolicy": "initiating_player",
+      "formationPolicy": "initiator_with_observer_follow",
+      "cleanupRequirements": [
+        "accept_only_the_s44_triggered_acceptance_branch_from_the_committed_s46_dialogue_and_never_dispatch_this_world_setup_for_the_s53_route",
+        "journal_gykmp_story_phase_game_of_crone_s47_body_setup_claimed_before_adding_three_to_cur_bodies_count_or_spawning_any_world_object",
+        "add_three_to_cur_bodies_count_once_for_the_actual_s46_initiator_only_and_never_once_per_observer",
+        "find_or_spawn_exactly_one_empty_object_tag_empty_s47_at_gd_refugee_s47_body_spawn_point_then_drop_exactly_three_tier_101_bodies_with_zero_durability_decay_and_Direction_None",
+        "drop_exactly_one_note_from_unknown_1_with_Direction_None_from_empty_s47_then_reserve_or_adopt_the_world_drop_and_allocate_one_copy_exactly_once_to_each_eligible_personal_profile",
+        "set_canonical_crafting_skull_3_is_zone_s47_active_to_one_only_after_the_body_and_note_world_state_is_complete",
+        "commit_gykmp_story_phase_game_of_crone_s47_body_setup_complete_after_the_single_helper_three_bodies_note_allocations_counter_receipt_and_world_latch_are_converged",
+        "leave_empty_s47_present_for_the_mortuary_discovery_scene_and_never_duplicate_bodies_or_note_allocations_during_restart_late_join_or_recovery"
+      ]
+    },
+    {
+      "cutsceneId": "game_of_crone_discover_the_s47_bodies",
+      "linkedQuestIds": [
+        "dlc_refugees_s46_or_s53"
+      ],
+      "triggerScripts": [
+        "gykmp_story_dispatch_game_of_crone_s47_mortuary_discovery"
+      ],
+      "actors": [
+        "initiating_player",
+        "empty_s47",
+        "crafting_skull_3"
+      ],
+      "observerPolicy": "all_loaded_party_members",
+      "lateJoinPolicy": "join_live_checkpoint_or_observe",
+      "remoteExecutionPolicy": "live_observation",
+      "executionOwnerPolicy": "lobby_host",
+      "dialogueOwnerPolicy": "initiating_player",
+      "formationPolicy": "initiator_with_observer_follow",
+      "cleanupRequirements": [
+        "scope_the_claim_to_the_mortuary_entry_fallthrough_where_crafting_skull_3_is_zone_s47_active_is_at_least_one_and_do_not_own_other_mortuary_entry_events",
+        "journal_gykmp_story_phase_game_of_crone_s47_discovery_entered_before_clearing_is_zone_s47_active_because_the_source_clears_the_only_world_latch_before_RunScript",
+        "set_the_latch_exactly_zero_then_disable_only_the_initiating_player_with_cinematic_effect_and_face_them_toward_gd_refugee_s47_body_spawn_point",
+        "present_Player_thoughts_refugee_s47_1_and_refugee_s47_2_once_to_all_observers",
+        "destroy_exactly_the_empty_s47_helper_after_the_second_thought_without_deleting_the_three_bodies_or_the_note_drop",
+        "restore_every_participants_independent_control_and_cinematic_baseline_and_commit_gykmp_story_phase_game_of_crone_s47_discovery_complete",
+        "recover_a_cleared_latch_with_an_incomplete_phase_by_replaying_only_the_missing_presentation_and_helper_cleanup_without_respawning_bodies_or_note_rewards"
+      ]
+    },
+    {
+      "cutsceneId": "game_of_crone_read_the_unknown_s47_note",
+      "linkedQuestIds": [
+        "dlc_refugees_s46_or_s53"
+      ],
+      "triggerScripts": [
+        "gykmp_story_dispatch_game_of_crone_s47_unknown_note"
+      ],
+      "actors": [
+        "initiating_player"
+      ],
+      "observerPolicy": "all_loaded_party_members",
+      "lateJoinPolicy": "join_live_checkpoint_or_observe",
+      "remoteExecutionPolicy": "live_observation",
+      "executionOwnerPolicy": "lobby_host",
+      "dialogueOwnerPolicy": "initiating_player",
+      "formationPolicy": "initiator_with_observer_follow",
+      "cleanupRequirements": [
+        "scope_each_claim_to_one_profile_using_its_personal_note_from_unknown_1_allocation_and_never_let_one_ground_pickup_deprive_another_profile_of_the_story_note",
+        "disable_only_the_reader_without_affecting_cinematic_and_present_InfoBox_lines_refugee_s47_3_through_7_on_every_use",
+        "check_the_exact_typoed_personal_flag_is_note_from_unknown_1_red_once_and_do_not_rename_it_to_read_once",
+        "on_the_first_read_only_journal_gykmp_story_phase_game_of_crone_s47_note_first_read_claimed_then_present_refugee_s47_8_ring_bell_single_wait_one_point_five_seconds_and_unlock_Industriousness",
+        "set_is_note_from_unknown_1_red_once_to_one_after_the_personal_tech_unlock_then_restore_the_readers_control_and_commit_their_personal_first_read_receipt",
+        "on_later_reads_skip_refugee_s47_8_the_bell_wait_and_tech_unlock_while_still_converging_the_flag_to_one",
+        "do_not_consume_the_note_because_the_source_note_use_flow_contains_no_remove_item_node_and_do_not_change_tasks_relationships_or_achievements"
+      ]
+    },
+    {
+      "cutsceneId": "game_of_crone_hear_the_teodoro_alarich_history",
+      "linkedQuestIds": [
+        "dlc_refugees_s46_or_s53"
+      ],
+      "triggerScripts": [
+        "gykmp_story_dispatch_game_of_crone_s46_alarich_history"
+      ],
+      "actors": [
+        "initiating_player",
+        "npc_master_alarich",
+        "refugee_s55_trigger_zone_2"
+      ],
+      "observerPolicy": "all_loaded_party_members",
+      "lateJoinPolicy": "join_live_checkpoint_or_observe",
+      "remoteExecutionPolicy": "live_observation",
+      "executionOwnerPolicy": "lobby_host",
+      "dialogueOwnerPolicy": "initiating_player",
+      "formationPolicy": "initiator_with_observer_follow",
+      "cleanupRequirements": [
+        "scope_the_claim_to_exactly_npc_master_alarich_refugee_s46_13_and_never_bind_the_generic_Alarich_dialogue_shell",
+        "journal_gykmp_story_phase_game_of_crone_s46_history_entered_before_blacklisting_refugee_s46_13_and_starting_the_dlc_refugee_final_override",
+        "preserve_Alarich_and_Player_lines_refugee_s46_14_through_28_then_face_the_initiator_Down",
+        "include_refugee_s46_29_only_when_s44_triggered_equals_zero_and_always_present_Player_thoughts_refugee_s46_30_through_33_without_modifying_the_route_flag",
+        "stop_dlc_refugee_final_then_run_the_supply_shutdown_macro_exactly_once_to_blacklist_refugees_s13_1_and_refugees_s13_1_bucket_and_set_is_alarich_supply_enabled_exactly_zero",
+        "set_is_zone_ev_s55_2_active_to_one_for_every_eligible_personal_profile_then_find_or_spawn_exactly_one_refugee_s55_trigger_zone_2_at_gd_alarich_tent_curtain_place",
+        "journal_the_s55_2_spawn_before_creation_and_deduplicate_by_custom_tag_so_a_crash_between_the_param_and_spawn_or_a_late_join_cannot_create_an_extra_zone",
+        "restore_every_participants_independent_control_and_music_presentation_baseline_then_commit_gykmp_story_phase_game_of_crone_s46_history_complete",
+        "stop_at_the_armed_s55_2_trigger_boundary_and_do_not_start_or_claim_the_following_s55_zone_scene"
+      ]
+    },
+    {
+      "cutsceneId": "game_of_crone_complete_the_s55_2_alarich_departure_cleanup",
+      "linkedQuestIds": [
+        "dlc_refugees_s46_or_s53"
+      ],
+      "triggerScripts": [
+        "gykmp_story_dispatch_game_of_crone_s55_2_alarich_departure_cleanup"
+      ],
+      "actors": [
+        "initiating_player",
+        "npc_master_alarich",
+        "refugee_camp_tent_2",
+        "refugee_s55_trigger_zone_2"
+      ],
+      "observerPolicy": "all_loaded_party_members",
+      "lateJoinPolicy": "join_live_checkpoint_or_observe",
+      "remoteExecutionPolicy": "live_observation",
+      "executionOwnerPolicy": "lobby_host",
+      "dialogueOwnerPolicy": "initiating_player",
+      "formationPolicy": "initiator_with_observer_follow",
+      "cleanupRequirements": [
+        "scope_the_claim_to_the_s55_2_exit_branch_with_is_zone_ev_s55_2_active_at_least_one_and_never_own_other_zone_exit_flows",
+        "journal_gykmp_story_phase_game_of_crone_s55_2_cleanup_claimed_before_clearing_is_zone_ev_s55_2_active_because_the_source_clears_its_only_latch_before_dispatching_the_cleanup_child",
+        "set_is_zone_ev_s55_2_active_exactly_zero_for_every_eligible_profile_after_the_shared_claim_so_another_players_later_exit_cannot_repeat_the_one_shot_cleanup",
+        "run_the_destructive_child_once_on_the_lobby_host_then_destroy_exactly_one_refugee_s55_trigger_zone_2_without_waiting_for_a_child_finished_callback_as_in_the_source",
+        "strictly_find_npc_master_alarich_and_when_present_move_him_with_puff_effect_to_default_destroy_point_then_continue_even_when_recovery_finds_him_already_absent_or_in_stock",
+        "permanently_lock_exactly_refugee_builddesk_refugee_camp_add_refugee_through_terminal_craft_removal_support_and_never_represent_the_lock_as_an_unlock_or_completed_one_time_craft",
+        "remove_npc_master_alarich_from_the_KnownNPC_list_exactly_once_after_the_stock_move_or_after_confirming_he_is_already_absent",
+        "find_refugee_camp_tent_2_by_object_id_and_when_present_clear_its_entire_inventory_then_add_exactly_one_refugee_tent_place_available_item_with_One_Hand_Slot_false",
+        "when_refugee_camp_tent_2_is_absent_follow_the_sources_null_branch_without_spawning_a_replacement_or_clearing_an_unrelated_inventory",
+        "commit_gykmp_story_phase_game_of_crone_s55_2_cleanup_complete_only_after_the_profile_latch_actor_craft_KnownNPC_tent_and_trigger_zone_terminal_state_is_converged",
+        "do_not_change_tasks_phrases_achievements_relationships_personal_inventory_player_control_camera_weather_time_or_music_in_this_cleanup"
+      ]
+    },
+    {
+      "cutsceneId": "game_of_crone_s51_refugee_departure_warning",
+      "linkedQuestIds": [
+        "dlc_refugees_s46_or_s53"
+      ],
+      "triggerScripts": [
+        "gykmp_story_dispatch_game_of_crone_s51_refugee_warning"
+      ],
+      "actors": [
+        "initiating_player",
+        "horadric_s51",
+        "npc_refugee_1",
+        "npc_tavern owner"
+      ],
+      "observerPolicy": "all_loaded_party_members",
+      "lateJoinPolicy": "join_live_checkpoint_or_observe",
+      "remoteExecutionPolicy": "live_observation",
+      "executionOwnerPolicy": "lobby_host",
+      "dialogueOwnerPolicy": "initiating_player",
+      "formationPolicy": "initiator_with_observer_follow",
+      "cleanupRequirements": [
+        "claim_exactly_one_of_the_S_NE_or_NW_entry_colliders_on_the_host_and_persist_the_initiator_and_direction_before_consuming_the_canonical_is_need_activate_ev_s51_latch_or_destroying_refugee_s51_trigger_zone",
+        "treat_check_ev_s51_start_as_an_unsafe_source_macro_because_it_sets_is_need_activate_ev_s51_zero_and_destroys_the_shared_zone_before_disabling_the_player_or_starting_any_dialogue",
+        "for_S_face_the_initiator_to_horadric_s51_fly_the_camera_to_gd_refugee_camp_wp_home_1_and_play_refugee_s51_1_through_4_without_a_prefix_move",
+        "for_NE_or_NW_use_the_same_camera_and_lines_but_start_the_initiators_Direct_speed_two_move_to_gd_refugee_s51_NE_finish_or_gd_refugee_s51_NW_finish_from_refugee_s51_2_Out_and_join_arrival_with_refugee_s51_4_completion",
+        "commit_gykmp_story_phase_game_of_crone_s51_core_handoff_before_the_single_common_child_dispatch_and_never_treat_the_parent_Flow_RunScript_Out_as_child_completion",
+        "in_the_common_scene_start_the_initiators_Direct_speed_two_move_to_gd_refugee_s51_S_finish_without_waiting_for_arrival_then_preserve_refugee_s51_5_through_12_and_the_source_Down_facing_waits",
+        "complete_npc_marquis_teodoro_jr_dlc_refugees_s_ev_68_teodoro_zero_point_seven_seconds_after_refugee_s51_7_starts_then_at_the_final_fade_complete_the_typoed_dlc_refugees_s_ev_50_tedoro_and_show_npc_tavern_owner_dlc_refugees_s_ev_51_horadric_with_all_zero_rewards",
+        "during_the_fade_middle_reset_the_camera_destroy_only_the_spawned_horadric_s51_actor_and_set_canonical_npc_refugee_1_refugee_unrollable_zero",
+        "persist_an_absolute_next_midnight_plus_thirty_seconds_deadline_before_firing_event_prepare_s52_on_canonical_npc_tavern_owner_so_restart_recovery_neither_loses_the_event_nor_pushes_it_to_another_day",
+        "restore_control_only_after_actor_cleanup_both_completed_Teodoro_tasks_the_Horadric_task_and_the_durable_s52_timer_receipt_have_joined",
+        "resolve_or_restore_every_strict_source_WGO_and_GD_point_before_use_because_a_missing_horadric_s51_npc_refugee_1_or_npc_tavern_owner_can_leave_the_raw_sequence_partially_mutated"
+      ]
+    },
+    {
+      "cutsceneId": "game_of_crone_s52_horadric_escape_plan",
+      "linkedQuestIds": [
+        "dlc_refugees_s46_or_s53"
+      ],
+      "triggerScripts": [
+        "gykmp_story_dispatch_game_of_crone_s52_horadric_plan"
+      ],
+      "actors": [
+        "initiating_player",
+        "npc_tavern owner",
+        "npc_captain"
+      ],
+      "observerPolicy": "all_loaded_party_members",
+      "lateJoinPolicy": "join_live_checkpoint_or_observe",
+      "remoteExecutionPolicy": "live_observation",
+      "executionOwnerPolicy": "lobby_host",
+      "dialogueOwnerPolicy": "initiating_player",
+      "formationPolicy": "initiator_with_observer_follow",
+      "cleanupRequirements": [
+        "unlock_only_npc_tavern_owner_refugee_s52_when_the_durable_s52_deadline_is_due_and_never_use_dlc_refugees_s_ev_51_horadric_Visible_to_skip_the_source_next_day_delay",
+        "scope_the_live_claim_to_npc_tavern_owner_refugee_s52_and_commit_gykmp_story_phase_game_of_crone_s52_horadric_entered_before_its_early_blacklist_and_early_Horadric_task_completion",
+        "preserve_refugee_s52_1_through_16_and_the_initiators_source_Down_Up_Down_Up_direction_sequence_with_the_one_second_and_half_second_parallel_waits",
+        "show_npc_captain_dlc_refugees_s_ev_52_apple_unlock_refugee_s52_2_set_exactly_npc_captain_is_able_to_talk_one_and_restore_control_only_at_the_terminal_phase",
+        "do_not_bind_the_entire_tavern_owner_dialogue_graph_or_its_unrelated_topics_and_do_not_treat_the_early_task_or_blacklist_as_terminal_evidence"
+      ]
+    },
+    {
+      "cutsceneId": "game_of_crone_s52_cure_the_captain",
+      "linkedQuestIds": [
+        "dlc_refugees_s46_or_s53"
+      ],
+      "triggerScripts": [
+        "gykmp_story_dispatch_game_of_crone_s52_captain_cure"
+      ],
+      "actors": [
+        "initiating_player",
+        "npc_captain"
+      ],
+      "observerPolicy": "all_loaded_party_members",
+      "lateJoinPolicy": "join_live_checkpoint_or_observe",
+      "remoteExecutionPolicy": "live_observation",
+      "executionOwnerPolicy": "lobby_host",
+      "dialogueOwnerPolicy": "initiating_player",
+      "formationPolicy": "initiator_with_observer_follow",
+      "cleanupRequirements": [
+        "scope_the_claim_to_npc_captain_refugee_s52_2_and_evaluate_the_SmartRes_golden_apple_one_as_a_lock_on_the_selecting_profile_only",
+        "record_the_qualifying_profile_and_choice_before_dispatch_but_never_remove_consume_regrant_or_party_duplicate_the_Golden_Apple_because_the_source_answer_has_no_price",
+        "blacklist_refugee_s52_2_disable_the_captains_random_animation_trigger_complete_dlc_refugees_s_ev_52_apple_early_and_enable_cinematic_mode_before_refugee_s52_2_1",
+        "after_refugee_s52_2_3_start_a_one_second_camera_fly_to_gd_refugee_s52_camera_point_then_move_the_captain_Direct_speed_one_point_nine_to_gd_refugee_s52_captain_point_and_after_half_a_second_move_the_initiator_to_gd_refugee_s52_player_point",
+        "join_refugee_s52_2_3_completion_with_both_arrivals_before_refugee_s52_2_4_through_20",
+        "at_the_one_point_five_second_fade_middle_remove_the_captain_to_stock_and_reset_the_camera_then_show_Teodoros_dlc_refugees_s_ev_52_rescue_and_Horadrics_dlc_refugees_s_ev_52_gold",
+        "unlock_refugee_s52_3_and_refugee_s53_in_source_order_then_restore_every_participants_control_and_commit_the_terminal_phase",
+        "never_infer_current_Golden_Apple_possession_or_consumption_from_the_complete_captain_task_and_recover_the_early_blacklist_task_or_post_removal_gap_from_synthetic_phases"
+      ]
+    },
+    {
+      "cutsceneId": "game_of_crone_s52_pay_horadric_for_the_plan",
+      "linkedQuestIds": [
+        "dlc_refugees_s46_or_s53"
+      ],
+      "triggerScripts": [
+        "gykmp_story_dispatch_game_of_crone_s52_horadric_payment"
+      ],
+      "actors": [
+        "initiating_player",
+        "npc_tavern owner"
+      ],
+      "observerPolicy": "all_loaded_party_members",
+      "lateJoinPolicy": "join_live_checkpoint_or_observe",
+      "remoteExecutionPolicy": "live_observation",
+      "executionOwnerPolicy": "lobby_host",
+      "dialogueOwnerPolicy": "initiating_player",
+      "formationPolicy": "initiator_with_observer_follow",
+      "cleanupRequirements": [
+        "scope_the_claim_to_npc_tavern_owner_refugee_s52_3_and_bind_the_source_SmartRes_GameRes_money_100_price_to_the_profile_that_selects_it",
+        "journal_gykmp_story_transaction_game_of_crone_s52_horadric_payment_with_payer_intent_debited_and_converged_subreceipts_before_the_engine_debit_and_before_the_early_topic_blacklist",
+        "blacklist_refugee_s52_3_complete_npc_tavern_owner_dlc_refugees_s_ev_52_gold_with_zero_rewards_then_preserve_refugee_s52_3_1_and_2_and_restore_the_payer",
+        "charge_exactly_once_and_never_debit_the_host_for_a_remote_dialogue_owner_or_force_this_optional_payment_before_the_s53_departure"
+      ]
+    },
+    {
+      "cutsceneId": "game_of_crone_s53_refugee_departure",
+      "linkedQuestIds": [
+        "dlc_refugees_s46_or_s53"
+      ],
+      "triggerScripts": [
+        "gykmp_story_dispatch_game_of_crone_s53_departure_choice",
+        "gykmp_story_dispatch_game_of_crone_s53_departure_resume"
+      ],
+      "actors": [
+        "initiating_player",
+        "npc_refugee_1",
+        "npc_refugee_6",
+        "npc_master_alarich",
+        "npc_refugee_coffin_maker",
+        "npc_refugee_cook",
+        "npc_refugee_tanner",
+        "spawned_refugees"
+      ],
+      "observerPolicy": "all_loaded_party_members",
+      "lateJoinPolicy": "join_live_checkpoint_or_observe",
+      "remoteExecutionPolicy": "live_observation",
+      "executionOwnerPolicy": "lobby_host",
+      "dialogueOwnerPolicy": "initiating_player",
+      "formationPolicy": "initiator_with_observer_follow",
+      "cleanupRequirements": [
+        "scope_the_first_claim_to_npc_marquis_teodoro_jr_refugee_s53_and_commit_an_entry_receipt_before_blacklisting_the_topic_and_playing_the_two_player_thoughts_refugee_s53_0_1_and_0_2",
+        "after_Teodoro_faces_the_initiator_and_says_refugee_s53_0_3_serialize_exactly_one_choice_between_refugee_s53_2_depart_now_and_refugee_s53_1b_talk_later",
+        "for_talk_later_commit_the_postpone_branch_before_unlocking_the_source_unlocalized_refugee_s53_2_again_topic_then_set_Teodoro_refugee_unrollable_zero_fire_on_talk_end_and_restore_control",
+        "scope_the_resume_claim_only_to_refugee_s53_2_again_blacklist_it_once_and_converge_with_the_direct_departure_path_without_replaying_the_initial_thoughts_or_choice",
+        "complete_npc_marquis_teodoro_jr_dlc_refugees_s_ev_52_rescue_early_then_preserve_refugee_s53_1_3_4_5_6_and_the_source_waits_and_facing_no_op",
+        "apply_the_owner_Teodoro_relationship_delta_plus_ten_exactly_once_from_its_own_additive_receipt_and_never_repair_a_relation_minimum",
+        "after_refugee_s53_7_allocate_one_armor_lamellar_2_two_ingot_silver_and_three_ingot_gold_exactly_once_per_eligible_profile_while_suppressing_or_claiming_the_source_physical_ToPlayer_drops",
+        "preserve_the_intentional_two_and_three_identical_control_edges_only_as_the_silver_and_gold_quantities_but_collapse_the_unrelated_duplicate_direction_dialogue_helper_and_callback_edges_to_one_logical_execution",
+        "run_the_conditional_tech_scroll_awards_from_one_host_owned_relationship_snapshot_and_one_per_profile_unlocked_tech_snapshot_with_an_independent_receipt_for_each_profile_and_item",
+        "free_idle_points_with_prefix_Camp_then_iterate_refugee_indices_one_through_ten_with_the_source_random_zero_point_two_to_zero_point_five_waits_set_each_present_refugee_unrollable_one_and_stop_movement_but_do_not_invent_a_direction_target_for_the_sources_unbound_None_direction_node",
+        "commit_the_crowd_ready_and_part_two_handoff_phases_before_the_single_departure_ceremony_and_never_treat_refugee_ev_s53_try_give_tech_scrolls_Out_or_refugee_ev_s53_part_2_Out_as_child_completion",
+        "during_the_one_point_five_second_fade_set_cinematic_mode_teleport_Teodoro_to_gd_refugee_s45_0_facing_Down_reset_him_and_place_the_initiator_at_gd_refugee_s45_player_facing_Down_with_camera_refugee_ev_s2_camera_point",
+        "place_each_present_numbered_refugee_other_than_Teodoro_and_Alarich_at_sequential_gd_refugee_s45_1_and_later_points_reset_and_face_each_to_Teodoro_then_preserve_refugee_s53_9_through_20_including_the_two_all_refugee_choruses",
+        "record_shared_achievement_eligibility_then_check_dlc_refugees_s46_or_s53_once_in_the_authoritative_AchievementsSystem_and_deliver_optional_platform_unlocks_once_per_personal_profile_outside_QuestSync",
+        "show_npc_master_alarich_dlc_refugees_s_ev_53_bye_unlock_refugee_s54_and_if_exact_npc_refugee_6_has_is_player_took_money_at_least_one_add_event_lender_4_to_that_same_actor_without_null_fallback_to_Teodoro",
+        "for_every_spawned_refugee_other_than_Alarich_set_refugee_unrollable_zero_and_only_when_the_host_canonical_refugees_spawned_value_is_zero_fire_on_go_home_and_despawn",
+        "set_the_camp_music_mode_Sad_and_start_dlc_refugee_theme_sad_from_the_part_two_immediate_Out_then_after_child_completion_set_Teodoro_refugee_unrollable_zero_fire_on_talk_end_restore_control_and_commit_the_terminal_phase",
+        "treat_the_early_refugee_s53_blacklist_and_the_legacy_GameSave_blacklist_check_as_achievement_eligibility_only_never_as_departure_completion"
+      ]
+    },
+    {
+      "cutsceneId": "game_of_crone_s54_alarich_farewell_and_camp_deactivation",
+      "linkedQuestIds": [
+        "dlc_refugees_s46_or_s53"
+      ],
+      "triggerScripts": [
+        "gykmp_story_dispatch_game_of_crone_s54_alarich_farewell"
+      ],
+      "actors": [
+        "initiating_player",
+        "npc_master_alarich",
+        "spawned_refugees",
+        "refugee_camp"
+      ],
+      "observerPolicy": "all_loaded_party_members",
+      "lateJoinPolicy": "join_live_checkpoint_or_observe",
+      "remoteExecutionPolicy": "live_observation",
+      "executionOwnerPolicy": "lobby_host",
+      "dialogueOwnerPolicy": "initiating_player",
+      "formationPolicy": "initiator_with_observer_follow",
+      "cleanupRequirements": [
+        "scope_the_claim_to_npc_master_alarich_refugee_s54_and_commit_the_entry_phase_before_blacklisting_the_topic_and_completing_dlc_refugees_s_ev_53_bye_early",
+        "preserve_refugee_s54_1_through_10_face_Alarich_Down_after_line_nine_and_apply_the_owner_Alarich_relationship_delta_plus_twenty_exactly_once_from_an_additive_receipt",
+        "unlock_refugee_s46_13_as_the_shared_farewell_handoff_but_do_not_execute_or_blacklist_that_topic_in_this_unit",
+        "set_is_need_drop_note_after_semon_one_preserving_the_source_semon_typo_and_reconcile_the_later_refusal_note_eligibility_per_profile_without_using_this_transient_flag_as_terminal_evidence",
+        "commit_the_deactivate_camp_handoff_before_running_the_child_and_never_treat_its_immediate_Flow_RunScript_Out_as_world_cleanup_completion",
+        "turn_refugee_camp_live_off_then_converge_tent_1_and_7_to_one_refugee_tent_place_available_item_and_tents_3_4_5_6_to_two_after_clearing_each_present_tent_inventory_while_leaving_tent_2_for_the_shared_s55_2_cleanup",
+        "set_the_host_canonical_cur_refugee_happiness_do_despawn_refugees_and_refugees_spawned_values_to_zero_and_run_the_source_happiness_update",
+        "remove_every_present_spawned_refugee_to_stock_after_stopping_movement_and_setting_on_the_way_now_and_refugee_unrollable_to_one_then_disable_gd_refugee_cows_and_gd_refugee_henhouse",
+        "set_refugee_cows_live_refugee_farm_live_and_has_refugee_cooking_table_to_zero_remove_up_to_five_refugee_chicken_1_through_5_to_stock_and_preserve_the_sources_repeated_cooking_table_zero_write",
+        "replace_each_present_refugee_camp_cooking_table_and_refugee_camp_cooking_table_2_in_place_once_then_lock_the_exact_source_thirty_two_refugee_builddesk_crafts",
+        "replace_each_refugee_camp_hive_with_one_beehouse_1_at_the_same_point_and_restart_honey_production_once_without_duplicating_replacements_on_recovery",
+        "for_each_refugee_camp_garden_bed_1_2_and_3_remove_any_linked_zombie_worker_to_stock_then_set_wheat_cabbage_pumpkin_lentils_beet_onion_and_carrot_to_zero",
+        "remove_known_NPCs_npc_marquis_teodoro_jr_npc_refugee_coffin_maker_npc_refugee_cook_and_npc_refugee_tanner_exactly_once",
+        "remove_npc_refugee_moneylender_only_when_exact_npc_refugee_6_is_player_took_money_is_zero_or_is_debd_closed_is_at_least_one_preserving_the_debd_typo_and_never_falling_back_to_a_null_script_owner",
+        "spawn_exactly_one_refugee_purple_cloud_25_26_and_27_at_gd_refugee_cloud_25_26_and_27_and_collapse_the_duplicate_iterator_wiring_instead_of_spawning_extra_clouds",
+        "independently_find_or_spawn_one_refugee_s55_trigger_zone_at_gd_refugee_camp_campfire_place_set_only_the_host_canonical_is_zone_ev_s55_active_latch_to_one_and_restore_control",
+        "commit_the_s54_terminal_phase_only_after_dialogue_relation_note_handoff_full_camp_deactivation_single_s55_zone_and_control_restoration_have_all_joined"
+      ]
+    },
+    {
+      "cutsceneId": "game_of_crone_s55_empty_camp_reflection",
+      "linkedQuestIds": [
+        "dlc_refugees_s46_or_s53"
+      ],
+      "triggerScripts": [
+        "gykmp_story_dispatch_game_of_crone_s55_empty_camp_reflection"
+      ],
+      "actors": [
+        "initiating_player"
+      ],
+      "observerPolicy": "all_loaded_party_members",
+      "lateJoinPolicy": "join_live_checkpoint_or_observe",
+      "remoteExecutionPolicy": "live_observation",
+      "executionOwnerPolicy": "lobby_host",
+      "dialogueOwnerPolicy": "initiating_player",
+      "formationPolicy": "initiator_with_observer_follow",
+      "cleanupRequirements": [
+        "claim_the_single_refugee_s55_trigger_zone_on_the_host_and_persist_the_initiator_before_setting_is_zone_ev_s55_active_zero_or_destroying_the_zone",
+        "do_not_treat_the_raw_parent_Flow_RunScript_Out_or_early_zone_destruction_as_refugee_ev_s55_completion",
+        "disable_only_the_initiator_with_Affect_cinematic_false_wait_one_second_each_and_face_Up_Left_Right_Down_before_the_player_thought_refugee_s55_1",
+        "collapse_the_duplicate_Right_and_Down_control_and_value_connections_to_one_logical_turn_each_so_the_wait_chain_and_thought_do_not_replay",
+        "restore_each_participants_control_from_its_own_presentation_baseline_and_commit_the_terminal_phase_after_the_thought",
+        "leave_refugee_s46_13_on_exit_refugee_s55_gd_zone_2_refugee_ev_s55_2_refugee_s55_trigger_zone_2_and_Alarich_tent_cleanup_to_the_shared_farewell_unit"
+      ]
+    },
+    {
+      "cutsceneId": "game_of_crone_unlock_koukol_s80_on_arrival",
+      "linkedQuestIds": [
+        "dlc_refugees_s46_or_s53"
+      ],
+      "triggerScripts": [
+        "gykmp_story_dispatch_game_of_crone_s80_koukol_arrival"
+      ],
+      "actors": [
+        "npc_hunchback"
+      ],
+      "observerPolicy": "all_loaded_party_members",
+      "lateJoinPolicy": "durable_state_only",
+      "remoteExecutionPolicy": "live_observation",
+      "executionOwnerPolicy": "lobby_host",
+      "dialogueOwnerPolicy": "lobby_host",
+      "formationPolicy": "none",
+      "cleanupRequirements": [
+        "accept_only_the_host_owned_arrival_arm_gykmp_story_phase_game_of_crone_s68_koukol_next_arrival_armed_and_never_treat_the_misnamed_event_68_meet_next_night_helper_as_a_timer_sleep_or_clock_change",
+        "preserve_the_source_schedule_spawn_that_sets_canonical_Koukol_on_the_way_now_one_and_is_in_outside_one_spawns_him_from_stock_at_npc_hunchback_start_and_walks_him_at_speed_1_2_to_npc_hunchback_finish_with_on_came_to_finish",
+        "on_arrival_set_on_the_way_now_zero_then_preserve_the_source_priority_that_tr_14_next_week_come_at_least_one_is_reset_to_zero_and_unlocks_tr_quest_14_koukol_next_w_1_without_reading_or_consuming_is_come_from_ev80_with_phrase_on_that_arrival",
+        "when_tr_14_next_week_come_is_zero_and_is_come_from_ev80_with_phrase_is_at_least_one_commit_gykmp_story_phase_game_of_crone_s80_arrival_claimed_before_clearing_that_WGO_param_so_a_crash_cannot_erase_the_route",
+        "after_the_claim_set_canonical_Koukols_is_come_from_ev80_with_phrase_to_zero_unlock_refugee_s80_and_commit_gykmp_story_phase_game_of_crone_s80_topic_unlocked",
+        "never_mirror_the_WGO_schedule_params_into_player_profiles_and_never_rearm_is_come_from_ev80_with_phrase_after_refugee_s80_is_unlocked_blacklisted_or_has_a_delivery_receipt",
+        "preserve_the_unrelated_despawn_tail_that_sets_on_the_way_now_one_walks_Koukol_back_to_npc_hunchback_start_then_sets_on_the_way_now_zero_removes_him_to_stock_and_clears_is_in_outside",
+        "do_not_claim_or_replay_the_generic_Koukol_interaction_shell_mountain_fort_unlock_teleport_spawn_vendor_or_other_dialogue_topics"
+      ]
+    },
+    {
+      "cutsceneId": "game_of_crone_receive_koukols_ghoul_scroll",
+      "linkedQuestIds": [
+        "dlc_refugees_s46_or_s53"
+      ],
+      "triggerScripts": [
+        "gykmp_story_dispatch_game_of_crone_s80_scroll_delivery"
+      ],
+      "actors": [
+        "initiating_player",
+        "npc_hunchback",
+        "scroll_ghoul"
+      ],
+      "observerPolicy": "all_loaded_party_members",
+      "lateJoinPolicy": "join_live_checkpoint_or_observe",
+      "remoteExecutionPolicy": "live_observation",
+      "executionOwnerPolicy": "lobby_host",
+      "dialogueOwnerPolicy": "initiating_player",
+      "formationPolicy": "initiator_with_observer_follow",
+      "cleanupRequirements": [
+        "scope_the_claim_to_npc_hunchbacks_exact_unlocked_refugee_s80_topic_and_commit_gykmp_story_phase_game_of_crone_s80_dialogue_entered_before_the_source_blacklists_the_topic_or_completes_the_task",
+        "blacklist_refugee_s80_then_set_npc_hunchback_dlc_refugees_s_ev_68_koukol_Complete_with_zero_bronze_silver_and_gold_story_rewards_but_treat_both_writes_as_nonterminal_prefixes",
+        "present_refugee_s80_1_through_8_in_alternating_Player_and_Koukol_order_wait_one_second_then_present_refugee_s80_9_from_Koukol",
+        "before_the_source_half_second_delayed_drop_persist_gykmp_story_transaction_game_of_crone_s80_scroll_drop_with_a_single_physical_source_drop_state_and_independent_per_profile_entitlement_receipts",
+        "either_suppress_the_source_drop_before_it_exists_or_reserve_its_unique_physical_instance_and_adopt_its_eventual_recipient_into_exactly_one_profile_receipt_because_Direction_ToPlayer_only_aims_an_unowned_world_drop_near_MainGame_me_player_and_does_not_assign_inventory_ownership",
+        "allocate_exactly_one_scroll_ghoul_to_every_eligible_personal_character_via_gykmp_story_grant_game_of_crone_scroll_ghoul_receipts_while_allowing_the_reserved_source_item_to_satisfy_one_and_only_one_receipt_and_never_leave_both_an_unclaimed_physical_drop_and_a_synthetic_copy",
+        "do_not_enable_personalItemGrants_for_this_milestone_until_the_runtime_can_suppress_reserve_or_adopt_the_physical_drop_atomically_and_can_reconcile_each_profile_without_duplication",
+        "after_the_source_drop_branch_and_refugee_s80_9_both_finish_face_only_the_dialogue_owner_Down_present_Player_thoughts_refugee_s80_10_and_11_then_face_that_player_toward_Koukol_and_present_refugee_s80_12",
+        "journal_gykmp_story_phase_game_of_crone_s80_to_s81_handoff_before_Flow_RunScript_refugee_ev_s81_and_do_not_treat_RunScript_Out_or_the_early_completed_Koukol_task_as_child_completion",
+        "carry_the_dialogue_owners_peer_identity_into_the_child_without_enabling_any_player_between_s80_and_s81_and_keep_raw_npc_hunchback_and_refugee_ev_s81_names_as_provenance_only"
+      ]
+    },
+    {
+      "cutsceneId": "game_of_crone_survive_beatrices_s81_ambush",
+      "linkedQuestIds": [
+        "dlc_refugees_s46_or_s53"
+      ],
+      "triggerScripts": [
+        "gykmp_story_dispatch_game_of_crone_s81_beatrice_ambush"
+      ],
+      "actors": [
+        "initiating_player",
+        "npc_hunchback",
+        "npc_hunchback_ev81",
+        "npc_beatrice_ev81",
+        "npc_lord_commander_ev81",
+        "npc_guard_7_ev81_1",
+        "npc_guard_7_ev81_2",
+        "npc_guard_7_ev81_3",
+        "npc_guard_7_ev81_4"
+      ],
+      "observerPolicy": "all_loaded_party_members",
+      "lateJoinPolicy": "join_live_checkpoint_or_observe",
+      "remoteExecutionPolicy": "live_observation",
+      "executionOwnerPolicy": "lobby_host",
+      "dialogueOwnerPolicy": "initiating_player",
+      "formationPolicy": "initiator_with_observer_follow",
+      "cleanupRequirements": [
+        "enter_only_from_the_committed_s80_to_s81_handoff_record_the_initiating_peer_and_commit_gykmp_story_phase_game_of_crone_s81_entry_claimed_before_disabling_control_or_spawning_any_actor",
+        "bind_every_null_Player_GetPlayer_player_talk_player_param_money_camera_and_teleport_operation_to_the_original_s80_dialogue_owner_instead_of_the_host_process_MainGame_me_player_and_preserve_each_observers_own_presentation_baseline",
+        "during_the_first_two_second_InOut_fade_spawn_or_deduplicate_guard_one_npc_guard_7_at_gd_refugee_s81_guard_1_1_guard_three_npc_guard_7_at_guard_3_1_guard_four_npc_guard_7_at_guard_4_1_Commander_at_commander_1_Beatrice_at_beatrice_1_and_staged_Koukol_at_kukol_1_using_the_exact_ev81_custom_tags",
+        "evaluate_the_host_canonical_TimeOfDay_once_and_persist_gykmp_story_branch_game_of_crone_s81_guard_two_variant_as_npc_guard_torch_when_time_is_less_than_0_2_or_greater_than_0_85_otherwise_npc_guard_7_then_spawn_that_variant_at_gd_refugee_s81_guard_2_1_with_the_same_npc_guard_7_ev81_2_tag",
+        "preserve_all_source_spawn_copy_flags_as_false_but_never_call_GS_Spawn_again_for_an_existing_custom_tag_because_false_does_not_prevent_duplicate_NPC_instances",
+        "teleport_only_the_initiator_to_gd_refugee_s81_player_1_facing_Up_spawn_staged_Koukol_facing_Up_fly_the_camera_instantly_to_gd_refugee_s81_camera_point_1_pause_playlist_music_and_start_the_dungeon_override_then_commit_gykmp_story_phase_game_of_crone_s81_staged",
+        "present_the_exact_dialogue_key_order_1_2_4_5_6_7_8_9_10_11_12_13_14_15_16_17_18_19_20_21_22_23_24_25_26_27_28_29_30_31_32_33_34_35_36_and_do_not_invent_the_localized_but_unwired_refugee_s81_3_line",
+        "preserve_the_Commander_laugh_look_at_the_scroll_and_angry_animations_the_staged_Koukol_and_Commander_moves_the_Beatrice_start_cast_stop_cast_and_start_tp_sequence_the_guard_one_and_three_colorize_sequence_and_the_sinister_wind_then_dlc_refugee_final_audio_handoffs",
+        "after_Beatrices_teleport_animation_move_her_to_default_destroy_point_without_puff_then_destroy_only_npc_beatrice_ev81_and_commit_gykmp_story_phase_game_of_crone_s81_beatrice_removed_even_when_that_staged_actor_is_already_absent_on_recovery",
+        "before_the_unjoined_source_Flow_AddMoney_one_hundred_persist_gykmp_story_transaction_game_of_crone_s81_money_reward_with_the_original_initiators_profile_and_prepared_state_then_add_exactly_one_hundred_to_that_profile_and_commit_applied_without_rewarding_observers_or_the_host_by_execution_ownership",
+        "during_the_final_fade_destroy_guard_tags_one_through_four_then_npc_lord_commander_ev81_and_npc_hunchback_ev81_idempotently_collapse_exact_duplicate_serialized_binder_edges_and_never_destroy_canonical_npc_hunchback",
+        "require_canonical_npc_hunchback_to_exist_before_the_source_find_by_tag_fallback_can_teleport_the_player_by_mistake_then_teleport_him_to_gd_refugee_s81_kukol_3_and_walk_him_to_npc_hunchback_finish_while_the_initiator_moves_from_player_2_to_player_5",
+        "wait_for_both_the_initiators_player_5_convergence_and_canonical_Koukols_arrival_even_though_the_source_only_joins_Koukols_Came_to_dest_then_commit_gykmp_story_phase_game_of_crone_s81_actor_cleanup_complete_after_every_temporary_tag_is_absent",
+        "after_canonical_Koukol_lines_33_34_Player_line_35_and_Koukol_line_36_stop_the_music_override_restore_playlist_camera_control_and_cinematic_baselines_mirror_is_s81_triggered_one_to_every_eligible_profile_unlock_refugee_s45_and_show_npc_marquis_teodoro_jr_s_ev_44_teodoro_Visible_with_zero_story_rewards",
+        "commit_gykmp_story_phase_game_of_crone_s81_complete_only_after_the_scroll_entitlement_reward_actor_position_audio_topic_task_param_and_participant_cleanup_receipts_are_terminal",
+        "do_not_check_dlc_refugees_s46_or_s53_here_do_not_add_relation_story_points_tech_or_crafts_and_stop_before_any_player_selects_refugee_s45"
+      ]
+    }
+  ],
+  "storySteps": [
+    {
+      "stepId": "game_of_crone_probe_koukol_about_beatrice",
+      "title": "Probe Koukol and open the separate betrayal follow-up",
+      "linkedQuestIds": [
+        "dlc_refugees_s46_or_s53"
+      ],
+      "linkedTaskMilestoneIds": [],
+      "triggerScripts": [
+        "gykmp_story_dispatch_game_of_crone_s42_koukol_probe"
+      ],
+      "triggerKeys": [
+        "gykmp_story_dispatch_game_of_crone_s42_koukol_probe",
+        "gykmp_story_phase_game_of_crone_s42_koukol_probe_entered",
+        "@refugee_s42_1",
+        "@refugee_s42_1_3",
+        "gykmp_story_phase_game_of_crone_s42_koukol_probe_complete"
+      ],
+      "expectedEffects": [
+        {
+          "kind": "story_phase",
+          "id": "gykmp_story_phase_game_of_crone_s42_koukol_probe_entered",
+          "operation": "commit_before_the_probe_topics_early_blacklist",
+          "amount": 1,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "dialogue_phrase",
+          "id": "@refugee_s42_1",
+          "operation": "blacklist_at_probe_entry_as_a_nonterminal_prefix",
+          "amount": 1,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "dialogue_sequence",
+          "id": "refugee_s42_1_1_through_2",
+          "operation": "present_the_two_probe_thoughts_to_the_dialogue_owner",
+          "amount": 2,
+          "ownership": "live_presentation"
+        },
+        {
+          "kind": "dialogue_phrase",
+          "id": "@refugee_s42_1_3",
+          "operation": "unlock_after_the_probe_thoughts_for_a_separate_later_interaction",
+          "amount": 1,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "story_phase",
+          "id": "gykmp_story_phase_game_of_crone_s42_koukol_probe_complete",
+          "operation": "commit_after_probe_topic_state_and_control_restore_without_implying_betrayal",
+          "amount": 1,
+          "ownership": "shared_campaign"
+        }
+      ],
+      "safeguards": [
+        "bind_only_npc_hunchbacks_exact_refugee_s42_1_topic_and_leave_his_generic_script_menu_travel_and_trade_paths_local",
+        "resume_after_the_early_blacklist_without_skipping_the_two_thoughts_followup_unlock_or_control_restore",
+        "treat_the_probe_as_optional_and_never_infer_that_the_player_has_betrayed_Beatrice"
+      ]
+    },
+    {
+      "stepId": "game_of_crone_betray_beatrice_to_koukol",
+      "title": "Betray Beatrice to Koukol and open his alternative evidence route",
+      "linkedQuestIds": [
+        "dlc_refugees_s46_or_s53"
+      ],
+      "linkedTaskMilestoneIds": [
+        "game_of_crone_beatrice_guard_or_betrayal_player_lead_completed",
+        "game_of_crone_beatrice_guard_or_betrayal_koukol_lead_completed",
+        "game_of_crone_beatrice_koukol_betrayal_route_opened"
+      ],
+      "triggerScripts": [
+        "gykmp_story_dispatch_game_of_crone_s42_koukol_betrayal"
+      ],
+      "triggerKeys": [
+        "gykmp_story_dispatch_game_of_crone_s42_koukol_betrayal",
+        "gykmp_story_phase_game_of_crone_s42_koukol_betrayal_entered",
+        "s_ev_42_1_koukol",
+        "@refugee_s48",
+        "gykmp_story_phase_game_of_crone_s42_koukol_betrayal_complete"
+      ],
+      "expectedEffects": [
+        {
+          "kind": "story_phase",
+          "id": "gykmp_story_phase_game_of_crone_s42_koukol_betrayal_entered",
+          "operation": "commit_before_blacklisting_the_followup_and_completing_the_old_Koukol_task",
+          "amount": 1,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "dialogue_sequence",
+          "id": "refugee_s42_1_4_through_16",
+          "operation": "present_the_full_betrayal_conversation_and_final_thoughts",
+          "amount": 13,
+          "ownership": "live_presentation"
+        },
+        {
+          "kind": "npc_task",
+          "id": "npc_hunchback:s_ev_42_1_koukol",
+          "operation": "set_Visible_after_the_betrayal_dialogue",
+          "amount": 1,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "npc_task_set",
+          "id": "s_ev_41_alarich_s_ev_41_player_s_ev_41_koukol",
+          "operation": "complete_all_three_old_leads_while_preserving_their_zero_reward_payloads",
+          "amount": 3,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "dialogue_phrase_set",
+          "id": "@refugee_s42_1_@refugee_s42_1_3_@refugee_s42_2_@refugee_s43",
+          "operation": "blacklist_the_betrayal_routes_four_consumed_or_preempted_topics",
+          "amount": 4,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "dialogue_phrase",
+          "id": "@refugee_s48",
+          "operation": "unlock_as_the_next_betrayal_route_topic",
+          "amount": 1,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "story_phase",
+          "id": "gykmp_story_phase_game_of_crone_s42_koukol_betrayal_complete",
+          "operation": "commit_after_dialogue_tasks_phrases_craft_state_and_control_restore",
+          "amount": 1,
+          "ownership": "shared_campaign"
+        }
+      ],
+      "safeguards": [
+        "bind_only_npc_hunchbacks_exact_refugee_s42_1_3_topic_and_leave_his_generic_script_menu_travel_and_trade_paths_local",
+        "resume_after_the_entry_blacklist_or_old_task_completion_without_skipping_the_new_task_and_refugee_s48_tail",
+        "do_not_remove_death_emulsion_from_unlocked_crafts_on_this_alternative_route",
+        "stop_before_selecting_refugee_s48_and_treat_that_topic_as_the_next_separate_transaction"
+      ]
+    },
+    {
+      "stepId": "game_of_crone_choose_koukols_s48_evidence_route",
+      "title": "Choose whether to call the Commander or warn Teodoro after betraying Beatrice",
+      "linkedQuestIds": [
+        "dlc_refugees_s46_or_s53"
+      ],
+      "linkedTaskMilestoneIds": [
+        "game_of_crone_beatrice_koukol_betrayal_route_opened",
+        "game_of_crone_beatrice_evidence_s50_teodoro_task_opened"
+      ],
+      "triggerScripts": [
+        "gykmp_story_dispatch_game_of_crone_s48_koukol_choice"
+      ],
+      "triggerKeys": [
+        "npc_hunchback:@refugee_s48",
+        "@refugee_s48",
+        "s_ev_42_1_koukol",
+        "gykmp_story_phase_game_of_crone_s48_entered",
+        "refugee_s48_7a",
+        "refugee_s48_7b",
+        "gykmp_story_branch_game_of_crone_s48_choice",
+        "gykmp_story_phase_game_of_crone_s48_to_s50_handoff",
+        "gykmp_story_phase_game_of_crone_s48_to_s51_prepare_handoff",
+        "dlc_refugees_s_ev_50_tedoro",
+        "gykmp_story_phase_game_of_crone_s48_parent_tail_complete",
+        "gykmp_story_phase_game_of_crone_s48_warn_teodoro_complete"
+      ],
+      "expectedEffects": [
+        {
+          "kind": "story_phase",
+          "id": "gykmp_story_phase_game_of_crone_s48_entered",
+          "operation": "commit_after_the_exact_topic_is_claimed_and_before_the_source_blacklist_and_old_task_completion",
+          "amount": 1,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "dialogue_phrase",
+          "id": "@refugee_s48",
+          "operation": "blacklist_at_entry_as_a_nonterminal_prefix",
+          "amount": 1,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "npc_task",
+          "id": "npc_hunchback:s_ev_42_1_koukol",
+          "operation": "set_Complete_before_any_dialogue_with_zero_rewards_but_never_use_it_as_branch_evidence",
+          "amount": 1,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "dialogue_sequence",
+          "id": "refugee_s48_1_through_7b_2",
+          "operation": "present_the_six_common_lines_then_only_the_selected_7a_one_line_or_7b_two_line_tail",
+          "amount": 8,
+          "ownership": "live_presentation"
+        },
+        {
+          "kind": "branch_dispatch_receipt",
+          "id": "gykmp_story_branch_game_of_crone_s48_choice",
+          "operation": "journal_call_lord_commander_or_warn_teodoro_before_the_matching_RunScript",
+          "amount": 1,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "story_phase",
+          "id": "gykmp_story_phase_game_of_crone_s48_to_s50_handoff",
+          "operation": "for_answer_7a_commit_immediately_before_refugee_ev_s50_and_transfer_the_live_control_baseline",
+          "amount": 1,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "story_phase",
+          "id": "gykmp_story_phase_game_of_crone_s48_to_s51_prepare_handoff",
+          "operation": "for_answer_7b_commit_immediately_before_the_reusable_s51_prepare_helper",
+          "amount": 1,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "npc_task",
+          "id": "npc_marquis_teodoro_jr:dlc_refugees_s_ev_50_tedoro",
+          "operation": "set_Visible_with_zero_rewards_on_the_direct_7b_parent_tail_or_later_at_the_shared_s50_tail",
+          "amount": 1,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "story_phase",
+          "id": "gykmp_story_phase_game_of_crone_s48_warn_teodoro_complete",
+          "operation": "for_direct_7b_commit_only_after_s51_prepared_the_parent_task_tail_and_control_restore_have_all_joined",
+          "amount": 1,
+          "ownership": "shared_campaign"
+        }
+      ],
+      "safeguards": [
+        "serialize_the_two_answers_to_one_dialogue_owner_and_commit_the_branch_before_child_dispatch",
+        "do_not_infer_the_selected_branch_from_the_early_topic_blacklist_or_s_ev_42_1_koukol_completion",
+        "let_s50_own_the_continuous_7a_presentation_without_an_intermediate_player_enable",
+        "join_s51_preparation_with_the_direct_7b_task_and_control_tail_despite_immediate_RunScript_Out",
+        "grant_or_consume_no_item_money_relation_reward_or_achievement"
+      ]
+    },
+    {
+      "stepId": "game_of_crone_ask_alarich_about_beatrices_plan",
+      "title": "Ask Alarich for advice without closing the remaining investigation leads",
+      "linkedQuestIds": [
+        "dlc_refugees_s46_or_s53"
+      ],
+      "linkedTaskMilestoneIds": [
+        "game_of_crone_beatrice_alarich_advice_completed"
+      ],
+      "triggerScripts": [
+        "gykmp_story_dispatch_game_of_crone_s42_alarich_advice"
+      ],
+      "triggerKeys": [
+        "npc_master_alarich:@refugee_s42_2",
+        "gykmp_story_dispatch_game_of_crone_s42_alarich_advice",
+        "gykmp_story_phase_game_of_crone_s42_alarich_advice_entered",
+        "@refugee_s42_2",
+        "s_ev_41_alarich",
+        "gykmp_story_phase_game_of_crone_s42_alarich_advice_complete"
+      ],
+      "expectedEffects": [
+        {
+          "kind": "story_phase",
+          "id": "gykmp_story_phase_game_of_crone_s42_alarich_advice_entered",
+          "operation": "commit_before_the_source_blacklist_and_early_task_completion",
+          "amount": 1,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "dialogue_phrase",
+          "id": "@refugee_s42_2",
+          "operation": "blacklist_at_entry_without_using_it_as_terminal_dialogue_evidence",
+          "amount": 1,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "npc_task",
+          "id": "npc_master_alarich:s_ev_41_alarich",
+          "operation": "complete_early_with_zero_rewards_then_continue_all_fourteen_lines",
+          "amount": 1,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "dialogue_sequence",
+          "id": "refugee_s42_2_1_through_14",
+          "operation": "present_the_source_player_thought_player_and_Alarich_lines_to_one_owner",
+          "amount": 14,
+          "ownership": "live_presentation"
+        },
+        {
+          "kind": "story_phase",
+          "id": "gykmp_story_phase_game_of_crone_s42_alarich_advice_complete",
+          "operation": "commit_after_the_full_dialogue_and_control_restore",
+          "amount": 1,
+          "ownership": "shared_campaign"
+        }
+      ],
+      "safeguards": [
+        "scope_the_dispatch_to_Alarichs_exact_refugee_s42_2_topic",
+        "resume_after_the_early_blacklist_or_task_completion_without_skipping_dialogue",
+        "keep_the_player_Koukol_and_guard_leads_available_and_create_no_item_or_world_effect"
+      ]
+    },
+    {
+      "stepId": "game_of_crone_pay_the_guard_and_confront_beatrice_at_home",
+      "title": "Deliver five Death Emulsions, solve the guard's codeword, and confront Beatrice",
+      "linkedQuestIds": [
+        "dlc_refugees_s46_or_s53"
+      ],
+      "linkedTaskMilestoneIds": [
+        "game_of_crone_beatrice_guard_or_betrayal_player_lead_completed",
+        "game_of_crone_beatrice_guard_or_betrayal_koukol_lead_completed",
+        "game_of_crone_beatrice_teodoro_followup_opened"
+      ],
+      "triggerScripts": [
+        "gykmp_story_dispatch_game_of_crone_s43_guard_delivery",
+        "gykmp_story_dispatch_game_of_crone_s44_beatrice_home"
+      ],
+      "triggerKeys": [
+        "npc_guard_6:@refugee_s43",
+        "refugee_ev_s44",
+        "gykmp_story_dispatch_game_of_crone_s43_guard_delivery",
+        "gykmp_story_transaction_game_of_crone_s43_death_emulsion_delivery",
+        "gykmp_story_phase_game_of_crone_s43_payment_applied",
+        "@refugee_s43",
+        "gykmp_story_branch_game_of_crone_s43_codeword",
+        "gykmp_story_phase_game_of_crone_s43_to_s44_handoff",
+        "gykmp_story_phase_game_of_crone_s43_parent_tail_complete",
+        "gykmp_story_dispatch_game_of_crone_s44_beatrice_home",
+        "s44_triggered",
+        "npc_beatrice_s44",
+        "gykmp_story_phase_game_of_crone_s44_staged",
+        "gykmp_story_phase_game_of_crone_s44_actor_cleanup_complete",
+        "@refugee_s45",
+        "s_ev_44_teodoro",
+        "gykmp_story_phase_game_of_crone_s44_complete"
+      ],
+      "expectedEffects": [
+        {
+          "kind": "inventory_item",
+          "id": "death_emulsion",
+          "operation": "consume_exactly_five_from_the_dialogue_owner_under_a_durable_pre_debit_transaction",
+          "amount": 5,
+          "ownership": "initiating_player_transaction"
+        },
+        {
+          "kind": "story_transaction",
+          "id": "gykmp_story_transaction_game_of_crone_s43_death_emulsion_delivery",
+          "operation": "persist_payer_prepared_debited_and_converged_states_so_recovery_neither_recharges_nor_refunds_the_wrong_profile",
+          "amount": 1,
+          "ownership": "initiating_player_transaction"
+        },
+        {
+          "kind": "dialogue_phrase",
+          "id": "@refugee_s43",
+          "operation": "blacklist_after_payment_is_applied",
+          "amount": 1,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "dialogue_choice",
+          "id": "refugee_s43_3a_through_3e",
+          "operation": "loop_wrong_codewords_without_repayment_and_commit_only_Retribution_as_the_correct_branch",
+          "amount": 5,
+          "ownership": "initiating_player_transaction"
+        },
+        {
+          "kind": "branch_dispatch_receipt",
+          "id": "gykmp_story_phase_game_of_crone_s43_to_s44_handoff",
+          "operation": "commit_before_running_refugee_ev_s44_and_join_the_immediate_parent_tail_with_child_completion",
+          "amount": 1,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "craft_lock",
+          "id": "death_emulsion",
+          "operation": "remove_from_unlocked_crafts_in_the_s43_parent_tail_while_preserving_completed_one_time_crafts",
+          "amount": 0,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "npc_task_set",
+          "id": "s_ev_41_alarich_s_ev_41_player_s_ev_41_koukol",
+          "operation": "complete_all_three_old_leads_with_zero_rewards",
+          "amount": 3,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "player_param",
+          "id": "s44_triggered",
+          "operation": "set_one_early_for_the_shared_branch_and_reconcile_into_each_eligible_profiles_local_value_without_using_it_as_terminal_evidence",
+          "amount": 1,
+          "ownership": "party_personal"
+        },
+        {
+          "kind": "world_actor",
+          "id": "npc_beatrice_s44",
+          "operation": "spawn_exactly_one_for_the_home_confrontation_then_remove_it_during_the_final_fade",
+          "amount": 0,
+          "ownership": "shared_world"
+        },
+        {
+          "kind": "world_environment",
+          "id": "tp_house_b_:Inside",
+          "operation": "apply_during_staging_and_leave_as_the_successful_source_terminal_house_environment_without_inventing_RestoreEnvironmentPreset",
+          "amount": 1,
+          "ownership": "shared_world"
+        },
+        {
+          "kind": "world_position_checkpoint",
+          "id": "initiating_player:player_house_point",
+          "operation": "teleport_only_the_initiator_here_facing_Down_during_final_cleanup",
+          "amount": 1,
+          "ownership": "initiating_player_transaction"
+        },
+        {
+          "kind": "dialogue_phrase",
+          "id": "@refugee_s45",
+          "operation": "unlock_after_Beatrice_actor_and_music_cleanup",
+          "amount": 1,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "npc_task",
+          "id": "npc_marquis_teodoro_jr:s_ev_44_teodoro",
+          "operation": "set_Visible_in_the_fade_finished_tail",
+          "amount": 1,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "dialogue_sequence",
+          "id": "refugee_s44_1_through_7",
+          "operation": "present_the_seven_source_Beatrice_and_player_lines_followed_by_Beatrices_casting_choreography",
+          "amount": 7,
+          "ownership": "live_presentation"
+        },
+        {
+          "kind": "world_music_override",
+          "id": "dlc_refugee_final",
+          "operation": "start_during_the_first_fade_middle_and_stop_during_the_final_fade_middle",
+          "amount": 0,
+          "ownership": "shared_world"
+        },
+        {
+          "kind": "participant_presentation_restore",
+          "id": "gykmp_story_presentation_baseline_game_of_crone_s44",
+          "operation": "restore_camera_animation_and_cinematic_control_once_for_every_loaded_or_late_joining_participant",
+          "amount": 1,
+          "ownership": "personal_presentation"
+        },
+        {
+          "kind": "story_phase",
+          "id": "gykmp_story_phase_game_of_crone_s44_complete",
+          "operation": "commit_after_both_the_s43_parent_tail_and_s44_child_scene_are_terminal",
+          "amount": 1,
+          "ownership": "shared_campaign"
+        }
+      ],
+      "safeguards": [
+        "reserve_and_consume_the_five_item_price_from_the_actual_dialogue_owner_once_before_host_dispatch",
+        "keep_wrong_codeword_answers_inside_the_already_paid_loop",
+        "join_the_immediate_RunScript_Out_parent_tail_with_the_continuing_s44_scene_before_committing_terminal_state",
+        "preserve_refugee_s42_1_3_if_the_player_unlocked_it_before_choosing_the_guard_route",
+        "represent_the_source_craft_removal_without_allowing_any_completed_s41_milestone_to_reunlock_death_emulsion",
+        "do_not_check_dlc_refugees_s46_or_s53_until_the_later_s45_or_s53_source_checkpoint"
+      ]
+    },
+    {
+      "stepId": "game_of_crone_choose_how_to_obtain_beatrices_evidence",
+      "title": "Ask Koukol for evidence and select the Commander, Teodoro, or paid route",
+      "linkedQuestIds": [
+        "dlc_refugees_s46_or_s53"
+      ],
+      "linkedTaskMilestoneIds": [
+        "game_of_crone_beatrice_evidence_s50_teodoro_task_opened",
+        "game_of_crone_beatrice_evidence_teodoro_route_opened",
+        "game_of_crone_beatrice_evidence_koukol_payment_pending",
+        "game_of_crone_beatrice_evidence_koukol_meeting_opened"
+      ],
+      "triggerScripts": [
+        "gykmp_story_dispatch_game_of_crone_s68_koukol_plan"
+      ],
+      "triggerKeys": [
+        "npc_hunchback:@refugee_s68",
+        "@refugee_s68",
+        "dlc_refugees_s_ev_62_1",
+        "refugee_s68_7a",
+        "refugee_s68_7b",
+        "refugee_s68_7c",
+        "refugee_s68_8a",
+        "refugee_s68_8b",
+        "refugee_s68_9a",
+        "refugee_s68_9b",
+        "gykmp_story_phase_game_of_crone_s68_entered",
+        "gykmp_story_state_game_of_crone_s68_prompt",
+        "gykmp_story_branch_game_of_crone_s68_route",
+        "gykmp_story_transaction_game_of_crone_s68_koukol_payment",
+        "dlc_refugees_s_ev_68_teodoro",
+        "dlc_refugees_s_ev_68_pay_koukol",
+        "@refugee_s68_10",
+        "dlc_refugees_s_ev_68_koukol",
+        "is_come_from_ev80_with_phrase",
+        "gykmp_story_phase_game_of_crone_s68_route_ready"
+      ],
+      "expectedEffects": [
+        {
+          "kind": "story_phase",
+          "id": "gykmp_story_phase_game_of_crone_s68_entered",
+          "operation": "commit_after_the_exact_refugee_s68_topic_is_claimed_and_before_the_source_blacklist_and_old_task_completion",
+          "amount": 1,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "dialogue_phrase",
+          "id": "@refugee_s68",
+          "operation": "blacklist_at_entry_as_a_one_shot_source_prefix_without_using_it_as_branch_or_completion_evidence",
+          "amount": 1,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "npc_task",
+          "id": "npc_hunchback:dlc_refugees_s_ev_62_1",
+          "operation": "set_Complete_before_the_s68_dialogue_but_treat_as_a_nonterminal_prefix",
+          "amount": 1,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "dialogue_sequence",
+          "id": "refugee_s68_1_through_6",
+          "operation": "present_the_six_common_lines_to_one_serialized_dialogue_owner",
+          "amount": 6,
+          "ownership": "live_presentation"
+        },
+        {
+          "kind": "choice_checkpoint",
+          "id": "gykmp_story_state_game_of_crone_s68_prompt",
+          "operation": "persist_prompt_7_8_or_9_and_resume_the_exact_nested_multi_answer_without_replaying_consumed_dialogue",
+          "amount": 1,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "branch_dispatch_receipt",
+          "id": "gykmp_story_branch_game_of_crone_s68_route",
+          "operation": "journal_the_exact_terminal_answer_and_commander_teodoro_koukol_paid_or_payment_pending_target_before_any_side_effect",
+          "amount": 1,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "npc_task",
+          "id": "npc_marquis_teodoro_jr:dlc_refugees_s_ev_68_teodoro",
+          "operation": "set_Visible_for_answer_7b_or_8a_before_the_shared_s51_prepare_handoff",
+          "amount": 1,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "story_transaction",
+          "id": "gykmp_story_transaction_game_of_crone_s68_koukol_payment",
+          "operation": "for_answer_9a_record_the_selecting_profile_and_intent_debited_converged_subreceipts_around_the_money_300_AnswerData_debit",
+          "amount": 300,
+          "ownership": "initiating_player_transaction"
+        },
+        {
+          "kind": "npc_task",
+          "id": "npc_hunchback:dlc_refugees_s_ev_68_pay_koukol",
+          "operation": "set_Visible_for_answer_9b_without_debit_and_leave_it_as_an_independently_stable_pending_route",
+          "amount": 1,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "dialogue_phrase",
+          "id": "@refugee_s68_10",
+          "operation": "unlock_only_for_answer_9b_so_any_later_eligible_player_can_accept_the_personal_price",
+          "amount": 1,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "npc_task",
+          "id": "npc_hunchback:dlc_refugees_s_ev_68_koukol",
+          "operation": "set_Visible_after_the_immediate_or_deferred_paid_dialogue_tail",
+          "amount": 1,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "wgo_param",
+          "id": "npc_hunchback:is_come_from_ev80_with_phrase",
+          "operation": "set_one_on_canonical_host_Koukol_after_the_meeting_task_and_back_it_with_a_durable_arrival_arm_receipt",
+          "amount": 1,
+          "ownership": "shared_world"
+        },
+        {
+          "kind": "story_phase",
+          "id": "gykmp_story_phase_game_of_crone_s68_route_ready",
+          "operation": "commit_only_at_the_branch_specific_commander_handoff_teodoro_plus_s51_prepared_payment_pending_or_paid_task_plus_arrival_arm_terminal",
+          "amount": 1,
+          "ownership": "shared_campaign"
+        }
+      ],
+      "safeguards": [
+        "serialize_all_nested_answers_to_one_initiator_and_forward_only_that_choice_to_the_host",
+        "resume_from_the_prompt_and_route_journals_after_the_early_topic_blacklist_or_task_completion",
+        "charge_money_only_on_answer_9a_or_the_later_refugee_s68_10_selection_and_never_charge_answer_9b",
+        "do_not_grant_scroll_ghoul_or_any_task_reward_relation_achievement_or_counter",
+        "leave_refugee_ev_s50_and_refugee_ev_s51_prepare_as_separately_claimed_host_owned_successors"
+      ]
+    },
+    {
+      "stepId": "game_of_crone_confront_the_commander_in_s50",
+      "title": "Call the Lord Commander, clean up his guards, and hand off to Teodoro staging",
+      "linkedQuestIds": [
+        "dlc_refugees_s46_or_s53"
+      ],
+      "linkedTaskMilestoneIds": [
+        "game_of_crone_beatrice_evidence_s50_teodoro_task_opened"
+      ],
+      "triggerScripts": [
+        "refugee_ev_s50"
+      ],
+      "triggerKeys": [
+        "gykmp_story_phase_game_of_crone_s48_to_s50_handoff",
+        "gykmp_story_branch_game_of_crone_s48_choice",
+        "refugee_s68_7a",
+        "gd_refugee_s50_player_place",
+        "gd_refugee_s50_kuk_1",
+        "npc_lord_commander_s50",
+        "npc_guard_1_s50",
+        "npc_guard_2_s50",
+        "npc_guard_3_s50",
+        "npc_guard_4_s50",
+        "gykmp_story_phase_game_of_crone_s50_staged",
+        "is_player_agreed_help_beatrice",
+        "gd_refugee_s50_kukol",
+        "gykmp_story_phase_game_of_crone_s50_actor_cleanup_complete",
+        "dlc_refugees_s_ev_50_tedoro",
+        "gykmp_story_phase_game_of_crone_s50_to_s51_handoff"
+      ],
+      "expectedEffects": [
+        {
+          "kind": "participant_presentation_baseline",
+          "id": "gykmp_story_presentation_baseline_game_of_crone_s50",
+          "operation": "capture_camera_control_and_cinematic_state_per_participant_before_the_2_second_fade_and_restore_once_after_s51_preparation",
+          "amount": 1,
+          "ownership": "personal_presentation"
+        },
+        {
+          "kind": "world_position_checkpoint",
+          "id": "initiating_player:gd_refugee_s50_player_place",
+          "operation": "teleport_only_the_dialogue_owner_here_facing_Up_during_the_fade_middle",
+          "amount": 1,
+          "ownership": "initiating_player_transaction"
+        },
+        {
+          "kind": "world_position_checkpoint",
+          "id": "npc_hunchback:gd_refugee_s50_kuk_1",
+          "operation": "teleport_canonical_Koukol_here_facing_Down_before_the_actor_approach",
+          "amount": 1,
+          "ownership": "shared_world"
+        },
+        {
+          "kind": "world_actor_set",
+          "id": "npc_lord_commander_s50_npc_guard_1_s50_npc_guard_2_s50_npc_guard_3_s50_npc_guard_4_s50",
+          "operation": "find_or_spawn_exactly_one_of_each_temporary_tag_at_its_matching_1_point_and_move_the_scene_actors_to_the_source_3_points_at_speed_1_7",
+          "amount": 5,
+          "ownership": "shared_world"
+        },
+        {
+          "kind": "story_phase",
+          "id": "gykmp_story_phase_game_of_crone_s50_staged",
+          "operation": "commit_after_actor_identity_positions_facings_and_cinematic_camera_are_converged",
+          "amount": 1,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "dialogue_sequence",
+          "id": "refugee_s50_1_through_24_branching",
+          "operation": "present_the_twenty_one_live_source_lines_using_exactly_one_of_the_9_through_11_or_12_through_14_midscene_branches_then_the_post_cleanup_22_through_24_tail",
+          "amount": 21,
+          "ownership": "live_presentation"
+        },
+        {
+          "kind": "world_actor_cleanup",
+          "id": "npc_guard_1_s50_npc_guard_2_s50_npc_guard_3_s50_npc_guard_4_s50_npc_lord_commander_s50",
+          "operation": "stop_and_destroy_each_temporary_tag_in_exact_source_order_during_the_1_second_fade_treating_absence_as_clean_recovery",
+          "amount": 0,
+          "ownership": "shared_world"
+        },
+        {
+          "kind": "world_position_checkpoint",
+          "id": "npc_hunchback:gd_refugee_s50_kukol",
+          "operation": "teleport_only_canonical_Koukol_to_the_exact_typoed_source_point_and_face_Down_after_temporary_actor_cleanup",
+          "amount": 1,
+          "ownership": "shared_world"
+        },
+        {
+          "kind": "story_phase",
+          "id": "gykmp_story_phase_game_of_crone_s50_actor_cleanup_complete",
+          "operation": "commit_when_all_five_temporary_tags_are_absent_and_canonical_Koukol_is_converged",
+          "amount": 1,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "npc_task",
+          "id": "npc_marquis_teodoro_jr:dlc_refugees_s_ev_50_tedoro",
+          "operation": "set_Visible_after_refugee_s50_24_preserving_the_source_tedoro_typo_and_zero_rewards",
+          "amount": 1,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "story_phase",
+          "id": "gykmp_story_phase_game_of_crone_s50_to_s51_handoff",
+          "operation": "commit_immediately_before_the_single_s51_prepare_dispatch_and_hold_control_until_that_helper_is_durably_prepared",
+          "amount": 1,
+          "ownership": "shared_campaign"
+        }
+      ],
+      "safeguards": [
+        "keep_all_NPC_spawns_movements_and_cleanup_host_authoritative_while_GetPlayer_nodes_bind_to_the_remote_initiator",
+        "deduplicate_every_spawn_and_make_partial_cleanup_idempotent_instead_of_replaying_the_strict_source_chain",
+        "read_the_authoritative_shared_Beatrice_choice_for_the_midscene_dialogue_branch",
+        "never_treat_task_visibility_or_RunScript_Out_as_s51_prepare_completion",
+        "grant_no_item_money_relation_counter_or_story_reward"
+      ]
+    },
+    {
+      "stepId": "game_of_crone_prepare_the_s51_teodoro_encounter",
+      "title": "Stage Teodoro, Horadric, and the trigger for the next evidence encounter",
+      "linkedQuestIds": [
+        "dlc_refugees_s46_or_s53"
+      ],
+      "linkedTaskMilestoneIds": [
+        "game_of_crone_beatrice_evidence_s50_teodoro_task_opened",
+        "game_of_crone_beatrice_evidence_teodoro_route_opened"
+      ],
+      "triggerScripts": [
+        "refugee_ev_s51_prepare"
+      ],
+      "triggerKeys": [
+        "is_need_activate_ev_s51",
+        "refugee_s51_trigger_zone",
+        "gd_refugee_s51_trigger_zone",
+        "npc_tavern owner",
+        "horadric_s51",
+        "gd_refugee_s51_horadric",
+        "npc_refugee_1",
+        "refugee_unrollable",
+        "gd_refugee_s51_teodoro",
+        "on_the_way_now",
+        "gykmp_story_phase_game_of_crone_s51_prepare_claimed",
+        "gykmp_story_phase_game_of_crone_s51_prepared"
+      ],
+      "expectedEffects": [
+        {
+          "kind": "story_phase",
+          "id": "gykmp_story_phase_game_of_crone_s51_prepare_claimed",
+          "operation": "commit_before_the_sources_early_is_need_activate_ev_s51_write_and_deduplicate_all_route_call_sites",
+          "amount": 1,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "player_param",
+          "id": "is_need_activate_ev_s51",
+          "operation": "set_one_on_the_host_owned_canonical_story_profile_as_the_single_shared_zone_activation_latch",
+          "amount": 1,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "world_actor",
+          "id": "refugee_s51_trigger_zone",
+          "operation": "find_or_spawn_exactly_one_at_gd_refugee_s51_trigger_zone",
+          "amount": 1,
+          "ownership": "shared_world"
+        },
+        {
+          "kind": "world_actor",
+          "id": "horadric_s51",
+          "operation": "find_or_spawn_exactly_one_npc_tavern_owner_at_gd_refugee_s51_horadric_facing_Left_Idle",
+          "amount": 1,
+          "ownership": "shared_world"
+        },
+        {
+          "kind": "wgo_param",
+          "id": "npc_refugee_1:refugee_unrollable",
+          "operation": "set_one_on_canonical_Teodoro_before_stopping_and_repositioning_him",
+          "amount": 1,
+          "ownership": "shared_world"
+        },
+        {
+          "kind": "world_position_checkpoint",
+          "id": "npc_refugee_1:gd_refugee_s51_teodoro",
+          "operation": "stop_movement_teleport_reset_animator_and_face_Right",
+          "amount": 1,
+          "ownership": "shared_world"
+        },
+        {
+          "kind": "wgo_param",
+          "id": "npc_refugee_1:on_the_way_now",
+          "operation": "set_exactly_zero_after_the_animator_reset_without_using_a_minimum_repair",
+          "amount": 0,
+          "ownership": "shared_world"
+        },
+        {
+          "kind": "story_phase",
+          "id": "gykmp_story_phase_game_of_crone_s51_prepared",
+          "operation": "commit_only_after_the_single_zone_single_Horadric_and_canonical_Teodoro_world_state_are_converged",
+          "amount": 1,
+          "ownership": "shared_campaign"
+        }
+      ],
+      "safeguards": [
+        "do_not_use_the_early_player_param_or_child_RunScript_Out_as_terminal_evidence",
+        "deduplicate_the_zone_and_Horadric_custom_tags_across_host_restart_and_every_s48_s50_or_s68_parent_route",
+        "wait_for_or_restore_canonical_npc_refugee_1_instead_of_leaving_a_half_staged_world_after_a_strict_lookup_failure",
+        "do_not_launch_or_claim_the_following_s51_zone_cutscene_in_this_catalogue_fragment",
+        "leave_the_prepared_actor_and_trigger_state_persistent_at_the_clean_boundary"
+      ]
+    },
+    {
+      "stepId": "game_of_crone_pay_koukol_after_the_s68_delay",
+      "title": "Pay Koukol later and arm his next-arrival evidence meeting",
+      "linkedQuestIds": [
+        "dlc_refugees_s46_or_s53"
+      ],
+      "linkedTaskMilestoneIds": [
+        "game_of_crone_beatrice_evidence_koukol_payment_pending",
+        "game_of_crone_beatrice_evidence_koukol_meeting_opened"
+      ],
+      "triggerScripts": [
+        "gykmp_story_dispatch_game_of_crone_s68_koukol_payment"
+      ],
+      "triggerKeys": [
+        "npc_hunchback:@refugee_s68_10",
+        "@refugee_s68_10",
+        "dlc_refugees_s_ev_68_pay_koukol",
+        "event_68_meet_next_night",
+        "refugee_s68_11",
+        "refugee_s68_12",
+        "refugee_s68_9a_1",
+        "refugee_s68_9a_2",
+        "dlc_refugees_s_ev_68_koukol",
+        "is_come_from_ev80_with_phrase",
+        "gykmp_story_transaction_game_of_crone_s68_koukol_payment",
+        "gykmp_story_phase_game_of_crone_s68_koukol_next_arrival_armed"
+      ],
+      "expectedEffects": [
+        {
+          "kind": "story_transaction",
+          "id": "gykmp_story_transaction_game_of_crone_s68_koukol_payment",
+          "operation": "record_the_actual_later_payer_and_intent_debited_converged_subreceipts_around_the_answer_menu_money_300_debit",
+          "amount": 300,
+          "ownership": "initiating_player_transaction"
+        },
+        {
+          "kind": "dialogue_phrase",
+          "id": "@refugee_s68_10",
+          "operation": "blacklist_after_the_durable_debit_and_never_reopen_when_the_transaction_is_already_debited",
+          "amount": 1,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "npc_task",
+          "id": "npc_hunchback:dlc_refugees_s_ev_68_pay_koukol",
+          "operation": "set_Complete_after_the_later_payment_without_story_rewards",
+          "amount": 1,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "dialogue_sequence",
+          "id": "refugee_s68_11_12_and_9a_1_2",
+          "operation": "present_the_two_Player_lines_then_the_two_Koukol_lines_via_the_plain_event_68_meet_next_night_tail",
+          "amount": 4,
+          "ownership": "live_presentation"
+        },
+        {
+          "kind": "npc_task",
+          "id": "npc_hunchback:dlc_refugees_s_ev_68_koukol",
+          "operation": "set_Visible_after_the_paid_dialogue_tail_without_story_rewards",
+          "amount": 1,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "wgo_param",
+          "id": "npc_hunchback:is_come_from_ev80_with_phrase",
+          "operation": "set_one_on_canonical_host_Koukol_as_the_source_schedule_arm",
+          "amount": 1,
+          "ownership": "shared_world"
+        },
+        {
+          "kind": "story_phase",
+          "id": "gykmp_story_phase_game_of_crone_s68_koukol_next_arrival_armed",
+          "operation": "commit_after_task_and_WGO_param_converge_and_before_releasing_the_payer",
+          "amount": 1,
+          "ownership": "shared_campaign"
+        }
+      ],
+      "safeguards": [
+        "the_later_payer_may_differ_from_the_original_s68_dialogue_owner_and_only_that_payer_loses_money",
+        "recover_a_debited_but_not_blacklisted_or_not_armed_transaction_without_a_second_debit",
+        "do_not_model_event_68_meet_next_night_as_a_timer_day_or_sleep_change_because_it_only_calls_the_dialogue_tail",
+        "do_not_rearm_is_come_from_ev80_with_phrase_after_refugee_s80_is_unlocked_or_its_delivery_receipt_exists",
+        "stop_before_on_came_to_finish_refugee_s80_and_the_future_scroll_ghoul_grant"
+      ]
+    },
+    {
+      "stepId": "game_of_crone_report_refugee_safety_to_teodoro",
+      "title": "Report the refugees' safety and receive Teodoro's reward",
+      "linkedQuestIds": [
+        "dlc_refugees_s46_or_s53"
+      ],
+      "linkedTaskMilestoneIds": [
+        "game_of_crone_beatrice_evidence_teodoro_victory_report_started"
+      ],
+      "triggerScripts": [
+        "gykmp_story_dispatch_game_of_crone_s45_teodoro_victory"
+      ],
+      "triggerKeys": [
+        "npc_teodoro:@refugee_s45",
+        "@refugee_s45",
+        "s_ev_44_teodoro",
+        "refugee_s45_1",
+        "refugee_s45_2",
+        "refugee_s45_3",
+        "refugee_s45_4",
+        "refugee_s45_5",
+        "refugee_s45_6",
+        "is_s81_triggered",
+        "set_refugee_camp_music_theme",
+        "dlc_refugee_theme_happy",
+        "armor_lamellar_2",
+        "sword_damask_gem",
+        "ingot_silver",
+        "ingot_gold",
+        "stop_all_refugees_and_turn_to_teodoro",
+        "gykmp_story_phase_game_of_crone_s45_entered",
+        "gykmp_story_phase_game_of_crone_s45_teodoro_handoff"
+      ],
+      "expectedEffects": [
+        {
+          "kind": "story_phase",
+          "id": "gykmp_story_phase_game_of_crone_s45_entered",
+          "operation": "commit_before_the_source_blacklist_and_early_task_completion",
+          "amount": 1,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "dialogue_phrase",
+          "id": "@refugee_s45",
+          "operation": "blacklist_immediately_after_the_durable_entry_claim",
+          "amount": 1,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "npc_task",
+          "id": "npc_marquis_teodoro_jr:s_ev_44_teodoro",
+          "operation": "set_Complete_early_with_zero_story_rewards_without_using_it_as_terminal_evidence",
+          "amount": 1,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "conditional_camp_music",
+          "id": "refugee_camp_theme_Happy_and_dlc_refugee_theme_happy",
+          "operation": "apply_only_when_is_s81_triggered_is_at_least_one_after_refugee_s45_3_begins",
+          "amount": 1,
+          "ownership": "shared_world"
+        },
+        {
+          "kind": "relationship_delta_receipt",
+          "id": "gykmp_story_relation_game_of_crone_teodoro_s45",
+          "operation": "apply_Teodoro_plus_ten_once_when_refugee_s45_5_begins",
+          "amount": 10,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "inventory_item",
+          "id": "armor_lamellar_2",
+          "operation": "reserve_or_replace_the_single_Direction_ToPlayer_drop_and_allocate_one_exactly_once_to_each_personal_profile",
+          "amount": 1,
+          "ownership": "personal_character"
+        },
+        {
+          "kind": "inventory_item",
+          "id": "sword_damask_gem",
+          "operation": "reserve_or_replace_the_single_Direction_ToPlayer_drop_and_allocate_one_exactly_once_to_each_personal_profile",
+          "amount": 1,
+          "ownership": "personal_character"
+        },
+        {
+          "kind": "inventory_item",
+          "id": "ingot_silver",
+          "operation": "reserve_or_replace_the_single_Direction_ToPlayer_drop_and_allocate_one_exactly_once_to_each_personal_profile",
+          "amount": 1,
+          "ownership": "personal_character"
+        },
+        {
+          "kind": "inventory_item",
+          "id": "ingot_gold",
+          "operation": "reserve_or_replace_the_single_Direction_ToPlayer_drop_and_allocate_one_exactly_once_to_each_personal_profile",
+          "amount": 1,
+          "ownership": "personal_character"
+        },
+        {
+          "kind": "transient_refugee_staging",
+          "id": "spawned_refugees:refugee_unrollable",
+          "operation": "free_Camp_idle_points_then_set_one_stop_and_face_Teodoro_for_each_existing_refugee_index_one_through_ten",
+          "amount": 10,
+          "ownership": "shared_world"
+        },
+        {
+          "kind": "story_phase",
+          "id": "gykmp_story_phase_game_of_crone_s45_teodoro_handoff",
+          "operation": "commit_after_rewards_relationship_and_refugee_staging_before_the_s45_assembly_child",
+          "amount": 1,
+          "ownership": "shared_campaign"
+        }
+      ],
+      "safeguards": [
+        "the_early_topic_blacklist_and_task_Complete_are_entry_latches_not_proof_that_rewards_dialogue_or_actor_cleanup_finished",
+        "record_the_actual_world_drop_recipient_or_suppress_each_drop_before_allocating_missing_personal_copies",
+        "execute_each_reward_node_once_despite_repeated_serialized_binder_edges",
+        "do_not_apply_the_optional_happy_music_branch_when_is_s81_triggered_is_zero",
+        "leave_Teodoro_and_the_refugees_staged_until_the_child_assembly_reaches_its_cleanup"
+      ]
+    },
+    {
+      "stepId": "game_of_crone_hold_the_refugee_victory_assembly",
+      "title": "Hold Teodoro's victory assembly and open the Alarich finale",
+      "linkedQuestIds": [
+        "dlc_refugees_s46_or_s53"
+      ],
+      "linkedTaskMilestoneIds": [
+        "game_of_crone_beatrice_evidence_alarich_finale_opened"
+      ],
+      "triggerScripts": [
+        "gykmp_story_dispatch_game_of_crone_s45_refugee_assembly"
+      ],
+      "triggerKeys": [
+        "refugee_ev_s45_part_2",
+        "gd_refugee_s45_0",
+        "gd_refugee_s45_player",
+        "gd_refugee_s45_1",
+        "refugee_ev_s2_camera_point",
+        "place_refugees_near",
+        "talk_alltogether",
+        "refugee_s45_7",
+        "refugee_s45_8",
+        "refugee_s45_9",
+        "refugee_s45_10",
+        "refugee_s45_11",
+        "refugee_s45_12",
+        "refugee_s45_13",
+        "refugee_s45_14",
+        "refugee_s45_15",
+        "refugee_s45_16",
+        "refugee_s45_17",
+        "refugee_s45_18",
+        "dlc_refugees_s46_or_s53",
+        "dlc_refugees_s_ev_45_alaric",
+        "@refugee_s46",
+        "refugees_spawned",
+        "on_go_home_and_despawn",
+        "on_talk_end",
+        "gykmp_story_phase_game_of_crone_s45_assembly_claimed",
+        "gykmp_story_phase_game_of_crone_s45_complete"
+      ],
+      "expectedEffects": [
+        {
+          "kind": "story_phase",
+          "id": "gykmp_story_phase_game_of_crone_s45_assembly_claimed",
+          "operation": "commit_before_fade_staging_and_any_actor_reposition",
+          "amount": 1,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "participant_position_checkpoint",
+          "id": "initiating_player:gd_refugee_s45_player",
+          "operation": "teleport_the_source_initiator_and_face_Down_at_fade_middle",
+          "amount": 1,
+          "ownership": "initiating_player_transaction"
+        },
+        {
+          "kind": "world_position_checkpoint",
+          "id": "npc_refugee_1:gd_refugee_s45_0",
+          "operation": "teleport_canonical_Teodoro_face_Down_and_reset_animator",
+          "amount": 1,
+          "ownership": "shared_world"
+        },
+        {
+          "kind": "collective_dialogue",
+          "id": "refugee_s45_13_and_refugee_s45_18",
+          "operation": "present_each_chorus_once_from_the_spawned_refugee_list",
+          "amount": 2,
+          "ownership": "live_presentation"
+        },
+        {
+          "kind": "story_eligibility_receipt",
+          "id": "gykmp_story_achievement_eligibility_game_of_crone_s46_or_s53",
+          "operation": "record_the_valid_s45_acceptance_checkpoint_after_the_camera_returns",
+          "amount": 1,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "serialized_achievement_key",
+          "id": "dlc_refugees_s46_or_s53",
+          "operation": "check_once_in_the_authoritative_campaign_AchievementsSystem_after_refugee_s45_18",
+          "amount": 1,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "platform_achievement_receipt",
+          "id": "gykmp_story_achievement_game_of_crone_s46_or_s53",
+          "operation": "deliver_the_optional_personal_platform_unlock_outside_ordinary_QuestSync",
+          "amount": 1,
+          "ownership": "personal_profile"
+        },
+        {
+          "kind": "npc_task",
+          "id": "npc_master_alarich:dlc_refugees_s_ev_45_alaric",
+          "operation": "set_Visible_after_the_achievement_check_with_zero_story_rewards",
+          "amount": 1,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "dialogue_phrase",
+          "id": "@refugee_s46",
+          "operation": "unlock_after_the_Alarich_task_is_visible",
+          "amount": 1,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "transient_refugee_cleanup",
+          "id": "spawned_refugees:refugee_unrollable",
+          "operation": "set_zero_for_every_spawned_refugee_except_Alarich_and_conditionally_fire_on_go_home_and_despawn_when_refugees_spawned_equals_zero",
+          "amount": 1,
+          "ownership": "shared_world"
+        },
+        {
+          "kind": "wgo_param",
+          "id": "npc_refugee_1:refugee_unrollable",
+          "operation": "set_zero_after_the_child_completes_before_on_talk_end",
+          "amount": 0,
+          "ownership": "shared_world"
+        },
+        {
+          "kind": "story_phase",
+          "id": "gykmp_story_phase_game_of_crone_s45_complete",
+          "operation": "commit_after_achievement_task_phrase_actor_camera_control_and_parent_release_converge",
+          "amount": 1,
+          "ownership": "shared_campaign"
+        }
+      ],
+      "safeguards": [
+        "do_not_start_the_child_twice_or_run_one_actor_staging_copy_per_observer",
+        "deduplicate_the_source_graphs_repeated_serialized_binder_edges_without_suppressing_distinct_dialogue_or_actor_nodes",
+        "blacklisted_refugee_s45_is_only_legacy_achievement_eligibility_and_never_terminal_scene_evidence",
+        "do_not_grant_items_or_relationship_again_from_the_later_Alarich_task_state",
+        "stop_before_any_player_selects_refugee_s46"
+      ]
+    },
+    {
+      "stepId": "game_of_crone_ask_alarich_about_his_final_plans",
+      "title": "Ask Alarich what he will do after the refugee crisis",
+      "linkedQuestIds": [
+        "dlc_refugees_s46_or_s53"
+      ],
+      "linkedTaskMilestoneIds": [
+        "game_of_crone_beatrice_evidence_alarich_finale_opened",
+        "game_of_crone_beatrice_evidence_alarich_finale_conversation_started"
+      ],
+      "triggerScripts": [
+        "gykmp_story_dispatch_game_of_crone_s46_alarich_plans"
+      ],
+      "triggerKeys": [
+        "npc_alarich:@refugee_s46",
+        "@refugee_s46",
+        "dlc_refugees_s_ev_45_alaric",
+        "refugee_s46_1",
+        "refugee_s46_2",
+        "refugee_s46_3",
+        "refugee_s46_4",
+        "refugee_s46_5",
+        "refugee_s46_6",
+        "refugee_s46_7",
+        "refugee_s46_8",
+        "refugee_s46_9",
+        "refugee_s46_10",
+        "refugee_s46_11",
+        "refugee_s46_12",
+        "s44_triggered",
+        "@refugee_s46_13",
+        "set_refugee_camp_music_theme",
+        "refugee_ev_s47_spawn_bodies",
+        "Persistence",
+        "gykmp_story_relation_game_of_crone_alarich_s46",
+        "gykmp_story_phase_game_of_crone_s46_entered",
+        "gykmp_story_phase_game_of_crone_s46_complete"
+      ],
+      "expectedEffects": [
+        {
+          "kind": "story_phase",
+          "id": "gykmp_story_phase_game_of_crone_s46_entered",
+          "operation": "commit_before_the_source_blacklist_and_early_task_completion",
+          "amount": 1,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "dialogue_phrase",
+          "id": "@refugee_s46",
+          "operation": "blacklist_immediately_after_the_entry_claim",
+          "amount": 1,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "npc_task",
+          "id": "npc_master_alarich:dlc_refugees_s_ev_45_alaric",
+          "operation": "set_Complete_early_with_zero_story_rewards_without_using_it_as_terminal_evidence",
+          "amount": 1,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "relationship_delta_receipt",
+          "id": "gykmp_story_relation_game_of_crone_alarich_s46",
+          "operation": "apply_Alarich_plus_twenty_once_when_refugee_s46_9_begins",
+          "amount": 20,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "conditional_dialogue",
+          "id": "refugee_s46_10_or_refugee_s46_11",
+          "operation": "select_line_10_for_s44_triggered_at_least_one_or_line_11_for_zero",
+          "amount": 1,
+          "ownership": "live_presentation"
+        },
+        {
+          "kind": "dialogue_phrase",
+          "id": "@refugee_s46_13",
+          "operation": "unlock_after_refugee_s46_12_and_the_player_facing_restore",
+          "amount": 1,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "conditional_camp_music",
+          "id": "refugee_camp_music_theme",
+          "operation": "set_Sad_for_s44_triggered_at_least_one_or_Happy_for_zero_without_changing_the_route_flag",
+          "amount": 1,
+          "ownership": "shared_world"
+        },
+        {
+          "kind": "conditional_global_script",
+          "id": "gykmp_story_dispatch_game_of_crone_s47_body_setup",
+          "operation": "dispatch_once_only_for_s44_triggered_at_least_one_without_waiting_on_Flow_RunScript_OnFinished",
+          "amount": 1,
+          "ownership": "shared_world"
+        },
+        {
+          "kind": "personal_technology",
+          "id": "Persistence",
+          "operation": "unlock_once_for_each_eligible_personal_profile_after_the_conditional_route_side_effect",
+          "amount": 1,
+          "ownership": "personal_character"
+        },
+        {
+          "kind": "story_phase",
+          "id": "gykmp_story_phase_game_of_crone_s46_complete",
+          "operation": "commit_after_relation_phrase_music_body_dispatch_and_tech_receipts_converge",
+          "amount": 1,
+          "ownership": "shared_campaign"
+        }
+      ],
+      "safeguards": [
+        "never_set_or_repair_s44_triggered_from_this_shared_topic_because_s45_and_s53_intentionally_converge_here",
+        "do_not_use_the_early_Complete_task_as_terminal_evidence_or_replay_the_additive_relationship_from_it",
+        "dispatch_the_body_setup_only_on_the_acceptance_branch_and_do_not_spawn_bodies_for_s44_triggered_zero",
+        "unlock_Persistence_for_missing_personal_profiles_without_replaying_dialogue_relationship_or_world_spawns",
+        "stop_before_refugee_s46_13_is_selected"
+      ]
+    },
+    {
+      "stepId": "game_of_crone_stage_the_s47_body_evidence",
+      "title": "Stage Lady Beatrice's discarded soldiers and their note",
+      "linkedQuestIds": [
+        "dlc_refugees_s46_or_s53"
+      ],
+      "linkedTaskMilestoneIds": [],
+      "triggerScripts": [
+        "gykmp_story_dispatch_game_of_crone_s47_body_setup"
+      ],
+      "triggerKeys": [
+        "refugee_ev_s47_spawn_bodies",
+        "cur_bodies_count",
+        "gd_refugee_s47_body_spawn_point",
+        "empty",
+        "empty_s47",
+        "note_from_unknown_1",
+        "crafting_skull_3",
+        "is_zone_s47_active",
+        "gykmp_story_phase_game_of_crone_s47_body_setup_claimed",
+        "gykmp_story_phase_game_of_crone_s47_body_setup_complete"
+      ],
+      "expectedEffects": [
+        {
+          "kind": "story_phase",
+          "id": "gykmp_story_phase_game_of_crone_s47_body_setup_claimed",
+          "operation": "commit_before_the_early_cur_bodies_count_addition",
+          "amount": 1,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "player_param_delta_receipt",
+          "id": "initiating_player:cur_bodies_count",
+          "operation": "add_three_once_for_the_actual_s46_initiator_after_the_authoritative_body_drop_claim",
+          "amount": 3,
+          "ownership": "initiating_player_cutscene"
+        },
+        {
+          "kind": "world_actor",
+          "id": "empty_s47",
+          "operation": "find_or_spawn_exactly_one_empty_helper_at_gd_refugee_s47_body_spawn_point",
+          "amount": 1,
+          "ownership": "shared_world"
+        },
+        {
+          "kind": "world_body",
+          "id": "refugee_s47_tier_101_bodies",
+          "operation": "drop_exactly_three_from_empty_s47_with_zero_decay_and_Direction_None",
+          "amount": 3,
+          "ownership": "shared_world"
+        },
+        {
+          "kind": "inventory_item",
+          "id": "note_from_unknown_1",
+          "operation": "reserve_or_replace_the_single_Direction_None_ground_drop_and_allocate_one_exactly_once_to_each_personal_profile",
+          "amount": 1,
+          "ownership": "personal_character"
+        },
+        {
+          "kind": "wgo_param",
+          "id": "crafting_skull_3:is_zone_s47_active",
+          "operation": "set_one_after_the_helper_bodies_and_note_allocations_are_converged",
+          "amount": 1,
+          "ownership": "shared_world"
+        },
+        {
+          "kind": "story_phase",
+          "id": "gykmp_story_phase_game_of_crone_s47_body_setup_complete",
+          "operation": "commit_after_counter_helper_bodies_note_and_latch_converge",
+          "amount": 1,
+          "ownership": "shared_campaign"
+        }
+      ],
+      "safeguards": [
+        "run_exactly_once_for_the_s44_triggered_acceptance_route_and_never_for_the_s53_route",
+        "do_not_increment_cur_bodies_count_for_observers_or_recovery_replays",
+        "deduplicate_empty_s47_the_three_body_drops_and_the_note_ground_drop_before_any_replay",
+        "ensure_every_personal_profile_can_read_the_story_note_without_leaving_duplicate_pickable_world_notes",
+        "leave_empty_s47_alive_until_the_mortuary_discovery_cleanup"
+      ]
+    },
+    {
+      "stepId": "game_of_crone_discover_the_s47_bodies",
+      "title": "Discover the bodies and note in the mortuary",
+      "linkedQuestIds": [
+        "dlc_refugees_s46_or_s53"
+      ],
+      "linkedTaskMilestoneIds": [],
+      "triggerScripts": [
+        "gykmp_story_dispatch_game_of_crone_s47_mortuary_discovery"
+      ],
+      "triggerKeys": [
+        "on_enter_mortuary_gd_zone",
+        "crafting_skull_3:is_zone_s47_active",
+        "refugee_ev_s47",
+        "gd_refugee_s47_body_spawn_point",
+        "refugee_s47_1",
+        "refugee_s47_2",
+        "empty_s47",
+        "gykmp_story_phase_game_of_crone_s47_discovery_entered",
+        "gykmp_story_phase_game_of_crone_s47_discovery_complete"
+      ],
+      "expectedEffects": [
+        {
+          "kind": "story_phase",
+          "id": "gykmp_story_phase_game_of_crone_s47_discovery_entered",
+          "operation": "commit_on_the_exact_mortuary_fallthrough_before_the_source_clears_its_only_latch",
+          "amount": 1,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "wgo_param",
+          "id": "crafting_skull_3:is_zone_s47_active",
+          "operation": "set_exactly_zero_before_dispatching_the_presentation_without_using_a_minimum",
+          "amount": 0,
+          "ownership": "shared_world"
+        },
+        {
+          "kind": "participant_facing_checkpoint",
+          "id": "initiating_player:gd_refugee_s47_body_spawn_point",
+          "operation": "face_the_source_initiator_toward_the_body_spawn_point",
+          "amount": 1,
+          "ownership": "initiating_player_transaction"
+        },
+        {
+          "kind": "dialogue_sequence",
+          "id": "refugee_s47_1_and_refugee_s47_2",
+          "operation": "present_the_two_Player_thoughts_once",
+          "amount": 2,
+          "ownership": "live_presentation"
+        },
+        {
+          "kind": "world_object_cleanup",
+          "id": "empty_s47",
+          "operation": "destroy_the_single_helper_after_the_second_thought_without_removing_its_dropped_resources",
+          "amount": 1,
+          "ownership": "shared_world"
+        },
+        {
+          "kind": "story_phase",
+          "id": "gykmp_story_phase_game_of_crone_s47_discovery_complete",
+          "operation": "commit_after_dialogue_helper_cleanup_and_control_restore",
+          "amount": 1,
+          "ownership": "shared_campaign"
+        }
+      ],
+      "safeguards": [
+        "the_generic_mortuary_entry_script_contains_other_events_so_claim_only_the_s47_latch_branch",
+        "recover_a_crash_after_latch_clear_from_the_entered_phase_without_rearming_or_replaying_body_setup",
+        "destroy_only_empty_s47_and_leave_the_three_bodies_and_note_intact",
+        "do_not_change_tasks_relationships_technologies_or_achievements",
+        "restore_each_observers_independent_control_and_cinematic_baseline"
+      ]
+    },
+    {
+      "stepId": "game_of_crone_read_the_unknown_s47_note",
+      "title": "Read the unknown conspirator's note",
+      "linkedQuestIds": [
+        "dlc_refugees_s46_or_s53"
+      ],
+      "linkedTaskMilestoneIds": [],
+      "triggerScripts": [
+        "gykmp_story_dispatch_game_of_crone_s47_unknown_note"
+      ],
+      "triggerKeys": [
+        "note_from_unknown_1",
+        "on_use_note_from_unkn_1",
+        "refugee_s47_3",
+        "refugee_s47_4",
+        "refugee_s47_5",
+        "refugee_s47_6",
+        "refugee_s47_7",
+        "refugee_s47_8",
+        "bell_single",
+        "Industriousness",
+        "is_note_from_unknown_1_red_once",
+        "gykmp_story_phase_game_of_crone_s47_note_first_read_claimed",
+        "gykmp_story_phase_game_of_crone_s47_note_first_read_complete"
+      ],
+      "expectedEffects": [
+        {
+          "kind": "dialogue_sequence",
+          "id": "refugee_s47_3_through_7",
+          "operation": "show_the_five_InfoBox_lines_to_the_reading_profile_on_every_use",
+          "amount": 5,
+          "ownership": "personal_presentation"
+        },
+        {
+          "kind": "personal_story_phase",
+          "id": "gykmp_story_phase_game_of_crone_s47_note_first_read_claimed",
+          "operation": "commit_before_the_first_read_only_line_sound_wait_and_tech_sequence",
+          "amount": 1,
+          "ownership": "personal_profile"
+        },
+        {
+          "kind": "first_read_dialogue",
+          "id": "refugee_s47_8",
+          "operation": "present_once_before_bell_single_and_the_one_point_five_second_wait",
+          "amount": 1,
+          "ownership": "personal_profile"
+        },
+        {
+          "kind": "personal_technology",
+          "id": "Industriousness",
+          "operation": "unlock_once_for_the_reading_profile_after_the_first_read_wait",
+          "amount": 1,
+          "ownership": "personal_character"
+        },
+        {
+          "kind": "player_param",
+          "id": "is_note_from_unknown_1_red_once",
+          "operation": "set_one_after_the_tech_unlock_using_the_source_typoed_identifier",
+          "amount": 1,
+          "ownership": "personal_profile"
+        },
+        {
+          "kind": "personal_story_phase",
+          "id": "gykmp_story_phase_game_of_crone_s47_note_first_read_complete",
+          "operation": "commit_after_Industriousness_flag_and_control_restore_converge",
+          "amount": 1,
+          "ownership": "personal_profile"
+        }
+      ],
+      "safeguards": [
+        "allocate_the_story_note_to_each_profile_before_use_so_one_player_cannot_take_the_only_copy",
+        "do_not_rename_is_note_from_unknown_1_red_once_or_treat_it_as_shared_campaign_state",
+        "later_reads_repeat_only_InfoBox_lines_three_through_seven_and_converge_the_flag_without_replaying_the_first_read_reward",
+        "the_source_on_use_script_has_no_remove_item_node_so_do_not_consume_or_replace_the_note",
+        "do_not_change_any_task_phrase_relationship_achievement_or_world_object"
+      ]
+    },
+    {
+      "stepId": "game_of_crone_hear_the_teodoro_alarich_history",
+      "title": "Hear Alarich explain his history with Teodoro",
+      "linkedQuestIds": [
+        "dlc_refugees_s46_or_s53"
+      ],
+      "linkedTaskMilestoneIds": [
+        "game_of_crone_beatrice_evidence_alarich_finale_conversation_started"
+      ],
+      "triggerScripts": [
+        "gykmp_story_dispatch_game_of_crone_s46_alarich_history"
+      ],
+      "triggerKeys": [
+        "npc_alarich:@refugee_s46_13",
+        "@refugee_s46_13",
+        "dlc_refugee_final",
+        "refugee_s46_14",
+        "refugee_s46_15",
+        "refugee_s46_16",
+        "refugee_s46_17",
+        "refugee_s46_18",
+        "refugee_s46_19",
+        "refugee_s46_20",
+        "refugee_s46_21",
+        "refugee_s46_22",
+        "refugee_s46_23",
+        "refugee_s46_24",
+        "refugee_s46_25",
+        "refugee_s46_26",
+        "refugee_s46_27",
+        "refugee_s46_28",
+        "refugee_s46_29",
+        "refugee_s46_30",
+        "refugee_s46_31",
+        "refugee_s46_32",
+        "refugee_s46_33",
+        "close_15_2_event",
+        "@refugees_s13_1",
+        "@refugees_s13_1_bucket",
+        "is_alarich_supply_enabled",
+        "is_zone_ev_s55_2_active",
+        "refugee_s55_trigger_zone_2",
+        "gd_alarich_tent_curtain_place",
+        "gykmp_story_phase_game_of_crone_s46_history_entered",
+        "gykmp_story_phase_game_of_crone_s46_history_complete"
+      ],
+      "expectedEffects": [
+        {
+          "kind": "story_phase",
+          "id": "gykmp_story_phase_game_of_crone_s46_history_entered",
+          "operation": "commit_before_the_source_blacklist_and_music_override",
+          "amount": 1,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "dialogue_phrase",
+          "id": "@refugee_s46_13",
+          "operation": "blacklist_immediately_after_the_durable_entry_claim",
+          "amount": 1,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "music_override",
+          "id": "dlc_refugee_final",
+          "operation": "start_when_refugee_s46_14_begins_and_stop_after_the_final_Player_thought",
+          "amount": 1,
+          "ownership": "live_presentation"
+        },
+        {
+          "kind": "conditional_dialogue",
+          "id": "refugee_s46_29",
+          "operation": "present_only_for_s44_triggered_zero_before_the_common_thoughts_30_through_33",
+          "amount": 1,
+          "ownership": "live_presentation"
+        },
+        {
+          "kind": "dialogue_phrase",
+          "id": "@refugees_s13_1",
+          "operation": "blacklist_once_in_the_supply_shutdown_after_the_final_music_stop",
+          "amount": 1,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "dialogue_phrase",
+          "id": "@refugees_s13_1_bucket",
+          "operation": "blacklist_once_in_the_supply_shutdown_after_the_final_music_stop",
+          "amount": 1,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "player_param_exact",
+          "id": "is_alarich_supply_enabled",
+          "operation": "set_exactly_zero_for_every_eligible_profile_without_using_a_minimum_repair",
+          "amount": 0,
+          "ownership": "party_personal"
+        },
+        {
+          "kind": "player_param",
+          "id": "is_zone_ev_s55_2_active",
+          "operation": "set_one_for_every_eligible_profile_before_converging_the_shared_zone",
+          "amount": 1,
+          "ownership": "party_personal"
+        },
+        {
+          "kind": "world_actor",
+          "id": "refugee_s55_trigger_zone_2",
+          "operation": "find_or_spawn_exactly_one_at_gd_alarich_tent_curtain_place_with_the_same_object_id_and_custom_tag",
+          "amount": 1,
+          "ownership": "shared_world"
+        },
+        {
+          "kind": "story_phase",
+          "id": "gykmp_story_phase_game_of_crone_s46_history_complete",
+          "operation": "commit_after_music_supply_cleanup_profile_flags_zone_spawn_and_control_restore_converge",
+          "amount": 1,
+          "ownership": "shared_campaign"
+        }
+      ],
+      "safeguards": [
+        "the_early_refugee_s46_13_blacklist_is_not_terminal_evidence_for_the_long_dialogue_or_s55_2_setup",
+        "restore_or_stop_the_final_music_override_after_crash_disconnect_or_late_join_without_restarting_the_dialogue",
+        "model_the_supply_shutdown_as_terminal_blacklists_and_an_exact_zero_not_as_additive_minimum_state",
+        "deduplicate_refugee_s55_trigger_zone_2_when_the_param_is_already_one_but_the_spawn_receipt_is_missing",
+        "stop_before_the_s55_2_zone_event_and_do_not_claim_any_later_task_or_achievement"
+      ]
+    },
+    {
+      "stepId": "game_of_crone_complete_the_s55_2_alarich_departure_cleanup",
+      "title": "Remove Alarich and restore his tent after the final conversation",
+      "linkedQuestIds": [
+        "dlc_refugees_s46_or_s53"
+      ],
+      "linkedTaskMilestoneIds": [],
+      "triggerScripts": [
+        "gykmp_story_dispatch_game_of_crone_s55_2_alarich_departure_cleanup"
+      ],
+      "triggerKeys": [
+        "on_exit_refugee_s55_gd_zone_2",
+        "is_zone_ev_s55_2_active",
+        "refugee_ev_s55_2",
+        "npc_master_alarich",
+        "default_destroy_point",
+        "refugee_builddesk::refugee_camp_add_refugee",
+        "refugee_camp_tent_2",
+        "refugee_tent_place_available_item",
+        "refugee_s55_trigger_zone_2",
+        "gykmp_story_phase_game_of_crone_s55_2_cleanup_claimed",
+        "gykmp_story_phase_game_of_crone_s55_2_cleanup_complete"
+      ],
+      "expectedEffects": [
+        {
+          "kind": "story_phase",
+          "id": "gykmp_story_phase_game_of_crone_s55_2_cleanup_claimed",
+          "operation": "commit_before_the_source_clears_the_only_zone_exit_latch",
+          "amount": 1,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "player_param_exact",
+          "id": "is_zone_ev_s55_2_active",
+          "operation": "set_exactly_zero_for_every_eligible_profile_after_the_shared_claim_without_using_a_minimum_repair",
+          "amount": 0,
+          "ownership": "party_personal"
+        },
+        {
+          "kind": "world_actor_removal",
+          "id": "npc_master_alarich",
+          "operation": "move_the_existing_actor_with_puff_effect_to_default_destroy_point_or_accept_an_already_absent_stock_state",
+          "amount": 1,
+          "ownership": "shared_world"
+        },
+        {
+          "kind": "locked_craft",
+          "id": "refugee_builddesk::refugee_camp_add_refugee",
+          "operation": "apply_LockCraftForever_exactly_once_as_a_terminal_removal_and_never_readd_the_craft",
+          "amount": 1,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "known_npc_removal",
+          "id": "npc_master_alarich",
+          "operation": "remove_from_the_KnownNPC_list_after_the_actor_stock_move_or_already_absent_check",
+          "amount": 1,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "conditional_world_inventory_replace",
+          "id": "refugee_camp_tent_2",
+          "operation": "when_present_clear_the_entire_inventory_and_leave_exactly_one_refugee_tent_place_available_item_with_One_Hand_Slot_false",
+          "amount": 1,
+          "ownership": "shared_world"
+        },
+        {
+          "kind": "world_object_cleanup",
+          "id": "refugee_s55_trigger_zone_2",
+          "operation": "destroy_the_single_trigger_after_dispatching_the_host_owned_cleanup_child",
+          "amount": 1,
+          "ownership": "shared_world"
+        },
+        {
+          "kind": "story_phase",
+          "id": "gykmp_story_phase_game_of_crone_s55_2_cleanup_complete",
+          "operation": "commit_after_profile_latch_actor_craft_KnownNPC_tent_and_trigger_zone_state_converge",
+          "amount": 1,
+          "ownership": "shared_campaign"
+        }
+      ],
+      "safeguards": [
+        "recover_a_crash_after_the_param_clear_or_trigger_destruction_from_the_claimed_phase_without_requiring_the_source_latch_or_zone_to_still_exist",
+        "an_already_missing_Alarich_must_not_block_the_craft_lock_KnownNPC_removal_or_tent_cleanup_during_recovery",
+        "model_the_refugee_recruitment_craft_as_terminal_locked_state_not_as_unlockedCrafts_completedOneTimeCrafts_or_a_monotonic_addition",
+        "clear_the_tent_inventory_only_inside_an_incomplete_committed_cleanup_transaction_and_never_again_after_the_terminal_receipt",
+        "do_not_spawn_a_missing_tent_or_award_refugee_tent_place_available_item_to_any_player",
+        "this_is_the_clean_terminal_boundary_for_the_s45_s46_s47_acceptance_route"
+      ]
+    },
+    {
+      "stepId": "game_of_crone_enter_the_s51_departure_warning",
+      "title": "Enter the prepared refugee-camp warning from any direction and arrange the next-day plan",
+      "linkedQuestIds": [
+        "dlc_refugees_s46_or_s53"
+      ],
+      "linkedTaskMilestoneIds": [
+        "game_of_crone_refugee_departure_s50_warning_completed",
+        "game_of_crone_refugee_departure_s68_warning_completed",
+        "game_of_crone_refugee_departure_horadric_followup_opened"
+      ],
+      "triggerScripts": [
+        "gykmp_story_dispatch_game_of_crone_s51_refugee_warning"
+      ],
+      "triggerKeys": [
+        "on_enter_refugee_s51_S_gd_zone",
+        "on_enter_refugee_s51_NE_gd_zone",
+        "on_enter_refugee_s51_NW_gd_zone",
+        "check_ev_s51_start",
+        "refugee_ev_s51",
+        "is_need_activate_ev_s51",
+        "refugee_s51_trigger_zone",
+        "horadric_s51",
+        "gd_refugee_camp_wp_home_1",
+        "gd_refugee_s51_NE_finish",
+        "gd_refugee_s51_NW_finish",
+        "gd_refugee_s51_S_finish",
+        "event_prepare_s52",
+        "gykmp_story_phase_game_of_crone_s51_entry_claimed",
+        "gykmp_story_branch_game_of_crone_s51_entry_direction",
+        "gykmp_story_phase_game_of_crone_s51_core_handoff",
+        "gykmp_story_phase_game_of_crone_s51_actor_cleanup_complete",
+        "gykmp_story_timer_game_of_crone_s52_horadric_unlock",
+        "gykmp_story_phase_game_of_crone_s51_complete"
+      ],
+      "expectedEffects": [
+        {
+          "kind": "story_claim",
+          "id": "gykmp_story_phase_game_of_crone_s51_entry_claimed",
+          "operation": "record_the_host_accepted_initiator_before_consuming_the_source_latch_and_zone",
+          "amount": 1,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "story_branch",
+          "id": "gykmp_story_branch_game_of_crone_s51_entry_direction",
+          "operation": "record_exactly_one_of_S_NE_or_NW_with_the_initiator_and_never_reselect_on_resume",
+          "amount": 1,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "player_param",
+          "id": "is_need_activate_ev_s51",
+          "operation": "consume_the_single_host_canonical_shared_story_latch_to_zero_after_the_durable_claim",
+          "amount": 0,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "world_object_cleanup",
+          "id": "refugee_s51_trigger_zone",
+          "operation": "destroy_exactly_once_after_the_durable_claim",
+          "amount": 0,
+          "ownership": "shared_world"
+        },
+        {
+          "kind": "story_phase",
+          "id": "gykmp_story_phase_game_of_crone_s51_core_handoff",
+          "operation": "commit_after_the_directional_prefix_and_before_the_single_common_child",
+          "amount": 1,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "world_object_cleanup",
+          "id": "horadric_s51",
+          "operation": "destroy_only_the_spawned_scene_actor_during_the_common_final_fade",
+          "amount": 0,
+          "ownership": "shared_world"
+        },
+        {
+          "kind": "wgo_param",
+          "id": "npc_refugee_1:refugee_unrollable",
+          "operation": "set_exactly_zero_during_the_common_final_fade",
+          "amount": 0,
+          "ownership": "shared_world"
+        },
+        {
+          "kind": "story_timer",
+          "id": "gykmp_story_timer_game_of_crone_s52_horadric_unlock",
+          "operation": "persist_the_absolute_next_midnight_plus_thirty_seconds_deadline_before_registering_event_prepare_s52",
+          "amount": 1,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "story_phase",
+          "id": "gykmp_story_phase_game_of_crone_s51_complete",
+          "operation": "commit_after_both_Teodoro_tasks_Horadrics_visible_task_actor_cleanup_timer_registration_and_control_restore",
+          "amount": 1,
+          "ownership": "shared_campaign"
+        }
+      ],
+      "safeguards": [
+        "one_host_owned_claim_wins_simultaneous_directional_entries_and_remote_clients_forward_their_real_player_identity",
+        "do_not_mirror_the_mechanically_local_source_latch_to_every_player_or_allow_each_client_to_destroy_or_run_the_shared_zone",
+        "recover_from_synthetic_phases_instead_of_the_unsafe_zero_latch_or_missing_zone",
+        "do_not_unlock_refugee_s52_until_the_persisted_next_day_deadline_is_due"
+      ]
+    },
+    {
+      "stepId": "game_of_crone_learn_horadrics_plan_and_cure_the_captain",
+      "title": "Learn Horadric's escape plan and use the Golden Apple to restore the Captain",
+      "linkedQuestIds": [
+        "dlc_refugees_s46_or_s53"
+      ],
+      "linkedTaskMilestoneIds": [
+        "game_of_crone_refugee_departure_horadric_plan_completed",
+        "game_of_crone_refugee_departure_captain_apple_opened",
+        "game_of_crone_refugee_departure_captain_apple_completed",
+        "game_of_crone_refugee_departure_teodoro_rescue_opened",
+        "game_of_crone_refugee_departure_horadric_fee_opened"
+      ],
+      "triggerScripts": [
+        "gykmp_story_dispatch_game_of_crone_s52_horadric_plan",
+        "gykmp_story_dispatch_game_of_crone_s52_captain_cure"
+      ],
+      "triggerKeys": [
+        "npc_tavern owner:@refugee_s52",
+        "npc_captain:@refugee_s52_2",
+        "golden_apple",
+        "gd_refugee_s52_camera_point",
+        "gd_refugee_s52_captain_point",
+        "gd_refugee_s52_player_point",
+        "gykmp_story_phase_game_of_crone_s52_horadric_entered",
+        "gykmp_story_phase_game_of_crone_s52_horadric_complete",
+        "gykmp_story_eligibility_game_of_crone_s52_golden_apple_lock",
+        "gykmp_story_phase_game_of_crone_s52_captain_entered",
+        "gykmp_story_phase_game_of_crone_s52_captain_staged",
+        "gykmp_story_phase_game_of_crone_s52_captain_removed",
+        "gykmp_story_phase_game_of_crone_s52_captain_complete"
+      ],
+      "expectedEffects": [
+        {
+          "kind": "dialogue_phrase",
+          "id": "@refugee_s52",
+          "operation": "blacklist_after_the_durable_Horadric_topic_claim",
+          "amount": 1,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "dialogue_phrase",
+          "id": "@refugee_s52_2",
+          "operation": "unlock_after_the_Horadric_plan_then_blacklist_after_the_durable_Captain_claim",
+          "amount": 1,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "item_lock_eligibility",
+          "id": "gykmp_story_eligibility_game_of_crone_s52_golden_apple_lock",
+          "operation": "require_one_golden_apple_only_on_the_selecting_profile_without_consuming_it",
+          "amount": 1,
+          "ownership": "initiating_player_transaction"
+        },
+        {
+          "kind": "world_actor_cleanup",
+          "id": "npc_captain",
+          "operation": "remove_the_cured_Captain_to_stock_during_the_final_fade",
+          "amount": 0,
+          "ownership": "shared_world"
+        },
+        {
+          "kind": "dialogue_phrase_set",
+          "id": "@refugee_s52_3_@refugee_s53",
+          "operation": "unlock_both_after_the_two_downstream_tasks_are_visible",
+          "amount": 2,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "story_phase",
+          "id": "gykmp_story_phase_game_of_crone_s52_captain_complete",
+          "operation": "commit_after_Captain_removal_both_tasks_both_topics_and_control_restore",
+          "amount": 1,
+          "ownership": "shared_campaign"
+        }
+      ],
+      "safeguards": [
+        "never_model_the_Golden_Apple_lock_as_a_price_or_party_wide_inventory_requirement",
+        "resume_the_long_Captain_scene_from_phases_instead_of_the_early_blacklist_or_complete_task",
+        "do_not_start_the_s53_departure_until_the_Captain_terminal_phase_exists"
+      ]
+    },
+    {
+      "stepId": "game_of_crone_optionally_pay_horadric_for_the_escape_plan",
+      "title": "Optionally pay Horadric for his plan",
+      "linkedQuestIds": [
+        "dlc_refugees_s46_or_s53"
+      ],
+      "linkedTaskMilestoneIds": [
+        "game_of_crone_refugee_departure_horadric_fee_opened",
+        "game_of_crone_refugee_departure_horadric_fee_paid"
+      ],
+      "triggerScripts": [
+        "gykmp_story_dispatch_game_of_crone_s52_horadric_payment"
+      ],
+      "triggerKeys": [
+        "npc_tavern owner:@refugee_s52_3",
+        "gykmp_story_transaction_game_of_crone_s52_horadric_payment",
+        "gykmp_story_phase_game_of_crone_s52_horadric_payment_complete"
+      ],
+      "expectedEffects": [
+        {
+          "kind": "story_transaction",
+          "id": "gykmp_story_transaction_game_of_crone_s52_horadric_payment",
+          "operation": "record_payer_intent_debited_and_converged_around_the_money_100_answer_price",
+          "amount": 100,
+          "ownership": "initiating_player_transaction"
+        },
+        {
+          "kind": "dialogue_phrase",
+          "id": "@refugee_s52_3",
+          "operation": "blacklist_after_the_durable_debit",
+          "amount": 1,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "story_phase",
+          "id": "gykmp_story_phase_game_of_crone_s52_horadric_payment_complete",
+          "operation": "commit_after_task_dialogue_and_control_restore",
+          "amount": 1,
+          "ownership": "shared_campaign"
+        }
+      ],
+      "safeguards": [
+        "never_charge_more_than_once_across_retry_reconnect_or_owner_migration",
+        "preserve_the_visible_optional_task_and_topic_if_the_party_departs_without_paying"
+      ]
+    },
+    {
+      "stepId": "game_of_crone_choose_and_complete_the_s53_departure",
+      "title": "Choose when the refugees depart, receive Teodoro's rewards, and complete their ceremony",
+      "linkedQuestIds": [
+        "dlc_refugees_s46_or_s53"
+      ],
+      "linkedTaskMilestoneIds": [
+        "game_of_crone_refugee_departure_teodoro_rescue_committed",
+        "game_of_crone_refugee_departure_alarich_goodbye_opened"
+      ],
+      "triggerScripts": [
+        "gykmp_story_dispatch_game_of_crone_s53_departure_choice",
+        "gykmp_story_dispatch_game_of_crone_s53_departure_resume"
+      ],
+      "triggerKeys": [
+        "npc_marquis_teodoro_jr:@refugee_s53",
+        "npc_marquis_teodoro_jr:@refugee_s53_2_again",
+        "refugee_s53_2",
+        "refugee_s53_1b",
+        "refugee_ev_s53_try_give_tech_scrolls",
+        "refugee_ev_s53_part_2",
+        "set_refugee_camp_music_theme",
+        "stop_all_refugees_and_turn_to_teodoro",
+        "place_refugees_near",
+        "talk_alltogether",
+        "unlock_refugee",
+        "dlc_refugees_s46_or_s53",
+        "event_lender_4",
+        "refugees_spawned",
+        "on_go_home_and_despawn",
+        "dlc_refugee_theme_sad",
+        "gykmp_story_branch_game_of_crone_s53_departure_choice",
+        "gykmp_story_phase_game_of_crone_s53_postponed",
+        "gykmp_story_phase_game_of_crone_s53_rewards_claimed",
+        "gykmp_story_phase_game_of_crone_s53_crowd_ready",
+        "gykmp_story_phase_game_of_crone_s53_ceremony_staged",
+        "gykmp_story_achievement_eligibility_game_of_crone_s46_or_s53",
+        "gykmp_story_achievement_game_of_crone_s46_or_s53",
+        "gykmp_story_phase_game_of_crone_s53_complete",
+        "recipe_advanced_gravestones",
+        "recipe_advanced_gravestones_2",
+        "recipe_stone_statues",
+        "recipe_marble_statues",
+        "recipe_marble_fences",
+        "recipe_simple_snacks",
+        "recipe_vegetable_set",
+        "recipe_milk_processing",
+        "recipe_in_lentil_we_trust",
+        "recipe_patties",
+        "recipe_cheese_dishes",
+        "recipe_jelly_desserts",
+        "tech_bag_alchemy",
+        "recipe_bag_farming",
+        "recipe_bag_fishing",
+        "recipe_bag_tools",
+        "recipe_bag_potions",
+        "recipe_bag_builder",
+        "recipe_bag_food"
+      ],
+      "expectedEffects": [
+        {
+          "kind": "story_branch",
+          "id": "gykmp_story_branch_game_of_crone_s53_departure_choice",
+          "operation": "record_depart_now_or_talk_later_before_mutating_the_selected_branch",
+          "amount": 1,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "dialogue_phrase",
+          "id": "@refugee_s53_2_again",
+          "operation": "unlock_only_for_the_talk_later_branch_and_blacklist_on_the_later_resume",
+          "amount": 1,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "relationship_delta_receipt",
+          "id": "gykmp_story_relation_game_of_crone_teodoro_s53",
+          "operation": "apply_the_source_plus_ten_once",
+          "amount": 10,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "inventory_item",
+          "id": "armor_lamellar_2",
+          "operation": "allocate_one_exactly_once_per_profile_instead_of_an_unowned_world_drop",
+          "amount": 1,
+          "ownership": "personal_character"
+        },
+        {
+          "kind": "inventory_item",
+          "id": "ingot_silver",
+          "operation": "allocate_two_exactly_once_per_profile_preserving_the_two_intentional_drop_invocations",
+          "amount": 2,
+          "ownership": "personal_character"
+        },
+        {
+          "kind": "inventory_item",
+          "id": "ingot_gold",
+          "operation": "allocate_three_exactly_once_per_profile_preserving_the_three_intentional_drop_invocations",
+          "amount": 3,
+          "ownership": "personal_character"
+        },
+        {
+          "kind": "conditional_personal_item_set",
+          "id": "gykmp_story_grant_game_of_crone_s53_conditional_tech_scrolls",
+          "operation": "allocate_each_qualifying_not_yet_unlocked_scroll_once_per_profile_using_the_exact_source_threshold_and_tech_id_mapping",
+          "amount": 19,
+          "ownership": "personal_character"
+        },
+        {
+          "kind": "story_eligibility_receipt",
+          "id": "gykmp_story_achievement_eligibility_game_of_crone_s46_or_s53",
+          "operation": "record_once_when_the_authoritative_ceremony_reaches_the_post_chorus_key_check",
+          "amount": 1,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "serialized_achievement_key",
+          "id": "dlc_refugees_s46_or_s53",
+          "operation": "check_once_in_the_authoritative_campaign_AchievementsSystem_at_the_exact_source_checkpoint",
+          "amount": 1,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "platform_achievement_receipt",
+          "id": "gykmp_story_achievement_game_of_crone_s46_or_s53",
+          "operation": "deliver_the_optional_platform_unlock_once_per_personal_profile_outside_ordinary_QuestSync",
+          "amount": 1,
+          "ownership": "personal_profile"
+        },
+        {
+          "kind": "dialogue_phrase",
+          "id": "@refugee_s54",
+          "operation": "unlock_after_the_Alarich_goodbye_task_becomes_visible",
+          "amount": 1,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "conditional_world_event",
+          "id": "npc_refugee_6:event_lender_4",
+          "operation": "add_only_when_exact_npc_refugee_6_is_player_took_money_is_at_least_one",
+          "amount": 1,
+          "ownership": "shared_world"
+        },
+        {
+          "kind": "world_music",
+          "id": "dlc_refugee_theme_sad",
+          "operation": "set_camp_music_Sad_and_start_the_source_override_during_the_part_two_handoff",
+          "amount": 1,
+          "ownership": "shared_world"
+        },
+        {
+          "kind": "story_phase",
+          "id": "gykmp_story_phase_game_of_crone_s53_complete",
+          "operation": "commit_after_rewards_ceremony_achievement_task_topic_actor_cleanup_music_and_control_have_all_joined",
+          "amount": 1,
+          "ownership": "shared_campaign"
+        }
+      ],
+      "safeguards": [
+        "coffin_maker_thresholds_are_30_for_recipe_advanced_gravestones_70_for_recipe_advanced_gravestones_2_and_recipe_stone_statues_and_100_for_recipe_marble_statues_and_recipe_marble_fences",
+        "cook_thresholds_are_30_for_recipe_simple_snacks_70_for_recipe_vegetable_set_recipe_milk_processing_and_recipe_in_lentil_we_trust_and_100_for_recipe_patties_recipe_cheese_dishes_and_recipe_jelly_desserts",
+        "the_cook_unlocked_tech_checks_use_the_exact_case_sensitive_source_strings_Simple_snacks_Vegetable_set_Milk_processing_In_Lentil_We_Trust_Patties_Cheese_dishes_and_Jelly_desserts_while_the_dropped_item_ids_are_the_recipe_ids",
+        "tanner_thresholds_are_70_for_tech_bag_alchemy_recipe_bag_farming_recipe_bag_fishing_and_recipe_bag_tools_and_100_for_recipe_bag_potions_recipe_bag_builder_and_recipe_bag_food",
+        "equality_qualifies_at_every_relation_threshold_and_each_already_unlocked_tech_suppresses_only_its_own_profile_award",
+        "do_not_allow_shared_world_scrolls_or_base_rewards_to_be_taken_by_one_player_on_behalf_of_other_profiles",
+        "do_not_use_the_early_blacklist_task_relation_or_physical_drops_as_terminal_evidence",
+        "never_replay_the_achievement_relation_or_any_personal_grant_after_its_specific_receipt"
+      ]
+    },
+    {
+      "stepId": "game_of_crone_say_goodbye_to_alarich_and_deactivate_the_camp",
+      "title": "Say goodbye to Alarich and shut down the refugee camp",
+      "linkedQuestIds": [
+        "dlc_refugees_s46_or_s53"
+      ],
+      "linkedTaskMilestoneIds": [
+        "game_of_crone_refugee_departure_alarich_goodbye_completed"
+      ],
+      "triggerScripts": [
+        "gykmp_story_dispatch_game_of_crone_s54_alarich_farewell"
+      ],
+      "triggerKeys": [
+        "npc_master_alarich:@refugee_s54",
+        "deactivate_refugee_camp",
+        "@refugee_s46_13",
+        "is_need_drop_note_after_semon",
+        "is_zone_ev_s55_active",
+        "refugee_cows_live",
+        "refugee_farm_live",
+        "has_refugee_cooking_table",
+        "refugee_s55_trigger_zone",
+        "gd_refugee_camp_campfire_place",
+        "gykmp_story_relation_game_of_crone_alarich_s54",
+        "gykmp_story_phase_game_of_crone_s54_deactivate_handoff",
+        "gykmp_story_phase_game_of_crone_refugee_camp_deactivated",
+        "gykmp_story_phase_game_of_crone_s54_complete",
+        "refugee_builddesk:p:refugee_marquis_workplace_place",
+        "refugee_builddesk:r:refugee_marquis_workplace_place",
+        "refugee_builddesk:p:refugee_coffin_workplace_place",
+        "refugee_builddesk:r:refugee_coffin_workplace_place",
+        "refugee_builddesk:p:refugee_tanner_workplace_place",
+        "refugee_builddesk:r:refugee_tanner_workplace_place",
+        "refugee_builddesk:p:refugee_camp_roof_v_place",
+        "refugee_builddesk:r:refugee_camp_roof_v_place",
+        "refugee_builddesk:p:refugee_camp_tent_4_place",
+        "refugee_builddesk:r:refugee_camp_tent_4_place",
+        "refugee_builddesk:p:refugee_camp_tent_5_place",
+        "refugee_builddesk:r:refugee_camp_tent_5_place",
+        "refugee_builddesk:p:refugee_camp_tent_6_place",
+        "refugee_builddesk:r:refugee_camp_tent_6_place",
+        "refugee_builddesk:p:refugee_camp_tent_7_place",
+        "refugee_builddesk:r:refugee_camp_tent_7_place",
+        "refugee_builddesk:p:refugee_camp_garden_bed_1_place",
+        "refugee_builddesk:r:refugee_camp_garden_bed_1_place",
+        "refugee_builddesk::refugee_camp_garden_fence_place",
+        "refugee_builddesk:p:refugee_camp_hive_place",
+        "refugee_builddesk:r:refugee_camp_hive_place",
+        "refugee_builddesk::refugee_camp_well",
+        "refugee_builddesk::refugee_camp_well_2",
+        "refugee_builddesk::refugee_camp_cooking_table",
+        "refugee_builddesk::refugee_camp_cooking_table_2",
+        "refugee_builddesk::refugee_camp_farm_fence_place",
+        "refugee_builddesk::refugee_camp_add_refugee",
+        "refugee_builddesk::refugee_camp_fence",
+        "refugee_builddesk::refugee_camp_depot",
+        "refugee_builddesk::refugee_camp_campfire_2",
+        "refugee_builddesk::refugee_camp_observation_tower_place",
+        "refugee_builddesk::refugee_camp_sword_rack_place"
+      ],
+      "expectedEffects": [
+        {
+          "kind": "relationship_delta_receipt",
+          "id": "gykmp_story_relation_game_of_crone_alarich_s54",
+          "operation": "apply_the_source_plus_twenty_once_after_refugee_s54_9_starts",
+          "amount": 20,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "dialogue_phrase",
+          "id": "@refugee_s46_13",
+          "operation": "unlock_as_the_shared_farewell_handoff_without_claiming_its_execution",
+          "amount": 1,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "player_param",
+          "id": "is_need_drop_note_after_semon",
+          "operation": "set_one_for_each_eligible_profiles_later_refusal_note_path_without_treating_it_as_final_evidence",
+          "amount": 1,
+          "ownership": "party_personal"
+        },
+        {
+          "kind": "world_camp_state",
+          "id": "refugee_camp_live",
+          "operation": "set_false_and_converge_the_complete_deactivate_refugee_camp_world_transaction",
+          "amount": 0,
+          "ownership": "shared_world"
+        },
+        {
+          "kind": "player_param",
+          "id": "refugee_cows_live",
+          "operation": "set_zero_for_every_party_profile_from_the_authoritative_S54_camp_deactivation_without_treating_a_prior_one_as_fresh_Tanner_progress",
+          "amount": 0,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "player_param",
+          "id": "refugee_farm_live",
+          "operation": "set_zero_for_every_party_profile_from_the_authoritative_S54_camp_deactivation_without_replaying_or_reviving_the_chicken_world_suffix",
+          "amount": 0,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "player_param",
+          "id": "has_refugee_cooking_table",
+          "operation": "set_zero_for_every_party_profile_while-preserving-the-sources-repeated-local-write-as-one-idempotent-shared-deactivation-effect",
+          "amount": 0,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "craft_lock_set",
+          "id": "deactivate_refugee_camp:source_32_crafts",
+          "operation": "remove_the_exact_thirty_two_triggerKeys_from_the_refugee_builddesk_build_surface",
+          "amount": 32,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "world_actor_set",
+          "id": "refugee_purple_cloud_25_26_27",
+          "operation": "find_or_spawn_one_each_at_the_matching_gd_refugee_cloud_25_26_27_points",
+          "amount": 3,
+          "ownership": "shared_world"
+        },
+        {
+          "kind": "world_actor",
+          "id": "refugee_s55_trigger_zone",
+          "operation": "find_or_spawn_exactly_one_at_gd_refugee_camp_campfire_place",
+          "amount": 1,
+          "ownership": "shared_world"
+        },
+        {
+          "kind": "player_param",
+          "id": "is_zone_ev_s55_active",
+          "operation": "arm_exactly_one_host_owned_zone_activation_then_allow_the_s55_unit_to_consume_it_to_zero",
+          "amount": 1,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "story_phase",
+          "id": "gykmp_story_phase_game_of_crone_s54_complete",
+          "operation": "commit_only_after_the_child_deactivation_zone_arm_note_handoff_relation_and_control_restore",
+          "amount": 1,
+          "ownership": "shared_campaign"
+        }
+      ],
+      "safeguards": [
+        "do_not_repair_additive_relationships_or_transient_player_params_from_the_completed_Alarich_task",
+        "make_every_destructive_camp_operation_host_authoritative_and_idempotent_without_replaying_user_inventory_loss",
+        "S54_is_the_downstream_owner_of_refugee_cows_live_refugee_farm_live_and_has_refugee_cooking_table_zero_writes_apply_them_to_all_profiles_and_never_let_historical_profession_receipts_restore_live_state",
+        "do_not_remove_Alarich_or_clear_refugee_camp_tent_2_in_this_unit",
+        "do_not_execute_the_unlocked_refugee_s46_13_shared_farewell"
+      ]
+    },
+    {
+      "stepId": "game_of_crone_cross_the_empty_refugee_camp",
+      "title": "Cross the empty camp and reflect on the refugees' departure",
+      "linkedQuestIds": [
+        "dlc_refugees_s46_or_s53"
+      ],
+      "linkedTaskMilestoneIds": [
+        "game_of_crone_refugee_departure_alarich_goodbye_completed"
+      ],
+      "triggerScripts": [
+        "gykmp_story_dispatch_game_of_crone_s55_empty_camp_reflection"
+      ],
+      "triggerKeys": [
+        "on_enter_refugee_s55_gd_zone",
+        "refugee_ev_s55",
+        "refugee_s55_trigger_zone",
+        "is_zone_ev_s55_active",
+        "refugee_s55_1",
+        "gykmp_story_phase_game_of_crone_s55_entry_claimed",
+        "gykmp_story_phase_game_of_crone_s55_complete",
+        "@refugee_s46_13"
+      ],
+      "expectedEffects": [
+        {
+          "kind": "story_claim",
+          "id": "gykmp_story_phase_game_of_crone_s55_entry_claimed",
+          "operation": "record_the_host_accepted_initiator_before_consuming_the_zone_latch_or_object",
+          "amount": 1,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "player_param",
+          "id": "is_zone_ev_s55_active",
+          "operation": "consume_the_host_canonical_latch_to_zero_after_the_durable_claim",
+          "amount": 0,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "world_object_cleanup",
+          "id": "refugee_s55_trigger_zone",
+          "operation": "destroy_exactly_once_after_the_durable_claim",
+          "amount": 0,
+          "ownership": "shared_world"
+        },
+        {
+          "kind": "world_direction_checkpoint",
+          "id": "initiating_player:s55_Up_Left_Right_Down",
+          "operation": "apply_the_four_one_second_spaced_turns_once_and_finish_Down",
+          "amount": 1,
+          "ownership": "initiating_player_transaction"
+        },
+        {
+          "kind": "story_phase",
+          "id": "gykmp_story_phase_game_of_crone_s55_complete",
+          "operation": "commit_after_refugee_s55_1_and_all_participant_control_restoration",
+          "amount": 1,
+          "ownership": "shared_campaign"
+        }
+      ],
+      "safeguards": [
+        "resume_from_the_entry_receipt_after_a_crash_with_zero_latch_or_missing_zone",
+        "one_dialogue_owner_receives_the_thought_and_observers_receive_live_presentation_only",
+        "stop_with_refugee_s46_13_unlocked_and_leave_its_farewell_and_the_later_s55_2_cleanup_to_the_other_catalogue_unit"
+      ]
+    },
+    {
+      "stepId": "game_of_crone_receive_koukols_ghoul_scroll_after_his_arrival",
+      "title": "Meet Koukol after his next arrival and receive the ghoul scroll",
+      "linkedQuestIds": [
+        "dlc_refugees_s46_or_s53"
+      ],
+      "linkedTaskMilestoneIds": [
+        "game_of_crone_beatrice_evidence_koukol_meeting_opened",
+        "game_of_crone_beatrice_evidence_koukol_scroll_route_completed"
+      ],
+      "triggerScripts": [
+        "gykmp_story_dispatch_game_of_crone_s80_koukol_arrival",
+        "gykmp_story_dispatch_game_of_crone_s80_scroll_delivery"
+      ],
+      "triggerKeys": [
+        "gykmp_story_phase_game_of_crone_s68_koukol_next_arrival_armed",
+        "is_come_from_ev80_with_phrase",
+        "tr_14_next_week_come",
+        "@refugee_s80",
+        "gykmp_story_phase_game_of_crone_s80_arrival_claimed",
+        "gykmp_story_phase_game_of_crone_s80_topic_unlocked",
+        "gykmp_story_phase_game_of_crone_s80_dialogue_entered",
+        "dlc_refugees_s_ev_68_koukol",
+        "scroll_ghoul",
+        "gykmp_story_transaction_game_of_crone_s80_scroll_drop",
+        "gykmp_story_grant_game_of_crone_scroll_ghoul",
+        "gykmp_story_phase_game_of_crone_s80_to_s81_handoff",
+        "refugee_ev_s81"
+      ],
+      "expectedEffects": [
+        {
+          "kind": "wgo_param",
+          "id": "npc_hunchback:is_come_from_ev80_with_phrase",
+          "operation": "consume_from_one_to_zero_only_after_the_durable_s80_arrival_claim_and_leave_it_armed_when_the_legacy_tr_14_next_week_come_branch_wins_that_arrival",
+          "amount": 0,
+          "ownership": "shared_world"
+        },
+        {
+          "kind": "dialogue_phrase",
+          "id": "@refugee_s80",
+          "operation": "unlock_after_Koukol_arrives_then_blacklist_at_the_start_of_the_exact_topic",
+          "amount": 1,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "npc_task",
+          "id": "npc_hunchback:dlc_refugees_s_ev_68_koukol",
+          "operation": "set_Complete_before_dialogue_and_item_delivery_with_zero_task_story_rewards",
+          "amount": 1,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "source_drop_reservation",
+          "id": "gykmp_story_transaction_game_of_crone_s80_scroll_drop",
+          "operation": "atomically_choose_suppressed_or_reserved_physical_state_and_adopt_at_most_one_actual_collector_receipt",
+          "amount": 1,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "inventory_item_entitlement",
+          "id": "scroll_ghoul",
+          "operation": "allocate_one_to_each_eligible_personal_profile_under_independent_receipts_after_accounting_for_the_single_unowned_source_world_drop_without_using_personalItemGrants_yet",
+          "amount": 1,
+          "ownership": "personal_character"
+        },
+        {
+          "kind": "dialogue_sequence",
+          "id": "refugee_s80_1_through_12",
+          "operation": "present_the_twelve_source_lines_and_thoughts_to_the_single_dialogue_owner_around_the_scroll_drop",
+          "amount": 12,
+          "ownership": "live_presentation"
+        },
+        {
+          "kind": "story_phase",
+          "id": "gykmp_story_phase_game_of_crone_s80_to_s81_handoff",
+          "operation": "commit_before_dispatching_the_child_ambush_without_enabling_players_between_scripts",
+          "amount": 1,
+          "ownership": "shared_campaign"
+        }
+      ],
+      "safeguards": [
+        "the_arrival_param_clear_topic_blacklist_and_task_completion_are_all_early_source_prefixes_not_scroll_delivery_or_s81_completion_evidence",
+        "Direction_ToPlayer_uses_the_local_process_player_position_only_and_does_not_prevent_an_observer_from_collecting_the_physical_drop",
+        "never_issue_a_synthetic_scroll_for_a_profile_whose_reserved_physical_copy_is_unresolved_and_never_replay_the_source_drop_after_a_receipt",
+        "leave_personalItemGrants_empty_until_the_runtime_drop_reservation_path_exists",
+        "do_not_run_the_generic_Koukol_dialogue_shell_or_consume_the_unrelated_legacy_arrival_flag"
+      ]
+    },
+    {
+      "stepId": "game_of_crone_survive_s81_and_reopen_teodoros_evidence_route",
+      "title": "Survive Beatrice's ambush and reopen the Teodoro evidence handoff",
+      "linkedQuestIds": [
+        "dlc_refugees_s46_or_s53"
+      ],
+      "linkedTaskMilestoneIds": [
+        "game_of_crone_beatrice_evidence_koukol_scroll_route_completed",
+        "game_of_crone_beatrice_teodoro_followup_opened"
+      ],
+      "triggerScripts": [
+        "gykmp_story_dispatch_game_of_crone_s81_beatrice_ambush"
+      ],
+      "triggerKeys": [
+        "refugee_ev_s81",
+        "gykmp_story_phase_game_of_crone_s80_to_s81_handoff",
+        "gykmp_story_phase_game_of_crone_s81_entry_claimed",
+        "gykmp_story_branch_game_of_crone_s81_guard_two_variant",
+        "npc_guard_7_ev81_1",
+        "npc_guard_7_ev81_2",
+        "npc_guard_7_ev81_3",
+        "npc_guard_7_ev81_4",
+        "npc_lord_commander_ev81",
+        "npc_beatrice_ev81",
+        "npc_hunchback_ev81",
+        "gykmp_story_phase_game_of_crone_s81_staged",
+        "gykmp_story_phase_game_of_crone_s81_beatrice_removed",
+        "gykmp_story_transaction_game_of_crone_s81_money_reward",
+        "is_s81_triggered",
+        "@refugee_s45",
+        "s_ev_44_teodoro",
+        "gykmp_story_phase_game_of_crone_s81_actor_cleanup_complete",
+        "gykmp_story_phase_game_of_crone_s81_complete"
+      ],
+      "expectedEffects": [
+        {
+          "kind": "conditional_world_actor",
+          "id": "npc_guard_7_ev81_2",
+          "operation": "spawn_exactly_one_npc_guard_torch_for_TimeOfDay_below_0_2_or_above_0_85_otherwise_npc_guard_7_and_persist_the_selected_variant",
+          "amount": 1,
+          "ownership": "shared_world"
+        },
+        {
+          "kind": "temporary_world_actors",
+          "id": "npc_guard_7_ev81_1_through_4_npc_lord_commander_ev81_npc_beatrice_ev81_npc_hunchback_ev81",
+          "operation": "stage_once_then_remove_or_destroy_all_seven_by_terminal_cleanup_without_touching_canonical_Koukol",
+          "amount": 7,
+          "ownership": "shared_world"
+        },
+        {
+          "kind": "dialogue_sequence",
+          "id": "refugee_s81_1_through_36_except_3",
+          "operation": "present_the_thirty_five_wired_source_lines_with_the_exact_Beatrice_Commander_Koukol_and_Player_ownership",
+          "amount": 35,
+          "ownership": "live_presentation"
+        },
+        {
+          "kind": "currency_transaction",
+          "id": "gykmp_story_transaction_game_of_crone_s81_money_reward",
+          "operation": "add_one_hundred_exactly_once_to_the_original_s80_initiator_after_refugee_s81_31_and_never_to_observers_or_the_host_by_execution_ownership",
+          "amount": 100,
+          "ownership": "initiating_player_transaction"
+        },
+        {
+          "kind": "player_param",
+          "id": "is_s81_triggered",
+          "operation": "set_one_at_the_terminal_tail_and_mirror_to_each_eligible_profile_because_the_following_shared_one_shot_Teodoro_topic_reads_MainGame_me_player",
+          "amount": 1,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "dialogue_phrase",
+          "id": "@refugee_s45",
+          "operation": "unlock_after_actor_dialogue_audio_and_position_cleanup",
+          "amount": 1,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "npc_task",
+          "id": "npc_marquis_teodoro_jr:s_ev_44_teodoro",
+          "operation": "set_Visible_with_zero_task_story_rewards_at_the_terminal_tail",
+          "amount": 1,
+          "ownership": "shared_campaign"
+        },
+        {
+          "kind": "personal_position_checkpoint",
+          "id": "initiating_player:gd_refugee_s81_player_5",
+          "operation": "converge_only_the_original_dialogue_owner_after_the_source_player_1_and_player_2_staging_positions",
+          "amount": 1,
+          "ownership": "initiating_player_transaction"
+        },
+        {
+          "kind": "world_position_checkpoint",
+          "id": "npc_hunchback:npc_hunchback_finish",
+          "operation": "place_and_walk_only_canonical_Koukol_after_destroying_the_staged_ev81_actor",
+          "amount": 1,
+          "ownership": "shared_world"
+        },
+        {
+          "kind": "story_phase",
+          "id": "gykmp_story_phase_game_of_crone_s81_complete",
+          "operation": "commit_after_all_drop_reward_actor_position_audio_topic_task_param_and_control_receipts_are_terminal",
+          "amount": 1,
+          "ownership": "shared_campaign"
+        }
+      ],
+      "safeguards": [
+        "collapse_exact_duplicate_serialized_connections_instead_of_double_firing_Beatrices_direction_cast_cleanup_or_time_helper_nodes",
+        "wait_for_or_restore_canonical_Koukol_before_the_connected_null_find_can_fall_back_to_teleporting_the_player_and_leave_the_final_Came_to_dest_merge_unreachable",
+        "the_source_does_not_join_the_plus_one_hundred_branch_or_the_initiators_final_walk_so_recovery_requires_separate_receipts_for_both",
+        "restore_each_participants_camera_audio_control_and_cinematic_baseline_instead_of_hard_enabling_or_overwriting_observers",
+        "do_not_create_an_s81_specific_task_milestone_on_s_ev_44_teodoro_that_reapplies_after_Complete_because_the_acceptance_s44_route_uses_the_same_Visible_task",
+        "there_is_no_achievement_check_relation_delta_story_point_reward_technology_craft_weather_environment_or_time_mutation_in_s81",
+        "stop_before_npc_marquis_teodoro_jr_refugee_s45_which_later_runs_refugee_ev_s45_part_2_and_checks_dlc_refugees_s46_or_s53"
+      ]
+    }
+  ]
+}
