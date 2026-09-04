@@ -4,7 +4,7 @@ Back From The Grave is an unofficial cooperative multiplayer mod for Graveyard K
 
 The mod is in beta. Keep backups of important saves and please save regularly!
 
-Current release: **1.1.0 Beta**
+Current release: **1.2.0 Beta**
 
 ## Features
 
