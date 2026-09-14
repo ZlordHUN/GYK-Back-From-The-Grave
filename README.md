@@ -6,6 +6,9 @@ The mod is in beta. Keep backups of important saves and please save regularly!
 
 Current release: **1.2.0 Beta**
 
+While this mod is far from complete, if you like what it does so far feel free to follow this repo as well: https://github.com/ZlordHUN/GYK2-Tomb-Many-Keepers/
+As the name suggests that repo will contain the code for the multiplayer mod of the sequel. Same features as this one and more and of course, completely open source.
+
 ## Features
 
 - Steam lobby hosting, invites, server browsing, favorites, and LAN discovery.
