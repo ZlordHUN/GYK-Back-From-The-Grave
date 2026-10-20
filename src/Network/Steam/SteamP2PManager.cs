@@ -939,6 +939,17 @@ namespace GraveyardKeeperCoop.Network
                 return;
             }
 
+            // The compatibility hello always travels on native Steam reliable, because
+            // admission precedes RNET. When the joiner's lobby metadata validated it first,
+            // the hello arrives late. It must still be consumed here: as application traffic
+            // it would reach AcceptNativeInbound and lock the RNET route to native while the
+            // joiner has already moved to the reliable channel, after which both sides drop
+            // each other's packets (lobby ready state never reaches the host).
+            if (SteamLobbyManager.Instance.IsHost &&
+                IsCurrentLobbyMember(senderID) &&
+                HandleCompatibilityHelloPacket(senderID, data, length))
+                return;
+
             if (Reliable != null && Reliable.HandleRawIncoming(senderID, data, length))
                 return;
 
