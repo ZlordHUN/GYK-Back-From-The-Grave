@@ -1992,8 +1992,15 @@ namespace GraveyardKeeperCoop.Multiplayer
             if (SpawnSync.IsTransientBuildingPreview(wgo))
                 return false;
 
+            // Remote player proxies are never synced, and the host never publishes its
+            // own inventory. A client must publish its local player, though: that entry
+            // is the sender-keyed baseline the host needs before it can approve personal
+            // consumable use (RecordRemotePersonalInventory). Without it every client
+            // food/potion use was rejected with "personal inventory baseline has not arrived".
             if (wgo.is_player)
-                return false;
+                return IsLocalPlayerWgo(wgo) &&
+                       OnlineCoopManager.Instance != null &&
+                       !OnlineCoopManager.Instance.IsHost;
 
             Item data = wgo.data;
             if ((data.inventory != null && data.inventory.Count > 0) ||
