@@ -283,6 +283,13 @@ namespace GraveyardKeeperCoop.Network
         /// </summary>
         public void Update()
         {
+            if (deferredInviteNotification != null && SteamLobbyManager.IsInviteUiReady())
+            {
+                Action show = deferredInviteNotification;
+                deferredInviteNotification = null;
+                show();
+            }
+
             Multiplayer.ManualSaveIndicatorSync.Update();
 
             if (!SteamManager.Initialized)
@@ -1685,11 +1692,22 @@ namespace GraveyardKeeperCoop.Network
             }
         }
 
+        private Action deferredInviteNotification;
+
         /// <summary>
         /// Show the invite notification via JoinGameGUI
         /// </summary>
         private void ShowInviteNotification(CSteamID senderID, CSteamID lobbyID, string inviterName, string dlcRequirements)
         {
+            if (!SteamLobbyManager.IsInviteUiReady())
+            {
+                // Keep only the newest invite and show it once the menu is up (see
+                // SteamLobbyManager.IsInviteUiReady).
+                CoopMod.Logger.LogInfo($"[P2P] Holding invite from '{inviterName}' until the menu is ready");
+                deferredInviteNotification = () => ShowInviteNotification(senderID, lobbyID, inviterName, dlcRequirements);
+                return;
+            }
+
             if (UI.JoinGameGUI.Instance == null)
             {
                 UI.JoinGameGUI.Create();

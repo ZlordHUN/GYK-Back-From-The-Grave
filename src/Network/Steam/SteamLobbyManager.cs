@@ -1001,9 +1001,32 @@ namespace GraveyardKeeperCoop.Network
             }
         }
 
+        /// <summary>
+        /// JoinGameGUI can only be built once the main menu (or a running game without a
+        /// loading screen) is up. An invite that arrives during the preloader used to throw
+        /// NullReferenceException in LazyInput/GamePadController and was lost for good.
+        /// </summary>
+        internal static bool IsInviteUiReady()
+        {
+            if (GUIElements.me == null || LoadingGUI.is_shown)
+                return false;
+            if (MainGame.game_started)
+                return true;
+            // Input and menu GUIs are initialised once the main menu has been shown;
+            // later menu screens (join, lobby) hide it but are just as safe.
+            if (!mainMenuSeen && GUIElements.me.main_menu != null && GUIElements.me.main_menu.is_shown)
+                mainMenuSeen = true;
+            return mainMenuSeen;
+        }
+
+        private static bool mainMenuSeen;
+
         private bool TryPresentPendingInvite(bool allowMissingMetadata)
         {
             if (pendingInviteLobbyID == CSteamID.Nil)
+                return false;
+
+            if (!IsInviteUiReady())
                 return false;
 
             string hostVersion = SteamMatchmaking.GetLobbyData(
@@ -1216,12 +1239,25 @@ namespace GraveyardKeeperCoop.Network
 
         public void Update()
         {
-            if (pendingInviteLobbyID != CSteamID.Nil &&
-                Time.realtimeSinceStartup >= pendingInviteCompatibilityDeadline)
+            if (pendingInviteLobbyID != CSteamID.Nil)
             {
-                CoopMod.Logger.LogWarning(
-                    "[INVITE] Compatibility metadata lookup timed out; treating the invite as incompatible");
-                TryPresentPendingInvite(allowMissingMetadata: true);
+                if (!IsInviteUiReady())
+                {
+                    // Held while the game is still on its preloader or a loading screen;
+                    // the compatibility timeout starts once the invite can be shown.
+                    pendingInviteCompatibilityDeadline =
+                        Time.realtimeSinceStartup + InviteCompatibilityLookupTimeout;
+                }
+                else if (Time.realtimeSinceStartup >= pendingInviteCompatibilityDeadline)
+                {
+                    CoopMod.Logger.LogWarning(
+                        "[INVITE] Compatibility metadata lookup timed out; treating the invite as incompatible");
+                    TryPresentPendingInvite(allowMissingMetadata: true);
+                }
+                else
+                {
+                    TryPresentPendingInvite(allowMissingMetadata: false);
+                }
             }
 
             if (!isHost || !isInLobby || pendingMemberCompatibilityChecks.Count == 0)
